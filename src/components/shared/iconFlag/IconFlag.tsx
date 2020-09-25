@@ -1,4 +1,4 @@
-import { ECountryCode } from '@hy/domain-q9/enums';
+import { ECountryCode } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import './Flags.scss';

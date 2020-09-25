@@ -28,7 +28,6 @@
 			"@utils/fn": ["utils/fn/index.ts"],
 			"@domain": ["domain/index.ts"],
 			"@store": ["store/index.ts"],
-			"@hy/domain-q9/enums": ["../../libs/domain/q9/src/lib/enums/index.ts"],
 			"~/variables": ["variables.scss"],
 			"~/theme": ["theme.scss"]
 		}

@@ -4,7 +4,7 @@ import { Form, Formik, FormikProps } from 'formik';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import * as Yup from 'yup';
-import { ECountryCode, countries } from '@hy/domain-q9/enums';
+import { ECountryCode, countries } from '@domain/enums';
 import { useSelector } from 'react-redux';
 import { IStore } from '@store';
 

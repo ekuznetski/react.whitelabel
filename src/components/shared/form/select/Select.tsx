@@ -1,7 +1,6 @@
 import { IconFlag, Svg } from '@components/shared';
-import { Currencies, EFormStatus } from '@domain/enums';
+import { countries, Currencies, EFormStatus } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
-import { countries } from '@hy/domain-q9/enums';
 import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
 import React, { memo, useState } from 'react';
