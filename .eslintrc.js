@@ -22,8 +22,6 @@ module.exports = {
   plugins: ['@typescript-eslint', 'import'],
   extends: [],
   rules: {
-    'prefer-arrow-callback': 'error',
-    'no-confusing-arrow': 'error',
     'func-style': ['error', 'declaration'],
   },
 };
