@@ -1,31 +1,87 @@
 module.exports = {
-	parser: '@typescript-eslint/parser', // Specifies the ESLint parser
-	parserOptions: {
-		ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
-		sourceType: 'module', // Allows for the use of imports
-		ecmaFeatures: {
-			jsx: true, // Allows for the parsing of JSX
-		},
-	},
-	settings: {
-		react: {
-			version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
-		},
-	},
-	extends: [
-		'airbnb',
-		'airbnb/hooks',
-		'eslint:recommended',
-		'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
-		'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-		'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
-		'plugin:prettier/recommended', // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
-	],
-	rules: {
-		'prefer-arrow-callback': 'error',
-		'no-confusing-arrow': 'error',
-		'func-style': ['error', 'declaration'],
-		'@typescript-eslint/explicit-module-boundary-types': 'off',
-		'@typescript-eslint/no-explicit-any': 'off',
-	},
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    tsconfigRootDir: './',
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+    'import/resolver': {
+      typescript: {},
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
+  plugins: ['@typescript-eslint', 'import'],
+  extends: [
+    'airbnb',
+    'airbnb/hooks',
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
+  ],
+  rules: {
+    'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'react/sort-prop-types': [
+      'error',
+      {
+        callbacksLast: true,
+        ignoreCase: false,
+        sortShapeProp: true,
+        noSortAlphabetically: false,
+      },
+    ],
+    'prefer-arrow-callback': 'error',
+    'no-confusing-arrow': 'error',
+    'func-style': ['error', 'declaration'],
+    'import/prefer-default-export': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+
+    'jsx-a11y/accessible-emoji': 'off',
+    'jsx-a11y/alt-text': 'off',
+    'jsx-a11y/anchor-has-content': 'off',
+    'jsx-a11y/anchor-is-valid': 'off',
+    'jsx-a11y/aria-activedescendant-has-tabindex': 'off',
+    'jsx-a11y/aria-props': 'off',
+    'jsx-a11y/aria-proptypes': 'off',
+    'jsx-a11y/aria-role': 'off',
+    'jsx-a11y/aria-unsupported-elements': 'off',
+    'jsx-a11y/autocomplete-valid': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/control-has-associated-label': 'off',
+    'jsx-a11y/heading-has-content': 'off',
+    'jsx-a11y/html-has-lang': 'off',
+    'jsx-a11y/iframe-has-title': 'off',
+    'jsx-a11y/img-redundant-alt': 'off',
+    'jsx-a11y/interactive-supports-focus': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'jsx-a11y/label-has-for': 'off',
+    'jsx-a11y/lang': 'off',
+    'jsx-a11y/media-has-caption': 'off',
+    'jsx-a11y/mouse-events-have-key-events': 'off',
+    'jsx-a11y/no-access-key': 'off',
+    'jsx-a11y/no-autofocus': 'off',
+    'jsx-a11y/no-distracting-elements': 'off',
+    'jsx-a11y/no-interactive-element-to-noninteractive-role': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
+    'jsx-a11y/no-noninteractive-element-to-interactive-role': 'off',
+    'jsx-a11y/no-noninteractive-tabindex': 'off',
+    'jsx-a11y/no-onchange': 'off',
+    'jsx-a11y/no-redundant-roles': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/role-has-required-aria-props': 'off',
+    'jsx-a11y/role-supports-aria-props': 'off',
+    'jsx-a11y/scope': 'off',
+    'jsx-a11y/tabindex-no-positive': 'off',
+  },
 };
