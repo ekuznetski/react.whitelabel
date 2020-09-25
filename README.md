@@ -1,3 +1,15 @@
+### Whitelabel. 
+##### React/Redux
+
+to run use:  
+1) `yarn install` to install all dependencies  
+2) `build:ssr` to build default ssr version or
+    `build:<version-name>:ssr` to build specific ssr version
+3) `cd dist && node server.js` to run project
+
+---
+
+
 Spacers:
 
 - sp(1) = 4px
