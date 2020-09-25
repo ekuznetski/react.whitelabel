@@ -14,3 +14,5 @@ tsconfig.json
 webpack.config.js
 webpack.config.ssr.js
 yarn.lock
+/dist
+/node_modules
