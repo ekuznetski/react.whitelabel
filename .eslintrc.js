@@ -42,6 +42,7 @@ module.exports = {
     ],
     'prefer-arrow-callback': 'error',
     'no-confusing-arrow': 'error',
+    'no-underscore-dangle': 'off',
     'func-style': ['error', 'declaration'],
     'import/prefer-default-export': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',

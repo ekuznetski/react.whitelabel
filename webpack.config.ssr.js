@@ -1,5 +1,3 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 const _config = require('./webpack.config');

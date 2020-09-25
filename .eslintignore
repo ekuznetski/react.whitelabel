@@ -1,0 +1,16 @@
+.babelrc
+.eslintignore
+.eslintrc.js
+.gitignore
+.prettierignore
+.prettierrc.js
+package.json
+README.md
+test.js
+test-preprocessor.js
+test-setup.js
+test-shim.js
+tsconfig.json
+webpack.config.js
+webpack.config.ssr.js
+yarn.lock
