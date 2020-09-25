@@ -1,0 +1,144 @@
+body {
+	font-family: 'Poppins', sans-serif;
+	color: $dark-text;
+	margin: 0;
+	overflow-y: scroll;
+	overflow-x: hidden;
+
+	&.lock {
+		overflow: hidden;
+	}
+
+	#root {
+		overflow-x: hidden;
+		scroll-behavior: smooth;
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+		justify-content: space-between;
+
+		.main-wrapper {
+			min-height: 75vh;
+		}
+
+		&.portal {
+			background: $grey-bg-light;
+
+			.router-context {
+				padding: 0 0 80px;
+			}
+
+			section {
+				padding: 0 0 80px;
+
+				&:last-child {
+					padding: 0;
+				}
+			}
+
+			.form-wrapper {
+				background: #fff;
+				border-radius: $border-radius;
+				box-shadow: box-shadow(15, 0.1);
+			}
+
+			.form_breakline {
+				width: 100%;
+				height: 1px;
+				background: $grey;
+			}
+		}
+
+		&.main,
+		&.auth {
+			section {
+				position: relative;
+				padding: 120px 0;
+
+				@media (max-width: $viewport-lg-w) {
+					padding: 100px 0;
+				}
+
+				@media (max-width: $viewport-md-w) {
+					padding: 70px 0;
+				}
+			}
+		}
+
+		.phone-wrapper {
+			width: 100%;
+			display: flex;
+			position: relative;
+			z-index: 2;
+
+			div[class*='ValueContainer'] {
+				.name {
+					display: none;
+				}
+			}
+
+			.select-wrapper.focused {
+				border-right-color: #629dff !important;
+			}
+
+			.input {
+				border-radius: 0 2px 2px 0;
+			}
+
+			.select-wrapper {
+				border-right-color: transparent;
+				border-radius: 2px 0 0 2px;
+				flex: 0 0 120px;
+			}
+		}
+
+		.hovered-underlined {
+			position: relative;
+			text-decoration: none;
+
+			&:after {
+				left: 0;
+				bottom: 1px;
+				content: '';
+				position: absolute;
+				background-color: $dark-text;
+				width: 100%;
+				height: 1px;
+				opacity: 1;
+				transition: opacity 0.25s;
+			}
+
+			&:hover {
+				&:after {
+					opacity: 0;
+				}
+			}
+		}
+	}
+}
+
+:focus {
+	outline: none;
+}
+
+//todo remove
+button,
+.btn {
+	border-radius: $border-radius;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 50px;
+	background: transparent;
+	border: 1.5px solid transparent;
+
+	&:focus {
+		outline: transparent;
+	}
+
+	a,
+	a:hover {
+		color: #ffffff;
+		text-decoration: none;
+	}
+}

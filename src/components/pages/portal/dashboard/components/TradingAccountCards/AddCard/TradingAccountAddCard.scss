@@ -1,0 +1,49 @@
+@import '~/variables';
+
+.trading-account-add-card {
+	.trading-account-card-wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border-radius: $border-radius;
+		border: 1px dashed $dark-grey;
+		height: 360px;
+
+		.account-card {
+			&__btn {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 42px;
+				height: 42px;
+				background: #fff;
+				box-shadow: box-shadow(10, 0.1);
+				border-radius: 50%;
+			}
+
+			&__text {
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 24px;
+
+				color: $blue;
+			}
+		}
+	}
+
+	&.inline {
+		.trading-account-card-wrapper {
+			flex-direction: row;
+			height: 90px;
+			width: 100%;
+
+			.account-card {
+				&__btn {
+					background: transparent;
+					box-shadow: none;
+				}
+			}
+		}
+	}
+}

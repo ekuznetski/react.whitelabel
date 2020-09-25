@@ -1,0 +1,56 @@
+@import '~/variables';
+
+.our-offer-banner-section {
+	background: $grey-bg;
+	font-size: 18px;
+	line-height: 30px;
+	color: $dark-text;
+	padding: 0 !important;
+	display: flex;
+	align-items: center;
+	height: 150px;
+
+	[class*='col-'] {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&:not(:last-child) {
+			border-right: 1px solid rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	svg {
+		fill: $blue;
+	}
+
+	@media (max-width: $viewport-lg-w) {
+		[class*='col-'] {
+			flex-direction: column;
+		}
+	}
+
+	@media (max-width: $viewport-md-w) {
+		height: auto;
+
+		[class*='col-'] {
+			flex-direction: row;
+			justify-content: unset;
+			position: relative;
+
+			&:not(:last-child) {
+				border-right: 0;
+
+				&:after {
+					content: '';
+					width: 90%;
+					height: 1px;
+					background: $dark-grey;
+					position: absolute;
+					bottom: 0;
+					left: 5%;
+				}
+			}
+		}
+	}
+}

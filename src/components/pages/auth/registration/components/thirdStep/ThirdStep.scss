@@ -1,0 +1,70 @@
+@import '~/variables';
+
+.registration-third-step {
+	.radio-wrapper.account_type {
+		@media (max-width: $viewport-sm-w) {
+			.col {
+				max-width: 33%;
+				padding: sp(3);
+			}
+
+			.spread {
+				padding: 2px !important;
+			}
+		}
+
+		label {
+			padding: 0;
+			display: block;
+			margin-bottom: 0;
+			cursor: pointer;
+
+			.name {
+				transition: border-color 0.2s, background-color 0.2s;
+				color: #337fff;
+			}
+
+			.name,
+			.spread,
+			.commission {
+				padding: 8px 0;
+				border-bottom: 1px solid #cacfd5;
+			}
+
+			.spread,
+			.commission {
+				font-size: 12px;
+			}
+
+			.spread {
+				@media (min-width: $viewport-xl-min-w) {
+					padding-left: 30px;
+					padding-right: 30px;
+				}
+				padding-left: 34px;
+				padding-right: 34px;
+			}
+
+			.select-mark {
+				margin: 8px auto;
+				border-radius: 50%;
+				border: 1px solid #cacfd5;
+				width: 14px;
+				height: 14px;
+				transition: border-color 0.2s, background-color 0.2s;
+			}
+
+			&.selected {
+				.select-mark {
+					background-color: #337fff;
+					border-color: #337fff;
+				}
+				.name {
+					border-color: #337fff;
+					background-color: #337fff;
+					color: #ffffff;
+				}
+			}
+		}
+	}
+}

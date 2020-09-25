@@ -1,0 +1,217 @@
+@import '~/variables';
+
+.withdrawal-history-item {
+	display: flex;
+	flex-direction: column;
+	border-radius: $border-radius;
+
+	&:last-child {
+		margin-bottom: 0 !important;
+	}
+
+	.withdrawal {
+		&-info {
+			border-bottom: 1px solid $grey;
+			display: flex;
+			height: 80px;
+			background: #fff;
+			border-radius: $border-radius;
+
+			.withdrawal-item {
+				&__icon,
+				&__status,
+				&__date,
+				&__accountId,
+				&__amount {
+					border-right: 1px solid $grey;
+					flex: 0 0 100px;
+					height: 100%;
+					@include d-flex(start, center, column);
+
+					.item-cel {
+						&__title {
+							font-size: 12px;
+							line-height: 20px;
+							color: $dark-grey;
+						}
+
+						&__content {
+							font-size: 14px;
+							line-height: 18px;
+							@include d-flex(center);
+						}
+					}
+				}
+
+				&__icon {
+					flex: 0 0 80px;
+					align-items: center;
+
+					svg {
+						width: 34px;
+						height: 34px;
+						padding: 4px;
+						border-radius: 50%;
+					}
+				}
+
+				&__amount {
+					flex: 1 0 100px;
+				}
+
+				&__status {
+					flex: 0 0 110px;
+					border: 0;
+				}
+			}
+		}
+
+		&-option {
+			background: #fff;
+			border-radius: 0 0 $border-radius $border-radius;
+
+			.common-button {
+				border-color: $red;
+				color: $red;
+			}
+		}
+
+		&-itemsTable {
+			background: #fff;
+			box-shadow: box-shadow(10, 0.1);
+			border-radius: $border-radius;
+
+			.withdrawal-table {
+				&__row {
+					height: 50px;
+					border-bottom: 1px solid $grey;
+					@include d-flex(center, start);
+					font-size: 14px;
+					line-height: 18px;
+
+					&:last-child {
+						border-bottom: 0;
+					}
+
+					&.header {
+						background: $grey-bg-light;
+						font-size: 12px;
+						line-height: 20px;
+						color: $text;
+					}
+
+					&.content {
+					}
+
+					&.footer {
+						@include d-flex(center, center);
+					}
+
+					.withdrawal-cell {
+						height: 100%;
+						flex-grow: 1;
+						border-right: 1px solid $grey;
+						word-break: break-all;
+						@include d-flex(center, center);
+
+						&:first-child {
+							flex: 0 0 100px;
+						}
+
+						&:nth-child(2) {
+							flex: 0 0 180px;
+						}
+
+						&:last-child {
+							flex: 0 0 110px;
+							border-right: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&.inprogress {
+		.withdrawal {
+			&-info {
+				box-shadow: box-shadow(10, 0.1);
+
+				.withdrawal-item {
+					&__icon {
+						svg {
+							background: $blue;
+						}
+					}
+					&__status {
+						color: $blue;
+					}
+				}
+			}
+		}
+	}
+
+	&.pending {
+		box-shadow: box-shadow(10, 0.1);
+
+		.withdrawal {
+			&-info {
+				border-radius: $border-radius $border-radius 0 0;
+
+				.withdrawal-item {
+					&__icon {
+						svg {
+							background: $yellow;
+						}
+					}
+					&__status {
+						color: $yellow;
+					}
+				}
+			}
+		}
+	}
+
+	&.success {
+		.withdrawal {
+			&-info {
+				box-shadow: box-shadow(10, 0.1);
+
+				.withdrawal-item {
+					&__icon {
+						svg {
+							background: $green;
+						}
+					}
+					&__status {
+						color: $green;
+					}
+				}
+			}
+		}
+	}
+
+	&.failure {
+		box-shadow: box-shadow(10, 0.1);
+
+		.withdrawal {
+			&-info {
+				.withdrawal-item {
+					&__icon {
+						svg {
+							background: $red;
+						}
+					}
+					&__status {
+						color: $red;
+					}
+				}
+			}
+		}
+	}
+}
+
+.withdrawal-history-item__modal {
+	height: 100%;
+	@include d-flex(center, space-between, column);
+}

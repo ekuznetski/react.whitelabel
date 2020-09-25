@@ -1,0 +1,12 @@
+@import '~/variables';
+
+.form-group {
+	&__control {
+	}
+	.control {
+		&.prefix {
+		}
+		&.phone {
+		}
+	}
+}

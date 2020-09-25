@@ -1,0 +1,157 @@
+// Mixin
+@mixin hideScrollbar {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-top: -10px;
+	margin-bottom: -10px;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+	&::-webkit-scrollbar {
+		//Chrome, Safari, Opera
+		display: none;
+	}
+}
+
+@mixin d-flex($align: start, $justify: start, $direction: row) {
+	display: flex;
+	align-items: $align;
+	justify-content: $justify;
+	flex-direction: $direction;
+}
+
+// Viewport
+$viewport-sm-min-w: 576px;
+$viewport-md-min-w: 768px;
+$viewport-lg-min-w: 992px;
+$viewport-xl-min-w: 1200px;
+$viewport-sm-w: 575px;
+$viewport-md-w: 767px;
+$viewport-lg-w: 991px;
+$viewport-xl-w: 1199px;
+
+// Overall
+$border-radius: 3px;
+$border-shadow-color: rgb(38, 51, 75);
+
+@function box-shadow($size, $alpha) {
+	@return 0px 3px #{$size}px rgba($border-shadow-color, $alpha);
+}
+
+// Form
+$form-elements-height: 48px;
+
+$input-height: $form-elements-height;
+$button-height: $form-elements-height;
+$datepicker-height: $form-elements-height;
+$radio-height: $form-elements-height;
+$select-height: $form-elements-height;
+
+// Button
+$btn-size-sm: 35px;
+$btn-size-md: 50px;
+$btn-size-lg: 65px;
+
+// Colors
+$dark-blue: #337fff;
+$blue: #629dff;
+$dark-text: #26334b;
+$text: #6f6f6f;
+$grey-bg-light: #f8f8f9;
+$grey-bg: #f5f6f8;
+$dark-grey: #cacfd5;
+$grey: #f1f2f2;
+$red: #ea3131;
+$green: #1ac485;
+$yellow: #ffba3a;
+
+// Fonts
+
+// Grid
+$grid-gutter-width: 28px !default;
+$grid-breakpoints: (
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+);
+
+$container-max-widths: (
+	sm: 544px,
+	md: 750px,
+	lg: 964px,
+	xl: 1172px,
+);
+
+$spacer: 1rem; // ~16px;
+$spacers: (
+	0: (
+		$spacer * 0,
+	),
+	1: (
+		$spacer * 0.25,
+	),
+	2: (
+		$spacer * 0.5,
+	),
+	3: (
+		$spacer * 0.625,
+	),
+	4: (
+		$spacer * 0.75,
+	),
+	5: (
+		$spacer * 0.876,
+	),
+	6: (
+		$spacer * 1,
+	),
+	7: (
+		$spacer * 1.25,
+	),
+	8: (
+		$spacer * 1.5,
+	),
+	9: (
+		$spacer * 1.75,
+	),
+	10: (
+		$spacer * 2,
+	),
+	11: (
+		$spacer * 2.5,
+	),
+	12: (
+		$spacer * 3,
+	),
+	13: (
+		$spacer * 3.5,
+	),
+	14: (
+		$spacer * 4,
+	),
+	15: (
+		$spacer * 4.5,
+	),
+	16: (
+		$spacer * 5,
+	),
+	17: (
+		$spacer * 6,
+	),
+	18: (
+		$spacer * 7,
+	),
+	19: (
+		$spacer * 8,
+	),
+	20: (
+		$spacer * 9,
+	),
+);
+
+@function sp($spacerKey) {
+	$sp: map-get($spacers, $spacerKey);
+
+	@return $sp;
+}

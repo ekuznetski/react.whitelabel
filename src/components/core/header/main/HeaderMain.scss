@@ -1,0 +1,232 @@
+@import '~/variables';
+
+.header.main {
+	position: fixed;
+	z-index: 999;
+	width: 100%;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), transparent);
+
+	.panel-menu {
+		.container {
+			display: flex;
+			align-items: center;
+			position: relative;
+			z-index: 999;
+
+			&:after {
+				content: '';
+				position: absolute;
+				z-index: -1;
+				left: $spacer;
+				bottom: 0;
+				display: block;
+				width: calc(100% - #{$spacer * 2});
+				height: 2px;
+				background: #fff;
+				opacity: 0.1;
+			}
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			z-index: 2;
+			top: -100%;
+			height: 100%;
+			width: 100%;
+			background: #fff;
+			transition: top 0.35s;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			width: 155px;
+			font-weight: 500;
+			font-size: 24px;
+
+			svg path:nth-child(2) {
+				fill: white;
+				transition: fill 0.3s;
+			}
+		}
+
+		.burger-toggle {
+			svg {
+				transition: fill 0.3s;
+				&.close-icon {
+					width: 30px;
+					height: 30px;
+					padding: 5px;
+				}
+			}
+		}
+
+		.menu {
+			display: flex;
+			align-items: center;
+			position: relative;
+			height: 110px;
+			transition: height 0.35s;
+
+			.menu__item {
+				margin-right: 30px;
+				display: flex;
+				height: 100%;
+
+				a {
+					color: #fff;
+					font-size: 16px;
+					display: flex;
+					padding: 4px 0 0;
+					align-items: center;
+					text-decoration: none;
+					transition: color 0.35s;
+					position: relative;
+
+					&:after {
+						content: '';
+						position: absolute;
+						bottom: 0;
+						left: 0;
+						width: 100%;
+						height: 2px;
+						background: transparent;
+						z-index: 2;
+						transition: background 0.35s;
+					}
+
+					&.active {
+						&:after {
+							background: #fff;
+						}
+					}
+				}
+			}
+		}
+
+		button {
+			background: $dark-blue;
+			width: 175px;
+			color: #fff;
+			a {
+				color: #fff;
+			}
+		}
+
+		&.fixed {
+			&:before {
+				top: 0;
+				box-shadow: box-shadow(20, 0.15);
+			}
+
+			.logo {
+				svg path:nth-child(2) {
+					fill: $dark-text;
+				}
+			}
+
+			.burger-toggle {
+				svg {
+					fill: $dark-text;
+					&.burger-icon {
+						stroke: $dark-text;
+					}
+				}
+			}
+
+			.menu {
+				height: 68px;
+				margin-bottom: 2px;
+
+				.menu__item {
+					a {
+						color: $dark-text;
+
+						&.active {
+							&:after {
+								background: $dark-text;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.burger-menu {
+		position: fixed;
+		background: #fff;
+		width: 100%;
+		height: 100%;
+		top: -100%;
+		transition: top 0.35s;
+		left: 0;
+
+		&.visible {
+			top: 0;
+
+			button {
+				opacity: 1;
+			}
+		}
+
+		.menu__item {
+			a {
+				display: flex;
+				align-items: center;
+				height: 50px;
+				border-bottom: 1px solid $grey;
+				color: $dark-text;
+				text-decoration: none;
+
+				&.active {
+					border-bottom-color: $dark-text;
+					font-weight: 500;
+				}
+			}
+		}
+
+		button {
+			background: $dark-blue;
+			color: #fff;
+			border-radius: 0;
+			width: 100%;
+			opacity: 0;
+			transition: opacity 0.1s;
+			a {
+				color: #fff;
+			}
+		}
+	}
+
+	@media (max-width: $viewport-lg-w) {
+		background: linear-gradient(rgba(0, 0, 0, 0.4), transparent);
+
+		.panel-menu {
+			.container {
+				&:after {
+					display: none;
+				}
+			}
+
+			.menu {
+				display: none;
+			}
+		}
+	}
+
+	@media (max-width: $viewport-md-w) {
+		.panel-menu {
+			.burger-toggle {
+				svg {
+					transition: fill 0.3s;
+					&.close-icon {
+						height: 24px;
+						padding: 2px;
+					}
+				}
+			}
+		}
+	}
+}

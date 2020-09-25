@@ -1,0 +1,74 @@
+@import '~/variables';
+
+.common-alert {
+	@include d-flex(center, start);
+	border: 1px solid transparent;
+	border-radius: $border-radius;
+
+	font-size: 12px;
+	line-height: 20px;
+	color: #d33f45;
+
+	svg {
+		flex: 0 0 16px;
+	}
+
+	&.error {
+		color: $red;
+
+		svg {
+			fill: $red;
+		}
+	}
+
+	&.info {
+		color: $blue;
+
+		svg {
+			fill: $blue;
+		}
+	}
+
+	&.warning {
+		color: $yellow;
+
+		svg {
+			fill: $yellow;
+		}
+	}
+
+	&.success {
+		color: $green;
+
+		svg {
+			fill: $green;
+		}
+	}
+
+	&.message {
+	}
+
+	&.block {
+		background: $grey-bg-light;
+
+		&.error {
+			background: rgba($red, 0.1);
+			border-color: $red;
+		}
+
+		&.info {
+			background: rgba($blue, 0.1);
+			border-color: $blue;
+		}
+
+		&.warning {
+			background: rgba($yellow, 0.1);
+			border-color: $yellow;
+		}
+
+		&.success {
+			background: rgba($green, 0.1);
+			border-color: $green;
+		}
+	}
+}

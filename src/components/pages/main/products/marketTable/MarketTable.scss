@@ -1,0 +1,181 @@
+@import '~/variables';
+
+.market-table {
+	box-shadow: box-shadow(10, 0.1);
+	border-radius: $border-radius;
+	overflow: hidden;
+	background: #fff;
+
+	.thead {
+		box-shadow: box-shadow(10, 0.05);
+
+		.tr {
+			height: 90px;
+
+			> .td {
+				&.grouped {
+					justify-content: flex-end;
+					flex-direction: column;
+
+					.sub-row {
+						display: flex;
+						margin-top: 5px;
+						width: 100%;
+
+						span {
+							width: 100%;
+							font-size: 14px;
+							line-height: 26px;
+							font-weight: 300;
+							color: #fff;
+
+							&.col0 {
+								background: rgba(38, 51, 75, 0.5);
+							}
+
+							&.col1 {
+								background: rgba(38, 51, 75, 0.7);
+							}
+
+							&.col2 {
+								background: rgba(38, 51, 75, 0.9);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.tr {
+		display: flex;
+		align-items: center;
+		height: 75px;
+		border-bottom: 1px solid $grey;
+
+		&:last-child {
+			border: 0;
+		}
+
+		> .td {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			width: 100%;
+			height: 100%;
+			border-right: 1px solid $grey;
+			font-size: 16px;
+			line-height: 22px;
+
+			&:first-child,
+			&:last-child {
+				flex: 0 0 140px;
+				&.full {
+					flex: 0 0 120px;
+				}
+			}
+
+			&:nth-child(2) {
+				min-width: 325px;
+			}
+
+			&:last-child {
+				border: 0;
+			}
+
+			.fullViewParam,
+			&.fullViewParam {
+				width: 0px;
+				border: 0;
+				overflow: hidden;
+
+				&.full {
+					width: 100%;
+					border-right: 1px solid $grey;
+				}
+			}
+
+			.platform {
+				background: $grey-bg;
+				border: 1px solid $grey;
+				box-sizing: border-box;
+				border-radius: $border-radius;
+				margin: 0 5px;
+				padding: 2px 4px;
+			}
+		}
+
+		.grouped {
+			display: flex;
+			height: 100%;
+			width: 100%;
+			text-align: center;
+
+			.td {
+				width: 33.33%;
+				font-weight: 500;
+				padding: 0 8px;
+			}
+		}
+	}
+
+	svg {
+		fill: $dark-blue;
+	}
+
+	@media (min-width: $viewport-xl-w) {
+		.tr {
+			> .td {
+				&:last-child,
+				&:first-child {
+					flex: 0 0 160px;
+				}
+			}
+		}
+	}
+
+	@media (max-width: $viewport-lg-w) {
+		.tr {
+			> .td {
+				&.fullViewParam,
+				&.fullViewParam.full {
+					width: 0;
+					border: 0;
+				}
+
+				&:last-child,
+				&:first-child {
+					flex: 0 0 120px;
+
+					&.full {
+						flex: 0 0 120px;
+					}
+				}
+			}
+		}
+	}
+
+	@media (max-width: $viewport-md-w) {
+		.tr {
+			> .td {
+				&:last-child,
+				&:first-child {
+					flex: 0 0 120px;
+
+					&.full {
+						flex: 0 0 120px;
+					}
+				}
+
+				&:last-child {
+					display: none;
+				}
+
+				&:nth-child(2) {
+					min-width: 200px;
+				}
+			}
+		}
+	}
+}
