@@ -1,6 +1,6 @@
 import React from 'react';
-import './tabContentBankWire.scss';
+import './TabContentBankWire.scss';
 
 export function TabContentBankWire({ type }: { type: string }) {
-	return <div>{type}</div>;
+  return <div>{type}</div>;
 }
