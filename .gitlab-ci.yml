@@ -24,6 +24,7 @@ before_script:
 
 stages:
   - compile
+  - deploy:wl
 
 compile:wl:
     cache:
@@ -39,11 +40,33 @@ compile:wl:
         - tar -czf dist_wl.tar.gz -C dist/ dist
     artifacts:
         paths:
-            - dist_q9.tar.gz
+            - dist_wl.tar.gz
         expire_in: 40 minutes
     tags:
         - wl
     only:
         refs:
             - dev   
+    allow_failure: true
+
+deploy:wl:web:
+    stage: deploy:wl
+    script:
+        - ssh $SERVER "sudo mkdir -p /var/www/wl/ &&
+            sudo chmod 777 /var/www/wl/"
+        - scp dist_admin.tar.gz $SERVER:/var/www/wl/dist_wl.tar.gz
+        # - ssh $SERVER "
+        #     sudo chmod 755 /var/www/hycm.intl.mean/client/admin/ &&
+        #     cd /var/www/hycm.intl.mean/client/admin &&
+        #     sudo rm -rf dist/ &&
+        #     sudo tar -xzf dist.tar.gz &&
+        #     sudo rm -rf dist.tar.gz &&
+        #     exit"
+    dependencies:
+        - compile:wl
+    only:
+        refs:
+            - dev             
+    tags:
+        - wl
     allow_failure: true
