@@ -25,7 +25,7 @@ before_script:
 stages:
   - compile
 
-compile:wl 
+compile:wl:
     cache:
         key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
         paths:
@@ -33,11 +33,10 @@ compile:wl
     stage: compile
     script:
         - export NG_CLI_ANALYTICS=ci    
+        - export NG_CLI_ANALYTICS=ci    
         - yarn version --no-git-tag-version 1.0.$CI_JOB_ID
         - yarn install
         - yarn run build:bsfx:ssr
-        # - mv dist/q9-main dist/dist
-        # - tar -czf dist_q9.tar.gz -C dist/ dist
     # artifacts:
     #     paths:
     #         - dist_q9.tar.gz
@@ -46,7 +45,5 @@ compile:wl
         - wl
     only:
         refs:
-            - dev
-        changes:
-            - *
+            - dev   
     allow_failure: true
