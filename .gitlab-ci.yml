@@ -1,0 +1,52 @@
+image: node:10.16.0-alpine
+
+variables:
+    DOCKER_DRIVER: overlay2
+    SERVER: 'wl-prodServer'
+
+before_script:
+    - apk update && apk add openssh-client git
+    - mkdir -p -m 700 ~/.ssh
+    - eval $(ssh-agent -s)
+    # - echo "$stage_dev" | tr -d '\r' > stage_dev.pem
+    - echo "$JUMP_KEY" | tr -d '\r' > jump_key.pem
+    # - echo "$q9_key" | tr -d '\r' > q9_key.pem
+
+    # - echo "$TEMP_user_key" | tr -d '\r' > user_key.pem # @todo temp for hycmlab, should be DELETED !!!!
+    # - chmod 400 user_key.pem # @todo temp for hycmlab, should be DELETED !!!!
+    # - ssh-add user_key.pem # @todo temp for hycmlab, should be DELETED !!!!
+
+    - chmod 400 jump_key.pem stage_dev.pem q9_key.pem
+    - ssh-add jump_key.pem stage_dev.pem q9_key.pem
+    - echo "$ssh_config" > ~/.ssh/config
+    - chmod 400 ~/.ssh/config
+    - apk add yarn
+
+stages:
+  - compile
+
+compile:wl 
+    cache:
+        key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
+        paths:
+            - node_modules/
+    stage: compile
+    script:
+        - export NG_CLI_ANALYTICS=ci    
+        - yarn version --no-git-tag-version 1.0.$CI_JOB_ID
+        - yarn install
+        - yarn run build:bsfx:ssr
+        # - mv dist/q9-main dist/dist
+        # - tar -czf dist_q9.tar.gz -C dist/ dist
+    # artifacts:
+    #     paths:
+    #         - dist_q9.tar.gz
+    #     expire_in: 40 minutes
+    tags:
+        - wl
+    only:
+        refs:
+            - dev
+        changes:
+            - *
+    allow_failure: true
