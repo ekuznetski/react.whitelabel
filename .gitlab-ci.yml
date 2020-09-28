@@ -52,16 +52,24 @@ compile:wl:
 deploy:wl:web:
     stage: deploy:wl
     script:
-        - ssh $SERVER "sudo mkdir -p /var/www/wl/ &&
-            sudo chmod 777 /var/www/wl/"
-        - scp dist_admin.tar.gz $SERVER:/var/www/wl/dist_wl.tar.gz
-        # - ssh $SERVER "
-        #     sudo chmod 755 /var/www/hycm.intl.mean/client/admin/ &&
-        #     cd /var/www/hycm.intl.mean/client/admin &&
-        #     sudo rm -rf dist/ &&
-        #     sudo tar -xzf dist.tar.gz &&
-        #     sudo rm -rf dist.tar.gz &&
-        #     exit"
+        - ssh $SERVER "sudo mkdir -p /var/www/wl &&
+            sudo mkdir -p /var/www/wl/server
+            sudo chmod 777 /var/www/wl/server"
+        - scp dist_wl.tar.gz $SERVER:/var/www/wl/server/dist_wl.tar.gz
+        - ssh $SERVER "
+            sudo chmod 755 /var/www/wl/server &&
+            cd /var/www/wl/server &&
+            sudo rm -rf server/dist/ &&
+            sudo tar -xzf dist_wl.tar.gz &&
+            sudo rm -rf dist_wl.tar.gz &&
+            ls -al &&
+            sudo chmod 755 /var/www/wl/server &&
+            sudo chmod 755 /var/www/q9capital/server/dist &&
+            cd /var/www/wl/server && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
+            cd /var/www/wl/logs && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
+            sudo docker container exec wl pm2 stop server.js &&
+            sudo docker container exec wl pm2 start server.js &&
+            exit"
     dependencies:
         - compile:wl
     only:
@@ -70,3 +78,62 @@ deploy:wl:web:
     tags:
         - wl
     allow_failure: true
+
+update:wl:nginx:
+    stage: update:wl
+    script:
+        - cd deploy-scripts && tar -czf nginx.tar.gz nginx
+        - ssh $SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_nginx/"
+        - scp nginx.tar.gz $SERVER:/var/www/wl/temp_nginx
+        - ssh $SERVER "
+            cd /var/www/wl &&
+            sudo rm -rf nginx/nginx.conf nginx/conf.d &&
+            sudo mv /var/www/wl/temp_nginx/nginx.tar.gz /var/www/wl/ &&
+            sudo rm -rf /var/www/wl/temp_nginx &&
+            sudo tar -xzf /var/www/wl/nginx.tar.gz &&
+            sudo rm -rf nginx.tar.gz &&
+            sudo chmod 755 /var/www/wl/nginx &&
+            sudo docker exec wl sudo /restart_nginx.sh &&
+            exit"
+    only:
+        refs:
+            - dev
+        changes:
+            - deploy-scripts/nginx/**/*
+              
+    tags:
+        - wl
+    when: manual
+
+update:wl:docker:
+    stage: update:wl
+    script:
+        - cd deploy-scripts &&
+        - tar czf docker.tar.gz docker-compose.yml Dockerfile pm2_services.json restart_nginx.sh nginx.sh
+        - ssh $SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker"
+        - scp docker.tar.gz $Q9_prod_SERVER:/var/www/wl/temp_docker
+        - ssh $SERVER "
+            cd /var/www/wl/ &&
+            sudo mkdir -p /var/www/wl/logs/pm2 &&
+            sudo mkdir -p /var/www/wl/logs/nginx &&
+            sudo chmod 777 /var/www/wl/logs/pm2 /var/www/wl/logs/nginx &&
+            sudo tar -xzf temp_docker/docker.tar.gz -C /var/www/wl/ &&
+            sudo rm -rf docker.tar.gz temp_docker &&
+            sudo docker-compose down &&
+            sudo docker-compose build &&
+            sudo docker-compose up -d &&
+            sudo docker ps -a &&
+            exit"
+    only:
+        refs:
+            - dev
+        changes:
+            - deploy-scripts/docker-compose.yml
+            - deploy-scripts/Dockerfile
+            - deploy-scripts/pm2_services.json
+            - deploy-scripts/restart_nginx.sh
+            - deploy-scripts/nginx.sh
+              
+    tags:
+        - wl    
+    when: manual
