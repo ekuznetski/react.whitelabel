@@ -3,7 +3,7 @@ services:
     # Minimal Ubuntu 18.04.2 LTS with angular, nodejs, nginx and mongo tools
     wl:
         build: ./
-        container_name: hycm
+        container_name: wl
         ports:
             - 4201:4201
         volumes:
