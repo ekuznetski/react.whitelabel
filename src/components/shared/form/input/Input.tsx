@@ -7,80 +7,81 @@ import { Loader } from '@components/shared';
 import { useCombinedRef } from '@utils/hooks';
 
 export const Input = memo(
-	forwardRef<HTMLInputElement, any>(function Input(
-		{
-			className = '',
-			type = 'text',
-			label = null,
-			onFocus = null,
-			onBlur = null,
-			forceShowError = null,
-			isLoading = null,
-			...props
-		},
-		_ref,
-	) {
-		const { status: FormStatus } = useFormikContext();
-		const [field, meta, helpers] = useField(props);
-		const ref = useCombinedRef(_ref);
-		const [state, setState] = useState({
-			isFocused: false,
-			isFilled: !!meta.initialValue,
-		});
-		const _disabled = props.disabled || FormStatus === EFormStatus.disabled;
-		const inputProps = { ...props };
-		delete inputProps.isLoading;
+  forwardRef<HTMLInputElement, any>(function Input(
+    {
+      className = '',
+      type = 'text',
+      label = null,
+      onFocus = null,
+      onBlur = null,
+      forceShowError = null,
+      isLoading = null,
+      ...props
+    },
+    _ref,
+  ) {
+    const { status: FormStatus } = useFormikContext();
+    const [field, meta, helpers] = useField(props);
+    const ref = useCombinedRef(_ref);
+    const [state, setState] = useState({
+      isFocused: false,
+      isFilled: !!meta.initialValue,
+    });
+    const _disabled = props.disabled || FormStatus === EFormStatus.disabled;
+    const inputProps = { ...props };
+    delete inputProps.isLoading;
 
-		useEffect(() => {
-			if (field && !state.isFilled) setState({ ...state, isFilled: !!field.value || !!field.value?.length });
-		}, [field?.value]);
+    useEffect(() => {
+      if (field && !state.isFilled) setState({ ...state, isFilled: !!field.value || !!field.value?.length });
+      if (!field?.value && !state.isFocused) setState({ ...state, isFilled: false });
+    }, [field?.value]);
 
-		function onFocusHandler(e: any) {
-			setState({ ...state, isFocused: true });
-			onFocus?.(e, state);
-		}
+    function onFocusHandler(e: any) {
+      setState({ ...state, isFocused: true });
+      onFocus?.(e, state);
+    }
 
-		function onBlurHandler(e: any) {
-			setState({
-				...state,
-				isFocused: false,
-				isFilled: !!e.target.value,
-			});
+    function onBlurHandler(e: any) {
+      setState({
+        ...state,
+        isFocused: false,
+        isFilled: !!e.target.value,
+      });
 
-			onBlur?.(e, state);
-		}
+      onBlur?.(e, state);
+    }
 
-		return (
-			<div
-				className={classNames(
-					'field input mb-8',
-					!!label && 'with-label',
-					meta.touched && meta.error && 'field-error',
-					state.isFocused && 'focused',
-					state.isFilled && 'filled',
-					_disabled && 'disabled',
-					className,
-				)}
-			>
-				{!!label && (
-					<label className="label" htmlFor={props.name}>
-						{label}
-					</label>
-				)}
-				{isLoading && <Loader className="input-loader" />}
-				<input
-					{...field}
-					{...inputProps}
-					type={type}
-					disabled={_disabled}
-					onFocus={onFocusHandler}
-					onBlur={onBlurHandler}
-					ref={ref}
-				/>
-				{(meta.touched || forceShowError) && !_disabled && meta.error ? (
-					<div className="error">{meta.error}</div>
-				) : null}
-			</div>
-		);
-	}),
+    return (
+      <div
+        className={classNames(
+          'field input mb-8',
+          !!label && 'with-label',
+          meta.touched && meta.error && 'field-error',
+          state.isFocused && 'focused',
+          state.isFilled && 'filled',
+          _disabled && 'disabled',
+          className,
+        )}
+      >
+        {!!label && (
+          <label className="label" htmlFor={props.name}>
+            {label}
+          </label>
+        )}
+        {isLoading && <Loader className="input-loader" />}
+        <input
+          {...field}
+          {...inputProps}
+          type={type}
+          disabled={_disabled}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
+          ref={ref}
+        />
+        {(meta.touched || forceShowError) && !_disabled && meta.error ? (
+          <div className="error">{meta.error}</div>
+        ) : null}
+      </div>
+    );
+  }),
 );
