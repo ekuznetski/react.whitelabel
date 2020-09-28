@@ -1,4 +1,13 @@
 @import '~/variables';
 
 .transaction-statement-page-wrapper {
+  .statement__tabs {
+    .common-tabs__navigation {
+      height: 34px;
+      
+      .tab__link {
+        font-size: 14px;
+      }
+    }
+  }
 }
