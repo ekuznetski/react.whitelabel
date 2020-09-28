@@ -36,10 +36,11 @@ compile:wl:
         - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
         - yarn install
         - yarn run build:bsfx:ssr
-    # artifacts:
-    #     paths:
-    #         - dist_q9.tar.gz
-    #     expire_in: 40 minutes
+        - tar -czf dist_wl.tar.gz -C dist/ dist
+    artifacts:
+        paths:
+            - dist_q9.tar.gz
+        expire_in: 40 minutes
     tags:
         - wl
     only:
