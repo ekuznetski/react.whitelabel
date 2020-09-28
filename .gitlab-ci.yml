@@ -111,8 +111,8 @@ update:wl:docker:
     script:
         - cd deploy-scripts &&
         - tar czf docker.tar.gz docker-compose.yml Dockerfile pm2_services.json restart_nginx.sh nginx.sh
-        - ssh $SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker"
-        - scp docker.tar.gz $Q9_prod_SERVER:/var/www/wl/temp_docker/
+        - ssh $SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker/"
+        - scp docker.tar.gz $Q9_prod_SERVER:/var/www/wl/temp_docker
         - ssh $SERVER "
             cd /var/www/wl/ &&
             sudo mkdir -p /var/www/wl/logs/pm2 &&
