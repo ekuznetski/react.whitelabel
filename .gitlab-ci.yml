@@ -54,7 +54,7 @@ deploy:wl:web:
     stage: deploy:wl
     script:
         - ssh $SERVER "sudo mkdir -p /var/www/wl &&
-            sudo mkdir -p /var/www/wl/server
+            sudo mkdir -p /var/www/wl/server &&
             sudo chmod 777 /var/www/wl/server"
         - scp dist_wl.tar.gz $SERVER:/var/www/wl/server/dist_wl.tar.gz
         - ssh $SERVER "
