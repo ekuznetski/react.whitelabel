@@ -1,0 +1,14 @@
+{
+    "apps": [
+        {
+            "name": "server",
+            "script": "/app/server/dist/server.js",
+            "watch": false,
+            "error_file": "/app/logs/pm2/server_error.log",
+            "out_file": "/app/logs/pm2/server_out.log",
+            "cwd": "/app/server/dist",
+            "node_args": "--max_old_space_size=8192"
+
+        }
+    ]
+}
