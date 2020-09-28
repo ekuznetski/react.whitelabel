@@ -65,7 +65,7 @@ deploy:wl:web:
             sudo rm -rf dist_wl.tar.gz &&
             ls -al &&
             sudo chmod 755 /var/www/wl/server &&
-            sudo chmod 755 /var/www/q9capital/server/dist &&
+            sudo chmod 755 /var/www/wl/server/dist &&
             cd /var/www/wl/server && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
             cd /var/www/wl/logs && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
             sudo docker container exec wl pm2 stop server.js &&
