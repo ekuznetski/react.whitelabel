@@ -37,7 +37,7 @@ compile:wl:
         - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
         - yarn install
         - yarn run build:bsfx:ssr
-        - tar -czf dist_wl.tar.gz -C dist/ dist
+        - tar -czf dist_wl.tar.gz dist
     artifacts:
         paths:
             - dist_wl.tar.gz
