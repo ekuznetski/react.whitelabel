@@ -25,6 +25,7 @@ before_script:
 stages:
   - compile
   - deploy:wl
+  - update:wl
 
 compile:wl:
     cache:
