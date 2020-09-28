@@ -1,28 +1,45 @@
 import { Button, DatePicker, ITabs, PageTitle, Select, Tab, TabLabel, Tabs } from '@components/shared';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
-import React, { memo } from 'react';
+import moment from 'moment';
+import React, { memo, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import * as Yup from 'yup';
 import './TransactionStatement.scss';
 
 enum EFields {
-  'date' = 'date',
+  'filter' = 'filter',
   'operation_type' = 'operation_type',
 }
 
 export const TransactionStatement = memo(function TransactionStatement() {
   const validationSchema = Yup.object().shape({
-    date: Yup.array(),
+    date: Yup.mixed(),
   });
   const operationTypes = [
     { label: 'Deposits', value: 'deposits' },
     { label: 'Withdrawals', value: 'withdrawal' },
     { label: 'Trades', value: 'trades' },
   ];
-
-  // 	<Select placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
-  // <Select placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
-  // <DatePicker label="Choose date range" name={EFields.date} range={true} />
+  const recentTransactionsFilter = [
+    {
+      label: 'Last 20 Transactions',
+      value: [moment('1.1.2000').startOf('month'), moment()],
+    },
+    {
+      label: 'This Month Transactions',
+      value: [moment().startOf('month'), moment()],
+    },
+    {
+      label: 'Last Month Transactions',
+      value: [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')],
+    },
+  ];
+  const monthlyTransactionsFilter = Array.apply(0, Array(12))
+    .map((_, i) => moment().subtract(i, 'months'))
+    .map((_moment, idx) => ({
+      label: _moment.format('MMMM YYYY'),
+      value: [moment(_moment).startOf('month').startOf('day'), _moment.endOf('month')],
+    }));
 
   function Submit(values: any, formikHelpers: FormikHelpers<any>) {
     //date[0].startOf('day').format('YYYY-MM-DD HH:mm:ss'),
@@ -40,20 +57,23 @@ export const TransactionStatement = memo(function TransactionStatement() {
       <Row className="justify-content-center">
         <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
           <Formik initialValues={{}} validationSchema={validationSchema} onSubmit={Submit}>
-            {({ values }: FormikProps<any>) => {
+            {({ setFieldValue }: FormikProps<any>) => {
               return (
                 <Form className="transaction-statement__form">
                   <Select placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
-                  <Tabs className="statement__tabs" alignNavigation="left">
+                  <Tabs
+                    className="statement__tabs"
+                    alignNavigation="left"
+                    onChange={() => setFieldValue(EFields.filter, undefined)}
+                  >
                     <Tab anchor="recent" label="Recent">
-                      <Select placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
+                      <Select label="Choose a filter" options={recentTransactionsFilter} name={EFields.filter} />
                     </Tab>
                     <Tab anchor="monthly" label="Monthly">
-                      <Select placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
+                      <Select label="Choose the period" options={monthlyTransactionsFilter} name={EFields.filter} />
                     </Tab>
-                    <Tab anchor="range">
-                      <TabLabel>Custom Range</TabLabel>
-                      <DatePicker label="Choose date range" name={EFields.date} range={true} />
+                    <Tab anchor="range" label="Custom Range">
+                      <DatePicker label="Choose date range" name={EFields.filter} range={true} />
                     </Tab>
                   </Tabs>
                   <Button type="submit">Get Trading Statement</Button>

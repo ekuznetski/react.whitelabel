@@ -64,8 +64,6 @@ function TabsReducer(state: State, action: Action) {
       };
     }
     case 'addTempLabel': {
-      console.log(action, state);
-
       return { ...state, tempLabel: action.label };
     }
     case 'addTempContent': {
@@ -73,8 +71,6 @@ function TabsReducer(state: State, action: Action) {
     }
     case 'add': {
       if (state.initial) return state;
-
-      console.log(action, state);
 
       const _tabsUid = state.anchors || [];
       if (action.anchor != null || action.anchor != undefined) {
