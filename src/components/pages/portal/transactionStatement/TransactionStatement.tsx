@@ -1,7 +1,7 @@
-import { Button, DatePicker, ITabs, PageTitle, Select, Tab, TabLabel, Tabs } from '@components/shared';
+import { Button, DatePicker, PageTitle, Select, Tab, Tabs } from '@components/shared';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
-import moment from 'moment';
-import React, { memo, useEffect } from 'react';
+import moment, { Moment } from 'moment';
+import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import * as Yup from 'yup';
 import './TransactionStatement.scss';
@@ -13,7 +13,7 @@ enum EFields {
 
 export const TransactionStatement = memo(function TransactionStatement() {
   const validationSchema = Yup.object().shape({
-    date: Yup.mixed(),
+    filter: Yup.array<Moment>(),
   });
   const operationTypes = [
     { label: 'Deposits', value: 'deposits' },
