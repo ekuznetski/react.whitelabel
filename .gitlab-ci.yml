@@ -16,8 +16,8 @@ before_script:
     # - chmod 400 user_key.pem # @todo temp for hycmlab, should be DELETED !!!!
     # - ssh-add user_key.pem # @todo temp for hycmlab, should be DELETED !!!!
 
-    - chmod 400 jump_key.pem stage_dev.pem q9_key.pem
-    - ssh-add jump_key.pem stage_dev.pem q9_key.pem
+    - chmod 400 jump_key.pem
+    - ssh-add jump_key.pem
     - echo "$ssh_config" > ~/.ssh/config
     - chmod 400 ~/.ssh/config
     - apk add yarn
