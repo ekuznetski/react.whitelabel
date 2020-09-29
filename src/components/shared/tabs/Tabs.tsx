@@ -74,7 +74,7 @@ export function Tabs({
         }, []);
 
         useEffect(() => {
-          if (active?.anchor && activeTabProps?.anchor !== active?.anchor) {
+          if ((active.anchor != null || active.anchor != undefined) && activeTabProps?.anchor !== active?.anchor) {
             setActiveTabProps({ anchor: active.anchor, tabHeight: tabsContentRef[active.anchor]?.clientHeight });
             onChange?.(active);
           }
@@ -87,7 +87,9 @@ export function Tabs({
         return useMemo(
           () => (
             <div className={classNames('common-tabs', isVertical && 'vertical', className)}>
-              <div className={classNames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}>
+              <div
+                className={classNames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}
+              >
                 {state.labels.map((label, l) => (
                   <div
                     key={l}
@@ -147,6 +149,7 @@ export const Tab = memo(
           anchor: props.anchor,
           label: props.label,
           content: props.content,
+          disabled: props.disabled,
         });
       }, []);
 
