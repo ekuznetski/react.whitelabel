@@ -32,29 +32,6 @@
     z-index: 1;
   }
 
-  .Select,
-  .Select-control,
-  .Select-multi-value-wrapper {
-    height: 50px;
-  }
-
-  .Select-input {
-    overflow: hidden;
-  }
-
-  .Select-input input {
-    outline: none !important;
-    width: 100% !important;
-    height: 50px;
-    border: none;
-    background: transparent;
-  }
-
-  .Select-menu-outer {
-    min-width: 300px;
-    background: #fff;
-  }
-
   &.with-label {
     div[class*='-Input'] {
       padding-top: 9px;
@@ -73,12 +50,11 @@
     div[class*='-control'] {
       border: none !important;
       box-shadow: none;
-      height: 100%;
 
       div[class*='-ValueContainer'] {
         overflow: visible;
         padding: 4px 8px;
-        height: 34px;
+        min-height: 48px;
 
         div[class*='-placeholder'] {
           font-size: 14px;
@@ -118,6 +94,13 @@
 
       .menu-wrapper {
         overflow: hidden;
+
+        .no-options {
+          @include d-flex(center, center);
+          height: 100%;
+          font-size: 16px;
+          line-height: 28px;
+        }
       }
 
       & > div {
@@ -147,6 +130,11 @@
         }
       }
     }
+  }
+
+  &.multi-select {
+    height: auto;
+    min-height: 48px;
   }
 
   &.phoneCode-select {

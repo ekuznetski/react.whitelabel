@@ -24,7 +24,7 @@ const MenuList = memo(function MenuList(props: any) {
   const { options, children, maxHeight, getValue } = props;
   const [value] = getValue();
   const initialOffset = options.indexOf(value) * OPTION_HEIGHT;
-  const _height = Math.min(maxHeight, children.length * OPTION_HEIGHT) ?? 100;
+  const _height = Math.min(maxHeight, Math.max((children.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5)) ?? 100;
   const easeAnimation = BezierEasing(0.25, 0.1, 0.25, 1.0);
 
   return (
@@ -35,17 +35,21 @@ const MenuList = memo(function MenuList(props: any) {
     >
       {(animatedProps) => (
         <animated.div className="menu-wrapper" style={animatedProps}>
-          <List
-            height={_height}
-            itemCount={children.length}
-            itemSize={OPTION_HEIGHT}
-            initialScrollOffset={initialOffset}
-            width="100%"
-          >
-            {({ index, style }) => {
-              return <div style={style}>{children[index]}</div>;
-            }}
-          </List>
+          {children.length ? (
+            <List
+              height={_height}
+              itemCount={children.length || 0}
+              itemSize={OPTION_HEIGHT}
+              initialScrollOffset={initialOffset}
+              width="100%"
+            >
+              {({ index, style }) => {
+                return <div style={style}>{children[index]}</div>;
+              }}
+            </List>
+          ) : (
+            <div className="no-options">No Options</div>
+          )}
         </animated.div>
       )}
     </Spring>
@@ -92,11 +96,10 @@ export const Select = memo(function Select({
   const _disabled = props.isDisabled || FormStatus === EFormStatus.disabled;
 
   function onChangeSelect(e: any) {
-    console.log(e);
     setSelectedValue(e);
-    helpers.setValue(e.value);
+    helpers.setValue(e?.value);
     if (props.onChange) {
-      props.onChange(e.value);
+      props.onChange(e?.value);
     }
   }
 
@@ -104,7 +107,7 @@ export const Select = memo(function Select({
     components: {
       ...props.components,
       MenuList,
-      IndicatorSeparator,
+      // IndicatorSeparator,
       Input,
     },
   });
@@ -129,8 +132,10 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
-        onFocus={(e: any) => setState((state) => ({ ...state, isFocused: true }))}
-        onBlur={(e: any) => setState({ isFocused: false, isFilled: !!field.value })}
+        onFocus={() => setState({ ...state, isFocused: true })}
+        onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
+        onMenuOpen={() => setState({ ...state, isFocused: true })}
+        onMenuClose={() => setState({ isFocused: false, isFilled: !!field.value })}
         value={selectedValue}
         onChange={onChangeSelect}
       />
@@ -140,30 +145,13 @@ export const Select = memo(function Select({
 });
 
 export const MultiSelect = memo(({ closeMenuOnSelect = false, ...props }: ISelect & { closeMenuOnSelect: boolean }) => {
-  const innerProps = { ...props };
-  delete innerProps.options;
-
-  const options = countries.map((el) => ({
-    label: (
-      <>
-        <IconFlag flag={el.code} /> <span className="phone">{el.phoneCode}</span>{' '}
-        <span className="name">{el.name}</span>
-      </>
-    ),
-    value: el.phoneCode.replace('+', ''),
-    code: el.code,
-  }));
-  const preselectedValue = props.preselectedValue ? options.find((el) => el.code === props.preselectedValue) : null;
-
   return (
     <Select
-      className={classNames('phoneCode-select', props.className)}
+      className={classNames('multi-select', props.className)}
       closeMenuOnSelect={false}
       isMulti
       name={name}
-      options={options}
-      {...innerProps}
-      preselectedValue={preselectedValue}
+      {...props}
     />
   );
 });
@@ -191,6 +179,7 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
       name={name}
       options={options}
       {...innerProps}
+      components={{IndicatorSeparator}}
       preselectedValue={preselectedValue}
     />
   );

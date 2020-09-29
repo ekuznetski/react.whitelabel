@@ -1,4 +1,4 @@
-import { Button, DatePicker, PageTitle, Select, Tab, Tabs } from '@components/shared';
+import { Button, DatePicker, MultiSelect, PageTitle, Select, Tab, Tabs } from '@components/shared';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import moment, { Moment } from 'moment';
 import React, { memo } from 'react';
@@ -72,7 +72,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
             {({ values, setFieldValue }: FormikProps<any>) => {
               return (
                 <Form className="transaction-statement__form">
-                  <Select placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
+                  <MultiSelect placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
                   <Tabs
                     className="statement__tabs"
                     alignNavigation="left"
