@@ -3,7 +3,7 @@
 .field.select-wrapper {
   position: relative;
   border-radius: 2px;
-  border: 1px solid #cacfd5;
+  border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
   height: 50px;
   width: 100%;
@@ -104,8 +104,8 @@
     }
 
     div[class*='-menu'] {
-      width: calc(100% + 1px);
-      left: -2px;
+      width: 100%;
+      left: -1px;
       top: calc(100% + 3px);
       margin: auto;
       border: 1px solid $blue;

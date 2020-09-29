@@ -7,12 +7,12 @@ type Action = {
   label?: TabData;
   content?: TabData;
   anchor?: TabAnchor;
-  labels?: { value: TabData; anchor: number | string }[];
+  labels?: { value: TabData; anchor: number | string; disabled?: boolean }[];
   contents?: { value: TabData; anchor: number | string }[];
 };
 type Dispatch = (action: Action) => void;
 type State = {
-  labels: { value: TabData; anchor: number | string }[];
+  labels: { value: TabData; anchor: number | string; disabled?: boolean }[];
   contents: { value: TabData; anchor: number | string }[];
   anchors: TabAnchor[];
   active: TabAnchor;
@@ -21,7 +21,7 @@ type State = {
   initial: boolean;
 };
 type ActiveTab = {
-  label?: { value: TabData; anchor: number | string };
+  label?: { value: TabData; anchor: number | string; disabled?: boolean };
   content?: { value: TabData; anchor: number | string };
   anchor: TabAnchor;
 };
