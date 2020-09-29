@@ -12,10 +12,10 @@ import './DatePicker.scss';
 
 interface IDatePicker {
   [key: string]: any;
-  className: string;
-  label: string;
+  className?: string;
+  label?: string;
   name: string;
-  forceShowError: boolean;
+  forceShowError?: boolean;
   range?: boolean;
   children?: ReactNode;
 }
