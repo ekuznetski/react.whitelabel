@@ -4,8 +4,8 @@
 	"description": "",
 	"main": "index.html",
 	"scripts": {
-		"dev": "fkill :4200 -f -s; webpack-dev-server --port 4200",
-		"dev:bsfx": "fkill :4200 -f -s; webpack-dev-server --port 4200 --env.LABEL='bsfx'",
+		"dev": "fkill :4200 -f -s && webpack-dev-server --port 4200",
+		"dev:bsfx": "fkill :4200 -f -s && webpack-dev-server --port 4200 --env.LABEL='bsfx'",
 		"build": "webpack --mode production --devtool none --env.PRODUCTION=true",
 		"build:bsfx": "webpack --mode production --devtool none --env.PRODUCTION=true --env.LABEL=bsfx",
 		"build:ssr-server": "webpack --config ./webpack.config.ssr.js --env.PRODUCTION=true",
@@ -13,9 +13,9 @@
 		"build:bsfx:ssr": "yarn run build:bsfx && yarn run build:ssr-server --env.PRODUCTION=true --env.LABEL=bsfx",
 		"build:watch:client": "webpack --mode production --devtool none --env.PRODUCTION=true --watch",
 		"build:watch:ssr-server": "webpack --config ./webpack.config.ssr.js --watch",
-		"dev:ssr": "fkill :4201 -f -s; concurrently \"yarn build:watch:client\" \"yarn build:watch:ssr-server\" \"cd dist && nodemon server.js\"",
+		"dev:ssr": "fkill :4201 -f -s && concurrently \"yarn build:watch:client\" \"yarn build:watch:ssr-server\" \"cd dist && nodemon server.js\"",
 		"test": "jest",
-		"run-ssr-server-only": "fkill :4201 -f -s; cd dist && nodemon server.js",
+		"run-ssr-server-only": "fkill :4201 -f -s && cd dist && nodemon server.js",
 		"test:watch": "jest --watch"
 	},
 	"keywords": [],

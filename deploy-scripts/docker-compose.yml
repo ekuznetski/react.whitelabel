@@ -1,0 +1,36 @@
+version: '3'
+services:
+    # Minimal Ubuntu 18.04.2 LTS with angular, nodejs, nginx and mongo tools
+    wl:
+        build: ./
+        container_name: wl
+        ports:
+            - 4201:4201
+        volumes:
+            - ./server:/app/server
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./pm2_services.json:/app/pm2_services.json
+            - ./nginx/conf.d:/etc/nginx/conf.d
+            - ./logs:/app/logs
+            - ./logs/nginx:/app/logs/nginx
+            - ./logs/pm2:/app/logs/pm2
+            - ./run_services.sh:/app/run_services.sh
+        restart: always
+        tty: true
+
+    # # mongo DB official image based on Minimal Ubuntu 16.04.5 LTS
+    # db:
+    #     image: mongo:4.0.5
+    #     container_name: db
+    #     ports:
+    #         - 27017:27017
+    #     volumes:
+    #         - ./db/data:/data/db
+    #         - ./db/backups:/backups
+    #     environment:
+    #         - MONGO_DATA_DIR=/data/db
+    #         - MONGO_LOG_DIR=/dev/null
+    #         - MONGODB_USER="admin"
+    #         - MONGODB_PASS="admin"
+    #     restart: always
+    #     command: --noscripting
