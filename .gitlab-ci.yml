@@ -68,8 +68,8 @@ deploy:wl:web:
             sudo chmod 755 /var/www/wl/server/dist &&
             cd /var/www/wl/server && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
             cd /var/www/wl/logs && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
-            sudo docker container exec wl pm2 stop server.js &&
-            sudo docker container exec wl pm2 start server.js &&
+            sudo docker container exec wl pm2 stop server &&
+            sudo docker container exec wl pm2 start server &&
             exit"
     dependencies:
         - compile:wl
@@ -79,7 +79,7 @@ deploy:wl:web:
     tags:
         - wl
     allow_failure: true
-
+# sudo docker exec wl sudo /restart_nginx.sh &&
 update:wl:nginx:
     stage: update:wl
     script:
@@ -94,7 +94,7 @@ update:wl:nginx:
             sudo tar -xzf /var/www/wl/nginx.tar.gz &&
             sudo rm -rf nginx.tar.gz &&
             sudo chmod 755 /var/www/wl/nginx &&
-            sudo docker exec wl sudo /restart_nginx.sh &&
+            sudo docker restart wl
             exit"
     only:
         refs:
