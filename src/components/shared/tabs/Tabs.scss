@@ -52,6 +52,11 @@
       &.active {
         color: $dark-text;
       }
+
+      &.disabled {
+        color: $dark-grey !important;
+        cursor: default;
+      }
     }
 
     .active-tab-line {

@@ -87,7 +87,7 @@ export function Tabs({
         return useMemo(
           () => (
             <div className={classNames('common-tabs', isVertical && 'vertical', className)}>
-              <div className={classNames('common-tabs__navigation', alignNavigation, !isVertical && 'mb-9')}>
+              <div className={classNames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}>
                 {state.labels.map((label, l) => (
                   <div
                     key={l}
