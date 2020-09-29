@@ -62,7 +62,7 @@ deploy:wl:web:
             sudo chmod 755 /var/www/wl/server/dist &&
             cd /var/www/wl/server && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
             cd /var/www/wl/logs && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
-            sudo docker container exec wl pm2 restart server &&
+            sudo docker container exec wl pm2 stop server &&
             sudo docker container exec wl pm2 start server &&
             exit"
     dependencies:

@@ -5,16 +5,11 @@ services:
         build: ./
         container_name: wl
         ports:
-            - 4201:4201
-            - 3000:3000
+            - 3000:4201
         volumes:
-            - ./server:/app/server
-            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-            - ./pm2_services.json:/app/pm2_services.json
-            - ./nginx/conf.d:/etc/nginx/conf.d
+            - ./server:/app/server            
+            - ./pm2_services.json:/app/server/dist/pm2_services.json
             - ./logs:/app/logs
-            - ./logs/nginx:/app/logs/nginx
-            - ./logs/pm2:/app/logs/pm2
         restart: always
         tty: true
 
