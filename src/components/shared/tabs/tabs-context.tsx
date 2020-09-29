@@ -7,19 +7,27 @@ type Action = {
   label?: TabData;
   content?: TabData;
   anchor?: TabAnchor;
-  labels?: { value: TabData; anchor: number | string }[];
+  labels?: { value: TabData; anchor: number | string; disabled?: boolean }[];
   contents?: { value: TabData; anchor: number | string }[];
 };
 type Dispatch = (action: Action) => void;
 type State = {
-  labels: { value: TabData; anchor: number | string }[];
+  labels: { value: TabData; anchor: number | string; disabled?: boolean }[];
   contents: { value: TabData; anchor: number | string }[];
   anchors: TabAnchor[];
   active: TabAnchor;
   tempLabel: TabData;
   tempContent: TabData;
+  initial: boolean;
 };
-type TabsProviderProps = { children: (state: State, action: Dispatch) => React.ReactNode };
+type ActiveTab = {
+  label?: { value: TabData; anchor: number | string; disabled?: boolean };
+  content?: { value: TabData; anchor: number | string };
+  anchor: TabAnchor;
+};
+type TabsProviderProps = {
+  children: (state: State, action: Dispatch, active: ActiveTab) => React.ReactNode;
+};
 
 const TabsStateContext = React.createContext<State | undefined>(undefined);
 const TabsDispatchContext = React.createContext<Dispatch | undefined>(undefined);
@@ -30,8 +38,15 @@ function TabsReducer(state: State, action: Action) {
       return { ...state, active: action.anchor };
     }
     case 'instantInit': {
-      const anchors = action.labels?.map((label) => label.anchor);
-      return { ...state, anchors, labels: action.labels, contents: action.contents };
+      const anchors = action.labels?.map((label) => label.anchor) || [];
+      return {
+        ...state,
+        active: action.anchor,
+        anchors,
+        labels: action.labels || [],
+        contents: action.contents || [],
+        initial: true,
+      };
     }
     case 'addAnchor': {
       const _tabsUid = state.anchors || [];
@@ -55,25 +70,28 @@ function TabsReducer(state: State, action: Action) {
       return { ...state, tempContent: action.content };
     }
     case 'add': {
+      if (state.initial) return state;
+
       const _tabsUid = state.anchors || [];
       if (action.anchor != null || action.anchor != undefined) {
         if (_tabsUid.indexOf(action.anchor) != -1) {
-          throw new Error(`TabAnchor must be unique. TabsUid List: ${_tabsUid.join('; ')}`);
+          return state;
+          // throw new Error(`TabAnchor must be unique. TabsUid List: ${_tabsUid.join('; ')}`);
         }
         _tabsUid.push(action.anchor);
       }
 
-      const _labels = state.labels;
-      if (action.label && action.anchor)
+      const _labels = state.labels || [];
+      if ((action.label || state.tempLabel) && action.anchor)
         _labels.push({
-          value: action.label,
+          value: action.label || state.tempLabel,
           anchor: action.anchor,
         });
 
-      const _content = state.contents;
-      if (action.content && action.anchor)
+      const _content = state.contents || [];
+      if ((action.content || state.tempContent) && action.anchor)
         _content.push({
-          value: action.content,
+          value: action.content || state.tempContent,
           anchor: action.anchor,
         });
 
@@ -101,10 +119,17 @@ function TabsProvider({ children }: TabsProviderProps) {
     active: '',
     tempLabel: undefined,
     tempContent: undefined,
+    initial: false,
   });
+  const active = {
+    anchor: state.active,
+    label: state.labels.find((label) => label.anchor === state.active),
+    content: state.contents.find((content) => content.anchor === state.active),
+  };
+
   return (
     <TabsStateContext.Provider value={state}>
-      <TabsDispatchContext.Provider value={dispatch}>{children(state, dispatch)}</TabsDispatchContext.Provider>
+      <TabsDispatchContext.Provider value={dispatch}>{children(state, dispatch, active)}</TabsDispatchContext.Provider>
     </TabsStateContext.Provider>
   );
 }
@@ -125,4 +150,4 @@ function useTabsDispatch() {
   return context;
 }
 
-export { TabsProvider, useTabsState, useTabsDispatch };
+export { TabsProvider, useTabsState, useTabsDispatch, ActiveTab };

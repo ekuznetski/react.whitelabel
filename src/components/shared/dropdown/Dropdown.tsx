@@ -50,9 +50,6 @@ export const DropDown = memo<IDropdown>(function DropDown({
 
 	useEffect(() => {
 		setInitialHeight(props.items ? props.items.length * itemHeight + offsetY : height);
-		return () => {
-			dropdownRef.current && document.body.removeChild(dropdownRef.current);
-		};
 	}, []);
 
 	useEventListener('scroll', () => {
