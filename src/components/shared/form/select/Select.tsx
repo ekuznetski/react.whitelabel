@@ -90,8 +90,6 @@ export const Select = memo(function Select({
     },
   });
 
-  console.log(field.value);
-
   return (
     <div
       className={classNames(

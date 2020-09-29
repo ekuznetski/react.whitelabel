@@ -3,16 +3,17 @@ import React from 'react';
 type TabAnchor = number | string | undefined;
 type TabData = string | React.ReactFragment | undefined;
 type Action = {
-  type: 'instantInit' | 'add' | 'addTempLabel' | 'addTempContent' | 'addAnchor' | 'setActive';
+  type: 'instantInit' | 'add' | 'addTempLabel' | 'addTempContent' | 'setActive';
   label?: TabData;
   content?: TabData;
   anchor?: TabAnchor;
-  labels?: { value: TabData; anchor: number | string }[];
+  disabled?: boolean;
+  labels?: { value: TabData; anchor: number | string; disabled?: boolean }[];
   contents?: { value: TabData; anchor: number | string }[];
 };
 type Dispatch = (action: Action) => void;
 type State = {
-  labels: { value: TabData; anchor: number | string }[];
+  labels: { value: TabData; anchor: number | string; disabled?: boolean }[];
   contents: { value: TabData; anchor: number | string }[];
   anchors: TabAnchor[];
   active: TabAnchor;
@@ -21,7 +22,7 @@ type State = {
   initial: boolean;
 };
 type ActiveTab = {
-  label?: { value: TabData; anchor: number | string };
+  label?: { value: TabData; anchor: number | string; disabled?: boolean };
   content?: { value: TabData; anchor: number | string };
   anchor: TabAnchor;
 };
@@ -48,21 +49,6 @@ function TabsReducer(state: State, action: Action) {
         initial: true,
       };
     }
-    case 'addAnchor': {
-      const _tabsUid = state.anchors || [];
-      if (action.anchor != null || action.anchor != undefined) {
-        if (_tabsUid.indexOf(action.anchor) != -1) {
-          throw new Error(`TabAnchor must be unique. TabsUid List: ${_tabsUid.join('; ')}`);
-        }
-        _tabsUid.push(action.anchor);
-      }
-
-      return {
-        ...state,
-        anchors: _tabsUid,
-        active: _tabsUid[0],
-      };
-    }
     case 'addTempLabel': {
       return { ...state, tempLabel: action.label };
     }
@@ -82,14 +68,15 @@ function TabsReducer(state: State, action: Action) {
       }
 
       const _labels = state.labels || [];
-      if ((action.label || state.tempLabel) && action.anchor)
+      if ((action.label || state.tempLabel) && (action.anchor != null || action.anchor != undefined))
         _labels.push({
           value: action.label || state.tempLabel,
           anchor: action.anchor,
+          disabled: action.disabled,
         });
 
       const _content = state.contents || [];
-      if ((action.content || state.tempContent) && action.anchor)
+      if ((action.content || state.tempContent) && (action.anchor != null || action.anchor != undefined))
         _content.push({
           value: action.content || state.tempContent,
           anchor: action.anchor,
@@ -100,7 +87,7 @@ function TabsReducer(state: State, action: Action) {
         labels: _labels,
         contents: _content,
         anchors: _tabsUid,
-        active: _tabsUid[0],
+        active: _labels.filter((label) => !label.disabled)[0].anchor,
         tempLabel: undefined,
         tempContent: undefined,
       };

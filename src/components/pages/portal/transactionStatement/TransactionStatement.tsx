@@ -66,7 +66,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                     alignNavigation="left"
                     onChange={() => setFieldValue(EFields.filter, undefined)}
                   >
-                    <Tab anchor="recent" label="Recent">
+                    <Tab anchor="recent" label="Recent" disabled={true}>
                       <Select label="Choose a filter" options={recentTransactionsFilter} name={EFields.filter} />
                     </Tab>
                     <Tab anchor="monthly" label="Monthly">

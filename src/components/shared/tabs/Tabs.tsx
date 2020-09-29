@@ -5,7 +5,7 @@ import { ActiveTab, TabsProvider, useTabsDispatch, useTabsState } from './tabs-c
 import './Tabs.scss';
 
 export interface ITabs {
-  labels?: { value: string | React.ReactFragment; anchor: string }[];
+  labels?: { value: string | React.ReactFragment; anchor: string; disabled?: boolean }[];
   content?: { value: string | React.ReactFragment; anchor: string }[];
   children?: React.ReactNode;
   activeTab?: string; // anchor
@@ -16,6 +16,7 @@ export interface ITabs {
 }
 
 export interface ITab {
+  disabled?: boolean;
   label?: string | React.ReactFragment;
   content?: string | React.ReactFragment;
   children?: React.ReactNode;
@@ -73,7 +74,7 @@ export function Tabs({
         }, []);
 
         useEffect(() => {
-          if (active?.anchor && activeTabProps?.anchor !== active?.anchor) {
+          if ((active.anchor != null || active.anchor != undefined) && activeTabProps?.anchor !== active?.anchor) {
             setActiveTabProps({ anchor: active.anchor, tabHeight: tabsContentRef[active.anchor]?.clientHeight });
             onChange?.(active);
           }
@@ -86,17 +87,20 @@ export function Tabs({
         return useMemo(
           () => (
             <div className={classNames('common-tabs', isVertical && 'vertical', className)}>
-              <div className={classNames('common-tabs__navigation', alignNavigation, !isVertical && 'mb-9')}>
+              <div
+                className={classNames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}
+              >
                 {state.labels.map((label, l) => (
                   <div
                     key={l}
                     data-id={label.anchor}
                     className={classNames(
                       'tab__link',
+                      label.disabled && 'disabled',
                       activeTabProps?.anchor === label.anchor && 'active',
                       !isVertical && 'mr-7',
                     )}
-                    onClick={() => switchTab(label.anchor)}
+                    onClick={() => !label.disabled && switchTab(label.anchor)}
                     ref={(ref) => activeTabProps?.anchor === label.anchor && (activeNavTabLink = ref)}
                   >
                     {label.value}
@@ -145,6 +149,7 @@ export const Tab = memo(
           anchor: props.anchor,
           label: props.label,
           content: props.content,
+          disabled: props.disabled,
         });
       }, []);
 
