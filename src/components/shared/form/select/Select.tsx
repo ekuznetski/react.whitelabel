@@ -129,7 +129,6 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
-        defaultMenuIsOpen={true}
         onFocus={(e: any) => setState((state) => ({ ...state, isFocused: true }))}
         onBlur={(e: any) => setState({ isFocused: false, isFilled: !!field.value })}
         value={selectedValue}
