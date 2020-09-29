@@ -41,9 +41,10 @@
       font-size: 18px;
       line-height: 28px;
       text-align: center;
-      color: $dark-grey;
+      color: $text;
       cursor: pointer;
       transition: color 0.25s;
+      font-weight: 500;
 
       svg {
         transition: fill 0.25s;
@@ -56,6 +57,7 @@
       &.disabled {
         color: $dark-grey !important;
         cursor: default;
+        font-weight: 300;
       }
     }
 
