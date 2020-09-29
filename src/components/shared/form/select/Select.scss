@@ -84,6 +84,7 @@
           font-size: 14px;
           display: flex;
           align-items: center;
+          color: $dark-grey;
         }
 
         div[class*='-singleValue'] {
@@ -112,8 +113,12 @@
       border-radius: 2px;
       z-index: 5;
       box-shadow: box-shadow(25, 0.12);
-			overflow: hidden;
-			box-sizing: content-box;
+      overflow: hidden;
+      box-sizing: content-box;
+
+      .menu-wrapper {
+        overflow: hidden;
+      }
 
       & > div {
         overflow-x: hidden !important;
@@ -127,6 +132,7 @@
       div[class*='-option'] {
         display: flex;
         align-items: center;
+        height: 36px;
         font-size: 14px;
 
         .flag,

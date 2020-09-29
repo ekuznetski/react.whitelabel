@@ -93,7 +93,6 @@ export function Tabs({
                 {state.labels.map((label, l) => (
                   <div
                     key={l}
-                    data-id={label.anchor}
                     className={classNames(
                       'tab__link',
                       label.disabled && 'disabled',
@@ -157,11 +156,7 @@ export const Tab = memo(
     }
 
     return (
-      <div
-        id={props.anchor.toString()}
-        className={classNames('tab__content', props.className, isActive && 'active')}
-        ref={ref}
-      >
+      <div className={classNames('tab__content', props.className, isActive && 'active')} ref={ref}>
         {!tabInitialized() ? (
           <>
             {_content}
