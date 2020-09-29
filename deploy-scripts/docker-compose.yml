@@ -5,10 +5,10 @@ services:
         build: ./
         container_name: wl
         ports:
-            - 4201:4201
-            - 3000:3000
+            - 3000:4201
+            # - 3000:3000
         volumes:
-            - ./:/app/server
+            - ./server:/app/server
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./pm2_services.json:/app/pm2_services.json
             - ./nginx/conf.d:/etc/nginx/conf.d
