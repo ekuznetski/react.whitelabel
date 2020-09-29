@@ -94,7 +94,7 @@ update:wl:nginx:
             sudo tar -xzf /var/www/wl/nginx.tar.gz &&
             sudo rm -rf nginx.tar.gz &&
             sudo chmod 755 /var/www/wl/nginx &&
-            sudo docker restart wl
+            sudo docker restart wl &&
             exit"
     only:
         refs:
