@@ -134,8 +134,8 @@ export const Select = memo(function Select({
         isSearchable={isSearchable}
         onFocus={() => setState({ ...state, isFocused: true })}
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
-        onMenuOpen={() => setState({ ...state, isFocused: true })}
-        onMenuClose={() => setState({ isFocused: false, isFilled: !!field.value })}
+        // onMenuOpen={() => setState({ ...state, isFocused: true })}
+        // onMenuClose={() => setState({ ...state, isFocused: false })}
         value={selectedValue}
         onChange={onChangeSelect}
       />
@@ -179,7 +179,7 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
       name={name}
       options={options}
       {...innerProps}
-      components={{IndicatorSeparator}}
+      components={{ IndicatorSeparator }}
       preselectedValue={preselectedValue}
     />
   );
