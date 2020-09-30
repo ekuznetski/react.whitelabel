@@ -1,9 +1,10 @@
 import { EActionTypes } from './store.enum';
 import { IAction, IAppStore } from './store.interface';
 import { Nullable } from '@domain/interfaces';
+import { EAppSection } from '@domain/enums';
 
 export const initAppStore: Nullable<IAppStore> = {
-  route: { current: '/' },
+  route: { current: '/', appSection: EAppSection.main },
   requests: {
     activeList: [],
     failedList: [],

@@ -31,14 +31,13 @@ import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '..
 // Data to be loaded on EVERY page of app section
 export const routesInitialApiData: IRoutesInitialApiData = {
   [EAppSection.auth]: {
-    optional: [ac_fetchGeoIpData, ac_fetchProfile],
+    strict: [ac_fetchGeoIpData, ac_fetchProfile],
   },
   [EAppSection.main]: {
-    optional: [ac_fetchGeoIpData, ac_fetchProfile],
+    strict: [ac_fetchGeoIpData, ac_fetchProfile],
   },
   [EAppSection.portal]: {
-    optional: [ac_fetchGeoIpData, ac_fetchClientData],
-    required: [ac_fetchProfile],
+    strict: [ac_fetchGeoIpData, ac_fetchClientData, ac_fetchProfile],
   },
 };
 
@@ -53,7 +52,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Home,
     appSection: EAppSection.main,
     apiData: {
-      optional: [ac_fetchGeoIpData],
+      lazy: [ac_fetchGeoIpData],
     },
     menuItem: true,
   },
@@ -99,6 +98,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     path: '/login',
     component: Login,
+    activators: [userAuthorized],
     appSection: EAppSection.auth,
     menuItem: false,
   },
@@ -128,7 +128,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Registration,
     appSection: EAppSection.auth,
     apiData: {
-      optional: [ac_fetchGeoIpData],
+      lazy: [ac_fetchGeoIpData],
     },
     menuItem: false,
   },
@@ -141,7 +141,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [userAuthorized],
     apiData: {
-      required: [ac_fetchTradingAccounts],
+      strict: [ac_fetchTradingAccounts],
     },
     menuItem: false,
   },
@@ -154,7 +154,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [userAuthorized],
     apiData: {
-      required: [ac_fetchTradingAccounts],
+      strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
       icon: 'coins.svg',
@@ -170,8 +170,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [userAuthorized],
     apiData: {
-      optional: [ac_fetchWithdrawHistory],
-      required: [ac_fetchTradingAccounts],
+      lazy: [ac_fetchWithdrawHistory],
+      strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
       icon: 'coins.svg',
@@ -187,7 +187,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [userAuthorized],
     apiData: {
-      required: [ac_fetchTradingAccounts],
+      strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
       icon: 'coins.svg',

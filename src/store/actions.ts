@@ -11,6 +11,7 @@ import {
 import { MClientData, MClientTradingData, MWithdrawalHistoryItem } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
+import { EAppSection } from '@domain/enums';
 
 export function ac_showNotification(payload: Omit<INotificationState, 'visible'>): IAction {
   return {
@@ -125,7 +126,7 @@ export function ac_saveGeoIpData(payload: IGeoIp): IAction {
   };
 }
 
-export function ac_updateRouteParams(payload: { current?: string }): IAction {
+export function ac_updateRouteParams(payload: { current?: string; appSection: EAppSection }): IAction {
   return {
     type: EActionTypes.updateRoute,
     payload,
