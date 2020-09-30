@@ -3,28 +3,23 @@ import { IAction, IDataStore } from './store.interface';
 import { Nullable } from '@domain/interfaces';
 
 export const initDataStore: Nullable<IDataStore> = {
-	content: null,
-	geoIp: null,
-	client: {
-		// @ts-ignore
-		profile: {
-			first_name: 'Bob',
-			surname: 'Doe',
-			email: 'bobD@example.com',
-		},
-		data: null,
-		preferences: {
-			show_promotions: true,
-			phone_verification: 'pending',
-			show_compliance_popup: false,
-			switch_cayman: false,
-		},
-	},
-	tradingData: null,
-	withdrawals: {
-		history: [],
-		limit: null,
-	},
+  content: null,
+  geoIp: null,
+  client: {
+    profile: null,
+    data: null,
+    preferences: {
+      show_promotions: true,
+      phone_verification: 'pending',
+      show_compliance_popup: false,
+      switch_cayman: false,
+    },
+  },
+  tradingData: null,
+  withdrawals: {
+    history: [],
+    limit: null,
+  },
 };
 
 export function dataStoreReducer(state = initDataStore as IDataStore, action: IAction) {
