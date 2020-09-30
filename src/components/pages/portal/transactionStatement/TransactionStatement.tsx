@@ -1,8 +1,11 @@
 import { Button, DatePicker, MultiSelect, PageTitle, Select, Tab, Tabs } from '@components/shared';
-import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
+import { ENotificationType } from '@domain/enums';
+import { ac_fetchTransactionalStatements, ac_showNotification } from '@store';
+import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import './TransactionStatement.scss';
 
@@ -12,6 +15,7 @@ enum EFields {
 }
 
 export const TransactionStatement = memo(function TransactionStatement() {
+  const dispatch = useDispatch();
   const validationSchema = Yup.object().shape({
     operation_type: Yup.array<string>().required('This field is required'),
     filter: Yup.array<Moment>().required('This field is required'),
@@ -42,14 +46,27 @@ export const TransactionStatement = memo(function TransactionStatement() {
       value: [moment(_moment).startOf('month').startOf('day'), _moment.endOf('month')],
     }));
 
-  function Submit(values: any, formikHelpers: FormikHelpers<any>) {
+  function Submit(values: FormikValues) {
     const data = {
       startDate: values.filter[0].startOf('day').format('YYYY-MM-DD HH:mm:ss'),
       endDate: values.filter[1].endOf('day').format('YYYY-MM-DD HH:mm:ss'),
       ...values.operation_type.reduce((acc: {}, value: string) => Object.assign(acc, { [value]: true }), {}),
     };
-    console.log(data);
-    // alert('Call `clients/bankingStatements` API.');
+
+    dispatch(
+      ac_fetchTransactionalStatements(
+        data,
+        () => {
+          dispatch(
+            ac_showNotification({
+              type: ENotificationType.success,
+              context: 'Requested statements are successfully loaded',
+            }),
+          );
+        },
+        () => dispatch(ac_showNotification({ type: ENotificationType.failure, context: 'Error' })),
+      ),
+    );
   }
 
   return (

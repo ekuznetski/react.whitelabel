@@ -3,7 +3,7 @@ import { countries, Currencies, EFormStatus } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
-import React, { memo, useState } from 'react';
+import React, { forwardRef, memo, useState } from 'react';
 import ReactSelect, { components } from 'react-select';
 import { useSpring, animated } from 'react-spring';
 import BezierEasing from 'bezier-easing';
@@ -14,41 +14,58 @@ function Input(props: any) {
   return <components.Input {...props} autoComplete="disableAutoComplete" />;
 }
 
-function IndicatorSeparator() {
+function NoRender() {
   return null;
 }
 
 const MenuList = memo(function MenuList(props: any) {
   const OPTION_HEIGHT = 36;
-  const { options, children, maxHeight, getValue } = props;
+  const { options, maxMenuHeight, getValue } = props;
   const [value] = getValue();
-  const initialOffset = options.indexOf(value) * OPTION_HEIGHT;
-  const _height = Math.min(maxHeight, Math.max((children.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5)) ?? 100;
+  const initialOffset = Math.max(options.indexOf(value), 0) * OPTION_HEIGHT;
+  const _height = Math.min(maxMenuHeight, Math.max((options.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5)) ?? 100;
   const easeAnimation = BezierEasing(0.25, 0.1, 0.25, 1.0);
-  const animatedProps = useSpring({
+  const animatedProps: any = useSpring({
     config: { duration: 300, easing: easeAnimation },
     from: { height: 0, opacity: 0.4 },
     to: { height: _height, opacity: 1 },
   });
 
+  function getLength(options: any[]): number {
+    return options.reduce((acc, curr) => {
+      if (curr.options) return acc + getLength(curr.options);
+      return acc + 1;
+    }, 0);
+  }
+
   return (
-    <animated.div className="menu-wrapper" style={animatedProps}>
-      {children.length ? (
-        <List
-          height={_height}
-          itemCount={children.length || 0}
-          itemSize={OPTION_HEIGHT}
-          initialScrollOffset={initialOffset}
-          width="100%"
-        >
-          {({ index, style }) => {
-            return <div style={style}>{children[index]}</div>;
-          }}
-        </List>
-      ) : (
-        <div className="no-options">No Options</div>
-      )}
-    </animated.div>
+    <div className="custom-select-menu">
+      <animated.div className="menu-wrapper" style={animatedProps}>
+        {options.length ? (
+          <List
+            height={_height}
+            itemCount={options.length || 0}
+            itemSize={OPTION_HEIGHT}
+            initialScrollOffset={initialOffset}
+            width="100%"
+          >
+            {({ index, style }) => {
+              return (
+                <div
+                  className="select-menu-option px-4"
+                  style={style}
+                  onClick={() => props.selectOption(options[index])}
+                >
+                  {options[index].label}
+                </div>
+              );
+            }}
+          </List>
+        ) : (
+          <div className="no-options">No Options</div>
+        )}
+      </animated.div>
+    </div>
   );
 });
 
@@ -107,8 +124,8 @@ export const Select = memo(function Select({
   Object.assign(props, {
     components: {
       ...props.components,
-      MenuList,
-      // IndicatorSeparator,
+      Menu: MenuList,
+      MenuList: NoRender,
       Input,
     },
   });
@@ -133,6 +150,7 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
+        defaultMenuIsOpen={true}
         onFocus={() => setState({ ...state, isFocused: true })}
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
@@ -180,7 +198,7 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
       name={name}
       options={options}
       {...innerProps}
-      components={{ IndicatorSeparator }}
+      components={{ IndicatorSeparator: NoRender }}
       preselectedValue={preselectedValue}
     />
   );

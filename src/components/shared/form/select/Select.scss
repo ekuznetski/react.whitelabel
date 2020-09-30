@@ -33,37 +33,37 @@
   }
 
   &.with-label {
-    div[class*='-Input'] {
+    div[class$='-Input'] {
       padding-top: 9px;
       margin-bottom: -4px;
       font-size: 14px;
     }
 
-    div[class*='-singleValue'] {
+    div[class$='-singleValue'] {
       top: 32px;
     }
   }
 
-  div[class*='-container'] {
+  div[class$='-container'] {
     height: 100%;
 
-    div[class*='-control'] {
+    div[class$='-control'] {
       border: none !important;
       box-shadow: none;
 
-      div[class*='-ValueContainer'] {
+      div[class$='-ValueContainer'] {
         overflow: visible;
         padding: 4px 8px;
         min-height: 48px;
 
-        div[class*='-placeholder'] {
+        div[class$='-placeholder'] {
           font-size: 14px;
           display: flex;
           align-items: center;
           color: $dark-grey;
         }
 
-        div[class*='-singleValue'] {
+        div[class$='-singleValue'] {
           font-size: 14px;
           display: flex;
           align-items: center;
@@ -74,13 +74,13 @@
         }
       }
 
-      div[class*='-indicatorContainer'],
-      div[class*='-indicatorContainer']:hover {
+      div[class$='-indicatorContainer'],
+      div[class$='-indicatorContainer']:hover {
         color: $dark-blue;
       }
     }
 
-    div[class*='-menu'] {
+    .custom-select-menu {
       width: 100%;
       left: -1px;
       top: calc(100% + 3px);
@@ -91,6 +91,8 @@
       box-shadow: box-shadow(25, 0.12);
       overflow: hidden;
       box-sizing: content-box;
+      position: absolute;
+      background: #fff;
 
       .menu-wrapper {
         overflow: hidden;
@@ -112,7 +114,7 @@
         }
       }
 
-      div[class*='-option'] {
+      .select-menu-option {
         display: flex;
         align-items: center;
         height: 36px;
@@ -138,7 +140,7 @@
   }
 
   &.phoneCode-select {
-    div[class*='-menu'] {
+    div[class$='-menu'] {
       min-width: 300px;
     }
   }
@@ -156,8 +158,8 @@
   }
 
   &.trading-account-select {
-    div[class*='-control'] div[class*='-ValueContainer'] div[class*='-singleValue'],
-    div[class*='-container'] div[class*='-menu'] div[class*='-option'] {
+    div[class$='-control'] div[class$='-ValueContainer'] div[class$='-singleValue'],
+    div[class$='-container'] .custom-select-menu .select-menu-option {
       .trading-account-option {
         display: flex;
         align-items: center;
@@ -201,16 +203,16 @@
   }
 
   &.disabled {
-    div[class*='-container'] {
-      div[class*='-control'] {
+    div[class$='-container'] {
+      div[class$='-control'] {
         background: $grey;
 
-        div[class*='-placeholder'],
+        div[class$='-placeholder'],
         .label {
           color: rgba(#000, 0.3);
         }
 
-        div[class*='-IndicatorsContainer'] {
+        div[class$='-IndicatorsContainer'] {
           svg {
             fill: $dark-grey;
           }

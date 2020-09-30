@@ -1,7 +1,7 @@
 import { Alert, Button, Input, PageTitle, TradingAccountsSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { EFormStatus, ENotificationType, ETradingType } from '@domain/enums';
-import { IInternalTransferData } from '@domain/interfaces';
+import { IInternalTransferRequestData } from '@domain/interfaces';
 import { MClientData, MTradingAccount } from '@domain/models';
 import { ac_makeInternalTransfer, ac_showNotification, IStore } from '@store';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
@@ -25,7 +25,7 @@ interface InternalTransferStoreProps {
 export const InternalTransfer = memo(function InternalTransfer() {
 	const store = useSelector<IStore, InternalTransferStoreProps>((state) => ({
 		tradingAccounts: state.data.tradingData.accounts.filter((account) => account.type === ETradingType.live),
-		clientData: state.data.client.data,
+		clientData: state.data.client.statusData,
 	}));
 	const dispatch = useDispatch();
 	const validationSchema = Yup.object().shape({
@@ -53,7 +53,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
 	});
 
 	function Submit(values: FormikValues, formikHelpers: FormikHelpers<any>) {
-		const _data: IInternalTransferData = {
+		const _data: IInternalTransferRequestData = {
 			fromAccount: values.accountFrom.accountId,
 			fromPlatform: values.accountFrom.platformName,
 			toAccount: values.accountTo.accountId,

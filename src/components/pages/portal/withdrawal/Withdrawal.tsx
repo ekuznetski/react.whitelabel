@@ -30,7 +30,7 @@ export const Withdrawal = memo(function Withdrawal() {
 		withdrawalHistoryItems: state.data.withdrawals.history || [],
 		withdrawalLimit: state.data.withdrawals.limit,
 		withdrawalLimitIsLoading: state.app.requests.activeList.includes(EActionTypes.fetchWithdrawLimit),
-		clientData: state.data.client.data,
+		clientData: state.data.client.statusData,
 	}));
 	const dispatch = useDispatch();
 	const validationSchema = Yup.object().shape({
