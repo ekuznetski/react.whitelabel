@@ -1,4 +1,4 @@
-import { Button, DatePicker, PageTitle, Select, Tab, Tabs } from '@components/shared';
+import { Button, DatePicker, MultiSelect, PageTitle, Select, Tab, Tabs } from '@components/shared';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import moment, { Moment } from 'moment';
 import React, { memo } from 'react';
@@ -13,7 +13,8 @@ enum EFields {
 
 export const TransactionStatement = memo(function TransactionStatement() {
   const validationSchema = Yup.object().shape({
-    filter: Yup.array<Moment>(),
+    operation_type: Yup.array<string>().required('This field is required'),
+    filter: Yup.array<Moment>().required('This field is required'),
   });
   const operationTypes = [
     { label: 'Deposits', value: 'deposits' },
@@ -42,8 +43,12 @@ export const TransactionStatement = memo(function TransactionStatement() {
     }));
 
   function Submit(values: any, formikHelpers: FormikHelpers<any>) {
-    //date[0].startOf('day').format('YYYY-MM-DD HH:mm:ss'),
-    //date[1].endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+    const data = {
+      startDate: values.filter[0].startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+      endDate: values.filter[1].endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+      ...values.operation_type.reduce((acc: {}, value: string) => Object.assign(acc, { value: true }), {}),
+    };
+    console.log(data);
     alert('Call `clients/bankingStatements` API.');
   }
 
@@ -56,17 +61,24 @@ export const TransactionStatement = memo(function TransactionStatement() {
       </Row>
       <Row className="justify-content-center">
         <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
-          <Formik initialValues={{}} validationSchema={validationSchema} onSubmit={Submit}>
-            {({ setFieldValue }: FormikProps<any>) => {
+          <Formik
+            initialValues={{
+              operation_type: '',
+              filter: '',
+            }}
+            validationSchema={validationSchema}
+            onSubmit={Submit}
+          >
+            {({ values, setFieldValue }: FormikProps<any>) => {
               return (
                 <Form className="transaction-statement__form">
-                  <Select placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
+                  <MultiSelect placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
                   <Tabs
                     className="statement__tabs"
                     alignNavigation="left"
-                    onChange={() => setFieldValue(EFields.filter, undefined)}
+                    onChange={() => setFieldValue(EFields.filter, '')}
                   >
-                    <Tab anchor="recent" label="Recent" disabled={true}>
+                    <Tab anchor="recent" label="Recent">
                       <Select label="Choose a filter" options={recentTransactionsFilter} name={EFields.filter} />
                     </Tab>
                     <Tab anchor="monthly" label="Monthly">

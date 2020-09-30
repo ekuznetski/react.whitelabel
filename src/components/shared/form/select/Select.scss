@@ -32,29 +32,6 @@
     z-index: 1;
   }
 
-  .Select,
-  .Select-control,
-  .Select-multi-value-wrapper {
-    height: 50px;
-  }
-
-  .Select-input {
-    overflow: hidden;
-  }
-
-  .Select-input input {
-    outline: none !important;
-    width: 100% !important;
-    height: 50px;
-    border: none;
-    background: transparent;
-  }
-
-  .Select-menu-outer {
-    min-width: 300px;
-    background: #fff;
-  }
-
   &.with-label {
     div[class*='-Input'] {
       padding-top: 9px;
@@ -63,7 +40,7 @@
     }
 
     div[class*='-singleValue'] {
-      top: 75%;
+      top: 32px;
     }
   }
 
@@ -73,17 +50,17 @@
     div[class*='-control'] {
       border: none !important;
       box-shadow: none;
-      height: 100%;
 
       div[class*='-ValueContainer'] {
         overflow: visible;
         padding: 4px 8px;
-        height: 34px;
+        min-height: 48px;
 
         div[class*='-placeholder'] {
           font-size: 14px;
           display: flex;
           align-items: center;
+          color: $dark-grey;
         }
 
         div[class*='-singleValue'] {
@@ -112,8 +89,19 @@
       border-radius: 2px;
       z-index: 5;
       box-shadow: box-shadow(25, 0.12);
-			overflow: hidden;
-			box-sizing: content-box;
+      overflow: hidden;
+      box-sizing: content-box;
+
+      .menu-wrapper {
+        overflow: hidden;
+
+        .no-options {
+          @include d-flex(center, center);
+          height: 100%;
+          font-size: 16px;
+          line-height: 28px;
+        }
+      }
 
       & > div {
         overflow-x: hidden !important;
@@ -127,6 +115,7 @@
       div[class*='-option'] {
         display: flex;
         align-items: center;
+        height: 36px;
         font-size: 14px;
 
         .flag,
@@ -141,6 +130,11 @@
         }
       }
     }
+  }
+
+  &.multi-select {
+    height: auto;
+    min-height: 48px;
   }
 
   &.phoneCode-select {

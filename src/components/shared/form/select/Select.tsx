@@ -5,32 +5,54 @@ import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
 import React, { memo, useState } from 'react';
 import ReactSelect, { components } from 'react-select';
+import { Spring } from 'react-spring/renderprops';
+import { animated } from 'react-spring';
+import BezierEasing from 'bezier-easing';
 import { FixedSizeList as List } from 'react-window';
 import './Select.scss';
 
 function Input(props: any) {
   return <components.Input {...props} autoComplete="disableAutoComplete" />;
 }
+
 function IndicatorSeparator() {
   return null;
 }
+
 const MenuList = memo(function MenuList(props: any) {
+  const OPTION_HEIGHT = 36;
   const { options, children, maxHeight, getValue } = props;
   const [value] = getValue();
-  const initialOffset = options.indexOf(value) * 40;
+  const initialOffset = options.indexOf(value) * OPTION_HEIGHT;
+  const _height = Math.min(maxHeight, Math.max((children.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5)) ?? 100;
+  const easeAnimation = BezierEasing(0.25, 0.1, 0.25, 1.0);
 
   return (
-    <List
-      height={maxHeight ?? 100}
-      itemCount={children.length}
-      itemSize={40}
-      initialScrollOffset={initialOffset}
-      width={'100%'}
+    <Spring
+      config={{ duration: 300, easing: easeAnimation }}
+      from={{ height: 0, opacity: 0.4 }}
+      to={{ height: _height, opacity: 1 }}
     >
-      {({ index, style }) => {
-        return <div style={style}>{children[index]}</div>;
-      }}
-    </List>
+      {(animatedProps) => (
+        <animated.div className="menu-wrapper" style={animatedProps}>
+          {children.length ? (
+            <List
+              height={_height}
+              itemCount={children.length || 0}
+              itemSize={OPTION_HEIGHT}
+              initialScrollOffset={initialOffset}
+              width="100%"
+            >
+              {({ index, style }) => {
+                return <div style={style}>{children[index]}</div>;
+              }}
+            </List>
+          ) : (
+            <div className="no-options">No Options</div>
+          )}
+        </animated.div>
+      )}
+    </Spring>
   );
 });
 
@@ -75,17 +97,17 @@ export const Select = memo(function Select({
 
   function onChangeSelect(e: any) {
     setSelectedValue(e);
-    helpers.setValue(e.value);
+    helpers.setValue(e?.value);
     if (props.onChange) {
-      props.onChange(e.value);
+      props.onChange(e?.value);
     }
   }
 
   Object.assign(props, {
     components: {
       ...props.components,
-      ...(options.length > 10 ? { MenuList } : {}),
-      IndicatorSeparator,
+      MenuList,
+      // IndicatorSeparator,
       Input,
     },
   });
@@ -110,8 +132,10 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
-        onFocus={(e: any) => setState((state) => ({ ...state, isFocused: true }))}
-        onBlur={(e: any) => setState({ isFocused: false, isFilled: !!field.value })}
+        onFocus={() => setState({ ...state, isFocused: true })}
+        onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
+        // onMenuOpen={() => setState({ ...state, isFocused: true })}
+        // onMenuClose={() => setState({ ...state, isFocused: false })}
         value={selectedValue}
         onChange={onChangeSelect}
       />
@@ -120,11 +144,22 @@ export const Select = memo(function Select({
   );
 });
 
+export const MultiSelect = memo(({ closeMenuOnSelect = false, ...props }: ISelect & { closeMenuOnSelect: boolean }) => {
+  return (
+    <Select
+      className={classNames('multi-select', props.className)}
+      closeMenuOnSelect={false}
+      isMulti
+      name={name}
+      {...props}
+    />
+  );
+});
+
 export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string }) => {
   const innerProps = { ...props };
   delete innerProps.options;
 
-  const [field, meta] = useField(props);
   const options = countries.map((el) => ({
     label: (
       <>
@@ -136,13 +171,15 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
     code: el.code,
   }));
   const preselectedValue = props.preselectedValue ? options.find((el) => el.code === props.preselectedValue) : null;
+
   return (
     <Select
       isSearchable={true}
       className={classNames('phoneCode-select', props.className)}
       name={name}
       options={options}
-      {...props}
+      {...innerProps}
+      components={{ IndicatorSeparator }}
       preselectedValue={preselectedValue}
     />
   );
@@ -188,6 +225,7 @@ export const CurrencySelect = memo((props: any) => {
     ),
     value: Currencies[key].code,
   }));
+
   function Option({ children, ...props }: any) {
     const selectedValue = props.selectProps?.value?.value;
     const currentOptionValue = props.data.value;
@@ -212,16 +250,8 @@ export const CurrencySelect = memo((props: any) => {
 
 export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingAccount }) => {
   const innerProps = { ...props };
-  function Option({ children, ...props }: any) {
-    const selectedValue = props.selectProps?.value?.value.accountId;
-    const currentOptionValue = props.data.value.accountId;
-    const isSelected = selectedValue === currentOptionValue;
-    return (
-      <components.Option {...props} className={isSelected ? 'selected' : ''}>
-        {children}
-      </components.Option>
-    );
-  }
+  delete innerProps.options;
+
   const options = props.options.map((account: MTradingAccount) => ({
     label: (
       <div className="trading-account-option" key={account.accountId}>
@@ -236,7 +266,17 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
     ),
     value: account,
   }));
-  delete innerProps.options;
+
+  function Option({ children, ...props }: any) {
+    const selectedValue = props.selectProps?.value?.value.accountId;
+    const currentOptionValue = props.data.value.accountId;
+    const isSelected = selectedValue === currentOptionValue;
+    return (
+      <components.Option {...props} className={isSelected ? 'selected' : ''}>
+        {children}
+      </components.Option>
+    );
+  }
 
   return (
     <Select

@@ -6,8 +6,7 @@ import classNames from 'classnames';
 import { useField, useFormikContext } from 'formik';
 import moment from 'moment';
 import React, { forwardRef, memo, ReactNode, useEffect } from 'react';
-import DayPicker, { DateUtils, DayModifiers, RangeModifier } from 'react-day-picker';
-import MomentLocaleUtils from 'react-day-picker/moment';
+import DayPicker, { DateUtils, DayModifiers } from 'react-day-picker';
 import './DatePicker.scss';
 
 interface IDatePicker {
@@ -70,8 +69,8 @@ export const DatePicker = memo(
 
     function _value() {
       var val = '';
-      if (state.from) val += moment(state.from).format('Do, MMM YY');
-      if (state.to) val += ' - ' + moment(state.to).format('Do, MMM YY');
+      if (state.from) val += moment(state.from).format('Do, MMM YY') + (range ? ' - ' : '');
+      if (state.to) val += moment(state.to).format('Do, MMM YY');
       return val;
     }
 
@@ -81,7 +80,7 @@ export const DatePicker = memo(
           'field datepicker mb-8',
           !!label && 'with-label',
           className,
-          // meta.touched && meta.error && 'field-error',
+          meta.touched && meta.error && 'field-error',
           state.isFocused && 'focused',
           state.isFilled && 'filled',
           _disabled && 'disabled',
@@ -113,7 +112,7 @@ export const DatePicker = memo(
             onDayClick={handleDayClick}
           />
         </DropDown>
-        {/* {meta.touched && meta.error ? <div className="error">{meta.error}</div> : null} */}
+        {meta.touched && meta.error ? <div className="error">{meta.error}</div> : null}
       </div>
     );
   }),
