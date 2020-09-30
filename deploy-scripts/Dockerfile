@@ -1,4 +1,4 @@
-FROM node:10.16.0-alpine
+FROM node:12.18.4-alpine
 
 RUN npm config set unsafe-perm true
 RUN npm install -g pm2
