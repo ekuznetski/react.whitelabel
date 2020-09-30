@@ -5,3 +5,4 @@ export * from './countries.enum';
 export * from './currency.enum';
 export * from './documents.enum';
 export * from './withdrawals.enum';
+export * from './deposit.enum';

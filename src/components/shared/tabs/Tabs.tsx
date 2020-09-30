@@ -71,6 +71,9 @@ export function Tabs({
             dispatch({ type: 'instantInit', labels, contents: content });
             switchTab(activeTab || labels[0].anchor);
           }
+          if (activeTab) {
+            switchTab(activeTab);
+          }
         }, []);
 
         useEffect(() => {

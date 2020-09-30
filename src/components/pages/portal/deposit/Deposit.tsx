@@ -1,61 +1,68 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import './Deposit.scss';
-import { PageTitle, Tabs } from '@components/shared';
-import { TabContentChooseAmount, TabLabelDepositMethod } from './components';
-import { ECurrency, ECurrencyCode } from '@domain/enums';
-import { CardMethod } from './components/cardMethod/CardMethod';
+import { DatePicker, PageTitle, Select, Tab, TabLabel, Tabs } from '@components/shared';
+import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount, TabLabelDepositMethod } from './components';
+import { depositActionCreators, DepositContextWrapper, IDepositAction, IDepositState } from './depositContext';
+import { EDepositMethods } from '@domain/enums';
 
-export enum EDepositMethods {
-  creditCard,
-  netteller,
-  skrill,
-}
-export const Deposit = memo(function Deposit() {
-  const [depositMethod, setDepositMethod] = useState<EDepositMethods>(EDepositMethods.creditCard);
-  const [depositAmount, setDepositAmount] = useState<number | null>(null);
-
-  const tabsContent = {
-    labels: [
-      {
-        value: <TabLabelDepositMethod title="Visa/MasterCard" subTitle="Instant" icon="visa-with-bg" />,
-        anchor: 'visa',
-      },
-      {
-        value: <TabLabelDepositMethod title="WebMoney" subTitle="Instant" icon="webmoney-with-bg" />,
-        anchor: 'webmoney',
-      },
-    ],
-    content: [
-      { value: <TabContentChooseAmount submitFn={submitFn} />, anchor: 'visa' },
-      { value: <TabContentChooseAmount submitFn={submitFn} />, anchor: 'webmoney' },
-    ],
-  };
-
-  function submitFn(data: any) {
-    setDepositAmount(data.amount);
-  }
-
-  function SelectedDepositMethod() {
-    switch (depositMethod) {
-      case EDepositMethods.creditCard:
-        return <CardMethod />;
-      case EDepositMethods.netteller:
-        return <>netteller</>;
-      case EDepositMethods.skrill:
-        return <>skrill</>;
-    }
-  }
-
+export const Deposit = memo(function Deposit(props) {
   return (
-    <Container className="deposit-page-wrapper">
-      <Row>
-        <Col xs={12}>
-          <PageTitle title="Deposit" />
-          <Tabs labels={tabsContent.labels} content={tabsContent.content} isVertical={true} />
-          {depositAmount && <SelectedDepositMethod />}
-        </Col>
-      </Row>
-    </Container>
+    <DepositContextWrapper>
+      {(state: IDepositState, dispatch: React.Dispatch<IDepositAction> | null) => {
+        return (
+          <Container className="deposit-page-wrapper">
+            <Row>
+              <Col xs={12}>
+                <PageTitle title="Deposit" />
+                {!state.isAmountSelected && (
+                  <Tabs
+                    activeTab={state.method ?? EDepositMethods.creditCard}
+                    isVertical={true}
+                    onChange={(e) => {
+                      if (dispatch && e.anchor) dispatch?.(depositActionCreators.setMethod(e.anchor as any));
+                    }}
+                  >
+                    <Tab anchor={EDepositMethods.creditCard}>
+                      <TabLabel>
+                        <TabLabelDepositMethod title="Visa/MasterCard" subTitle="Instant" icon="visa-with-bg" />
+                      </TabLabel>
+                      <TabContentChooseAmount />
+                    </Tab>
+                    <Tab anchor={EDepositMethods.netteller}>
+                      <TabLabel>
+                        <TabLabelDepositMethod title="Neteller" subTitle="Instant" icon="webmoney-with-bg" />
+                      </TabLabel>
+                      <TabContentChooseAmount />
+                    </Tab>
+                    <Tab anchor={EDepositMethods.skrill}>
+                      <TabLabel>
+                        <TabLabelDepositMethod title="Skrill" subTitle="Instant" icon="webmoney-with-bg" />
+                      </TabLabel>
+                      <TabContentChooseAmount />
+                    </Tab>
+                    <Tab anchor={EDepositMethods.bankWire}>
+                      <TabLabel>
+                        <TabLabelDepositMethod
+                          title="Wire Bank Transfer"
+                          subTitle="1 - 3 days"
+                          icon="webmoney-with-bg"
+                        />
+                      </TabLabel>
+                      <TabContentBankWire />
+                    </Tab>
+                  </Tabs>
+                )}
+                {state.isAmountSelected && <DetailsFormWrapper />}
+              </Col>
+            </Row>
+            <pre>{JSON.stringify(state.account)}</pre>
+            <pre>{state.amount}</pre>
+            <pre>{state.method?.toString()}</pre>
+            <pre>{state.isAmountSelected?.toString()}</pre>
+          </Container>
+        );
+      }}
+    </DepositContextWrapper>
   );
 });

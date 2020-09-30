@@ -1,22 +1,14 @@
-import React, { useContext, useState } from 'react';
-import './TabContentChooseAmount.scss';
-import { ECurrency, ECurrencySymbol } from '@domain/enums';
+import React, { useContext } from 'react';
 import * as Yup from 'yup';
-import { Form, Formik, useFormikContext } from 'formik';
-import { Button, Input, Radio, TradingAccountsSelect } from '@components/shared';
-import { useSelector } from 'react-redux';
-import { IStore } from '@store';
-import { MTradingAccount } from '@domain/models';
-import { availableAmounts, depositActionCreators, DepositContext } from '../../depositContext';
+import { Button } from '@components/shared';
+import { DepositContext } from '../../depositContext';
 import { FieldValidators } from '@domain';
-
-enum EFields {
-  'account' = 'account',
-  'secureId' = 'secureId',
-}
+import { Col, Row } from 'react-bootstrap';
+import { BillingDetailsModal, DetailsHeader } from '..';
 
 export function SkrillMethod() {
   const { dispatch } = useContext<any>(DepositContext);
+  const [isBillingDetailsModalOpen, setIsBillingDetailsModalOpen] = React.useState<boolean>(false);
 
   //TODO setup validataion
   const validationSchema = Yup.object().shape({
@@ -24,30 +16,36 @@ export function SkrillMethod() {
     secureId: FieldValidators.requiredString,
   });
 
+  function onClickHandler(e: React.MouseEvent) {
+    e.preventDefault();
+    setIsBillingDetailsModalOpen(true);
+  }
+
+  function submit() {
+    // todo add  dispatch
+  }
+
   return (
     <>
-      <div className="choose-amount-wrapper py-10 px-9">
-        <Formik
-          initialValues={{}}
-          validationSchema={validationSchema}
-          onSubmit={(data) => {
-            dispatch(depositActionCreators.setDepositDetails(data));
-          }}
-        >
-          {(props: any) => {
-            const { values, setFieldValue } = props;
-
-            return (
-              <Form className="m-auto form fadein-row">
-                <Input label="Email or Account ID" />
-                <Input label="Secure ID or Authentication Code" />
-                <Button type="submit">Deposit</Button>
-              </Form>
-            );
-          }}
-        </Formik>
+      <div className="form-wrapper py-10 px-9 col-xl-6 col-lg-7 col-md-9 col-12 m-auto">
+        <DetailsHeader />
+        <Row>
+          <Col xs={12}>
+            <Button onClick={submit}>Deposit</Button>
+          </Col>
+        </Row>
       </div>
-      Notes on Deposits and Withdrawals by Neteller online wallet
+      <div className="py-10 px-9 col-xl-6 col-lg-7 col-md-9 col-12 m-auto">
+        <Row className="note">
+          <Col xs={12} sm={6}>
+            Edit your{' '}
+            <a href="#" onClick={onClickHandler}>
+              billing address
+            </a>
+          </Col>
+        </Row>
+      </div>
+      <BillingDetailsModal isModalOpen={isBillingDetailsModalOpen} setModalOpen={setIsBillingDetailsModalOpen} />
     </>
   );
 }

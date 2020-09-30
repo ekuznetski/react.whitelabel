@@ -87,7 +87,7 @@ function TabsReducer(state: State, action: Action) {
         labels: _labels,
         contents: _content,
         anchors: _tabsUid,
-        active: _labels.filter((label) => !label.disabled)[0].anchor,
+        active: state.active || _labels.filter((label) => !label.disabled)[0].anchor,
         tempLabel: undefined,
         tempContent: undefined,
       };

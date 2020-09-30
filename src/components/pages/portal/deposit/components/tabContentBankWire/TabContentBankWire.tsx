@@ -1,6 +1,89 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './TabContentBankWire.scss';
+import { depositActionCreators, DepositContext, IDepositState } from '../../depositContext';
+import { Col, Row } from 'react-bootstrap';
+import { Button, Radio, TradingAccountsSelect } from '@components/shared';
+import { Form, Formik } from 'formik';
+import { useSelector } from 'react-redux';
+import { IStore } from '@store';
+import { MTradingAccount } from '@domain/models';
+import * as Yup from 'yup';
 
-export function TabContentBankWire({ type }: { type: string }) {
-  return <div>{type}</div>;
+export function TabContentBankWire() {
+  const { account }: IDepositState = useContext<any>(DepositContext).state;
+  const { dispatch } = useContext<any>(DepositContext);
+
+  const { tradingAccounts } = useSelector<IStore, { tradingAccounts: MTradingAccount[] }>((state) => ({
+    tradingAccounts: state.data.tradingData.accounts,
+  }));
+
+  enum EFields {
+    'account' = 'account',
+  }
+  const validationSchema = Yup.object().shape({
+    // account: FieldValidators.requiredString,
+  });
+  return (
+    <div className="bank-wire-deposit py-10 px-9">
+      <Formik
+        initialValues={{
+          [EFields.account]: account ?? tradingAccounts[0],
+        }}
+        validationSchema={validationSchema}
+        onSubmit={(data) => {
+          console.log(data);
+        }}
+      >
+        {(props: any) => {
+          const { values, setFieldValue } = props;
+
+          return (
+            <Form className="m-auto form fadein-row">
+              <TradingAccountsSelect
+                placeholder="TradingAccountsSelect"
+                name={EFields.account}
+                options={tradingAccounts}
+                onChange={console.log}
+              />
+            </Form>
+          );
+        }}
+      </Formik>
+      <div className="bank-details">
+        <div className="bank-wrapper">
+          <div className="bank-wrapper__title">Beneficiary name:</div>
+          <div className="bank-wrapper__text pb-3">HYCM (Europe) Limited</div>
+
+          <div className="bank-wrapper__title">Beneficiary bank name:</div>
+          <div className="bank-wrapper__text pb-3">Barclays Bank PLC</div>
+
+          <div className="bank-wrapper__title">Beneficiary Bank address:</div>
+          <div className="bank-wrapper__text pb-3">Leicester, Leicestershire, LE87 2BB, UNITED KINGDOM</div>
+
+          <div className="bank-wrapper__title">SWIFT:</div>
+          <div className="bank-wrapper__text pb-3">BARCGB22</div>
+
+          <div className="bank-wrapper__title">IBAN:</div>
+          <div className="bank-wrapper__text pb-3">GB72 BARC 20000084099233</div>
+
+          <div className="bank-wrapper__title">Bank account number:</div>
+          <div className="bank-wrapper__text pb-3">84099233</div>
+
+          <div className="bank-wrapper__title">Currency:</div>
+          <div className="bank-wrapper__text pb-3">USD</div>
+        </div>
+      </div>
+      <div className="bank-wire-footer">
+        <div className="bank-wire-footer__destination">Transfer to the bank: Barclays {account?.currency}</div>
+        <Row>
+          <Col xs={6}>
+            <Button>Download</Button>
+          </Col>
+          <Col xs={6}>
+            <Button>Print</Button>
+          </Col>
+        </Row>
+      </div>
+    </div>
+  );
 }
