@@ -5,9 +5,9 @@ import { ac_userExists, IStore } from '@store';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import './FirstStep.scss';
+import { AlreadyRegistered } from '../../../components/alreadyRegistered/AlreadyRegistered';
 
 enum EFields {
   'first_name' = 'first_name',
@@ -86,12 +86,7 @@ export function FirstStep({ submitFn }: any) {
               <Button type="submit" className="fadeFromBottom-row__5">
                 Next
               </Button>
-              <div className="mt-5 text-center under-form fadeFromBottom-row__6">
-                Already Registered?
-                <Link className="already__link ml-1" to={`/login`}>
-                  Sign In
-                </Link>
-              </div>
+              <AlreadyRegistered />
             </Form>
           );
         }}
