@@ -46,10 +46,10 @@ export const TransactionStatement = memo(function TransactionStatement() {
     const data = {
       startDate: values.filter[0].startOf('day').format('YYYY-MM-DD HH:mm:ss'),
       endDate: values.filter[1].endOf('day').format('YYYY-MM-DD HH:mm:ss'),
-      ...values.operation_type.reduce((acc: {}, value: string) => Object.assign(acc, { value: true }), {}),
+      ...values.operation_type.reduce((acc: {}, value: string) => Object.assign(acc, { [value]: true }), {}),
     };
     console.log(data);
-    alert('Call `clients/bankingStatements` API.');
+    // alert('Call `clients/bankingStatements` API.');
   }
 
   return (
@@ -69,14 +69,15 @@ export const TransactionStatement = memo(function TransactionStatement() {
             validationSchema={validationSchema}
             onSubmit={Submit}
           >
-            {({ values, setFieldValue }: FormikProps<any>) => {
+            {({ values, errors, setFieldValue, setErrors, resetForm }: FormikProps<any>) => {
+              console.log(values, errors);
               return (
                 <Form className="transaction-statement__form">
                   <MultiSelect placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
                   <Tabs
                     className="statement__tabs"
                     alignNavigation="left"
-                    onChange={() => setFieldValue(EFields.filter, '')}
+                    onChange={() => resetForm({ values: { ...values, [EFields.filter]: '' } })}
                   >
                     <Tab anchor="recent" label="Recent">
                       <Select label="Choose a filter" options={recentTransactionsFilter} name={EFields.filter} />

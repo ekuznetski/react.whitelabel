@@ -5,8 +5,7 @@ import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
 import React, { memo, useState } from 'react';
 import ReactSelect, { components } from 'react-select';
-import { Spring } from 'react-spring/renderprops';
-import { animated } from 'react-spring';
+import { useSpring, animated } from 'react-spring';
 import BezierEasing from 'bezier-easing';
 import { FixedSizeList as List } from 'react-window';
 import './Select.scss';
@@ -26,33 +25,30 @@ const MenuList = memo(function MenuList(props: any) {
   const initialOffset = options.indexOf(value) * OPTION_HEIGHT;
   const _height = Math.min(maxHeight, Math.max((children.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5)) ?? 100;
   const easeAnimation = BezierEasing(0.25, 0.1, 0.25, 1.0);
+  const animatedProps = useSpring({
+    config: { duration: 300, easing: easeAnimation },
+    from: { height: 0, opacity: 0.4 },
+    to: { height: _height, opacity: 1 },
+  });
 
   return (
-    <Spring
-      config={{ duration: 300, easing: easeAnimation }}
-      from={{ height: 0, opacity: 0.4 }}
-      to={{ height: _height, opacity: 1 }}
-    >
-      {(animatedProps) => (
-        <animated.div className="menu-wrapper" style={animatedProps}>
-          {children.length ? (
-            <List
-              height={_height}
-              itemCount={children.length || 0}
-              itemSize={OPTION_HEIGHT}
-              initialScrollOffset={initialOffset}
-              width="100%"
-            >
-              {({ index, style }) => {
-                return <div style={style}>{children[index]}</div>;
-              }}
-            </List>
-          ) : (
-            <div className="no-options">No Options</div>
-          )}
-        </animated.div>
+    <animated.div className="menu-wrapper" style={animatedProps}>
+      {children.length ? (
+        <List
+          height={_height}
+          itemCount={children.length || 0}
+          itemSize={OPTION_HEIGHT}
+          initialScrollOffset={initialOffset}
+          width="100%"
+        >
+          {({ index, style }) => {
+            return <div style={style}>{children[index]}</div>;
+          }}
+        </List>
+      ) : (
+        <div className="no-options">No Options</div>
       )}
-    </Spring>
+    </animated.div>
   );
 });
 
@@ -96,10 +92,15 @@ export const Select = memo(function Select({
   const _disabled = props.isDisabled || FormStatus === EFormStatus.disabled;
 
   function onChangeSelect(e: any) {
+    let _val = e;
+    if (props.isMulti) {
+      _val = { value: _val.map((item: ISelectItem) => item.value) };
+    }
+
     setSelectedValue(e);
-    helpers.setValue(e?.value);
+    helpers.setValue(_val?.value);
     if (props.onChange) {
-      props.onChange(e?.value);
+      props.onChange(_val?.value);
     }
   }
 
