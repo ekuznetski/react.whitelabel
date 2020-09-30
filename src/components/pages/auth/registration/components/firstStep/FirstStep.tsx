@@ -75,16 +75,7 @@ export function FirstStep({ submitFn }: any) {
                   name={EFields.phone_prefix}
                   preselectedValue={geoIp?.countryCode}
                 />
-                <Input
-                  label="Phone"
-                  name={EFields.phone}
-                  onChange={(e: any) => {
-                    if (/^\d*$/gm.test(e.target?.value) || e.target?.value === '') {
-                      e.preventDefault();
-                      setFieldValue(EFields.phone, e.target.value);
-                    }
-                  }}
-                />
+                <Input label="Phone" name={EFields.phone} regex={/^\d*$/gm} />
               </div>
               <p className="my-7 fadeFromBottom-row__4">
                 To improve your trading experience, we would like to notify you of market events and extreme price

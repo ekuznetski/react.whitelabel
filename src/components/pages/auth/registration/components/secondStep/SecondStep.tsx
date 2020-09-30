@@ -126,24 +126,14 @@ export function SecondStep({ submitFn }: any) {
 									label="Day"
 									name={EFields.dayOfBirth}
 									value={values.dayOfBirth}
-									onChange={(e: any) => {
-										e.preventDefault();
-										if (/^\d{0,2}$/gm.test(e.target.value) || e.target.value === '') {
-											setFieldValue(EFields.dayOfBirth, e.target.value);
-										}
-									}}
+									regex={/^\d{0,2}$/gm}
 								/>
 								<Select className="mx-3" label="Month" options={months} name={EFields.monthOfBirth} />
 								<Input
 									label="Year"
 									name={EFields.yearOfBirth}
 									value={values.yearOfBirth}
-									onChange={(e: any) => {
-										if (/^\d{0,4}$/gm.test(e.target.value) || e.target.value === '') {
-											e.preventDefault();
-											setFieldValue(EFields.yearOfBirth, e.target.value);
-										}
-									}}
+									regex={/^\d{0,4}$/gm}
 								/>
 							</div>
 							<h4 className="section-title">Address</h4>
