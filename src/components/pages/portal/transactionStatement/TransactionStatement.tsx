@@ -1,7 +1,7 @@
 import { Button, DatePicker, MultiSelect, PageTitle, Select, Tab, Tabs } from '@components/shared';
 import { ENotificationType } from '@domain/enums';
 import { ac_fetchTransactionalStatements, ac_showNotification } from '@store';
-import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
+import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -106,7 +106,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                       <DatePicker label="Choose date range" name={EFields.filter} range={true} />
                     </Tab>
                   </Tabs>
-                  <Button type="submit">Get Trading Statement</Button>
+                  <Button type="submit">{t('Get Trading Statement')}</Button>
                 </Form>
               );
             }}
