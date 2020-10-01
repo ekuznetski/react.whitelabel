@@ -11,8 +11,8 @@ export function RestorePassword() {
     'password' = 'password',
   }
 
-  const validationSchema = Yup.object().shape({ [EFields.password]: FieldValidators.password });
   const { t } = useTranslation();
+  const validationSchema = Yup.object().shape({ [EFields.password]: FieldValidators.password });
 
   return (
     <Container>
@@ -28,7 +28,7 @@ export function RestorePassword() {
           >
             {(props: FormikProps<any>) => (
               <Form className="m-auto form">
-                <Input label="Password" name={EFields.password} type="password" />
+                <Input label={t('Password')} name={EFields.password} type="password" />
                 <Button type="submit">{t('Submit')}</Button>
               </Form>
             )}

@@ -20,7 +20,7 @@ export const TradingAccountAddCard = memo(function TradingAccountAddCard(props: 
           <Svg href="plus.svg" />
         </div>
         <div className="account-card__text">
-          {t('Create')} {props.type} {t('Account')}
+          {t('Create')} {props.type == ETradingType.demo ? t('Demo') : t('Live')} {t('Account')}
         </div>
       </div>
     </div>

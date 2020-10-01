@@ -20,6 +20,7 @@ export function TabContentChooseAmount() {
   const ref = React.createRef<HTMLInputElement>();
   const { amount, account } = useContext<any>(DepositContext).state;
   const { dispatch } = useContext<any>(DepositContext);
+  const { t } = useTranslation();
 
   const { tradingAccounts } = useSelector<IStore, { tradingAccounts: MTradingAccount[] }>((state) => ({
     tradingAccounts: state.data.tradingData.accounts,
@@ -30,16 +31,14 @@ export function TabContentChooseAmount() {
     value: el,
   }));
 
-  const { t } = useTranslation();
-
   function CustomAmountInput() {
     const { values, setFieldValue }: { values: any; setFieldValue: any } = useFormikContext();
 
     return (
       <div className="custom-amount-label-wrapper" onClick={() => ref.current?.focus()}>
-        <div className="title">Custom Amount</div>
+        <div className="title">{t('Custom Amount')}</div>
         <Input
-          label="Amount"
+          label={t('Amount')}
           name={EFields.customAmount}
           className="custom-amount-input ml-8"
           onChange={(e: { target: { value: any } }) => {
@@ -88,7 +87,7 @@ export function TabContentChooseAmount() {
           return (
             <Form className="m-auto form fadein-row">
               <TradingAccountsSelect
-                placeholder="TradingAccountsSelect"
+                placeholder={t('Choose Trading Account')}
                 name={EFields.account}
                 options={tradingAccounts}
                 onChange={(e: MTradingAccount) => dispatch(depositActionCreators.setAccount(e))}

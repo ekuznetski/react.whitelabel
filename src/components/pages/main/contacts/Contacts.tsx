@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import './Contacts.scss';
 
 export function Contacts() {
+  const { t } = useTranslation();
   const contactsList = [
     {
       title: 'Client Support',
@@ -101,8 +102,6 @@ export function Contacts() {
     },
   ];
 
-  const { t } = useTranslation();
-
   return (
     <div className="contacts-wrapper">
       <section className="page-top">
@@ -127,7 +126,7 @@ export function Contacts() {
                 {t('Have question to help:0')} <br />
                 {t(`Have question to help:1`)}
               </div>
-              <Button className="ml-auto">{'Live Chat'}</Button>
+              <Button className="ml-auto">{t('Live Chat')}</Button>
             </Col>
           </Row>
         </Container>

@@ -5,6 +5,7 @@ import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import './TransactionStatement.scss';
@@ -16,6 +17,8 @@ enum EFields {
 
 export const TransactionStatement = memo(function TransactionStatement() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({
     operation_type: Yup.array<string>().required('This field is required'),
     filter: Yup.array<Moment>().required('This field is required'),
@@ -73,7 +76,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
     <Container className="transaction-statement-page-wrapper">
       <Row>
         <Col xs={12}>
-          <PageTitle title="Transactional Statement" />
+          <PageTitle title={t('Transactional Statement')} />
         </Col>
       </Row>
       <Row className="justify-content-center">
@@ -96,14 +99,18 @@ export const TransactionStatement = memo(function TransactionStatement() {
                     alignNavigation="left"
                     onChange={() => resetForm({ values: { ...values, [EFields.filter]: '' } })}
                   >
-                    <Tab anchor="recent" label="Recent">
-                      <Select label="Choose a filter" options={recentTransactionsFilter} name={EFields.filter} />
+                    <Tab anchor="recent" label={t('Recent')}>
+                      <Select label={t('Choose a filter')} options={recentTransactionsFilter} name={EFields.filter} />
                     </Tab>
-                    <Tab anchor="monthly" label="Monthly">
-                      <Select label="Choose the period" options={monthlyTransactionsFilter} name={EFields.filter} />
+                    <Tab anchor="monthly" label={t('Monthly')}>
+                      <Select
+                        label={t('Choose the period')}
+                        options={monthlyTransactionsFilter}
+                        name={EFields.filter}
+                      />
                     </Tab>
-                    <Tab anchor="range" label="Custom Range">
-                      <DatePicker label="Choose date range" name={EFields.filter} range={true} />
+                    <Tab anchor="range" label={t('Custom Range')}>
+                      <DatePicker label={t('Choose date range')} name={EFields.filter} range={true} />
                     </Tab>
                   </Tabs>
                   <Button type="submit">{t('Get Trading Statement')}</Button>

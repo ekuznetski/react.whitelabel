@@ -71,6 +71,8 @@ export function Registration() {
     }
   }, [continueReg]);
 
+  const { t } = useTranslation();
+
   async function onSubmitFn(data: any) {
     setFormData({ ...formData, ...data });
     setActiveStep(activeStep + 1);
@@ -99,8 +101,6 @@ export function Registration() {
       setLocalStorageRegData(data);
     }
   }
-
-  const { t } = useTranslation();
 
   return (
     <div className="registration">

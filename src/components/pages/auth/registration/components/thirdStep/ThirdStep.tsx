@@ -17,6 +17,8 @@ enum EFields {
 }
 
 export function ThirdStep({ submitFn }: any) {
+  const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({
     platform: FieldValidators.requiredString,
     account_type: FieldValidators.requiredString,
@@ -83,8 +85,6 @@ export function ThirdStep({ submitFn }: any) {
     { label: '1:200', value: '200' },
     { label: '1:100', value: '100' },
   ];
-
-  const { t } = useTranslation();
 
   return (
     <div className="registration-third-step">

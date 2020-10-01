@@ -1,12 +1,15 @@
+import { PageTitle, Tab, TabLabel, Tabs } from '@components/shared';
+import { EDepositMethods } from '@domain/enums';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import './Deposit.scss';
-import { DatePicker, PageTitle, Select, Tab, TabLabel, Tabs } from '@components/shared';
+import { useTranslation } from 'react-i18next';
 import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount, TabLabelDepositMethod } from './components';
+import './Deposit.scss';
 import { depositActionCreators, DepositContextWrapper, IDepositAction, IDepositState } from './depositContext';
-import { EDepositMethods } from '@domain/enums';
 
 export const Deposit = memo(function Deposit(props) {
+  const { t } = useTranslation();
+
   return (
     <DepositContextWrapper>
       {(state: IDepositState, dispatch: React.Dispatch<IDepositAction> | null) => {
@@ -14,7 +17,7 @@ export const Deposit = memo(function Deposit(props) {
           <Container className="deposit-page-wrapper">
             <Row>
               <Col xs={12}>
-                <PageTitle title="Deposit" />
+                <PageTitle title={t('Deposit')} />
                 {!state.isAmountSelected && (
                   <Tabs
                     activeTab={state.method ?? EDepositMethods.creditCard}
@@ -44,8 +47,8 @@ export const Deposit = memo(function Deposit(props) {
                     <Tab anchor={EDepositMethods.bankWire}>
                       <TabLabel>
                         <TabLabelDepositMethod
-                          title="Wire Bank Transfer"
-                          subTitle="1 - 3 days"
+                          title={t('Wire Bank Transfer')}
+                          subTitle={t('1 3 days')}
                           icon="webmoney-with-bg"
                         />
                       </TabLabel>

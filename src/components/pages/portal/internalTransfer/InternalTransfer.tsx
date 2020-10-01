@@ -29,6 +29,8 @@ export const InternalTransfer = memo(function InternalTransfer() {
     clientData: state.data.client.statusData,
   }));
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({
     accountFrom: Yup.object().required('This field is required'),
     accountTo: Yup.object().when('accountFrom', {
@@ -52,8 +54,6 @@ export const InternalTransfer = memo(function InternalTransfer() {
       otherwise: Yup.number().notRequired(),
     }),
   });
-
-  const { t } = useTranslation();
 
   function Submit(values: FormikValues, formikHelpers: FormikHelpers<any>) {
     const _data: IInternalTransferRequestData = {
@@ -80,7 +80,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
     <Container className="internal-transfer-page-wrapper">
       <Row>
         <Col xs={12}>
-          <PageTitle title="Internal Transfer" />
+          <PageTitle title={t('Internal Transfer')} />
         </Col>
       </Row>
       <Row className="justify-content-center">
@@ -109,12 +109,12 @@ export const InternalTransfer = memo(function InternalTransfer() {
               return (
                 <Form className="internal-transfer__form">
                   <TradingAccountsSelect
-                    placeholder="Account From"
+                    placeholder={t('Account From')}
                     options={store.tradingAccounts}
                     name={EFields.accountFrom}
                   />
                   <TradingAccountsSelect
-                    placeholder="Account To"
+                    placeholder={t('Account To')}
                     options={store.tradingAccounts.filter(
                       (account) =>
                         account.currency === values?.accountFrom?.currency &&
@@ -124,7 +124,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
                     isDisabled={!values?.accountFrom}
                   />
                   <Input
-                    label="Amount"
+                    label={t('Amount')}
                     name={EFields.amount}
                     disabled={!values?.accountFrom}
                     forceShowError={values.amount > 0}

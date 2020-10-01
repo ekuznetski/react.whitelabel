@@ -18,6 +18,7 @@ enum EFields {
 
 export function CardMethod() {
   const { dispatch } = useContext<any>(DepositContext);
+  const { t } = useTranslation();
   const [isBillingDetailsModalOpen, setIsBillingDetailsModalOpen] = React.useState<boolean>(false);
   const [isCreditCardInfoModalOpen, setCreditCardInfoModalOpen] = React.useState<boolean>(false);
 
@@ -36,8 +37,6 @@ export function CardMethod() {
     cardholderName: FieldValidators.requiredString,
     secureId: FieldValidators.requiredString,
   });
-
-  const { t } = useTranslation();
 
   return (
     <>

@@ -15,14 +15,14 @@ enum EFields {
 }
 
 export function FourthStep({ submitFn }: any) {
+  const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({
     uscitizen: FieldValidators.requiredString,
     pep: FieldValidators.requiredString,
     password: FieldValidators.password,
     confirmPassword: FieldValidators.password.oneOf([Yup.ref('password'), ''], 'Passwords must match'),
   });
-
-  const { t } = useTranslation();
 
   return (
     <div>
@@ -66,10 +66,10 @@ export function FourthStep({ submitFn }: any) {
               <h4 className="section-title mb-5">{t('Set a Password')}</h4>
               <Row>
                 <Col xs={12} sm={6}>
-                  <Input label="Password" name={EFields.password} type="password" />
+                  <Input label={t('Password')} name={EFields.password} type="password" />
                 </Col>
                 <Col xs={12} sm={6}>
-                  <Input label="Confirm password" name={EFields.confirmPassword} type="password" />
+                  <Input label={t('Confirm password')} name={EFields.confirmPassword} type="password" />
                 </Col>
               </Row>
               <Button type="submit">{t('Next')}</Button>

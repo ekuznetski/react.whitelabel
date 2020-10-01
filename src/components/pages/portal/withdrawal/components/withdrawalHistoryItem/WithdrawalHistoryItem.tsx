@@ -63,14 +63,14 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
             </div>
           ))}
           <div className="withdrawal-table__row footer">
-            Total Amount:
+            {t('Total Amount')}
             <Svg href={props.currency.toLowerCase() + '.svg'} className="ml-1" height={14} />
             {props.items?.reduce((acc, item) => acc + item.amount, 0)}
           </div>
         </div>
       )}
       <Modal className="withdrawal-history-item__modal" isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
-        <ModalTitle title="Confirmation" subTitle="Please confirm withdrawal cancellation" />
+        <ModalTitle title={t('Confirmation')} subTitle={t('Please confirm withdrawal cancellation')} />
         <ModalContext>
           <Svg href="shrimp.svg" width={100} className="p-7" />
         </ModalContext>

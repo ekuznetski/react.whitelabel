@@ -26,6 +26,8 @@ export const PersonalInfo = memo(
     const { geoIp } = useSelector<IStore, any>((state) => ({
       geoIp: state.data.geoIp,
     }));
+    const { t } = useTranslation();
+
     const validationSchema = Yup.object().shape({
       email: FieldValidators.email.max(100, 'Name must not exceed ${max} characters'),
       first_name: FieldValidators.name.max(100, 'Bank Name must not exceed ${max} characters'),
@@ -39,7 +41,6 @@ export const PersonalInfo = memo(
         overwise: Yup.string(),
       }),
     });
-    const { t } = useTranslation();
 
     return (
       <div className="personal-info">
@@ -67,25 +68,24 @@ export const PersonalInfo = memo(
 
                   return (
                     <Form className="internal-transfer__form">
-                      <Input label="Email" name={EFields.last_name} />
+                      <Input label={t('Email')} name={EFields.last_name} />
                       <Row>
                         <Col xs={12} md={6}>
-                          <Input label="First Name" name={EFields.email} />
+                          <Input label={t('First Name')} name={EFields.email} />
                         </Col>
                         <Col xs={12} md={6}>
-                          <Input label="Last Name" name={EFields.first_name} />
+                          <Input label={t('Last Name')} name={EFields.first_name} />
                         </Col>
                       </Row>
                       <div className="form_breakline mt-2 mb-10" />
-                      <CountrySelect label="Country" name={EFields.country} />
-                      <Input label="City" name={EFields.city} />
-                      <Input
-                        label="Apartment/suite number, building name, street number and street name"
-                        name={EFields.street}
-                      />
+                      <CountrySelect label={t('Country')} name={EFields.country} />
+                      <Input label={t('City')} name={EFields.city} />
+                      <Input label={t('Adress 1')} name={EFields.street} />
                       {_country?.code !== ECountryCode.AE && (
                         <Input
-                          label={!_country?.postcodeRequired ? 'Postal Code' : 'Postal Code (Optional)'}
+                          label={
+                            !_country?.postcodeRequired ? t('Postal Code') : t('Postal Code') + ' ' + t('Optional')
+                          }
                           name={EFields.postcode}
                         />
                       )}
@@ -93,7 +93,7 @@ export const PersonalInfo = memo(
                       <div className="phone-wrapper">
                         <PhoneCodeSelect name={EFields.phone_code} preselectedValue={geoIp?.countryCode} />
                         <Input
-                          label="Phone"
+                          label={t('Phone')}
                           name={EFields.phone}
                           onChange={(e: any) => {
                             if (/^\d*$/gm.test(e.target.value) || e.target.value === '') {

@@ -10,11 +10,11 @@ enum EFields {
 }
 
 export function FifthStep({ name, submitFn }: any) {
+  const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({
     declaration: Yup.bool().oneOf([true], 'This field is required'),
   });
-
-  const { t } = useTranslation();
 
   return (
     <div className="registration-fifth-step">
@@ -33,10 +33,10 @@ export function FifthStep({ name, submitFn }: any) {
             <Form className="m-auto form fadein-row">
               <h4 className="section-title mb-5">{t('Declaration')}</h4>
               <Checkbox name={EFields.declaration} className="mb-10">
-                I, {name}, declare that I have carefully read and understood <a href="#">Customer Agreement</a>,{' '}
-                <a href="#">Terms of Business</a>, <a href="#">Privacy Policy</a> and all other policies as found here
-                which I fully accept and agree with. I accept I am electronically signing these documents, and that this
-                is a legally binding contractual agreement.
+                {t('Customer introduction agreement:0')}, {name}, {t('Customer introduction agreement:1')}{' '}
+                <a href="#">{t('Customer introduction agreement:2')}</a>,{' '}
+                <a href="#">{t('Customer introduction agreement:3')}</a>, <a href="#">{t('Privacy Policy')}</a>{' '}
+                {t('Customer introduction agreement:4')}
               </Checkbox>
               <Button type="submit">{t('Submit')}</Button>
               <p className="mt-5 text-center under-form">

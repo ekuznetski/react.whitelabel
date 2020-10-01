@@ -12,6 +12,11 @@ import * as Yup from 'yup';
 import './Login.scss';
 
 export function Login() {
+  enum EFields {
+    'username' = 'username',
+    'password' = 'password',
+  }
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -19,17 +24,12 @@ export function Login() {
     profile: state.data.client.profile,
   }));
 
-  enum EFields {
-    'username' = 'username',
-    'password' = 'password',
-  }
+  const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
     [EFields.username]: FieldValidators.loginAndEmail,
     [EFields.password]: FieldValidators.requiredString,
   });
-
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (!!profile) {
@@ -54,8 +54,8 @@ export function Login() {
           >
             {(props: FormikProps<any>) => (
               <Form className="m-auto form">
-                <Input label="Login" name={EFields.username} />
-                <Input label="Password" type="password" name={EFields.password} />
+                <Input label={t('Login')} name={EFields.username} />
+                <Input label={t('Password')} type="password" name={EFields.password} />
                 <Button type="submit">{t('Submit')}</Button>
               </Form>
             )}

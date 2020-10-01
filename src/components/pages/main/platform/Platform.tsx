@@ -74,12 +74,12 @@ export function Platform() {
             <div className="col-12 col-lg-9">
               <div className="assets__title mb-7">f</div>
               <div className="assets__description mb-md-13">
-                {t('CFDs for desc:0')}{' '}
+                {t('CFDs for desc:0')}
                 <Link to={{ pathname: '/products', state: { scrollTo: 'currencies' } }}>{t('Currencies')}</Link>,{' '}
                 <Link to={{ pathname: '/products', state: { scrollTo: 'stocks' } }}>{t('Stocks')}</Link>,{' '}
                 <Link to={{ pathname: '/products', state: { scrollTo: 'indices' } }}>{t('Indices')}</Link>,{' '}
                 <Link to={{ pathname: '/products', state: { scrollTo: 'commodities' } }}>{t('Commodities')}</Link>{' '}
-                {t('CFDs for desc:1')}{' '}
+                {t('CFDs for desc:1')}
                 <Link to={{ pathname: '/products', state: { scrollTo: 'crypto' } }}>{t('Cryptocurrencies')}</Link>{' '}
                 {t('CFDs for desc:2')}
                 {t('CFDs for desc:3')}
@@ -98,21 +98,21 @@ export function Platform() {
         <div className="container">
           <div className="row">
             <div className="col-12">
-              <div className="perfect__title mb-4">{'Perfect For EAs'}</div>
+              <div className="perfect__title mb-4">{t('Perfect For EAs')}</div>
               <div className="perfect__description mb-13">{t('Automate your trading strategies')}</div>
             </div>
             <div className="col-12 col-lg-8 offset-lg-2 perfect__items">
               <div className="perfect__item pb-9 py-md-0">
                 <Svg href="pc_install.svg" width={48} className="mb-md-4 mr-5 mr-md-0" />
-                {'Easy to install'}
+                {t('Easy to install')}
               </div>
               <div className="perfect__item py-9 py-md-0">
                 <Svg href="bridge.svg" width={48} className="mb-md-4 mr-5 mr-md-0" />
-                {'No third party bridges'}
+                {t('No third party bridges')}
               </div>
               <div className="perfect__item pt-9 py-md-0">
-                <Svg href="time_reverse_closk.svg" width={48} className="mb-md-4 mr-5 mr-md-0" />
-                {'24/5 Trading'}
+                <Svg href="time_reverse_cloak.svg" width={48} className="mb-md-4 mr-5 mr-md-0" />
+                {t('24 5 Trading')}
               </div>
             </div>
           </div>

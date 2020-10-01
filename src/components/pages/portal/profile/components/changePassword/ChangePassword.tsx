@@ -14,6 +14,7 @@ enum EFields {
 
 export const ChangePassword = memo(
   forwardRef<HTMLDivElement>(function ChangePassword(props, ref) {
+    const { t } = useTranslation();
     const validationSchema = Yup.object().shape({
       currentPassword: FieldValidators.password,
       newPassword: Yup.string().when('currentPassword', {
@@ -27,8 +28,6 @@ export const ChangePassword = memo(
         otherwise: Yup.string(),
       }),
     });
-
-    const { t } = useTranslation();
 
     return (
       <div className="change-password">
@@ -48,19 +47,19 @@ export const ChangePassword = memo(
                   return (
                     <Form className="internal-transfer__form">
                       <Input
-                        label="Current Password"
+                        label={t('Current Password')}
                         name={EFields.currentPassword}
                         type="password"
                         autoComplete="current-password"
                       />
                       <Input
-                        label="New Password"
+                        label={t('New Password')}
                         name={EFields.newPassword}
                         type="password"
                         autoComplete="new-password"
                       />
                       <Input
-                        label="Repeat New Password"
+                        label={t('Repeat New Password')}
                         name={EFields.repeatNewPassword}
                         type="password"
                         autoComplete="new-password"

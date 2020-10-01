@@ -9,6 +9,7 @@ import { DepositContext } from '../../depositContext';
 
 export function SkrillMethod() {
   const { dispatch } = useContext<any>(DepositContext);
+  const { t } = useTranslation();
   const [isBillingDetailsModalOpen, setIsBillingDetailsModalOpen] = React.useState<boolean>(false);
 
   //TODO setup validataion
@@ -16,8 +17,6 @@ export function SkrillMethod() {
     account: FieldValidators.requiredString,
     secureId: FieldValidators.requiredString,
   });
-
-  const { t } = useTranslation();
 
   function onClickHandler(e: React.MouseEvent) {
     e.preventDefault();
@@ -34,7 +33,7 @@ export function SkrillMethod() {
         <DetailsHeader />
         <Row>
           <Col xs={12}>
-            <Button onClick={submit}>Deposit</Button>
+            <Button onClick={submit}>{t('Deposit')}</Button>
           </Col>
         </Row>
       </div>

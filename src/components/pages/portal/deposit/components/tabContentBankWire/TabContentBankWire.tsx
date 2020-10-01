@@ -21,11 +21,11 @@ export function TabContentBankWire() {
   enum EFields {
     'account' = 'account',
   }
+  const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({
     // account: FieldValidators.requiredString,
   });
-
-  const { t } = useTranslation();
 
   return (
     <div className="bank-wire-deposit py-10 px-9">

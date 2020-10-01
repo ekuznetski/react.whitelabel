@@ -30,6 +30,7 @@ enum EFields {
 export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
   const [isModalSuccessOpen, setModalSuccessOpen] = React.useState(false);
   const [isModalFailureOpen, setModalFailureOpen] = React.useState(false);
+  const { t } = useTranslation();
   const validationSchema = Yup.object().shape({
     platform: FieldValidators.requiredString,
     account_type: FieldValidators.requiredString,
@@ -52,7 +53,6 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
     { label: 'Classic', value: ETradingAccountType.classic },
     { label: 'Raw', value: ETradingAccountType.raw },
   ];
-  const { t } = useTranslation();
 
   return (
     <>
@@ -60,7 +60,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
         <Row>
           <Col xs={12}>
             <PageTitle
-              title={routeState.accountType === ETradingType.demo ? 'Open Demo Account' : 'Open Live Account'}
+              title={routeState.accountType === ETradingType.demo ? t('Open Demo Account') : t('Open Live Account')}
             />
           </Col>
         </Row>
@@ -109,7 +109,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
         </Row>
       </Container>
       <Modal className="open-account__modal success" isOpen={isModalSuccessOpen} isOpenDispatcher={setModalSuccessOpen}>
-        <ModalTitle title="Successful Submission">
+        <ModalTitle title={t('Successful Submission')}>
           <small className="mt-1">
             {t('Demo Live trade account with ID')} <b>1000008251</b> {t('added successfully')}
           </small>
@@ -124,7 +124,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
         </ModalNav>
       </Modal>
       <Modal className="open-account__modal failure" isOpen={isModalFailureOpen} isOpenDispatcher={setModalFailureOpen}>
-        <ModalTitle title="Unsuccessful Submission" subTitle="Something went wrong. Please try again." />
+        <ModalTitle title={t('Unsuccessful Submission')} subTitle={t('Something went wrong. Please try again')} />
         <ModalContext>
           <Svg href="shrimp.svg" width={100} className="p-7" />
         </ModalContext>

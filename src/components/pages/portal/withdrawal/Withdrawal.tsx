@@ -34,6 +34,8 @@ export const Withdrawal = memo(function Withdrawal() {
     clientData: state.data.client.statusData,
   }));
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({
     account: Yup.object().required('This field is required'),
     amount: Yup.number().when('account', {
@@ -65,7 +67,6 @@ export const Withdrawal = memo(function Withdrawal() {
       overwise: Yup.number(),
     }),
   });
-  const { t } = useTranslation();
 
   return (
     <div className="withdrawal-page-wrapper">
@@ -86,11 +87,11 @@ export const Withdrawal = memo(function Withdrawal() {
           )}
           {store.clientData?.isDormant && (
             <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
-              {'90 inactive days warning:0'}{' '}
+              {t('90 inactive days warning:0')}{' '}
               <a className="a-link" href="mailto:accounts@hycm.com">
                 accounts@hycm.com
               </a>{' '}
-              {'90 inactive days warning:1'}
+              {t('90 inactive days warning:1')}
             </Alert>
           )}
           <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
@@ -112,7 +113,7 @@ export const Withdrawal = memo(function Withdrawal() {
                 return (
                   <Form className="withdrawal__form">
                     <TradingAccountsSelect
-                      placeholder="Trading Account"
+                      placeholder={t('Trading Account')}
                       options={store.tradingAccounts}
                       name={EFields.account}
                       onChange={(account: MTradingAccount) => {
@@ -123,7 +124,7 @@ export const Withdrawal = memo(function Withdrawal() {
                       }}
                     />
                     <Input
-                      label="Trading Amount"
+                      label={t('Trading Amount')}
                       name={EFields.amount}
                       disabled={!values.account || store.withdrawalLimitIsLoading}
                       isLoading={store.withdrawalLimitIsLoading}

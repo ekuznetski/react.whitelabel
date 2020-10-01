@@ -7,7 +7,7 @@ import './MobileTradingWithMT5.scss';
 
 export const MobileTradingWithMT5Section = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(function MobileTradingWithMT5Section(props, ref) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return (
       <section className={classNames('mobile-trading-with-mt5', props.className)}>
@@ -23,8 +23,8 @@ export const MobileTradingWithMT5Section = memo(
                 {t('With MT5')}
               </div>
               <div className="mobile-trading-with-mt5__description mb-10">
-                <div className="mb-6">{i18n.t('Mobile Trading Section Desc:0')}</div>
-                <div className="mb-6">{i18n.t('Mobile Trading Section Desc:1')}</div>
+                <div className="mb-6">{t('Mobile Trading Section Desc:0')}</div>
+                <div className="mb-6">{t('Mobile Trading Section Desc:1')}</div>
               </div>
               <div className="store-links">
                 <Button className="mr-md-6 px-7 mb-7 mb-md-0">

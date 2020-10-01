@@ -15,14 +15,13 @@ enum EFields {
 
 export function NetellerMethod() {
   const { dispatch } = useContext<any>(DepositContext);
+  const { t } = useTranslation();
 
   //TODO setup validataion
   const validationSchema = Yup.object().shape({
     account: FieldValidators.requiredString,
     secureId: FieldValidators.requiredString,
   });
-
-  const { t } = useTranslation();
 
   return (
     <>
@@ -42,10 +41,10 @@ export function NetellerMethod() {
               <Form className="m-auto form fadein-row">
                 <Row>
                   <Col xs={12}>
-                    <Input label="Email or Account ID" name={EFields.account} />
+                    <Input label={t('Email or Account ID')} name={EFields.account} />
                   </Col>
                   <Col xs={12}>
-                    <Input label="Secure ID or Authentication Code" name={EFields.secureId} />
+                    <Input label={t('Secure ID or Authentication Code')} name={EFields.secureId} />
                   </Col>
                   <Col xs={12}>
                     <Button type="submit">{t('Deposit')}</Button>

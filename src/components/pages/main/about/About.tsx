@@ -22,6 +22,7 @@ import { MobileDepositTable } from './mobileDepositTable/MobileDepositTable';
 
 export function About() {
   const responsive = useResponsive();
+  const { t } = useTranslation();
 
   const _tempTableData: ITable = {
     headers: ['Method', 'Minimum', 'Currency', 'Processing', 'Fees'],
@@ -74,8 +75,6 @@ export function About() {
       uid: 4,
     },
   ];
-
-  const { t } = useTranslation();
 
   return (
     <div className="about-wrapper">
@@ -130,7 +129,7 @@ export function About() {
                 </Card>
                 <Card wrapperClassName="col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="timer.svg" />} uid={3}>
                   <CardContent>
-                    {'Quick'} <small>{t('Processing')}</small>
+                    {t('Quick')} <small>{t('Processing')}</small>
                   </CardContent>
                 </Card>
               </Cards>

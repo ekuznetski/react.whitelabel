@@ -27,9 +27,9 @@ export interface IWorkshopCards {
 export const WorkshopCards = memo(
   forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & IWorkshopCards>(function WorkshopCards(props, ref) {
     const [activeItem, setActiveItem] = useState(0);
+    const { t } = useTranslation();
     const buttonsRef = Array.from(props.data, () => React.createRef<HTMLButtonElement>());
     const inView = buttonsRef.map((_ref) => useInViewport(_ref));
-    const { t } = useTranslation();
 
     useEffect(() => setActiveItem(inView.indexOf(true)), [inView]);
 
