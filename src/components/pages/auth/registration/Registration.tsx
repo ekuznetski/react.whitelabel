@@ -4,6 +4,7 @@ import { ac_preRegister, ac_register } from '@store';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
 import './Registration.scss';
@@ -70,6 +71,8 @@ export function Registration() {
     }
   }, [continueReg]);
 
+  const { t } = useTranslation();
+
   async function onSubmitFn(data: any) {
     setFormData({ ...formData, ...data });
     setActiveStep(activeStep + 1);
@@ -102,7 +105,7 @@ export function Registration() {
   return (
     <div className="registration">
       <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
-        Do you want to continue registration?
+        {t('Do you want to continue registration')}
         <Row>
           <Col xs={6}>
             <Button
@@ -113,7 +116,7 @@ export function Registration() {
               }}
               className="fadeFromBottom-row__5"
             >
-              Yes, continue
+              {t('Yes, continue')}
             </Button>
           </Col>
           <Col xs={6}>
@@ -125,7 +128,7 @@ export function Registration() {
               }}
               className="fadeFromBottom-row__5"
             >
-              No, start new
+              {t('No, start new')}
             </Button>
           </Col>
         </Row>
@@ -133,7 +136,7 @@ export function Registration() {
       <Container>
         <Row>
           <Col sm={12} md={7} lg={5} className="m-auto">
-            <h3 className="text-center">Open a Trading Account</h3>
+            <h3 className="text-center">{t('Open a Trading Account')}</h3>
             <ul className="steps-indicator">
               {Array.from({ length: 5 }).map((_, i) => (
                 <li

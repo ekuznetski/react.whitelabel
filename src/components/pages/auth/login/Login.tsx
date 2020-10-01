@@ -5,6 +5,7 @@ import { ac_login, IStore } from '@store';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -21,6 +22,7 @@ export function Login() {
   }));
   const dispatch = useDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
     [EFields.username]: FieldValidators.loginAndEmail,
@@ -37,7 +39,7 @@ export function Login() {
     <Container>
       <Row>
         <Col sm={12} md={7} lg={5} className="m-auto">
-          <h3 className="text-center mb-7">Login</h3>
+          <h3 className="text-center mb-7">{t('Login')}</h3>
           <Formik
             initialValues={{
               username: '',
@@ -50,15 +52,15 @@ export function Login() {
           >
             {(props: FormikProps<any>) => (
               <Form className="m-auto form">
-                <Input label="Login" name={EFields.username} />
-                <Input label="Password" type="password" name={EFields.password} />
-                <Button type="submit">Submit</Button>
+                <Input label={t('Login')} name={EFields.username} />
+                <Input label={t('Password')} type="password" name={EFields.password} />
+                <Button type="submit">{t('Submit')}</Button>
               </Form>
             )}
           </Formik>
           <div className="mt-5 text-center d-flex align-items-center justify-content-between forgot-create">
-            <Link to={'/restore-password'}>Restore password</Link>
-            <Link to={'/registration'}>Create Live Account</Link>
+            <Link to={'/restore-password'}>{t('Restore password')}</Link>
+            <Link to={'/registration'}>{t('Create Live Account')}</Link>
           </div>
         </Col>
       </Row>

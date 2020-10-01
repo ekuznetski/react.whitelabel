@@ -2,7 +2,8 @@ import { Button, Img, Svg } from '@components/shared';
 import { EWorkshopType } from '@domain/enums';
 import { useInViewport } from 'ahooks';
 import React, { forwardRef, memo, useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import './WorkshopCards.scss';
 export interface IWorkshopCards {
   data: {
@@ -25,6 +26,8 @@ export interface IWorkshopCards {
 
 export const WorkshopCards = memo(
   forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & IWorkshopCards>(function WorkshopCards(props, ref) {
+    const { t } = useTranslation();
+
     const [activeItem, setActiveItem] = useState(0);
     const buttonsRef = Array.from(props.data, () => React.createRef<HTMLButtonElement>());
     const inView = buttonsRef.map((_ref) => useInViewport(_ref));
@@ -42,7 +45,7 @@ export const WorkshopCards = memo(
                   <div className="item-name">{workshop.author.name}</div>
                   <div className="item-title mb-7">{workshop.author.title}</div>
                   <div className={`item-type ${workshop.type.toLowerCase()}`}>{workshop.type}</div>
-                  <Button className="mt-auto">Register</Button>
+                  <Button className="mt-auto">{t('Register')}</Button>
                 </div>
               </div>
               <div className="workshop-cards__item-content">
@@ -63,7 +66,7 @@ export const WorkshopCards = memo(
               </div>
               <div className="workshop-cards__item-footer d-md-none py-7 px-8 mt-7">
                 <Button className="mt-auto" data-wuid={w} ref={buttonsRef[w]}>
-                  Register
+                  {t('Register')}
                 </Button>
               </div>
             </div>

@@ -6,6 +6,7 @@ import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import './SecondStep.scss';
@@ -26,6 +27,7 @@ export function SecondStep({ submitFn }: any) {
   const { geoIp } = useSelector<IStore, Partial<IDataStore>>((state) => ({
     geoIp: state.data.geoIp,
   }));
+  const { t } = useTranslation();
 
   const months = moment
     .localeData('en')
@@ -100,21 +102,21 @@ export function SecondStep({ submitFn }: any) {
         validationSchema={validationSchema}
         onSubmit={Submit}
       >
-        {({ values, setFieldValue }) => {
+        {(props: any) => {
+          const { values, setFieldValue } = props;
+
           return (
             <Form className="m-auto form fadein-row">
-              <h4 className="section-title mb-5">Additional Information</h4>
-              <Checkbox name={EFields.tax_checkbox}>
-                The country in which I reside and pay taxes is the below country.{' '}
-              </Checkbox>
+              <h4 className="section-title mb-5">{t('Additional Information')}</h4>
+              <Checkbox name={EFields.tax_checkbox}>{t('The country in which I pay taxes')} </Checkbox>
               {!!values.tax_checkbox && (
-                <CountrySelect className="fadein-row" label="Country of tax" name={EFields.tax_country} />
+                <CountrySelect className="fadein-row" label={t('Country of tax')} name={EFields.tax_country} />
               )}
-              <CountrySelect label="Country of residence" name={EFields.country} />
-              <h4 className="section-title mb-5">Date of Birth</h4>
+              <CountrySelect label={t('Country of residence')} name={EFields.country} />
+              <h4 className="section-title mb-5">{t('Date of Birth')}</h4>
               <div className="dob d-flex">
                 <Input
-                  label="Day"
+                  label={t('Day')}
                   name={EFields.dayOfBirth}
                   value={values.dayOfBirth}
                   onChange={(e: any) => {
@@ -124,9 +126,9 @@ export function SecondStep({ submitFn }: any) {
                     }
                   }}
                 />
-                <Select className="mx-3" label="Month" options={months} name={EFields.monthOfBirth} />
+                <Select className="mx-3" label={t('Month')} options={months} name={EFields.monthOfBirth} />
                 <Input
-                  label="Year"
+                  label={t('Year')}
                   name={EFields.yearOfBirth}
                   value={values.yearOfBirth}
                   onChange={(e: any) => {
@@ -137,11 +139,11 @@ export function SecondStep({ submitFn }: any) {
                   }}
                 />
               </div>
-              <h4 className="section-title">Address</h4>
-              <Input label="Street name and number" name={EFields.street} />
-              <Input label="City" name={EFields.city} />
-              <Input label="Postcode (Optional)" name={EFields.zip} />
-              <Button type="submit">Next</Button>
+              <h4 className="section-title">{t('Address')}</h4>
+              <Input label={t('Street name and number')} name={EFields.street} />
+              <Input label={t('City')} name={EFields.city} />
+              <Input label={t('Postal code') + ' ' + t('Optional')} name={EFields.zip} />
+              <Button type="submit">{t('Next')}</Button>
             </Form>
           );
         }}

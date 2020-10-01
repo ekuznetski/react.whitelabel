@@ -4,20 +4,22 @@ import {
   OpenLiveAccountBannerSection,
   OurOfferBannerSection,
   PrestigiousPlatformTechnologySection,
+  SimpleToGetStartedSection,
   TakeControlOfTradesSection,
   WorkshopCards,
-  SimpleToGetStartedSection,
 } from '@components/sections';
-import { Card, CardContent, CardHeader, Cards, Img, Svg, Button, SectionBg } from '@components/shared';
+import { Button, Card, CardContent, CardHeader, Cards, SectionBg, Svg } from '@components/shared';
 import { EWorkshopType } from '@domain/enums';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import './Home.scss';
 import { StockPrices } from './stocks_prices/StockPrices';
-import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 
 export function Home() {
+  const { t } = useTranslation();
+
   const takeControlItems = [
     {
       title: 'Trade with the Metatrader 5 platform',
@@ -115,13 +117,13 @@ export function Home() {
           <Row className="mb-9 mb-lg-18">
             <Col xs={12} md={8} lg={6}>
               <div className="page-top__title mb-5 mb-lg-9">
-                Trade smart.
+                {t('Trade smart')}
                 <br />
-                Trade safe.
+                {t('Trade safe')}
               </div>
-              <div className="page-top__description mb-11 mb-lg-10">Providing trading services since 1977*</div>
+              <div className="page-top__description mb-11 mb-lg-10">{t('Home Page Top Section Desc')}</div>
               <Button>
-                <Link to="/registration">Open Live Account</Link>
+                <Link to="/registration">{t('Open Live Account')}</Link>
               </Button>
             </Col>
           </Row>
@@ -145,7 +147,7 @@ export function Home() {
         <Container>
           <Row>
             <Col xs={12}>
-              <div className="workshop-cards__title mb-6 mb-md-12">Free upcoming webinar/workshop</div>
+              <div className="workshop-cards__title mb-6 mb-md-12">{t('Free upcoming webinar workshop')}</div>
             </Col>
           </Row>
           <WorkshopCards data={workshopsData} />
@@ -157,7 +159,7 @@ export function Home() {
           <Row>
             <Col xs={12} className="mb-11">
               <div className="trade-products__title">
-                <b>Trade</b> Our Products
+                <b>{t('Trade')}</b> {t('Our Products')}
               </div>
             </Col>
             <Col xs={12} className="p-0">
@@ -170,7 +172,7 @@ export function Home() {
                     </CardHeader>
                     <CardContent className="text-left">
                       <div className="mb-1">
-                        <b>exchange:</b>
+                        <b>{t('exchange')}</b>
                       </div>
                       <span className="greyText">{card.exchange}</span>
                     </CardContent>

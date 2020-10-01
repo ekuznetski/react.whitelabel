@@ -5,6 +5,7 @@ import { ECurrencyCode, ETradingAccountType, ETradingPlatform } from '@domain/en
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import './ThirdStep.scss';
 
@@ -16,6 +17,8 @@ enum EFields {
 }
 
 export function ThirdStep({ submitFn }: any) {
+  const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({
     platform: FieldValidators.requiredString,
     account_type: FieldValidators.requiredString,
@@ -26,7 +29,6 @@ export function ThirdStep({ submitFn }: any) {
       otherwise: Yup.string().notRequired(),
     }),
   });
-
   const accountTypeOptions = [
     {
       label: (
@@ -106,7 +108,7 @@ export function ThirdStep({ submitFn }: any) {
           }
           return (
             <Form className="m-auto form fadein-row">
-              <h4 className="section-title mb-5">Choose Trading Platform</h4>
+              <h4 className="section-title mb-5">{t('Choose Trading Platform')}</h4>
               <Radio
                 className="mb-10"
                 name={EFields.platform}
@@ -115,21 +117,21 @@ export function ThirdStep({ submitFn }: any) {
                   { label: 'MetaTrader 5', value: ETradingPlatform.mt5 },
                 ]}
               />
-              <h4 className="section-title mb-5">Choose Account Type</h4>
+              <h4 className="section-title mb-5">{t('Choose Account Type')}</h4>
               <Radio className="mb-10 account_type" name={EFields.account_type} options={accountTypeOptions} />
               <Row>
                 <Col xs={12} sm={6}>
-                  <h5 className="select-title">Account Currency</h5>
+                  <h5 className="select-title">{t('Account Currency')}</h5>
                   <CurrencySelect name={EFields.currency} />
                 </Col>
                 {values.platform === ETradingPlatform.mt4 && (
                   <Col xs={12} sm={6} className="fadein-row">
-                    <h5 className="select-title">Leverage</h5>
+                    <h5 className="select-title">{t('Leverage')}</h5>
                     <Select options={leverageList} name={EFields.leverage} />
                   </Col>
                 )}
               </Row>
-              <Button type="submit">Next</Button>
+              <Button type="submit">{t('Next')}</Button>
             </Form>
           );
         }}

@@ -1,13 +1,14 @@
-import React, { useContext, useState } from 'react';
-import './TabContentChooseAmount.scss';
-import { ECurrency, ECurrencySymbol } from '@domain/enums';
-import * as Yup from 'yup';
-import { Form, Formik, useFormikContext } from 'formik';
 import { Button, Input, Radio, TradingAccountsSelect } from '@components/shared';
-import { useSelector } from 'react-redux';
-import { IStore } from '@store';
+import { ECurrency, ECurrencySymbol } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
+import { IStore } from '@store';
+import { Form, Formik, useFormikContext } from 'formik';
+import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import * as Yup from 'yup';
 import { availableAmounts, depositActionCreators, DepositContext } from '../../depositContext';
+import './TabContentChooseAmount.scss';
 
 enum EFields {
   'account' = 'account',
@@ -19,6 +20,7 @@ export function TabContentChooseAmount() {
   const ref = React.createRef<HTMLInputElement>();
   const { amount, account } = useContext<any>(DepositContext).state;
   const { dispatch } = useContext<any>(DepositContext);
+  const { t } = useTranslation();
 
   const { tradingAccounts } = useSelector<IStore, { tradingAccounts: MTradingAccount[] }>((state) => ({
     tradingAccounts: state.data.tradingData.accounts,
@@ -34,9 +36,9 @@ export function TabContentChooseAmount() {
 
     return (
       <div className="custom-amount-label-wrapper" onClick={() => ref.current?.focus()}>
-        <div className="title">Custom Amount</div>
+        <div className="title">{t('Custom Amount')}</div>
         <Input
-          label="Amount"
+          label={t('Amount')}
           name={EFields.customAmount}
           className="custom-amount-input ml-8"
           onChange={(e: { target: { value: any } }) => {
@@ -85,7 +87,7 @@ export function TabContentChooseAmount() {
           return (
             <Form className="m-auto form fadein-row">
               <TradingAccountsSelect
-                placeholder="TradingAccountsSelect"
+                placeholder={t('Choose Trading Account')}
                 name={EFields.account}
                 options={tradingAccounts}
                 onChange={(e: MTradingAccount) => dispatch(depositActionCreators.setAccount(e))}
@@ -105,7 +107,7 @@ export function TabContentChooseAmount() {
               <div>
                 {(values[EFields.amount] !== 'custom' && values[EFields.amount]) || values[EFields.customAmount] || '0'}
               </div>
-              <Button type="submit">Proceed to Payment</Button>
+              <Button type="submit">{t('Proceed to Payment')}</Button>
             </Form>
           );
         }}

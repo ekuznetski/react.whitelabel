@@ -4,6 +4,7 @@ import { FieldValidators } from '@domain';
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 enum EFields {
@@ -14,6 +15,8 @@ enum EFields {
 }
 
 export function FourthStep({ submitFn }: any) {
+  const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({
     uscitizen: FieldValidators.requiredString,
     pep: FieldValidators.requiredString,
@@ -43,7 +46,7 @@ export function FourthStep({ submitFn }: any) {
           const { values, setFieldValue } = props;
           return (
             <Form className="m-auto form fadein-row">
-              <h4 className="section-title mb-5">Are You a US Reportable Person? *</h4>
+              <h4 className="section-title mb-5">{t('Are You a US Reportable Person')}</h4>
               <Radio
                 className="mb-10"
                 name={EFields.uscitizen}
@@ -52,7 +55,7 @@ export function FourthStep({ submitFn }: any) {
                   { label: 'No', value: 'no' },
                 ]}
               />
-              <h4 className="section-title mb-5">Are you a Politically Exposed Person (PEP)? *</h4>
+              <h4 className="section-title mb-5">{t('Are you a Politically Exposed Person')}</h4>
               <Radio
                 className="mb-10"
                 name={EFields.pep}
@@ -61,21 +64,17 @@ export function FourthStep({ submitFn }: any) {
                   { label: 'No', value: 'no' },
                 ]}
               />
-              <p>
-                *Politically Exposed Person (PEP) means a natural person who is or has been entrusted with prominent
-                public functions during the last twelve (12) months, as well as immediate family members and close
-                associates of such a person
-              </p>
-              <h4 className="section-title mb-5">Set a Password</h4>
+              <p>{t('Politically Exposed Person Desc')}</p>
+              <h4 className="section-title mb-5">{t('Set a Password')}</h4>
               <Row>
                 <Col xs={12} sm={6}>
-                  <Input label="Password" name={EFields.password} type="password" />
+                  <Input label={t('Password')} name={EFields.password} type="password" />
                 </Col>
                 <Col xs={12} sm={6}>
-                  <Input label="Confirm password" name={EFields.confirmPassword} type="password" />
+                  <Input label={t('Confirm password')} name={EFields.confirmPassword} type="password" />
                 </Col>
               </Row>
-              <Button type="submit">Next</Button>
+              <Button type="submit">{t('Next')}</Button>
             </Form>
           );
         }}
