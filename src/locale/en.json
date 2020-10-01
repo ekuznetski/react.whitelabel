@@ -113,7 +113,7 @@
   "Get Trading Apps": "Get trading apps for Android or iOS and trade on the go, anywhere, anytime",
   "Don’t miss a thing": "Don’t miss a thing",
   "Never miss an opportunity": "Never miss an opportunity with our price alerts, push notifications, economic calendar, and market analyses",
-  "Free upcoming webinar/workshop": "Free upcoming webinar/workshop",
+  "Free upcoming webinar workshop": "Free upcoming webinar/workshop",
   "Register": "Register",
   "Trade": "Trade",
   "Our Products": "Our Products",
@@ -153,7 +153,7 @@
   "No, start new": "No, start new",
   "Open a Trading Account": "Open a Trading Account",
   "Profile": "Profile",
-  "Webinars & Workshops": "Webinars & Workshops",
+  "Webinars and Workshops": "Webinars & Workshops",
   "Verify your profile": "Verify your profile",
   "Add Deposit": "Add Deposit",
   "Declaration": "Declaration",
@@ -316,5 +316,4 @@
     "Terms of Business",
     "and all other policies as found here which I fully accept and agree with. I accept I am electronically signing these documents, and that this is a legally binding contractual agreement."
   ]
-
 }
