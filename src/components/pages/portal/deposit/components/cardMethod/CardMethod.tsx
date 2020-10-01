@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
-import * as Yup from 'yup';
-import { Form, Formik } from 'formik';
-import { Button, Input, ModalContext, Svg } from '@components/shared';
-import { depositActionCreators, DepositContext } from '../../depositContext';
+import { Button, Input, Svg } from '@components/shared';
 import { FieldValidators } from '@domain';
+import { Form, Formik } from 'formik';
+import React, { useContext } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 import { BillingDetailsModal, CreditCardInfoModal, DetailsHeader } from '..';
+import { depositActionCreators, DepositContext } from '../../depositContext';
 
 enum EFields {
   'cardholderName' = 'cardholderName',
@@ -35,6 +36,8 @@ export function CardMethod() {
     cardholderName: FieldValidators.requiredString,
     secureId: FieldValidators.requiredString,
   });
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -83,14 +86,14 @@ export function CardMethod() {
       <div className="py-10 px-9 col-xl-6 col-lg-7 col-md-9 col-12 m-auto">
         <Row className="note">
           <Col xs={12} sm={6}>
-            Edit your{' '}
+            {t('Edit your')}{' '}
             <a href="#" onClick={openBillingDetailsModal}>
-              billing address
+              {t('billing address')}
             </a>
           </Col>
           <Col xs={12} sm={6}>
             <a href="#" onClick={openCreditCardInfoModal}>
-              Debit/Credit Card Information
+              {t('Debit/Credit Card Information')}
             </a>
           </Col>
         </Row>

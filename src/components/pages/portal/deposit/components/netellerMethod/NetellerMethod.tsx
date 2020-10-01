@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
-import * as Yup from 'yup';
-import { Form, Formik } from 'formik';
 import { Button, Input } from '@components/shared';
-import { depositActionCreators, DepositContext } from '../../depositContext';
 import { FieldValidators } from '@domain';
+import { Form, Formik } from 'formik';
+import React, { useContext } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 import { DetailsHeader } from '..';
+import { depositActionCreators, DepositContext } from '../../depositContext';
 
 enum EFields {
   'account' = 'account',
@@ -20,6 +21,8 @@ export function NetellerMethod() {
     account: FieldValidators.requiredString,
     secureId: FieldValidators.requiredString,
   });
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -45,7 +48,7 @@ export function NetellerMethod() {
                     <Input label="Secure ID or Authentication Code" name={EFields.secureId} />
                   </Col>
                   <Col xs={12}>
-                    <Button type="submit">Deposit</Button>
+                    <Button type="submit">{t('Deposit')}</Button>
                   </Col>
                 </Row>
               </Form>
@@ -55,7 +58,7 @@ export function NetellerMethod() {
       </div>
       <div className="py-10 px-9 col-xl-6 col-lg-7 col-md-9 col-12 m-auto text-center">
         <Row className="note">
-          <Col xs={12}>Notes on Deposits and Withdrawals by Neteller online wallet</Col>
+          <Col xs={12}>{t('Neteller notes desc')}</Col>
         </Row>
       </div>
     </>

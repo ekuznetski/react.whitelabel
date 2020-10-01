@@ -1,5 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react';
 import { Button, Modal, ModalContext, ModalNav, ModalTitle, Svg } from '@components/shared';
+import React, { Dispatch, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface IBillingDetailsModalProps {
   isModalOpen: boolean;
@@ -7,6 +8,8 @@ interface IBillingDetailsModalProps {
 }
 
 export function CreditCardInfoModal({ isModalOpen, setModalOpen }: IBillingDetailsModalProps) {
+  const { t } = useTranslation();
+
   return (
     <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
       <ModalTitle title="Confirmation" subTitle="Please confirm withdrawal cancellation" />
@@ -20,10 +23,10 @@ export function CreditCardInfoModal({ isModalOpen, setModalOpen }: IBillingDetai
             setModalOpen(false);
           }}
         >
-          Confirm
+          {t('Confirm')}
         </Button>
         <Button className="noBg" onClick={() => setModalOpen(false)}>
-          Cancel
+          {t('Cancel')}
         </Button>
       </ModalNav>
     </Modal>

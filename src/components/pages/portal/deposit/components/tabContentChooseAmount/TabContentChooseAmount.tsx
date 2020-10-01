@@ -1,13 +1,14 @@
-import React, { useContext, useState } from 'react';
-import './TabContentChooseAmount.scss';
-import { ECurrency, ECurrencySymbol } from '@domain/enums';
-import * as Yup from 'yup';
-import { Form, Formik, useFormikContext } from 'formik';
 import { Button, Input, Radio, TradingAccountsSelect } from '@components/shared';
-import { useSelector } from 'react-redux';
-import { IStore } from '@store';
+import { ECurrency, ECurrencySymbol } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
+import { IStore } from '@store';
+import { Form, Formik, useFormikContext } from 'formik';
+import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import * as Yup from 'yup';
 import { availableAmounts, depositActionCreators, DepositContext } from '../../depositContext';
+import './TabContentChooseAmount.scss';
 
 enum EFields {
   'account' = 'account',
@@ -28,6 +29,8 @@ export function TabContentChooseAmount() {
     label: `${ECurrencySymbol[account?.currency.toLowerCase() as ECurrency]}  ${el}`,
     value: el,
   }));
+
+  const { t } = useTranslation();
 
   function CustomAmountInput() {
     const { values, setFieldValue }: { values: any; setFieldValue: any } = useFormikContext();
@@ -105,7 +108,7 @@ export function TabContentChooseAmount() {
               <div>
                 {(values[EFields.amount] !== 'custom' && values[EFields.amount]) || values[EFields.customAmount] || '0'}
               </div>
-              <Button type="submit">Proceed to Payment</Button>
+              <Button type="submit">{t('Proceed to Payment')}</Button>
             </Form>
           );
         }}

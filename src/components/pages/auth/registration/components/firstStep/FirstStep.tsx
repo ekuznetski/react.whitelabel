@@ -89,16 +89,16 @@ export function FirstStep({ submitFn }: any) {
               <p className="my-7 fadeFromBottom-row__4">
                 To improve your trading experience, we would like to notify you of market events and extreme price
                 movements. By signing up, you also declare you read, understood, and accept our{' '}
-                <a href="#">Privacy Policy</a> and you consent to receive newsletters, special offers and be contacted
-                by HYCM representatives via phone or e-mail. You can opt-out any time you wish to.
+                <a href="#">{t('Privacy Policy')}</a> and you consent to receive newsletters, special offers and be
+                contacted by HYCM representatives via phone or e-mail. You can opt-out any time you wish to.
               </p>
               <Button type="submit" className="fadeFromBottom-row__5">
-                Next
+                {t('Next')}
               </Button>
               <div className="mt-5 text-center under-form fadeFromBottom-row__6">
-                Already Registered?
+                {t('Already Registered?')}
                 <Link className="already__link ml-1" to={`/login`}>
-                  Sign In
+                  {t('Sign In')}
                 </Link>
               </div>
             </Form>

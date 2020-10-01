@@ -3,6 +3,7 @@ import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import moment, { Moment } from 'moment';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import './TransactionStatement.scss';
 
@@ -51,6 +52,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
     console.log(data);
     alert('Call `clients/bankingStatements` API.');
   }
+  const { t } = useTranslation();
 
   return (
     <Container className="transaction-statement-page-wrapper">
@@ -88,7 +90,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                       <DatePicker label="Choose date range" name={EFields.filter} range={true} />
                     </Tab>
                   </Tabs>
-                  <Button type="submit">Get Trading Statement</Button>
+                  <Button type="submit">{t('Get Trading Statement')}</Button>
                 </Form>
               );
             }}
