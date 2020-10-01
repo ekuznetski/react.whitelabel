@@ -25,7 +25,7 @@ export function FirstStep({ submitFn }: any) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  function innerSubmitFn(data: any, helpers: any) {
+  function Submit(data: any, helpers: any) {
     dispatch(
       ac_userExists(
         { username: data.email },
@@ -63,7 +63,7 @@ export function FirstStep({ submitFn }: any) {
           phone: '',
         }}
         validationSchema={validationSchema}
-        onSubmit={innerSubmitFn}
+        onSubmit={Submit}
       >
         {({ setFieldValue }) => {
           return (

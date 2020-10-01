@@ -6,12 +6,13 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
-export function RestorePassword() {
-  enum EFields {
-    'password' = 'password',
-  }
+enum EFields {
+  'password' = 'password',
+}
 
+export function RestorePassword() {
   const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({ [EFields.password]: FieldValidators.password });
 
   return (
@@ -20,7 +21,7 @@ export function RestorePassword() {
         <Col sm={12} md={7} lg={5} className="m-auto">
           <h3 className="text-center mb-7">{t('Restore Password')}</h3>
           <Formik
-            initialValues={Object.keys(EFields).reduce((acc, key) => Object.assign(acc, { [key]: '' }), {})}
+            initialValues={{ password: '' }}
             validationSchema={validationSchema}
             onSubmit={(data) => {
               console.log('Login submit', data);

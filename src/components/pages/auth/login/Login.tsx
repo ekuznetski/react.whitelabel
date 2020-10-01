@@ -11,19 +11,17 @@ import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import './Login.scss';
 
+enum EFields {
+  'username' = 'username',
+  'password' = 'password',
+}
+
 export function Login() {
-  enum EFields {
-    'username' = 'username',
-    'password' = 'password',
-  }
-
-  const dispatch = useDispatch();
-  const history = useHistory();
-
   const { profile } = useSelector<IStore, { profile: IClientProfile }>((state) => ({
     profile: state.data.client.profile,
   }));
-
+  const dispatch = useDispatch();
+  const history = useHistory();
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({

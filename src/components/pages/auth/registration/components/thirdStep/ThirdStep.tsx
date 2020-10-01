@@ -2,7 +2,7 @@ import { ERegSteps } from '@components/pages';
 import { Button, CurrencySelect, Radio, Select } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ECurrencyCode, ETradingAccountType, ETradingPlatform } from '@domain/enums';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -29,7 +29,6 @@ export function ThirdStep({ submitFn }: any) {
       otherwise: Yup.string().notRequired(),
     }),
   });
-
   const accountTypeOptions = [
     {
       label: (
@@ -77,7 +76,6 @@ export function ThirdStep({ submitFn }: any) {
       value: 'Raw',
     },
   ];
-
   const leverageList = [
     { label: '1:500', value: '500' },
     { label: '1:400', value: '400' },
@@ -85,6 +83,11 @@ export function ThirdStep({ submitFn }: any) {
     { label: '1:200', value: '200' },
     { label: '1:100', value: '100' },
   ];
+
+  function Submit(data: FormikValues) {
+    console.log(data);
+    submitFn({ [ERegSteps.step3]: data });
+  }
 
   return (
     <div className="registration-third-step">
@@ -96,10 +99,7 @@ export function ThirdStep({ submitFn }: any) {
           leverage: leverageList[0].value,
         }}
         validationSchema={validationSchema}
-        onSubmit={(data) => {
-          console.log(data);
-          submitFn({ [ERegSteps.step3]: data });
-        }}
+        onSubmit={Submit}
       >
         {(props: any) => {
           const { values, setFieldValue } = props;

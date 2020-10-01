@@ -1,7 +1,7 @@
 import { ERegSteps } from '@components/pages';
 import { Button, Input, Radio } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +24,12 @@ export function FourthStep({ submitFn }: any) {
     confirmPassword: FieldValidators.password.oneOf([Yup.ref('password'), ''], 'Passwords must match'),
   });
 
+  function Submit(data: FormikValues) {
+    console.log(data);
+    delete data.confirmPassword;
+    submitFn({ [ERegSteps.step4]: data });
+  }
+
   return (
     <div>
       <Formik
@@ -34,11 +40,7 @@ export function FourthStep({ submitFn }: any) {
           confirmPassword: '',
         }}
         validationSchema={validationSchema}
-        onSubmit={(data) => {
-          console.log(data);
-          delete data.confirmPassword;
-          submitFn({ [ERegSteps.step4]: data });
-        }}
+        onSubmit={Submit}
       >
         {(props: any) => {
           const { values, setFieldValue } = props;

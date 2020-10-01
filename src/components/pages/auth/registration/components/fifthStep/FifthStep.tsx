@@ -1,6 +1,6 @@
 import { ERegSteps } from '@components/pages';
 import { Button, Checkbox } from '@components/shared';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
@@ -15,6 +15,11 @@ export function FifthStep({ name, submitFn }: any) {
   const validationSchema = Yup.object().shape({
     declaration: Yup.bool().oneOf([true], 'This field is required'),
   });
+  
+  function Submit(data: FormikValues) {
+    console.log(data);
+    submitFn({ [ERegSteps.step5]: data });
+  }
 
   return (
     <div className="registration-fifth-step">
@@ -23,12 +28,9 @@ export function FifthStep({ name, submitFn }: any) {
           declaration: false,
         }}
         validationSchema={validationSchema}
-        onSubmit={(data) => {
-          console.log(data);
-          submitFn({ [ERegSteps.step5]: data });
-        }}
+        onSubmit={Submit}
       >
-        {(props: any) => {
+        {() => {
           return (
             <Form className="m-auto form fadein-row">
               <h4 className="section-title mb-5">{t('Declaration')}</h4>
