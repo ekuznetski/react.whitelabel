@@ -1,11 +1,12 @@
 import { Button, DatePicker, MultiSelect, PageTitle, Select, Tab, Tabs } from '@components/shared';
 import { ENotificationType } from '@domain/enums';
-import { ac_fetchTransactionalStatements, ac_showNotification } from '@store';
+import { IClientProfile } from '@domain/interfaces';
+import { ac_fetchTransactionalStatements, ac_showNotification, IStore } from '@store';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import './TransactionStatement.scss';
 
@@ -15,7 +16,11 @@ enum EFields {
 }
 
 export const TransactionStatement = memo(function TransactionStatement() {
+  const { profile } = useSelector<IStore, { profile: IClientProfile }>((state) => ({
+    profile: state.data.client.profile,
+  }));
   const dispatch = useDispatch();
+
   const validationSchema = Yup.object().shape({
     operation_type: Yup.array<string>().required('This field is required'),
     filter: Yup.array<Moment>().required('This field is required'),
@@ -86,7 +91,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
             validationSchema={validationSchema}
             onSubmit={Submit}
           >
-            {({ values, errors, setFieldValue, setErrors, resetForm }: FormikProps<any>) => {
+            {({ values, errors, resetForm }: FormikProps<any>) => {
               console.log(values, errors);
               return (
                 <Form className="transaction-statement__form">
@@ -111,6 +116,13 @@ export const TransactionStatement = memo(function TransactionStatement() {
               );
             }}
           </Formik>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12} md={9} lg={7} xl={6} className="py-10 px-9">
+          <div className="statements">
+            
+          </div>
         </Col>
       </Row>
     </Container>
