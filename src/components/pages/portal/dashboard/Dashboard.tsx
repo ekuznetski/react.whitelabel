@@ -44,7 +44,6 @@ export const Dashboard = memo(function Dashboard() {
 			},
 		},
 	];
-
 	const _tempTabsData: ITabs = {
 		labels: [
 			{
