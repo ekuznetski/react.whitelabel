@@ -3,6 +3,7 @@ import { ITabs, Svg, Tabs } from '@components/shared';
 import { ETradingType, EWorkshopType } from '@domain/enums';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { BannerCard, UserProfileCard } from './components';
 import { TradingAccountCards } from './components/TradingAccountCards/TradingAccountCards';
 import './Dashboard.scss';

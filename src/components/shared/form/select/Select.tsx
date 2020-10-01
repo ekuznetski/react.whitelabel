@@ -231,6 +231,7 @@ export const CurrencySelect = memo((props: any) => {
     const selectedValue = props.selectProps?.value?.value;
     const currentOptionValue = props.data.value;
     const isSelected = selectedValue === currentOptionValue;
+
     return (
       <components.Option {...props} className={isSelected ? 'selected' : ''}>
         {children}
@@ -272,6 +273,7 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
     const selectedValue = props.selectProps?.value?.value.accountId;
     const currentOptionValue = props.data.value.accountId;
     const isSelected = selectedValue === currentOptionValue;
+    
     return (
       <components.Option {...props} className={isSelected ? 'selected' : ''}>
         {children}

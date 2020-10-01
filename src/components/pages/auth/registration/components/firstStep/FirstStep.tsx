@@ -2,6 +2,7 @@ import { ERegSteps } from '@components/pages';
 import { Button, Input, PhoneCodeSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ac_userExists, IStore } from '@store';
+import { usePathLocale } from '@utils/hooks';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -23,6 +24,7 @@ export function FirstStep({ submitFn }: any) {
     geoIp: state.data.geoIp,
   }));
   const dispatch = useDispatch();
+  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
 
   function Submit(data: any, helpers: any) {
@@ -98,7 +100,7 @@ export function FirstStep({ submitFn }: any) {
               </Button>
               <div className="mt-5 text-center under-form fadeFromBottom-row__6">
                 {t('Already Registered?')}
-                <Link className="already__link ml-1" to={`/login`}>
+                <Link className="already__link ml-1" to={localizePath(`/login`)}>
                   {t('Sign In')}
                 </Link>
               </div>

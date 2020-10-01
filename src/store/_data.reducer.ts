@@ -28,7 +28,7 @@ export const initDataStore: Nullable<IDataStore> = {
   },
 };
 
-export const dataStoreReducer = (state = initDataStore as IDataStore, action: IAction) => {
+export function dataStoreReducer(state = initDataStore as IDataStore, action: IAction) {
   switch (action.type) {
     case EActionTypes.saveContent:
       return { ...state, content: { ...state.content, ...action.payload } };
@@ -53,4 +53,4 @@ export const dataStoreReducer = (state = initDataStore as IDataStore, action: IA
     default:
       return state;
   }
-};
+}

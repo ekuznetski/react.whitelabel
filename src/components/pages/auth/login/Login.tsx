@@ -2,6 +2,7 @@ import { Button, Input } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { IClientProfile, ILoginRequest } from '@domain/interfaces';
 import { ac_login, IStore } from '@store';
+import { usePathLocale } from '@utils/hooks';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -21,6 +22,7 @@ export function Login() {
     profile: state.data.client.profile,
   }));
   const dispatch = useDispatch();
+  const { localizePath } = usePathLocale();
   const history = useHistory();
   const { t } = useTranslation();
 
@@ -59,8 +61,8 @@ export function Login() {
             )}
           </Formik>
           <div className="mt-5 text-center d-flex align-items-center justify-content-between forgot-create">
-            <Link to={'/restore-password'}>{t('Restore password')}</Link>
-            <Link to={'/registration'}>{t('Create Live Account')}</Link>
+            <Link to={localizePath('/restore-password')}>{t('Restore password')}</Link>
+            <Link to={localizePath('/registration')}>{t('Create Live Account')}</Link>
           </div>
         </Col>
       </Row>

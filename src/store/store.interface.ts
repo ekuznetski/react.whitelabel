@@ -1,3 +1,4 @@
+import { EAppSection } from '@domain/enums';
 import { IClientProfile, IContent, IGeoIp, ILogin, INotificationState } from '@domain/interfaces';
 import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
 import { EActionTypes } from './store.enum';
@@ -20,7 +21,13 @@ export interface IDataStore {
 
 export interface IAppStore {
   route: {
-    current: string;
+    path: string;
+    locale: string;
+    appSection: EAppSection;
+    meta: {
+      title: string;
+      desc: string;
+    };
   };
   requests: {
     activeList: EActionTypes[];

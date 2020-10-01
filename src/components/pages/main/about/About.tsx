@@ -13,6 +13,7 @@ import {
   Table,
   Tabs,
 } from '@components/shared';
+import { usePathLocale } from '@utils/hooks';
 import { useResponsive } from 'ahooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +22,7 @@ import './About.scss';
 import { MobileDepositTable } from './mobileDepositTable/MobileDepositTable';
 
 export function About() {
+  const { localizePath } = usePathLocale();
   const responsive = useResponsive();
   const { t } = useTranslation();
 
@@ -35,7 +37,6 @@ export function About() {
     ],
     colsPctSize: [20, 10, 30, null, 10],
   };
-
   const _tempTabsData: ITabs = {
     labels: [
       { value: 'Deposit', anchor: 'deposit' },
@@ -52,7 +53,6 @@ export function About() {
       },
     ],
   };
-
   const trustedCards: ISingleCard[] = [
     {
       header: (
@@ -86,7 +86,7 @@ export function About() {
               <div className="page-top__title mb-7">{t('Who Are We?')}</div>
               <div className="page-top__description mb-9">{t('About Us Page Desc')}</div>
               <Button>
-                <Link to="/registration">{t('Open An Account')}</Link>
+                <Link to={localizePath('/registration')}>{t('Open An Account')}</Link>
               </Button>
             </div>
           </div>

@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 import './PlatformDownload.scss';
 
 export const PlatformDownload = memo(function PlatformDownload() {
+  const { t } = useTranslation();
+
   const download_links = {
     [ETradingPlatform.mt4]: {
       windows: '',
@@ -21,7 +23,6 @@ export const PlatformDownload = memo(function PlatformDownload() {
       web_launch: '',
     },
   };
-  const { t } = useTranslation();
 
   return (
     <Container className="platform-download-page-wrapper">

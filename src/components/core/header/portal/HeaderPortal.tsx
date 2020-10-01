@@ -2,6 +2,7 @@ import { Button, Img, LabelView, Svg } from '@components/shared';
 import { EAppSection, ELabels } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
 import { getAppSectionMenu } from '@utils/fn';
+import { usePathLocale } from '@utils/hooks';
 import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
@@ -14,6 +15,7 @@ import './HeaderPortal.scss';
 export function HeaderPortal(props: IHeaderDefaultProps) {
   const _portalMenuConfig = useMemo(() => getAppSectionMenu(EAppSection.portal), []);
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
+  const { localizePath } = usePathLocale();
   const responsive = useResponsive();
   const { t } = useTranslation();
 
@@ -31,7 +33,7 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
           </div>
           <PanelMenu menuConfig={_portalMenuConfig} />
           <Button className="ml-auto d-none d-md-block">
-            <Link to="/deposit" className="px-5">
+            <Link to={localizePath('/deposit')} className="px-5">
               {t('Deposit')}
               <Svg href="coins.svg" className="ml-auto" />
             </Link>

@@ -94,7 +94,6 @@ export const TransactionStatement = memo(function TransactionStatement() {
             onSubmit={Submit}
           >
             {({ values, errors, resetForm }: FormikProps<any>) => {
-              console.log(values, errors);
               return (
                 <Form className="transaction-statement__form">
                   <MultiSelect placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />

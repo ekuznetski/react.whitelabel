@@ -8,10 +8,11 @@ import {
   PageTitle,
   Radio,
   Select,
-  Svg,
+  Svg
 } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ETradingAccountType, ETradingPlatform, ETradingType } from '@domain/enums';
+import { usePathLocale } from '@utils/hooks';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -30,7 +31,9 @@ enum EFields {
 export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
   const [isModalSuccessOpen, setModalSuccessOpen] = React.useState(false);
   const [isModalFailureOpen, setModalFailureOpen] = React.useState(false);
+  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
+
   const validationSchema = Yup.object().shape({
     platform: FieldValidators.requiredString,
     account_type: FieldValidators.requiredString,
@@ -85,6 +88,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
                 if (values.leverage && values.platform === ETradingPlatform.mt4) {
                   setFieldValue(EFields.leverage, '');
                 }
+                
                 return (
                   <Form className="open-account__form">
                     <Radio
@@ -119,7 +123,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
         </ModalContext>
         <ModalNav>
           <Button onClick={() => setModalSuccessOpen(false)}>
-            <NavLink to="/dasboard">{t('Continue')}</NavLink>
+            <NavLink to={localizePath('/dasboard')}>{t('Continue')}</NavLink>
           </Button>
         </ModalNav>
       </Modal>
@@ -133,7 +137,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
             {t('Try Again')}
           </Button>
           <Button className="red noBg mr-5" onClick={() => setModalFailureOpen(false)}>
-            <NavLink to="/dasboard">{t('Back to Dashboard')}</NavLink>
+            <NavLink to={localizePath('/dasboard')}>{t('Back to Dashboard')}</NavLink>
           </Button>
         </ModalNav>
       </Modal>

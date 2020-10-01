@@ -1,4 +1,5 @@
 import { Button, SectionBg } from '@components/shared';
+import { usePathLocale } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -8,6 +9,7 @@ import './OpenLiveAccountBanner.scss';
 
 export const OpenLiveAccountBannerSection = memo(
   forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function OpenLiveAccountBannerSection(props, ref) {
+    const { localizePath } = usePathLocale();
     const { t } = useTranslation();
 
     return (
@@ -28,7 +30,7 @@ export const OpenLiveAccountBannerSection = memo(
               </div>
               <div className="open-live-account-banner__description mb-8 mb-md-6">{t('Discover Trading Tools')}</div>
               <Button>
-                <Link to="/registration">{t('Open Live Account')}</Link>
+                <Link to={localizePath('/registration')}>{t('Open Live Account')}</Link>
               </Button>
             </Col>
           </Row>

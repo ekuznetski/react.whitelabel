@@ -2,6 +2,7 @@ import { Button, DropDown, Svg } from '@components/shared';
 import { profileMenuConfig } from '@domain';
 import { IClientProfile } from '@domain/interfaces';
 import { IStore } from '@store';
+import { usePathLocale } from '@utils/hooks';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -17,6 +18,7 @@ export function UserProfileCard() {
     clientProfile: state.data.client.profile,
   }));
   const [isDropdownMenuOpen, setDropdownMenuOpen] = useState(false);
+  const { localizePath } = usePathLocale();
   const profileNavRef = React.createRef<HTMLDivElement>();
 
   function toggleDropdownMenu() {
@@ -45,7 +47,7 @@ export function UserProfileCard() {
       <div className="user-profile-card__options px-11">
         <div className="profile-options__deposit">
           <Button className="px-3">
-            <NavLink exact to="/deposit">
+            <NavLink exact to={localizePath('/deposit')}>
               {t('Add Deposit')}
               <Svg href="coins.svg" className="ml-4" />
             </NavLink>

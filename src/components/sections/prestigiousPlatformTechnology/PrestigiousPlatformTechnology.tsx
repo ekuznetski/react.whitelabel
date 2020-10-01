@@ -1,4 +1,5 @@
 import { Button, Img } from '@components/shared';
+import { usePathLocale } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -11,7 +12,9 @@ export const PrestigiousPlatformTechnologySection = memo(
     props,
     ref,
   ) {
+    const { localizePath } = usePathLocale();
     const { t } = useTranslation();
+
     return (
       <section className={classNames('prestigious-platform-technology', props.className)} ref={ref}>
         <Container>
@@ -33,7 +36,7 @@ export const PrestigiousPlatformTechnologySection = memo(
                 </div>
               </div>
               <Button>
-                <Link to="/registration">{t('Open Live Account')}</Link>
+                <Link to={localizePath('/registration')}>{t('Open Live Account')}</Link>
               </Button>
             </Col>
             <Col xs={12} lg={6}>

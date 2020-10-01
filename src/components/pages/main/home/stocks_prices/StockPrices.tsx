@@ -1,5 +1,6 @@
 import { Svg } from '@components/shared';
 import { MarketType } from '@domain/enums';
+import { usePathLocale } from '@utils/hooks';
 import { useDebounceFn, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
@@ -11,6 +12,9 @@ import { priceRawData } from './price_data';
 import './StockPrices.scss';
 
 export function StockPrices() {
+  const [activePriceTab, setPriceTab] = useState<IPriceTabItem | null>();
+  const responsive = useResponsive();
+
   const priceTabs: IPriceTabItem[] = [
     {
       name: 'Forex',
@@ -88,8 +92,10 @@ export function StockPrices() {
       priceData: generatePriceData(priceRawData.Crypto),
     },
   ];
-  const [activePriceTab, setPriceTab] = useState<IPriceTabItem | null>(priceTabs[0]);
-  const responsive = useResponsive();
+
+  useEffect(() => {
+    setPriceTab(priceTabs[0]);
+  }, []);
 
   return (
     <div className="stockPrices">
@@ -120,7 +126,9 @@ export function StockPrices() {
 }
 
 function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
+  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
+
   return (
     <div className="stockPrices-item__info pt-9 pt-lg-11 pb-0 pb-lg-11 pl-11 pl-lg-9 pl-xl-11">
       <div className="stockPrices-item__info-title mb-6">
@@ -135,7 +143,7 @@ function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
           </div>
         ))}
       </div>
-      <Link className="see-all" to={{ pathname: '/products', state: { scrollTo: anchor } }}>
+      <Link className="see-all" to={{ pathname: localizePath('/products'), state: { scrollTo: anchor } }}>
         {t('See all products')}
         <Svg href="chevron_right.svg" className="ml-1" />
       </Link>

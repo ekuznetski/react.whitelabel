@@ -11,6 +11,8 @@ enum EFields {
 }
 
 export function ForgotPassword() {
+  const { t } = useTranslation();
+  
   const validationSchema = Yup.object().shape({ [EFields.login]: FieldValidators.loginAndEmail });
 
   return (

@@ -17,19 +17,23 @@ enum EFields {
 }
 
 export function TabContentChooseAmount() {
-  const ref = React.createRef<HTMLInputElement>();
-  const { amount, account } = useContext<any>(DepositContext).state;
-  const { dispatch } = useContext<any>(DepositContext);
-  const { t } = useTranslation();
-
   const { tradingAccounts } = useSelector<IStore, { tradingAccounts: MTradingAccount[] }>((state) => ({
     tradingAccounts: state.data.tradingData.accounts,
   }));
+  const { amount, account } = useContext<any>(DepositContext).state;
+  const { dispatch } = useContext<any>(DepositContext);
+  const { t } = useTranslation();
+  const ref = React.createRef<HTMLInputElement>();
 
   const options: { label: React.ReactNode; value: string }[] = availableAmounts.map((el) => ({
     label: `${ECurrencySymbol[account?.currency.toLowerCase() as ECurrency]}  ${el}`,
     value: el,
   }));
+
+  const validationSchema = Yup.object().shape({
+    // account: FieldValidators.requiredString,
+    // amount: FieldValidators.requiredNumber,
+  });
 
   function CustomAmountInput() {
     const { values, setFieldValue }: { values: any; setFieldValue: any } = useFormikContext();
@@ -58,12 +62,10 @@ export function TabContentChooseAmount() {
     value: 'custom',
   });
   //TODO setup validataion
-  const validationSchema = Yup.object().shape({
-    // account: FieldValidators.requiredString,
-    // amount: FieldValidators.requiredNumber,
-  });
+
   const preselectedAmount = availableAmounts.includes(amount) ? amount : 'custom';
   const preselectedCustomAmount = !availableAmounts.includes(amount) ? amount : '';
+
   return (
     <div className="choose-amount-wrapper py-10 px-9">
       <Formik

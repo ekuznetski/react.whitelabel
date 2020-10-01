@@ -3,3 +3,4 @@ export * from './useScroll';
 export * from './useCombinedRef';
 export * from './useTitleCase';
 export * from './useDomainFolder';
+export * from './usePathLocale';

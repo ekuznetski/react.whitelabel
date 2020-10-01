@@ -1,6 +1,7 @@
 import { Img, LabelView, Svg } from '@components/shared';
 import { ELabels } from '@domain/enums';
 import { IChildrenMenuConfig, IMenuConfig } from '@domain/interfaces';
+import { usePathLocale } from '@utils/hooks';
 import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, useState } from 'react';
@@ -19,6 +20,7 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
   });
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const responsive = useResponsive();
+  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
   const dropdownRef = createRef<HTMLDivElement>();
 
@@ -54,7 +56,7 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
             onMouseLeave={tryCloseDropdownMenu}
           >
             {menuItem.path ? (
-              <NavLink exact to={menuItem.path}>
+              <NavLink exact to={localizePath(menuItem.path)}>
                 {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
                 {menuItem.title}
               </NavLink>
@@ -84,7 +86,7 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
         <div className="header-panel-menu__dropdown-itemsList pt-3 pb-1">
           {menuDropdownOptions.items.map((child, c) => (
             <div key={c} className="item">
-              <NavLink exact to={child.path} className="px-7">
+              <NavLink exact to={localizePath(child.path)} className="px-7">
                 {child.icon?.length && <Svg href={child.icon} className="mr-4" />}
                 {child.title}
               </NavLink>
