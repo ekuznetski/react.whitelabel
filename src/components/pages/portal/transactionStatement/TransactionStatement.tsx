@@ -1,9 +1,11 @@
 import { Button, DatePicker, MultiSelect, PageTitle, Select, Tab, Tabs } from '@components/shared';
-import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
+import { ENotificationType } from '@domain/enums';
+import { ac_fetchTransactionalStatements, ac_showNotification } from '@store';
+import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import './TransactionStatement.scss';
 
@@ -13,6 +15,7 @@ enum EFields {
 }
 
 export const TransactionStatement = memo(function TransactionStatement() {
+  const dispatch = useDispatch();
   const validationSchema = Yup.object().shape({
     operation_type: Yup.array<string>().required('This field is required'),
     filter: Yup.array<Moment>().required('This field is required'),
@@ -43,16 +46,28 @@ export const TransactionStatement = memo(function TransactionStatement() {
       value: [moment(_moment).startOf('month').startOf('day'), _moment.endOf('month')],
     }));
 
-  function Submit(values: any, formikHelpers: FormikHelpers<any>) {
+  function Submit(values: FormikValues) {
     const data = {
       startDate: values.filter[0].startOf('day').format('YYYY-MM-DD HH:mm:ss'),
       endDate: values.filter[1].endOf('day').format('YYYY-MM-DD HH:mm:ss'),
-      ...values.operation_type.reduce((acc: {}, value: string) => Object.assign(acc, { value: true }), {}),
+      ...values.operation_type.reduce((acc: {}, value: string) => Object.assign(acc, { [value]: true }), {}),
     };
-    console.log(data);
-    alert('Call `clients/bankingStatements` API.');
+
+    dispatch(
+      ac_fetchTransactionalStatements(
+        data,
+        () => {
+          dispatch(
+            ac_showNotification({
+              type: ENotificationType.success,
+              context: 'Requested statements are successfully loaded',
+            }),
+          );
+        },
+        () => dispatch(ac_showNotification({ type: ENotificationType.failure, context: 'Error' })),
+      ),
+    );
   }
-  const { t } = useTranslation();
 
   return (
     <Container className="transaction-statement-page-wrapper">
@@ -71,14 +86,15 @@ export const TransactionStatement = memo(function TransactionStatement() {
             validationSchema={validationSchema}
             onSubmit={Submit}
           >
-            {({ values, setFieldValue }: FormikProps<any>) => {
+            {({ values, errors, setFieldValue, setErrors, resetForm }: FormikProps<any>) => {
+              console.log(values, errors);
               return (
                 <Form className="transaction-statement__form">
                   <MultiSelect placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
                   <Tabs
                     className="statement__tabs"
                     alignNavigation="left"
-                    onChange={() => setFieldValue(EFields.filter, '')}
+                    onChange={() => resetForm({ values: { ...values, [EFields.filter]: '' } })}
                   >
                     <Tab anchor="recent" label="Recent">
                       <Select label="Choose a filter" options={recentTransactionsFilter} name={EFields.filter} />
@@ -90,7 +106,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                       <DatePicker label="Choose date range" name={EFields.filter} range={true} />
                     </Tab>
                   </Tabs>
-                  <Button type="submit">{t('Get Trading Statement')}</Button>
+                  <Button type="submit">Get Trading Statement</Button>
                 </Form>
               );
             }}
