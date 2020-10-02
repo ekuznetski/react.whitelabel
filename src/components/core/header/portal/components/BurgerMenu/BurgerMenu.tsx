@@ -1,11 +1,9 @@
-import { Svg } from '@components/shared';
+import { LocaleLink, LocaleNavLink, Svg } from '@components/shared';
 import { IMenuConfig } from '@domain/interfaces';
-import { usePathLocale } from '@utils/hooks';
 import classNames from 'classnames';
 import React from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Link, NavLink } from 'react-router-dom';
 import './BurgerMenu.scss';
 
 type IBurgerMenu = {
@@ -15,7 +13,6 @@ type IBurgerMenu = {
 };
 
 export function BurgerMenu({ menuConfig, closeBurgerMenu, className }: IBurgerMenu) {
-  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
 
   return (
@@ -26,10 +23,10 @@ export function BurgerMenu({ menuConfig, closeBurgerMenu, className }: IBurgerMe
             {menuConfig.map((menuItem, index) => (
               <div key={index} className="menu__item">
                 {menuItem.path ? (
-                  <NavLink exact to={localizePath(menuItem.path)} onClick={closeBurgerMenu}>
+                  <LocaleNavLink exact to={menuItem.path} onClick={closeBurgerMenu}>
                     {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
                     {menuItem.title}
-                  </NavLink>
+                  </LocaleNavLink>
                 ) : (
                   <a onClick={closeBurgerMenu}>
                     {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
@@ -40,10 +37,10 @@ export function BurgerMenu({ menuConfig, closeBurgerMenu, className }: IBurgerMe
             ))}
           </Col>
           <Button className="mt-auto">
-            <Link to={localizePath('/deposit')} className="px-5">
+            <LocaleLink to="/deposit" className="px-5">
               {t('Deposit')}
               <Svg href="coins.svg" className="ml-auto" />
-            </Link>
+            </LocaleLink>
           </Button>
         </Row>
       </Container>

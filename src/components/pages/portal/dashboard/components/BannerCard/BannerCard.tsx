@@ -1,12 +1,10 @@
-import { Button, Svg } from '@components/shared';
-import { IClientProfile, ILogin, IClientBannerCard } from '@domain/interfaces';
+import { Button, LocaleNavLink, Svg } from '@components/shared';
+import { IClientBannerCard, IClientProfile, ILogin } from '@domain/interfaces';
 import { IStore } from '@store';
+import classNames from 'classnames';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './BannerCard.scss';
-import { NavLink } from 'react-router-dom';
-import classNames from 'classnames';
-import { usePathLocale } from '@utils/hooks';
 
 type IBannerCardState = {
   clientProfile: IClientProfile;
@@ -19,7 +17,6 @@ export function BannerCard() {
     clientAccount: state.data.client.preferences,
   }));
   const [activeCardIdx, setActiveCardIdx] = React.useState(0);
-  const { localizePath } = usePathLocale();
 
   const promotion_cards: IClientBannerCard[] = [
     {
@@ -98,9 +95,9 @@ export function BannerCard() {
           <Button className="px-9 noBg">
             {cards[activeCardIdx].link.path ? (
               // @ts-ignore
-              <NavLink exact to={localizePath(cards[activeCardIdx].link?.path)}>
+              <LocaleNavLink exact to={cards[activeCardIdx].link?.path}>
                 {cards[activeCardIdx].link.text}
-              </NavLink>
+              </LocaleNavLink>
             ) : (
               cards[activeCardIdx].link.text
             )}

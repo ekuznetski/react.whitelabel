@@ -1,12 +1,10 @@
-import { Img, LabelView, Svg } from '@components/shared';
+import { Img, LabelView, LocaleNavLink, Svg } from '@components/shared';
 import { ELabels } from '@domain/enums';
 import { IChildrenMenuConfig, IMenuConfig } from '@domain/interfaces';
-import { usePathLocale } from '@utils/hooks';
 import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
 import './PanelMenu.scss';
 
 const DROPDOWN_MENU_ELEMENTS_HEIGHT = { item: 50, footer: 28, padding: 16 };
@@ -20,7 +18,6 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
   });
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const responsive = useResponsive();
-  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
   const dropdownRef = createRef<HTMLDivElement>();
 
@@ -56,10 +53,10 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
             onMouseLeave={tryCloseDropdownMenu}
           >
             {menuItem.path ? (
-              <NavLink exact to={localizePath(menuItem.path)}>
+              <LocaleNavLink exact to={menuItem.path}>
                 {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
                 {menuItem.title}
-              </NavLink>
+              </LocaleNavLink>
             ) : (
               <a>
                 {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
@@ -86,10 +83,10 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
         <div className="header-panel-menu__dropdown-itemsList pt-3 pb-1">
           {menuDropdownOptions.items.map((child, c) => (
             <div key={c} className="item">
-              <NavLink exact to={localizePath(child.path)} className="px-7">
+              <LocaleNavLink exact to={child.path} className="px-7">
                 {child.icon?.length && <Svg href={child.icon} className="mr-4" />}
                 {child.title}
-              </NavLink>
+              </LocaleNavLink>
             </div>
           ))}
         </div>

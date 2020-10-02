@@ -6,3 +6,4 @@ export * from './currency.enum';
 export * from './documents.enum';
 export * from './withdrawals.enum';
 export * from './deposit.enum';
+export * from './language.enum';

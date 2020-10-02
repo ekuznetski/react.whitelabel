@@ -8,18 +8,15 @@ import {
   TakeControlOfTradesSection,
   WorkshopCards,
 } from '@components/sections';
-import { Button, Card, CardContent, CardHeader, Cards, SectionBg, Svg } from '@components/shared';
+import { Button, Card, CardContent, CardHeader, Cards, LocaleLink, SectionBg, Svg } from '@components/shared';
 import { EWorkshopType } from '@domain/enums';
-import { usePathLocale } from '@utils/hooks';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import './Home.scss';
 import { StockPrices } from './stocks_prices/StockPrices';
 
 export function Home() {
-  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
 
   const takeControlItems = [
@@ -120,7 +117,7 @@ export function Home() {
               </div>
               <div className="page-top__description mb-11 mb-lg-10">{t('Home Page Top Section Desc')}</div>
               <Button>
-                <Link to={localizePath('/registration')}>{t('Open Live Account')}</Link>
+                <LocaleLink to="/registration">{t('Open Live Account')}</LocaleLink>
               </Button>
             </Col>
           </Row>

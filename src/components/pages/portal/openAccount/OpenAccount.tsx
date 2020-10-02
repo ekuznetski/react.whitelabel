@@ -1,6 +1,7 @@
 import {
   Button,
   CurrencySelect,
+  LocaleNavLink,
   Modal,
   ModalContext,
   ModalNav,
@@ -12,12 +13,10 @@ import {
 } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ETradingAccountType, ETradingPlatform, ETradingType } from '@domain/enums';
-import { usePathLocale } from '@utils/hooks';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
 import * as Yup from 'yup';
 import './OpenAccount.scss';
 
@@ -31,7 +30,6 @@ enum EFields {
 export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
   const [isModalSuccessOpen, setModalSuccessOpen] = React.useState(false);
   const [isModalFailureOpen, setModalFailureOpen] = React.useState(false);
-  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
@@ -88,7 +86,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
                 if (values.leverage && values.platform === ETradingPlatform.mt4) {
                   setFieldValue(EFields.leverage, '');
                 }
-                
+
                 return (
                   <Form className="open-account__form">
                     <Radio
@@ -123,7 +121,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
         </ModalContext>
         <ModalNav>
           <Button onClick={() => setModalSuccessOpen(false)}>
-            <NavLink to={localizePath('/dasboard')}>{t('Continue')}</NavLink>
+            <LocaleNavLink to="/dashboard">{t('Continue')}</LocaleNavLink>
           </Button>
         </ModalNav>
       </Modal>
@@ -137,7 +135,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
             {t('Try Again')}
           </Button>
           <Button className="red noBg mr-5" onClick={() => setModalFailureOpen(false)}>
-            <NavLink to={localizePath('/dasboard')}>{t('Back to Dashboard')}</NavLink>
+            <LocaleNavLink to="/dashboard">{t('Back to Dashboard')}</LocaleNavLink>
           </Button>
         </ModalNav>
       </Modal>

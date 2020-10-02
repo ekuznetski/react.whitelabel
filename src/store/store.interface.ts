@@ -1,4 +1,4 @@
-import { EAppSection } from '@domain/enums';
+import { EAppSection, ELanguage } from '@domain/enums';
 import { IClientProfile, IContent, IGeoIp, ILogin, INotificationState } from '@domain/interfaces';
 import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
 import { EActionTypes } from './store.enum';
@@ -22,7 +22,7 @@ export interface IDataStore {
 export interface IAppStore {
   route: {
     path: string;
-    locale: string;
+    locale: ELanguage;
     appSection: EAppSection;
     meta: {
       title: string;

@@ -1,10 +1,8 @@
-import { Svg } from '@components/shared';
-import { usePathLocale } from '@utils/hooks';
+import { LocaleNavLink, Svg } from '@components/shared';
 import { useClickAway, useEventListener, useSize } from 'ahooks';
 import classNames from 'classnames';
 import React, { memo, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { NavLink } from 'react-router-dom';
 import './Dropdown.scss';
 
 type IDropdown = {
@@ -44,7 +42,6 @@ export const DropDown = memo<IDropdown>(function DropDown({
   const [initialHeight, setInitialHeight] = React.useState<number | string>(0);
   const [parentBCR, setParentBCR] = useState<DOMRect | null>(null);
   const { width: viewportWidth } = useSize(document.body);
-  const { localizePath } = usePathLocale();
   const dropdownRef = React.createRef<HTMLDivElement>();
   const ARROW_HORIZONTAL_OFFSET = 38;
   const ARROW_VERTICAL_OFFSET = 14;
@@ -104,10 +101,10 @@ export const DropDown = memo<IDropdown>(function DropDown({
                     {child.title}
                   </a>
                 ) : child.path ? (
-                  <NavLink exact to={localizePath(child.path)} className="px-7">
+                  <LocaleNavLink exact to={child.path} className="px-7">
                     {child.icon?.length && <Svg href={child.icon} className="mr-4" />}
                     {child.title}
-                  </NavLink>
+                  </LocaleNavLink>
                 ) : (
                   <div className="px-7">
                     {child.icon?.length && <Svg href={child.icon} className="mr-4" />}

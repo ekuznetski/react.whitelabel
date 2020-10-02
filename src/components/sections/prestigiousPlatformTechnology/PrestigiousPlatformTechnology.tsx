@@ -1,10 +1,8 @@
-import { Button, Img } from '@components/shared';
-import { usePathLocale } from '@utils/hooks';
+import { Button, Img, LocaleLink } from '@components/shared';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import './PrestigiousPlatformTechnology.scss';
 
 export const PrestigiousPlatformTechnologySection = memo(
@@ -12,7 +10,6 @@ export const PrestigiousPlatformTechnologySection = memo(
     props,
     ref,
   ) {
-    const { localizePath } = usePathLocale();
     const { t } = useTranslation();
 
     return (
@@ -36,7 +33,7 @@ export const PrestigiousPlatformTechnologySection = memo(
                 </div>
               </div>
               <Button>
-                <Link to={localizePath('/registration')}>{t('Open Live Account')}</Link>
+                <LocaleLink to="/registration">{t('Open Live Account')}</LocaleLink>
               </Button>
             </Col>
             <Col xs={12} lg={6}>

@@ -1,11 +1,10 @@
-import { Svg } from '@components/shared';
+import { LocaleLink, Svg } from '@components/shared';
 import { MarketType } from '@domain/enums';
 import { usePathLocale } from '@utils/hooks';
 import { useDebounceFn, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { Area, AreaChart } from 'recharts';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu } from '../home.interface';
 import { priceRawData } from './price_data';
@@ -144,10 +143,10 @@ function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
           </div>
         ))}
       </div>
-      <Link className="see-all" to={{ pathname: localizePath('/products'), state: { scrollTo: anchor } }}>
+      <LocaleLink className="see-all" to={{ pathname: '/products', state: { scrollTo: anchor } }}>
         {t('See all products')}
         <Svg href="chevron_right.svg" className="ml-1" />
-      </Link>
+      </LocaleLink>
     </div>
   );
 }
