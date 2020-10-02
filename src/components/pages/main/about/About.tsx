@@ -27,20 +27,20 @@ export function About() {
   const { t } = useTranslation();
 
   const _tempTableData: ITable = {
-    headers: ['Method', 'Minimum', 'Currency', 'Processing', 'Fees'],
+    headers: [t('Method'), t('Minimum'), t('Currency'), t('Processing'), t('Fees')],
     rows: [
-      [<Img src="bank_wire.png" height={40} />, '$250', 'USD, EUR, GBP, AED', '1 to 7 working days', '$0'],
-      [<Img src="visa_mastercard.png" height={40} />, '$20', 'USD, EUR, GBP, RUB, AED, CAD', 'Up to 1 hour', '$0'],
-      [<Img src="webmoney.png" height={40} />, '$20', 'USD, EUR', 'Up to 1 hour', '$0'],
-      [<Img src="neteller.png" height={40} />, '$20', 'USD, EUR', 'Up to 1 hour', '$0'],
-      [<Img src="skrill.png" height={40} />, '$20', 'USD, EUR', 'Up to 1 hour', '$0'],
+      [<Img src="bank_wire.png" height={40} />, '$250', 'USD, EUR, GBP, AED', t('1 to 7 working days'), '$0'],
+      [<Img src="visa_mastercard.png" height={40} />, '$20', 'USD, EUR, GBP, RUB, AED, CAD', t('Up to 1 hour'), '$0'],
+      [<Img src="webmoney.png" height={40} />, '$20', 'USD, EUR', t('Up to 1 hour'), '$0'],
+      [<Img src="neteller.png" height={40} />, '$20', 'USD, EUR', t('Up to 1 hour'), '$0'],
+      [<Img src="skrill.png" height={40} />, '$20', 'USD, EUR', t('Up to 1 hour'), '$0'],
     ],
     colsPctSize: [20, 10, 30, null, 10],
   };
   const _tempTabsData: ITabs = {
     labels: [
-      { value: 'Deposit', anchor: 'deposit' },
-      { value: 'Withdrawals', anchor: 'withdrawals' },
+      { value: t('Deposit'), anchor: 'deposit' },
+      { value: t('Withdrawals'), anchor: 'withdrawals' },
     ],
     content: [
       {
@@ -60,18 +60,18 @@ export function About() {
           130<small>+</small>
         </>
       ),
-      content: 'Trading Instruments',
+      content: t('Trading Instruments'),
       uid: 1,
     },
-    { header: 6, content: 'Asset Classes', uid: 2 },
-    { header: 0, content: 'Deposit Fees', uid: 3 },
+    { header: 6, content: t('Asset Classes'), uid: 2 },
+    { header: 0, content: t('Deposit Fees'), uid: 3 },
     {
       header: (
         <>
           12<small>ms</small>
         </>
       ),
-      content: 'Avg. Execution',
+      content: t('Avg Execution'),
       uid: 4,
     },
   ];
@@ -83,7 +83,7 @@ export function About() {
         <div className="container">
           <div className="row">
             <div className="col-md-8 col-lg-7">
-              <div className="page-top__title mb-7">{t('Who Are We?')}</div>
+              <div className="page-top__title mb-7">{t('Who Are We')}</div>
               <div className="page-top__description mb-9">{t('About Us Page Desc')}</div>
               <Button>
                 <Link to={localizePath('/registration')}>{t('Open An Account')}</Link>

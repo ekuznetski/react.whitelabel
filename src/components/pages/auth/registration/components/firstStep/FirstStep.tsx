@@ -31,7 +31,7 @@ export function FirstStep({ submitFn }: any) {
     dispatch(
       ac_userExists(
         { username: data.email },
-        () => helpers.setFieldError(EFields.email, 'Email already in use'),
+        () => helpers.setFieldError(EFields.email, t('Email already in use')),
         () =>
           submitFn({
             [ERegSteps.step1]: {

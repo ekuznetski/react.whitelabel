@@ -17,7 +17,7 @@ export function Platform() {
   const { t } = useTranslation();
 
   const _tempTableData: ITable = {
-    headers: ['Instrument', 'Sell', 'Buy', 'Change %'],
+    headers: [t('Instrument'), t('Sell'), t('Buy'), t('Change percent')],
     rows: [
       ['Microsoft', '206.24', '206.46', '2.15'],
       ['Microsoft', '206.24', '206.46', '2.15'],

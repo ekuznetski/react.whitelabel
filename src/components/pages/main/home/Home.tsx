@@ -6,7 +6,7 @@ import {
   PrestigiousPlatformTechnologySection,
   SimpleToGetStartedSection,
   TakeControlOfTradesSection,
-  WorkshopCards
+  WorkshopCards,
 } from '@components/sections';
 import { Button, Card, CardContent, CardHeader, Cards, SectionBg, Svg } from '@components/shared';
 import { EWorkshopType } from '@domain/enums';
@@ -24,19 +24,18 @@ export function Home() {
 
   const takeControlItems = [
     {
-      title: 'Trade with the Metatrader 5 platform',
-      desc: 'The forex industry standard',
+      title: t('Trade With The Metatrader 5 Platform'),
+      desc: t('The Forex Industry Standard'),
       img: 'computer.png',
     },
     {
       title: 'Mobile first',
-      desc: 'Get trading apps for Android or iOS and trade on the go, anywhere, anytime',
+      desc: t('Get Trading Apps'),
       img: 'phone.png',
     },
     {
-      title: 'Don’t miss a thing',
-      desc:
-        'Never miss an opportunity with our price alerts, push notifications, economic calendar, and market analyses',
+      title: t('Don’t miss a thing'),
+      desc: t('Never miss an opportunity'),
       img: 'trade_info.png',
     },
   ];
@@ -46,16 +45,15 @@ export function Home() {
       author: {
         img: 'avatar-1.jpg',
         name: 'William Bailey',
-        title: 'Chief Currency Analyst',
+        title: t('Chief Currency Analyst'),
       },
       schedule: {
-        day: 'Every Monday',
+        day: t('Every Monday'),
         time: '12:30 PM – 1:00 PM GMT',
       },
       info: {
         title: 'FX Week Ahead: Live Market Analysis',
-        description:
-          'Get ready for the trading week ahead with our weekly webinar session, where we will be looking at the upcoming FX Week while analysing market movements.',
+        description: t('Get ready for trading'),
       },
     },
     {
@@ -63,16 +61,15 @@ export function Home() {
       author: {
         img: 'avatar-1.jpg',
         name: 'Mike Hamilton',
-        title: 'Chief Currency Analyst',
+        title: t('Chief Currency Analyst'),
       },
       schedule: {
-        day: 'Every Wednesday',
+        day: t('Every Wednesday'),
         time: '12:30 PM – 1:00 PM GMT',
       },
       info: {
         title: 'FX Week Ahead: Live Market Analysis',
-        description:
-          'Our workshops give you the opportunity to learn directly from an industry expert, Mike Hamilton, as he teaches you the ins and outs of trading in real time.',
+        description: 'Our workshops desc',
       },
     },
   ];

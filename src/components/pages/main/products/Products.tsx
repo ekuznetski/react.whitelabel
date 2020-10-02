@@ -14,98 +14,97 @@ export function Products() {
     {},
   );
   let { location, replace }: any = useHistory();
+  const { t } = useTranslation();
 
   const headerNavigation: { label: string; anchor: MarketType }[] = [
-    { label: 'Forex', anchor: MarketType.forex },
-    { label: 'Stocks', anchor: MarketType.stocks },
-    { label: 'Indices', anchor: MarketType.indices },
-    { label: 'Cryptocurrencies', anchor: MarketType.crypto },
-    { label: 'Commodities', anchor: MarketType.commodities },
-    { label: 'ETFs', anchor: MarketType.etfs },
+    { label: t('Forex'), anchor: MarketType.forex },
+    { label: t('Stocks'), anchor: MarketType.stocks },
+    { label: t('Indices'), anchor: MarketType.indices },
+    { label: t('Cryptocurrencies'), anchor: MarketType.crypto },
+    { label: t('Commodities'), anchor: MarketType.commodities },
+    { label: t('ETFs'), anchor: MarketType.etfs },
   ];
 
   const tableSections: ITableSection[] = [
     {
-      title: 'Forex',
-      desc: 'Trade one of the world’s most liquid asset classes. Choose from our wide range of currency pairs.',
+      title: t('Forex'),
+      desc: t('Product Section Forex Desc'),
       tableType: MarketType.forex,
       points: [
         <>
-          Spreads from <b>0.2 pips</b>
+          {t('Spreads from')} <b>0.2 {t('pips')}</b>
         </>,
         <>
-          Max. Leverage <b>1:200</b>
+          {t('Max Leverage')} <b>1:200</b>
         </>,
         <>
-          Margins from just <b>0.50%</b>
+          {t('Margins from just')} <b>0.50%</b>
         </>,
       ],
     },
     {
-      title: 'Stocks',
-      desc: 'Trade the market movements of the world’s leading brands.',
+      title: t('Stocks'),
+      desc: t('Product Section Stocks Desc'),
       tableType: MarketType.stocks,
       reversed: true,
       points: [
         <>
-          Max. Leverage <b>1:20</b>
+          {t('Max Leverage')} <b>1:20</b>
         </>,
         <>
-          Margins from just <b>5%</b>
+          {t('Margins from just')} <b>5%</b>
         </>,
       ],
     },
     {
-      title: 'Indices',
-      desc: 'Gain instant access to the global equity markets. Trade market movement in indices.',
+      title: t('Indices'),
+      desc: t('Product Section Indices Desc'),
       tableType: MarketType.indices,
       points: [
         <>
-          <b>15+</b> Most Popular Indices Worldwide
+          <b>15+</b> {t('Most Popular Indices Worldwide')}
         </>,
         <>
-          Max. Leverage <b>1:200</b>
+          {t('Max Leverage')} <b>1:200</b>
         </>,
       ],
     },
     {
-      title: 'Cryptocurrencies',
-      desc: 'Capitalise on the performance of Bitcoin, Ethereum and Litecoin without the need to buy them.',
+      title: t('Cryptocurrencies'),
+      desc: t('Product Section Cryptocurrencies Desc'),
       tableType: MarketType.crypto,
       reversed: true,
       points: [
         <>
-          Max. Leverage <b>1:20</b>
+          {t('Max Leverage')} <b>1:20</b>
         </>,
         <>
-          <b>5</b> Main Cryptocurrencies
+          <b>5</b> {t('Main Cryptocurrencies')}
         </>,
       ],
     },
     {
-      title: 'Commodities',
-      desc: 'Trade commodities without owning the financial instrument on which the contract is based.',
+      title: t('Commodities'),
+      desc: t('Product Section Commodities Desc'),
       tableType: MarketType.commodities,
       points: [
         <>
-          Max. Leverage <b>1:133</b>
+          {t('Max Leverage')} <b>1:133</b>
         </>,
       ],
     },
     {
-      title: 'ETFs',
-      desc: 'Trade exchange-traded funds with AroFX.',
+      title: t('ETFs'),
+      desc: t('Product Section ETFs Desc'),
       tableType: MarketType.etfs,
       reversed: true,
       points: [
         <>
-          Max. Leverage <b>1:20</b>
+          {t('Max Leverage')} <b>1:20</b>
         </>,
       ],
     },
   ];
-
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (location.state?.scrollTo) {

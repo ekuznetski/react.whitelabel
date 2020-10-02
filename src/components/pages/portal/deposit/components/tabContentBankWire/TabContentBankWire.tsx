@@ -79,7 +79,7 @@ export function TabContentBankWire() {
       </div>
       <div className="bank-wire-footer">
         <div className="bank-wire-footer__destination">
-          {t('Transfer to the bank: Barclays')} {account?.currency}
+          {t('Transfer to the bank Barclays')} {account?.currency}
         </div>
         <Row>
           <Col xs={6}>

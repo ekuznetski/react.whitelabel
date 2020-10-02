@@ -14,6 +14,7 @@ import './StockPrices.scss';
 export function StockPrices() {
   const [activePriceTab, setPriceTab] = useState<IPriceTabItem | null>();
   const responsive = useResponsive();
+  const { t } = useTranslation();
 
   const priceTabs: IPriceTabItem[] = [
     {
@@ -21,11 +22,11 @@ export function StockPrices() {
       icon: 'filter.svg',
       anchor: MarketType.forex,
       info: {
-        title: '40+ Forex',
-        desc: 'Trade one of the world’s most liquid asset class. Choose from our large range of currency pairs.',
+        title: '40+ ' + t('Forex'),
+        desc: t('Product Section Forex Desc'),
         points: [
           <>
-            Max. Leverage <b>1:200</b>
+            {t('Max Leverage')} <b>1:200</b>
           </>,
         ],
       },
@@ -36,11 +37,11 @@ export function StockPrices() {
       icon: 'graph_bars.svg',
       anchor: MarketType.stocks,
       info: {
-        title: '40+ Stocks',
-        desc: 'Trade the market movements of the world’s leading brands.',
+        title: '40+ ' + t('Stocks'),
+        desc: t('Product Section Stocks Desc'),
         points: [
           <>
-            Max. Leverage <b>1:20</b>
+            {t('Max Leverage')} <b>1:20</b>
           </>,
         ],
       },
@@ -51,11 +52,11 @@ export function StockPrices() {
       icon: 'indices.svg',
       anchor: MarketType.indices,
       info: {
-        title: 'Indices',
-        desc: 'Gain instant access to the global equity markets. Trade market movement in indices.',
+        title: t('Indices'),
+        desc: t('Product Section Indices Desc'),
         points: [
           <>
-            Max. Leverage <b>1:200</b>
+            {t('Max Leverage')} <b>1:200</b>
           </>,
         ],
       },
@@ -66,11 +67,11 @@ export function StockPrices() {
       icon: 'commodities.svg',
       anchor: MarketType.commodities,
       info: {
-        title: 'Commodities',
-        desc: 'Trade commodities without owning the financial instrument on which the contract is based.',
+        title: t('Commodities'),
+        desc: t('Product Section Commodities Desc'),
         points: [
           <>
-            Max. Leverage <b>1:133</b>
+            {t('Max Leverage')} <b>1:133</b>
           </>,
         ],
       },
@@ -81,11 +82,11 @@ export function StockPrices() {
       icon: 'crypto.svg',
       anchor: MarketType.crypto,
       info: {
-        title: 'Cryptocurrencies',
-        desc: 'Capitalise on the performance of Bitcoin, Ethereum and Litecoin without the need to buy them.',
+        title: t('Cryptocurrencies'),
+        desc: t('Product Section Cryptocurrencies Desc'),
         points: [
           <>
-            Max. Leverage <b>1:20</b>
+            {t('Max Leverage')} <b>1:20</b>
           </>,
         ],
       },
