@@ -1,4 +1,4 @@
-import { Button, Input } from '@components/shared';
+import { Button, Input, LocaleLink } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
@@ -12,7 +12,7 @@ enum EFields {
 
 export function ForgotPassword() {
   const { t } = useTranslation();
-  
+
   const validationSchema = Yup.object().shape({ [EFields.login]: FieldValidators.loginAndEmail });
 
   return (
@@ -34,6 +34,12 @@ export function ForgotPassword() {
               </Form>
             )}
           </Formik>
+          <div className="mt-5 text-center under-form">
+            {t('Already Registered?')}
+            <LocaleLink className="already__link ml-1" to="/login">
+              {t('Sign In')}
+            </LocaleLink>
+          </div>
         </Col>
       </Row>
     </Container>
