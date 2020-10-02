@@ -3,7 +3,7 @@ import {
   MobileTradingWithMT5Section,
   OpenLiveAccountBannerSection,
   OurOfferBannerSection,
-  PrestigiousPlatformTechnologySection
+  PrestigiousPlatformTechnologySection,
 } from '@components/sections';
 import { Button, ITable, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import { usePathLocale } from '@utils/hooks';
