@@ -1,21 +1,18 @@
-import { Button, Img, LabelView, Svg } from '@components/shared';
+import { Button, Img, LabelView, LocaleLink, LocaleNavLink, Svg } from '@components/shared';
 import { routesNavConfig } from '@domain';
 import { EAppSection, ELabels } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
-import { usePathLocale } from '@utils/hooks';
 import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Link, NavLink } from 'react-router-dom';
 import './HeaderMain.scss';
 
 export function HeaderMain(props: IHeaderDefaultProps) {
   const _mainRoutesConfig = routesNavConfig.filter((route) => route.menuItem && route.appSection === EAppSection.main);
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const [scrollbarWidth, setScrollbarWidth] = useState(0);
-  const { localizePath } = usePathLocale();
   const responsive = useResponsive();
   const { t } = useTranslation();
 
@@ -41,14 +38,14 @@ export function HeaderMain(props: IHeaderDefaultProps) {
           <div className="menu">
             {_mainRoutesConfig.map((route) => (
               <div key={route.path} className="menu__item">
-                <NavLink exact to={localizePath(route.path)}>
+                <LocaleNavLink exact to={route.path}>
                   {route.meta?.title}
-                </NavLink>
+                </LocaleNavLink>
               </div>
             ))}
           </div>
           <Button className="ml-auto d-none d-md-block">
-            <Link to={localizePath('/registration')}>{t('Open An Account')}</Link>
+            <LocaleLink to="/registration">{t('Open An Account')}</LocaleLink>
           </Button>
           <div className="ml-auto ml-md-0 burger-toggle">
             {!responsive.lg &&
@@ -76,14 +73,14 @@ export function HeaderMain(props: IHeaderDefaultProps) {
             <Col xs={12}>
               {_mainRoutesConfig.map((route) => (
                 <div key={route.path} className="menu__item">
-                  <NavLink exact to={localizePath(route.path)} onClick={() => setOpenBurgerMenu(false)}>
+                  <LocaleNavLink exact to={route.path} onClick={() => setOpenBurgerMenu(false)}>
                     {route.meta?.title}
-                  </NavLink>
+                  </LocaleNavLink>
                 </div>
               ))}
             </Col>
             <Button className="mt-auto">
-              <Link to={localizePath('/registration')}>{t('Open An Account')}</Link>
+              <LocaleLink to="/registration">{t('Open An Account')}</LocaleLink>
             </Button>
           </Row>
         </Container>

@@ -32,11 +32,11 @@ export const PlatformDownload = memo(function PlatformDownload() {
         </Col>
       </Row>
       <Row className="download-panels">
-        {Object.keys(download_links).map((platform_key) => (
-          <Col lg={6} className="mb-3">
-            <div className={classNames('download__panel', platform_key)}>
+        {Object.keys(download_links).map((platform, p) => (
+          <Col key={p} lg={6} className="mb-3">
+            <div className={classNames('download__panel', platform)}>
               <div className="download__panel-title">
-                MetaTrader<span className="ml-1">{platform_key === ETradingPlatform.mt4 ? 4 : 5}</span>
+                MetaTrader<span className="ml-1">{platform === ETradingPlatform.mt4 ? 4 : 5}</span>
               </div>
               <div className="download__panel-devices py-10 px-9">
                 <div className="device-item mb-11">
@@ -78,7 +78,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                 <Svg href="shrimp.svg" height="18" className="mr-5" />
                 {t('Read instructions on')}
                 <a href="#" className="hovered-underlined ml-2">
-                  {t('how to install MetaTrader')} {platform_key === ETradingPlatform.mt4 ? 4 : 5}
+                  {t('how to install MetaTrader')} {platform === ETradingPlatform.mt4 ? 4 : 5}
                 </a>
               </div>
             </div>

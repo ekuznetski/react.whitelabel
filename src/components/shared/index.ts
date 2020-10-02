@@ -15,6 +15,8 @@ export * from './iconFlag/IconFlag';
 export * from './dropdown/Dropdown';
 export * from './modal/Modal';
 export * from './alert/Alert';
+export * from './localeNavLink/LocaleNavLink';
+export * from './localeLink/LocaleLink';
 
 // Elements
 export * from './labelView/LabelView';

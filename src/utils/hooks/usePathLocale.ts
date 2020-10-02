@@ -9,10 +9,10 @@ export function usePathLocale() {
 
   return {
     localizePath: (path: string) => {
-      return `/${locale}${path.replace(/^\\?(S+)/, '/$1')}`;
+      return `${locale && locale.length ? '/' + locale : ''}${path.replace(/^\\?(S+)/, '/$1')}`;
     },
     delocalizePath: (_pathname?: string) => {
-      return (_pathname || pathname).replace(new RegExp(`/${locale}`), '');
+      return (_pathname || pathname).replace(new RegExp(`/${locale}`), '').replace(/^\/$/, '');
     },
   };
 }

@@ -8,21 +8,19 @@ import {
   ISingleCard,
   ITable,
   ITabs,
+  LocaleLink,
   SectionBg,
   Svg,
   Table,
   Tabs,
 } from '@components/shared';
-import { usePathLocale } from '@utils/hooks';
 import { useResponsive } from 'ahooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import './About.scss';
 import { MobileDepositTable } from './mobileDepositTable/MobileDepositTable';
 
 export function About() {
-  const { localizePath } = usePathLocale();
   const responsive = useResponsive();
   const { t } = useTranslation();
 
@@ -86,7 +84,7 @@ export function About() {
               <div className="page-top__title mb-7">{t('Who Are We?')}</div>
               <div className="page-top__description mb-9">{t('About Us Page Desc')}</div>
               <Button>
-                <Link to={localizePath('/registration')}>{t('Open An Account')}</Link>
+                <LocaleLink to="/registration">{t('Open An Account')}</LocaleLink>
               </Button>
             </div>
           </div>

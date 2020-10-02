@@ -1,10 +1,9 @@
-import { Button, DropDown, IconFlag, Modal, Svg } from '@components/shared';
+import { Button, DropDown, IconFlag, LocaleNavLink, Modal, Svg } from '@components/shared';
 import { Currencies, EAccountLeverage, ECurrencyCode, ETradingAccountType } from '@domain/enums';
 import { usePathLocale } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
 import './TradingAccountSingleCard.scss';
 
 export interface ITradingAccountSingleCard {
@@ -20,7 +19,6 @@ export interface ITradingAccountSingleCard {
 export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(card: ITradingAccountSingleCard) {
   const [isDropdownMenuOpen, setDropdownMenuOpen] = React.useState(false);
   const [isChangePasswordOpen, setChangePasswordOpen] = React.useState(false);
-  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
   const navRef = React.createRef<HTMLButtonElement>();
 
@@ -78,10 +76,10 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
         </div>
         <div className="account-card__options px-7">
           <Button className="fund px-3 mr-3 noBg">
-            <NavLink exact to={localizePath('/deposit')}>
+            <LocaleNavLink exact to="/deposit">
               {t('Fund')}
               <Svg href="coins.svg" className="ml-4" />
-            </NavLink>
+            </LocaleNavLink>
           </Button>
           <Button
             className={classNames('nav', isDropdownMenuOpen && 'active')}

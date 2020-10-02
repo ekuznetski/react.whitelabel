@@ -1,13 +1,11 @@
 import { ERegSteps } from '@components/pages';
-import { Button, Input, PhoneCodeSelect } from '@components/shared';
+import { Button, Input, LocaleLink, PhoneCodeSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ac_userExists, IStore } from '@store';
-import { usePathLocale } from '@utils/hooks';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import './FirstStep.scss';
 
@@ -24,7 +22,6 @@ export function FirstStep({ submitFn }: any) {
     geoIp: state.data.geoIp,
   }));
   const dispatch = useDispatch();
-  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
 
   function Submit(data: any, helpers: any) {
@@ -100,9 +97,9 @@ export function FirstStep({ submitFn }: any) {
               </Button>
               <div className="mt-5 text-center under-form fadeFromBottom-row__6">
                 {t('Already Registered?')}
-                <Link className="already__link ml-1" to={localizePath(`/login`)}>
+                <LocaleLink className="already__link ml-1" to="/login">
                   {t('Sign In')}
-                </Link>
+                </LocaleLink>
               </div>
             </Form>
           );

@@ -1,4 +1,4 @@
-import { EAppSection } from '@domain/enums';
+import { EAppSection, ELanguage } from '@domain/enums';
 import {
   IClientAddRequest,
   IClientProfile,
@@ -129,7 +129,7 @@ export function ac_saveGeoIpData(payload: IGeoIp): IAction {
 
 export function ac_updateRouteParams(payload: {
   path?: string;
-  locale: string;
+  locale?: ELanguage | null;
   appSection?: EAppSection;
   meta?: {
     title: string;
