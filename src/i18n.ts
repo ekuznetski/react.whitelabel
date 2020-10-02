@@ -14,9 +14,6 @@ i18n
       loadPath: `./locale/{{lng}}.json`,
     },
     keySeparator: ':',
-    react: {
-      useSuspense: false,
-    },
   });
 
 export default i18n;
