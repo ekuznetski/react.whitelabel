@@ -8,14 +8,20 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     lng: 'en',
-    fallbackLng: 'en',
+    fallbackLng: {
+      en: ['en'],
+      default: ['en'],
+    },
     debug: !env.PRODUCTION,
     backend: {
       loadPath: `./locale/{{lng}}.json`,
     },
+    interpolation: {
+      escapeValue: false,
+    },
     keySeparator: ':',
     react: {
-      useSuspense: false,
+      wait: true,
     },
   });
 
