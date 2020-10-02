@@ -19,7 +19,7 @@ export const OurOfferBannerSection = memo(
             </Col>
             <Col xs={12} md={4} className="py-8">
               <Svg href="graph.svg" height={48} className="mr-5 mb-md-4 mb-lg-0" />
-              {t('1:200 Max Leverage')}
+              {t('1 200 Max Leverage')}
             </Col>
             <Col xs={12} md={4} className="py-8">
               <Svg href="gear_24hr.svg" height={48} className="mr-5 mb-md-4 mb-lg-0" />

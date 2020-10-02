@@ -2,7 +2,7 @@
   "About Us Page Desc": "As a brand, AroFX combines the most modern trading tech and reliability within a culture of innovation. We provide access to a high-tech mobile app and desktop trading platform where you can trade a wide variety of assets; forex, stocks, indices, commodities, and more.",
   "About Us": "About Us",
   "Asset Classes": "Asset Classes",
-  "Avg. Execution": "Avg. Execution",
+  "Avg Execution": "Avg. Execution",
   "Banner Section Desc": "Your investment is safe in our hands - AroFX is regulated by the world’s largest financial authorities.",
   "Banner Section Title": ["Financial Experience", "You Can Rely On"],
   "Contact Us": "Contact Us",
@@ -64,7 +64,7 @@
   "Buy": "Buy",
   "Change %": "Change %",
   "Zero Deposit Fees": "Zero Deposit Fees",
-  "1:200 Max Leverage": "1:200 Max Leverage",
+  "1 200 Max Leverage": "1:200 Max Leverage",
   "24/5 Customer Support": "24/5 Customer Support",
   "Prestigious MT5": "Prestigious MT5",
   "Platform Technology": "Platform Technology",
@@ -317,5 +317,18 @@
     "Customer Agreement",
     "Terms of Business",
     "and all other policies as found here which I fully accept and agree with. I accept I am electronically signing these documents, and that this is a legally binding contractual agreement."
-  ]
+  ],
+  "This field is required": "This field is required",
+  "Passwords must match": "Passwords must match",
+  "Invalid value": "Invalid value",
+  "Day limit": "Day must be less or equal to ${max}",
+  "Name characters count restriction": "Name must not exceed ${max} characters",
+  "Bank Name characters count restriction": "Bank Name must not exceed ${max} characters",
+  "Bank Account Number count restriction": "Bank Account Number must not exceed ${max} symbols",
+  "IBAN characters count restriction": "IBAN must not exceed ${max} characters",
+  "Bank Branch Name characters count restriction": "Bank Branch Name must not exceed ${max} characters",
+  "Bank Branch Address characters count restriction": "Bank Branch Address must not exceed ${max} characters",
+  "City characters count restriction": "City must not exceed ${max} characters",
+  "Postcode characters count restriction": "Postal code must not exceed ${max} characters",
+  "Requested statements are successfully loaded": "Requested statements are successfully loaded"
 }

@@ -24,8 +24,8 @@ export const TransactionStatement = memo(function TransactionStatement() {
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
-    operation_type: Yup.array<string>().required('This field is required'),
-    filter: Yup.array<Moment>().required('This field is required'),
+    operation_type: Yup.array<string>().required(t('This field is required')),
+    filter: Yup.array<Moment>().required(t('This field is required')),
   });
   const operationTypes = [
     { label: 'Deposits', value: 'deposits' },
@@ -67,7 +67,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: 'Requested statements are successfully loaded',
+              context: t('Requested statements are successfully loaded'),
             }),
           );
         },

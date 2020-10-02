@@ -20,16 +20,13 @@ export const BankDetails = memo(
   forwardRef<HTMLDivElement>(function BankDetails(props, ref) {
     const { t } = useTranslation();
     const validationSchema = Yup.object().shape({
-      beneficiary_name: FieldValidators.requiredString.max(100, 'Name must not exceed ${max} characters'),
-      beneficiary_bank: FieldValidators.requiredString.max(100, 'Bank Name must not exceed ${max} characters'),
-      beneficiary_bank_account_no: FieldValidators.requiredString.max(
-        100,
-        'Bank Account Number must not exceed ${max} symbols',
-      ),
+      beneficiary_name: FieldValidators.requiredString.max(100, t('Name characters count restriction')),
+      beneficiary_bank: FieldValidators.requiredString.max(100, t('Bank Name characters count restriction')),
+      beneficiary_bank_account_no: FieldValidators.requiredString.max(100, t('Bank Account Number count restriction')),
       swift_code: FieldValidators.swift,
-      iban: Yup.string().max(50, 'IBAN must not exceed ${max} characters'),
-      branch_name: FieldValidators.requiredString.max(100, 'Bank Branch Name must not exceed ${max} characters'),
-      branch_address: FieldValidators.requiredString.max(100, 'Bank Branch Address must not exceed ${max} characters'),
+      iban: Yup.string().max(50, t('IBAN characters count restriction')),
+      branch_name: FieldValidators.requiredString.max(100, t('Bank Branch Name characters count restriction')),
+      branch_address: FieldValidators.requiredString.max(100, t('Bank Branch Address characters count restriction')),
     });
 
     return (

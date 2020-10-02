@@ -13,9 +13,9 @@ export function FifthStep({ name, submitFn }: any) {
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
-    declaration: Yup.bool().oneOf([true], 'This field is required'),
+    declaration: Yup.bool().oneOf([true], t('This field is required')),
   });
-  
+
   function Submit(data: FormikValues) {
     console.log(data);
     submitFn({ [ERegSteps.step5]: data });

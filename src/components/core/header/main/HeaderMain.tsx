@@ -17,7 +17,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
   const [scrollbarWidth, setScrollbarWidth] = useState(0);
   const { localizePath } = usePathLocale();
   const responsive = useResponsive();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const _scrollbarWidth = isBurgerMenuOpen ? window.innerWidth - document.body.clientWidth : 0;

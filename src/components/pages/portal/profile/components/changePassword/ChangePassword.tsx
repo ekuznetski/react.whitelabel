@@ -24,7 +24,7 @@ export const ChangePassword = memo(
       }),
       repeatNewPassword: Yup.string().when('currentPassword', {
         is: (val: string) => val?.length > 0,
-        then: FieldValidators.password.oneOf([Yup.ref('newPassword'), ''], 'Passwords must match'),
+        then: FieldValidators.password.oneOf([Yup.ref('newPassword'), ''], t('Passwords must match')),
         otherwise: Yup.string(),
       }),
     });
