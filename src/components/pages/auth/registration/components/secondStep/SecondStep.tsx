@@ -3,7 +3,8 @@ import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shar
 import { FieldValidators } from '@domain';
 import { ECountryCodeToName } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikValues } from 'formik';
+import moment from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -26,22 +27,12 @@ export function SecondStep({ submitFn }: any) {
   const { geoIp } = useSelector<IStore, Partial<IDataStore>>((state) => ({
     geoIp: state.data.geoIp,
   }));
-
-  const months = [
-    { value: '01', label: 'January' },
-    { value: '02', label: 'February' },
-    { value: '03', label: 'March' },
-    { value: '04', label: 'April' },
-    { value: '05', label: 'May' },
-    { value: '06', label: 'June' },
-    { value: '07', label: 'July' },
-    { value: '08', label: 'August' },
-    { value: '09', label: 'September' },
-    { value: '10', label: 'October' },
-    { value: '11', label: 'November' },
-    { value: '12', label: 'December' },
-  ];
   const { t } = useTranslation();
+
+  const months = moment
+    .localeData('en')
+    .months()
+    .reduce((acc: any, month, idx) => [...acc, { value: idx + 1, label: month }], []);
 
   const validationSchema = Yup.object().shape({
     tax_checkbox: FieldValidators.notRequired,
@@ -79,6 +70,21 @@ export function SecondStep({ submitFn }: any) {
     zip: FieldValidators.zip,
   });
 
+  function Submit(data: FormikValues) {
+    data.country = ECountryCodeToName[data.country];
+    if (!data.tax_checkbox) {
+      data.tax_country = data.country;
+    } else {
+      data.tax_country = ECountryCodeToName[data.tax_country];
+    }
+    Object.assign(data, { dob: `${data.yearOfBirth}-${data.monthOfBirth}-${data.dayOfBirth}` });
+    delete data.yearOfBirth;
+    delete data.monthOfBirth;
+    delete data.dayOfBirth;
+    delete data.tax_checkbox;
+    submitFn({ [ERegSteps.step2]: data });
+  }
+
   return (
     <div className="registration-second-step">
       <Formik
@@ -94,20 +100,7 @@ export function SecondStep({ submitFn }: any) {
           zip: '',
         }}
         validationSchema={validationSchema}
-        onSubmit={(data) => {
-          data.country = ECountryCodeToName[data.country];
-          if (!data.tax_checkbox) {
-            data.tax_country = data.country;
-          } else {
-            data.tax_country = ECountryCodeToName[data.tax_country];
-          }
-          Object.assign(data, { dob: `${data.yearOfBirth}-${data.monthOfBirth}-${data.dayOfBirth}` });
-          delete data.yearOfBirth;
-          delete data.monthOfBirth;
-          delete data.dayOfBirth;
-          delete data.tax_checkbox;
-          submitFn({ [ERegSteps.step2]: data });
-        }}
+        onSubmit={Submit}
       >
         {(props: any) => {
           const { values, setFieldValue } = props;
