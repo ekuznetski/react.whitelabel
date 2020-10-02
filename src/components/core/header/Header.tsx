@@ -1,4 +1,3 @@
-import { routesConfig } from '@domain';
 import { EAppSection } from '@domain/enums';
 import { IStore } from '@store';
 import { useScroll } from '@utils/hooks';
