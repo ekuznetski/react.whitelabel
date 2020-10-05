@@ -2,6 +2,7 @@ import { EAppSection, ELanguage } from '@domain/enums';
 import { IClientProfile, IContent, IGeoIp, ILogin, INotificationState } from '@domain/interfaces';
 import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
 import { EActionTypes } from './store.enum';
+import { EAppSection } from '@domain/enums';
 
 export interface IDataStore {
   content: IContent;
@@ -48,6 +49,6 @@ export interface IStore {
 export interface IAction<T = { [k: string]: any }> {
   type: EActionTypes;
   payload?: T;
-  success_cb?: (...args: any[]) => void;
-  failure_cb?: (...args: any[]) => void;
+  success_cb?: Function;
+  failure_cb?: Function;
 }

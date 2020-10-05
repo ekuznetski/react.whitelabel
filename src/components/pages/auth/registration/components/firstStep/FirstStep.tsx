@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import './FirstStep.scss';
+import { AlreadyRegistered } from '../../../components/alreadyRegistered/AlreadyRegistered';
 
 enum EFields {
   'first_name' = 'first_name',
@@ -76,16 +77,7 @@ export function FirstStep({ submitFn }: any) {
                   name={EFields.phone_prefix}
                   preselectedValue={geoIp?.countryCode}
                 />
-                <Input
-                  label={t('Phone')}
-                  name={EFields.phone}
-                  onChange={(e: any) => {
-                    if (/^\d*$/gm.test(e.target?.value) || e.target?.value === '') {
-                      e.preventDefault();
-                      setFieldValue(EFields.phone, e.target.value);
-                    }
-                  }}
-                />
+                <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
               </div>
               <p className="my-7 fadeFromBottom-row__4">
                 {t('Market Event Notification Desc:0')}
@@ -99,12 +91,7 @@ export function FirstStep({ submitFn }: any) {
           );
         }}
       </Formik>
-      <div className="mt-5 text-center under-form fadeFromBottom-row__6">
-        {t('Already Registered?')}
-        <LocaleLink className="already__link ml-1" to="/login">
-          {t('Sign In')}
-        </LocaleLink>
-      </div>
+        <AlreadyRegistered />
     </div>
   );
 }

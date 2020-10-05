@@ -14,7 +14,9 @@ export const Input = memo(
       label = null,
       onFocus = null,
       onBlur = null,
+      onChange = null,
       forceShowError = null,
+      regex = null,
       isLoading = null,
       ...props
     },
@@ -47,8 +49,17 @@ export const Input = memo(
         isFocused: false,
         isFilled: !!e.target.value,
       });
-
       onBlur?.(e, state);
+    }
+
+    function onChangeHandler(e: any) {
+      const val = e.target.value;
+      if (!onChange) {
+        if ((!!regex && regex.test(val)) || val === '' || !regex) {
+          helpers.setValue(val);
+        }
+      }
+      onChange?.(e);
     }
 
     return (
@@ -76,6 +87,7 @@ export const Input = memo(
           disabled={_disabled}
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
+          onChange={onChangeHandler}
           ref={ref}
         />
         {(meta.touched || forceShowError) && !_disabled && meta.error ? (

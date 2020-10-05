@@ -4,10 +4,9 @@ import { IRouteNavConfig } from '@domain/interfaces';
 import { ac_fetchContent, ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
 import { usePathLocale } from '@utils/hooks';
 import { useThrottle } from 'ahooks';
-import { locale } from 'moment';
 import React, { memo, useEffect, useState } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { useLockScroll } from 'utils/hooks/useLockScroll';
 import { NotFound, PageLoader } from '..';
 
@@ -70,7 +69,9 @@ interface IRenderRoute {
 function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
   const [renderCounter, setCounter] = useState(0);
   const [isLoading, setRouteLoading] = useState(true);
+  const { localizePath } = usePathLocale();
   const _openedRequests = useThrottle(openedRequests, { wait: 200 });
+  const history = useHistory();
 
   useEffect(() => {
     const _batchDispatch: any[] = [];
@@ -89,8 +90,8 @@ function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
 
     // Request Initial ApiData
     [
-      ...(routesInitialApiData[route.appSection]?.optional || []),
-      ...(routesInitialApiData[route.appSection]?.required || []),
+      ...(routesInitialApiData[route.appSection]?.lazy || []),
+      ...(routesInitialApiData[route.appSection]?.strict || []),
     ]?.forEach((ac) => {
       const _ac = ac();
       console.log('Request Initial Action: ' + _ac.type);
@@ -98,7 +99,7 @@ function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
     });
 
     // Request Page ApiData
-    [...(route.apiData?.optional || []), ...(route.apiData?.required || [])]?.forEach((ac) => {
+    [...(route.apiData?.lazy || []), ...(route.apiData?.strict || [])]?.forEach((ac) => {
       const _ac = ac();
       console.log('Request Page Action: ' + _ac.type);
       _batchDispatch.push(_ac);
@@ -114,28 +115,30 @@ function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
 
   useEffect(() => {
     if (renderCounter) {
-      const _routeRequiredRequests = [
-        ...(route.apiData?.required || []),
-        ...(routesInitialApiData[route.appSection]?.required || []),
+      const _routeStrictRequests = [
+        ...(route.apiData?.strict || []),
+        ...(routesInitialApiData[route.appSection]?.strict || []),
       ].map((action) => action().type);
-      const hasUncompletedRequiredRequest = _routeRequiredRequests.length
-        ? openedRequests.filter((request) => _routeRequiredRequests.includes(request)).length > 0
+      const hasUncompletedStrictRequest = _routeStrictRequests.length
+        ? openedRequests.filter((request) => _routeStrictRequests.includes(request)).length > 0
         : false;
 
-      useLockScroll(hasUncompletedRequiredRequest, route.appSection);
-      setRouteLoading(hasUncompletedRequiredRequest);
+      useLockScroll(hasUncompletedStrictRequest, route.appSection);
+      setRouteLoading(hasUncompletedStrictRequest);
+
+      if (route.activators && !hasUncompletedStrictRequest) {
+        const _redirectParams = route.activators
+          .map((activator) => activator())
+          .find((a) => !a || Object.keys(a).length);
+
+        if (typeof _redirectParams === 'object') {
+          history.push(localizePath(_redirectParams.path), _redirectParams?.state);
+        } else if (_redirectParams === false) {
+          history.push(localizePath(prevPath));
+        }
+      }
     }
   }, [_openedRequests]);
-
-  if (route.activators) {
-    const _redirectParams = route.activators.map((activator) => activator()).find((a) => !a || Object.keys(a).length);
-
-    if (typeof _redirectParams === 'object') {
-      return <Redirect to={_redirectParams} />;
-    } else if (_redirectParams === false) {
-      return <Redirect to={prevPath} />;
-    }
-  }
 
   return (
     <>

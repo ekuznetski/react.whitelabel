@@ -6,12 +6,7 @@ export const initDataStore: Nullable<IDataStore> = {
   content: null,
   geoIp: null,
   client: {
-    // @ts-ignore
-    profile: {
-      first_name: 'Bob',
-      surname: 'Doe',
-      email: 'bobD@example.com',
-    },
+    profile: null,
     statusData: null,
     preferences: {
       show_promotions: true,
