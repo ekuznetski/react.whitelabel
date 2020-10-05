@@ -33,39 +33,39 @@
   }
 
   &.with-label {
-    div[class*='-Input'] {
+    div[class$='-Input'] {
       padding-top: 9px;
       margin-bottom: -4px;
       font-size: 14px;
     }
 
-    div[class*='-singleValue'] {
+    div[class$='-singleValue'] {
       top: 32px;
       min-height: 26px;
     }
   }
 
-  div[class*='-container'] {
+  div[class$='-container'] {
     height: 100%;
 
-    div[class*='-control'] {
+    div[class$='-control'] {
       border: none !important;
       box-shadow: none;
       min-height: 48px;
 
-      div[class*='-ValueContainer'] {
+      div[class$='-ValueContainer'] {
         overflow: visible;
         padding: 4px 8px;
         min-height: 48px;
 
-        div[class*='-placeholder'] {
+        div[class$='-placeholder'] {
           font-size: 14px;
           display: flex;
           align-items: center;
           color: $dark-grey;
         }
 
-        div[class*='-singleValue'] {
+        div[class$='-singleValue'] {
           font-size: 14px;
           display: flex;
           align-items: center;
@@ -76,13 +76,13 @@
         }
       }
 
-      div[class*='-indicatorContainer'],
-      div[class*='-indicatorContainer']:hover {
+      div[class$='-indicatorContainer'],
+      div[class$='-indicatorContainer']:hover {
         color: $dark-blue;
       }
     }
 
-    div[class*='-menu'] {
+    div[class$='-menu'] {
       width: 100%;
       left: -1px;
       top: calc(100% + 3px);
@@ -114,7 +114,7 @@
         }
       }
 
-      div[class*='-option'] {
+      div[class$='-option'] {
         display: flex;
         align-items: center;
         height: 36px;
@@ -145,7 +145,7 @@
   }
 
   &.phoneCode-select {
-    div[class*='-menu'] {
+    div[class$='-menu'] {
       min-width: 300px;
     }
   }
@@ -163,14 +163,14 @@
   }
 
   &.trading-account-select {
-    div[class*='-control'] div[class*='-ValueContainer'] div[class*='-singleValue'],
-    div[class*='-container'] div[class*='-menu'] div[class*='-option'] {
-      .trading-account-option {
+    div[class$='-control'] div[class$='-ValueContainer'] div[class$='-singleValue'],
+    div[class$='-container'] div[class$='-menu'] div[class$='-option'] {
+      .trading-account-item {
         display: flex;
         align-items: center;
         font-size: 12px;
 
-        .trading-option {
+        .trading-item {
           &__platform {
             width: 26px;
             height: 26px;
@@ -201,23 +201,23 @@
           }
         }
       }
-      &.selected .trading-option__balance svg path {
+      &.selected .trading-item__balance svg path {
         fill: #fff;
       }
     }
   }
 
   &.disabled {
-    div[class*='-container'] {
-      div[class*='-control'] {
+    div[class$='-container'] {
+      div[class$='-control'] {
         background: $grey;
 
-        div[class*='-placeholder'],
+        div[class$='-placeholder'],
         .label {
           color: rgba(#000, 0.3);
         }
 
-        div[class*='-IndicatorsContainer'] {
+        div[class$='-IndicatorsContainer'] {
           svg {
             fill: $dark-grey;
           }

@@ -256,11 +256,11 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
 
   const options = props.options.map((account: MTradingAccount) => ({
     label: (
-      <div className="trading-account-option" key={account.accountId}>
-        <div className="trading-option__platform mr-1">{account.platformName}</div>
-        <div className="trading-option__number">{account.accountId}</div>
-        <div className="trading-option__spacer mx-3" />
-        <div className="trading-option__balance">
+      <div className="trading-account-item" key={account.accountId}>
+        <div className="trading-item__platform mr-1">{account.platformName}</div>
+        <div className="trading-item__number">{account.accountId}</div>
+        <div className="trading-item__spacer mx-3" />
+        <div className="trading-item__balance">
           <Svg href={account.currency.toLowerCase() + '.svg'} className="mr-1" height={12} />
           {account.balance}
         </div>
