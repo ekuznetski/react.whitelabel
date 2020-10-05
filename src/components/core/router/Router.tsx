@@ -4,13 +4,11 @@ import { IRouteNavConfig } from '@domain/interfaces';
 import { ac_fetchContent, ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
 import { usePathLocale } from '@utils/hooks';
 import { useThrottle } from 'ahooks';
-import { locale } from 'moment';
 import React, { memo, useEffect, useState } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { useLockScroll } from 'utils/hooks/useLockScroll';
 import { NotFound, PageLoader } from '..';
-import { EAppSection } from '@domain/enums';
 
 export const Router = memo(function Router() {
   const { routeState, activeRequestsList } = useSelector<
@@ -71,6 +69,7 @@ interface IRenderRoute {
 function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
   const [renderCounter, setCounter] = useState(0);
   const [isLoading, setRouteLoading] = useState(true);
+  const { localizePath } = usePathLocale();
   const _openedRequests = useThrottle(openedRequests, { wait: 200 });
   const history = useHistory();
 
@@ -133,9 +132,9 @@ function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
           .find((a) => !a || Object.keys(a).length);
 
         if (typeof _redirectParams === 'object') {
-          history.push(_redirectParams.path, _redirectParams?.state)
+          history.push(localizePath(_redirectParams.path), _redirectParams?.state);
         } else if (_redirectParams === false) {
-          history.push(prevPath);
+          history.push(localizePath(prevPath));
         }
       }
     }
