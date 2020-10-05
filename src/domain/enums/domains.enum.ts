@@ -4,6 +4,12 @@ export enum ELabels {
   bsfx = 'bsfx',
 }
 
+export enum ELabelsName {
+  default = 'Default',
+  arofx = 'AroFX',
+  bsfx = 'BSFX',
+}
+
 export enum EAppSection {
   main = 'main',
   portal = 'portal',
