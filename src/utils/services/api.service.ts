@@ -5,59 +5,59 @@ import mockData from './api.mock.json';
 const apiUrl = 'https://api.hycm.com';
 
 export function request<T extends { [K: string]: any }>(method: EHttpMethod, path: string) {
-	return async (data: T | null = null) => {
-		if (data) {
-			const formData = new FormData();
-			Object.keys(data).map((el: string) => {
-				formData.set(el, (data as T)[el]);
-			});
-			data = formData as any;
-		}
+  return async (data: T | null = null) => {
+    if (data) {
+      const formData = new FormData();
+      Object.keys(data).map((el: string) => {
+        formData.set(el, (data as T)[el]);
+      });
+      data = formData as any;
+    }
 
-		try {
-			// RETURN MOCK RESPONSE
-			const [c, s] = path.split('/').splice(-2);
-			const mockResponse = (mockData as any)?.[c]?.[s];
-			if (mockResponse) {
-				return new Promise((resolve) => {
-					setTimeout(() => resolve(mockResponse), 450);
-				});
-			}
-			// END MOCK RESPONSE
+    try {
+      // RETURN MOCK RESPONSE
+      const [c, s] = path.split('/').splice(-2);
+      const mockResponse = (mockData as any)?.[c]?.[s];
+      if (mockResponse) {
+        return new Promise((resolve) => {
+          setTimeout(() => resolve(mockResponse), 450);
+        });
+      }
+      // END MOCK RESPONSE
 
-			if (method === EHttpMethod.get) {
-				return axios[method](path).then((e: any) => {
-					if (
-						(e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
-						(e.data?.status && e.data.status === EResponseStatus.failure)
-					) {
-						throw new Error(e);
-					} else {
-						return e.data;
-					}
-				});
-			} else {
-				// @ts-ignore
-				return axios[method](path, data, {
-					headers: {
-						'content-type': 'application/x-www-form-urlencoded',
-					},
-				}).then((e: any) => {
-					if (
-						(e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
-						(e.data?.status && e.data.status === EResponseStatus.failure)
-					) {
-						throw new Error(e);
-					} else {
-						return e.data;
-					}
-				});
-			}
-		} catch (err) {
-			console.error(err);
-			throw new Error(err);
-		}
-	};
+      if (method === EHttpMethod.get) {
+        return axios[method](path).then((e: any) => {
+          if (
+            (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
+            (e.data?.status && e.data.status === EResponseStatus.failure)
+          ) {
+            throw new Error(e);
+          } else {
+            return e.data;
+          }
+        });
+      } else {
+        // @ts-ignore
+        return axios[method](path, data, {
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+          },
+        }).then((e: any) => {
+          if (
+            (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
+            (e.data?.status && e.data.status === EResponseStatus.failure)
+          ) {
+            throw new Error(e);
+          } else {
+            return e.data;
+          }
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      throw new Error(err);
+    }
+  };
 }
 // export const getContentRequest = request(EHttpMethod.get, `https://baconipsum.com/api/?type=meat-and-filler`);
 export const getContentRequest = (d: any) => new Promise((resolve, reject) => resolve({}));
@@ -74,3 +74,4 @@ export const withdrawalsHistoryRequest = request(EHttpMethod.get, `${apiUrl}/wit
 export const withdrawalsLimitRequest = request(EHttpMethod.post, `${apiUrl}/withdrawals/limit`);
 export const tradingAccountsRequest = request(EHttpMethod.get, `${apiUrl}/clients/getTradingAccounts`);
 export const internalTransferRequest = request(EHttpMethod.post, `${apiUrl}/accounts/transfer`);
+export const getTransactionalStatementsRequest = request(EHttpMethod.post, `${apiUrl}/clients/bankingStatements`);

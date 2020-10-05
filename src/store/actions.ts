@@ -1,14 +1,16 @@
+import { EAppSection, ELanguage } from '@domain/enums';
 import {
   IClientAddRequest,
   IClientProfile,
   IContent,
   IGeoIp,
-  IInternalTransferData,
+  IInternalTransferRequestData,
   ILoginRequest,
   INotificationState,
   ISetProfileRequest,
+  ITransactionalStatementsRequestData,
 } from '@domain/interfaces';
-import { MClientData, MClientTradingData, MWithdrawalHistoryItem } from '@domain/models';
+import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
 import { EAppSection } from '@domain/enums';
@@ -126,7 +128,15 @@ export function ac_saveGeoIpData(payload: IGeoIp): IAction {
   };
 }
 
-export function ac_updateRouteParams(payload: { current?: string; appSection: EAppSection }): IAction {
+export function ac_updateRouteParams(payload: {
+  path?: string;
+  locale?: ELanguage | null;
+  appSection?: EAppSection;
+  meta?: {
+    title: string;
+    desc?: string;
+  };
+}): IAction {
   return {
     type: EActionTypes.updateRoute,
     payload,
@@ -201,7 +211,7 @@ export function ac_saveClientData(payload: MClientData): IAction {
 }
 
 export function ac_makeInternalTransfer(
-  payload: IInternalTransferData,
+  payload: IInternalTransferRequestData,
   success_cb: Function,
   failure_cb?: Function,
 ): IAction {
@@ -210,5 +220,25 @@ export function ac_makeInternalTransfer(
     payload,
     success_cb,
     failure_cb,
+  };
+}
+
+export function ac_fetchTransactionalStatements(
+  payload: ITransactionalStatementsRequestData,
+  success_cb: Function,
+  failure_cb?: Function,
+): IAction {
+  return {
+    type: EActionTypes.fetchTransactionalStatements,
+    payload,
+    success_cb,
+    failure_cb,
+  };
+}
+
+export function ac_saveTransactionalStatements(payload: MTransactionalStatementData): IAction {
+  return {
+    type: EActionTypes.saveTransactionalStatements,
+    payload,
   };
 }

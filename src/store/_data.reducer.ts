@@ -7,13 +7,14 @@ export const initDataStore: Nullable<IDataStore> = {
   geoIp: null,
   client: {
     profile: null,
-    data: null,
+    statusData: null,
     preferences: {
       show_promotions: true,
       phone_verification: 'pending',
       show_compliance_popup: false,
       switch_cayman: false,
     },
+    statements: null,
   },
   tradingData: null,
   withdrawals: {
@@ -31,7 +32,7 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
       return { ...state, client: { ...state.client, profile: action.payload } };
 
     case EActionTypes.saveClientData:
-      return { ...state, client: { ...state.client, data: action.payload } };
+      return { ...state, client: { ...state.client, statusData: action.payload } };
 
     case EActionTypes.saveTradingAccounts:
       return { ...state, tradingData: action.payload };

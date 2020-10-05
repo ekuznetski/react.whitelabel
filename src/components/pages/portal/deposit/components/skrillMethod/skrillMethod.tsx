@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
-import * as Yup from 'yup';
 import { Button } from '@components/shared';
-import { DepositContext } from '../../depositContext';
 import { FieldValidators } from '@domain';
+import React, { useContext } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 import { BillingDetailsModal, DetailsHeader } from '..';
+import { DepositContext } from '../../depositContext';
 
 export function SkrillMethod() {
   const { dispatch } = useContext<any>(DepositContext);
+  const { t } = useTranslation();
   const [isBillingDetailsModalOpen, setIsBillingDetailsModalOpen] = React.useState<boolean>(false);
 
   //TODO setup validataion
@@ -31,16 +33,16 @@ export function SkrillMethod() {
         <DetailsHeader />
         <Row>
           <Col xs={12}>
-            <Button onClick={submit}>Deposit</Button>
+            <Button onClick={submit}>{t('Deposit')}</Button>
           </Col>
         </Row>
       </div>
       <div className="py-10 px-9 col-xl-6 col-lg-7 col-md-9 col-12 m-auto">
         <Row className="note">
           <Col xs={12} sm={6}>
-            Edit your{' '}
+            {t('Edit your')}{' '}
             <a href="#" onClick={onClickHandler}>
-              billing address
+              {t('billing address')}
             </a>
           </Col>
         </Row>

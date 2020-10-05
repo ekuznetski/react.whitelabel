@@ -3,7 +3,7 @@
 	button[class*='fadeFromBottom-row'],
 	p[class*='fadeFromBottom-row'],
 	div[class*='fadeFromBottom-row'] {
-		will-change: transform;
+		// will-change: transform;
 		animation-name: fadeFromBottom;
 		animation-fill-mode: both;
 		animation-duration: 0.3s;

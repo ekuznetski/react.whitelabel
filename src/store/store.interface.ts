@@ -1,6 +1,7 @@
+import { EAppSection, ELanguage } from '@domain/enums';
 import { IClientProfile, IContent, IGeoIp, ILogin, INotificationState } from '@domain/interfaces';
+import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
 import { EActionTypes } from './store.enum';
-import { MWithdrawalHistoryItem, MClientData, MClientTradingData } from '@domain/models';
 import { EAppSection } from '@domain/enums';
 
 export interface IDataStore {
@@ -8,8 +9,9 @@ export interface IDataStore {
   geoIp: IGeoIp;
   client: {
     profile: IClientProfile;
-    data: MClientData;
+    statusData: MClientData;
     preferences: ILogin;
+    statements: MTransactionalStatementData;
   };
   tradingData: MClientTradingData;
   withdrawals: {
@@ -20,8 +22,13 @@ export interface IDataStore {
 
 export interface IAppStore {
   route: {
-    current: string;
+    path: string;
+    locale: ELanguage;
     appSection: EAppSection;
+    meta: {
+      title: string;
+      desc: string;
+    };
   };
   requests: {
     activeList: EActionTypes[];

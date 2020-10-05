@@ -48,7 +48,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     meta: {
       title: 'Home',
     },
-    path: '/',
+    path: '',
     component: Home,
     appSection: EAppSection.main,
     apiData: {

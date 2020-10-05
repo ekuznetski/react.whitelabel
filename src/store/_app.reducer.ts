@@ -1,10 +1,18 @@
 import { EActionTypes } from './store.enum';
 import { IAction, IAppStore } from './store.interface';
 import { Nullable } from '@domain/interfaces';
-import { EAppSection } from '@domain/enums';
+import { ELanguage } from '@domain/enums';
 
 export const initAppStore: Nullable<IAppStore> = {
-  route: { current: '/', appSection: EAppSection.main },
+  route: {
+    path: '/',
+    locale: ELanguage.en,
+    appSection: null,
+    meta: {
+      title: null,
+      desc: null,
+    },
+  },
   requests: {
     activeList: [],
     failedList: [],

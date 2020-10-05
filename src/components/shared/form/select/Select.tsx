@@ -3,10 +3,9 @@ import { countries, Currencies, EFormStatus } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
-import React, { memo, useState } from 'react';
+import React, { forwardRef, memo, useState } from 'react';
 import ReactSelect, { components } from 'react-select';
-import { Spring } from 'react-spring/renderprops';
-import { animated } from 'react-spring';
+import { useSpring, animated } from 'react-spring';
 import BezierEasing from 'bezier-easing';
 import { FixedSizeList as List } from 'react-window';
 import './Select.scss';
@@ -15,7 +14,7 @@ function Input(props: any) {
   return <components.Input {...props} autoComplete="disableAutoComplete" />;
 }
 
-function IndicatorSeparator() {
+function NoRender() {
   return null;
 }
 
@@ -23,36 +22,33 @@ const MenuList = memo(function MenuList(props: any) {
   const OPTION_HEIGHT = 36;
   const { options, children, maxHeight, getValue } = props;
   const [value] = getValue();
-  const initialOffset = options.indexOf(value) * OPTION_HEIGHT;
+  const initialOffset = Math.max(options.indexOf(value), 0) * OPTION_HEIGHT;
   const _height = Math.min(maxHeight, Math.max((children.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5)) ?? 100;
   const easeAnimation = BezierEasing(0.25, 0.1, 0.25, 1.0);
+  const animatedProps: any = useSpring({
+    config: { duration: 300, easing: easeAnimation },
+    from: { height: 0, opacity: 0.4 },
+    to: { height: _height, opacity: 1 },
+  });
 
   return (
-    <Spring
-      config={{ duration: 300, easing: easeAnimation }}
-      from={{ height: 0, opacity: 0.4 }}
-      to={{ height: _height, opacity: 1 }}
-    >
-      {(animatedProps) => (
-        <animated.div className="menu-wrapper" style={animatedProps}>
-          {children.length ? (
-            <List
-              height={_height}
-              itemCount={children.length || 0}
-              itemSize={OPTION_HEIGHT}
-              initialScrollOffset={initialOffset}
-              width="100%"
-            >
-              {({ index, style }) => {
-                return <div style={style}>{children[index]}</div>;
-              }}
-            </List>
-          ) : (
-            <div className="no-options">No Options</div>
-          )}
-        </animated.div>
+    <animated.div className="menu-wrapper" style={animatedProps}>
+      {children.length ? (
+        <List
+          height={_height}
+          itemCount={children.length || 0}
+          itemSize={OPTION_HEIGHT}
+          initialScrollOffset={initialOffset}
+          width="100%"
+        >
+          {({ index, style }) => {
+            return <div style={style}>{children[index]}</div>;
+          }}
+        </List>
+      ) : (
+        <div className="no-options">No Options</div>
       )}
-    </Spring>
+    </animated.div>
   );
 });
 
@@ -96,10 +92,15 @@ export const Select = memo(function Select({
   const _disabled = props.isDisabled || FormStatus === EFormStatus.disabled;
 
   function onChangeSelect(e: any) {
+    let _val = e;
+    if (props.isMulti) {
+      _val = { value: _val?.map((item: ISelectItem) => item.value) || [] };
+    }
+
     setSelectedValue(e);
-    helpers.setValue(e?.value);
+    helpers.setValue(_val?.value);
     if (props.onChange) {
-      props.onChange(e?.value);
+      props.onChange(_val?.value);
     }
   }
 
@@ -107,7 +108,6 @@ export const Select = memo(function Select({
     components: {
       ...props.components,
       MenuList,
-      // IndicatorSeparator,
       Input,
     },
   });
@@ -132,6 +132,7 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
+        // defaultMenuIsOpen={true}
         onFocus={() => setState({ ...state, isFocused: true })}
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
@@ -179,7 +180,7 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
       name={name}
       options={options}
       {...innerProps}
-      components={{ IndicatorSeparator }}
+      components={{ IndicatorSeparator: NoRender }}
       preselectedValue={preselectedValue}
     />
   );
@@ -230,6 +231,7 @@ export const CurrencySelect = memo((props: any) => {
     const selectedValue = props.selectProps?.value?.value;
     const currentOptionValue = props.data.value;
     const isSelected = selectedValue === currentOptionValue;
+
     return (
       <components.Option {...props} className={isSelected ? 'selected' : ''}>
         {children}
@@ -271,6 +273,7 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
     const selectedValue = props.selectProps?.value?.value.accountId;
     const currentOptionValue = props.data.value.accountId;
     const isSelected = selectedValue === currentOptionValue;
+    
     return (
       <components.Option {...props} className={isSelected ? 'selected' : ''}>
         {children}

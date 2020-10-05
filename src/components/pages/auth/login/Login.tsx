@@ -1,54 +1,57 @@
-import { Button, Input } from '@components/shared';
+import { Button, Input, LocaleLink } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { IClientProfile, ILoginRequest } from '@domain/interfaces';
-import { ac_login, IStore } from '@store';
-import { Form, Formik, FormikProps } from 'formik';
-import React, { useEffect } from 'react';
+import { ILoginRequest } from '@domain/interfaces';
+import { ac_login } from '@store';
+import { Form, Formik, FormikProps, FormikValues } from 'formik';
+import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import './Login.scss';
 
+enum EFields {
+	'username' = 'username',
+	'password' = 'password',
+}
+
 export function Login() {
   const dispatch = useDispatch();
-
-  enum EFields {
-    'username' = 'username',
-    'password' = 'password',
-  }
+  const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
     [EFields.username]: FieldValidators.loginAndEmail,
     [EFields.password]: FieldValidators.requiredString,
   });
 
+  function Submit(data: FormikValues) {
+    dispatch(ac_login(data as ILoginRequest));
+  }
+
   return (
     <Container>
       <Row>
         <Col sm={12} md={7} lg={5} className="m-auto">
-          <h3 className="text-center mb-7">Login</h3>
+          <h3 className="text-center mb-7">{t('Login')}</h3>
           <Formik
             initialValues={{
               username: '',
               password: '',
             }}
             validationSchema={validationSchema}
-            onSubmit={(data: ILoginRequest) => {
-              dispatch(ac_login(data));
-            }}
+            onSubmit={Submit}
           >
             {(props: FormikProps<any>) => (
               <Form className="m-auto form">
-                <Input label="Email/Username" name={EFields.username} />
-                <Input label="Password" type="password" name={EFields.password} />
-                <Button type="submit">Submit</Button>
+                <Input label={t('Email/Username')} name={EFields.username} />
+                <Input label={t('Password')} type="password" name={EFields.password} />
+                <Button type="submit">{t('Submit')}</Button>
               </Form>
             )}
           </Formik>
           <div className="mt-5 text-center d-flex align-items-center justify-content-between forgot-create">
-            <Link to={'/forgot-password'}>Restore password</Link>
-            <Link to={'/registration'}>Create Live Account</Link>
+            <LocaleLink to="/forgot-password">{t('Restore password')}</LocaleLink>
+            <LocaleLink to="/registration">{t('Create Live Account')}</LocaleLink>
           </div>
         </Col>
       </Row>

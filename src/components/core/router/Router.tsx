@@ -1,29 +1,42 @@
-import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@domain';
+import { localesConfig, routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@domain';
+import { ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
-import { ac_fetchContent, ac_updateRouteParams, EActionTypes, IStore, store } from '@store';
+import { ac_fetchContent, ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
+import { usePathLocale } from '@utils/hooks';
 import { useThrottle } from 'ahooks';
+import { locale } from 'moment';
 import React, { memo, useEffect, useState } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { useLockScroll } from 'utils/hooks/useLockScroll';
-import { PageLoader } from '..';
+import { NotFound, PageLoader } from '..';
 import { EAppSection } from '@domain/enums';
 
 export const Router = memo(function Router() {
-  const dispatch = useDispatch();
-  const { currentRoute, activeRequestsList } = useSelector<IStore, any>((state) => ({
-    currentRoute: state.app.route.current,
+  const { routeState, activeRequestsList } = useSelector<
+    IStore,
+    { routeState: IAppStore['route']; activeRequestsList: EActionTypes[] }
+  >((state) => ({
+    routeState: state.app.route,
     activeRequestsList: state.app.requests.activeList,
   }));
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const { localizePath, delocalizePath } = usePathLocale();
 
   useEffect(() => {
-    if (currentRoute != location.pathname) {
+    const _path = delocalizePath(pathname);
+    const _locale = pathname.split('/')[1] as ELanguage;
+
+    if (routeState.path != _path && localesConfig.includes(_locale)) {
+      const route = routesNavConfig.find((route) => route.path === _path);
+
       window.scrollTo(0, 0);
       dispatch(
         ac_updateRouteParams({
-          current: location.pathname,
-          appSection: routesNavConfig.find((route) => route.path === location.pathname)?.appSection as EAppSection,
+          path: route?.path,
+          appSection: route?.appSection,
+          meta: route?.meta,
         }),
       );
     }
@@ -31,6 +44,8 @@ export const Router = memo(function Router() {
 
   return (
     <Switch>
+      <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
+      {routeState.locale && <Redirect exact from="/" to={routeState.locale} />}
       {routesRedirectConfig.map((route) => (
         <Redirect key={route.path} exact from={route.path} to={route.redirectTo} />
       ))}
@@ -38,10 +53,11 @@ export const Router = memo(function Router() {
         <Route
           key={r}
           exact
-          path={route.path}
-          render={() => <RenderRoute route={route} prevPath={currentRoute} openedRequests={activeRequestsList} />}
+          path={localizePath(route.path)}
+          render={() => <RenderRoute route={route} prevPath={routeState.path} openedRequests={activeRequestsList} />}
         />
       ))}
+      <Route component={NotFound} />
     </Switch>
   );
 });

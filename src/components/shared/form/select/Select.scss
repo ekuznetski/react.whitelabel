@@ -40,7 +40,8 @@
     }
 
     div[class*='-singleValue'] {
-      top: 32px;
+      top: 24px;
+      min-height: 26px;
     }
   }
 
@@ -50,6 +51,7 @@
     div[class*='-control'] {
       border: none !important;
       box-shadow: none;
+      min-height: 48px;
 
       div[class*='-ValueContainer'] {
         overflow: visible;
@@ -117,6 +119,11 @@
         align-items: center;
         height: 36px;
         font-size: 14px;
+
+        &:not(.no-options):active,
+        &:not(.no-options):hover {
+          background-color: rgba($blue, 0.3);
+        }
 
         .flag,
         .phone {

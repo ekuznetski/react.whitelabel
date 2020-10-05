@@ -50,6 +50,7 @@ function CardsProvider({ children }: CardsProviderProps) {
 		activeCardUid: 0,
 		cardsUid: [],
 	});
+	
 	return (
 		<CardsStateContext.Provider value={state}>
 			<CardsDispatchContext.Provider value={dispatch}>{children(state, dispatch)}</CardsDispatchContext.Provider>

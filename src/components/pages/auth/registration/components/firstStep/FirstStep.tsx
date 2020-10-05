@@ -1,9 +1,10 @@
 import { ERegSteps } from '@components/pages';
-import { Button, Input, PhoneCodeSelect } from '@components/shared';
+import { Button, Input, LocaleLink, PhoneCodeSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ac_userExists, IStore } from '@store';
 import { Form, Formik } from 'formik';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import './FirstStep.scss';
@@ -22,8 +23,9 @@ export function FirstStep({ submitFn }: any) {
     geoIp: state.data.geoIp,
   }));
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
-  function innerSubmitFn(data: any, helpers: any) {
+  function Submit(data: any, helpers: any) {
     dispatch(
       ac_userExists(
         { username: data.email },
@@ -61,36 +63,35 @@ export function FirstStep({ submitFn }: any) {
           phone: '',
         }}
         validationSchema={validationSchema}
-        onSubmit={innerSubmitFn}
+        onSubmit={Submit}
       >
         {({ setFieldValue }) => {
           return (
             <Form className="m-auto form">
-              <Input className="fadeFromBottom-row__0" label="First Name" name={EFields.first_name} />
-              <Input className="fadeFromBottom-row__1" label="Last Name" name={EFields.surname} />
-              <Input className="fadeFromBottom-row__2" label="Email" name={EFields.email} />
+              <Input className="fadeFromBottom-row__0" label={t('First Name')} name={EFields.first_name} />
+              <Input className="fadeFromBottom-row__1" label={t('Last Name')} name={EFields.surname} />
+              <Input className="fadeFromBottom-row__2" label={t('Email')} name={EFields.email} />
               <div className="phone-wrapper fadeFromBottom-row__3">
                 <PhoneCodeSelect
-                  placeholder="Prefix"
+                  placeholder={t('Prefix')}
                   name={EFields.phone_prefix}
                   preselectedValue={geoIp?.countryCode}
                 />
-                <Input label="Phone" name={EFields.phone} regex={/^\d*$/gm} />
+                <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
               </div>
               <p className="my-7 fadeFromBottom-row__4">
-                To improve your trading experience, we would like to notify you of market events and extreme price
-                movements. By signing up, you also declare you read, understood, and accept our{' '}
-                <a href="#">Privacy Policy</a> and you consent to receive newsletters, special offers and be contacted
-                by HYCM representatives via phone or e-mail. You can opt-out any time you wish to.
+                {t('Market Event Notification Desc:0')}
+                <a href="#">{t('Privacy Policy')}</a>
+                {t('Market Event Notification Desc:1')}
               </p>
               <Button type="submit" className="fadeFromBottom-row__5">
-                Next
+                {t('Next')}
               </Button>
-              <AlreadyRegistered />
             </Form>
           );
         }}
       </Formik>
+        <AlreadyRegistered />
     </div>
   );
 }

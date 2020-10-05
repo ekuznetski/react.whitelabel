@@ -1,27 +1,30 @@
-import { routesConfig } from '@domain';
 import { EAppSection } from '@domain/enums';
+import { IStore } from '@store';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import FooterAuth from './auth/FooterAuth';
 import FooterMain from './main/FooterMain';
 import FooterPortal from './portal/FooterPortal';
-import { useLocation } from 'react-router-dom';
 
 export function Footer() {
-	const location = useLocation();
-	let appSection = routesConfig.find(route => route.path == location.pathname)?.appSection as EAppSection;
+  const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({
+    section: state.app.route.appSection,
+  }));
+  const location = useLocation();
 
-	return useMemo(() => {
-		let footer_class = classNames('footer', appSection);
+  return useMemo(() => {
+    let footer_class = classNames('footer', section);
 
-		return (
-			<footer className={footer_class}>
-				{appSection === EAppSection.auth && <FooterAuth />}
-				{appSection === EAppSection.main && <FooterMain />}
-				{appSection === EAppSection.portal && <FooterPortal />}
-			</footer>
-		);
-	}, [appSection]);
+    return (
+      <footer className={footer_class}>
+        {section === EAppSection.auth && <FooterAuth />}
+        {section === EAppSection.main && <FooterMain />}
+        {section === EAppSection.portal && <FooterPortal />}
+      </footer>
+    );
+  }, [section]);
 }
 
 export default Footer;
