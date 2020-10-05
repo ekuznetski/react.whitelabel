@@ -13,6 +13,7 @@ import {
 import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
+import { EAppSection } from '@domain/enums';
 
 export function ac_showNotification(payload: Omit<INotificationState, 'visible'>): IAction {
   return {
@@ -61,7 +62,7 @@ export function ac_saveProfile(payload: IClientProfile): IAction {
   };
 }
 
-export function ac_userExists(payload: { username: string }, success_cb: () => void, failure_cb?: () => void): IAction {
+export function ac_userExists(payload: { username: string }, success_cb: Function, failure_cb?: Function): IAction {
   return {
     type: EActionTypes.userExists,
     payload,
@@ -70,7 +71,7 @@ export function ac_userExists(payload: { username: string }, success_cb: () => v
   };
 }
 
-export function ac_register(payload: { data: ISetProfileRequest }, success_cb: () => void): IAction {
+export function ac_register(payload: { data: ISetProfileRequest }, success_cb: Function): IAction {
   return {
     type: EActionTypes.register,
     payload,
@@ -85,7 +86,7 @@ export function ac_saveUserExists(payload: { userExists: boolean }): IAction {
   };
 }
 
-export function ac_preRegister(payload: { clientData: IClientAddRequest }, success_cb: () => void): IAction {
+export function ac_preRegister(payload: { clientData: IClientAddRequest }, success_cb: Function): IAction {
   return {
     type: EActionTypes.preRegister,
     payload,
@@ -211,8 +212,8 @@ export function ac_saveClientData(payload: MClientData): IAction {
 
 export function ac_makeInternalTransfer(
   payload: IInternalTransferRequestData,
-  success_cb: () => void,
-  failure_cb?: () => void,
+  success_cb: Function,
+  failure_cb?: Function,
 ): IAction {
   return {
     type: EActionTypes.makeInternalTransfer,
@@ -224,8 +225,8 @@ export function ac_makeInternalTransfer(
 
 export function ac_fetchTransactionalStatements(
   payload: ITransactionalStatementsRequestData,
-  success_cb: () => void,
-  failure_cb?: () => void,
+  success_cb: Function,
+  failure_cb?: Function,
 ): IAction {
   return {
     type: EActionTypes.fetchTransactionalStatements,

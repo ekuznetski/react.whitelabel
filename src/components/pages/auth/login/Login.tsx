@@ -11,8 +11,8 @@ import * as Yup from 'yup';
 import './Login.scss';
 
 enum EFields {
-  'username' = 'username',
-  'password' = 'password',
+	'username' = 'username',
+	'password' = 'password',
 }
 
 export function Login() {
@@ -43,14 +43,14 @@ export function Login() {
           >
             {(props: FormikProps<any>) => (
               <Form className="m-auto form">
-                <Input label={t('Login')} name={EFields.username} />
+                <Input label={t('Email/Username')} name={EFields.username} />
                 <Input label={t('Password')} type="password" name={EFields.password} />
                 <Button type="submit">{t('Submit')}</Button>
               </Form>
             )}
           </Formik>
           <div className="mt-5 text-center d-flex align-items-center justify-content-between forgot-create">
-            <LocaleLink to="/restore-password">{t('Restore password')}</LocaleLink>
+            <LocaleLink to="/forgot-password">{t('Restore password')}</LocaleLink>
             <LocaleLink to="/registration">{t('Create Live Account')}</LocaleLink>
           </div>
         </Col>
