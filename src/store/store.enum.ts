@@ -12,6 +12,7 @@ export enum EActionTypes {
   fetchProfile = '[DATA - Client] Fetch Profile',
   saveProfile = '[DATA - Client] Save Profile',
   login = '[DATA - Client] Login',
+  logout = '[DATA - Client] Logout',
   fetchClientData = '[DATA - Client] Fetch Status & Data',
   saveClientData = '[DATA - Client] Save Status & Data',
   fetchTradingAccounts = '[DATA - Client] Fetch Trading Accounts',
@@ -45,7 +46,5 @@ export enum EActionTypes {
 
   // APP - Registration
   userExists = '[APP - Registration] User Exists',
-  saveUserExists = '[APP - Registration] Save User Exists', //todo remove
   preRegister = '[APP - Registration] Client Add',
-  saveClientAdd = '[APP - Registration] Save Client Add', //todo remove
 }

@@ -71,10 +71,6 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.updateRoute:
       return { ...state, route: { ...state.route, ...action.payload } };
 
-    case EActionTypes.saveUserExists:
-    case EActionTypes.saveClientAdd:
-      return { ...state, registration: { ...state.registration, ...action.payload } };
-
     case EActionTypes.showNotification:
       return { ...state, notification: { ...action.payload, visible: true } };
 
