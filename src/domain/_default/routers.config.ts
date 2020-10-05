@@ -24,7 +24,7 @@ import {
   ac_fetchTradingAccounts,
   ac_fetchProfile,
 } from '@store';
-import { userAuthorized } from '@utils/guards';
+import { allowAuthorized, disallowAuthorized } from '@utils/guards';
 import { EAppSection, ETradingType } from '../enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
 
@@ -98,7 +98,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     path: '/login',
     component: Login,
-    activators: [userAuthorized],
+    activators: [disallowAuthorized],
     appSection: EAppSection.auth,
     menuItem: false,
   },
@@ -108,6 +108,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     path: '/forgot-password',
     component: ForgotPassword,
+    activators: [disallowAuthorized],
     appSection: EAppSection.auth,
     menuItem: false,
   },
@@ -117,6 +118,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     path: '/restore-password',
     component: RestorePassword,
+    activators: [disallowAuthorized],
     appSection: EAppSection.auth,
     menuItem: false,
   },
@@ -126,6 +128,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     path: '/registration',
     component: Registration,
+    activators: [disallowAuthorized],
     appSection: EAppSection.auth,
     apiData: {
       lazy: [ac_fetchGeoIpData],
@@ -139,7 +142,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/dashboard',
     component: Dashboard,
     appSection: EAppSection.portal,
-    activators: [userAuthorized],
+    activators: [allowAuthorized],
     apiData: {
       strict: [ac_fetchTradingAccounts],
     },
@@ -152,7 +155,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/deposit',
     component: Deposit,
     appSection: EAppSection.portal,
-    activators: [userAuthorized],
+    activators: [allowAuthorized],
     apiData: {
       strict: [ac_fetchTradingAccounts],
     },
@@ -168,7 +171,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/withdrawal',
     component: Withdrawal,
     appSection: EAppSection.portal,
-    activators: [userAuthorized],
+    activators: [allowAuthorized],
     apiData: {
       lazy: [ac_fetchWithdrawHistory],
       strict: [ac_fetchTradingAccounts],
@@ -185,7 +188,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/transfers',
     component: InternalTransfer,
     appSection: EAppSection.portal,
-    activators: [userAuthorized],
+    activators: [allowAuthorized],
     apiData: {
       strict: [ac_fetchTradingAccounts],
     },
@@ -201,7 +204,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/statement',
     component: TransactionStatement,
     appSection: EAppSection.portal,
-    activators: [userAuthorized],
+    activators: [allowAuthorized],
     menuItem: {
       icon: 'coins.svg',
       parent: 'Funds Management',
@@ -214,7 +217,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/open-account/live',
     component: OpenAccount,
     appSection: EAppSection.portal,
-    activators: [userAuthorized],
+    activators: [allowAuthorized],
     state: {
       accountType: ETradingType.live,
     },
@@ -230,7 +233,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/open-account/demo',
     component: OpenAccount,
     appSection: EAppSection.portal,
-    activators: [userAuthorized],
+    activators: [allowAuthorized],
     state: {
       accountType: ETradingType.demo,
     },
@@ -246,7 +249,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/download',
     component: PlatformDownload,
     appSection: EAppSection.portal,
-    activators: [userAuthorized],
+    activators: [allowAuthorized],
     menuItem: {
       icon: 'coins.svg',
       parent: { title: 'Tools', icon: 'documents.svg' },
@@ -259,7 +262,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/profile',
     component: Profile,
     appSection: EAppSection.portal,
-    activators: [userAuthorized],
+    activators: [allowAuthorized],
     menuItem: false,
   },
 ];
