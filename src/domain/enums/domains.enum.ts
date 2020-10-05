@@ -1,5 +1,5 @@
 export enum ELabels {
-  default = '',
+  default = 'default',
   arofx = 'arofx',
   bsfx = 'bsfx',
 }

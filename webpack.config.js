@@ -190,16 +190,12 @@ module.exports = (_env, arguments) => {
               ],
             },
           },
-          ...(targetLabel
-            ? [
-                {
-                  from: `assets/${targetLabelAssetFolder}/**/*`,
-                  to: 'assets/',
-                  flatten: true,
-                  force: true,
-                },
-              ]
-            : []),
+          {
+            from: `assets/${targetLabelAssetFolder}/**/*`,
+            to: 'assets/',
+            flatten: true,
+            force: true,
+          },
         ],
       }),
       new CleanWebpackPlugin({
