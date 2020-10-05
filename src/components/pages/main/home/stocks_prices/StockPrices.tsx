@@ -4,7 +4,7 @@ import { usePathLocale } from '@utils/hooks';
 import { useDebounceFn, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Area, AreaChart } from 'recharts';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu } from '../home.interface';
 import { priceRawData } from './price_data';
@@ -21,12 +21,12 @@ export function StockPrices() {
       icon: 'filter.svg',
       anchor: MarketType.forex,
       info: {
-        title: '40+ ' + t('Forex'),
+        title: <Trans i18nKey="Number Of Markets" values={{ num: '40', sign: '+', text: '$t(Forex)' }}></Trans>,
         desc: t('Product Section Forex Desc'),
         points: [
-          <>
-            {t('Max Leverage')} <b>1:200</b>
-          </>,
+          <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:200' }}>
+            Max. Leverage <b></b>
+          </Trans>,
         ],
       },
       priceData: generatePriceData(priceRawData.Forex),
@@ -36,12 +36,12 @@ export function StockPrices() {
       icon: 'graph_bars.svg',
       anchor: MarketType.stocks,
       info: {
-        title: '40+ ' + t('Stocks'),
+        title: <Trans i18nKey="Number Of Markets" values={{ num: '40', sign: '+', text: '$t(Stocks)' }}></Trans>,
         desc: t('Product Section Stocks Desc'),
         points: [
-          <>
-            {t('Max Leverage')} <b>1:20</b>
-          </>,
+          <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:20' }}>
+            Max. Leverage <b></b>
+          </Trans>,
         ],
       },
       priceData: generatePriceData(priceRawData.Stocks),
@@ -54,9 +54,9 @@ export function StockPrices() {
         title: t('Indices'),
         desc: t('Product Section Indices Desc'),
         points: [
-          <>
-            {t('Max Leverage')} <b>1:200</b>
-          </>,
+          <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:200' }}>
+            Max. Leverage <b></b>
+          </Trans>,
         ],
       },
       priceData: generatePriceData(priceRawData.Indices),
@@ -69,9 +69,9 @@ export function StockPrices() {
         title: t('Commodities'),
         desc: t('Product Section Commodities Desc'),
         points: [
-          <>
-            {t('Max Leverage')} <b>1:133</b>
-          </>,
+          <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:133' }}>
+            Max. Leverage <b></b>
+          </Trans>,
         ],
       },
       priceData: generatePriceData(priceRawData.Commodities),
@@ -84,9 +84,9 @@ export function StockPrices() {
         title: t('Cryptocurrencies'),
         desc: t('Product Section Cryptocurrencies Desc'),
         points: [
-          <>
-            {t('Max Leverage')} <b>1:20</b>
-          </>,
+          <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:20' }}>
+            Max. Leverage <b></b>
+          </Trans>,
         ],
       },
       priceData: generatePriceData(priceRawData.Crypto),

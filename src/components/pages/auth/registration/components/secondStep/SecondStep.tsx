@@ -44,7 +44,7 @@ export function SecondStep({ submitFn }: any) {
     country: FieldValidators.alphaWithSpaceAndApostropheOnly,
     dayOfBirth: FieldValidators.requiredNumber
       .min(1, t('Invalid value'))
-      .max(31, t('Day limit'))
+      .max(31, t('Day Limit'))
       .when([EFields.monthOfBirth, EFields.yearOfBirth], {
         is: (monthOfBirth, yearOfBirth) => !!monthOfBirth && !!yearOfBirth,
         then: FieldValidators.requiredNumber.min(1, t('Invalid value')).test('max', '', function (value) {
@@ -54,7 +54,7 @@ export function SecondStep({ submitFn }: any) {
           if (value && value > maxDay) {
             return createError({
               path,
-              message: t(`Day limit`, { max: maxDay }),
+              message: t(`Day limit`).replace('${max}', maxDay.toString()),
             });
           }
           return true;

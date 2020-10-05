@@ -11,7 +11,7 @@ export interface IPriceCarouselItem {
 }
 
 export interface IPriceTabInfo {
-  title: string;
+  title: string | React.ReactFragment;
   desc: string;
   points: (string | React.ReactFragment)[];
   icon?: string;

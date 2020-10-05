@@ -2,7 +2,7 @@ import { OpenLiveAccountBannerSection } from '@components/sections';
 import { Button, SectionBg } from '@components/shared';
 import { MarketType } from '@domain/enums';
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import './Products.scss';
 import { ITableSection, TableSection } from './tableSection/TableSection';
@@ -31,15 +31,15 @@ export function Products() {
       desc: t('Product Section Forex Desc'),
       tableType: MarketType.forex,
       points: [
-        <>
-          {t('Spreads from')} <b>0.2 {t('pips')}</b>
-        </>,
-        <>
-          {t('Max Leverage')} <b>1:200</b>
-        </>,
-        <>
-          {t('Margins from just')} <b>0.50%</b>
-        </>,
+        <Trans i18nKey="Spreads from #" values={{ val: '0.2' }}>
+          Spreads from <b></b>
+        </Trans>,
+        <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:200' }}>
+          Max. Leverage <b></b>
+        </Trans>,
+        <Trans i18nKey="Margins from just #" values={{ val: '0.50%' }}>
+          Margins from just <b></b>
+        </Trans>,
       ],
     },
     {
@@ -48,12 +48,12 @@ export function Products() {
       tableType: MarketType.stocks,
       reversed: true,
       points: [
-        <>
-          {t('Max Leverage')} <b>1:20</b>
-        </>,
-        <>
-          {t('Margins from just')} <b>5%</b>
-        </>,
+        <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:20' }}>
+          Max. Leverage <b></b>
+        </Trans>,
+        <Trans i18nKey="Margins from just #" values={{ val: '5%' }}>
+          Margins from just <b></b>
+        </Trans>,
       ],
     },
     {
@@ -61,12 +61,15 @@ export function Products() {
       desc: t('Product Section Indices Desc'),
       tableType: MarketType.indices,
       points: [
-        <>
-          <b>15+</b> {t('Most Popular Indices Worldwide')}
-        </>,
-        <>
-          {t('Max Leverage')} <b>1:200</b>
-        </>,
+        <Trans
+          i18nKey="Number Of Markets Styled"
+          values={{ num: '15', sign: '+', text: '$t(Most Popular Indices Worldwide)' }}
+        >
+          <b></b>Most Popular Indices Worldwide
+        </Trans>,
+        <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:200' }}>
+          Max. Leverage <b></b>
+        </Trans>,
       ],
     },
     {
@@ -75,11 +78,14 @@ export function Products() {
       tableType: MarketType.crypto,
       reversed: true,
       points: [
+        <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:20' }}>
+          Max. Leverage <b></b>
+        </Trans>,
         <>
-          {t('Max Leverage')} <b>1:20</b>
-        </>,
-        <>
-          <b>5</b> {t('Main Cryptocurrencies')}
+          <Trans i18nKey="Number Of Markets Styled" values={{ num: '5', text: '$t(Main Cryptocurrencies)' }}>
+            <b></b> Main Cryptocurrencies
+          </Trans>
+          ,
         </>,
       ],
     },
@@ -88,9 +94,9 @@ export function Products() {
       desc: t('Product Section Commodities Desc'),
       tableType: MarketType.commodities,
       points: [
-        <>
-          {t('Max Leverage')} <b>1:133</b>
-        </>,
+        <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:133' }}>
+          Max. Leverage <b></b>
+        </Trans>,
       ],
     },
     {
@@ -99,9 +105,9 @@ export function Products() {
       tableType: MarketType.etfs,
       reversed: true,
       points: [
-        <>
-          {t('Max Leverage')} <b>1:20</b>
-        </>,
+        <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:20' }}>
+          Max. Leverage <b></b>
+        </Trans>,
       ],
     },
   ];

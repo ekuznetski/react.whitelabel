@@ -2,7 +2,7 @@ import { ERegSteps } from '@components/pages';
 import { Button, Checkbox } from '@components/shared';
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 enum EFields {
@@ -35,10 +35,12 @@ export function FifthStep({ name, submitFn }: any) {
             <Form className="m-auto form fadein-row">
               <h4 className="section-title mb-5">{t('Declaration')}</h4>
               <Checkbox name={EFields.declaration} className="mb-10">
-                {t('Customer introduction agreement:0')}, {name}, {t('Customer introduction agreement:1')}{' '}
-                <a href="#">{t('Customer introduction agreement:2')}</a>,{' '}
-                <a href="#">{t('Customer introduction agreement:3')}</a>, <a href="#">{t('Privacy Policy')}</a>{' '}
-                {t('Customer introduction agreement:4')}
+                <Trans i18nKey="Customer introduction agreement">
+                  I, {{ name }}, declare that I have carefully read and understood, <a href="#">Customer Agreement</a>,{' '}
+                  <a href="#">Terms of Business</a> and all other policies as found here which I fully accept and agree
+                  with. I accept I am electronically signing these documents, and that this is a legally binding
+                  contractual agreement.
+                </Trans>
               </Checkbox>
               <Button type="submit">{t('Submit')}</Button>
               <p className="mt-5 text-center under-form">
