@@ -3,10 +3,10 @@ import { ELabels } from '@domain/enums';
 import React from 'react';
 
 interface IDomainView {
-	children: React.ReactNode;
-	label?: ELabels;
+  children: React.ReactNode;
+  label?: ELabels;
 }
 
 export function LabelView({ children, label = ELabels.default }: IDomainView) {
-	return label === env.LABEL && children ? <>{children}</> : null;
+  return label === env.LABEL?.toLowerCase() && children ? <>{children}</> : null;
 }
