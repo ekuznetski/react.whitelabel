@@ -234,7 +234,7 @@ export function* clientAddSaga() {
 }
 
 export function* userExistSaga() {
-  yield takeEvery(EActionTypes.preRegister, userExistMiddleware);
+  yield takeEvery(EActionTypes.userExists, userExistMiddleware);
 }
 
 export function* setProfileSaga() {
