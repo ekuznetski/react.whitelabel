@@ -28,17 +28,22 @@
   }
 
   &__context {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include d-flex(center, center, column);
 
     font-size: 24px;
     line-height: 34px;
 
+    .title {
+      @include d-flex(center, center);
+    }
+
     .description {
+      @include d-flex(center, center);
+
       color: $dark-grey;
       font-size: 12px;
-			line-height: 20px;
+      line-height: 20px;
+      text-align: center;
     }
   }
 }
