@@ -65,7 +65,8 @@ export function FirstStep({ submitFn }: any) {
         validationSchema={validationSchema}
         onSubmit={Submit}
       >
-        {({ setFieldValue }) => {
+        {(props) => {
+          console.log(props);
           return (
             <Form className="m-auto form">
               <Input className="fadeFromBottom-row__0" label={t('First Name')} name={EFields.first_name} />
@@ -91,7 +92,7 @@ export function FirstStep({ submitFn }: any) {
           );
         }}
       </Formik>
-        <AlreadyRegistered />
+      <AlreadyRegistered className="fadeFromBottom-row__6" />
     </div>
   );
 }

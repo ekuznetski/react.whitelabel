@@ -1,8 +1,7 @@
 import { EAppSection, ELanguage } from '@domain/enums';
-import { IClientProfile, IContent, IGeoIp, ILogin, INotificationState } from '@domain/interfaces';
+import { AnyFunction, IClientProfile, IContent, IGeoIp, ILogin, INotificationState } from '@domain/interfaces';
 import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
 import { EActionTypes } from './store.enum';
-import { EAppSection } from '@domain/enums';
 
 export interface IDataStore {
   content: IContent;
@@ -29,16 +28,13 @@ export interface IAppStore {
       title: string;
       desc: string;
     };
+    state: any;
   };
   requests: {
     activeList: EActionTypes[];
     failedList: EActionTypes[];
   };
   notification: INotificationState;
-  registration: {
-    userExists: boolean;
-    clientAdded: boolean;
-  };
 }
 
 export interface IStore {
@@ -49,6 +45,6 @@ export interface IStore {
 export interface IAction<T = { [k: string]: any }> {
   type: EActionTypes;
   payload?: T;
-  success_cb?: Function;
-  failure_cb?: Function;
+  onSuccess?: AnyFunction;
+  onFailure?: AnyFunction;
 }

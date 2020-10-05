@@ -4,6 +4,7 @@ import { FastField, FastFieldAttributes, useField, useFormikContext } from 'form
 import React, { memo } from 'react';
 import { Row } from 'react-bootstrap';
 import './Radio.scss';
+import { AnyFunction } from '@domain/interfaces';
 
 export interface IRadioItem {
   label: React.ReactNode;
@@ -11,8 +12,8 @@ export interface IRadioItem {
 }
 export type IRadio = FastFieldAttributes<{
   colClassName?: string;
-  onChange?: Function;
-  onClick?: Function;
+  onChange?: AnyFunction;
+  onClick?: AnyFunction;
   className?: string;
   options: IRadioItem[];
 }>;

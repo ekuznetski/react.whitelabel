@@ -65,6 +65,7 @@ export const getGeoIpRequest = request(EHttpMethod.get, `${apiUrl}/frontend/geoI
 export const getProfileRequest = request(EHttpMethod.get, `${apiUrl}/clients/getProfile`);
 export const getClientDataRequest = request(EHttpMethod.get, `${apiUrl}/clients/getClientData`);
 export const loginRequest = request(EHttpMethod.post, `${apiUrl}/clients/login`);
+export const logoutRequest = request(EHttpMethod.post, `${apiUrl}/clients/logout`);
 export const clientSetProfileRequest = request(EHttpMethod.post, `${apiUrl}/clients/setProfile`);
 export const clientAddRequest = request(EHttpMethod.post, `${apiUrl}/clients/add`);
 export const forgotPasswordRequest = request(EHttpMethod.post, `${apiUrl}/clients/forgotPassword`);

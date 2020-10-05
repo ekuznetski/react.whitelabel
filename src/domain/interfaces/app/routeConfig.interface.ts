@@ -11,6 +11,7 @@ export interface IRouteNavConfig {
   path: string;
   appSection: EAppSection;
   component:
+    | null
     | React.ComponentClass<{ routeState?: { [key: string]: any } } & any>
     | React.FunctionComponent<{ routeState?: { [key: string]: any } } & any>;
   activators?: ((routeProps?: RouteProps) => boolean | { path: Path; state?: { [key: string]: any } })[];

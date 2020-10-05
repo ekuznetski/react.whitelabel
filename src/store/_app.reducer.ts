@@ -12,6 +12,7 @@ export const initAppStore: Nullable<IAppStore> = {
       title: null,
       desc: null,
     },
+    state: null,
   },
   requests: {
     activeList: [],
@@ -22,10 +23,6 @@ export const initAppStore: Nullable<IAppStore> = {
     type: null,
     timeout: null,
     context: null,
-  },
-  registration: {
-    userExists: null,
-    clientAdded: null,
   },
 };
 
@@ -70,10 +67,6 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
 
     case EActionTypes.updateRoute:
       return { ...state, route: { ...state.route, ...action.payload } };
-
-    case EActionTypes.saveUserExists:
-    case EActionTypes.saveClientAdd:
-      return { ...state, registration: { ...state.registration, ...action.payload } };
 
     case EActionTypes.showNotification:
       return { ...state, notification: { ...action.payload, visible: true } };

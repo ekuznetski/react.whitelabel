@@ -1,5 +1,6 @@
 import { EAppSection, ELanguage } from '@domain/enums';
 import {
+  AnyFunction,
   IClientAddRequest,
   IClientProfile,
   IContent,
@@ -13,7 +14,6 @@ import {
 import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
-import { EAppSection } from '@domain/enums';
 
 export function ac_showNotification(payload: Omit<INotificationState, 'visible'>): IAction {
   return {
@@ -55,6 +55,12 @@ export function ac_login(payload: ILoginRequest): IAction {
   };
 }
 
+export function ac_logout(): IAction {
+  return {
+    type: EActionTypes.logout,
+  };
+}
+
 export function ac_saveProfile(payload: IClientProfile): IAction {
   return {
     type: EActionTypes.saveProfile,
@@ -62,42 +68,28 @@ export function ac_saveProfile(payload: IClientProfile): IAction {
   };
 }
 
-export function ac_userExists(payload: { username: string }, success_cb: Function, failure_cb?: Function): IAction {
+export function ac_userExists(payload: { username: string }, onSuccess: AnyFunction, onFailure?: AnyFunction): IAction {
   return {
     type: EActionTypes.userExists,
     payload,
-    success_cb,
-    failure_cb,
+    onSuccess,
+    onFailure,
   };
 }
 
-export function ac_register(payload: { data: ISetProfileRequest }, success_cb: Function): IAction {
+export function ac_register(payload: { data: ISetProfileRequest }, onSuccess: AnyFunction): IAction {
   return {
     type: EActionTypes.register,
     payload,
-    success_cb,
+    onSuccess,
   };
 }
 
-export function ac_saveUserExists(payload: { userExists: boolean }): IAction {
-  return {
-    type: EActionTypes.saveUserExists,
-    payload,
-  };
-}
-
-export function ac_preRegister(payload: { clientData: IClientAddRequest }, success_cb: Function): IAction {
+export function ac_preRegister(payload: { clientData: IClientAddRequest }, onSuccess: AnyFunction): IAction {
   return {
     type: EActionTypes.preRegister,
     payload,
-    success_cb,
-  };
-}
-
-export function ac_saveClientAdd(payload: { clientAdded: boolean }): IAction {
-  return {
-    type: EActionTypes.saveClientAdd,
-    payload,
+    onSuccess,
   };
 }
 
@@ -128,6 +120,12 @@ export function ac_saveGeoIpData(payload: IGeoIp): IAction {
   };
 }
 
+export function ac_clearStore(): IAction {
+  return {
+    type: EActionTypes.clearStore,
+  };
+}
+
 export function ac_updateRouteParams(payload: {
   path?: string;
   locale?: ELanguage | null;
@@ -136,6 +134,7 @@ export function ac_updateRouteParams(payload: {
     title: string;
     desc?: string;
   };
+  state: any;
 }): IAction {
   return {
     type: EActionTypes.updateRoute,
@@ -212,27 +211,27 @@ export function ac_saveClientData(payload: MClientData): IAction {
 
 export function ac_makeInternalTransfer(
   payload: IInternalTransferRequestData,
-  success_cb: Function,
-  failure_cb?: Function,
+  onSuccess: AnyFunction,
+  onFailure?: AnyFunction,
 ): IAction {
   return {
     type: EActionTypes.makeInternalTransfer,
     payload,
-    success_cb,
-    failure_cb,
+    onSuccess,
+    onFailure,
   };
 }
 
 export function ac_fetchTransactionalStatements(
   payload: ITransactionalStatementsRequestData,
-  success_cb: Function,
-  failure_cb?: Function,
+  onSuccess: AnyFunction,
+  onFailure?: AnyFunction,
 ): IAction {
   return {
     type: EActionTypes.fetchTransactionalStatements,
     payload,
-    success_cb,
-    failure_cb,
+    onSuccess,
+    onFailure,
   };
 }
 

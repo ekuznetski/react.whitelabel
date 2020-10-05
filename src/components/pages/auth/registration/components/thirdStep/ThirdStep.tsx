@@ -10,23 +10,27 @@ import * as Yup from 'yup';
 import './ThirdStep.scss';
 
 enum EFields {
-  'platform' = 'platform',
+  'firstdeposit_platform' = 'firstdeposit_platform',
   'account_type' = 'account_type',
   'currency' = 'currency',
   'leverage' = 'leverage',
 }
-
+enum EPlatform {
+  mt4 = 'mt4',
+  mt5 = 'mt5',
+}
 export function ThirdStep({ submitFn }: any) {
   const { t } = useTranslation();
-
+  let platform: EPlatform;
   const validationSchema = Yup.object().shape({
-    platform: FieldValidators.requiredString,
+    firstdeposit_platform: FieldValidators.requiredString,
     account_type: FieldValidators.requiredString,
     currency: FieldValidators.requiredString,
-    leverage: Yup.string().when('platform', {
-      is: (val: string) => val === ETradingPlatform.mt4,
-      then: FieldValidators.requiredString,
-      otherwise: Yup.string().notRequired(),
+    leverage: Yup.lazy((_) => {
+      if (platform === EPlatform.mt4) {
+        return FieldValidators.requiredString;
+      }
+      return FieldValidators.notRequired;
     }),
   });
   const accountTypeOptions = [
@@ -93,7 +97,7 @@ export function ThirdStep({ submitFn }: any) {
     <div className="registration-third-step">
       <Formik
         initialValues={{
-          platform: '',
+          firstdeposit_platform: '',
           account_type: ETradingAccountType.classic,
           currency: ECurrencyCode.usd,
           leverage: leverageList[0].value,
@@ -103,7 +107,8 @@ export function ThirdStep({ submitFn }: any) {
       >
         {(props: any) => {
           const { values, setFieldValue } = props;
-          if (values.leverage && values.platform === ETradingPlatform.mt4) {
+          platform = values.firstdeposit_platform;
+          if (values.leverage && values.firstdeposit_platform === ETradingPlatform.mt4) {
             setFieldValue(EFields.leverage, '');
           }
           return (
@@ -111,7 +116,7 @@ export function ThirdStep({ submitFn }: any) {
               <h4 className="section-title mb-5">{t('Choose Trading Platform')}</h4>
               <Radio
                 className="mb-10"
-                name={EFields.platform}
+                name={EFields.firstdeposit_platform}
                 options={[
                   { label: 'MetaTrader 4', value: ETradingPlatform.mt4 },
                   { label: 'MetaTrader 5', value: ETradingPlatform.mt5 },
@@ -124,7 +129,7 @@ export function ThirdStep({ submitFn }: any) {
                   <h5 className="select-title">{t('Account Currency')}</h5>
                   <CurrencySelect name={EFields.currency} />
                 </Col>
-                {values.platform === ETradingPlatform.mt4 && (
+                {values.firstdeposit_platform === ETradingPlatform.mt4 && (
                   <Col xs={12} sm={6} className="fadein-row">
                     <h5 className="select-title">{t('Leverage')}</h5>
                     <Select options={leverageList} name={EFields.leverage} />
