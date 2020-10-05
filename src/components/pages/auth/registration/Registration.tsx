@@ -1,4 +1,5 @@
 import { Button, Modal, PageTitle } from '@components/shared';
+import { ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
 import { ac_preRegister, ac_register } from '@store';
 import classNames from 'classnames';
@@ -8,14 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
 import './Registration.scss';
-
-export enum ERegSteps {
-  step1,
-  step2,
-  step3,
-  step4,
-  step5,
-}
 
 function getLocalStorageRegData() {
   const b64String = localStorage.getItem('regData');
@@ -92,7 +85,7 @@ export function Registration() {
           return { ...acc, ...formData[el] };
         }, {});
         preparedData['domain'] = 'com'; //TODO remove
-        preparedData['username'] = formData.step1.email;
+        preparedData['username'] = formData[ERegSteps.step1].email;
         dispatch(ac_register(preparedData, () => console.log('registered, i hope')));
       }
     }
@@ -143,7 +136,7 @@ export function Registration() {
               }}
               className="fadeFromBottom-row__5"
             >
-              {t('Yes, continue')}
+              {t('Yes continue')}
             </Button>
           </Col>
           <Col xs={6}>
@@ -155,7 +148,7 @@ export function Registration() {
               }}
               className="fadeFromBottom-row__5"
             >
-              {t('No, start new')}
+              {t('No start new')}
             </Button>
           </Col>
         </Row>

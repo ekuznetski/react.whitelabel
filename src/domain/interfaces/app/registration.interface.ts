@@ -1,4 +1,4 @@
-import { ERegSteps } from '@components/pages';
+import { ERegSteps } from "@domain/enums";
 
 export interface IRegStep1Data {
   first_name: string;
