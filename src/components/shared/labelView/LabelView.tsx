@@ -8,5 +8,5 @@ interface IDomainView {
 }
 
 export function LabelView({ children, label = ELabels.default }: IDomainView) {
-  return label === env.LABEL?.toLowerCase() && children ? <>{children}</> : null;
+  return label.toLowerCase() === env.LABEL?.toLowerCase() && children ? <>{children}</> : null;
 }
