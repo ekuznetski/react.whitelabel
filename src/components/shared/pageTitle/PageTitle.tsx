@@ -7,6 +7,7 @@ type IPageTitle = {
   className?: string;
   icon?: string;
   title: string;
+  description?: string | React.ReactFragment;
   showBackButton?: boolean;
 };
 
@@ -24,6 +25,7 @@ export function PageTitle({ showBackButton = true, ...props }: IPageTitle) {
       <div className="page-title__context mt-7 mt-md-9 mt-lg-11">
         {props.icon && <Svg href={props.icon} />}
         <div className="title">{props.title}</div>
+        {props.description && <div className="description">{props.description}</div>}
       </div>
     </div>
   );

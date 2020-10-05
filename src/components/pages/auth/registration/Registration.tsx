@@ -39,8 +39,9 @@ export function Registration() {
   const [activeStep, setActiveStep] = useState<ERegSteps>(ERegSteps.step1);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [continueReg, setContinueReg] = useState<boolean | null>(null);
-  const regData = getLocalStorageRegData();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
+  const regData = getLocalStorageRegData();
 
   useEffect(() => {
     if (!!regData) {
@@ -52,19 +53,20 @@ export function Registration() {
     if (!!regData && !!continueReg) {
       setFormData(regData);
       setName(`${regData[ERegSteps.step1]?.first_name} ${regData[ERegSteps.step1]?.surname}`);
+
       if (!!regData[ERegSteps.step1]) {
         setActiveStep(ERegSteps.step2);
       }
+
       if (!!regData[ERegSteps.step2]) {
         setActiveStep(ERegSteps.step3);
       }
     }
+
     if (continueReg === false) {
       localStorage.removeItem('regData');
     }
   }, [continueReg]);
-
-  const { t } = useTranslation();
 
   async function onSubmitFn(data: any) {
     setFormData({ ...formData, ...data });
@@ -156,5 +158,3 @@ export function Registration() {
     </div>
   );
 }
-
-export default Registration;

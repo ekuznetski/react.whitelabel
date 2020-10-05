@@ -1,5 +1,5 @@
-import { ERegSteps } from '@components/pages';
 import { Button, Checkbox } from '@components/shared';
+import { ERegSteps } from '@domain/enums';
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

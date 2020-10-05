@@ -1,7 +1,6 @@
-import { ERegSteps } from '@components/pages';
 import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ECountryCodeToName } from '@domain/enums';
+import { ECountryCodeToName, ERegSteps } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';

@@ -1,11 +1,10 @@
-import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
+import { AuthAlreadyRegisteredLink, Button, Input, PageTitle } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { AlreadyRegistered } from '../components/alreadyRegistered/AlreadyRegistered';
 import './ForgotPassword.scss';
 
 enum EFields {
@@ -39,7 +38,7 @@ export function ForgotPassword() {
               </Form>
             )}
           </Formik>
-          <AlreadyRegistered />
+          <AuthAlreadyRegisteredLink />
         </Col>
       </Row>
     </Container>

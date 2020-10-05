@@ -1,6 +1,6 @@
-import { ERegSteps } from '@components/pages';
-import { Button, Input, LocaleLink, PhoneCodeSelect } from '@components/shared';
+import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
+import { ERegSteps } from '@domain/enums';
 import { ac_userExists, IStore } from '@store';
 import { Form, Formik } from 'formik';
 import React from 'react';
@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import './FirstStep.scss';
-import { AlreadyRegistered } from '../../../components/alreadyRegistered/AlreadyRegistered';
 
 enum EFields {
   'first_name' = 'first_name',
@@ -66,7 +65,7 @@ export function FirstStep({ submitFn }: any) {
         onSubmit={Submit}
       >
         {(props) => {
-          console.log(props);
+          // console.log(props);
           return (
             <Form className="m-auto form">
               <Input className="fadeFromBottom-row__0" label={t('First Name')} name={EFields.first_name} />
@@ -92,7 +91,7 @@ export function FirstStep({ submitFn }: any) {
           );
         }}
       </Formik>
-      <AlreadyRegistered className="fadeFromBottom-row__6" />
+      <AuthAlreadyRegisteredLink className="fadeFromBottom-row__6" />
     </div>
   );
 }
