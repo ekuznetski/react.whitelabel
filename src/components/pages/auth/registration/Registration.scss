@@ -1,6 +1,12 @@
 @import '~/variables';
 
 .registration {
+  .page-title {
+    &__context {
+      margin-top: 0 !important;
+    }
+  }
+
   .steps-indicator {
     display: flex;
     justify-content: space-between;
@@ -8,25 +14,31 @@
     width: 270px;
     margin: auto;
     padding: 20px 0 30px;
+
     &__step {
       width: 50px;
       height: 3px;
       background-color: #f1f2f2;
       transition: background-color 0.2s linear;
+
       &.completed {
         background-color: #337fff;
       }
+
       &.active {
         background-color: #629dff;
       }
     }
   }
+
   p {
     font-size: 12px;
   }
+
   .form {
     margin: auto;
   }
+
   .section-title {
     font-size: 16px;
     line-height: 26px;

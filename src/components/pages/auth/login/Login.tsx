@@ -1,5 +1,5 @@
-import { Button, Input, LocaleLink } from '@components/shared';
-import { FieldValidators } from '@domain';
+import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
+import { env, FieldValidators } from '@domain';
 import { ILoginRequest } from '@domain/interfaces';
 import { ac_login } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
@@ -32,7 +32,7 @@ export function Login() {
     <Container>
       <Row>
         <Col sm={12} md={7} lg={5} className="m-auto">
-          <h3 className="text-center mb-7">{t('Login')}</h3>
+          <PageTitle title={t('Log in to ', { label: env.LABEL })} showBackButton={false} />
           <Formik
             initialValues={{
               username: '',

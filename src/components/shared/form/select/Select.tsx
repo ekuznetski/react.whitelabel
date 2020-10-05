@@ -136,7 +136,7 @@ export const Select = memo(function Select({
         onFocus={() => setState({ ...state, isFocused: true })}
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
-        // onMenuClose={() => setState({ ...state, isFocused: false })}
+        // onMenuClose={() => setState({ isFocused: false, isFilled: !!field.value })}
         value={selectedValue}
         onChange={onChangeSelect}
       />
@@ -273,7 +273,7 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
     const selectedValue = props.selectProps?.value?.value.accountId;
     const currentOptionValue = props.data.value.accountId;
     const isSelected = selectedValue === currentOptionValue;
-    
+
     return (
       <components.Option {...props} className={isSelected ? 'selected' : ''}>
         {children}

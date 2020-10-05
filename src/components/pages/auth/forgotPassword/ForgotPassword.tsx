@@ -1,4 +1,4 @@
-import { Button, Input, LocaleLink } from '@components/shared';
+import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
@@ -8,9 +8,9 @@ import * as Yup from 'yup';
 import { AlreadyRegistered } from '../components/alreadyRegistered/AlreadyRegistered';
 import './ForgotPassword.scss';
 
-  enum EFields {
-    'login' = 'login',
-  }
+enum EFields {
+  'login' = 'login',
+}
 
 export function ForgotPassword() {
   const { t } = useTranslation();
@@ -21,10 +21,10 @@ export function ForgotPassword() {
     <Container className="forgot-password">
       <Row>
         <Col sm={12} md={7} lg={5} className="m-auto">
-          <h3 className="text-center mb-7">{t('Forgot Password')}</h3>
-          <p className="note text-center mt-5 mb-10">
+          <PageTitle title={t('Forgot Password')} showBackButton={false} />
+          <div className="note text-center mt-5 mb-10">
             In order to reset your password, please provide us with your email address
-          </p>
+          </div>
           <Formik
             initialValues={{ login: '' }}
             validationSchema={validationSchema}
@@ -39,7 +39,7 @@ export function ForgotPassword() {
               </Form>
             )}
           </Formik>
-        <AlreadyRegistered />
+          <AlreadyRegistered />
         </Col>
       </Row>
     </Container>

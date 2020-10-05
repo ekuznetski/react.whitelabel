@@ -1,4 +1,4 @@
-import { Button, Input, LocaleLink } from '@components/shared';
+import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
@@ -23,7 +23,7 @@ export function RestorePassword() {
     <Container>
       <Row>
         <Col sm={12} md={7} lg={5} className="m-auto">
-          <h3 className="text-center mb-7">{t('Restore Password')}</h3>
+          <PageTitle title={t('Restore Password')} showBackButton={false} />
           <Formik
             initialValues={{ password: '' }}
             validationSchema={validationSchema}

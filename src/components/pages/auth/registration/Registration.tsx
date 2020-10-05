@@ -1,4 +1,4 @@
-import { Button, Modal } from '@components/shared';
+import { Button, Modal, PageTitle } from '@components/shared';
 import { IRegData } from '@domain/interfaces';
 import { ac_preRegister, ac_register } from '@store';
 import classNames from 'classnames';
@@ -104,6 +104,33 @@ export function Registration() {
 
   return (
     <div className="registration">
+      <Container>
+        <Row>
+          <Col sm={12} md={7} lg={5} className="m-auto">
+            <PageTitle title={t('Open a Trading Account')} showBackButton={false} />
+            <ul className="steps-indicator">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <li
+                  key={i}
+                  className={classNames(
+                    'steps-indicator__step',
+                    `step${i + 1}`,
+                    // @ts-ignore
+                    activeStep === ERegSteps[`step${i + 1}`] ? 'active' : '',
+                    // @ts-ignore
+                    activeStep - 1 >= ERegSteps[`step${i + 1}`] ? 'completed' : '',
+                  )}
+                />
+              ))}
+            </ul>
+            {activeStep === ERegSteps.step1 && <FirstStep submitFn={onSubmitFn} />}
+            {activeStep === ERegSteps.step2 && <SecondStep submitFn={onSubmitFn} />}
+            {activeStep === ERegSteps.step3 && <ThirdStep submitFn={onSubmitFn} />}
+            {activeStep === ERegSteps.step4 && <FourthStep submitFn={onSubmitFn} />}
+            {activeStep === ERegSteps.step5 && <FifthStep name={name} submitFn={onSubmitFn} />}
+          </Col>
+        </Row>
+      </Container>
       <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
         {t('Do you want to continue registration')}
         <Row>
@@ -133,33 +160,6 @@ export function Registration() {
           </Col>
         </Row>
       </Modal>
-      <Container>
-        <Row>
-          <Col sm={12} md={7} lg={5} className="m-auto">
-            <h3 className="text-center">{t('Open a Trading Account')}</h3>
-            <ul className="steps-indicator">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <li
-                  key={i}
-                  className={classNames(
-                    'steps-indicator__step',
-                    `step${i + 1}`,
-                    // @ts-ignore
-                    activeStep === ERegSteps[`step${i + 1}`] ? 'active' : '',
-                    // @ts-ignore
-                    activeStep - 1 >= ERegSteps[`step${i + 1}`] ? 'completed' : '',
-                  )}
-                />
-              ))}
-            </ul>
-            {activeStep === ERegSteps.step1 && <FirstStep submitFn={onSubmitFn} />}
-            {activeStep === ERegSteps.step2 && <SecondStep submitFn={onSubmitFn} />}
-            {activeStep === ERegSteps.step3 && <ThirdStep submitFn={onSubmitFn} />}
-            {activeStep === ERegSteps.step4 && <FourthStep submitFn={onSubmitFn} />}
-            {activeStep === ERegSteps.step5 && <FifthStep name={name} submitFn={onSubmitFn} />}
-          </Col>
-        </Row>
-      </Container>
     </div>
   );
 }
