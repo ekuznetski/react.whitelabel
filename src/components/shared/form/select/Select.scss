@@ -148,6 +148,15 @@
     div[class$='-menu'] {
       min-width: 300px;
     }
+
+    div[class$='-singleValue'] {
+      line-height: 10px;
+      @include d-flex(center);
+
+      .name {
+        display: none;
+      }
+    }
   }
 
   &.currency-select {

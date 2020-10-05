@@ -164,8 +164,8 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
   const options = countries.map((el) => ({
     label: (
       <>
-        <IconFlag flag={el.code} /> <span className="phone">{el.phoneCode}</span>{' '}
-        <span className="name">{el.name}</span>
+        <IconFlag className="mr-1" flag={el.code} />
+        <span className="phone">{el.phoneCode}</span> <span className="name">{el.name}</span>
       </>
     ),
     value: el.phoneCode.replace('+', ''),
