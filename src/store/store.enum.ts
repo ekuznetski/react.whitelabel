@@ -33,6 +33,9 @@ export enum EActionTypes {
   forgotPassword = '[DATA - Authorization] Forgot Password',
   resetPassword = '[DATA - Authorization] Reset Password',
 
+  // DATA
+  clearStore = '[DATA] Clear Store',
+
   // APP - Route
   updateRoute = '[APP - Route] Update Params',
 

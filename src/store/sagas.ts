@@ -23,6 +23,7 @@ import {
   getTransactionalStatementsRequest,
   internalTransferRequest,
   loginRequest,
+  logoutRequest,
   tradingAccountsRequest,
   userExistsRequest,
   withdrawalsHistoryRequest,
@@ -65,13 +66,26 @@ function* getProfileMiddleware() {
   }
 }
 
-function* loginMiddleware({ payload }: IAction) {
+function* loginMiddleware({ payload, onSuccess, onFailure }: IAction) {
   try {
     const { response }: ILoginResponse = yield call(loginRequest, payload);
     yield put(ac_saveProfile(response.profile));
+    if (onSuccess) yield call(onSuccess, response);
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.login }));
   } catch (e) {
+    if (onFailure) yield call(onFailure);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.login }));
+  }
+}
+
+function* logoutMiddleware({ onSuccess, onFailure }: IAction) {
+  try {
+    const { response }: ILoginResponse = yield call(logoutRequest);
+    if (onSuccess) yield call(onSuccess, response);
+    yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.logout }));
+  } catch (e) {
+    if (onFailure) yield call(onFailure);
+    yield put(ac_requestActionFailure({ requestActionType: EActionTypes.logout }));
   }
 }
 
@@ -212,12 +226,16 @@ export function* loginSaga() {
   yield takeEvery(EActionTypes.login, loginMiddleware);
 }
 
-export function* existSaga() {
-  yield takeEvery(EActionTypes.userExists, userExistMiddleware);
+export function* logoutSaga() {
+  yield takeEvery(EActionTypes.logout, logoutMiddleware);
 }
 
 export function* clientAddSaga() {
   yield takeEvery(EActionTypes.preRegister, clientAddMiddleware);
+}
+
+export function* userExistSaga() {
+  yield takeEvery(EActionTypes.preRegister, userExistMiddleware);
 }
 
 export function* setProfileSaga() {

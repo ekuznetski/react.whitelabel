@@ -23,10 +23,6 @@ export const initAppStore: Nullable<IAppStore> = {
     timeout: null,
     context: null,
   },
-  registration: {
-    userExists: null,
-    clientAdded: null,
-  },
 };
 
 export function appStoreReducer(state = initAppStore as IAppStore, action: IAction) {

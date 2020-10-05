@@ -55,9 +55,11 @@ export function ac_login(payload: ILoginRequest): IAction {
   };
 }
 
-export function ac_logout(): IAction {
+export function ac_logout(onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
   return {
     type: EActionTypes.logout,
+    onSuccess,
+    onFailure,
   };
 }
 

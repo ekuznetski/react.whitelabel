@@ -34,10 +34,6 @@ export interface IAppStore {
     failedList: EActionTypes[];
   };
   notification: INotificationState;
-  registration: {
-    userExists: boolean;
-    clientAdded: boolean;
-  };
 }
 
 export interface IStore {
