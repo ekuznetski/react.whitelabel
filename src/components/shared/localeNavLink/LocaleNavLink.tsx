@@ -1,11 +1,10 @@
-import { IStore, IAppStore } from '@store';
+import { IAppStore, IStore } from '@store';
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 
 type ILocaleNavLink = {
   children: React.ReactNode;
-  to: string;
 } & NavLinkProps;
 
 export const LocaleNavLink = memo(function LocaleNavLink(props: ILocaleNavLink) {

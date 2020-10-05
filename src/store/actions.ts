@@ -55,11 +55,9 @@ export function ac_login(payload: ILoginRequest): IAction {
   };
 }
 
-export function ac_logout(onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+export function ac_logout(): IAction {
   return {
     type: EActionTypes.logout,
-    onSuccess,
-    onFailure,
   };
 }
 
@@ -122,6 +120,12 @@ export function ac_saveGeoIpData(payload: IGeoIp): IAction {
   };
 }
 
+export function ac_clearStore(): IAction {
+  return {
+    type: EActionTypes.clearStore,
+  };
+}
+
 export function ac_updateRouteParams(payload: {
   path?: string;
   locale?: ELanguage | null;
@@ -130,6 +134,7 @@ export function ac_updateRouteParams(payload: {
     title: string;
     desc?: string;
   };
+  state: any;
 }): IAction {
   return {
     type: EActionTypes.updateRoute,

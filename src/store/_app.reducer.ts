@@ -12,6 +12,7 @@ export const initAppStore: Nullable<IAppStore> = {
       title: null,
       desc: null,
     },
+    state: null,
   },
   requests: {
     activeList: [],

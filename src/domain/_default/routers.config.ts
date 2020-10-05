@@ -6,7 +6,6 @@ import {
   ForgotPassword,
   Home,
   InternalTransfer,
-  Login,
   OpenAccount,
   Platform,
   Products,
@@ -16,6 +15,7 @@ import {
   TransactionStatement,
   Withdrawal,
   PlatformDownload,
+  Login,
 } from '@components/pages';
 import {
   ac_fetchGeoIpData,
@@ -23,10 +23,12 @@ import {
   ac_fetchClientData,
   ac_fetchTradingAccounts,
   ac_fetchProfile,
+  ac_logout,
 } from '@store';
-import { allowAuthorized, disallowAuthorized } from '@utils/guards';
+import { allowAuthorizedGuard, disallowAuthorizedGuard } from '@utils/guards';
 import { EAppSection, ETradingType } from '../enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
+import { logoutGuard } from '../../utils/guards/logout.guard';
 
 // Data to be loaded on EVERY page of app section
 export const routesInitialApiData: IRoutesInitialApiData = {
@@ -98,7 +100,20 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     path: '/login',
     component: Login,
-    activators: [disallowAuthorized],
+    activators: [disallowAuthorizedGuard],
+    appSection: EAppSection.auth,
+    menuItem: false,
+  },
+  {
+    meta: {
+      title: 'Logout',
+    },
+    path: '/logout',
+    component: null,
+    activators: [logoutGuard],
+    apiData: {
+      strict: [ac_logout],
+    },
     appSection: EAppSection.auth,
     menuItem: false,
   },
@@ -108,7 +123,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     path: '/forgot-password',
     component: ForgotPassword,
-    activators: [disallowAuthorized],
+    activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
     menuItem: false,
   },
@@ -118,7 +133,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     path: '/restore-password',
     component: RestorePassword,
-    activators: [disallowAuthorized],
+    activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
     menuItem: false,
   },
@@ -128,7 +143,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     path: '/registration',
     component: Registration,
-    activators: [disallowAuthorized],
+    activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
     apiData: {
       lazy: [ac_fetchGeoIpData],
@@ -142,7 +157,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/dashboard',
     component: Dashboard,
     appSection: EAppSection.portal,
-    activators: [allowAuthorized],
+    activators: [allowAuthorizedGuard],
     apiData: {
       strict: [ac_fetchTradingAccounts],
     },
@@ -155,7 +170,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/deposit',
     component: Deposit,
     appSection: EAppSection.portal,
-    activators: [allowAuthorized],
+    activators: [allowAuthorizedGuard],
     apiData: {
       strict: [ac_fetchTradingAccounts],
     },
@@ -171,7 +186,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/withdrawal',
     component: Withdrawal,
     appSection: EAppSection.portal,
-    activators: [allowAuthorized],
+    activators: [allowAuthorizedGuard],
     apiData: {
       lazy: [ac_fetchWithdrawHistory],
       strict: [ac_fetchTradingAccounts],
@@ -188,7 +203,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/transfers',
     component: InternalTransfer,
     appSection: EAppSection.portal,
-    activators: [allowAuthorized],
+    activators: [allowAuthorizedGuard],
     apiData: {
       strict: [ac_fetchTradingAccounts],
     },
@@ -204,7 +219,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/statement',
     component: TransactionStatement,
     appSection: EAppSection.portal,
-    activators: [allowAuthorized],
+    activators: [allowAuthorizedGuard],
     menuItem: {
       icon: 'coins.svg',
       parent: 'Funds Management',
@@ -217,7 +232,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/open-account/live',
     component: OpenAccount,
     appSection: EAppSection.portal,
-    activators: [allowAuthorized],
+    activators: [allowAuthorizedGuard],
     state: {
       accountType: ETradingType.live,
     },
@@ -233,7 +248,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/open-account/demo',
     component: OpenAccount,
     appSection: EAppSection.portal,
-    activators: [allowAuthorized],
+    activators: [allowAuthorizedGuard],
     state: {
       accountType: ETradingType.demo,
     },
@@ -249,7 +264,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/download',
     component: PlatformDownload,
     appSection: EAppSection.portal,
-    activators: [allowAuthorized],
+    activators: [allowAuthorizedGuard],
     menuItem: {
       icon: 'coins.svg',
       parent: { title: 'Tools', icon: 'documents.svg' },
@@ -262,7 +277,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/profile',
     component: Profile,
     appSection: EAppSection.portal,
-    activators: [allowAuthorized],
+    activators: [allowAuthorizedGuard],
     menuItem: false,
   },
 ];

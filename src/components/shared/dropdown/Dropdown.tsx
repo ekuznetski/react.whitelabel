@@ -4,12 +4,13 @@ import classNames from 'classnames';
 import React, { memo, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './Dropdown.scss';
+import { LinkProps } from 'react-router-dom';
 
 type IDropdown = {
   className?: string;
   items?: {
     icon: string;
-    path?: string;
+    path?: LinkProps['to'];
     title: string;
     onclick?: (e?: any) => any;
   }[];

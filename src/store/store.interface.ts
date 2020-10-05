@@ -28,6 +28,7 @@ export interface IAppStore {
       title: string;
       desc: string;
     };
+    state: any;
   };
   requests: {
     activeList: EActionTypes[];

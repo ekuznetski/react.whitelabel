@@ -12,7 +12,7 @@ import {
   IWithdrawalLimitResponse,
 } from '@domain/interfaces';
 import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
-import { store } from '@store';
+import { ac_clearStore, store } from '@store';
 import {
   clientAddRequest,
   clientSetProfileRequest,
@@ -78,13 +78,12 @@ function* loginMiddleware({ payload, onSuccess, onFailure }: IAction) {
   }
 }
 
-function* logoutMiddleware({ onSuccess, onFailure }: IAction) {
+function* logoutMiddleware() {
   try {
-    const { response }: ILoginResponse = yield call(logoutRequest);
-    if (onSuccess) yield call(onSuccess, response);
+    const { response }: any = yield call(logoutRequest);
+    yield put(ac_clearStore());
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.logout }));
   } catch (e) {
-    if (onFailure) yield call(onFailure);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.logout }));
   }
 }

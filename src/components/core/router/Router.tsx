@@ -19,7 +19,7 @@ export const Router = memo(function Router() {
     activeRequestsList: state.app.requests.activeList,
   }));
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
+  const { pathname, state } = useLocation();
   const { localizePath, delocalizePath } = usePathLocale();
 
   useEffect(() => {
@@ -28,13 +28,13 @@ export const Router = memo(function Router() {
 
     if (routeState.path != _path && localesConfig.includes(_locale)) {
       const route = routesNavConfig.find((route) => route.path === _path);
-
       window.scrollTo(0, 0);
       dispatch(
         ac_updateRouteParams({
           path: route?.path,
           appSection: route?.appSection,
           meta: route?.meta,
+          state,
         }),
       );
     }
@@ -143,7 +143,7 @@ function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
   return (
     <>
       <PageLoader isLoading={isLoading} />
-      {!isLoading && <route.component routeState={route.state} />}
+      {!isLoading && route.component && <route.component routeState={route.state} />}
     </>
   );
 }
