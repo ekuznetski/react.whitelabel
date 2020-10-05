@@ -20,10 +20,7 @@ export function ForgotPassword() {
     <Container className="forgot-password">
       <Row>
         <Col sm={12} md={7} lg={5} className="m-auto">
-          <PageTitle title={t('Forgot Password')} showBackButton={false} />
-          <div className="note text-center mt-5 mb-10">
-            In order to reset your password, please provide us with your email address
-          </div>
+          <PageTitle title={t('Forgot Password')} description={t('Reset Password Note')} showBackButton={false} />
           <Formik
             initialValues={{ login: '' }}
             validationSchema={validationSchema}
