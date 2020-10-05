@@ -39,6 +39,7 @@ const MenuList = memo(function MenuList(props: any) {
           itemCount={children.length || 0}
           itemSize={OPTION_HEIGHT}
           initialScrollOffset={initialOffset}
+          overscanCount={8}
           width="100%"
         >
           {({ index, style }) => {
@@ -132,7 +133,7 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
-        // defaultMenuIsOpen={true}
+        defaultMenuIsOpen={true}
         onFocus={() => setState({ ...state, isFocused: true })}
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
@@ -165,7 +166,8 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
     label: (
       <>
         <IconFlag className="mr-1" flag={el.code} />
-        <span className="phone">{el.phoneCode}</span> <span className="name">{el.name}</span>
+        <span className="phone">{el.phoneCode}</span>{' '}
+        <span className="name">{el.name}</span>
       </>
     ),
     value: el.phoneCode.replace('+', ''),
@@ -193,7 +195,8 @@ export const CountrySelect = memo((props: ISelect) => {
   const options = countries.map((el) => ({
     label: (
       <>
-        <IconFlag flag={el.code} /> <span className="name">{el.name}</span>
+        <IconFlag flag={el.code} className="mr-1" />
+        <span className="name">{el.name}</span>
       </>
     ),
     value: el.code,
@@ -221,7 +224,8 @@ export const CurrencySelect = memo((props: any) => {
   const options = Object.keys(props.options ?? Currencies).map((key: any) => ({
     label: (
       <>
-        <span className="currency-symbol">{Currencies[key].symbol}</span> {Currencies[key].code}
+        <span className="currency-symbol mr-1">{Currencies[key].symbol}</span>
+        {Currencies[key].code}
       </>
     ),
     value: Currencies[key].code,

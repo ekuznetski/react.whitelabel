@@ -32,6 +32,13 @@
     z-index: 1;
   }
 
+  div[class$='-singleValue'] {
+    top: 4px;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+
   &.with-label {
     div[class$='-Input'] {
       padding-top: 9px;
@@ -40,8 +47,13 @@
     }
 
     div[class$='-singleValue'] {
-      top: 32px;
-      min-height: 26px;
+      top: 10px;
+      min-height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      line-height: 23px;
+      transform: translateY(0) !important;
     }
   }
 
@@ -52,6 +64,10 @@
       border: none !important;
       box-shadow: none;
       min-height: 48px;
+
+      > div {
+        overflow: visible;
+      }
 
       div[class$='-ValueContainer'] {
         overflow: visible;
@@ -150,12 +166,18 @@
     }
 
     div[class$='-singleValue'] {
-      line-height: 10px;
+      line-height: 29px;
       @include d-flex(center);
 
       .name {
         display: none;
       }
+    }
+  }
+
+  &.country-select {
+    div[class$='-singleValue'] {
+      top: 13px;
     }
   }
 
@@ -165,19 +187,24 @@
         color: #fff;
       }
     }
+
     .currency-symbol {
       color: #337fff;
-      padding-right: 5px;
     }
   }
 
   &.trading-account-select {
-    div[class$='-control'] div[class$='-ValueContainer'] div[class$='-singleValue'],
+    div[class$='-singleValue'] {
+      top: 2px;
+    }
+
+    div[class$='-control'] div[class$='-singleValue'],
     div[class$='-container'] div[class$='-menu'] div[class$='-option'] {
       .trading-account-item {
         display: flex;
         align-items: center;
         font-size: 12px;
+        line-height: 24px;
 
         .trading-item {
           &__platform {
