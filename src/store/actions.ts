@@ -134,7 +134,7 @@ export function ac_updateRouteParams(payload: {
     title: string;
     desc?: string;
   };
-  state: any;
+  state?: any;
 }): IAction {
   return {
     type: EActionTypes.updateRoute,
