@@ -72,6 +72,13 @@
     }
   }
 
+  div[class$='-placeholder'] {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: $text;
+  }
+
   div[class$='-container'] {
     height: 100%;
 
@@ -88,13 +95,6 @@
         overflow: visible;
         padding: 4px 8px;
         min-height: 48px;
-
-        div[class$='-placeholder'] {
-          font-size: 14px;
-          display: flex;
-          align-items: center;
-          color: $text;
-        }
 
         div[class$='-singleValue'] {
           font-size: 14px;
