@@ -37,7 +37,7 @@ export const PersonalInfo = memo(
       street: FieldValidators.street.max(100, 'Bank Branch Name must not exceed ${max} characters'),
       postcode: Yup.string().when('country', {
         is: (val) => val !== 'AE',
-        then: FieldValidators.zip.max(20, 'Postcode must not exceed ${max} characters'),
+        then: FieldValidators.postcode.max(20, 'Postcode must not exceed ${max} characters'),
         overwise: Yup.string(),
       }),
     });

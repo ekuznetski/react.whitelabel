@@ -1,7 +1,7 @@
 import { Button, Modal, PageTitle } from '@components/shared';
-import { ERegSteps } from '@domain/enums';
+import { ENotificationType, ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
-import { ac_preRegister, ac_register } from '@store';
+import { ac_login, ac_preRegister, ac_register, ac_showNotification } from '@store';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
 import './Registration.scss';
+import { useHistory } from 'react-router-dom';
+import { usePathLocale } from '@utils/hooks';
 
 function getLocalStorageRegData() {
   const b64String = localStorage.getItem('regData');
@@ -33,6 +35,22 @@ function setLocalStorageRegData(data: any) {
   localStorage.setItem('regData', b64StringEncoded);
 }
 
+export function randomNumber(length = 6) {
+  return parseInt(
+    Math.random()
+      .toString()
+      .slice(2, 2 + length),
+  );
+}
+export function randomString(length = 1) {
+  // @ts-ignore
+  return Array.from({ length }, () =>
+    randomNumber(100)
+      .toString(36)
+      .replace(/[^a-z]/g, ''),
+  ).join('');
+}
+
 export function Registration() {
   const [name, setName] = useState<string>('XXXX');
   const [formData, setFormData] = useState<IRegData>();
@@ -42,6 +60,8 @@ export function Registration() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const regData = getLocalStorageRegData();
+  const history = useHistory();
+  const { localizePath } = usePathLocale();
 
   useEffect(() => {
     if (!!regData) {
@@ -57,9 +77,11 @@ export function Registration() {
       if (!!regData[ERegSteps.step1]) {
         setActiveStep(ERegSteps.step2);
       }
-
       if (!!regData[ERegSteps.step2]) {
         setActiveStep(ERegSteps.step3);
+      }
+      if (!!regData[ERegSteps.step3]) {
+        setActiveStep(ERegSteps.step4);
       }
     }
 
@@ -70,8 +92,6 @@ export function Registration() {
 
   async function onSubmitFn(data: any) {
     setFormData({ ...formData, ...data });
-    setActiveStep(activeStep + 1);
-
     if (activeStep === ERegSteps.step1) {
       const preRegister = new Promise((resolve) => {
         dispatch(ac_preRegister(data[ERegSteps.step1], () => resolve())); //TODO add checking
@@ -88,12 +108,41 @@ export function Registration() {
         }, {});
         preparedData['domain'] = 'com'; //TODO remove when new api will be ready
         preparedData['username'] = formData[ERegSteps.step1].email;
-        dispatch(ac_register(preparedData, () => console.log('registered, i hope')));
+        delete preparedData['first_name'];
+        delete preparedData['surname'];
+        delete preparedData['email'];
+        delete preparedData['phone_prefix'];
+        delete preparedData['phone'];
+        delete preparedData['mobile'];
+        delete preparedData['language'];
+        delete preparedData['promotion'];
+        dispatch(
+          ac_register(
+            preparedData,
+            (e) => {
+              dispatch(ac_login({ username: preparedData.username, password: preparedData.password }));
+              localStorage.removeItem('regData');
+            },
+            (e) => {
+              console.log('failure registration');
+              setActiveStep(ERegSteps.step1);
+              dispatch(
+                ac_showNotification({
+                  type: ENotificationType.failure,
+                  context: 'Registration unsuccessful',
+                }),
+              );
+            },
+          ),
+        );
       }
     }
 
     if (activeStep !== ERegSteps.step4 && activeStep !== ERegSteps.step5) {
       setLocalStorageRegData(data);
+    }
+    if (activeStep !== ERegSteps.step5) {
+      setActiveStep(activeStep + 1);
     }
   }
 
@@ -101,7 +150,7 @@ export function Registration() {
     <div className="registration">
       <Container>
         <Row>
-          <Col sm={12} md={7} lg={5} className="m-auto">
+          <Col sm={12} md={7} lg={6} xl={5} className="m-auto">
             <PageTitle title={t('Open a Trading Account')} showBackButton={false} />
             <ul className="steps-indicator">
               {Array.from({ length: 5 }).map((_, i) => (

@@ -26,7 +26,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
       // END MOCK RESPONSE
 
       if (method === EHttpMethod.get) {
-        return axios[method](path).then((e: any) => {
+        return axios[method](path, { withCredentials: true }).then((e: any) => {
           if (
             (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
             (e.data?.status && e.data.status === EResponseStatus.failure)
@@ -42,6 +42,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
           headers: {
             'content-type': 'application/x-www-form-urlencoded',
           },
+          withCredentials: true,
         }).then((e: any) => {
           if (
             (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
@@ -62,7 +63,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
 // export const getContentRequest = request(EHttpMethod.get, `https://baconipsum.com/api/?type=meat-and-filler`);
 export const getContentRequest = (d: any) => new Promise((resolve, reject) => resolve({}));
 export const getGeoIpRequest = request(EHttpMethod.get, `${apiUrl}/frontend/geoIp`);
-export const getProfileRequest = request(EHttpMethod.get, `${apiUrl}/clients/getProfile`);
+export const getProfileRequest = request(EHttpMethod.post, `${apiUrl}/clients/getProfile`);
 export const getClientDataRequest = request(EHttpMethod.get, `${apiUrl}/clients/getClientData`);
 export const loginRequest = request(EHttpMethod.post, `${apiUrl}/clients/login`);
 export const logoutRequest = request(EHttpMethod.post, `${apiUrl}/clients/logout`);

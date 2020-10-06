@@ -32,8 +32,8 @@ export enum EWorkshopType {
 }
 
 export enum ETradingPlatform {
-  mt4 = 'mt4',
-  mt5 = 'mt5',
+  mt4 = 'MT4',
+  mt5 = 'MT5',
 }
 
 export enum ETradingAccountType {

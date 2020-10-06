@@ -25,8 +25,12 @@ export function FourthStep({ submitFn }: any) {
   });
 
   function Submit(data: FormikValues) {
-    console.log(data);
-    delete data.confirmPassword;
+    data = Object.keys(data).reduce((acc, key) => {
+      if (!!data[key] && key !== EFields.confirmPassword) {
+        Object.assign(acc, { [key]: data[key] });
+      }
+      return acc;
+    }, {});
     submitFn({ [ERegSteps.step4]: data });
   }
 
