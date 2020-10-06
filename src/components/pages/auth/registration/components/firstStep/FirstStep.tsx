@@ -96,7 +96,7 @@ export function FirstStep({ submitFn }: any) {
                 {t('Next')}
               </Button>
               <div className="mt-5 text-center under-form fadeFromBottom-row__6">
-                {t('Already Registered?')}
+                {t('Already Registered')}
                 <LocaleLink className="already__link ml-1" to="/login">
                   {t('Sign In')}
                 </LocaleLink>

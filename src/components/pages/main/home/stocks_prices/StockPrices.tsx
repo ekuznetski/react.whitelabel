@@ -21,7 +21,7 @@ export function StockPrices() {
       icon: 'filter.svg',
       anchor: MarketType.forex,
       info: {
-        title: <Trans i18nKey="Number Of Markets" values={{ num: '40', sign: '+', text: '$t(Forex)' }}></Trans>,
+        title: t('Number Of Markets', { num: '40', sign: '+', market: t('Forex') }),
         desc: t('Product Section Forex Desc'),
         points: [
           <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:200' }}>
@@ -36,7 +36,7 @@ export function StockPrices() {
       icon: 'graph_bars.svg',
       anchor: MarketType.stocks,
       info: {
-        title: <Trans i18nKey="Number Of Markets" values={{ num: '40', sign: '+', text: '$t(Stocks)' }}></Trans>,
+        title: t('Number Of Markets', { num: '40', sign: '+', market: t('Stocks') }),
         desc: t('Product Section Stocks Desc'),
         points: [
           <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:20' }}>

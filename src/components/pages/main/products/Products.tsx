@@ -82,7 +82,7 @@ export function Products() {
           Max. Leverage <b></b>
         </Trans>,
         <>
-          <Trans i18nKey="Number Of Markets Styled" values={{ num: '5', text: '$t(Main Cryptocurrencies)' }}>
+          <Trans i18nKey="Number Of Markets Styled" values={{ num: '5', market: '$t(Main Cryptocurrencies)' }}>
             <b></b> Main Cryptocurrencies
           </Trans>
           ,

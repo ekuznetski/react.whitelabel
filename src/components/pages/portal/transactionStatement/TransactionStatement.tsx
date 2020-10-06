@@ -28,21 +28,21 @@ export const TransactionStatement = memo(function TransactionStatement() {
     filter: Yup.array<Moment>().required(t('This field is required')),
   });
   const operationTypes = [
-    { label: 'Deposits', value: 'deposits' },
-    { label: 'Withdrawals', value: 'withdrawal' },
-    { label: 'Trades', value: 'trades' },
+    { label: t('Deposits'), value: 'deposits' },
+    { label: t('Withdrawals'), value: 'withdrawal' },
+    { label: t('Trades'), value: 'trades' },
   ];
   const recentTransactionsFilter = [
     {
-      label: 'Last 20 Transactions',
+      label: t('Last 20 Transactions'),
       value: [moment('1.1.2000').startOf('month'), moment()],
     },
     {
-      label: 'This Month Transactions',
+      label: t('This Month Transactions'),
       value: [moment().startOf('month'), moment()],
     },
     {
-      label: 'Last Month Transactions',
+      label: t('Last Month Transactions'),
       value: [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')],
     },
   ];

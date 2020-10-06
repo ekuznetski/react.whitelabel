@@ -46,7 +46,10 @@ export const InternalTransfer = memo(function InternalTransfer() {
         if (value && value > accountFrom.balance) {
           return createError({
             path,
-            message: `Transfer amount should not exceed this account balance: ${accountFrom.balance} ${accountFrom.currency}`,
+            message: t('Validator amount error', {
+              from: accountFrom.balance,
+              currency: accountFrom.currency,
+            }),
           });
         }
         return true;

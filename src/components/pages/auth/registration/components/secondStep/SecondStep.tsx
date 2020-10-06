@@ -54,12 +54,12 @@ export function SecondStep({ submitFn }: any) {
           if (value && value > maxDay) {
             return createError({
               path,
-              message: t(`Day limit`).replace('${max}', maxDay.toString()),
+              message: t(`Day Limit`).replace('${max}', maxDay),
             });
           }
           return true;
         }),
-        overwise: FieldValidators.requiredNumber.min(1, t('Invalid value')).max(31, t('Day limit')),
+        overwise: FieldValidators.requiredNumber.min(1, t('Invalid value')).max(31, t('Day Limit')),
       }),
     monthOfBirth: FieldValidators.requiredNumber.min(1, t('Invalid value')).max(12, 'Invalid value'),
     yearOfBirth: FieldValidators.requiredNumber

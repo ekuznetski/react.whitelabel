@@ -5,7 +5,7 @@ import { ECurrencyCode, ETradingAccountType, ETradingPlatform } from '@domain/en
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import './ThirdStep.scss';
 
@@ -37,7 +37,7 @@ export function ThirdStep({ submitFn }: any) {
           <div className="spread">
             {t('Fixed Spreads')}
             <br />
-            <Trans i18nKey="From #" values={{ val: '1.8' }}></Trans>
+            {t('From #', { val: '1.8' })}
           </div>
           <div className="commission">{t('No commission')}</div>
           <div className="select-mark" />
@@ -52,7 +52,7 @@ export function ThirdStep({ submitFn }: any) {
           <div className="spread">
             {t('Floating Spreads')}
             <br />
-            <Trans i18nKey="From #" values={{ val: '1.2' }}></Trans>
+            {t('From #', { val: '1.2' })}
           </div>
           <div className="commission">{t('No commission')}</div>
           <div className="select-mark" />
@@ -67,11 +67,9 @@ export function ThirdStep({ submitFn }: any) {
           <div className="spread">
             {t('Fixed Spreads')}
             <br />
-            <Trans i18nKey="From #" values={{ val: '0.2' }}></Trans>
+            {t('From #', { val: '0.2' })}
           </div>
-          <div className="commission">
-            <Trans i18nKey="Plus # per round" values={{ val: '4', text: `$t(per round)` }}></Trans>
-          </div>
+          <div className="commission">{t('Plus # per round', { val: '4' })}</div>
           <div className="select-mark" />
         </>
       ),

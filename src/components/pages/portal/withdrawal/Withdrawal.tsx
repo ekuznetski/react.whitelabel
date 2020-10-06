@@ -47,7 +47,10 @@ export const Withdrawal = memo(function Withdrawal() {
           if (value && value < account.minWithdrawal) {
             return createError({
               path,
-              message: `Value is too low. Minimum is ${account.minWithdrawal} ${account.currency}`,
+              message: t('Validator withdrawal min error', {
+                minSum: account.minWithdrawal,
+                currency: account.currency,
+              }),
             });
           }
           return true;
@@ -59,7 +62,10 @@ export const Withdrawal = memo(function Withdrawal() {
           if (value && value > limit) {
             return createError({
               path,
-              message: `Limit for this account is ${limit} ${account.currency}`,
+              message: t('Validator withdrawal max error', {
+                limit: limit,
+                currency: account.currency,
+              }),
             });
           }
           return true;
