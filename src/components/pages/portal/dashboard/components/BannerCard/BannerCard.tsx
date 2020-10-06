@@ -25,13 +25,15 @@ export function BannerCard() {
       type: 'blue',
       disabled: true,
       link: { text: t('Learn more') },
-      text: '<span>Earn $20</span> to trade with once you complete your Financial profile and submit your documents',
+      text:
+        '<Trans i18nKey="Promotional Cards Texts:0"><span>Earn $20</span> to trade with once you complete your Financial profile and submit your documents</Trans>',
     },
     {
       type: 'blue',
       disabled: true,
       link: { text: t('SMS Verification') },
-      text: 'Get a <span>$20 bonus</span> added to your trading account when you verify your phone number',
+      text:
+        '<Trans i18nKey="Promotional Cards Texts:1">Get a <span>$20 bonus</span> added to your trading account when you verify your phone number</Trans>',
       title: t('Verify Your Phone Number'),
     },
     {
@@ -39,7 +41,8 @@ export function BannerCard() {
       bg_img: 'client_banner_1.jpg',
       bg_color: 'white',
       link: { path: 'share', text: t('Invite Now') },
-      text: 'Invite a friend and get <br/> up to <span>$200 Cash Bonus</span>',
+      text:
+        '<Trans i18nKey="Promotional Cards Texts:2">Invite a friend and get <br /> up to <span>$200 Cash Bonus</span></Trans>',
       title: t('Invite friends for a Bonus'),
     },
     {
@@ -47,7 +50,8 @@ export function BannerCard() {
       bg_img: 'client_banner_2.jpg',
       bg_color: '#eff1f3',
       link: { path: 'deposit', text: t('Deposit Now') },
-      text: 'Deposit now and <span>receive a 10% bonus</span> up to $5K instantly added to your account',
+      text:
+        '<Trans i18nKey="Promotional Cards Texts:3">Deposit now and <span>receive a 10% bonus</span> up to $5K instantly added to your account</Trans>',
       title: t('10 percent Bonus on deposit'),
     },
   ];
@@ -57,7 +61,7 @@ export function BannerCard() {
       bg_img: 'fca_logos',
       link: { path: 'deposit', text: t('Deposit Now') },
       text: 'Fund Your Account with <span>$0 Fees</span>',
-      title: 'DEPOSIT NOW!',
+      title: t('Deposit Now').toUpperCase() + '!',
     },
   ];
   const cards = (clientAccount.show_promotions ? promotion_cards : bonus_cards).filter((slide) => !slide.disabled);

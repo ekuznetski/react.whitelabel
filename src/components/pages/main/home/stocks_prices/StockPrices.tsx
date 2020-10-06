@@ -21,11 +21,11 @@ export function StockPrices() {
       icon: 'filter.svg',
       anchor: MarketType.forex,
       info: {
-        title: t('Number Of Markets', { num: '40', sign: '+', market: t('Forex') }),
+        title: t('Number Of Markets', { num: '40+', market: t('Forex') }),
         desc: t('Product Section Forex Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:200' }}>
-            Max. Leverage <b></b>
+          <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
+            Max. Leverage <b>1:200</b>
           </Trans>,
         ],
       },
@@ -36,11 +36,11 @@ export function StockPrices() {
       icon: 'graph_bars.svg',
       anchor: MarketType.stocks,
       info: {
-        title: t('Number Of Markets', { num: '40', sign: '+', market: t('Stocks') }),
+        title: t('Number Of Markets', { num: '40+', market: t('Stocks') }),
         desc: t('Product Section Stocks Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:20' }}>
-            Max. Leverage <b></b>
+          <Trans i18nKey="Max Leverage #" values={{ val: '1:20' }}>
+            Max. Leverage <b>1:20</b>
           </Trans>,
         ],
       },
@@ -54,8 +54,8 @@ export function StockPrices() {
         title: t('Indices'),
         desc: t('Product Section Indices Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:200' }}>
-            Max. Leverage <b></b>
+          <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
+            Max. Leverage <b>1:200</b>
           </Trans>,
         ],
       },
@@ -69,8 +69,8 @@ export function StockPrices() {
         title: t('Commodities'),
         desc: t('Product Section Commodities Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:133' }}>
-            Max. Leverage <b></b>
+          <Trans i18nKey="Max Leverage #" values={{ val: '1:133' }}>
+            Max. Leverage <b>1:133</b>
           </Trans>,
         ],
       },
@@ -84,8 +84,8 @@ export function StockPrices() {
         title: t('Cryptocurrencies'),
         desc: t('Product Section Cryptocurrencies Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ text: '$t(Max Leverage)', val: '1:20' }}>
-            Max. Leverage <b></b>
+          <Trans i18nKey="Max Leverage #" values={{ val: '1:20' }}>
+            Max. Leverage <b>1:20</b>
           </Trans>,
         ],
       },

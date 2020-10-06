@@ -80,7 +80,7 @@ export const PersonalInfo = memo(
                       <div className="form_breakline mt-2 mb-10" />
                       <CountrySelect label={t('Country')} name={EFields.country} />
                       <Input label={t('City')} name={EFields.city} />
-                      <Input label={t('Adress 1')} name={EFields.street} />
+                      <Input label={t('Full Address')} name={EFields.street} />
                       {_country?.code !== ECountryCode.AE && (
                         <Input
                           label={

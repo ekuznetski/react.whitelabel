@@ -3,7 +3,7 @@ export interface IClientBannerCard {
   bg_img?: string;
   bg_color?: string;
   title?: string;
-  text: string | React.ReactFragment;
+  text: string;
   link: {
     path?: string;
     text: string;

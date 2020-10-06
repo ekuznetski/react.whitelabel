@@ -73,11 +73,10 @@
   "Change percent": "Change %",
   "Zero Deposit Fees": "Zero Deposit Fees",
   "Max Leverage": "Max. Leverage",
-  "Max Leverage #": "{{text}} <1>{{val}}</1>",
-  "Number Of Markets": "{{num}}{{sign}} {{market}}",
-  "Number Of Markets Styled": "<0>{{num}}{{sign}}</0> {{market}}",
-  "1 200 Max Leverage": "1:200 Max Leverage",
-  "24/5 Customer Support": "24/5 Customer Support",
+  "Max Leverage #": "$t(Max Leverage) <1>{{val}}</1>",
+  "Number Of Markets": "{{num}} {{market}}",
+  "Number Of Markets Styled": "<0>{{num}}</0> {{market}}",
+  "24 5 Customer Support": "24/5 Customer Support",
   "Prestigious MT5": "Prestigious MT5",
   "Platform Technology": "Platform Technology",
   "Prestigious MT5 Section Desc": [
@@ -248,7 +247,7 @@
   "Country": "Country",
   "Street name and number": "Street name and number",
   "City": "City",
-  "Adress 1": "Apartment/suite number, building name, street number and street name",
+  "Full Address": "Apartment/suite number, building name, street number and street name",
   "Postal Code": "Postal Code",
   "Optional": "(Optional)",
   "Demo": "Demo",
@@ -371,5 +370,12 @@
   "Validator withdrawal max error": "Limit for this account is {{limit}} {{currency}}",
   "Last 20 Transactions": "Last 20 Transactions",
   "This Month Transactions": "This Month Transactions",
-  "Last Month Transactions": "Last Month Transactions"
+  "Last Month Transactions": "Last Month Transactions",
+  "Promotional Cards Texts": [
+    "<0>Earn $20</0> to trade with once you complete your Financial profile and submit your documents",
+    "Get a <1>$20 bonus</1> added to your trading account when you verify your phone number",
+    "Invite a friend and get <1/> up to <3>$200 Cash Bonus</3>",
+    "Deposit now and <1>receive a 10% bonus</1> up to $5K instantly added to your account",
+    "Fund Your Account with <1>$0 Fees</1>"
+  ]
 }
