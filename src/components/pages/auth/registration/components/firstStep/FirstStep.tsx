@@ -65,7 +65,6 @@ export function FirstStep({ submitFn }: any) {
         onSubmit={Submit}
       >
         {(props) => {
-          // console.log(props);
           return (
             <Form className="m-auto form">
               <Input className="fadeFromBottom-row__0" label={t('First Name')} name={EFields.first_name} />

@@ -6,29 +6,28 @@ import {
   ForgotPassword,
   Home,
   InternalTransfer,
+  Login,
   OpenAccount,
   Platform,
+  PlatformDownload,
   Products,
   Profile,
   Registration,
   RestorePassword,
   TransactionStatement,
   Withdrawal,
-  PlatformDownload,
-  Login,
 } from '@components/pages';
 import {
-  ac_fetchGeoIpData,
-  ac_fetchWithdrawHistory,
   ac_fetchClientData,
-  ac_fetchTradingAccounts,
+  ac_fetchGeoIpData,
   ac_fetchProfile,
+  ac_fetchTradingAccounts,
+  ac_fetchWithdrawHistory,
   ac_logout,
 } from '@store';
-import { allowAuthorizedGuard, disallowAuthorizedGuard } from '@utils/guards';
+import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
 import { EAppSection, ETradingType } from '../enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
-import { logoutGuard } from '../../utils/guards/logout.guard';
 
 // Data to be loaded on EVERY page of app section
 export const routesInitialApiData: IRoutesInitialApiData = {

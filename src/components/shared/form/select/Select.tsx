@@ -114,7 +114,7 @@ export const Select = memo(function Select({
     if (props.isMulti) {
       _val = { value: _val?.map((item: ISelectItem) => item.value) || [] };
     }
-
+    setState({ ...state, isFilled: !!_val?.value });
     setSelectedValue(e);
     helpers.setValue(_val?.value);
     if (props.onChange) {
