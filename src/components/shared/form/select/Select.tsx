@@ -20,37 +20,53 @@ function NoRender() {
 }
 
 const MenuList = memo(function MenuList(props: any) {
-  const OPTION_HEIGHT = 36;
   const { options, children, maxHeight, getValue } = props;
   const [value] = getValue();
   const initialOffset = Math.max(options.indexOf(value), 0) * OPTION_HEIGHT;
-  const _height = Math.min(maxHeight, Math.max((children.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5)) ?? 100;
-  const easeAnimation = BezierEasing(0.25, 0.1, 0.25, 1.0);
-  const animatedProps: any = useSpring({
-    config: { duration: 300, easing: easeAnimation },
-    from: { height: 0, opacity: 0.4 },
-    to: { height: _height, opacity: 1 },
-  });
+  const _height = Math.min(maxHeight, Math.max((children.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5));
+
+  return children.length ? (
+    <List
+      height={_height}
+      itemCount={children.length || 0}
+      itemSize={OPTION_HEIGHT}
+      initialScrollOffset={initialOffset}
+      overscanCount={8}
+      width="100%"
+    >
+      {({ index, style }) => {
+        return <div style={style}>{children[index]}</div>;
+      }}
+    </List>
+  ) : (
+    <div className="no-options">No Options</div>
+  );
+});
+
+const Menu = memo(function Menu(props: MenuProps<any>) {
+  const [current, { inc }] = useCounter(0, { min: 0, max: 1 });
+  const { options, children, maxMenuHeight, isMulti, getValue } = props;
+  const _styles = {
+    height: current
+      ? Math.min(
+          maxMenuHeight,
+          Math.max(
+            ((!isMulti ? options.length : options.length - getValue().length) || 0) * OPTION_HEIGHT,
+            OPTION_HEIGHT * 1.5,
+          ),
+        ) + 4 // 4px is vertical padding
+      : 0,
+    opacity: current ? 1 : 0.4,
+  };
+
+  useEffect(() => inc(), []);
 
   return (
-    <animated.div className="menu-wrapper" style={animatedProps}>
-      {children.length ? (
-        <List
-          height={_height}
-          itemCount={children.length || 0}
-          itemSize={OPTION_HEIGHT}
-          initialScrollOffset={initialOffset}
-          overscanCount={8}
-          width="100%"
-        >
-          {({ index, style }) => {
-            return <div style={style}>{children[index]}</div>;
-          }}
-        </List>
-      ) : (
-        <div className="no-options">No Options</div>
-      )}
-    </animated.div>
+    <components.Menu {...props}>
+      <div className={classNames('menu-wrapper', current && 'open')} style={_styles}>
+        {children}
+      </div>
+    </components.Menu>
   );
 });
 
@@ -98,7 +114,7 @@ export const Select = memo(function Select({
     if (props.isMulti) {
       _val = { value: _val?.map((item: ISelectItem) => item.value) || [] };
     }
-
+    setState({ ...state, isFilled: !!_val?.value });
     setSelectedValue(e);
     helpers.setValue(_val?.value);
     if (props.onChange) {
@@ -109,6 +125,7 @@ export const Select = memo(function Select({
   Object.assign(props, {
     components: {
       ...props.components,
+      Menu,
       MenuList,
       Input,
     },
@@ -134,6 +151,7 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
+        // defaultMenuIsOpen={true}
         onFocus={() => setState({ ...state, isFocused: true })}
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
