@@ -1,4 +1,4 @@
-import { Button, DatePicker, MultiSelect, PageTitle, Select, Tab, Tabs } from '@components/shared';
+import { Button, DatePicker, MultiSelect, PageTitle, Select, Svg, Svg, Tab, Tabs } from '@components/shared';
 import { ENotificationType } from '@domain/enums';
 import { IClientProfile } from '@domain/interfaces';
 import { ac_fetchTransactionalStatements, ac_showNotification, IStore } from '@store';
@@ -123,9 +123,14 @@ export const TransactionStatement = memo(function TransactionStatement() {
           </Formik>
         </Col>
       </Row>
-      <Row>
+      <Row className="justify-content-center">
+        <Col xs={12}>
+          <PageTitle title={t('Statements')} description={t('Statements Filter Result Note')} showBackButton={false} />
+        </Col>
         <Col xs={12} md={9} lg={7} xl={6} className="py-10 px-9">
-          <div className="statements"></div>
+          <div className="statements text-center">
+            <Svg href="no-filter.svg" width={160} height={160} style={{ fill: '#b0b4b9' }} className="d-block mx-auto" />
+          </div>
         </Col>
       </Row>
     </Container>

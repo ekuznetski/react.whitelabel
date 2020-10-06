@@ -77,15 +77,12 @@ export const Withdrawal = memo(function Withdrawal() {
   return (
     <div className="withdrawal-page-wrapper">
       <Container>
-        <Row>
-          <Col xs={12}>
-            <PageTitle title="Withdrawal" />
+        <Row className="justify-content-center">
+          <Col xs={12} md={10} lg={8} xl={7}>
+            <PageTitle title="Withdrawal" description={t('HYCM withdrawal policy desc')} />
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Col xs={12} md={10} lg={8} xl={7} className="withdrawal-page__desc mb-7">
-            {t('HYCM withdrawal policy desc')}
-          </Col>
           {store.clientData?.isNotApprovedAndNotDormant && (
             <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
               {t('You cannot transfer at the moment')}

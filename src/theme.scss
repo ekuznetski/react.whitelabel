@@ -20,11 +20,7 @@ body {
     .main-wrapper {
       min-height: 75vh;
     }
-
-    .footer {
-      z-index: -1;
-    }
-
+    
     &.portal {
       background: $grey-bg-light;
 
