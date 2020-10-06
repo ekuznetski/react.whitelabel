@@ -1,14 +1,15 @@
 import { IconFlag, Svg } from '@components/shared';
 import { countries, Currencies, EFormStatus } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
+import { useCounter } from 'ahooks';
 import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
-import React, { forwardRef, memo, useState } from 'react';
-import ReactSelect, { components } from 'react-select';
-import { useSpring, animated } from 'react-spring';
-import BezierEasing from 'bezier-easing';
+import React, { memo, useEffect, useState } from 'react';
+import ReactSelect, { components, createFilter, MenuProps } from 'react-select';
 import { FixedSizeList as List } from 'react-window';
 import './Select.scss';
+
+const OPTION_HEIGHT = 36;
 
 function Input(props: any) {
   return <components.Input {...props} autoComplete="disableAutoComplete" />;
@@ -97,7 +98,7 @@ export const Select = memo(function Select({
     if (props.isMulti) {
       _val = { value: _val?.map((item: ISelectItem) => item.value) || [] };
     }
-    setState({ ...state, isFilled: !!_val?.value });
+
     setSelectedValue(e);
     helpers.setValue(_val?.value);
     if (props.onChange) {
