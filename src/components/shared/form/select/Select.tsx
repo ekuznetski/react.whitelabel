@@ -1,14 +1,15 @@
 import { IconFlag, Svg } from '@components/shared';
 import { countries, Currencies, EFormStatus } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
+import { useCounter } from 'ahooks';
 import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
-import React, { forwardRef, memo, useState } from 'react';
-import ReactSelect, { components } from 'react-select';
-import { useSpring, animated } from 'react-spring';
-import BezierEasing from 'bezier-easing';
+import React, { memo, useEffect, useState } from 'react';
+import ReactSelect, { components, createFilter, MenuProps } from 'react-select';
 import { FixedSizeList as List } from 'react-window';
 import './Select.scss';
+
+const OPTION_HEIGHT = 36;
 
 function Input(props: any) {
   return <components.Input {...props} autoComplete="disableAutoComplete" />;
@@ -19,37 +20,47 @@ function NoRender() {
 }
 
 const MenuList = memo(function MenuList(props: any) {
-  const OPTION_HEIGHT = 36;
   const { options, children, maxHeight, getValue } = props;
   const [value] = getValue();
   const initialOffset = Math.max(options.indexOf(value), 0) * OPTION_HEIGHT;
-  const _height = Math.min(maxHeight, Math.max((children.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5)) ?? 100;
-  const easeAnimation = BezierEasing(0.25, 0.1, 0.25, 1.0);
-  const animatedProps: any = useSpring({
-    config: { duration: 300, easing: easeAnimation },
-    from: { height: 0, opacity: 0.4 },
-    to: { height: _height, opacity: 1 },
-  });
+  const _height = Math.min(maxHeight, Math.max((children.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5));
+
+  return children.length ? (
+    <List
+      height={_height}
+      itemCount={children.length || 0}
+      itemSize={OPTION_HEIGHT}
+      initialScrollOffset={initialOffset}
+      overscanCount={8}
+      width="100%"
+    >
+      {({ index, style }) => {
+        return <div style={style}>{children[index]}</div>;
+      }}
+    </List>
+  ) : (
+    <div className="no-options">No Options</div>
+  );
+});
+
+const Menu = memo(function Menu(props: MenuProps<any>) {
+  const [current, { inc }] = useCounter(0, { min: 0, max: 1 });
+  const { options, children, maxMenuHeight } = props;
+  const _styles = {
+    height: current
+      ? Math.min(maxMenuHeight, Math.max((options.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5)) + 4 // 4px is vertical padding
+      : 0,
+    opacity: current ? 1 : 0.4,
+  };
+
+  useEffect(() => inc(), []);
 
   return (
-    <animated.div className="menu-wrapper" style={animatedProps}>
-      {children.length ? (
-        <List
-          height={_height}
-          itemCount={children.length || 0}
-          itemSize={OPTION_HEIGHT}
-          initialScrollOffset={initialOffset}
-          overscanCount={8}
-          width="100%"
-        >
-          {({ index, style }) => {
-            return <div style={style}>{children[index]}</div>;
-          }}
-        </List>
-      ) : (
-        <div className="no-options">No Options</div>
-      )}
-    </animated.div>
+    <components.Menu {...props}>
+      <div className={classNames('menu-wrapper', current && 'open')} style={_styles}>
+        {children}
+      </div>
+    </components.Menu>
   );
 });
 
@@ -108,6 +119,7 @@ export const Select = memo(function Select({
   Object.assign(props, {
     components: {
       ...props.components,
+      Menu,
       MenuList,
       Input,
     },
@@ -133,7 +145,7 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
-        defaultMenuIsOpen={true}
+        // defaultMenuIsOpen={true}
         onFocus={() => setState({ ...state, isFocused: true })}
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
@@ -166,8 +178,7 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
     label: (
       <>
         <IconFlag className="mr-1" flag={el.code} />
-        <span className="phone">{el.phoneCode}</span>{' '}
-        <span className="name">{el.name}</span>
+        <span className="phone">{el.phoneCode}</span> <span className="name">{el.name}</span>
       </>
     ),
     value: el.phoneCode.replace('+', ''),

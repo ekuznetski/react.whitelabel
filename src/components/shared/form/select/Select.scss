@@ -99,19 +99,28 @@
     }
 
     div[class$='-menu'] {
-      width: 100%;
+      width: calc(100% + 2px);
       left: -1px;
       top: calc(100% + 3px);
       margin: auto;
-      border: 1px solid $blue;
-      border-radius: 2px;
       z-index: 5;
       box-shadow: box-shadow(25, 0.12);
       overflow: hidden;
       box-sizing: content-box;
+      border-radius: 2px;
 
       .menu-wrapper {
         overflow: hidden;
+        height: 0;
+        opacity: 0.4;
+        transition: height 0.3s, opacity 0.3s, border-color 0.05s;
+        border: 1px solid transparent;
+        border-radius: 2px;
+        padding: 1px 0;
+
+        &.open {
+          border-color: $blue;
+        }
 
         .no-options {
           @include d-flex(center, center);
@@ -136,8 +145,7 @@
         height: 36px;
         font-size: 14px;
 
-        &:not(.no-options):active,
-        &:not(.no-options):hover {
+        &:not(.no-options):not(.active):hover {
           background-color: rgba($blue, 0.3);
         }
 
