@@ -45,10 +45,16 @@ const MenuList = memo(function MenuList(props: any) {
 
 const Menu = memo(function Menu(props: MenuProps<any>) {
   const [current, { inc }] = useCounter(0, { min: 0, max: 1 });
-  const { options, children, maxMenuHeight } = props;
+  const { options, children, maxMenuHeight, isMulti, getValue } = props;
   const _styles = {
     height: current
-      ? Math.min(maxMenuHeight, Math.max((options.length || 0) * OPTION_HEIGHT, OPTION_HEIGHT * 1.5)) + 4 // 4px is vertical padding
+      ? Math.min(
+          maxMenuHeight,
+          Math.max(
+            ((!isMulti ? options.length : options.length - getValue().length) || 0) * OPTION_HEIGHT,
+            OPTION_HEIGHT * 1.5,
+          ),
+        ) + 4 // 4px is vertical padding
       : 0,
     opacity: current ? 1 : 0.4,
   };
