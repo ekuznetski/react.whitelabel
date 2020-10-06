@@ -19,7 +19,7 @@ enum EFields {
   'yearOfBirth' = 'yearOfBirth',
   'street' = 'street',
   'city' = 'city',
-  'zip' = 'zip',
+  'postcode' = 'postcode',
 }
 
 export function SecondStep({ submitFn }: any) {
@@ -66,7 +66,7 @@ export function SecondStep({ submitFn }: any) {
       .max(new Date().getFullYear(), t('Invalid value')),
     street: FieldValidators.street,
     city: FieldValidators.city,
-    zip: FieldValidators.zip,
+    postcode: FieldValidators.postcode,
   });
 
   function Submit(data: FormikValues) {
@@ -77,10 +77,13 @@ export function SecondStep({ submitFn }: any) {
       data.tax_country = ECountryCodeToName[data.tax_country];
     }
     Object.assign(data, { dob: `${data.yearOfBirth}-${data.monthOfBirth}-${data.dayOfBirth}` });
-    delete data.yearOfBirth;
-    delete data.monthOfBirth;
-    delete data.dayOfBirth;
-    delete data.tax_checkbox;
+    const unusedKeys: any[] = [EFields.yearOfBirth, EFields.monthOfBirth, EFields.dayOfBirth, EFields.tax_checkbox];
+    data = Object.keys(data).reduce((acc, key) => {
+      if (!!data[key] && !unusedKeys.includes(key)) {
+        Object.assign(acc, { [key]: data[key] });
+      }
+      return acc;
+    }, {});
     submitFn({ [ERegSteps.step2]: data });
   }
 
@@ -89,14 +92,14 @@ export function SecondStep({ submitFn }: any) {
       <Formik
         initialValues={{
           tax_checkbox: false,
-          tax_country: geoIp?.country ?? '',
+          tax_country: geoIp?.countryCode ?? '',
           country: geoIp?.countryCode ?? '',
           dayOfBirth: '',
           monthOfBirth: '',
           yearOfBirth: '',
           street: '',
           city: '',
-          zip: '',
+          postcode: '',
         }}
         validationSchema={validationSchema}
         onSubmit={Submit}
@@ -121,7 +124,7 @@ export function SecondStep({ submitFn }: any) {
               <h4 className="section-title">{t('Address')}</h4>
               <Input label={t('Street name and number')} name={EFields.street} />
               <Input label={t('City')} name={EFields.city} />
-              <Input label={t('Postal Code') + ' ' + t('Optional')} name={EFields.zip} />
+              <Input label={t('Postal Code') + ' ' + t('Optional')} name={EFields.postcode} />
               <Button type="submit">{t('Next')}</Button>
             </Form>
           );

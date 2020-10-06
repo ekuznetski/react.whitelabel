@@ -17,7 +17,6 @@ export function FifthStep({ name, submitFn }: any) {
   });
 
   function Submit(data: FormikValues) {
-    console.log(data);
     submitFn({ [ERegSteps.step5]: data });
   }
 

@@ -1,14 +1,15 @@
 import { IconFlag, Svg } from '@components/shared';
 import { countries, Currencies, EFormStatus } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
+import { useCounter } from 'ahooks';
 import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
-import React, { forwardRef, memo, useState } from 'react';
-import ReactSelect, { components } from 'react-select';
-import { useSpring, animated } from 'react-spring';
-import BezierEasing from 'bezier-easing';
+import React, { memo, useEffect, useState } from 'react';
+import ReactSelect, { components, createFilter, MenuProps } from 'react-select';
 import { FixedSizeList as List } from 'react-window';
 import './Select.scss';
+
+const OPTION_HEIGHT = 36;
 
 function Input(props: any) {
   return <components.Input {...props} autoComplete="disableAutoComplete" />;
@@ -133,7 +134,6 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
-        defaultMenuIsOpen={true}
         onFocus={() => setState({ ...state, isFocused: true })}
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
@@ -166,8 +166,7 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
     label: (
       <>
         <IconFlag className="mr-1" flag={el.code} />
-        <span className="phone">{el.phoneCode}</span>{' '}
-        <span className="name">{el.name}</span>
+        <span className="phone">{el.phoneCode}</span> <span className="name">{el.name}</span>
       </>
     ),
     value: el.phoneCode.replace('+', ''),

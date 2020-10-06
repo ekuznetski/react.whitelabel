@@ -77,11 +77,16 @@ export function ac_userExists(payload: { username: string }, onSuccess: AnyFunct
   };
 }
 
-export function ac_register(payload: { data: ISetProfileRequest }, onSuccess: AnyFunction): IAction {
+export function ac_register(
+  payload: { data: ISetProfileRequest },
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
   return {
     type: EActionTypes.register,
     payload,
     onSuccess,
+    onFailure,
   };
 }
 
@@ -134,7 +139,7 @@ export function ac_updateRouteParams(payload: {
     title: string;
     desc?: string;
   };
-  state: any;
+  state?: any;
 }): IAction {
   return {
     type: EActionTypes.updateRoute,
