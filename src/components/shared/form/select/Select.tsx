@@ -97,7 +97,7 @@ export const Select = memo(function Select({
     if (props.isMulti) {
       _val = { value: _val?.map((item: ISelectItem) => item.value) || [] };
     }
-
+    setState({ ...state, isFilled: !!_val?.value });
     setSelectedValue(e);
     helpers.setValue(_val?.value);
     if (props.onChange) {
@@ -133,7 +133,6 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
-        defaultMenuIsOpen={true}
         onFocus={() => setState({ ...state, isFocused: true })}
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
@@ -166,8 +165,7 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
     label: (
       <>
         <IconFlag className="mr-1" flag={el.code} />
-        <span className="phone">{el.phoneCode}</span>{' '}
-        <span className="name">{el.name}</span>
+        <span className="phone">{el.phoneCode}</span> <span className="name">{el.name}</span>
       </>
     ),
     value: el.phoneCode.replace('+', ''),
