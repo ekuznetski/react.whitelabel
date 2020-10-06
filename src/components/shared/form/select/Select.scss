@@ -13,13 +13,12 @@
     border-color: $blue;
   }
 
-  &.focused .label,
   &.filled .label {
     transform: translate3d(10px, 4px, 0) scale(0.75);
   }
 
   .label {
-    color: $dark-grey;
+    color: $text;
     line-height: 24px;
     font-size: 14px;
     position: absolute;
@@ -34,6 +33,7 @@
 
   div[class$='-singleValue'] {
     top: 4px;
+    font-size: 14px;
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
@@ -54,6 +54,21 @@
       justify-content: end;
       line-height: 23px;
       transform: translateY(0) !important;
+      animation-name: _fade;
+      animation-fill-mode: both;
+      //animation-duration: 0.3s;
+      animation-timing-function: ease-out;
+      animation-delay: 0.09s;
+    }
+  }
+
+  @keyframes _fade {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
     }
   }
 
@@ -78,7 +93,7 @@
           font-size: 14px;
           display: flex;
           align-items: center;
-          color: $dark-grey;
+          color: $text;
         }
 
         div[class$='-singleValue'] {

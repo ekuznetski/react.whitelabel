@@ -1,4 +1,3 @@
-import { EResponseStatus } from '@domain/enums';
 import {
   IBaseResponse,
   IClientAddResponse,
@@ -113,7 +112,6 @@ function* clientAddMiddleware({ payload, onSuccess, onFailure }: IAction) {
 
 function* setProfileMiddleware({ payload, onSuccess, onFailure }: IAction) {
   try {
-    console.log(payload);
     const { response }: ISetProfileResponse = yield call(clientSetProfileRequest, payload);
     yield put(ac_saveProfile(response.profile));
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.preRegister }));

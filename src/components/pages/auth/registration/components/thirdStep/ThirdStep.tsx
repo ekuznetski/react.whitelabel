@@ -1,7 +1,6 @@
-import { ERegSteps } from '@components/pages';
 import { Button, CurrencySelect, Radio, Select } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ECurrencyCode, ETradingAccountType, ETradingPlatform } from '@domain/enums';
+import { ECurrencyCode, ERegSteps, ETradingAccountType, ETradingPlatform } from '@domain/enums';
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
@@ -15,23 +14,14 @@ enum EFields {
   'currency' = 'currency',
   'leverage' = 'leverage',
 }
-enum EPlatform {
-  mt4 = 'mt4',
-  mt5 = 'mt5',
-}
+
 export function ThirdStep({ submitFn }: any) {
   const { t } = useTranslation();
-  let platform: EPlatform;
   const validationSchema = Yup.object().shape({
     firstdeposit_platform: FieldValidators.requiredString,
     account_type: FieldValidators.requiredString,
     currency: FieldValidators.requiredString,
-    leverage: Yup.lazy((_) => {
-      if (platform === EPlatform.mt4) {
-        return FieldValidators.requiredString;
-      }
-      return FieldValidators.notRequired;
-    }),
+    leverage: FieldValidators.requiredString,
   });
   const accountTypeOptions = [
     {
@@ -89,7 +79,12 @@ export function ThirdStep({ submitFn }: any) {
   ];
 
   function Submit(data: FormikValues) {
-    console.log(data);
+    data = Object.keys(data).reduce((acc, key) => {
+      if (!!data[key]) {
+        Object.assign(acc, { [key]: data[key] });
+      }
+      return acc;
+    }, {});
     submitFn({ [ERegSteps.step3]: data });
   }
 
@@ -97,7 +92,7 @@ export function ThirdStep({ submitFn }: any) {
     <div className="registration-third-step">
       <Formik
         initialValues={{
-          firstdeposit_platform: '',
+          firstdeposit_platform: ETradingPlatform.mt4,
           account_type: ETradingAccountType.classic,
           currency: ECurrencyCode.usd,
           leverage: leverageList[0].value,
@@ -106,11 +101,6 @@ export function ThirdStep({ submitFn }: any) {
         onSubmit={Submit}
       >
         {(props: any) => {
-          const { values, setFieldValue } = props;
-          platform = values.firstdeposit_platform;
-          if (values.leverage && values.firstdeposit_platform === ETradingPlatform.mt4) {
-            setFieldValue(EFields.leverage, '');
-          }
           return (
             <Form className="m-auto form fadein-row">
               <h4 className="section-title mb-5">{t('Choose Trading Platform')}</h4>
@@ -129,12 +119,10 @@ export function ThirdStep({ submitFn }: any) {
                   <h5 className="select-title">{t('Account Currency')}</h5>
                   <CurrencySelect name={EFields.currency} />
                 </Col>
-                {values.firstdeposit_platform === ETradingPlatform.mt4 && (
-                  <Col xs={12} sm={6} className="fadein-row">
-                    <h5 className="select-title">{t('Leverage')}</h5>
-                    <Select options={leverageList} name={EFields.leverage} />
-                  </Col>
-                )}
+                <Col xs={12} sm={6} className="fadein-row">
+                  <h5 className="select-title">{t('Leverage')}</h5>
+                  <Select options={leverageList} name={EFields.leverage} />
+                </Col>
               </Row>
               <Button type="submit">{t('Next')}</Button>
             </Form>
