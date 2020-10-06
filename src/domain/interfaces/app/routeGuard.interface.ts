@@ -1,3 +1,3 @@
-import { RedirectProps } from 'react-router-dom';
+import { Path } from 'history';
 
-export type IRouteGuard = boolean | RedirectProps['to'];
+export type IRouteGuard = boolean | { path: Path; state?: { [key: string]: any } };

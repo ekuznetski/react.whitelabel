@@ -1,4 +1,5 @@
-import { Button, Modal } from '@components/shared';
+import { Button, Modal, PageTitle } from '@components/shared';
+import { ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
 import { ac_preRegister, ac_register } from '@store';
 import classNames from 'classnames';
@@ -8,14 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
 import './Registration.scss';
-
-export enum ERegSteps {
-  step1,
-  step2,
-  step3,
-  step4,
-  step5,
-}
 
 function getLocalStorageRegData() {
   const b64String = localStorage.getItem('regData');
@@ -46,8 +39,9 @@ export function Registration() {
   const [activeStep, setActiveStep] = useState<ERegSteps>(ERegSteps.step1);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [continueReg, setContinueReg] = useState<boolean | null>(null);
-  const regData = getLocalStorageRegData();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
+  const regData = getLocalStorageRegData();
 
   useEffect(() => {
     if (!!regData) {
@@ -59,19 +53,20 @@ export function Registration() {
     if (!!regData && !!continueReg) {
       setFormData(regData);
       setName(`${regData[ERegSteps.step1]?.first_name} ${regData[ERegSteps.step1]?.surname}`);
+
       if (!!regData[ERegSteps.step1]) {
         setActiveStep(ERegSteps.step2);
       }
+
       if (!!regData[ERegSteps.step2]) {
         setActiveStep(ERegSteps.step3);
       }
     }
+
     if (continueReg === false) {
       localStorage.removeItem('regData');
     }
   }, [continueReg]);
-
-  const { t } = useTranslation();
 
   async function onSubmitFn(data: any) {
     setFormData({ ...formData, ...data });
@@ -92,7 +87,7 @@ export function Registration() {
           return { ...acc, ...formData[el] };
         }, {});
         preparedData['domain'] = 'com'; //TODO remove
-        preparedData['username'] = formData.step1.email;
+        preparedData['username'] = formData[ERegSteps.step1].email;
         dispatch(ac_register(preparedData, () => console.log('registered, i hope')));
       }
     }
@@ -104,39 +99,10 @@ export function Registration() {
 
   return (
     <div className="registration">
-      <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
-        {t('Do you want to continue registration')}
-        <Row>
-          <Col xs={6}>
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                setContinueReg(true);
-                setModalOpen(false);
-              }}
-              className="fadeFromBottom-row__5"
-            >
-              {t('Yes, continue')}
-            </Button>
-          </Col>
-          <Col xs={6}>
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                setContinueReg(false);
-                setModalOpen(false);
-              }}
-              className="fadeFromBottom-row__5"
-            >
-              {t('No, start new')}
-            </Button>
-          </Col>
-        </Row>
-      </Modal>
       <Container>
         <Row>
           <Col sm={12} md={7} lg={5} className="m-auto">
-            <h3 className="text-center">{t('Open a Trading Account')}</h3>
+            <PageTitle title={t('Open a Trading Account')} showBackButton={false} />
             <ul className="steps-indicator">
               {Array.from({ length: 5 }).map((_, i) => (
                 <li
@@ -160,8 +126,35 @@ export function Registration() {
           </Col>
         </Row>
       </Container>
+      <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
+        {t('Do you want to continue registration')}
+        <Row>
+          <Col xs={6}>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                setContinueReg(true);
+                setModalOpen(false);
+              }}
+              className="fadeFromBottom-row__5"
+            >
+              {t('Yes continue')}
+            </Button>
+          </Col>
+          <Col xs={6}>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                setContinueReg(false);
+                setModalOpen(false);
+              }}
+              className="fadeFromBottom-row__5"
+            >
+              {t('No start new')}
+            </Button>
+          </Col>
+        </Row>
+      </Modal>
     </div>
   );
 }
-
-export default Registration;

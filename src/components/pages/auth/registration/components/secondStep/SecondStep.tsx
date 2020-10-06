@@ -1,7 +1,6 @@
-import { ERegSteps } from '@components/pages';
 import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ECountryCodeToName } from '@domain/enums';
+import { ECountryCodeToName, ERegSteps } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';
@@ -91,7 +90,7 @@ export function SecondStep({ submitFn }: any) {
         initialValues={{
           tax_checkbox: false,
           tax_country: geoIp?.country ?? '',
-          country: geoIp?.country ?? '',
+          country: geoIp?.countryCode ?? '',
           dayOfBirth: '',
           monthOfBirth: '',
           yearOfBirth: '',
@@ -115,29 +114,9 @@ export function SecondStep({ submitFn }: any) {
               <CountrySelect label={t('Country of residence')} name={EFields.country} />
               <h4 className="section-title mb-5">{t('Date of Birth')}</h4>
               <div className="dob d-flex">
-                <Input
-                  label={t('Day')}
-                  name={EFields.dayOfBirth}
-                  value={values.dayOfBirth}
-                  onChange={(e: any) => {
-                    e.preventDefault();
-                    if (/^\d{0,2}$/gm.test(e.target.value) || e.target.value === '') {
-                      setFieldValue(EFields.dayOfBirth, e.target.value);
-                    }
-                  }}
-                />
+                <Input label={t('Day')} name={EFields.dayOfBirth} value={values.dayOfBirth} regex={/^\d{0,2}$/gm} />
                 <Select className="mx-3" label={t('Month')} options={months} name={EFields.monthOfBirth} />
-                <Input
-                  label={t('Year')}
-                  name={EFields.yearOfBirth}
-                  value={values.yearOfBirth}
-                  onChange={(e: any) => {
-                    if (/^\d{0,4}$/gm.test(e.target.value) || e.target.value === '') {
-                      e.preventDefault();
-                      setFieldValue(EFields.yearOfBirth, e.target.value);
-                    }
-                  }}
-                />
+                <Input label={t('Year')} name={EFields.yearOfBirth} value={values.yearOfBirth} regex={/^\d{0,4}$/gm} />
               </div>
               <h4 className="section-title">{t('Address')}</h4>
               <Input label={t('Street name and number')} name={EFields.street} />

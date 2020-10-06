@@ -1,10 +1,11 @@
-import { Button, Input } from '@components/shared';
+import { AuthAlreadyRegisteredLink, Button, Input, PageTitle } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
+import './ForgotPassword.scss';
 
 enum EFields {
   'login' = 'login',
@@ -12,28 +13,29 @@ enum EFields {
 
 export function ForgotPassword() {
   const { t } = useTranslation();
-  
+
   const validationSchema = Yup.object().shape({ [EFields.login]: FieldValidators.loginAndEmail });
 
   return (
-    <Container>
+    <Container className="forgot-password">
       <Row>
         <Col sm={12} md={7} lg={5} className="m-auto">
-          <h3 className="text-center mb-7">{t('Forgot Password')}</h3>
+          <PageTitle title={t('Forgot Password')} description={t('Reset Password Note')} showBackButton={false} />
           <Formik
             initialValues={{ login: '' }}
             validationSchema={validationSchema}
             onSubmit={(data) => {
-              console.log('Login submit', data);
+              console.log('Forgot Password submit', data);
             }}
           >
             {(props: FormikProps<any>) => (
               <Form className="m-auto form">
-                <Input label={t('Login')} name={EFields.login} />
+                <Input label={t('Email/Username')} name={EFields.login} />
                 <Button type="submit">{t('Submit')}</Button>
               </Form>
             )}
           </Formik>
+          <AuthAlreadyRegisteredLink />
         </Col>
       </Row>
     </Container>

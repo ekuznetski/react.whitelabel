@@ -1,13 +1,13 @@
-import { Button, Input, LocaleLink } from '@components/shared';
-import { FieldValidators } from '@domain';
-import { IClientProfile, ILoginRequest } from '@domain/interfaces';
-import { ac_login, IStore } from '@store';
-import { Form, Formik, FormikProps } from 'formik';
-import React, { useEffect } from 'react';
+import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
+import { env, FieldValidators } from '@domain';
+import { ELabelsName } from '@domain/enums';
+import { ILoginRequest } from '@domain/interfaces';
+import { ac_login } from '@store';
+import { Form, Formik, FormikProps, FormikValues } from 'formik';
+import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import './Login.scss';
 
@@ -17,11 +17,7 @@ enum EFields {
 }
 
 export function Login() {
-  const { profile } = useSelector<IStore, { profile: IClientProfile }>((state) => ({
-    profile: state.data.client.profile,
-  }));
   const dispatch = useDispatch();
-  const history = useHistory();
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
@@ -29,37 +25,36 @@ export function Login() {
     [EFields.password]: FieldValidators.requiredString,
   });
 
-  useEffect(() => {
-    if (!!profile) {
-      history.push('/dashboard');
-    }
-  }, [profile]);
+  function Submit(data: FormikValues) {
+    dispatch(ac_login(data as ILoginRequest));
+  }
 
   return (
     <Container>
       <Row>
         <Col sm={12} md={7} lg={5} className="m-auto">
-          <h3 className="text-center mb-7">{t('Login')}</h3>
+          <PageTitle
+            title={t('Log in to', { labelName: ELabelsName[env.LABEL?.toLowerCase() as keyof typeof ELabelsName] })}
+            showBackButton={false}
+          />
           <Formik
             initialValues={{
               username: '',
               password: '',
             }}
             validationSchema={validationSchema}
-            onSubmit={(data: ILoginRequest) => {
-              dispatch(ac_login(data));
-            }}
+            onSubmit={Submit}
           >
             {(props: FormikProps<any>) => (
               <Form className="m-auto form">
-                <Input label={t('Login')} name={EFields.username} />
+                <Input label={t('Email/Username')} name={EFields.username} />
                 <Input label={t('Password')} type="password" name={EFields.password} />
                 <Button type="submit">{t('Submit')}</Button>
               </Form>
             )}
           </Formik>
           <div className="mt-5 text-center d-flex align-items-center justify-content-between forgot-create">
-            <LocaleLink to="/restore-password">{t('Restore password')}</LocaleLink>
+            <LocaleLink to="/forgot-password">{t('Restore password')}</LocaleLink>
             <LocaleLink to="/registration">{t('Create Live Account')}</LocaleLink>
           </div>
         </Col>

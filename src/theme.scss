@@ -1,144 +1,148 @@
 body {
-	font-family: 'Poppins', sans-serif;
-	color: $dark-text;
-	margin: 0;
-	overflow-y: scroll;
-	overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+  color: $dark-text;
+  margin: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
-	&.lock {
-		overflow: hidden;
-	}
+  &.lock {
+    overflow: hidden;
+  }
 
-	#root {
-		overflow-x: hidden;
-		scroll-behavior: smooth;
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-		justify-content: space-between;
+  #root {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
 
-		.main-wrapper {
-			min-height: 75vh;
-		}
+    .main-wrapper {
+      min-height: 75vh;
+    }
 
-		&.portal {
-			background: $grey-bg-light;
+    .footer {
+      z-index: -1;
+    }
 
-			.router-context {
-				padding: 0 0 80px;
-			}
+    &.portal {
+      background: $grey-bg-light;
 
-			section {
-				padding: 0 0 80px;
+      .router-context {
+        padding: 0 0 80px;
+      }
 
-				&:last-child {
-					padding: 0;
-				}
-			}
+      section {
+        padding: 0 0 80px;
 
-			.form-wrapper {
-				background: #fff;
-				border-radius: $border-radius;
-				box-shadow: box-shadow(15, 0.1);
-			}
+        &:last-child {
+          padding: 0;
+        }
+      }
 
-			.form_breakline {
-				width: 100%;
-				height: 1px;
-				background: $grey;
-			}
-		}
+      .form-wrapper {
+        background: #fff;
+        border-radius: $border-radius;
+        box-shadow: box-shadow(15, 0.1);
+      }
 
-		&.main,
-		&.auth {
-			section {
-				position: relative;
-				padding: 120px 0;
+      .form_breakline {
+        width: 100%;
+        height: 1px;
+        background: $grey;
+      }
+    }
 
-				@media (max-width: $viewport-lg-w) {
-					padding: 100px 0;
-				}
+    &.main,
+    &.auth {
+      section {
+        position: relative;
+        padding: 120px 0;
 
-				@media (max-width: $viewport-md-w) {
-					padding: 70px 0;
-				}
-			}
-		}
+        @media (max-width: $viewport-lg-w) {
+          padding: 100px 0;
+        }
 
-		.phone-wrapper {
-			width: 100%;
-			display: flex;
-			position: relative;
-			z-index: 2;
+        @media (max-width: $viewport-md-w) {
+          padding: 70px 0;
+        }
+      }
+    }
 
-			div[class*='ValueContainer'] {
-				.name {
-					display: none;
-				}
-			}
+    .phone-wrapper {
+      width: 100%;
+      display: flex;
+      position: relative;
+      z-index: 2;
 
-			.select-wrapper.focused {
-				border-right-color: #629dff !important;
-			}
+      div[class*='ValueContainer'] {
+        .name {
+          display: none;
+        }
+      }
 
-			.input {
-				border-radius: 0 2px 2px 0;
-			}
+      .select-wrapper.focused {
+        border-right-color: #629dff !important;
+      }
 
-			.select-wrapper {
-				border-right-color: transparent;
-				border-radius: 2px 0 0 2px;
-				flex: 0 0 120px;
-			}
-		}
+      .input {
+        border-radius: 0 2px 2px 0;
+      }
 
-		.hovered-underlined {
-			position: relative;
-			text-decoration: none;
+      .select-wrapper {
+        border-right-color: transparent;
+        border-radius: 2px 0 0 2px;
+        flex: 0 0 120px;
+      }
+    }
 
-			&:after {
-				left: 0;
-				bottom: 1px;
-				content: '';
-				position: absolute;
-				background-color: $dark-text;
-				width: 100%;
-				height: 1px;
-				opacity: 1;
-				transition: opacity 0.25s;
-			}
+    .hovered-underlined {
+      position: relative;
+      text-decoration: none;
 
-			&:hover {
-				&:after {
-					opacity: 0;
-				}
-			}
-		}
-	}
+      &:after {
+        left: 0;
+        bottom: 1px;
+        content: '';
+        position: absolute;
+        background-color: $dark-text;
+        width: 100%;
+        height: 1px;
+        opacity: 1;
+        transition: opacity 0.25s;
+      }
+
+      &:hover {
+        &:after {
+          opacity: 0;
+        }
+      }
+    }
+  }
 }
 
 :focus {
-	outline: none;
+  outline: none;
 }
 
 //todo remove
 button,
 .btn {
-	border-radius: $border-radius;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 50px;
-	background: transparent;
-	border: 1.5px solid transparent;
+  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  background: transparent;
+  border: 1.5px solid transparent;
 
-	&:focus {
-		outline: transparent;
-	}
+  &:focus {
+    outline: transparent;
+  }
 
-	a,
-	a:hover {
-		color: #ffffff;
-		text-decoration: none;
-	}
+  a,
+  a:hover {
+    color: #ffffff;
+    text-decoration: none;
+  }
 }

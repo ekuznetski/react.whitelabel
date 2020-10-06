@@ -12,7 +12,7 @@ import {
   IWithdrawalLimitResponse,
 } from '@domain/interfaces';
 import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
-import { store } from '@store';
+import { ac_clearStore, store } from '@store';
 import {
   clientAddRequest,
   clientSetProfileRequest,
@@ -23,6 +23,7 @@ import {
   getTransactionalStatementsRequest,
   internalTransferRequest,
   loginRequest,
+  logoutRequest,
   tradingAccountsRequest,
   userExistsRequest,
   withdrawalsHistoryRequest,
@@ -33,14 +34,12 @@ import {
   ac_fetchTradingAccounts,
   ac_requestActionFailure,
   ac_requestActionSuccess,
-  ac_saveClientAdd,
   ac_saveClientData,
   ac_saveContent,
   ac_saveGeoIpData,
   ac_saveProfile,
   ac_saveTradingAccounts,
   ac_saveTransactionalStatements,
-  ac_saveUserExists,
   ac_saveWithdrawHistory,
   ac_saveWithdrawLimit,
 } from './actions';
@@ -53,9 +52,7 @@ function* getContentMiddleware({ payload }: IAction) {
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.fetchContent }));
     yield put(ac_saveContent({ [payload?.page]: response.data }));
   } catch (e) {
-    // console.log(e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.fetchContent }));
-    // TODO error handler
   }
 }
 
@@ -65,55 +62,56 @@ function* getProfileMiddleware() {
     yield put(ac_saveProfile(response.message));
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.fetchProfile }));
   } catch (e) {
-    // console.log(e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.fetchProfile }));
-    // TODO error handler
   }
 }
 
-function* loginMiddleware({ payload }: IAction) {
+function* loginMiddleware({ payload, onSuccess, onFailure }: IAction) {
   try {
     const { response }: ILoginResponse = yield call(loginRequest, payload);
     yield put(ac_saveProfile(response.profile));
+    if (onSuccess) yield call(onSuccess, response);
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.login }));
   } catch (e) {
-    // console.log(e);
+    if (onFailure) yield call(onFailure);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.login }));
-    // TODO error handler
   }
 }
 
-function* userExistMiddleware({ payload, success_cb: onSuccess, failure_cb: onFailure }: IAction) {
+function* logoutMiddleware() {
+  try {
+    const { response }: any = yield call(logoutRequest);
+    yield put(ac_clearStore());
+    yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.logout }));
+  } catch (e) {
+    yield put(ac_requestActionFailure({ requestActionType: EActionTypes.logout }));
+  }
+}
+
+function* userExistMiddleware({ payload, onSuccess, onFailure }: IAction) {
   try {
     const { response }: IBaseResponse = yield call(userExistsRequest, payload);
-    console.log(response);
-    yield put(ac_saveUserExists({ userExists: response?.status === EResponseStatus.success }));
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.userExists }));
     if (onSuccess) yield call(onSuccess, response);
   } catch (e) {
-    // console.log(e);
     if (onFailure) yield call(onFailure);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.userExists }));
-    // TODO error handler
   }
 }
 
-function* clientAddMiddleware({ payload, success_cb: onSuccess, failure_cb: onFailure }: IAction) {
+function* clientAddMiddleware({ payload, onSuccess, onFailure }: IAction) {
   try {
     console.log(payload);
     const { response }: IClientAddResponse = yield call(clientAddRequest, payload);
-    yield put(ac_saveClientAdd({ clientAdded: response?.status === EResponseStatus.success })); //todo remove
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.preRegister }));
     if (onSuccess) yield call(onSuccess, response);
   } catch (e) {
-    // console.log(e);
     if (onFailure) yield call(onFailure);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.preRegister }));
-    // TODO error handler
   }
 }
 
-function* setProfileMiddleware({ payload, success_cb: onSuccess, failure_cb: onFailure }: IAction) {
+function* setProfileMiddleware({ payload, onSuccess, onFailure }: IAction) {
   try {
     console.log(payload);
     const { response }: ISetProfileResponse = yield call(clientSetProfileRequest, payload);
@@ -121,10 +119,8 @@ function* setProfileMiddleware({ payload, success_cb: onSuccess, failure_cb: onF
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.preRegister }));
     if (onSuccess) yield call(onSuccess, response);
   } catch (e) {
-    // console.log(e);
     if (onFailure) yield call(onFailure);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.preRegister }));
-    // TODO error handler
   }
 }
 
@@ -134,9 +130,7 @@ function* getGeoIPMiddleware() {
     yield put(ac_saveGeoIpData(response));
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.fetchGeoIpData }));
   } catch (e) {
-    // console.log(e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.fetchGeoIpData }));
-    // TODO error handler
   }
 }
 
@@ -146,9 +140,7 @@ function* getTradingAccountsMiddleware() {
     yield put(ac_saveTradingAccounts(new MClientTradingData(response)));
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.fetchTradingAccounts }));
   } catch (e) {
-    // console.log(e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.fetchTradingAccounts }));
-    // TODO error handler
   }
 }
 
@@ -159,9 +151,7 @@ function* getWithdrawHistoryMiddleware() {
     yield put(ac_saveWithdrawHistory(payload));
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.fetchWithdrawHistory }));
   } catch (e) {
-    // console.log(e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.fetchWithdrawHistory }));
-    // TODO error handler
   }
 }
 
@@ -180,7 +170,6 @@ function* getWithdrawLimitMiddleware({ payload }: IAction<{ accountId: number; p
         ?.balance || 1000000000000;
     yield put(ac_saveWithdrawLimit({ limit }));
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.fetchWithdrawLimit }));
-    // TODO error handler
   }
 }
 
@@ -191,38 +180,32 @@ function* getClientStatusDataMiddleware() {
     yield put(ac_saveClientData(payload));
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.fetchClientData }));
   } catch (e) {
-    // console.log(e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.fetchClientData }));
-    // TODO error handler
   }
 }
 
-function* makeInternalTransferMiddleware({ payload, success_cb, failure_cb }: IAction) {
+function* makeInternalTransferMiddleware({ payload, onSuccess, onFailure }: IAction) {
   try {
     yield call(internalTransferRequest, payload);
     yield put(ac_fetchTradingAccounts());
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.makeInternalTransfer }));
-    if (success_cb) yield call(success_cb);
+    if (onSuccess) yield call(onSuccess);
   } catch (e) {
-    // console.log(e);
-    if (failure_cb) yield call(failure_cb);
+    if (onFailure) yield call(onFailure);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.makeInternalTransfer }));
-    // TODO error handler
   }
 }
 
-function* fetchTransactionalStatementsMiddleware({ payload, success_cb, failure_cb }: IAction) {
+function* fetchTransactionalStatementsMiddleware({ payload, onSuccess, onFailure }: IAction) {
   try {
     const { response }: ITransactionalStatementsResponse = yield call(getTransactionalStatementsRequest, payload);
     const data = new MTransactionalStatementData(response);
     yield put(ac_saveTransactionalStatements(data));
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.fetchTransactionalStatements }));
-    if (success_cb) yield call(success_cb);
+    if (onSuccess) yield call(onSuccess);
   } catch (e) {
-    // console.log(e);
-    if (failure_cb) yield call(failure_cb);
+    if (onFailure) yield call(onFailure);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.fetchTransactionalStatements }));
-    // TODO error handler
   }
 }
 
@@ -242,12 +225,16 @@ export function* loginSaga() {
   yield takeEvery(EActionTypes.login, loginMiddleware);
 }
 
-export function* existSaga() {
-  yield takeEvery(EActionTypes.userExists, userExistMiddleware);
+export function* logoutSaga() {
+  yield takeEvery(EActionTypes.logout, logoutMiddleware);
 }
 
 export function* clientAddSaga() {
   yield takeEvery(EActionTypes.preRegister, clientAddMiddleware);
+}
+
+export function* userExistSaga() {
+  yield takeEvery(EActionTypes.userExists, userExistMiddleware);
 }
 
 export function* setProfileSaga() {

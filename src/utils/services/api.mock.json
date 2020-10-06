@@ -1,326 +1,326 @@
 {
-	"clients": {
-		"getProfile": {
-			"response": {
-				"status": "success",
-				"message": {
-					"email": "ralph.melhem@eu.hycm.com",
-					"username": "ralph.melhem@eu.hycm.com",
-					"first_name": "ralph",
-					"surname": "test",
-					"country": "Canada",
-					"state": "AB",
-					"street": "qfvdf",
-					"city": "j",
-					"postcode": "123456",
-					"phone_prefix": "+44",
-					"phone": "555477393",
-					"dob": "1990-03-22",
-					"account_type": "Raw",
-					"affiliate_code": null,
-					"raf_id": "HYCP+343129583030",
-					"nationality": "France",
-					"dual_nationality": "N/A",
-					"ic_hash": "7da1bca61204e52f1ea71011b2b0285a20eb693cfee0db603e760aafaea0c4fd",
-					"jurisdiction": "St Vincent",
-					"userId": "03a8f9fd7b33d725512532877d17d82261643288a4d557d4c0897ecf40154b4a",
-					"sfid": "001D0000027iZ4KIAU",
-					"ftd": true,
-					"trading_central": true,
-					"aprv": true,
-					"curr": "EUR",
-					"brand": "HYCM",
-					"manager": "Chind",
-					"regDate": "2019-08-09 09:36:01",
-					"go_to_praxis": true,
-					"show_praxis_and_webmoney": false,
-					"enable_citioptions": false,
-					"allow_additional_account": true,
-					"allow_additional_live_account": true,
-					"allow_additional_demo_account": true,
-					"allow_deposit": true,
-					"allowed_currencies": ["CAD", "EUR", "USD", "GBP", "AED", "RUB"],
-					"allowed_leverages": [100, 200, 300, 400, 500],
-					"allowed_account_types": ["fixed", "classic", "raw"],
-					"allowed_platforms": ["mt4", "mt5"],
-					"is_withdrawal_allowed": true,
-					"allow_internal_transfer": true,
-					"edit_fake_account": true,
-					"validation_countdown": null
-				},
-				"messageCode": 54
-			}
-		},
-		"getClientData": {
-			"response": {
-				"status": "success",
-				"fp_status": { "code": 1, "message": "Submitted" },
-				"document_status": { "code": 1, "message": "Submitted" },
-				"client_status": { "code": 5, "message": "The Client is Approved" },
-				"cayman_status": { "code": 10, "message": "Under review" },
-				"edd_status": { "code": 1, "message": "Submitted" },
-				"mifir_status": { "code": 4, "message": "Not applicable" },
-				"tins_status": { "code": 1, "message": "Submitted" },
-				"dual_status": { "code": 4, "message": "Not applicable" },
-				"edd_data": {
-					"address": "House no 289, st no 16, phase1, Bahria Town Rawalpindi",
-					"own_property": "0",
-					"previous_address": "House no 909, st no 43, block C, PWD housing society islamabad",
-					"nature_of_business": "financial consultant",
-					"years_employment": "15",
-					"working_financial": "0",
-					"annual_income": null,
-					"estimated_amount": null,
-					"net_worth": null,
-					"income_currency": null,
-					"appr_annual_income": "Below 50,000",
-					"appr_net_worth": "Below 250,000",
-					"years_address": "1",
-					"employer_name": "Business development system",
-					"position": "managing director",
-					"employer_address": "office no 3, 1st floor, kashmir mansion, commercial area phase 1",
-					"appr_income_before_tax": null,
-					"appr_savings": null,
-					"funds_available": "Below 25,000",
-					"other_income": "IB hycm",
-					"employment_status": "SelfEmplyed",
-					"phone": "03339347925",
-					"pr_employer_name": "sdad",
-					"pr_nature_of_business": "asdsasd",
-					"pr_position": "asd",
-					"pr_appr_annual_income": "250,000 to 500,000",
-					"pr_location_employment": "ads",
-					"pr_years_employment": "1",
-					"nationality": "Pakistan"
-				},
-				"tins_data": {
-					"choice": true,
-					"reason": null,
-					"tins": "[{\"country\":\"Andorra\",\"tax_number\":\"asd\"},{\"country\":\"Albania\",\"tax_number\":\"sdfs\"}]"
-				}
-			}
-		},
-		"getTradingAccounts": {
-			"response": {
-				"status": "success",
-				"message": [
-					{
-						"Platform": "Mt4",
-						"AccountId": "2015898380",
-						"Group": "CMdemoUSD",
-						"Leverage": "200",
-						"Balance": 0,
-						"Currency": "USD",
-						"Type": "Demo",
-						"AccountType": "Fixed",
-						"Min_withdrawal": 20,
-						"AllowLeverageChange": false
-					},
-					{
-						"Platform": "Mt4",
-						"AccountId": "2015898454",
-						"Group": "CMdemoMktRawGBP",
-						"Leverage": "200",
-						"Balance": 0,
-						"Currency": "USD",
-						"Type": "Live",
-						"AccountType": "Raw",
-						"Min_withdrawal": 20,
-						"AllowLeverageChange": false
-					},
-					{
-						"Platform": "Mt5",
-						"AccountId": "520000306",
-						"Group": "M5CMVIN-V",
-						"Leverage": "200",
-						"Balance": 90,
-						"Currency": "USD",
-						"Type": "Live",
-						"AccountType": "Raw",
-						"Min_withdrawal": 20,
-						"AllowLeverageChange": false
-					}
-				],
-				"totalBalance": 929,
-				"balances": { "EUR": 0, "USD": 929, "GBP": 0, "AED": 0, "RUB": 0, "CAD": 0 },
-				"totalDemoBalance": 0,
-				"balancesDemo": { "EUR": 0, "USD": 0, "GBP": 0, "AED": 0, "RUB": 0, "CAD": 0 },
-				"messageCode": 54,
-				"promotions": [{ "name": "deposit_promotion", "type": "percentage", "value": 10 }]
-			}
-		},
-		"bankingStatements": {
-			"meta": { "code": 200, "in": 28.9191 },
-			"response": {
-				"status": "success",
-				"message": "Reports Sent",
-				"data": {
-					"trades": [],
-					"deposits": [
-						{
-							"amount": "200",
-							"currency": "USD",
-							"date_created": "2018-09-11 11:27:00",
-							"invoice_no": "EP_7869311536665220",
-							"trade_account": "300003591",
-							"trade_platform": "MT4"
-						},
-						{
-							"amount": "423",
-							"currency": "USD",
-							"date_created": "2018-11-06 08:16:18",
-							"invoice_no": "GC_69089767",
-							"trade_account": "520000009",
-							"trade_platform": "MT5"
-						},
-						{
-							"amount": "10",
-							"currency": "USD",
-							"date_created": "2018-11-06 09:12:48",
-							"invoice_no": "iat_15414955657549",
-							"trade_account": "520000010",
-							"trade_platform": "MT5"
-						}
-					]
-				},
-				"messageCode": 54
-			}
-		}
-	},
-	"documents": {
-		"getDocuments": {
-			"response": {
-				"status": "success",
-				"message": [
-					{ "id": "94299", "document_type": "PoR", "document_status": "Pending", "created": "2020-06-05 13:13:54" },
-					{ "id": "88721", "document_type": "IDBack", "document_status": "Pending", "created": "2020-04-02 09:25:50" },
-					{ "id": "80829", "document_type": "ID", "document_status": "Pending", "created": "2019-12-05 10:11:06" }
-				],
-				"messageCode": 31
-			}
-		}
-	},
-	"withdrawals": {
-		"getHistory": {
-			"response": {
-				"status": "success",
-				"message": [
-					{
-						"reference": "WD_15760597803044",
-						"account": "320000742",
-						"currency": "USD",
-						"amount": 3000,
-						"date": "2019-11-10 12:08:54",
-						"status_code": 0,
-						"cancelable": true,
-						"subtotal": 0,
-						"details": []
-					},
-					{
-						"reference": "iat_15728621438301",
-						"account": "6701151",
-						"currency": "USD",
-						"amount": 34,
-						"date": "2019-11-09 12:09:08",
-						"status_code": 1,
-						"cancelable": false,
-						"subtotal": 0,
-						"details": []
-					},
-					{
-						"reference": "IAT#From360000041-15728621438300",
-						"account": "360000041",
-						"currency": "USD",
-						"amount": 29,
-						"date": "2019-08-16",
-						"status_code": 2,
-						"cancelable": false,
-						"subtotal": 29,
-						"details": [
-							{
-								"settlement_date": "2019-08-16",
-								"reference": "IAT#From360000041-15728621438300",
-								"method": "Credit Card: 0058",
-								"amount": 29
-							}
-						]
-					},
-					{
-						"reference": "WD#HYCM15658363931603",
-						"account": "360000041",
-						"currency": "USD",
-						"amount": 557,
-						"date": "2019-08-16",
-						"status_code": 2,
-						"cancelable": false,
-						"subtotal": 557,
-						"details": [
-							{
-								"settlement_date": "2019-08-16",
-								"reference": "WD#HYCM15658363931603",
-								"method": "Wallet: MoneyBooker",
-								"amount": 457
-							},
-							{
-								"settlement_date": "2019-08-16",
-								"reference": "WD#HYCM15658363931111",
-								"method": "Wallet: MoneyBooker",
-								"amount": 100
-							}
-						]
-					}
-				],
-				"messageCode": 0
-			}
-		},
-		"limit": {
-			"response": {
-				"status": "success",
-				"message": "Withdrawal Limit",
-				"data": 87.8,
-				"messageCode": 36
-			}
-		},
-		"mt4": {
-			"response": {
-				"status": "success",
-				"message": "Withdrawal Successful",
-				"messageCode": 44
-			}
-		},
-		"mt5": {
-			"response": {
-				"status": "failure",
-				"message": "Withdrawal Unsuccessful",
-				"messageCode": 44
-			}
-		}
-	},
-	"mt4accounts": {
-		"create": {
-			"response": {
-				"status": "success",
-				"message": "Trading account created",
-				"messageCode": 35,
-				"data": { "trade_account_id": "220002709", "Currency": "CAD", "pwd": "pHFCxQjk", "platform": "MT4" }
-			}
-		}
-	},
-	"bankaccounts": {
-		"getbankdetails": {
-			"response": {
-				"status": "success",
-				"message": {
-					"beneficiary_name": "Ralph test new bis",
-					"beneficiary_bank": "testbank with time new",
-					"beneficiary_bank_account_no": "12345454",
-					"swift_code": "CTBAAU2S",
-					"iban": "4124124124",
-					"branch_name": "sds(test) & test -",
-					"branch_address": "dsfsdf / 123, Test"
-				},
-				"messageCode": 25
-			}
-		}
-	}
+  "clients": {
+    "getProfile": {
+      "response": {
+        "status": "success",
+        "message": {
+          "email": "ralph.melhem@eu.hycm.com",
+          "username": "ralph.melhem@eu.hycm.com",
+          "first_name": "ralph",
+          "surname": "test",
+          "country": "Canada",
+          "state": "AB",
+          "street": "qfvdf",
+          "city": "j",
+          "postcode": "123456",
+          "phone_prefix": "+44",
+          "phone": "555477393",
+          "dob": "1990-03-22",
+          "account_type": "Raw",
+          "affiliate_code": null,
+          "raf_id": "HYCP+343129583030",
+          "nationality": "France",
+          "dual_nationality": "N/A",
+          "ic_hash": "7da1bca61204e52f1ea71011b2b0285a20eb693cfee0db603e760aafaea0c4fd",
+          "jurisdiction": "St Vincent",
+          "userId": "03a8f9fd7b33d725512532877d17d82261643288a4d557d4c0897ecf40154b4a",
+          "sfid": "001D0000027iZ4KIAU",
+          "ftd": true,
+          "trading_central": true,
+          "aprv": true,
+          "curr": "EUR",
+          "brand": "HYCM",
+          "manager": "Chind",
+          "regDate": "2019-08-09 09:36:01",
+          "go_to_praxis": true,
+          "show_praxis_and_webmoney": false,
+          "enable_citioptions": false,
+          "allow_additional_account": true,
+          "allow_additional_live_account": true,
+          "allow_additional_demo_account": true,
+          "allow_deposit": true,
+          "allowed_currencies": ["CAD", "EUR", "USD", "GBP", "AED", "RUB"],
+          "allowed_leverages": [100, 200, 300, 400, 500],
+          "allowed_account_types": ["fixed", "classic", "raw"],
+          "allowed_platforms": ["mt4", "mt5"],
+          "is_withdrawal_allowed": true,
+          "allow_internal_transfer": true,
+          "edit_fake_account": true,
+          "validation_countdown": null
+        },
+        "messageCode": 54
+      }
+    },
+    "getClientData": {
+      "response": {
+        "status": "success",
+        "fp_status": { "code": 1, "message": "Submitted" },
+        "document_status": { "code": 1, "message": "Submitted" },
+        "client_status": { "code": 5, "message": "The Client is Approved" },
+        "cayman_status": { "code": 10, "message": "Under review" },
+        "edd_status": { "code": 1, "message": "Submitted" },
+        "mifir_status": { "code": 4, "message": "Not applicable" },
+        "tins_status": { "code": 1, "message": "Submitted" },
+        "dual_status": { "code": 4, "message": "Not applicable" },
+        "edd_data": {
+          "address": "House no 289, st no 16, phase1, Bahria Town Rawalpindi",
+          "own_property": "0",
+          "previous_address": "House no 909, st no 43, block C, PWD housing society islamabad",
+          "nature_of_business": "financial consultant",
+          "years_employment": "15",
+          "working_financial": "0",
+          "annual_income": null,
+          "estimated_amount": null,
+          "net_worth": null,
+          "income_currency": null,
+          "appr_annual_income": "Below 50,000",
+          "appr_net_worth": "Below 250,000",
+          "years_address": "1",
+          "employer_name": "Business development system",
+          "position": "managing director",
+          "employer_address": "office no 3, 1st floor, kashmir mansion, commercial area phase 1",
+          "appr_income_before_tax": null,
+          "appr_savings": null,
+          "funds_available": "Below 25,000",
+          "other_income": "IB hycm",
+          "employment_status": "SelfEmplyed",
+          "phone": "03339347925",
+          "pr_employer_name": "sdad",
+          "pr_nature_of_business": "asdsasd",
+          "pr_position": "asd",
+          "pr_appr_annual_income": "250,000 to 500,000",
+          "pr_location_employment": "ads",
+          "pr_years_employment": "1",
+          "nationality": "Pakistan"
+        },
+        "tins_data": {
+          "choice": true,
+          "reason": null,
+          "tins": "[{\"country\":\"Andorra\",\"tax_number\":\"asd\"},{\"country\":\"Albania\",\"tax_number\":\"sdfs\"}]"
+        }
+      }
+    },
+    "getTradingAccounts": {
+      "response": {
+        "status": "success",
+        "message": [
+          {
+            "Platform": "Mt4",
+            "AccountId": "2015898380",
+            "Group": "CMdemoUSD",
+            "Leverage": "200",
+            "Balance": 0,
+            "Currency": "USD",
+            "Type": "Demo",
+            "AccountType": "Fixed",
+            "Min_withdrawal": 20,
+            "AllowLeverageChange": false
+          },
+          {
+            "Platform": "Mt4",
+            "AccountId": "2015898454",
+            "Group": "CMdemoMktRawGBP",
+            "Leverage": "200",
+            "Balance": 0,
+            "Currency": "USD",
+            "Type": "Live",
+            "AccountType": "Raw",
+            "Min_withdrawal": 20,
+            "AllowLeverageChange": false
+          },
+          {
+            "Platform": "Mt5",
+            "AccountId": "520000306",
+            "Group": "M5CMVIN-V",
+            "Leverage": "200",
+            "Balance": 90,
+            "Currency": "USD",
+            "Type": "Live",
+            "AccountType": "Raw",
+            "Min_withdrawal": 20,
+            "AllowLeverageChange": false
+          }
+        ],
+        "totalBalance": 929,
+        "balances": { "EUR": 0, "USD": 929, "GBP": 0, "AED": 0, "RUB": 0, "CAD": 0 },
+        "totalDemoBalance": 0,
+        "balancesDemo": { "EUR": 0, "USD": 0, "GBP": 0, "AED": 0, "RUB": 0, "CAD": 0 },
+        "messageCode": 54,
+        "promotions": [{ "name": "deposit_promotion", "type": "percentage", "value": 10 }]
+      }
+    },
+    "bankingStatements": {
+      "meta": { "code": 200, "in": 28.9191 },
+      "response": {
+        "status": "success",
+        "message": "Reports Sent",
+        "data": {
+          "trades": [],
+          "deposits": [
+            {
+              "amount": "200",
+              "currency": "USD",
+              "date_created": "2018-09-11 11:27:00",
+              "invoice_no": "EP_7869311536665220",
+              "trade_account": "300003591",
+              "trade_platform": "MT4"
+            },
+            {
+              "amount": "423",
+              "currency": "USD",
+              "date_created": "2018-11-06 08:16:18",
+              "invoice_no": "GC_69089767",
+              "trade_account": "520000009",
+              "trade_platform": "MT5"
+            },
+            {
+              "amount": "10",
+              "currency": "USD",
+              "date_created": "2018-11-06 09:12:48",
+              "invoice_no": "iat_15414955657549",
+              "trade_account": "520000010",
+              "trade_platform": "MT5"
+            }
+          ]
+        },
+        "messageCode": 54
+      }
+    }
+  },
+  "documents": {
+    "getDocuments": {
+      "response": {
+        "status": "success",
+        "message": [
+          { "id": "94299", "document_type": "PoR", "document_status": "Pending", "created": "2020-06-05 13:13:54" },
+          { "id": "88721", "document_type": "IDBack", "document_status": "Pending", "created": "2020-04-02 09:25:50" },
+          { "id": "80829", "document_type": "ID", "document_status": "Pending", "created": "2019-12-05 10:11:06" }
+        ],
+        "messageCode": 31
+      }
+    }
+  },
+  "withdrawals": {
+    "getHistory": {
+      "response": {
+        "status": "success",
+        "message": [
+          {
+            "reference": "WD_15760597803044",
+            "account": "320000742",
+            "currency": "USD",
+            "amount": 3000,
+            "date": "2019-11-10 12:08:54",
+            "status_code": 0,
+            "cancelable": true,
+            "subtotal": 0,
+            "details": []
+          },
+          {
+            "reference": "iat_15728621438301",
+            "account": "6701151",
+            "currency": "USD",
+            "amount": 34,
+            "date": "2019-11-09 12:09:08",
+            "status_code": 1,
+            "cancelable": false,
+            "subtotal": 0,
+            "details": []
+          },
+          {
+            "reference": "IAT#From360000041-15728621438300",
+            "account": "360000041",
+            "currency": "USD",
+            "amount": 29,
+            "date": "2019-08-16",
+            "status_code": 2,
+            "cancelable": false,
+            "subtotal": 29,
+            "details": [
+              {
+                "settlement_date": "2019-08-16",
+                "reference": "IAT#From360000041-15728621438300",
+                "method": "Credit Card: 0058",
+                "amount": 29
+              }
+            ]
+          },
+          {
+            "reference": "WD#HYCM15658363931603",
+            "account": "360000041",
+            "currency": "USD",
+            "amount": 557,
+            "date": "2019-08-16",
+            "status_code": 2,
+            "cancelable": false,
+            "subtotal": 557,
+            "details": [
+              {
+                "settlement_date": "2019-08-16",
+                "reference": "WD#HYCM15658363931603",
+                "method": "Wallet: MoneyBooker",
+                "amount": 457
+              },
+              {
+                "settlement_date": "2019-08-16",
+                "reference": "WD#HYCM15658363931111",
+                "method": "Wallet: MoneyBooker",
+                "amount": 100
+              }
+            ]
+          }
+        ],
+        "messageCode": 0
+      }
+    },
+    "limit": {
+      "response": {
+        "status": "success",
+        "message": "Withdrawal Limit",
+        "data": 87.8,
+        "messageCode": 36
+      }
+    },
+    "mt4": {
+      "response": {
+        "status": "success",
+        "message": "Withdrawal Successful",
+        "messageCode": 44
+      }
+    },
+    "mt5": {
+      "response": {
+        "status": "failure",
+        "message": "Withdrawal Unsuccessful",
+        "messageCode": 44
+      }
+    }
+  },
+  "mt4accounts": {
+    "create": {
+      "response": {
+        "status": "success",
+        "message": "Trading account created",
+        "messageCode": 35,
+        "data": { "trade_account_id": "220002709", "Currency": "CAD", "pwd": "pHFCxQjk", "platform": "MT4" }
+      }
+    }
+  },
+  "bankaccounts": {
+    "getbankdetails": {
+      "response": {
+        "status": "success",
+        "message": {
+          "beneficiary_name": "Ralph test new bis",
+          "beneficiary_bank": "testbank with time new",
+          "beneficiary_bank_account_no": "12345454",
+          "swift_code": "CTBAAU2S",
+          "iban": "4124124124",
+          "branch_name": "sds(test) & test -",
+          "branch_address": "dsfsdf / 123, Test"
+        },
+        "messageCode": 25
+      }
+    }
+  }
 }

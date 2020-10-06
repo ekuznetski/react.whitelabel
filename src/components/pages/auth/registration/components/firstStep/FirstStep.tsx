@@ -1,6 +1,6 @@
-import { ERegSteps } from '@components/pages';
-import { Button, Input, LocaleLink, PhoneCodeSelect } from '@components/shared';
+import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
+import { ERegSteps } from '@domain/enums';
 import { ac_userExists, IStore } from '@store';
 import { Form, Formik } from 'formik';
 import React from 'react';
@@ -64,7 +64,8 @@ export function FirstStep({ submitFn }: any) {
         validationSchema={validationSchema}
         onSubmit={Submit}
       >
-        {({ setFieldValue }) => {
+        {(props) => {
+          // console.log(props);
           return (
             <Form className="m-auto form">
               <Input className="fadeFromBottom-row__0" label={t('First Name')} name={EFields.first_name} />
@@ -76,16 +77,7 @@ export function FirstStep({ submitFn }: any) {
                   name={EFields.phone_prefix}
                   preselectedValue={geoIp?.countryCode}
                 />
-                <Input
-                  label={t('Phone')}
-                  name={EFields.phone}
-                  onChange={(e: any) => {
-                    if (/^\d*$/gm.test(e.target?.value) || e.target?.value === '') {
-                      e.preventDefault();
-                      setFieldValue(EFields.phone, e.target.value);
-                    }
-                  }}
-                />
+                <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
               </div>
               <p className="my-7 fadeFromBottom-row__4">
                 {t('Market Event Notification Desc:0')}
@@ -105,6 +97,7 @@ export function FirstStep({ submitFn }: any) {
           );
         }}
       </Formik>
+      <AuthAlreadyRegisteredLink className="fadeFromBottom-row__6" />
     </div>
   );
 }

@@ -39,6 +39,7 @@ const MenuList = memo(function MenuList(props: any) {
           itemCount={children.length || 0}
           itemSize={OPTION_HEIGHT}
           initialScrollOffset={initialOffset}
+          overscanCount={8}
           width="100%"
         >
           {({ index, style }) => {
@@ -132,11 +133,11 @@ export const Select = memo(function Select({
         placeholder={placeholder}
         options={options}
         isSearchable={isSearchable}
-        // defaultMenuIsOpen={true}
+        defaultMenuIsOpen={true}
         onFocus={() => setState({ ...state, isFocused: true })}
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
-        // onMenuClose={() => setState({ ...state, isFocused: false })}
+        // onMenuClose={() => setState({ isFocused: false, isFilled: !!field.value })}
         value={selectedValue}
         onChange={onChangeSelect}
       />
@@ -164,7 +165,8 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
   const options = countries.map((el) => ({
     label: (
       <>
-        <IconFlag flag={el.code} /> <span className="phone">{el.phoneCode}</span>{' '}
+        <IconFlag className="mr-1" flag={el.code} />
+        <span className="phone">{el.phoneCode}</span>{' '}
         <span className="name">{el.name}</span>
       </>
     ),
@@ -193,7 +195,8 @@ export const CountrySelect = memo((props: ISelect) => {
   const options = countries.map((el) => ({
     label: (
       <>
-        <IconFlag flag={el.code} /> <span className="name">{el.name}</span>
+        <IconFlag flag={el.code} className="mr-1" />
+        <span className="name">{el.name}</span>
       </>
     ),
     value: el.code,
@@ -221,7 +224,8 @@ export const CurrencySelect = memo((props: any) => {
   const options = Object.keys(props.options ?? Currencies).map((key: any) => ({
     label: (
       <>
-        <span className="currency-symbol">{Currencies[key].symbol}</span> {Currencies[key].code}
+        <span className="currency-symbol mr-1">{Currencies[key].symbol}</span>
+        {Currencies[key].code}
       </>
     ),
     value: Currencies[key].code,
@@ -256,11 +260,11 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
 
   const options = props.options.map((account: MTradingAccount) => ({
     label: (
-      <div className="trading-account-option" key={account.accountId}>
-        <div className="trading-option__platform mr-1">{account.platformName}</div>
-        <div className="trading-option__number">{account.accountId}</div>
-        <div className="trading-option__spacer mx-3" />
-        <div className="trading-option__balance">
+      <div className="trading-account-item" key={account.accountId}>
+        <div className="trading-item__platform mr-1">{account.platformName}</div>
+        <div className="trading-item__number">{account.accountId}</div>
+        <div className="trading-item__spacer mx-3" />
+        <div className="trading-item__balance">
           <Svg href={account.currency.toLowerCase() + '.svg'} className="mr-1" height={12} />
           {account.balance}
         </div>
@@ -273,7 +277,7 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
     const selectedValue = props.selectProps?.value?.value.accountId;
     const currentOptionValue = props.data.value.accountId;
     const isSelected = selectedValue === currentOptionValue;
-    
+
     return (
       <components.Option {...props} className={isSelected ? 'selected' : ''}>
         {children}
