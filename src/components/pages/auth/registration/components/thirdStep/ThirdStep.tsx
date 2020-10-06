@@ -1,7 +1,6 @@
-import { ERegSteps } from '@components/pages';
 import { Button, CurrencySelect, Radio, Select } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ECurrencyCode, ETradingAccountType, ETradingPlatform } from '@domain/enums';
+import { ECurrencyCode, ERegSteps, ETradingAccountType, ETradingPlatform } from '@domain/enums';
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
@@ -97,7 +96,7 @@ export function ThirdStep({ submitFn }: any) {
     <div className="registration-third-step">
       <Formik
         initialValues={{
-          firstdeposit_platform: '',
+          firstdeposit_platform: ETradingPlatform.mt4,
           account_type: ETradingAccountType.classic,
           currency: ECurrencyCode.usd,
           leverage: leverageList[0].value,
@@ -108,8 +107,10 @@ export function ThirdStep({ submitFn }: any) {
         {(props: any) => {
           const { values, setFieldValue } = props;
           platform = values.firstdeposit_platform;
-          if (values.leverage && values.firstdeposit_platform === ETradingPlatform.mt4) {
+          if (values.leverage && values.firstdeposit_platform === ETradingPlatform.mt5) {
             setFieldValue(EFields.leverage, '');
+          } else if (!values.leverage && values.firstdeposit_platform === ETradingPlatform.mt4) {
+            setFieldValue(EFields.leverage, leverageList[0].value);
           }
           return (
             <Form className="m-auto form fadein-row">

@@ -89,7 +89,7 @@ export function SecondStep({ submitFn }: any) {
       <Formik
         initialValues={{
           tax_checkbox: false,
-          tax_country: geoIp?.country ?? '',
+          tax_country: geoIp?.countryCode ?? '',
           country: geoIp?.countryCode ?? '',
           dayOfBirth: '',
           monthOfBirth: '',

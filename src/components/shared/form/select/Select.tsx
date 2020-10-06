@@ -100,6 +100,7 @@ export const Select = memo(function Select({
     setState({ ...state, isFilled: !!_val?.value });
     setSelectedValue(e);
     helpers.setValue(_val?.value);
+    console.log(e, _val, _val?.value);
     if (props.onChange) {
       props.onChange(_val?.value);
     }

@@ -86,7 +86,7 @@ export function Registration() {
           // @ts-ignore
           return { ...acc, ...formData[el] };
         }, {});
-        preparedData['domain'] = 'com'; //TODO remove
+        preparedData['domain'] = 'com'; //TODO remove when new api will be ready
         preparedData['username'] = formData[ERegSteps.step1].email;
         dispatch(ac_register(preparedData, () => console.log('registered, i hope')));
       }

@@ -1,4 +1,3 @@
-import { ERegSteps } from '@components/pages';
 import { Button, Input, Radio } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { Form, Formik, FormikValues } from 'formik';
@@ -6,6 +5,7 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
+import { ERegSteps } from '@domain/enums';
 
 enum EFields {
   'uscitizen' = 'uscitizen',
