@@ -1,4 +1,4 @@
-import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
+import { AuthAlreadyRegisteredLink, Button, Input, LocaleLink, PhoneCodeSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ERegSteps } from '@domain/enums';
 import { ac_userExists, IStore } from '@store';
