@@ -1,7 +1,7 @@
 import { Button, DatePicker, MultiSelect, PageTitle, Select, Svg, Svg, Tab, Tabs } from '@components/shared';
 import { ENotificationType } from '@domain/enums';
 import { IClientProfile } from '@domain/interfaces';
-import { ac_fetchTransactionalStatements, ac_showNotification, IStore } from '@store';
+import { ac_fetchTransactionalStatements, ac_showNotification, IDataStore, IStore } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
 import React, { memo } from 'react';
@@ -9,6 +9,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
+import { StatementSearchResultSection } from './components';
 import './TransactionStatement.scss';
 
 enum EFields {
@@ -17,8 +18,8 @@ enum EFields {
 }
 
 export const TransactionStatement = memo(function TransactionStatement() {
-  const { profile } = useSelector<IStore, { profile: IClientProfile }>((state) => ({
-    profile: state.data.client.profile,
+  const { statements } = useSelector<IStore, Partial<IDataStore['client']>>((state) => ({
+    statements: state.data.client.statements,
   }));
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -76,6 +77,8 @@ export const TransactionStatement = memo(function TransactionStatement() {
     );
   }
 
+  console.log(statements);
+
   return (
     <Container className="transaction-statement-page-wrapper">
       <Row>
@@ -112,7 +115,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                         name={EFields.filter}
                       />
                     </Tab>
-                    <Tab anchor="range" label={t('Custom Range')}>
+                    <Tab anchor="range" label={t('Range')}>
                       <DatePicker label={t('Choose date range')} name={EFields.filter} range={true} />
                     </Tab>
                   </Tabs>
@@ -125,11 +128,29 @@ export const TransactionStatement = memo(function TransactionStatement() {
       </Row>
       <Row className="justify-content-center">
         <Col xs={12}>
-          <PageTitle title={t('Statements')} description={t('Statements Filter Result Note')} showBackButton={false} />
+          <PageTitle
+            title={t('Search Results')}
+            description={t('Statement Filter Result Note')}
+            showBackButton={false}
+          />
         </Col>
-        <Col xs={12} md={9} lg={7} xl={6} className="py-10 px-9">
-          <div className="statements text-center">
-            <Svg href="no-filter.svg" width={160} height={160} style={{ fill: '#b0b4b9' }} className="d-block mx-auto" />
+        <Col xs={12} className="px-0">
+          <div className="statement text-center">
+            {statements ? (
+              <>
+                <StatementSearchResultSection title={t('Deposits')} statements={statements.deposits} />
+                <StatementSearchResultSection title={t('Withdrawals')} statements={statements.withdrawals} />
+                <StatementSearchResultSection title={t('Trades')} statements={statements.trades} />
+              </>
+            ) : (
+              <Svg
+                href="no-filter.svg"
+                width={160}
+                height={160}
+                style={{ fill: '#b0b4b9' }}
+                className="d-block mx-auto"
+              />
+            )}
           </div>
         </Col>
       </Row>
