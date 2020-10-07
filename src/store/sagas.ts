@@ -15,6 +15,7 @@ import { ac_clearStore, store } from '@store';
 import {
   clientAddRequest,
   clientSetProfileRequest,
+  forgotPasswordRequest,
   getClientDataRequest,
   getContentRequest,
   getGeoIpRequest,
@@ -23,6 +24,7 @@ import {
   internalTransferRequest,
   loginRequest,
   logoutRequest,
+  resetPasswordRequest,
   tradingAccountsRequest,
   userExistsRequest,
   withdrawalsHistoryRequest,
@@ -81,6 +83,7 @@ function* logoutMiddleware() {
   try {
     const { response }: any = yield call(logoutRequest);
     yield put(ac_clearStore());
+    console.log('store cleared');
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.logout }));
   } catch (e) {
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.logout }));
@@ -109,15 +112,37 @@ function* clientAddMiddleware({ payload, onSuccess, onFailure }: IAction) {
   }
 }
 
+function* forgotPasswordMiddleware({ payload, onSuccess, onFailure }: IAction) {
+  try {
+    const { response } = yield call(forgotPasswordRequest, payload);
+    yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.forgotPassword }));
+    if (onSuccess) yield call(onSuccess, response);
+  } catch (e) {
+    if (onFailure) yield call(onFailure, e);
+    yield put(ac_requestActionFailure({ requestActionType: EActionTypes.forgotPassword }));
+  }
+}
+
+function* resetPasswordMiddleware({ payload, onSuccess, onFailure }: IAction) {
+  try {
+    const { response } = yield call(resetPasswordRequest, payload);
+    yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.resetPassword }));
+    if (onSuccess) yield call(onSuccess, response);
+  } catch (e) {
+    if (onFailure) yield call(onFailure, e);
+    yield put(ac_requestActionFailure({ requestActionType: EActionTypes.resetPassword }));
+  }
+}
+
 function* setProfileMiddleware({ payload, onSuccess, onFailure }: IAction) {
   try {
     const { response }: ISetProfileResponse = yield call(clientSetProfileRequest, payload);
     yield put(ac_saveProfile(response.profile));
-    yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.preRegister }));
+    yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.register }));
     if (onSuccess) yield call(onSuccess, response);
   } catch (e) {
     if (onFailure) yield call(onFailure, e);
-    yield put(ac_requestActionFailure({ requestActionType: EActionTypes.preRegister }));
+    yield put(ac_requestActionFailure({ requestActionType: EActionTypes.register }));
   }
 }
 
@@ -232,6 +257,14 @@ export function* clientAddSaga() {
 
 export function* userExistSaga() {
   yield takeEvery(EActionTypes.userExists, userExistMiddleware);
+}
+
+export function* forgotPasswordSaga() {
+  yield takeEvery(EActionTypes.forgotPassword, forgotPasswordMiddleware);
+}
+
+export function* resetPasswordSaga() {
+  yield takeEvery(EActionTypes.resetPassword, resetPasswordMiddleware);
 }
 
 export function* setProfileSaga() {

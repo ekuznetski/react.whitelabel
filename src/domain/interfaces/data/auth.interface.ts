@@ -59,6 +59,11 @@ export interface ILoginRequest {
   password: string;
 }
 
+export interface IResetPasswordRequest {
+  token: string;
+  username: string;
+  password: string;
+}
 export type ILoginResponse = {
   response: ILogin;
 } & IBaseResponse &

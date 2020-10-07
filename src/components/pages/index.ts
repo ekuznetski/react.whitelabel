@@ -7,7 +7,7 @@ export * from './main/products/Products';
 // Auth Pages
 export * from './auth/registration/Registration';
 export * from './auth/login/Login';
-export * from './auth/restorePassword/RestorePassword';
+export * from './auth/resetPassword/ResetPassword';
 export * from './auth/forgotPassword/ForgotPassword';
 // Portal Pages
 export * from './portal/dashboard/Dashboard';

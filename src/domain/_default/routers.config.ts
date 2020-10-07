@@ -13,7 +13,7 @@ import {
   Products,
   Profile,
   Registration,
-  RestorePassword,
+  ResetPassword,
   TransactionStatement,
   Withdrawal,
 } from '@components/pages';
@@ -128,10 +128,10 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Restore Password',
+      title: 'Reset Password',
     },
-    path: '/restore-password',
-    component: RestorePassword,
+    path: '/forgot-password/reset',
+    component: ResetPassword,
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
     menuItem: false,
