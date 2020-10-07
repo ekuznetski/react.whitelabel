@@ -72,7 +72,7 @@ function* loginMiddleware({ payload, onSuccess, onFailure }: IAction) {
     if (onSuccess) yield call(onSuccess, response);
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.login }));
   } catch (e) {
-    if (onFailure) yield call(onFailure);
+    if (onFailure) yield call(onFailure, e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.login }));
   }
 }
@@ -93,19 +93,18 @@ function* userExistMiddleware({ payload, onSuccess, onFailure }: IAction) {
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.userExists }));
     if (onSuccess) yield call(onSuccess, response);
   } catch (e) {
-    if (onFailure) yield call(onFailure);
+    if (onFailure) yield call(onFailure, e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.userExists }));
   }
 }
 
 function* clientAddMiddleware({ payload, onSuccess, onFailure }: IAction) {
   try {
-    console.log(payload);
     const { response }: IClientAddResponse = yield call(clientAddRequest, payload);
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.preRegister }));
     if (onSuccess) yield call(onSuccess, response);
   } catch (e) {
-    if (onFailure) yield call(onFailure);
+    if (onFailure) yield call(onFailure, e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.preRegister }));
   }
 }
@@ -117,7 +116,7 @@ function* setProfileMiddleware({ payload, onSuccess, onFailure }: IAction) {
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.preRegister }));
     if (onSuccess) yield call(onSuccess, response);
   } catch (e) {
-    if (onFailure) yield call(onFailure);
+    if (onFailure) yield call(onFailure, e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.preRegister }));
   }
 }
@@ -189,7 +188,7 @@ function* makeInternalTransferMiddleware({ payload, onSuccess, onFailure }: IAct
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.makeInternalTransfer }));
     if (onSuccess) yield call(onSuccess);
   } catch (e) {
-    if (onFailure) yield call(onFailure);
+    if (onFailure) yield call(onFailure, e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.makeInternalTransfer }));
   }
 }
@@ -202,7 +201,7 @@ function* fetchTransactionalStatementsMiddleware({ payload, onSuccess, onFailure
     yield put(ac_requestActionSuccess({ requestActionType: EActionTypes.fetchTransactionalStatements }));
     if (onSuccess) yield call(onSuccess);
   } catch (e) {
-    if (onFailure) yield call(onFailure);
+    if (onFailure) yield call(onFailure, e);
     yield put(ac_requestActionFailure({ requestActionType: EActionTypes.fetchTransactionalStatements }));
   }
 }
