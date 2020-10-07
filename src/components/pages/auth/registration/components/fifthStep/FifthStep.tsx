@@ -42,7 +42,7 @@ export function FifthStep({ name, submitFn }: any) {
                 </Trans>
               </Checkbox>
               <Button type="submit">{t('Submit')}</Button>
-              <p className="mt-5 text-center under-form">
+              <p className="mt-5 text-center auth-under-form">
                 {t('You are now opening an account with')} <span>XXXX</span>
               </p>
             </Form>

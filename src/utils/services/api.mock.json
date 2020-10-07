@@ -1,6 +1,6 @@
 {
   "clients": {
-    "1getProfile": {
+    "getProfile": {
       "response": {
         "status": "success",
         "message": {

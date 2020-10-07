@@ -27,6 +27,7 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
   switch (action.type) {
     case EActionTypes.clearStore:
       return initDataStore;
+
     case EActionTypes.saveContent:
       return { ...state, content: { ...state.content, ...action.payload } };
 
@@ -35,6 +36,9 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
 
     case EActionTypes.saveClientData:
       return { ...state, client: { ...state.client, statusData: action.payload } };
+
+    case EActionTypes.saveTransactionalStatements:
+      return { ...state, client: { ...state.client, statements: action.payload } };
 
     case EActionTypes.saveTradingAccounts:
       return { ...state, tradingData: action.payload };
@@ -47,6 +51,7 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
 
     case EActionTypes.saveGeoIpData:
       return { ...state, geoIp: action.payload };
+
     default:
       return state;
   }
