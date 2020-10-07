@@ -2,8 +2,8 @@ const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 const _config = require('./webpack.config');
 
-module.exports = (_env, arguments) => {
-  _env.PRODUCTION = true;
+module.exports = (_env = {}, arguments) => {
+  Object.assign(_env, { PRODUCTION: true });
   const config = _config(_env, arguments);
   const configModule = config.module;
   const configResolve = config.resolve;
