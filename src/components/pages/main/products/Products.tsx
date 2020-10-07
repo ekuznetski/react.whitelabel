@@ -62,7 +62,7 @@ export function Products() {
       tableType: MarketType.indices,
       points: [
         <Trans i18nKey="Number Of Markets Styled" values={{ num: '15', market: '$t(Most Popular Indices Worldwide)' }}>
-          <b>15+</b>Most Popular Indices Worldwide
+          <b>15+</b> Most Popular Indices Worldwide
         </Trans>,
         <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
           Max. Leverage <b>1:200</b>

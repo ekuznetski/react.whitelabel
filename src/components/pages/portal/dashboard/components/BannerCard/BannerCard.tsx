@@ -61,7 +61,7 @@ export function BannerCard() {
       bg_img: 'fca_logos',
       link: { path: 'deposit', text: t('Deposit Now') },
       text: 'Fund Your Account with <span>$0 Fees</span>',
-      title: t('Deposit Now').toUpperCase() + '!',
+      title: t('Deposit Now').toUpperCase(),
     },
   ];
   const cards = (clientAccount.show_promotions ? promotion_cards : bonus_cards).filter((slide) => !slide.disabled);
