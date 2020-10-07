@@ -49,7 +49,7 @@ export function Login() {
               <Form className="m-auto form">
                 <Input label={t('Email/Username')} name={EFields.username} />
                 <Input label={t('Password')} type="password" name={EFields.password} />
-                <Button type="submit">{t('Submit')}</Button>
+                <Button type="submit">{t('Sign in')}</Button>
               </Form>
             )}
           </Formik>
