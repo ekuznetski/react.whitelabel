@@ -50,10 +50,12 @@ export function ac_saveContent(payload: IContent): IAction {
   };
 }
 
-export function ac_login(payload: ILoginRequest): IAction {
+export function ac_login(payload: ILoginRequest, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
   return {
     type: EActionTypes.login,
     payload,
+    onSuccess,
+    onFailure,
   };
 }
 

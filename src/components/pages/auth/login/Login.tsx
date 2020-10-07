@@ -1,8 +1,8 @@
 import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
 import { env, FieldValidators } from '@domain';
-import { ELabelsName } from '@domain/enums';
+import { ELabelsName, ENotificationType } from '@domain/enums';
 import { ILoginRequest } from '@domain/interfaces';
-import { ac_login } from '@store';
+import { ac_login, ac_showNotification } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -26,7 +26,17 @@ export function Login() {
   });
 
   function Submit(data: FormikValues) {
-    dispatch(ac_login(data as ILoginRequest));
+    dispatch(
+      ac_login(data as ILoginRequest, null, () => {
+        dispatch(
+          ac_showNotification({
+            type: ENotificationType.failure,
+            context: 'Incorrect Email/Username or Password',
+            timeout: null,
+          }),
+        );
+      }),
+    );
   }
 
   return (
