@@ -39,7 +39,7 @@ export function RestorePassword() {
               </Form>
             )}
           </Formik>
-          <div className="mt-5 text-center under-form">
+          <div className="mt-5 text-center auth-under-form">
             {t('Already Registered?')}
             <LocaleLink className="already__link ml-1" to="/login">
               {t('Sign In')}
