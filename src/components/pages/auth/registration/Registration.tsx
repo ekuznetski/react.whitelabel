@@ -124,7 +124,7 @@ export function Registration() {
               localStorage.removeItem('regData');
             },
             (e) => {
-              console.log('failure registration');
+              console.log('failure registration', e);
               setActiveStep(ERegSteps.step1);
               dispatch(
                 ac_showNotification({

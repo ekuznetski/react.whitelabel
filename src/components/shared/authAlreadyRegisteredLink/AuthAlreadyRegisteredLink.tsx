@@ -8,7 +8,7 @@ export function AuthAlreadyRegisteredLink({ className }: any) {
   const { t } = useTranslation();
   
   return (
-    <div className={classNames('mt-5 text-center under-form', className)}>
+    <div className={classNames('mt-5 text-center auth-under-form', className)}>
       {t('Already Registered')}
       <LocaleLink className="already__link ml-1" to="/login">
         {t('Sign In')}

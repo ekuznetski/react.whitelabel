@@ -6,3 +6,4 @@ export * from './useLabelFolder';
 export * from './useCheckLabel';
 export * from './usePathLocale';
 export * from './useLocationParams';
+export * from './useUrlParams';

@@ -6,7 +6,7 @@ import {
   Registration,
   Home,
   ForgotPassword,
-  RestorePassword,
+  ResetPassword,
 } from '@components/pages';
 import { IPageSectionsConfig } from '../interfaces';
 
@@ -18,5 +18,5 @@ export const pageSectionsConfig: IPageSectionsConfig[] = [
   { component: Registration, sections: [] },
   { component: Home, sections: [] },
   { component: ForgotPassword, sections: [] },
-  { component: RestorePassword, sections: [] },
+  { component: ResetPassword, sections: [] },
 ];

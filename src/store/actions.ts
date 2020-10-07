@@ -8,8 +8,10 @@ import {
   IInternalTransferRequestData,
   ILoginRequest,
   INotificationState,
+  IResetPasswordRequest,
   ISetProfileRequest,
   ITransactionalStatementsRequestData,
+  IUserExistsRequest,
 } from '@domain/interfaces';
 import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
 import { EActionTypes } from './store.enum';
@@ -70,7 +72,7 @@ export function ac_saveProfile(payload: IClientProfile): IAction {
   };
 }
 
-export function ac_userExists(payload: { username: string }, onSuccess: AnyFunction, onFailure?: AnyFunction): IAction {
+export function ac_userExists(payload: IUserExistsRequest, onSuccess: AnyFunction, onFailure?: AnyFunction): IAction {
   return {
     type: EActionTypes.userExists,
     payload,
@@ -100,17 +102,25 @@ export function ac_preRegister(payload: { clientData: IClientAddRequest }, onSuc
   };
 }
 
-export function ac_forgotPassword(payload: { email: string }): IAction {
+export function ac_forgotPassword(payload: { email: string }, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
   return {
     type: EActionTypes.forgotPassword,
     payload,
+    onSuccess,
+    onFailure,
   };
 }
 
-export function ac_resetPassword(payload: { email: string }): IAction {
+export function ac_resetPassword(
+  payload: IResetPasswordRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
   return {
     type: EActionTypes.resetPassword,
     payload,
+    onSuccess,
+    onFailure,
   };
 }
 
