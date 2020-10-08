@@ -1,4 +1,4 @@
-import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
+import { AuthAlreadyRegisteredLink, Button, Input, LocaleLink, PhoneCodeSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ERegSteps } from '@domain/enums';
 import { ac_userExists, IStore } from '@store';
@@ -28,7 +28,7 @@ export function FirstStep({ submitFn }: any) {
     dispatch(
       ac_userExists(
         { username: data.email },
-        () => helpers.setFieldError(EFields.email, 'Email already in use'),
+        () => helpers.setFieldError(EFields.email, t('Email already in use')),
         () =>
           submitFn({
             [ERegSteps.step1]: {
@@ -86,6 +86,12 @@ export function FirstStep({ submitFn }: any) {
               <Button type="submit" className="fadeFromBottom-row__5">
                 {t('Next')}
               </Button>
+              <div className="mt-5 text-center under-form fadeFromBottom-row__6">
+                {t('Already Registered')}
+                <LocaleLink className="already__link ml-1" to="/login">
+                  {t('Sign In')}
+                </LocaleLink>
+              </div>
             </Form>
           );
         }}

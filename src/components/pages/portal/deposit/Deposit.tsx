@@ -28,19 +28,19 @@ export const Deposit = memo(function Deposit(props) {
                   >
                     <Tab anchor={EDepositMethods.creditCard}>
                       <TabLabel>
-                        <TabLabelDepositMethod title="Visa/MasterCard" subTitle="Instant" icon="visa-with-bg" />
+                        <TabLabelDepositMethod title="Visa/MasterCard" subTitle={t('Instant')} icon="visa-with-bg" />
                       </TabLabel>
                       <TabContentChooseAmount />
                     </Tab>
                     <Tab anchor={EDepositMethods.netteller}>
                       <TabLabel>
-                        <TabLabelDepositMethod title="Neteller" subTitle="Instant" icon="webmoney-with-bg" />
+                        <TabLabelDepositMethod title="Neteller" subTitle={t('Instant')} icon="webmoney-with-bg" />
                       </TabLabel>
                       <TabContentChooseAmount />
                     </Tab>
                     <Tab anchor={EDepositMethods.skrill}>
                       <TabLabel>
-                        <TabLabelDepositMethod title="Skrill" subTitle="Instant" icon="webmoney-with-bg" />
+                        <TabLabelDepositMethod title="Skrill" subTitle={t('Instant')} icon="webmoney-with-bg" />
                       </TabLabel>
                       <TabContentChooseAmount />
                     </Tab>

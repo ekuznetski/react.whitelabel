@@ -27,43 +27,43 @@ export function ThirdStep({ submitFn }: any) {
     {
       label: (
         <>
-          <div className="name">Fixed</div>
+          <div className="name">{t('Fixed')}</div>
           <div className="spread">
-            Fixed Spreads
+            {t('Fixed Spreads')}
             <br />
-            from 1.8
+            {t('From #', { val: '1.8' })}
           </div>
-          <div className="commission">No commission</div>
+          <div className="commission">{t('No commission')}</div>
           <div className="select-mark" />
         </>
       ),
-      value: 'Fixed',
+      value: t('Fixed'),
     },
     {
       label: (
         <>
-          <div className="name">Classic</div>
+          <div className="name">{t('Classic')}</div>
           <div className="spread">
-            Floating Spreads
+            {t('Floating Spreads')}
             <br />
-            from 1.2
+            {t('From #', { val: '1.2' })}
           </div>
-          <div className="commission">No commission</div>
+          <div className="commission">{t('No commission')}</div>
           <div className="select-mark" />
         </>
       ),
-      value: 'Classic',
+      value: t('Classic'),
     },
     {
       label: (
         <>
-          <div className="name">Raw</div>
+          <div className="name">{t('Raw')}</div>
           <div className="spread">
-            Fixed Spreads
+            {t('Fixed Spreads')}
             <br />
-            from 0.2
+            {t('From #', { val: '0.2' })}
           </div>
-          <div className="commission">+ $4 per round</div>
+          <div className="commission">{t('Plus # per round', { val: '4' })}</div>
           <div className="select-mark" />
         </>
       ),

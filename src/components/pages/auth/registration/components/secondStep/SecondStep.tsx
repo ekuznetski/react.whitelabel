@@ -42,30 +42,28 @@ export function SecondStep({ submitFn }: any) {
     }),
     country: FieldValidators.alphaWithSpaceAndApostropheOnly,
     dayOfBirth: FieldValidators.requiredNumber
-      .min(1, 'Invalid value')
-      .max(31, 'Day must be less or equal to ${max}')
+      .min(1, t('Invalid value'))
+      .max(31, t('Day Limit'))
       .when([EFields.monthOfBirth, EFields.yearOfBirth], {
         is: (monthOfBirth, yearOfBirth) => !!monthOfBirth && !!yearOfBirth,
-        then: FieldValidators.requiredNumber.min(1, 'Invalid value').test('max', '', function (value) {
+        then: FieldValidators.requiredNumber.min(1, t('Invalid value')).test('max', '', function (value) {
           const { path, parent, createError } = this;
           const { monthOfBirth, yearOfBirth } = parent;
           const maxDay = new Date(yearOfBirth, monthOfBirth, 0).getDate();
           if (value && value > maxDay) {
             return createError({
               path,
-              message: `Day must be less or equal to ${maxDay}`,
+              message: t(`Day Limit`).replace('${max}', maxDay),
             });
           }
           return true;
         }),
-        otherwise: FieldValidators.requiredNumber
-          .min(1, 'Invalid value')
-          .max(31, 'Day must be less or equal to ${max}'),
+        overwise: FieldValidators.requiredNumber.min(1, t('Invalid value')).max(31, t('Day Limit')),
       }),
-    monthOfBirth: FieldValidators.requiredNumber.min(1, 'Invalid value').max(12, 'Invalid value'),
+    monthOfBirth: FieldValidators.requiredNumber.min(1, t('Invalid value')).max(12, 'Invalid value'),
     yearOfBirth: FieldValidators.requiredNumber
-      .min(1920, 'Invalid value')
-      .max(new Date().getFullYear(), 'Invalid value'),
+      .min(1920, t('Invalid value'))
+      .max(new Date().getFullYear(), t('Invalid value')),
     street: FieldValidators.street,
     city: FieldValidators.city,
     postcode: FieldValidators.postcode,

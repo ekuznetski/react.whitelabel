@@ -4,7 +4,7 @@ import { usePathLocale } from '@utils/hooks';
 import { useDebounceFn, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Area, AreaChart } from 'recharts';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu } from '../home.interface';
 import { priceRawData } from './price_data';
@@ -13,6 +13,7 @@ import './StockPrices.scss';
 export function StockPrices() {
   const [activePriceTab, setPriceTab] = useState<IPriceTabItem | null>();
   const responsive = useResponsive();
+  const { t } = useTranslation();
 
   const priceTabs: IPriceTabItem[] = [
     {
@@ -20,12 +21,12 @@ export function StockPrices() {
       icon: 'filter.svg',
       anchor: MarketType.forex,
       info: {
-        title: '40+ Forex',
-        desc: 'Trade one of the world’s most liquid asset class. Choose from our large range of currency pairs.',
+        title: t('Number Of Markets', { num: '40+', market: t('Forex') }),
+        desc: t('Product Section Forex Desc'),
         points: [
-          <>
+          <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
             Max. Leverage <b>1:200</b>
-          </>,
+          </Trans>,
         ],
       },
       priceData: generatePriceData(priceRawData.Forex),
@@ -35,12 +36,12 @@ export function StockPrices() {
       icon: 'graph_bars.svg',
       anchor: MarketType.stocks,
       info: {
-        title: '40+ Stocks',
-        desc: 'Trade the market movements of the world’s leading brands.',
+        title: t('Number Of Markets', { num: '40+', market: t('Stocks') }),
+        desc: t('Product Section Stocks Desc'),
         points: [
-          <>
+          <Trans i18nKey="Max Leverage #" values={{ val: '1:20' }}>
             Max. Leverage <b>1:20</b>
-          </>,
+          </Trans>,
         ],
       },
       priceData: generatePriceData(priceRawData.Stocks),
@@ -50,12 +51,12 @@ export function StockPrices() {
       icon: 'indices.svg',
       anchor: MarketType.indices,
       info: {
-        title: 'Indices',
-        desc: 'Gain instant access to the global equity markets. Trade market movement in indices.',
+        title: t('Indices'),
+        desc: t('Product Section Indices Desc'),
         points: [
-          <>
+          <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
             Max. Leverage <b>1:200</b>
-          </>,
+          </Trans>,
         ],
       },
       priceData: generatePriceData(priceRawData.Indices),
@@ -65,12 +66,12 @@ export function StockPrices() {
       icon: 'commodities.svg',
       anchor: MarketType.commodities,
       info: {
-        title: 'Commodities',
-        desc: 'Trade commodities without owning the financial instrument on which the contract is based.',
+        title: t('Commodities'),
+        desc: t('Product Section Commodities Desc'),
         points: [
-          <>
+          <Trans i18nKey="Max Leverage #" values={{ val: '1:133' }}>
             Max. Leverage <b>1:133</b>
-          </>,
+          </Trans>,
         ],
       },
       priceData: generatePriceData(priceRawData.Commodities),
@@ -80,12 +81,12 @@ export function StockPrices() {
       icon: 'crypto.svg',
       anchor: MarketType.crypto,
       info: {
-        title: 'Cryptocurrencies',
-        desc: 'Capitalise on the performance of Bitcoin, Ethereum and Litecoin without the need to buy them.',
+        title: t('Cryptocurrencies'),
+        desc: t('Product Section Cryptocurrencies Desc'),
         points: [
-          <>
+          <Trans i18nKey="Max Leverage #" values={{ val: '1:20' }}>
             Max. Leverage <b>1:20</b>
-          </>,
+          </Trans>,
         ],
       },
       priceData: generatePriceData(priceRawData.Crypto),

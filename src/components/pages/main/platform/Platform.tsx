@@ -7,14 +7,14 @@ import {
 } from '@components/sections';
 import { Button, ITable, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import './Platform.scss';
 
 export function Platform() {
   const { t } = useTranslation();
 
   const _tempTableData: ITable = {
-    headers: ['Instrument', 'Sell', 'Buy', 'Change %'],
+    headers: [t('Instrument'), t('Sell'), t('Buy'), t('Change percent')],
     rows: [
       ['Microsoft', '206.24', '206.46', '2.15'],
       ['Microsoft', '206.24', '206.46', '2.15'],
@@ -54,23 +54,37 @@ export function Platform() {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12 col-lg-9">
-              <div className="assets__title mb-7">f</div>
+              <div className="assets__title mb-7">
+                <Trans i18nKey="Assets Title">
+                  <strong>6</strong> Asset Classes, <strong>150+</strong> Instruments
+                </Trans>
+              </div>
               <div className="assets__description mb-md-13">
-                {t('CFDs for desc:0')}
-                <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'currencies' } }}>
-                  {t('Currencies')}
-                </LocaleLink>
-                , <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'stocks' } }}>{t('Stocks')}</LocaleLink>,{' '}
-                <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'indices' } }}>{t('Indices')}</LocaleLink>,{' '}
-                <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'commodities' } }}>
-                  {t('Commodities')}
-                </LocaleLink>{' '}
-                {t('CFDs for desc:1')}
-                <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'crypto' } }}>
-                  {t('Cryptocurrencies')}
-                </LocaleLink>{' '}
-                {t('CFDs for desc:2')}
-                {t('CFDs for desc:3')}
+                <Trans
+                  i18nKey="Assets SubTitle"
+                  values={{
+                    currencies: '$t(Currencies)',
+                    stocks: '$t(Stocks)',
+                    indices: '$t(Indices)',
+                    commodities: '$t(Commodities)',
+                    cryptocurrencies: '$t(Cryptocurrencies)',
+                  }}
+                >
+                  CFD for
+                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'currencies' } }}>
+                    Currencies
+                  </LocaleLink>
+                  ,<LocaleLink to={{ pathname: '/products', state: { scrollTo: 'stocks' } }}>Stocks</LocaleLink>,
+                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'indices' } }}>Indices</LocaleLink>,
+                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'commodities' } }}>
+                    Commodities
+                  </LocaleLink>{' '}
+                  and
+                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'crypto' } }}>
+                    Cryptocurrencies
+                  </LocaleLink>{' '}
+                  at your service on one trading account. Monitor and trade the world’s largest financial markets!
+                </Trans>
               </div>
             </div>
             <div className="col-12 col-lg-9">
