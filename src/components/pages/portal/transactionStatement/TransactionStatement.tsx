@@ -76,8 +76,6 @@ export const TransactionStatement = memo(function TransactionStatement() {
     );
   }
 
-  console.log(statements);
-
   return (
     <Container className="transaction-statement-page-wrapper">
       <Row>
