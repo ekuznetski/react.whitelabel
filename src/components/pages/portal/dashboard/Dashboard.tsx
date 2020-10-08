@@ -17,16 +17,15 @@ export const Dashboard = memo(function Dashboard() {
       author: {
         img: 'avatar-1.jpg',
         name: 'William Bailey',
-        title: 'Chief Currency Analyst',
+        title: t('Chief Currency Analyst'),
       },
       schedule: {
-        day: 'Every Monday',
+        day: t('Every Monday'),
         time: '12:30 PM – 1:00 PM GMT',
       },
       info: {
         title: 'FX Week Ahead: Live Market Analysis',
-        description:
-          'Get ready for the trading week ahead with our weekly webinar session, where we will be looking at the upcoming FX Week while analysing market movements.',
+        description: t('Get ready for trading'),
       },
     },
     {
@@ -34,7 +33,7 @@ export const Dashboard = memo(function Dashboard() {
       author: {
         img: 'avatar-1.jpg',
         name: 'Mike Hamilton',
-        title: 'Chief Currency Analyst',
+        title: t('Chief Currency Analyst'),
       },
       schedule: {
         day: 'Every Wednesday',
@@ -42,8 +41,7 @@ export const Dashboard = memo(function Dashboard() {
       },
       info: {
         title: 'FX Week Ahead: Live Market Analysis',
-        description:
-          'Our workshops give you the opportunity to learn directly from an industry expert, Mike Hamilton, as he teaches you the ins and outs of trading in real time.',
+        description: t('Our workshops desc'),
       },
     },
   ];
@@ -52,7 +50,7 @@ export const Dashboard = memo(function Dashboard() {
       {
         value: (
           <>
-            <Svg href="filter.svg" className="mr-2" /> My Trading Accounts
+            <Svg href="filter.svg" className="mr-2" /> {t('My Trading Accounts')}
           </>
         ),
         anchor: 'tradingAccounts',
@@ -60,7 +58,7 @@ export const Dashboard = memo(function Dashboard() {
       {
         value: (
           <>
-            <Svg href="filter.svg" className="mr-2" /> My Demo Accounts
+            <Svg href="filter.svg" className="mr-2" /> {t('My Demo Accounts')}
           </>
         ),
         anchor: 'demoAccounts',

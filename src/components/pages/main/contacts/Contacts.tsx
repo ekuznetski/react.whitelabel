@@ -8,7 +8,7 @@ export function Contacts() {
   const { t } = useTranslation();
   const contactsList = [
     {
-      title: 'Client Support',
+      title: t('Client Support'),
       points: [
         {
           icon: 'envelope.svg',
@@ -16,12 +16,12 @@ export function Contacts() {
         },
         {
           icon: 'clock.svg',
-          label: 'Working hours: 24/5',
+          label: t('Working hours 24 5'),
         },
       ],
     },
     {
-      title: 'Account Opening',
+      title: t('Account Opening'),
       points: [
         {
           icon: 'envelope.svg',
@@ -33,12 +33,12 @@ export function Contacts() {
         },
         {
           icon: 'clock.svg',
-          label: 'Working hours: 24/5',
+          label: t('Working hours 24 5'),
         },
       ],
     },
     {
-      title: 'General Inquiries',
+      title: t('General Inquiries'),
       points: [
         {
           icon: 'envelope.svg',
@@ -50,7 +50,7 @@ export function Contacts() {
         },
         {
           icon: 'clock.svg',
-          label: 'Working hours: 24/5',
+          label: t('Working hours 24 5'),
         },
       ],
     },

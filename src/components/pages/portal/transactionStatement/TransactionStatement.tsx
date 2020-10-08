@@ -24,25 +24,25 @@ export const TransactionStatement = memo(function TransactionStatement() {
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
-    operation_type: Yup.array<string>().required('This field is required'),
-    filter: Yup.array<Moment>().required('This field is required'),
+    operation_type: Yup.array<string>().required(t('This field is required')),
+    filter: Yup.array<Moment>().required(t('This field is required')),
   });
   const operationTypes = [
-    { label: 'Deposits', value: 'deposits' },
-    { label: 'Withdrawals', value: 'withdrawal' },
-    { label: 'Trades', value: 'trades' },
+    { label: t('Deposits'), value: 'deposits' },
+    { label: t('Withdrawals'), value: 'withdrawal' },
+    { label: t('Trades'), value: 'trades' },
   ];
   const recentTransactionsFilter = [
     {
-      label: 'Last 20 Transactions',
+      label: t('Last 20 Transactions'),
       value: [moment('1.1.2000').startOf('month'), moment()],
     },
     {
-      label: 'This Month Transactions',
+      label: t('This Month Transactions'),
       value: [moment().startOf('month'), moment()],
     },
     {
-      label: 'Last Month Transactions',
+      label: t('Last Month Transactions'),
       value: [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')],
     },
   ];
@@ -67,7 +67,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: 'Requested statements are successfully loaded',
+              context: t('Requested statements are successfully loaded'),
             }),
           );
         },

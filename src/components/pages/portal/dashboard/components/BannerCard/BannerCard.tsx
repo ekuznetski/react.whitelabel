@@ -3,6 +3,7 @@ import { IClientBannerCard, IClientProfile, ILogin } from '@domain/interfaces';
 import { IStore } from '@store';
 import classNames from 'classnames';
 import React from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import './BannerCard.scss';
 
@@ -12,6 +13,7 @@ type IBannerCardState = {
 };
 
 export function BannerCard() {
+  const { t } = useTranslation();
   const { clientProfile, clientAccount } = useSelector<IStore, IBannerCardState>((state) => ({
     clientProfile: state.data.client.profile,
     clientAccount: state.data.client.preferences,
@@ -22,40 +24,60 @@ export function BannerCard() {
     {
       type: 'blue',
       disabled: true,
-      link: { text: 'Learn more' },
-      text: '<span>Earn $20</span> to trade with once you complete your Financial profile and submit your documents',
+      link: { text: t('Learn more') },
+      text: (
+        <Trans i18nKey="Promotional Cards Texts:0">
+          <span>Earn $20</span> to trade with once you complete your Financial profile and submit your documents
+        </Trans>
+      ),
     },
     {
       type: 'blue',
       disabled: true,
-      link: { text: 'SMS Verification' },
-      text: 'Get a <span>$20 bonus</span> added to your trading account when you verify your phone number',
-      title: 'VERIFY YOUR PHONE NUMBER',
+      link: { text: t('SMS Verification') },
+      text: (
+        <Trans i18nKey="Promotional Cards Texts:1">
+          Get a <span>$20 bonus</span> added to your trading account when you verify your phone number
+        </Trans>
+      ),
+      title: t('Verify Your Phone Number'),
     },
     {
       type: 'blue',
       bg_img: 'client_banner_1.jpg',
       bg_color: 'white',
-      link: { path: 'share', text: 'Invite Now' },
-      text: 'Invite a friend and get <br/> up to <span>$200 Cash Bonus</span>',
-      title: 'Invite friends for a Bonus',
+      link: { path: 'share', text: t('Invite Now') },
+      text: (
+        <Trans i18nKey="Promotional Cards Texts:2">
+          Invite a friend and get <br /> up to <span>$200 Cash Bonus</span>
+        </Trans>
+      ),
+      title: t('Invite friends for a Bonus'),
     },
     {
       type: 'blue',
       bg_img: 'client_banner_2.jpg',
       bg_color: '#eff1f3',
-      link: { path: 'deposit', text: 'Deposit Now' },
-      text: 'Deposit now and <span>receive a 10% bonus</span> up to $5K instantly added to your account',
-      title: '10% Bonus on deposit',
+      link: { path: 'deposit', text: t('Deposit Now') },
+      text: (
+        <Trans i18nKey="Promotional Cards Texts:3">
+          Deposit now and <span>receive a 10% bonus</span> up to $5K instantly added to your account
+        </Trans>
+      ),
+      title: t('10 percent Bonus on deposit'),
     },
   ];
   const bonus_cards: IClientBannerCard[] = [
     {
       type: 'blue',
       bg_img: 'fca_logos',
-      link: { path: 'deposit', text: 'Deposit Now' },
-      text: 'Fund Your Account with <span>$0 Fees</span>',
-      title: 'DEPOSIT NOW!',
+      link: { path: 'deposit', text: t('Deposit Now') },
+      text: (
+        <Trans i18nKey="Promotional Cards Texts:4">
+          Fund Your Account with <span>$0 Fees</span>
+        </Trans>
+      ),
+      title: t('Deposit Now').toUpperCase(),
     },
   ];
   const cards = (clientAccount.show_promotions ? promotion_cards : bonus_cards).filter((slide) => !slide.disabled);
@@ -83,10 +105,7 @@ export function BannerCard() {
             style={{ zIndex: -~(idx == activeCardIdx) }}
           >
             {card?.title && <div className={classNames('context-card__title mb-3', card.type)}>{card?.title}</div>}
-            <div
-              className={classNames('context-card__text', card.type)}
-              dangerouslySetInnerHTML={{ __html: card?.text }}
-            />
+            <div className={classNames('context-card__text', card.type)}>{card?.text}</div>
           </div>
         ))}
       </div>

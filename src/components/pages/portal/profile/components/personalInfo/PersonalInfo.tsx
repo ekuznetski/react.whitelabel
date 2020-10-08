@@ -29,15 +29,15 @@ export const PersonalInfo = memo(
     const { t } = useTranslation();
 
     const validationSchema = Yup.object().shape({
-      email: FieldValidators.email.max(100, 'Name must not exceed ${max} characters'),
-      first_name: FieldValidators.name.max(100, 'Bank Name must not exceed ${max} characters'),
-      last_name: FieldValidators.name.max(100, 'Bank Account Number must not exceed ${max} symbols'),
+      email: FieldValidators.email.max(100, t('Name characters count restriction')),
+      first_name: FieldValidators.name.max(100, t('Bank Name characters count restriction')),
+      last_name: FieldValidators.name.max(100, t('Bank Account Number count restriction')),
       country: Yup.mixed().required(),
-      city: FieldValidators.city.max(50, 'city must not exceed ${max} characters'),
-      street: FieldValidators.street.max(100, 'Bank Branch Name must not exceed ${max} characters'),
+      city: FieldValidators.city.max(50, t('City characters count restriction')),
+      street: FieldValidators.street.max(100, t('Bank Branch Name characters count restriction')),
       postcode: Yup.string().when('country', {
         is: (val) => val !== 'AE',
-        then: FieldValidators.postcode.max(20, 'Postcode must not exceed ${max} characters'),
+        then: FieldValidators.postcode.max(20, t('Postcode characters count restriction')),
         overwise: Yup.string(),
       }),
     });
@@ -80,7 +80,7 @@ export const PersonalInfo = memo(
                       <div className="form_breakline mt-2 mb-10" />
                       <CountrySelect label={t('Country')} name={EFields.country} />
                       <Input label={t('City')} name={EFields.city} />
-                      <Input label={t('Adress 1')} name={EFields.street} />
+                      <Input label={t('Full Address')} name={EFields.street} />
                       {_country?.code !== ECountryCode.AE && (
                         <Input
                           label={

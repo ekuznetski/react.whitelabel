@@ -1,6 +1,5 @@
 import { Button, DropDown, IconFlag, LocaleNavLink, Modal, Svg } from '@components/shared';
 import { Currencies, EAccountLeverage, ECurrencyCode, ETradingAccountType } from '@domain/enums';
-import { usePathLocale } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -26,21 +25,21 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
     {
       icon: 'coins.svg',
       path: '/deposit',
-      title: 'Launch MT4 Web',
+      title: t('Launch MT4 Web'),
     },
     {
       icon: 'coins.svg',
       path: '/deposit',
-      title: 'Download MT4 Platform',
+      title: t('Download MT4 Platform'),
     },
     {
       icon: 'coins.svg',
       path: '/deposit',
-      title: 'Get Trading Statement',
+      title: t('Get Trading Statement'),
     },
     {
       icon: 'coins.svg',
-      title: 'Change Password',
+      title: t('Change Password'),
       onclick: () => setChangePasswordOpen(true),
     },
   ];
