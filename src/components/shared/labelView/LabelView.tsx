@@ -7,6 +7,20 @@ interface IDomainView {
   label?: ELabels;
 }
 
+/**
+ * Example:
+ * ```
+ * <LabelView>
+ * {{
+ *   // will be showen on any Whitelabel (optional)
+ *   '*': 'Default Value',
+ *   // applyies only for specified Whitelabels, will overwrite the '*' value if exist
+ *   [[ELabels.bsfx, ELabels.arofx]]: 'Specific Value',
+ * }}
+ * </LabelView>
+ * ```
+ */
+
 export function LabelView({ children, label = ELabels.default }: IDomainView) {
   let _childer;
 
