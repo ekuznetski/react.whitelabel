@@ -155,7 +155,16 @@
         "status": "success",
         "message": "Reports Sent",
         "data": {
-          "trades": [],
+          "trades": [
+            {
+              "amount": "200",
+              "currency": "USD",
+              "date_created": "2018-09-11 11:27:00",
+              "invoice_no": "EP_7869311536665220",
+              "trade_account": "300003591",
+              "trade_platform": "MT4"
+            }
+          ],
           "deposits": [
             {
               "amount": "200",

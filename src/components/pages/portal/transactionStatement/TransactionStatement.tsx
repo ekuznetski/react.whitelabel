@@ -1,6 +1,5 @@
-import { Button, DatePicker, MultiSelect, PageTitle, Select, Svg, Svg, Tab, Tabs } from '@components/shared';
+import { Button, DatePicker, MultiSelect, PageTitle, Select, Svg, Tab, Tabs } from '@components/shared';
 import { ENotificationType } from '@domain/enums';
-import { IClientProfile } from '@domain/interfaces';
 import { ac_fetchTransactionalStatements, ac_showNotification, IDataStore, IStore } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
@@ -134,13 +133,17 @@ export const TransactionStatement = memo(function TransactionStatement() {
             showBackButton={false}
           />
         </Col>
-        <Col xs={12} className="px-0">
+        <Col xs={12} lg={10} xl={8} className="px-0">
           <div className="statement text-center">
             {statements ? (
               <>
-                <StatementSearchResultSection title={t('Deposits')} statements={statements.deposits} />
-                <StatementSearchResultSection title={t('Withdrawals')} statements={statements.withdrawals} />
-                <StatementSearchResultSection title={t('Trades')} statements={statements.trades} />
+                <StatementSearchResultSection className="mb-9" title={t('Deposits')} statements={statements.deposits} />
+                <StatementSearchResultSection
+                  className="mb-9"
+                  title={t('Withdrawals')}
+                  statements={statements.withdrawals}
+                />
+                <StatementSearchResultSection className="mb-9" title={t('Trades')} statements={statements.trades} />
               </>
             ) : (
               <Svg
@@ -148,7 +151,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                 width={160}
                 height={160}
                 style={{ fill: '#b0b4b9' }}
-                className="d-block mx-auto"
+                className="d-block mx-auto mt-10"
               />
             )}
           </div>
