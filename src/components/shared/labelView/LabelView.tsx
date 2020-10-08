@@ -3,7 +3,7 @@ import { ELabels } from '@domain/enums';
 import React from 'react';
 
 interface IDomainView {
-  children: React.ReactFragment | { [k: any]: React.ReactFragment };
+  children: React.ReactFragment | { [k: string]: React.ReactFragment };
   label?: ELabels;
 }
 
