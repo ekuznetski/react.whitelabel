@@ -2,7 +2,7 @@ import { Button, Img, LocaleLink } from '@components/shared';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import './PrestigiousPlatformTechnology.scss';
 
 export const PrestigiousPlatformTechnologySection = memo(
@@ -22,15 +22,13 @@ export const PrestigiousPlatformTechnologySection = memo(
                 <b>{t('Platform Technology')}</b>
               </div>
               <div className="prestigious-platform-technology__description mb-10">
-                <div className="mb-6">
-                  {t('Prestigious MT5 Section Desc:0')} <b>{t('Prestigious MT5 Section Desc:1')}</b>{' '}
-                  {t('Prestigious MT5 Section Desc:2')}
-                </div>
-                <div className="mb-6">{t('Prestigious MT5 Section Desc:3')}</div>
-                <div>
-                  {t('Prestigious MT5 Section Desc:4')} <b>{t('Prestigious MT5 Section Desc:5')}</b>{' '}
-                  {t('Prestigious MT5 Section Desc:6')}
-                </div>
+                <p className="mb-6">
+                  <Trans i18nKey="Prestigious MT5 Section Desc:0"></Trans>
+                </p>
+                <p className="mb-6"></p>
+                <p>
+                  <Trans i18nKey="Prestigious MT5 Section Desc:2"></Trans>
+                </p>
               </div>
               <Button>
                 <LocaleLink to="/registration">{t('Open Live Account')}</LocaleLink>
