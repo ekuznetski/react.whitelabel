@@ -11,7 +11,7 @@ import {
   IWithdrawalLimitResponse,
 } from '@domain/interfaces';
 import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
-import { ac_clearStore, store } from '@store';
+import { store } from './';
 import {
   clientAddRequest,
   clientSetProfileRequest,
@@ -32,6 +32,7 @@ import {
 } from '@utils/services';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import {
+  ac_clearStore,
   ac_fetchTradingAccounts,
   ac_requestActionFailure,
   ac_requestActionSuccess,

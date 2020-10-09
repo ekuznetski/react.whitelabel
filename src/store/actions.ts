@@ -50,7 +50,7 @@ export function ac_saveContent(payload: IContent): IAction {
   };
 }
 
-export function ac_login(payload: ILoginRequest, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+export function ac_login(payload: ILoginRequest, onSuccess = null, onFailure = null): IAction {
   return {
     type: EActionTypes.login,
     payload,
@@ -72,7 +72,7 @@ export function ac_saveProfile(payload: IClientProfile): IAction {
   };
 }
 
-export function ac_userExists(payload: IUserExistsRequest, onSuccess: AnyFunction, onFailure?: AnyFunction): IAction {
+export function ac_userExists(payload: IUserExistsRequest, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
   return {
     type: EActionTypes.userExists,
     payload,
