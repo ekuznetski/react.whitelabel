@@ -27,7 +27,7 @@ export function Login() {
 
   function Submit(data: FormikValues) {
     dispatch(
-      ac_login(data as ILoginRequest, null, () => {
+      ac_login(data as ILoginRequest, () => {
         dispatch(
           ac_showNotification({
             type: ENotificationType.failure,
