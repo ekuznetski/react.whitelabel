@@ -39,7 +39,7 @@ export const Modal = memo(
     return (
       props.isOpen &&
       ReactDOM.createPortal(
-        <div className="modal-wrapper" ref={wrapperRef}>
+        <div className={classNames('modal-wrapper', props.className)} ref={wrapperRef}>
           <div
             className="modal-overlay"
             onClick={(e) => {
@@ -64,7 +64,7 @@ export const Modal = memo(
                 props.isOpenDispatcher(false);
               }}
             />
-            <div className={classNames('common-modal__content', props.className)}>{props.children}</div>
+            <div className="common-modal__content">{props.children}</div>
           </div>
         </div>,
         document.body,
