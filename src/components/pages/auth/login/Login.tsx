@@ -32,7 +32,6 @@ export function Login() {
           ac_showNotification({
             type: ENotificationType.failure,
             context: 'Incorrect Email/Username or Password',
-            timeout: null,
           }),
         );
       }),
