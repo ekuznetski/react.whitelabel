@@ -94,7 +94,7 @@ function* $$(
         yield put(ac_requestActionFailure({ requestActionType: actionType }));
       }
     } else {
-      console.log('Data Exist: ' + actionType);
+      // console.log('Data Exist: ' + actionType);
       yield put(ac_requestActionSuccess({ requestActionType: actionType }));
     }
   });
@@ -109,11 +109,15 @@ export function* getContentSaga() {
 }
 
 export function* getGeoIPSaga() {
-  yield $$(EActionTypes.fetchGeoIpData, function* () {
-    const response = yield call(getGeoIpRequest);
-    yield put(ac_saveGeoIpData(response));
-    return response;
-  });
+  yield $$(
+    EActionTypes.fetchGeoIpData,
+    function* () {
+      const response = yield call(getGeoIpRequest);
+      yield put(ac_saveGeoIpData(response));
+      return response;
+    },
+    'data.geoIp',
+  );
 }
 
 export function* getProfileSaga() {
@@ -215,22 +219,26 @@ export function* getWithdrawLimitSaga() {
 export function* getClientStatusDataSaga() {
   yield $$(
     EActionTypes.fetchClientData,
-
     function* () {
       const { response }: IClientStatusDataResponse = yield call(getClientDataRequest);
       const payload = new MClientData(response);
       yield put(ac_saveClientData(payload));
       return response;
     },
+    'data.client.statusData',
   );
 }
 
 export function* getTradingAccountsSage() {
-  yield $$(EActionTypes.fetchTradingAccounts, function* () {
-    const { response }: ITradingAccountsResponse = yield call(tradingAccountsRequest);
-    yield put(ac_saveTradingAccounts(new MClientTradingData(response)));
-    return response;
-  });
+  yield $$(
+    EActionTypes.fetchTradingAccounts,
+    function* () {
+      const { response }: ITradingAccountsResponse = yield call(tradingAccountsRequest);
+      yield put(ac_saveTradingAccounts(new MClientTradingData(response)));
+      return response;
+    },
+    'data.tradingData',
+  );
 }
 
 export function* makeInternalTransferSage() {
