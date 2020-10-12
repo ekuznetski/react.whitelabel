@@ -70,3 +70,11 @@
     line-height: 24px;
   }
 }
+.continue-registration-modal.modal-wrapper .common-modal__content {
+  .start-new {
+    color: $text;
+  }
+  .modal-content__nav {
+    flex-direction: column;
+  }
+}
