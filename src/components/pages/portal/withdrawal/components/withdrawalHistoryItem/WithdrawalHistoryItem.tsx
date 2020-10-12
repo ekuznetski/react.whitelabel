@@ -54,8 +54,8 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
           {props.items?.map((item, i) => (
             <div key={i} className="withdrawal-table__row content">
               <div className="withdrawal-cell">{item.issueDate.format('MM.DD.YYYY')}</div>
-              <div className="withdrawal-cell">{item.reference}</div>
-              <div className="withdrawal-cell">{item.paymentMethod}</div>
+              <div className="withdrawal-cell px-2">{item.reference}</div>
+              <div className="withdrawal-cell px-2">{item.paymentMethod}</div>
               <div className="withdrawal-cell">
                 <Svg href={props.currency.toLowerCase() + '.svg'} height={14} />
                 {item.amount}

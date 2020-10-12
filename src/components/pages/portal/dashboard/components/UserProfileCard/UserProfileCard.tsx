@@ -1,6 +1,6 @@
 import { Button, DropDown, LocaleNavLink, Svg } from '@components/shared';
 import { profileMenuConfig } from '@domain';
-import { IClientProfile } from '@domain/interfaces';
+import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import './UserProfileCard.scss';
 
 type IUserProfileCardState = {
-  clientProfile: IClientProfile;
+  clientProfile: MClientProfile;
 };
 
 export function UserProfileCard() {

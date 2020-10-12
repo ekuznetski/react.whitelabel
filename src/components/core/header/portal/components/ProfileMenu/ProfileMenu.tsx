@@ -1,14 +1,14 @@
 import { DropDown, Svg } from '@components/shared';
 import { profileMenuConfig } from '@domain';
-import { IClientProfile } from '@domain/interfaces';
+import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
 import classNames from 'classnames';
-import React, { createRef, useEffect, useState } from 'react';
+import React, { createRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './ProfileMenu.scss';
 
 export function ProfileMenu() {
-  const { clientProfile } = useSelector<IStore, { clientProfile: IClientProfile }>((state) => ({
+  const { clientProfile } = useSelector<IStore, { clientProfile: MClientProfile }>((state) => ({
     clientProfile: state.data.client.profile,
   }));
   const [hasNotification, setNotification] = useState();

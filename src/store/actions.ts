@@ -2,7 +2,6 @@ import { EAppSection, ELanguage } from '@domain/enums';
 import {
   AnyFunction,
   IClientAddRequest,
-  IClientProfile,
   IContent,
   IGeoIp,
   IInternalTransferRequestData,
@@ -13,7 +12,13 @@ import {
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
 } from '@domain/interfaces';
-import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
+import {
+  MClientData,
+  MClientProfile,
+  MClientTradingData,
+  MTransactionalStatementData,
+  MWithdrawalHistoryItem,
+} from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
 
@@ -50,7 +55,11 @@ export function ac_saveContent(payload: IContent): IAction {
   };
 }
 
-export function ac_login(payload: ILoginRequest, onSuccess = null, onFailure = null): IAction {
+export function ac_login(
+  payload: ILoginRequest,
+  onSuccess: AnyFunction = null,
+  onFailure: AnyFunction = null,
+): IAction {
   return {
     type: EActionTypes.login,
     payload,
@@ -65,7 +74,7 @@ export function ac_logout(): IAction {
   };
 }
 
-export function ac_saveProfile(payload: IClientProfile): IAction {
+export function ac_saveProfile(payload: MClientProfile): IAction {
   return {
     type: EActionTypes.saveProfile,
     payload,

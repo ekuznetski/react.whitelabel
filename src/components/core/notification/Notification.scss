@@ -24,7 +24,7 @@
   }
 
   &.info {
-    background: lighten($blue, 50%);
+    background: lighten($blue, 40%);
     color: $blue;
 
     .notification-progress {
@@ -37,7 +37,7 @@
   }
 
   &.failure {
-    background: lighten($red, 50%);
+    background: lighten($red, 40%);
     color: $red;
 
     .notification-progress {
@@ -50,7 +50,7 @@
   }
 
   &.success {
-    background: lighten($green, 50%);
+    background: lighten($green, 40%);
     color: $green;
 
     .notification-progress {

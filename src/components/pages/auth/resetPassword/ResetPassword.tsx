@@ -65,7 +65,6 @@ export function ResetPassword() {
     );
   }
 
-  ac_showNotification({ type: ENotificationType.success, context: 'Success' });
   return (
     <Container>
       <Row>
