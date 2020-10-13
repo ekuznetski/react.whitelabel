@@ -142,8 +142,10 @@
     "Explore trading opportunities",
     "Start investing in the world’s most popular markets"
   ],
-  "The Profile Has Been Updated":"The profile has been updated",
-  "Failed To Update Client Profile":"Failed to update client profile",
+  "The Profile Has Been Updated": "The profile has been updated",
+  "Failed To Update Client Profile": "Failed to update client profile",
+  "The Password Has Been Updated Successfully": "The password has been updated successfully",
+  "Failed To Update The Password": "Failed to update the password",
   "Instruments": "Instruments",
   "Min Spread": "Min Spread",
   "Swap Long": "Swap Long",

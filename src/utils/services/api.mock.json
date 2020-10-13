@@ -245,6 +245,13 @@
         },
         "messageCode": 54
       }
+    },
+    "changePassword": {
+      "response": {
+        "status": "success",
+        "message": "The password has been updated successfully",
+        "messageCode": 14
+      }
     }
   },
   "documents": {

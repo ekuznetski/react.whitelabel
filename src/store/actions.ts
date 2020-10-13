@@ -79,6 +79,19 @@ export function ac_editProfile(payload: IEditProfileRequest, onSuccess: AnyFunct
   };
 }
 
+export function ac_changePassword(
+  payload: { old_password: string; new_password: string },
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
+  return {
+    type: EActionTypes.changePassword,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
 export function ac_saveProfile(payload: MClientProfile): IAction {
   return {
     type: EActionTypes.saveProfile,

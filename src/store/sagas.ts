@@ -97,7 +97,7 @@ function* $$(
         if (onSuccess) yield call(onSuccess, response);
         yield put(ac_requestActionSuccess({ requestActionType: actionType }));
       } catch (e) {
-        if (failure_transform_response_fn) yield failure_transform_response_fn(action);
+        if (failure_transform_response_fn) e = yield failure_transform_response_fn(action, e);
         else if (onFailure) yield call(onFailure, e);
         yield put(ac_requestActionFailure({ requestActionType: actionType }));
       }
@@ -141,8 +141,16 @@ export function* getProfileSaga() {
 }
 
 export function* editProfileSaga() {
-  yield $$(EActionTypes.editProfile, function* () {
-    const { response }: IEditProfileResponse = yield call(editProfileRequest);
+  yield $$(EActionTypes.editProfile, function* ({ payload }: IAction) {
+    const { response }: IEditProfileResponse = yield call(editProfileRequest, payload);
+    yield put(ac_saveProfile(new MClientProfile(response.data)));
+    return response;
+  });
+}
+
+export function* changeProfilePasswordSaga() {
+  yield $$(EActionTypes.changePassword, function* ({ payload }: IAction) {
+    const { response }: any = yield call(editProfileRequest, payload);
     yield put(ac_saveProfile(new MClientProfile(response.data)));
     return response;
   });

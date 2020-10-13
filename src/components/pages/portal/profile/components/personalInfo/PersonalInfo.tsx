@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { ECountryCode, ENotificationType } from '@domain/enums';
 import { IEditProfileRequest } from '@domain/interfaces';
 import { MClientProfile } from '@domain/models';
-import { ac_editProfile, ac_showNotification, IStore } from '@store';
+import { ac_editProfile, ac_showNotification, EActionTypes, IStore } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -114,7 +114,9 @@ export const PersonalInfo = memo(
                         <PhoneCodeSelect name={EFields.phone_prefix} />
                         <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
                       </div>
-                      <Button type="submit">{t('Save')}</Button>
+                      <Button type="submit" loadingOnAction={EActionTypes.editProfile}>
+                        {t('Save')}
+                      </Button>
                     </Form>
                   );
                 }}
