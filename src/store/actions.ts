@@ -2,8 +2,8 @@ import { EAppSection, ELanguage } from '@domain/enums';
 import {
   AnyFunction,
   IClientAddRequest,
-  IClientProfile,
   IContent,
+  IEditProfileRequest,
   IGeoIp,
   IInternalTransferRequestData,
   ILoginRequest,
@@ -13,7 +13,13 @@ import {
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
 } from '@domain/interfaces';
-import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
+import {
+  MClientData,
+  MClientProfile,
+  MClientTradingData,
+  MTransactionalStatementData,
+  MWithdrawalHistoryItem,
+} from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
 
@@ -50,11 +56,10 @@ export function ac_saveContent(payload: IContent): IAction {
   };
 }
 
-export function ac_login(payload: ILoginRequest, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+export function ac_login(payload: ILoginRequest, onFailure: AnyFunction = null): IAction {
   return {
     type: EActionTypes.login,
     payload,
-    onSuccess,
     onFailure,
   };
 }
@@ -65,14 +70,36 @@ export function ac_logout(): IAction {
   };
 }
 
-export function ac_saveProfile(payload: IClientProfile): IAction {
+export function ac_editProfile(payload: IEditProfileRequest, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+  return {
+    type: EActionTypes.editProfile,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_changePassword(
+  payload: { old_password: string; new_password: string },
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
+  return {
+    type: EActionTypes.changePassword,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_saveProfile(payload: MClientProfile): IAction {
   return {
     type: EActionTypes.saveProfile,
     payload,
   };
 }
 
-export function ac_userExists(payload: IUserExistsRequest, onSuccess: AnyFunction, onFailure?: AnyFunction): IAction {
+export function ac_userExists(payload: IUserExistsRequest, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
   return {
     type: EActionTypes.userExists,
     payload,

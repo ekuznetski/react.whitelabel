@@ -1,0 +1,7 @@
+<svg width="42" height="42" viewBox="0 0 42 42" fill="black" stroke="#b0b4b9"
+  xmlns="http://www.w3.org/2000/svg">
+  <circle cx="21" cy="21" r="20.09" fill="none" stroke="inherit" stroke-width="1.82"/>
+  <path d="M1.82 21C1.82 10.4072 10.4072 1.82 21 1.82V0C9.40202 0 0 9.40202 0 21H1.82Z" fill="inherit" stroke="none">
+    <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1.8s" from="0 21 21" to="360 21 21" repeatCount="indefinite"></animateTransform>
+  </path>
+</svg>

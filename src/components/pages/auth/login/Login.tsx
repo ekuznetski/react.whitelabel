@@ -27,12 +27,11 @@ export function Login() {
 
   function Submit(data: FormikValues) {
     dispatch(
-      ac_login(data as ILoginRequest, null, () => {
+      ac_login(data as ILoginRequest, () => {
         dispatch(
           ac_showNotification({
             type: ENotificationType.failure,
             context: 'Incorrect Email/Username or Password',
-            timeout: null,
           }),
         );
       }),
@@ -59,7 +58,7 @@ export function Login() {
               <Form className="m-auto form">
                 <Input label={t('Email/Username')} name={EFields.username} />
                 <Input label={t('Password')} type="password" name={EFields.password} />
-                <Button type="submit">{t('Sign in')}</Button>
+                <Button type="submit">{t('Sign In')}</Button>
               </Form>
             )}
           </Formik>

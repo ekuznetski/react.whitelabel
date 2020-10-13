@@ -130,7 +130,6 @@ export const Select = memo(function Select({
       Input,
     },
   });
-
   return (
     <div
       className={classNames(
@@ -167,16 +166,16 @@ export const Select = memo(function Select({
 export const MultiSelect = memo(({ closeMenuOnSelect = false, ...props }: ISelect & { closeMenuOnSelect: boolean }) => {
   return (
     <Select
-      className={classNames('multi-select', props.className)}
       closeMenuOnSelect={false}
       isMulti
       name={name}
       {...props}
+      className={classNames('multi-select', props.className)}
     />
   );
 });
 
-export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string }) => {
+export const PhoneCodeSelect = memo((props: ISelect) => {
   const innerProps = { ...props };
   delete innerProps.options;
 
@@ -187,20 +186,25 @@ export const PhoneCodeSelect = memo((props: ISelect & { preselectedValue: string
         <span className="phone">{el.phoneCode}</span> <span className="name">{el.name}</span>
       </>
     ),
-    value: el.phoneCode.replace('+', ''),
-    code: el.code,
+    value: el,
   }));
-  const preselectedValue = props.preselectedValue ? options.find((el) => el.code === props.preselectedValue) : null;
+
+  function customFilter(option: any, searchText: string) {
+    return (
+      option.data.value.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      option.data.value.phoneCode.includes(searchText)
+    );
+  }
 
   return (
     <Select
       isSearchable={true}
-      className={classNames('phoneCode-select', props.className)}
       name={name}
       options={options}
+      filterOption={customFilter}
       {...innerProps}
+      className={classNames('phoneCode-select', props.className)}
       components={{ IndicatorSeparator: NoRender }}
-      preselectedValue={preselectedValue}
     />
   );
 });
@@ -216,22 +220,21 @@ export const CountrySelect = memo((props: ISelect) => {
         <span className="name">{el.name}</span>
       </>
     ),
-    value: el.code,
-    name: el.name,
+    value: el,
   }));
 
   function customFilter(option: any, searchText: string) {
-    return option.data.name.toLowerCase().includes(searchText.toLowerCase());
+    return option.data.value.name.toLowerCase().includes(searchText.toLowerCase());
   }
 
   return (
     <Select
       isSearchable={true}
-      className={classNames('country-select', props.className)}
       name={name}
       options={options}
       filterOption={customFilter}
       {...innerProps}
+      className={classNames('country-select', props.className)}
     />
   );
 });
@@ -304,11 +307,11 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
 
   return (
     <Select
-      className={classNames('trading-account-select', props.className)}
       name={name}
       options={options}
       components={{ Option }}
       {...innerProps}
+      className={classNames('trading-account-select', props.className)}
     />
   );
 });

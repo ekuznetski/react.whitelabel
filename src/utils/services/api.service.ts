@@ -64,6 +64,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
 export const getContentRequest = (d: any) => new Promise((resolve, reject) => resolve({}));
 export const getGeoIpRequest = request(EHttpMethod.get, `${apiUrl}/frontend/geoIp`);
 export const getProfileRequest = request(EHttpMethod.post, `${apiUrl}/clients/getProfile`);
+export const editProfileRequest = request(EHttpMethod.post, `${apiUrl}/clients/editProfile`);
 export const getClientDataRequest = request(EHttpMethod.get, `${apiUrl}/clients/getClientData`);
 export const loginRequest = request(EHttpMethod.post, `${apiUrl}/clients/login`);
 export const logoutRequest = request(EHttpMethod.post, `${apiUrl}/clients/logout`);

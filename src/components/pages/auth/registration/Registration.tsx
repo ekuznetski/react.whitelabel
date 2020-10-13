@@ -1,4 +1,4 @@
-import { Button, Modal, PageTitle } from '@components/shared';
+import { Button, Img, Modal, ModalContext, ModalNav, ModalTitle, PageTitle, Svg } from '@components/shared';
 import { ENotificationType, ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
 import { ac_login, ac_preRegister, ac_register, ac_showNotification } from '@store';
@@ -115,7 +115,6 @@ export function Registration() {
         delete preparedData['phone'];
         delete preparedData['mobile'];
         delete preparedData['language'];
-        delete preparedData['promotion'];
         dispatch(
           ac_register(
             preparedData,
@@ -175,34 +174,35 @@ export function Registration() {
           </Col>
         </Row>
       </Container>
-      <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
-        {t('Do you want to continue registration')}
-        <Row>
-          <Col xs={6}>
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                setContinueReg(true);
-                setModalOpen(false);
-              }}
-              className="fadeFromBottom-row__5"
-            >
-              {t('Yes continue')}
-            </Button>
-          </Col>
-          <Col xs={6}>
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                setContinueReg(false);
-                setModalOpen(false);
-              }}
-              className="fadeFromBottom-row__5"
-            >
-              {t('No start new')}
-            </Button>
-          </Col>
-        </Row>
+
+      <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen} className="continue-registration-modal">
+        <ModalTitle title={t('Do you want to continue registration')} />
+        <ModalContext>
+          <Img src="live-account-bg.png" height="200" />
+        </ModalContext>
+        <ModalNav>
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              setContinueReg(true);
+              setModalOpen(false);
+            }}
+          >
+            {t('Yes continue')}
+          </Button>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setContinueReg(false);
+              setModalOpen(false);
+            }}
+            className="mt-4 start-new"
+          >
+            {t('No start new')}
+          </a>
+        </ModalNav>
       </Modal>
     </div>
   );

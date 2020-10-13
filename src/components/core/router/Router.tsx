@@ -94,14 +94,14 @@ function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
       ...(routesInitialApiData[route.appSection]?.strict || []),
     ]?.forEach((ac) => {
       const _ac = ac();
-      console.log('Request Initial Action: ' + _ac.type);
+      // console.log('Request Initial Action: ' + _ac.type);
       _batchDispatch.push(_ac);
     });
 
     // Request Page ApiData
     [...(route.apiData?.lazy || []), ...(route.apiData?.strict || [])]?.forEach((ac) => {
       const _ac = ac();
-      console.log('Request Page Action: ' + _ac.type);
+      // console.log('Request Page Action: ' + _ac.type);
       _batchDispatch.push(_ac);
     });
 

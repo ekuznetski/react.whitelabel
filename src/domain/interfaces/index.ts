@@ -10,6 +10,7 @@ export * from './data/content.interface';
 export * from './data/geoIP.interface';
 export * from './data/auth.interface';
 export * from './data/clientProfile.interface';
+export * from './data/editProfile.interface';
 export * from './data/clientData.interface';
 export * from './data/statusObject.interface';
 export * from './data/tradingAccounts.interface';

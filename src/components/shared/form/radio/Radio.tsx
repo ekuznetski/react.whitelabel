@@ -9,16 +9,24 @@ import { AnyFunction } from '@domain/interfaces';
 export interface IRadioItem {
   label: React.ReactNode;
   value: string;
+  className?: string;
 }
 export type IRadio = FastFieldAttributes<{
   colClassName?: string;
   onChange?: AnyFunction;
   onClick?: AnyFunction;
   className?: string;
+  showMarkDot?: boolean;
   options: IRadioItem[];
 }>;
 
-export const Radio = memo(function ({ colClassName = 'col', className = '', options, ...props }: IRadio) {
+export const Radio = memo(function ({
+  colClassName = 'col',
+  className = '',
+  options,
+  showMarkDot = true,
+  ...props
+}: IRadio) {
   const { status: FormStatus } = useFormikContext();
   const [field, meta, helpers] = useField(props);
   const _disabled = props.disabled || FormStatus === EFormStatus.disabled;
@@ -43,9 +51,9 @@ export const Radio = memo(function ({ colClassName = 'col', className = '', opti
       )}
     >
       {options.map((el: IRadioItem) => (
-        <div className={colClassName} key={el.value}>
+        <div className={classNames(colClassName, el.className)} key={el.value}>
           <label className={classNames('radio-label', field.value === el.value.toString() && 'selected')}>
-            {!React.isValidElement(el.label) && <span className="mark d-none d-sm-block" />}
+            {(!React.isValidElement(el.label) || showMarkDot) && <span className="mark d-none d-sm-block" />}
             <FastField
               className="d-none"
               type="radio"
