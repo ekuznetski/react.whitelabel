@@ -1,13 +1,19 @@
 import { EAppSection, ELanguage } from '@domain/enums';
-import { AnyFunction, IClientProfile, IContent, IGeoIp, ILogin, INotificationState } from '@domain/interfaces';
-import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
+import { AnyFunction, IContent, IGeoIp, ILogin, INotificationState } from '@domain/interfaces';
+import {
+  MClientData,
+  MClientProfile,
+  MClientTradingData,
+  MTransactionalStatementData,
+  MWithdrawalHistoryItem,
+} from '@domain/models';
 import { EActionTypes } from './store.enum';
 
 export interface IDataStore {
   content: IContent;
   geoIp: IGeoIp;
   client: {
-    profile: IClientProfile;
+    profile: MClientProfile;
     statusData: MClientData;
     preferences: ILogin;
     statements: MTransactionalStatementData;

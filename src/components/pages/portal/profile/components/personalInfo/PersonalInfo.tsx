@@ -1,6 +1,8 @@
 import { Button, CountrySelect, Input, PhoneCodeSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { countries, ECountryCode } from '@domain/enums';
+import { IGeoIp } from '@domain/interfaces';
+import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { forwardRef, memo } from 'react';
@@ -23,8 +25,9 @@ enum EFields {
 
 export const PersonalInfo = memo(
   forwardRef<HTMLDivElement>(function PersonalInfo(props, ref) {
-    const { geoIp } = useSelector<IStore, any>((state) => ({
+    const { geoIp, profile } = useSelector<IStore, { geoIp: IGeoIp; profile: MClientProfile }>((state) => ({
       geoIp: state.data.geoIp,
+      profile: state.data.client.profile,
     }));
     const { t } = useTranslation();
 
@@ -49,13 +52,14 @@ export const PersonalInfo = memo(
             <Col xs={12} md={10} lg={8} xl={7} className="form-wrapper py-10 px-9">
               <Formik
                 initialValues={{
-                  email: '',
-                  first_name: '',
-                  last_name: '',
-                  country: '',
-                  city: '',
-                  street: '',
-                  postcode: '',
+                  email: profile.email,
+                  first_name: profile.first_name,
+                  last_name: profile.surname,
+                  country: profile.country?.code,
+                  city: profile.city,
+                  street: profile.street,
+                  phone: profile.phone,
+                  postcode: profile.postcode,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={() => alert('Call `clients/editProfile` API.')}
@@ -68,13 +72,13 @@ export const PersonalInfo = memo(
 
                   return (
                     <Form className="internal-transfer__form">
-                      <Input label={t('Email')} name={EFields.last_name} />
+                      <Input label={t('Email')} name={EFields.email} />
                       <Row>
                         <Col xs={12} md={6}>
-                          <Input label={t('First Name')} name={EFields.email} />
+                          <Input label={t('First Name')} name={EFields.first_name} />
                         </Col>
                         <Col xs={12} md={6}>
-                          <Input label={t('Last Name')} name={EFields.first_name} />
+                          <Input label={t('Last Name')} name={EFields.last_name} />
                         </Col>
                       </Row>
                       <div className="form_breakline mt-2 mb-10" />
@@ -91,7 +95,7 @@ export const PersonalInfo = memo(
                       )}
                       <div className="form_breakline mt-10 mb-10" />
                       <div className="phone-wrapper">
-                        <PhoneCodeSelect name={EFields.phone_code} preselectedValue={geoIp?.countryCode} />
+                        <PhoneCodeSelect name={EFields.phone_code} preselectedValue={profile.phone_prefix_code} />
                         <Input
                           label={t('Phone')}
                           name={EFields.phone}

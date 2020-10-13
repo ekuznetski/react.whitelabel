@@ -1,5 +1,6 @@
 import { Button, LocaleNavLink, Svg } from '@components/shared';
-import { IClientBannerCard, IClientProfile, ILogin } from '@domain/interfaces';
+import { IClientBannerCard, ILogin } from '@domain/interfaces';
+import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
 import classNames from 'classnames';
 import React from 'react';
@@ -8,7 +9,7 @@ import { useSelector } from 'react-redux';
 import './BannerCard.scss';
 
 type IBannerCardState = {
-  clientProfile: IClientProfile;
+  clientProfile: MClientProfile;
   clientAccount: ILogin;
 };
 

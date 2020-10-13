@@ -10,7 +10,13 @@ import {
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
 } from '@domain/interfaces';
-import { MClientData, MClientTradingData, MTransactionalStatementData, MWithdrawalHistoryItem } from '@domain/models';
+import {
+  MClientData,
+  MClientProfile,
+  MClientTradingData,
+  MTransactionalStatementData,
+  MWithdrawalHistoryItem,
+} from '@domain/models';
 import {
   clientAddRequest,
   clientSetProfileRequest,
@@ -125,7 +131,7 @@ export function* getProfileSaga() {
     EActionTypes.fetchProfile,
     function* () {
       const { response }: IClientProfileResponse = yield call(getProfileRequest);
-      yield put(ac_saveProfile(response.message));
+      yield put(ac_saveProfile(new MClientProfile(response.message)));
       return response;
     },
     'data.client.profile',
@@ -135,7 +141,7 @@ export function* getProfileSaga() {
 export function* loginSaga() {
   yield $$(EActionTypes.login, function* ({ payload }: IAction) {
     const { response }: ILoginResponse = yield call(loginRequest, payload);
-    yield put(ac_saveProfile(response.profile));
+    yield put(ac_saveProfile(new MClientProfile(response.profile)));
     return response;
   });
 }
@@ -180,7 +186,7 @@ export function* resetPasswordSaga() {
 export function* setProfileSaga() {
   yield $$(EActionTypes.register, function* ({ payload }: IAction) {
     const { response }: ISetProfileResponse = yield call(clientSetProfileRequest, payload);
-    yield put(ac_saveProfile(response.profile));
+    yield put(ac_saveProfile(new MClientProfile(response.profile)));
     return response;
   });
 }
