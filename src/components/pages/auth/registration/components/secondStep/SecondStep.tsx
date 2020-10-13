@@ -53,7 +53,7 @@ export function SecondStep({ submitFn }: any) {
           if (value && value > maxDay) {
             return createError({
               path,
-              message: t(`Day Limit`).replace('${max}', maxDay),
+              message: t(`Day Limit`).replace('${max}', maxDay.toString()),
             });
           }
           return true;
