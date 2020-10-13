@@ -11,6 +11,8 @@ export enum EActionTypes {
   register = '[DATA - Client] Set Profile',
   fetchProfile = '[DATA - Client] Fetch Profile',
   saveProfile = '[DATA - Client] Save Profile',
+  editProfile = '[DATA - Client] Edit Profile',
+  changePassword = '[DATA - Client] Change Password',
   login = '[DATA - Client] Login',
   logout = '[DATA - Client] Logout',
   fetchClientData = '[DATA - Client] Fetch Status & Data',

@@ -35,6 +35,8 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.fetchTradingAccounts:
     case EActionTypes.fetchWithdrawHistory:
     case EActionTypes.fetchWithdrawLimit:
+    case EActionTypes.editProfile:
+    case EActionTypes.changePassword:
       return {
         ...state,
         requests: {
@@ -66,13 +68,17 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
       };
 
     case EActionTypes.updateRoute:
-      return { ...state, route: { ...state.route, ...action.payload }, notification: initAppStore.notification };
+      return {
+        ...state,
+        route: { ...state.route, ...action.payload },
+        notification: { ...initAppStore.notification, type: state.notification.type },
+      };
 
     case EActionTypes.showNotification:
       return { ...state, notification: { ...action.payload, visible: true } };
 
     case EActionTypes.hideNotification:
-      return { ...state, notification: { ...initAppStore.notification, visible: false } };
+      return { ...state, notification: { ...initAppStore.notification, type: state.notification.type } };
 
     default:
       return state;

@@ -1,6 +1,6 @@
 {
   "clients": {
-    "1getProfile": {
+    "getProfile": {
       "response": {
         "status": "success",
         "message": {
@@ -49,6 +49,57 @@
           "validation_countdown": null
         },
         "messageCode": 54
+      }
+    },
+    "editProfile": {
+      "response": {
+        "status": "success",
+        "message": "The profile has been updated",
+        "messageCode": 12,
+        "data": {
+          "email": "ralph.melhem@eu.hycm.com",
+          "username": "ralph.melhem@eu.hycm.com",
+          "first_name": "ralph",
+          "surname": "test",
+          "country": "Canada",
+          "state": "AB",
+          "street": "qfvdf",
+          "city": "j",
+          "postcode": "123456",
+          "phone_prefix": "+44",
+          "phone": "555477393",
+          "dob": "1990-03-22",
+          "account_type": "Raw",
+          "affiliate_code": null,
+          "raf_id": "HYCP+343129583030",
+          "nationality": "France",
+          "dual_nationality": "N/A",
+          "ic_hash": "7da1bca61204e52f1ea71011b2b0285a20eb693cfee0db603e760aafaea0c4fd",
+          "jurisdiction": "St Vincent",
+          "userId": "03a8f9fd7b33d725512532877d17d82261643288a4d557d4c0897ecf40154b4a",
+          "sfid": "001D0000027iZ4KIAU",
+          "ftd": true,
+          "trading_central": true,
+          "aprv": true,
+          "curr": "EUR",
+          "brand": "HYCM",
+          "manager": "Chind",
+          "regDate": "2019-08-09 09:36:01",
+          "go_to_praxis": true,
+          "show_praxis_and_webmoney": false,
+          "enable_citioptions": false,
+          "allow_additional_account": true,
+          "allow_additional_live_account": true,
+          "allow_additional_demo_account": true,
+          "allow_deposit": true,
+          "allowed_currencies": ["CAD", "EUR", "USD", "GBP", "AED", "RUB"],
+          "allowed_leverages": [100, 200, 300, 400, 500],
+          "allowed_account_types": ["fixed", "classic", "raw"],
+          "allowed_platforms": ["mt4", "mt5"],
+          "is_withdrawal_allowed": true,
+          "allow_internal_transfer": true,
+          "edit_fake_account": true
+        }
       }
     },
     "getClientData": {
@@ -193,6 +244,13 @@
           ]
         },
         "messageCode": 54
+      }
+    },
+    "changePassword": {
+      "response": {
+        "status": "success",
+        "message": "The password has been updated successfully",
+        "messageCode": 14
       }
     }
   },

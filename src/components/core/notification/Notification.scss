@@ -6,7 +6,6 @@
   height: 0;
   overflow: hidden;
   transition: height 0.25s;
-  background: #fff;
   position: absolute;
   z-index: 99;
 
@@ -24,7 +23,7 @@
   }
 
   &.info {
-    background: lighten($blue, 40%);
+    background: lighten($blue, 50%);
     color: $blue;
 
     .notification-progress {
@@ -37,7 +36,7 @@
   }
 
   &.failure {
-    background: lighten($red, 40%);
+    background: lighten($red, 50%);
     color: $red;
 
     .notification-progress {
@@ -50,7 +49,7 @@
   }
 
   &.success {
-    background: lighten($green, 40%);
+    background: lighten($green, 50%);
     color: $green;
 
     .notification-progress {
