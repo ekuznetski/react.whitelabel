@@ -1,4 +1,12 @@
-import { EAccountLeverage, ECurrencyCode, ETradingAccountType, ETradingPlatform, ETradingType } from '@domain/enums';
+import {
+  EAccountLeverage,
+  ECurrency,
+  ECurrencyCode,
+  ECurrencySymbol,
+  ETradingAccountType,
+  ETradingPlatform,
+  ETradingType,
+} from '@domain/enums';
 import { ITradingAccount, ITradingAccounts } from '@domain/interfaces';
 
 export class MTradingAccount {
@@ -7,6 +15,7 @@ export class MTradingAccount {
   allowLeverageChange: boolean;
   balance: number;
   currency: ECurrencyCode;
+  currencySymbol: ECurrencySymbol;
   group: string;
   leverage: EAccountLeverage;
   minWithdrawal: number;
@@ -25,6 +34,7 @@ export class MTradingAccount {
       ETradingAccountType[props.AccountType.toLowerCase() as keyof typeof ETradingAccountType] ||
       ETradingAccountType.fixed;
     this.currency = ECurrencyCode[props.Currency.toLowerCase() as keyof typeof ECurrencyCode] || ECurrencyCode.usd;
+    this.currencySymbol = ECurrencySymbol[this.currency.toLowerCase() as ECurrency];
     this.leverage =
       EAccountLeverage[`1_${props.Leverage}` as keyof typeof EAccountLeverage] || EAccountLeverage['1_200'];
     this.platform =
