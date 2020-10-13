@@ -17,17 +17,15 @@ export const OpenLiveAccountBannerSection = memo(
           <Row>
             <Col lg={5} className="mb-12 mb-lg-0">
               <div className="open-live-account-banner__title mb-7">
-                <LabelView>
-                  {t('Banner Section Title:0')}
-                  <b>{t('Banner Section Title:1')}</b>
-                </LabelView>
-                <LabelView label={ELabels.bsfx}>
+                <LabelView label={ELabels.arofx}>
                   <Trans i18nKey="Banner Section Title">
-                    <strong>FOR</strong> TRADERS
-                    <br />
-                    <strong>BY</strong> TRADERS
+                    Financial Experience <b>You Can Rely On</b>
                   </Trans>
                 </LabelView>
+                <Trans i18nKey="Banner Section Title">
+                  <strong>FOR</strong> TRADERS <br />
+                  <strong>BY</strong> TRADERS
+                </Trans>
               </div>
               <div className="open-live-account-banner__description">{t('Banner Section Desc')}</div>
             </Col>
