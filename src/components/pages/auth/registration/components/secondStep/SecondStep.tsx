@@ -58,7 +58,7 @@ export function SecondStep({ submitFn }: any) {
           }
           return true;
         }),
-        overwise: FieldValidators.requiredNumber.min(1, t('Invalid value')).max(31, t('Day Limit')),
+        otherwise: FieldValidators.requiredNumber.min(1, t('Invalid value')).max(31, t('Day Limit')),
       }),
     monthOfBirth: FieldValidators.requiredNumber.min(1, t('Invalid value')).max(12, 'Invalid value'),
     yearOfBirth: FieldValidators.requiredNumber
