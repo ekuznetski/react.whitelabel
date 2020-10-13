@@ -54,10 +54,8 @@ export const Input = memo(
 
     function onChangeHandler(e: any) {
       const val = e.target.value;
-      if (!onChange) {
-        if ((!!regex && regex.test(val)) || val === '' || !regex) {
-          helpers.setValue(val);
-        }
+      if ((!!regex && regex.test(val)) || val === '' || !regex) {
+        helpers.setValue(val);
       }
       onChange?.(e);
     }
@@ -93,6 +91,11 @@ export const Input = memo(
         {(meta.touched || forceShowError) && !_disabled && meta.error ? (
           <div className="error">{meta.error}</div>
         ) : null}
+        {regex && onChange && (
+          <div style={{ color: 'red' }}>
+            you can't use regex and onChange in one input, pls move regex logic to your onChangeHandler
+          </div>
+        )}
       </div>
     );
   }),
