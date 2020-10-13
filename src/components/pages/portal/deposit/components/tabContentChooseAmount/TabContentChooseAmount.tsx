@@ -1,14 +1,16 @@
-import { Button, Input, Radio, TradingAccountsSelect } from '@components/shared';
+import { Button, Input, IRadioItem, Radio, Svg, TradingAccountsSelect } from '@components/shared';
 import { ECurrency, ECurrencySymbol } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import { IStore } from '@store';
-import { Form, Formik, useFormikContext } from 'formik';
+import { Form, Formik, FormikProps, useFormikContext } from 'formik';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { availableAmounts, depositActionCreators, DepositContext } from '../../depositContext';
 import './TabContentChooseAmount.scss';
+import classNames from 'classnames';
+import { Col, Row } from 'react-bootstrap';
 
 enum EFields {
   'account' = 'account',
@@ -25,9 +27,10 @@ export function TabContentChooseAmount() {
   const { t } = useTranslation();
   const ref = React.createRef<HTMLInputElement>();
 
-  const options: { label: React.ReactNode; value: string }[] = availableAmounts.map((el) => ({
-    label: `${ECurrencySymbol[account?.currency.toLowerCase() as ECurrency]}  ${el}`,
+  const options: IRadioItem[] = availableAmounts.map((el) => ({
+    label: `${account?.currencySymbol}  ${el}`,
     value: el,
+    className: 'amount-item',
   }));
 
   const validationSchema = Yup.object().shape({
@@ -39,18 +42,20 @@ export function TabContentChooseAmount() {
     const { values, setFieldValue }: { values: any; setFieldValue: any } = useFormikContext();
 
     return (
-      <div className="custom-amount-label-wrapper" onClick={() => ref.current?.focus()}>
-        <div className="title">{t('Custom Amount')}</div>
+      <div onClick={() => ref.current?.focus()}>
+        <div className="title ml-13 mt-7 mb-10">{t('Custom Amount')}</div>
         <Input
           label={t('Amount')}
           name={EFields.customAmount}
           className="custom-amount-input ml-8"
-          onChange={(e: { target: { value: any } }) => {
-            setFieldValue(EFields.customAmount, e.target.value);
-            setFieldValue(EFields.amount, 'custom');
+          onChange={(e: { target: { value: string } }) => {
+            const value = e.target.value;
+            if (/^\d*$/gm.test(value) || value === '') {
+              setFieldValue(EFields.customAmount, e.target.value);
+              setFieldValue(EFields.amount, 'custom');
+            }
           }}
           onFocus={() => setFieldValue(EFields.amount, 'custom')}
-          regex={/^\d*$/gm}
           ref={ref}
         />
       </div>
@@ -60,8 +65,8 @@ export function TabContentChooseAmount() {
   options.push({
     label: <CustomAmountInput />,
     value: 'custom',
+    className: 'custom-amount-item',
   });
-  //TODO setup validataion
 
   const preselectedAmount = availableAmounts.includes(amount) ? amount : 'custom';
   const preselectedCustomAmount = !availableAmounts.includes(amount) ? amount : '';
@@ -83,19 +88,23 @@ export function TabContentChooseAmount() {
           dispatch(depositActionCreators.setAmount(amount));
         }}
       >
-        {(props: any) => {
-          const { values, setFieldValue } = props;
-
+        {({ values, setFieldValue }: FormikProps<any>) => {
           return (
             <Form className="m-auto form fadein-row">
-              <TradingAccountsSelect
-                placeholder={t('Choose Trading Account')}
-                name={EFields.account}
-                options={tradingAccounts}
-                onChange={(e: MTradingAccount) => dispatch(depositActionCreators.setAccount(e))}
-              />
+              <Row>
+                <Col xs={12} sm={5}>
+                  Choose account to fund
+                  <TradingAccountsSelect
+                    className={classNames(tradingAccounts.length === 1 ? 'd-none' : '')}
+                    placeholder={t('Choose Trading Account')}
+                    name={EFields.account}
+                    options={tradingAccounts}
+                    onChange={(e: MTradingAccount) => dispatch(depositActionCreators.setAccount(e))}
+                  />
+                </Col>
+              </Row>
               <Radio
-                colClassName="col-4"
+                colClassName="col-4 mb-8"
                 className="mb-10"
                 name={EFields.amount}
                 options={options}
@@ -105,11 +114,30 @@ export function TabContentChooseAmount() {
                   }
                 }}
               />
-
-              <div>
-                {(values[EFields.amount] !== 'custom' && values[EFields.amount]) || values[EFields.customAmount] || '0'}
-              </div>
-              <Button type="submit">{t('Proceed to Payment')}</Button>
+              <Row className="mb-6">
+                <Col className="you-get-title">{t('You get')}</Col>
+              </Row>
+              <Row>
+                <Col sm={8}>
+                  <div className="you-get-amount d-flex align-items-center">
+                    <span className="you-get-amount__symbol pr-3">{values[EFields.account].currencySymbol}</span>
+                    {(values[EFields.amount] !== 'custom' && values[EFields.amount]) ||
+                      values[EFields.customAmount] ||
+                      '0'}
+                  </div>
+                </Col>
+                <Col sm={4} className="align-items-center d-flex">
+                  <Button type="submit">{t('Proceed to Payment')}</Button>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={{ span: 4, offset: 8 }} className="d-flex justify-content-between align-items-center">
+                  <Svg href="shrimp.svg" height="40" width="45" />
+                  <Svg href="shrimp.svg" height="40" width="45" />
+                  <Svg href="shrimp.svg" height="40" width="45" />
+                  <Svg href="shrimp.svg" height="40" width="45" />
+                </Col>
+              </Row>
             </Form>
           );
         }}
