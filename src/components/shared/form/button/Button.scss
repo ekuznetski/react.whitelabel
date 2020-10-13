@@ -1,89 +1,99 @@
 @import '~/variables';
 
 .common-button {
-	background: $dark-blue;
-	width: 100%;
-	border-radius: $border-radius;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: $btn-size-md;
-	border: 1.5px solid transparent;
-	color: white;
-	transition: box-shadow 0.25s;
-	padding: 0;
+  background: $dark-blue;
+  width: 100%;
+  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $btn-size-md;
+  border: 1.5px solid transparent;
+  color: white;
+  transition: box-shadow 0.25s, background 0.25s;
+  padding: 0;
 
-	&:hover:not(.disabled) {
-		box-shadow: box-shadow(10, 0.1);
-	}
+  &:hover:not(.disabled) {
+    box-shadow: box-shadow(10, 0.1);
+  }
 
-	&:focus {
-		outline: transparent;
-	}
+  &:focus {
+    outline: transparent;
+  }
 
-	&.noBg {
-		color: $dark-blue;
-		border-color: $dark-blue;
-		background: transparent;
+  &.noBg {
+    color: $dark-blue;
+    border-color: $dark-blue;
+    background: transparent;
 
-		a {
-			color: $dark-blue;
+    a {
+      color: $dark-blue;
 
-			svg {
-				fill: $dark-blue;
-			}
-		}
-	}
+      svg {
+        fill: $dark-blue;
+      }
+    }
+  }
 
-	&.red {
-		border-color: $red;
-		background: $red;
-		color: $red;
+  &.red {
+    border-color: $red;
+    background: $red;
+    color: $red;
 
-		a {
-			color: $red;
+    a {
+      color: $red;
 
-			svg {
-				fill: $red;
-			}
-		}
+      svg {
+        fill: $red;
+      }
+    }
 
-		&.noBg {
-			color: $red;
-			background: transparent;
-		}
-	}
+    &.noBg {
+      color: $red;
+      background: transparent;
+    }
+  }
 
-	&.disabled {
-		// border-color: $dark-grey;
-		background: $grey;
-		color: rgba(#000, 0.3);
+  &.disabled {
+    // border-color: $dark-grey;
+    background: $grey;
+    color: rgba(#000, 0.3);
 
-		a {
-			color: rgba(#000, 0.3);
+    a {
+      color: rgba(#000, 0.3);
 
-			svg {
-				fill: rgba(#000, 0.3);
-			}
-		}
-	}
+      svg {
+        fill: rgba(#000, 0.3);
+      }
+    }
+  }
 
-	a,
-	a:hover {
-		color: #ffffff;
-		text-decoration: none;
+  .context {
+    position: relative;
+    @include d-flex(center, center);
 
-		height: 100%;
-		display: flex;
-		width: 100%;
-		align-items: center;
-		justify-content: center;
+    .loader {
+      position: absolute;
+      left: - 24px;
+    }
 
-		transition: color 0.2s;
+    a,
+    a:hover {
+      color: #ffffff;
+      text-decoration: none;
 
-		svg {
-			transition: all 0.2s;
-			fill: #ffffff;
-		}
-	}
+      height: 100%;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+
+      transition: color 0.2s;
+
+      svg {
+        transition: all 0.2s;
+        fill: #ffffff;
+      }
+    }
+  }
 }
