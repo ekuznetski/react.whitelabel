@@ -3,6 +3,7 @@ import {
   AnyFunction,
   IClientAddRequest,
   IContent,
+  IEditProfileRequest,
   IGeoIp,
   IInternalTransferRequestData,
   ILoginRequest,
@@ -66,6 +67,15 @@ export function ac_login(payload: ILoginRequest, onFailure: AnyFunction = null):
 export function ac_logout(): IAction {
   return {
     type: EActionTypes.logout,
+  };
+}
+
+export function ac_editProfile(payload: IEditProfileRequest, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+  return {
+    type: EActionTypes.editProfile,
+    payload,
+    onSuccess,
+    onFailure,
   };
 }
 

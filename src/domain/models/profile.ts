@@ -26,7 +26,7 @@ export class MClientProfile {
   street: string;
   city: string;
   postcode: string;
-  phone_prefix_code: ECountryCode[keyof ECountryCode] | null;
+  phone_prefix_code: Country | null;
   phone_prefix: string;
   phone: number;
   dob: Moment;
@@ -83,7 +83,7 @@ export class MClientProfile {
     this.street = props.street;
     this.city = props.city;
     this.postcode = props.postcode;
-    this.phone_prefix_code = countries.find((country) => country.phoneCode === props.phone_prefix)?.code || null;
+    this.phone_prefix_code = countries.find((country) => country.phoneCode === props.phone_prefix) || null;
     this.phone_prefix = props.phone_prefix;
     this.phone = parseInt(props.phone);
     this.dob = moment(props.dob);

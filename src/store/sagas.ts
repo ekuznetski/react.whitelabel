@@ -3,6 +3,7 @@ import {
   IClientAddResponse,
   IClientProfileResponse,
   IClientStatusDataResponse,
+  IEditProfileResponse,
   ILoginResponse,
   ISetProfileResponse,
   ITradingAccountsResponse,
@@ -20,6 +21,7 @@ import {
 import {
   clientAddRequest,
   clientSetProfileRequest,
+  editProfileRequest,
   forgotPasswordRequest,
   getClientDataRequest,
   getContentRequest,
@@ -136,6 +138,14 @@ export function* getProfileSaga() {
     },
     'data.client.profile',
   );
+}
+
+export function* editProfileSaga() {
+  yield $$(EActionTypes.editProfile, function* () {
+    const { response }: IEditProfileResponse = yield call(editProfileRequest);
+    yield put(ac_saveProfile(new MClientProfile(response.data)));
+    return response;
+  });
 }
 
 export function* loginSaga() {
