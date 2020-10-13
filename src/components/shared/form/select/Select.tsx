@@ -186,20 +186,25 @@ export const PhoneCodeSelect = memo((props: ISelect) => {
         <span className="phone">{el.phoneCode}</span> <span className="name">{el.name}</span>
       </>
     ),
-    value: el.phoneCode.replace('+', ''),
-    code: el.code,
+    value: el,
   }));
-  const preselectedValue = props.preselectedValue ? options.find((el) => el.code === props.preselectedValue) : null;
+
+  function customFilter(option: any, searchText: string) {
+    return (
+      option.data.value.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      option.data.value.phoneCode.includes(searchText)
+    );
+  }
 
   return (
     <Select
       isSearchable={true}
       name={name}
       options={options}
+      filterOption={customFilter}
       {...innerProps}
       className={classNames('phoneCode-select', props.className)}
       components={{ IndicatorSeparator: NoRender }}
-      preselectedValue={preselectedValue}
     />
   );
 });
@@ -215,12 +220,11 @@ export const CountrySelect = memo((props: ISelect) => {
         <span className="name">{el.name}</span>
       </>
     ),
-    value: el.code,
-    name: el.name,
+    value: el,
   }));
 
   function customFilter(option: any, searchText: string) {
-    return option.data.name.toLowerCase().includes(searchText.toLowerCase());
+    return option.data.value.name.toLowerCase().includes(searchText.toLowerCase());
   }
 
   return (

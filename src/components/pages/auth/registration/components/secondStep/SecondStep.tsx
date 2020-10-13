@@ -1,6 +1,6 @@
 import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ECountryCodeToName, ERegSteps } from '@domain/enums';
+import { countries, ECountryCodeToName, ERegSteps } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';
@@ -92,8 +92,8 @@ export function SecondStep({ submitFn }: any) {
       <Formik
         initialValues={{
           tax_checkbox: false,
-          tax_country: geoIp?.countryCode ?? '',
-          country: geoIp?.countryCode ?? '',
+          tax_country: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
+          country: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
           dayOfBirth: '',
           monthOfBirth: '',
           yearOfBirth: '',

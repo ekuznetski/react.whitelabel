@@ -1,6 +1,6 @@
 import { AuthAlreadyRegisteredLink, Button, Input, LocaleLink, PhoneCodeSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ERegSteps } from '@domain/enums';
+import { countries, ERegSteps } from '@domain/enums';
 import { ac_userExists, IStore } from '@store';
 import { Form, Formik } from 'formik';
 import React from 'react';
@@ -18,8 +18,9 @@ enum EFields {
 }
 
 export function FirstStep({ submitFn }: any) {
-  const { geoIp } = useSelector<IStore, any>((state) => ({
+  const { geoIp, locale } = useSelector<IStore, any>((state) => ({
     geoIp: state.data.geoIp,
+    locale: state.app.route.locale,
   }));
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -33,10 +34,12 @@ export function FirstStep({ submitFn }: any) {
           submitFn({
             [ERegSteps.step1]: {
               ...data,
+              phone_prefix: data.phone_prefix.phoneCode,
+              phone_country_code: data.phone_prefix.code,
               mobile: 1,
-              language: 'en',
-              promotion: 'registration10',
+              language: locale,
               country: geoIp?.country ?? 'failed',
+              // TODO add campaign_id
             },
           }),
       ),
@@ -47,7 +50,7 @@ export function FirstStep({ submitFn }: any) {
     first_name: FieldValidators.name,
     surname: FieldValidators.name,
     email: FieldValidators.email,
-    phone_prefix: FieldValidators.numbers,
+    phone_prefix: FieldValidators.requiredString,
     phone: FieldValidators.numbers,
   });
 
@@ -58,7 +61,7 @@ export function FirstStep({ submitFn }: any) {
           first_name: '',
           surname: '',
           email: '',
-          phone_prefix: geoIp?.phonePrefix ?? '',
+          phone_prefix: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
           phone: '',
         }}
         validationSchema={validationSchema}
@@ -71,11 +74,7 @@ export function FirstStep({ submitFn }: any) {
               <Input className="fadeFromBottom-row__1" label={t('Last Name')} name={EFields.surname} />
               <Input className="fadeFromBottom-row__2" label={t('Email')} name={EFields.email} />
               <div className="phone-wrapper fadeFromBottom-row__3">
-                <PhoneCodeSelect
-                  placeholder={t('Prefix')}
-                  name={EFields.phone_prefix}
-                  preselectedValue={geoIp?.countryCode}
-                />
+                <PhoneCodeSelect placeholder={t('Prefix')} name={EFields.phone_prefix} />
                 <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
               </div>
               <p className="my-7 fadeFromBottom-row__4">

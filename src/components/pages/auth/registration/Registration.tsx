@@ -115,7 +115,6 @@ export function Registration() {
         delete preparedData['phone'];
         delete preparedData['mobile'];
         delete preparedData['language'];
-        delete preparedData['promotion'];
         dispatch(
           ac_register(
             preparedData,

@@ -1,4 +1,4 @@
-import { ERegSteps } from "@domain/enums";
+import { ERegSteps } from '@domain/enums';
 
 export interface IRegStep1Data {
   first_name: string;
@@ -8,7 +8,6 @@ export interface IRegStep1Data {
   phone: string;
   mobile: 1 | 0;
   language: string;
-  promotion: string;
   country: string;
 }
 export interface IRegStep2Data {
@@ -20,7 +19,7 @@ export interface IRegStep2Data {
   yearOfBirth: string;
   street: string;
   city: string;
-  zip: string;
+  postcode: string;
 }
 export interface IRegStep3Data {
   firstdeposit_platform: string;

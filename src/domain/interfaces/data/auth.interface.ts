@@ -10,7 +10,7 @@ export interface IClientAddRequest {
   country: string;
   phone_prefix: number;
   phone: number;
-  promotion?: string;
+  phone_country_code: string;
   campaign_id?: string;
 }
 
