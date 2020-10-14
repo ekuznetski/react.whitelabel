@@ -1,30 +1,36 @@
 import { IBaseResponse } from '..';
 
 export interface IWithdrawalHistory {
-	reference: string;
-	account: string;
-	currency: string;
-	amount: number;
-	date: string;
-	status_code: number;
-	cancelable: boolean;
-	subtotal: number;
-	details?: {
-		settlement_date: string;
-		reference: string;
-		method: string;
-		amount: number;
-	}[];
+  reference: string;
+  account: string;
+  currency: string;
+  amount: number;
+  date: string;
+  status_code: number;
+  cancelable: boolean;
+  subtotal: number;
+  details?: {
+    settlement_date: string;
+    reference: string;
+    method: string;
+    amount: number;
+  }[];
 }
 
 export type IWithdrawalHistoryResponse = IBaseResponse & {
-	response: {
-		message: IWithdrawalHistory[];
-	};
+  response: {
+    message: IWithdrawalHistory[];
+  };
 };
 
 export type IWithdrawalLimitResponse = IBaseResponse & {
-	response: {
-		data: number;
-	};
+  response: {
+    data: number;
+  };
 };
+
+export interface IWithdrawFundRequest {
+  trade_account: number;
+  trade_platform: string;
+  amount: number;
+}

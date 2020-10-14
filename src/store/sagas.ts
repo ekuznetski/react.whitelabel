@@ -1,3 +1,4 @@
+import { ETradingPlatform } from '@domain/enums';
 import {
   IBankDetailsResponse,
   IBaseResponse,
@@ -11,6 +12,7 @@ import {
   ITransactionalStatementsResponse,
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
+  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import {
   MClientData,
@@ -33,6 +35,8 @@ import {
   internalTransferRequest,
   loginRequest,
   logoutRequest,
+  mt4WithdrawFundsRequest,
+  mt5WithdrawFundsRequest,
   resetPasswordRequest,
   tradingAccountsRequest,
   updateBankDetailsRequest,
@@ -40,11 +44,13 @@ import {
   withdrawalsHistoryRequest,
   withdrawalsLimitRequest,
 } from '@utils/services';
+import { response } from 'express';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { store } from './';
 import {
   ac_clearStore,
   ac_fetchTradingAccounts,
+  ac_fetchWithdrawHistory,
   ac_requestActionFailure,
   ac_requestActionSuccess,
   ac_saveBankDetails,
@@ -226,6 +232,17 @@ export function* setProfileSaga() {
     const { response }: ISetProfileResponse = yield call(clientSetProfileRequest, payload);
     yield put(ac_saveProfile(new MClientProfile(response.profile)));
     return response;
+  });
+}
+
+export function* withdrawFundsSaga() {
+  yield $$(EActionTypes.withdrawFunds, function* ({ payload }: IAction<IWithdrawFundRequest>) {
+    yield call(
+      payload?.trade_platform === ETradingPlatform.mt4 ? mt4WithdrawFundsRequest : mt5WithdrawFundsRequest,
+      payload,
+    );
+    yield put(ac_fetchWithdrawHistory());
+    return;
   });
 }
 

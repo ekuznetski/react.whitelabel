@@ -35,6 +35,7 @@ export enum EActionTypes {
   saveWithdrawHistory = '[DATA - Withdrawal] Save History',
   fetchWithdrawLimit = '[DATA - Withdrawal] Fetch Account Limit',
   saveWithdrawLimit = '[DATA - Withdrawal] Save Account Limit',
+  withdrawFunds = '[DATA - Withdrawal] Withdrawal Funds',
 
   //DATA - Authorization
   forgotPassword = '[DATA - Authorization] Forgot Password',

@@ -12,6 +12,7 @@ import {
   ISetProfileRequest,
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
+  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import {
   MBankDetails,
@@ -260,6 +261,14 @@ export function ac_saveWithdrawLimit(payload: { limit: number }): IAction {
   return {
     type: EActionTypes.saveWithdrawLimit,
     payload,
+  };
+}
+
+export function ac_withdrawFunds(payload: IWithdrawFundRequest, onSuccess: AnyFunction): IAction {
+  return {
+    type: EActionTypes.withdrawFunds,
+    payload,
+    onSuccess,
   };
 }
 
