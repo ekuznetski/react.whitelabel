@@ -68,32 +68,22 @@
     }
   }
 
-  .context {
-    position: relative;
-    @include d-flex(center, center);
+  a,
+  a:hover {
+    color: #ffffff;
+    text-decoration: none;
 
-    .loader {
-      position: absolute;
-      left: - 24px;
-    }
+    height: 100%;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 
-    a,
-    a:hover {
-      color: #ffffff;
-      text-decoration: none;
+    transition: color 0.2s;
 
-      height: 100%;
-      display: flex;
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-
-      transition: color 0.2s;
-
-      svg {
-        transition: all 0.2s;
-        fill: #ffffff;
-      }
+    svg {
+      transition: all 0.2s;
+      fill: #ffffff;
     }
   }
 }
