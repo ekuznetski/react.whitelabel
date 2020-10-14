@@ -35,8 +35,10 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.fetchTradingAccounts:
     case EActionTypes.fetchWithdrawHistory:
     case EActionTypes.fetchWithdrawLimit:
+    case EActionTypes.fetchBankDetails:
     case EActionTypes.editProfile:
     case EActionTypes.changePassword:
+    case EActionTypes.updateBankDetails:
       return {
         ...state,
         requests: {

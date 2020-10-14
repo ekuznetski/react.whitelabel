@@ -1,4 +1,5 @@
 import {
+  IBankDetailsResponse,
   IBaseResponse,
   IClientAddResponse,
   IClientProfileResponse,
@@ -23,6 +24,7 @@ import {
   clientSetProfileRequest,
   editProfileRequest,
   forgotPasswordRequest,
+  getBankDetailsRequest,
   getClientDataRequest,
   getContentRequest,
   getGeoIpRequest,
@@ -33,6 +35,7 @@ import {
   logoutRequest,
   resetPasswordRequest,
   tradingAccountsRequest,
+  updateBankDetailsRequest,
   userExistsRequest,
   withdrawalsHistoryRequest,
   withdrawalsLimitRequest,
@@ -44,6 +47,7 @@ import {
   ac_fetchTradingAccounts,
   ac_requestActionFailure,
   ac_requestActionSuccess,
+  ac_saveBankDetails,
   ac_saveClientData,
   ac_saveContent,
   ac_saveGeoIpData,
@@ -152,6 +156,22 @@ export function* changeProfilePasswordSaga() {
   yield $$(EActionTypes.changePassword, function* ({ payload }: IAction) {
     const { response }: any = yield call(editProfileRequest, payload);
     yield put(ac_saveProfile(new MClientProfile(response.data)));
+    return response;
+  });
+}
+
+export function* getBankDetailsSaga() {
+  yield $$(EActionTypes.fetchBankDetails, function* () {
+    const { response }: IBankDetailsResponse = yield call(getBankDetailsRequest);
+    yield put(ac_saveBankDetails(response.message));
+    return response;
+  });
+}
+
+export function* updateBankDetailsSaga() {
+  yield $$(EActionTypes.updateBankDetails, function* ({ payload }: IAction) {
+    const { response }: IBankDetailsResponse = yield call(updateBankDetailsRequest, payload);
+    yield put(ac_saveBankDetails(response.data));
     return response;
   });
 }

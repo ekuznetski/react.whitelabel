@@ -388,6 +388,22 @@
         },
         "messageCode": 25
       }
+    },
+    "saveaccount": {
+      "response": {
+        "status": "success",
+        "message": "Bank Account added successfully",
+        "messageCode": 23,
+        "data": {
+          "beneficiary_name": "12323",
+          "beneficiary_bank": "test",
+          "beneficiary_bank_account_no": "1234",
+          "swift_code": "aaasas34sa2",
+          "iban": "test",
+          "branch_name": "test",
+          "branch_address": "test"
+        }
+      }
     }
   }
 }

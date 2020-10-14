@@ -14,6 +14,7 @@ import {
   IUserExistsRequest,
 } from '@domain/interfaces';
 import {
+  MBankDetails,
   MClientData,
   MClientProfile,
   MClientTradingData,
@@ -148,6 +149,28 @@ export function ac_resetPassword(
     payload,
     onSuccess,
     onFailure,
+  };
+}
+
+export function ac_fetchBankDetails(): IAction {
+  return {
+    type: EActionTypes.fetchBankDetails,
+  };
+}
+
+export function ac_updateBankDetails(payload: MBankDetails, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+  return {
+    type: EActionTypes.updateBankDetails,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_saveBankDetails(payload: MBankDetails): IAction {
+  return {
+    type: EActionTypes.saveBankDetails,
+    payload,
   };
 }
 

@@ -60,6 +60,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
     }
   };
 }
+
 // export const getContentRequest = request(EHttpMethod.get, `https://baconipsum.com/api/?type=meat-and-filler`);
 export const getContentRequest = (d: any) => new Promise((resolve, reject) => resolve({}));
 export const getGeoIpRequest = request(EHttpMethod.get, `${apiUrl}/frontend/geoIp`);
@@ -78,3 +79,5 @@ export const withdrawalsLimitRequest = request(EHttpMethod.post, `${apiUrl}/with
 export const tradingAccountsRequest = request(EHttpMethod.get, `${apiUrl}/clients/getTradingAccounts`);
 export const internalTransferRequest = request(EHttpMethod.post, `${apiUrl}/accounts/transfer`);
 export const getTransactionalStatementsRequest = request(EHttpMethod.post, `${apiUrl}/clients/bankingStatements`);
+export const getBankDetailsRequest = request(EHttpMethod.post, `${apiUrl}/bankaccounts/getbankdetails`);
+export const updateBankDetailsRequest = request(EHttpMethod.post, `${apiUrl}/bankaccounts/saveaccount`);
