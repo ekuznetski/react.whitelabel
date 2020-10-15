@@ -18,8 +18,12 @@ export const Svg = memo((props: { isIcon?: boolean; _label?: ELabels | boolean }
   delete innerProps._label;
 
   return useMemo(() => {
-    const SvgComponent = require(`../../../assets${labelFolder}/svg/${path.basename(props.href)}`);
-
-    return <SvgComponent.ReactComponent {...innerProps} />;
+    try {
+      const SvgComponent = require(`../../../assets${labelFolder}/svg/${path.basename(props.href)}`);
+      return <SvgComponent.ReactComponent {...innerProps} />;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
   }, [labelFolder, props]);
 });
