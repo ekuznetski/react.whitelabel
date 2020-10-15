@@ -38,19 +38,27 @@
   &.red {
     border-color: $red;
     background: $red;
-    color: $red;
+    color: #fff;
 
     a {
-      color: $red;
+      color: #fff;
 
       svg {
-        fill: $red;
+        fill: #fff;
       }
     }
 
     &.noBg {
       color: $red;
       background: transparent;
+
+      a {
+        color: $red;
+
+        svg {
+          color: $red;
+        }
+      }
     }
   }
 
