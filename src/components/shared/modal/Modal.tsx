@@ -15,7 +15,7 @@ export interface IModal {
   height?: number;
   width?: number;
   className?: string;
-  isOpenDispatcher: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpenDispatcher: React.Dispatch<React.SetStateAction<boolean>> | React.Dispatch<boolean>;
 }
 
 export const Modal = memo(

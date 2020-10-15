@@ -6,6 +6,7 @@ export * from './app/registration.interface';
 export * from './app/clientBannerCard.interface';
 export * from './app/notification.interface';
 // Data
+export * from './data/bankDetails.interface';
 export * from './data/content.interface';
 export * from './data/geoIP.interface';
 export * from './data/auth.interface';

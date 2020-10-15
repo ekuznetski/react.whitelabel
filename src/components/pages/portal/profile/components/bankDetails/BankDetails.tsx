@@ -1,24 +1,23 @@
 import { Button, Input } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { Form, Formik, FormikProps } from 'formik';
+import { ENotificationType } from '@domain/enums';
+import { MBankDetails } from '@domain/models';
+import { ac_showNotification, ac_updateBankDetails, EActionTypes, IStore } from '@store';
+import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-
-enum EFields {
-  'beneficiary_name' = 'beneficiary_name',
-  'beneficiary_bank' = 'beneficiary_bank',
-  'beneficiary_bank_account_no' = 'beneficiary_bank_account_no',
-  'swift_code' = 'swift_code',
-  'iban' = 'iban',
-  'branch_name' = 'branch_name',
-  'branch_address' = 'branch_address',
-}
 
 export const BankDetails = memo(
   forwardRef<HTMLDivElement>(function BankDetails(props, ref) {
+    const { bankDetails } = useSelector<IStore, { bankDetails: MBankDetails }>((state) => ({
+      bankDetails: state.data.bankDetails,
+    }));
+    const dispatch = useDispatch();
     const { t } = useTranslation();
+
     const validationSchema = Yup.object().shape({
       beneficiary_name: FieldValidators.requiredString.max(100, t('Name characters count restriction')),
       beneficiary_bank: FieldValidators.requiredString.max(100, t('Bank Name characters count restriction')),
@@ -29,6 +28,28 @@ export const BankDetails = memo(
       branch_address: FieldValidators.requiredString.max(100, t('Bank Branch Address characters count restriction')),
     });
 
+    function Submit(data: FormikValues) {
+      dispatch(
+        ac_updateBankDetails(
+          data as MBankDetails,
+          () =>
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.success,
+                context: t('Bank Details Updated Successfully'),
+              }),
+            ),
+          () =>
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.failure,
+                context: t('Failed To Update Bank Details'),
+              }),
+            ),
+        ),
+      );
+    }
+
     return (
       <div className="dank-details">
         <Container className="internal-transfer-page-wrapper">
@@ -36,47 +57,46 @@ export const BankDetails = memo(
             <Col xs={12} md={10} lg={8} xl={7} className="form-wrapper py-10 px-9">
               <Formik
                 initialValues={{
-                  beneficiary_name: '',
-                  beneficiary_bank: '',
-                  beneficiary_bank_account_no: '',
-                  swift_code: '',
-                  iban: '',
-                  branch_name: '',
-                  branch_address: '',
+                  beneficiary_name: bankDetails.beneficiary_name,
+                  beneficiary_bank: bankDetails.beneficiary_bank,
+                  beneficiary_bank_account_no: bankDetails.beneficiary_bank_account_no,
+                  swift_code: bankDetails.swift_code,
+                  iban: bankDetails.iban,
+                  branch_name: bankDetails.branch_name,
+                  branch_address: bankDetails.branch_address,
                 }}
                 validationSchema={validationSchema}
-                onSubmit={() => alert('Call `bankaccounts/saveaccount` API.')}
+                onSubmit={Submit}
               >
                 {({ values }: FormikProps<any>) => {
                   return (
                     <Form className="internal-transfer__form">
                       <Row>
                         <Col xs={12} md={6}>
-                          <Input label={t("Beneficiary's Name")} name={EFields.beneficiary_name} />
+                          <Input label={t("Beneficiary's Name")} name="beneficiary_name" />
                         </Col>
                         <Col xs={12} md={6}>
-                          <Input label={t("Beneficiary's Bank Name")} name={EFields.beneficiary_bank} />
+                          <Input label={t("Beneficiary's Bank Name")} name="beneficiary_bank" />
                         </Col>
                         <Col xs={12} md={6}>
-                          <Input
-                            label={t("Beneficiary's Bank Account Number")}
-                            name={EFields.beneficiary_bank_account_no}
-                          />
+                          <Input label={t("Beneficiary's Bank Account Number")} name="beneficiary_bank_account_no" />
                         </Col>
                         <Col xs={12} md={6}>
-                          <Input label={t('SWIFT Code')} name={EFields.swift_code} />
+                          <Input label={t('SWIFT Code')} name="swift_code" />
                         </Col>
                         <Col xs={12} md={6}>
-                          <Input label={t('IBAN IF Applicable')} name={EFields.iban} />
+                          <Input label={t('IBAN IF Applicable')} name="iban" />
                         </Col>
                         <Col xs={12} md={6}>
-                          <Input label={t("Beneficiary's Bank Branch Name")} name={EFields.branch_name} />
+                          <Input label={t("Beneficiary's Bank Branch Name")} name="branch_name" />
                         </Col>
                         <Col xs={12} md={6}>
-                          <Input label={t("Beneficiary's Branch Full Address")} name={EFields.branch_address} />
+                          <Input label={t("Beneficiary's Branch Full Address")} name="branch_address" />
                         </Col>
                       </Row>
-                      <Button type="submit">{t('Save')}</Button>
+                      <Button type="submit" loadingOnAction={EActionTypes.updateBankDetails}>
+                        {t('Save')}
+                      </Button>
                     </Form>
                   );
                 }}

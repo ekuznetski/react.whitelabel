@@ -371,6 +371,15 @@
         "messageCode": 35,
         "data": { "trade_account_id": "220002709", "Currency": "CAD", "pwd": "pHFCxQjk", "platform": "MT4" }
       }
+    },
+    "demo": {
+      "create": {
+        "response": {
+          "status": "failure",
+          "message": "Similar Account already exist",
+          "messageCode": 35
+        }
+      }
     }
   },
   "bankaccounts": {
@@ -387,6 +396,22 @@
           "branch_address": "dsfsdf / 123, Test"
         },
         "messageCode": 25
+      }
+    },
+    "saveaccount": {
+      "response": {
+        "status": "success",
+        "message": "Bank Account added successfully",
+        "messageCode": 23,
+        "data": {
+          "beneficiary_name": "12323",
+          "beneficiary_bank": "test",
+          "beneficiary_bank_account_no": "1234",
+          "swift_code": "aaasas34sa2",
+          "iban": "test",
+          "branch_name": "test",
+          "branch_address": "test"
+        }
       }
     }
   }

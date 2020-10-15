@@ -1,4 +1,4 @@
-import { Button, Img, LabelView, LocaleLink, Svg } from '@components/shared';
+import { Button, Img, LocaleLink, Svg } from '@components/shared';
 import { EAppSection, ELabels } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
 import { getAppSectionMenu } from '@utils/fn';

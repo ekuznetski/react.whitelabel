@@ -10,6 +10,11 @@ export enum EResponseStatus {
 	failure = 'failure',
 }
 
+export enum EModalType {
+	success = 'success',
+	failure = 'failure',
+}
+
 export enum EFormStatus {
 	loading = 'loading',
 	error = 'error',

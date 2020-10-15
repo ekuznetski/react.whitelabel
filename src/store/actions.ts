@@ -8,12 +8,15 @@ import {
   IInternalTransferRequestData,
   ILoginRequest,
   INotificationState,
+  ICreateTradingAccountRequest,
   IResetPasswordRequest,
   ISetProfileRequest,
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
+  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import {
+  MBankDetails,
   MClientData,
   MClientProfile,
   MClientTradingData,
@@ -151,6 +154,28 @@ export function ac_resetPassword(
   };
 }
 
+export function ac_fetchBankDetails(): IAction {
+  return {
+    type: EActionTypes.fetchBankDetails,
+  };
+}
+
+export function ac_updateBankDetails(payload: MBankDetails, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+  return {
+    type: EActionTypes.updateBankDetails,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_saveBankDetails(payload: MBankDetails): IAction {
+  return {
+    type: EActionTypes.saveBankDetails,
+    payload,
+  };
+}
+
 export function ac_fetchGeoIpData(): IAction {
   return {
     type: EActionTypes.fetchGeoIpData,
@@ -226,6 +251,20 @@ export function ac_saveWithdrawHistory(payload: MWithdrawalHistoryItem[]): IActi
   };
 }
 
+export function ac_createTradingAccount(
+  payload: ICreateTradingAccountRequest,
+  demo: boolean,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
+  return {
+    type: demo ? EActionTypes.createDemoTradingAccount : EActionTypes.createLiveTradingAccount,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
 export function ac_fetchWithdrawLimit(payload: { accountId: number; platform: string }): IAction {
   return {
     type: EActionTypes.fetchWithdrawLimit,
@@ -237,6 +276,14 @@ export function ac_saveWithdrawLimit(payload: { limit: number }): IAction {
   return {
     type: EActionTypes.saveWithdrawLimit,
     payload,
+  };
+}
+
+export function ac_withdrawFunds(payload: IWithdrawFundRequest, onSuccess: AnyFunction): IAction {
+  return {
+    type: EActionTypes.withdrawFunds,
+    payload,
+    onSuccess,
   };
 }
 

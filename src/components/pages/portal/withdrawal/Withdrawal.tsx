@@ -1,9 +1,9 @@
 import { Alert, Button, Input, PageTitle, TradingAccountsSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { EFormStatus } from '@domain/enums';
+import { EFormStatus, ENotificationType } from '@domain/enums';
 import { MClientData, MTradingAccount, MWithdrawalHistoryItem } from '@domain/models';
-import { ac_fetchWithdrawLimit, EActionTypes, IStore } from '@store';
-import { Form, Formik, FormikProps } from 'formik';
+import { ac_fetchWithdrawLimit, ac_showNotification, ac_withdrawFunds, EActionTypes, IStore } from '@store';
+import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -37,8 +37,8 @@ export const Withdrawal = memo(function Withdrawal() {
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
-    account: Yup.object().required('This field is required'),
-    amount: Yup.number().when('account', {
+    [EFields.account]: Yup.object().required('This field is required'),
+    [EFields.amount]: Yup.number().when('account', {
       is: (val) => !!val,
       then: FieldValidators.requiredNumber
         .test('min', '', function (value) {
@@ -74,12 +74,35 @@ export const Withdrawal = memo(function Withdrawal() {
     }),
   });
 
+  function Submit(data: FormikValues) {
+    dispatch(
+      ac_withdrawFunds(
+        {
+          trade_account: data[EFields.account].account_id,
+          trade_platform: data[EFields.account].platform,
+          amount: data[EFields.account],
+        },
+        () =>
+          dispatch(
+            ac_showNotification({
+              type: ENotificationType.success,
+              context: t('Your Withdraw Request Added Successfully'),
+            }),
+          ),
+      ),
+    );
+  }
+
   return (
     <div className="withdrawal-page-wrapper">
       <Container>
-        <Row className="justify-content-center">
-          <Col xs={12} md={10} lg={8} xl={7}>
-            <PageTitle title="Withdrawal" description={t('HYCM withdrawal policy desc')} />
+        <Row>
+          <Col>
+            <PageTitle
+              sizes={{ xs: 12, md: 10, lg: 8, xl: 7 }}
+              title="Withdrawal"
+              description={t('HYCM withdrawal policy desc')}
+            />
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -110,7 +133,7 @@ export const Withdrawal = memo(function Withdrawal() {
               }}
               isInitialValid={false}
               validationSchema={validationSchema}
-              onSubmit={() => alert('Call `withdrawals/mt(4/5)` API.')}
+              onSubmit={Submit}
             >
               {({ values, setFieldValue }: FormikProps<any>) => {
                 return (
@@ -133,7 +156,9 @@ export const Withdrawal = memo(function Withdrawal() {
                       isLoading={store.withdrawalLimitIsLoading}
                       forceShowError={values.amount > 0}
                     />
-                    <Button type="submit">{t('Submit')}</Button>
+                    <Button type="submit" loadingOnAction={EActionTypes.withdrawFunds}>
+                      {t('Submit')}
+                    </Button>
                   </Form>
                 );
               }}

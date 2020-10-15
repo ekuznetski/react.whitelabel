@@ -18,6 +18,7 @@ import {
   Withdrawal,
 } from '@components/pages';
 import {
+  ac_fetchBankDetails,
   ac_fetchClientData,
   ac_fetchGeoIpData,
   ac_fetchProfile,
@@ -207,7 +208,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
-      icon: 'coins.svg',
+      icon: 'internal-transfer.svg',
       parent: 'Funds Management',
     },
   },
@@ -276,6 +277,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/profile',
     component: Profile,
     appSection: EAppSection.portal,
+    apiData: {
+      strict: [ac_fetchBankDetails],
+    },
     activators: [allowAuthorizedGuard],
     menuItem: false,
   },
