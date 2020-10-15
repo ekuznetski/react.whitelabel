@@ -34,11 +34,11 @@ export function SecondStep({ submitFn }: any) {
     .reduce((acc: any, month, idx) => [...acc, { value: idx + 1, label: month }], []);
 
   const validationSchema = Yup.object().shape({
-    tax_checkbox: FieldValidators.notRequired,
+    tax_checkbox: FieldValidators.notRequiredString,
     tax_country: Yup.string().when('tax_checkbox', {
       is: true,
       then: FieldValidators.alphaWithSpaceAndApostropheOnly,
-      otherwise: FieldValidators.notRequired,
+      otherwise: FieldValidators.notRequiredString,
     }),
     country: FieldValidators.alphaWithSpaceAndApostropheOnly,
     dayOfBirth: FieldValidators.requiredNumber
