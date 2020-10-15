@@ -1,7 +1,7 @@
-import { Img, LabelView, LocaleNavLink, Svg } from '@components/shared';
+import { Img, LocaleNavLink, Svg } from '@components/shared';
 import { ELabels } from '@domain/enums';
 import { IChildrenMenuConfig, IMenuConfig } from '@domain/interfaces';
-import { useDebounceEffect, useResponsive } from 'ahooks';
+import { useDebounceEffect } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,10 +16,8 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
     visible: false,
     posY: 0,
   });
-  const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
-  const responsive = useResponsive();
-  const { t } = useTranslation();
   const dropdownRef = createRef<HTMLDivElement>();
+  const { t } = useTranslation();
 
   useDebounceEffect(
     () => {
@@ -84,7 +82,7 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
           {menuDropdownOptions.items.map((child, c) => (
             <div key={c} className="item">
               <LocaleNavLink exact to={child.path} className="px-7">
-                {child.icon?.length && <Svg href={child.icon} className="mr-4" />}
+                {child.icon?.length && <Svg href={child.icon} width={24} className="mr-4" />}
                 {child.title}
               </LocaleNavLink>
             </div>

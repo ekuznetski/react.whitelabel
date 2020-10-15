@@ -208,7 +208,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
-      icon: 'coins.svg',
+      icon: 'internal-transfer.svg',
       parent: 'Funds Management',
     },
   },
