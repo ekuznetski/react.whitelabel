@@ -83,3 +83,7 @@ export const internalTransferRequest = request(EHttpMethod.post, `${apiUrl}/acco
 export const getTransactionalStatementsRequest = request(EHttpMethod.post, `${apiUrl}/clients/bankingStatements`);
 export const getBankDetailsRequest = request(EHttpMethod.post, `${apiUrl}/bankaccounts/getbankdetails`);
 export const updateBankDetailsRequest = request(EHttpMethod.post, `${apiUrl}/bankaccounts/saveaccount`);
+export const createMT4LiveAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt4accounts/create`);
+export const createMT4DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt4accounts/demo/create`);
+export const createMT5LiveAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt5accounts/create`);
+export const createMT5DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt5accounts/demo/create`);

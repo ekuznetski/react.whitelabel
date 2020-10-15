@@ -371,6 +371,15 @@
         "messageCode": 35,
         "data": { "trade_account_id": "220002709", "Currency": "CAD", "pwd": "pHFCxQjk", "platform": "MT4" }
       }
+    },
+    "demo": {
+      "create": {
+        "response": {
+          "status": "failure",
+          "message": "Similar Account already exist",
+          "messageCode": 35
+        }
+      }
     }
   },
   "bankaccounts": {

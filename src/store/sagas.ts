@@ -5,6 +5,7 @@ import {
   IClientAddResponse,
   IClientProfileResponse,
   IClientStatusDataResponse,
+  ICreateTradingAccountRequest,
   IEditProfileResponse,
   ILoginResponse,
   ISetProfileResponse,
@@ -24,6 +25,10 @@ import {
 import {
   clientAddRequest,
   clientSetProfileRequest,
+  createMT4DemoAccountRequest,
+  createMT4LiveAccountRequest,
+  createMT5DemoAccountRequest,
+  createMT5LiveAccountRequest,
   editProfileRequest,
   forgotPasswordRequest,
   getBankDetailsRequest,
@@ -44,7 +49,6 @@ import {
   withdrawalsHistoryRequest,
   withdrawalsLimitRequest,
 } from '@utils/services';
-import { response } from 'express';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { store } from './';
 import {
@@ -300,6 +304,36 @@ export function* getTradingAccountsSage() {
     },
     'data.tradingData',
   );
+}
+
+export function* createLiveTradingAccountsSage() {
+  yield $$(EActionTypes.createLiveTradingAccount, function* ({ payload }: IAction<ICreateTradingAccountRequest>) {
+    const { response } = yield call(
+      payload?.platform === ETradingPlatform.mt4 ? createMT4LiveAccountRequest : createMT5LiveAccountRequest,
+      {
+        account_type: payload?.account_type,
+        currency: payload?.currency,
+        leverage: payload?.leverage,
+      },
+    );
+    yield put(ac_fetchTradingAccounts());
+    return response.data;
+  });
+}
+
+export function* createDemoTradingAccountsSage() {
+  yield $$(EActionTypes.createDemoTradingAccount, function* ({ payload }: IAction<ICreateTradingAccountRequest>) {
+    const { response } = yield call(
+      payload?.platform === ETradingPlatform.mt4 ? createMT4DemoAccountRequest : createMT5DemoAccountRequest,
+      {
+        account_type: payload?.account_type,
+        currency: payload?.currency,
+        leverage: payload?.leverage,
+      },
+    );
+    yield put(ac_fetchTradingAccounts());
+    return response.data;
+  });
 }
 
 export function* makeInternalTransferSage() {

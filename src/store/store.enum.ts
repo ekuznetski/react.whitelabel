@@ -29,6 +29,8 @@ export enum EActionTypes {
 
   // DATA - Accounts
   makeInternalTransfer = '[DATA - Account] Internal Transfer',
+  createLiveTradingAccount = '[DATA - Account] Create Live Trading Account',
+  createDemoTradingAccount = '[DATA - Account] Create Demo Trading Account',
 
   // DATA - Withdrawal
   fetchWithdrawHistory = '[DATA - Withdrawal] Fetch History',

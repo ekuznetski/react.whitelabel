@@ -40,6 +40,8 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.changePassword:
     case EActionTypes.updateBankDetails:
     case EActionTypes.withdrawFunds:
+    case EActionTypes.createLiveTradingAccount:
+    case EActionTypes.createDemoTradingAccount:
       return {
         ...state,
         requests: {

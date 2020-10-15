@@ -8,6 +8,7 @@ import {
   IInternalTransferRequestData,
   ILoginRequest,
   INotificationState,
+  ICreateTradingAccountRequest,
   IResetPasswordRequest,
   ISetProfileRequest,
   ITransactionalStatementsRequestData,
@@ -247,6 +248,20 @@ export function ac_saveWithdrawHistory(payload: MWithdrawalHistoryItem[]): IActi
   return {
     type: EActionTypes.saveWithdrawHistory,
     payload,
+  };
+}
+
+export function ac_createTradingAccount(
+  payload: ICreateTradingAccountRequest,
+  demo: boolean,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
+  return {
+    type: demo ? EActionTypes.createDemoTradingAccount : EActionTypes.createLiveTradingAccount,
+    payload,
+    onSuccess,
+    onFailure,
   };
 }
 

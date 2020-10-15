@@ -51,3 +51,17 @@ export interface IInternalTransferRequestData {
   toPlatform: string;
   amount: number;
 }
+
+export interface ICreateTradingAccountRequest {
+  platform: string;
+  account_type: string;
+  currency: string;
+  leverage: string;
+}
+
+export interface ICreateTradingAccountResponse {
+  trade_account_id: string;
+  Currency: string;
+  pwd: string;
+  platform: string;
+}
