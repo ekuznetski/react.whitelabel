@@ -1,0 +1,19 @@
+.card-method-wrapper {
+  .cardholder input {
+    text-transform: uppercase;
+  }
+  .card-number {
+    position: relative;
+    .card-icon {
+      position: absolute;
+      right: 28px;
+      z-index: 1;
+      &.visa {
+        top: 18px;
+      }
+      &.mastercard {
+        top: 8px;
+      }
+    }
+  }
+}
