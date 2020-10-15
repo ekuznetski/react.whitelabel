@@ -94,7 +94,8 @@
   }
   &.vertical {
     flex-direction: row;
-    .isMobile & {
+    .isMobile &,
+    .isTablet & {
       flex-direction: column;
       .common-tabs {
         &__navigation,
