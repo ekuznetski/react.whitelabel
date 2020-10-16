@@ -1,5 +1,4 @@
 export * from './tabContentChooseAmount/TabContentChooseAmount';
-export * from './tabLabelDepositMethod/TabLabelDepositMethod';
 export * from './tabContentBankWire/TabContentBankWire';
 export * from './cardMethod/CardMethod';
 export * from './netellerMethod/NetellerMethod';
