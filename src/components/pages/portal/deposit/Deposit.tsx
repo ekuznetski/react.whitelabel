@@ -63,6 +63,14 @@ export const Deposit = memo(function Deposit(props) {
             <pre>{state.amount}</pre>
             <pre>{state.method?.toString()}</pre>
             <pre>{state.isAmountSelected?.toString()}</pre>
+            <pre>
+              {state.depositDetails &&
+                Object.keys(state.depositDetails).map((el) => (
+                  <div key={el}>
+                    {el}: {state.depositDetails[el]}
+                  </div>
+                ))}
+            </pre>
           </Container>
         );
       }}

@@ -94,6 +94,26 @@
   }
   &.vertical {
     flex-direction: row;
+    .isMobile &,
+    .isTablet & {
+      flex-direction: column;
+      .common-tabs {
+        &__navigation,
+        &__container {
+          display: none;
+        }
+      }
+      &.show_labels {
+        .common-tabs__navigation {
+          display: flex;
+        }
+      }
+      &.show_content {
+        .common-tabs__container {
+          display: block;
+        }
+      }
+    }
     .common-tabs {
       &__navigation {
         flex-direction: column;

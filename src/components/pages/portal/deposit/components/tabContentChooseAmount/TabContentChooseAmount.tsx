@@ -3,7 +3,7 @@ import { ECurrency, ECurrencySymbol } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import { IStore } from '@store';
 import { Form, Formik, FormikProps, useFormikContext } from 'formik';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -11,6 +11,8 @@ import { availableAmounts, depositActionCreators, DepositContext } from '../../d
 import './TabContentChooseAmount.scss';
 import classNames from 'classnames';
 import { Col, Row } from 'react-bootstrap';
+import { useDeviceDetect } from '@utils/hooks';
+import { FieldValidators } from '@domain';
 
 enum EFields {
   'account' = 'account',
@@ -25,6 +27,7 @@ export function TabContentChooseAmount() {
   const { amount, account } = useContext<any>(DepositContext).state;
   const { dispatch } = useContext<any>(DepositContext);
   const { t } = useTranslation();
+  const { isDesktop } = useDeviceDetect();
   const ref = React.createRef<HTMLInputElement>();
 
   const options: IRadioItem[] = availableAmounts.map((el) => ({
@@ -34,13 +37,17 @@ export function TabContentChooseAmount() {
   }));
 
   const validationSchema = Yup.object().shape({
-    // account: FieldValidators.requiredString,
-    // amount: FieldValidators.requiredNumber,
+    account: FieldValidators.requiredString,
+    amount: isDesktop ? FieldValidators.requiredString : FieldValidators.notRequiredString,
+    customAmount: Yup.number().when([EFields.amount], {
+      is: (amount) => !!amount && amount !== 'custom',
+      then: FieldValidators.notRequiredNumber,
+      otherwise: FieldValidators.requiredNumber,
+    }),
   });
 
   function CustomAmountInput() {
     const { values, setFieldValue }: { values: any; setFieldValue: any } = useFormikContext();
-
     return (
       <div onClick={() => ref.current?.focus()}>
         <div className="title ml-13 mt-7 mb-10">{t('Custom Amount')}</div>
@@ -50,13 +57,16 @@ export function TabContentChooseAmount() {
           className="custom-amount-input ml-8"
           onChange={(e: { target: { value: string } }) => {
             const value = e.target.value;
-            if (/^\d*$/gm.test(value) || value === '') {
-              setFieldValue(EFields.customAmount, e.target.value);
+            if (/^\d{0,9}$/gm.test(value) || value === '') {
+              setFieldValue(EFields.customAmount, value);
               setFieldValue(EFields.amount, 'custom');
             }
           }}
+          type="number"
+          inputMode="numeric"
           onFocus={() => setFieldValue(EFields.amount, 'custom')}
           ref={ref}
+          regex={/^\d{0,9}$/gm}
         />
       </div>
     );
@@ -68,8 +78,12 @@ export function TabContentChooseAmount() {
     className: 'custom-amount-item',
   });
 
-  const preselectedAmount = availableAmounts.includes(amount) ? amount : 'custom';
+  const preselectedAmount = isDesktop ? (availableAmounts.includes(amount) ? amount : 'custom') : '';
   const preselectedCustomAmount = !availableAmounts.includes(amount) ? amount : '';
+
+  function formatAmount(amount: number) {
+    return Intl.NumberFormat(navigator?.language ?? 'en-US').format(amount);
+  }
 
   return (
     <div className="choose-amount-wrapper py-10 px-9">
@@ -82,7 +96,7 @@ export function TabContentChooseAmount() {
         validationSchema={validationSchema}
         onSubmit={(data) => {
           const amount =
-            data[EFields.amount] !== 'custom' && !!data[EFields.amount]
+            isDesktop && data[EFields.amount] !== 'custom' && !!data[EFields.amount]
               ? data[EFields.amount]
               : data[EFields.customAmount];
           dispatch(depositActionCreators.setAmount(amount));
@@ -92,7 +106,7 @@ export function TabContentChooseAmount() {
           return (
             <Form className="m-auto form fadein-row">
               <Row>
-                <Col xs={12} sm={5}>
+                <Col xs={12} md={5}>
                   Choose account to fund
                   <TradingAccountsSelect
                     className={classNames(tradingAccounts.length === 1 ? 'd-none' : '')}
@@ -103,30 +117,42 @@ export function TabContentChooseAmount() {
                   />
                 </Col>
               </Row>
-              <Radio
-                colClassName="col-4 mb-8"
-                className="mb-10"
-                name={EFields.amount}
-                options={options}
-                onClick={(e: any) => {
-                  if (e.target.value !== 'custom') {
-                    setFieldValue(EFields.customAmount, '');
-                  }
-                }}
-              />
-              <Row className="mb-6">
+              {isDesktop && (
+                <Radio
+                  colClassName="col-4 mb-8"
+                  className="mb-10"
+                  name={EFields.amount}
+                  options={options}
+                  onClick={(e: any) => {
+                    if (e.target.value !== 'custom') {
+                      setFieldValue(EFields.customAmount, '');
+                    }
+                  }}
+                />
+              )}
+              {!isDesktop && (
+                <Input
+                  inputMode="numeric"
+                  type="number"
+                  label={t('Amount')}
+                  name={EFields.customAmount}
+                  className="custom-amount-input"
+                  regex={/^\d{0,9}$/gm}
+                />
+              )}
+              <Row className="mb-6 mt-5 mt-md-0">
                 <Col className="you-get-title">{t('You get')}</Col>
               </Row>
               <Row>
-                <Col sm={8}>
+                <Col md={8}>
                   <div className="you-get-amount d-flex align-items-center">
                     <span className="you-get-amount__symbol pr-3">{values[EFields.account].currencySymbol}</span>
                     {(values[EFields.amount] !== 'custom' && values[EFields.amount]) ||
-                      values[EFields.customAmount] ||
+                      formatAmount(values[EFields.customAmount]) ||
                       '0'}
                   </div>
                 </Col>
-                <Col sm={4} className="align-items-center d-flex">
+                <Col md={4} className="align-items-center d-flex">
                   <Button type="submit">{t('Proceed to Payment')}</Button>
                 </Col>
               </Row>

@@ -13,7 +13,6 @@ import classNames from 'classnames';
 import { ECurrencyCode } from '@domain/enums';
 
 function BankRadio({ bank }: any) {
-  console.log(bank);
   const { t } = useTranslation();
   return (
     <div className="bank-details">

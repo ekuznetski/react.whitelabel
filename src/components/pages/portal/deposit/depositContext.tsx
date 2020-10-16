@@ -1,7 +1,7 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { Nullable } from '@domain/interfaces';
 import { EDepositMethods } from '@domain/enums';
-import { IDataStore, IStore, store } from '@store';
+import { IStore } from '@store';
 import { MTradingAccount } from '@domain/models';
 import { useSelector } from 'react-redux';
 

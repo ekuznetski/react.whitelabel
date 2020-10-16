@@ -1,15 +1,20 @@
 import React from 'react';
 
+export enum EMobileDisplay {
+  labels = 'labels',
+  content = 'content ',
+}
 type TabAnchor = number | string | undefined;
 type TabData = string | React.ReactFragment | undefined;
 type Action = {
-  type: 'instantInit' | 'add' | 'addTempLabel' | 'addTempContent' | 'setActive';
+  type: 'instantInit' | 'add' | 'addTempLabel' | 'addTempContent' | 'setActive' | 'setMobileDisplay';
   label?: TabData;
   content?: TabData;
   anchor?: TabAnchor;
   disabled?: boolean;
   labels?: { value: TabData; anchor: number | string; disabled?: boolean }[];
   contents?: { value: TabData; anchor: number | string }[];
+  mobileDisplay?: EMobileDisplay;
 };
 type Dispatch = (action: Action) => void;
 type State = {
@@ -20,6 +25,7 @@ type State = {
   tempLabel: TabData;
   tempContent: TabData;
   initial: boolean;
+  mobileDisplay: EMobileDisplay;
 };
 type ActiveTab = {
   label?: { value: TabData; anchor: number | string; disabled?: boolean };
@@ -37,6 +43,9 @@ function TabsReducer(state: State, action: Action) {
   switch (action.type) {
     case 'setActive': {
       return { ...state, active: action.anchor };
+    }
+    case 'setMobileDisplay': {
+      return { ...state, mobileDisplay: action.mobileDisplay ?? EMobileDisplay.labels };
     }
     case 'instantInit': {
       const anchors = action.labels?.map((label) => label.anchor) || [];
@@ -107,6 +116,7 @@ function TabsProvider({ children }: TabsProviderProps) {
     tempLabel: undefined,
     tempContent: undefined,
     initial: false,
+    mobileDisplay: EMobileDisplay.labels,
   });
   const active = {
     anchor: state.active,

@@ -1,8 +1,11 @@
 import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect, useMemo, useState } from 'react';
-import { ActiveTab, TabsProvider, useTabsDispatch, useTabsState } from './tabs-context';
+import { ActiveTab, EMobileDisplay, TabsProvider, useTabsDispatch, useTabsState } from './tabs-context';
 import './Tabs.scss';
+import { Button } from '..';
+import { useTranslation } from 'react-i18next';
+import { useDeviceDetect } from '@utils/hooks';
 
 export interface ITabs {
   labels?: { value: string | React.ReactFragment; anchor: string; disabled?: boolean }[];
@@ -43,6 +46,8 @@ export function Tabs({
   const [lineProps, setLineProps] = useState<TabsState['lineProps']>();
   const viewportSize = useResponsive();
   const tabsContentRef: { [k: string]: HTMLDivElement | null } = {};
+  const { t } = useTranslation();
+  const { isDesktop } = useDeviceDetect();
   let activeNavTabLink: HTMLDivElement | null = null;
 
   if (!children && !(labels && content)) {
@@ -89,7 +94,9 @@ export function Tabs({
 
         return useMemo(
           () => (
-            <div className={classNames('common-tabs', isVertical && 'vertical', className)}>
+            <div
+              className={classNames('common-tabs', isVertical && 'vertical', 'show_' + state.mobileDisplay, className)}
+            >
               <div
                 className={classNames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}
               >
@@ -120,6 +127,11 @@ export function Tabs({
                   ? state.contents.map((content, c) => <Tab key={c} anchor={content.anchor} content={content.value} />)
                   : children}
               </div>
+              {!isDesktop && isVertical && state.mobileDisplay === EMobileDisplay.labels && (
+                <Button onClick={() => dispatch({ type: 'setMobileDisplay', mobileDisplay: EMobileDisplay.content })}>
+                  {t('Continue')}
+                </Button>
+              )}
             </div>
           ),
           [active],
