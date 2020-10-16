@@ -39,7 +39,7 @@ export function BurgerMenu({ menuConfig, closeBurgerMenu, className }: IBurgerMe
           <Button className="mt-auto">
             <LocaleLink to="/deposit" className="px-5">
               {t('Deposit')}
-              <Svg href="coins.svg" className="ml-auto" />
+              <Svg href="coins" className="ml-auto" />
             </LocaleLink>
           </Button>
         </Row>

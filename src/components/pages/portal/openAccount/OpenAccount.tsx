@@ -139,7 +139,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
             </small>
           </ModalTitle>
           <ModalContext>
-            <Svg href="shrimp.svg" width={100} className="p-7" />
+            <Svg href="shrimp" width={100} className="p-7" />
           </ModalContext>
           <ModalNav>
             <Button className="col-12 col-md-8 mx-auto" onClick={() => closeModal(EModalType.success)(false)}>
@@ -156,7 +156,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
         >
           <ModalTitle title={t('Unsuccessful Submission')} subTitle={t('A Similar Trade Account Already Exists')} />
           <ModalContext>
-            <Svg href="shrimp.svg" width={100} className="p-7" />
+            <Svg href="shrimp" width={100} className="p-7" />
           </ModalContext>
           <ModalNav>
             <Button className="red mr-5" onClick={() => closeModal(EModalType.failure)(false)}>

@@ -11,11 +11,11 @@ export function Contacts() {
       title: t('Client Support'),
       points: [
         {
-          icon: 'envelope.svg',
+          icon: 'envelope',
           label: 'support@hycm.com',
         },
         {
-          icon: 'clock.svg',
+          icon: 'clock',
           label: t('Working hours 24 5'),
         },
       ],
@@ -24,15 +24,15 @@ export function Contacts() {
       title: t('Account Opening'),
       points: [
         {
-          icon: 'envelope.svg',
+          icon: 'envelope',
           label: 'accounts@hycm.com',
         },
         {
-          icon: 'phone.svg',
+          icon: 'phone',
           label: '+44 (208) 816-7812',
         },
         {
-          icon: 'clock.svg',
+          icon: 'clock',
           label: t('Working hours 24 5'),
         },
       ],
@@ -41,15 +41,15 @@ export function Contacts() {
       title: t('General Inquiries'),
       points: [
         {
-          icon: 'envelope.svg',
+          icon: 'envelope',
           label: 'info@hycm.com',
         },
         {
-          icon: 'phone.svg',
+          icon: 'phone',
           label: '+44 (208) 816-7812',
         },
         {
-          icon: 'clock.svg',
+          icon: 'clock',
           label: t('Working hours 24 5'),
         },
       ],
@@ -58,11 +58,11 @@ export function Contacts() {
       title: 'Complaints',
       points: [
         {
-          icon: 'envelope.svg',
+          icon: 'envelope',
           label: 'complaints@hycm.com',
         },
         {
-          icon: 'clock.svg',
+          icon: 'clock',
           label: '9:00 - 18.00 (GMT +3)',
         },
       ],
@@ -111,7 +111,7 @@ export function Contacts() {
             <Col xs={12}>
               <div className="page-top__title mb-9">{t('Contact us')}</div>
               <div className="page-top__description">
-                <Svg href="phone.svg" className="mr-5" />
+                <Svg href="phone" className="mr-5" />
                 +44 (208) 816-7812
               </div>
             </Col>
@@ -179,7 +179,7 @@ function officesCardHeader(location: string, office: string) {
   return (
     <>
       <div className="location mb-5">
-        <Svg href="globe.svg" width={16} className="mr-3" />
+        <Svg href="globe" width={16} className="mr-3" />
         {location}
       </div>
       <div className="office">

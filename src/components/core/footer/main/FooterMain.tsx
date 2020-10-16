@@ -11,7 +11,7 @@ export default function FooterMain() {
     <Container className="py-lg-16 py-md-15 py-13">
       <Row className="mb-lg-11 mb-9">
         <Col xs={12} className="live-chat">
-          <Svg href="chat.svg" className="mr-5" /> {t('Live Chat')}
+          <Svg href="chat" className="mr-5" /> {t('Live Chat')}
         </Col>
       </Row>
       <Row className="mb-lg-11 mb-9">
@@ -24,11 +24,11 @@ export default function FooterMain() {
             <a className="links-item">{t('Cookies Policy')}</a>
           </div>
           <div className="social-links ml-auto">
-            <Svg href="facebook.svg" className="mr-5" />
-            <Svg href="tweeter.svg" className="mr-5" />
-            <Svg href="linkedin.svg" className="mr-5" />
-            <Svg href="instagram.svg" className="mr-5" />
-            <Svg href="youtube.svg" />
+            <Svg href="facebook" className="mr-5" />
+            <Svg href="tweeter" className="mr-5" />
+            <Svg href="linkedin" className="mr-5" />
+            <Svg href="instagram" className="mr-5" />
+            <Svg href="youtube" />
           </div>
         </Col>
       </Row>

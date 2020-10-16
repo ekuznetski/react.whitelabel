@@ -9,7 +9,7 @@ export function TabLabelDepositMethod({ title, subTitle, icon }: { title: string
         <div className="title">{title}</div>
         <div className="subtitle">{subTitle}</div>
       </div>
-      <Svg className="icon" href={icon + '.svg'} width={40} height={24} />
+      <Svg className="icon" href={icon} width={40} height={24} />
     </div>
   );
 }

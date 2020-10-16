@@ -1,21 +1,21 @@
 export const profileMenuConfig = [
   {
-    icon: 'coins.svg',
+    icon: 'coins',
     path: '/verification',
     title: 'Verification',
   },
   {
-    icon: 'coins.svg',
+    icon: 'coins',
     path: '/invite-friends',
     title: 'Invite Friends',
   },
   {
-    icon: 'profile.svg',
+    icon: 'profile',
     path: '/profile',
     title: 'My Profile',
   },
   {
-    icon: 'coins.svg',
+    icon: 'coins',
     path: '/logout',
     title: 'Log Out',
   },

@@ -132,10 +132,10 @@ export function TabContentChooseAmount() {
               </Row>
               <Row>
                 <Col sm={{ span: 4, offset: 8 }} className="d-flex justify-content-between align-items-center">
-                  <Svg href="shrimp.svg" height="40" width="45" />
-                  <Svg href="shrimp.svg" height="40" width="45" />
-                  <Svg href="shrimp.svg" height="40" width="45" />
-                  <Svg href="shrimp.svg" height="40" width="45" />
+                  <Svg href="shrimp" height="40" width="45" />
+                  <Svg href="shrimp" height="40" width="45" />
+                  <Svg href="shrimp" height="40" width="45" />
+                  <Svg href="shrimp" height="40" width="45" />
                 </Col>
               </Row>
             </Form>

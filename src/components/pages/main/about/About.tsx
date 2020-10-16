@@ -115,17 +115,17 @@ export function About() {
             <div className="col p-0">
               <div className="deposit__title mb-12">{t('Deposit & Withdrawal Information')}</div>
               <Cards id="depositCards" className="deposit__cards mb-16">
-                <Card wrapperClassName="col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="zero_pct.svg" />} uid={1}>
+                <Card wrapperClassName="col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="zero_pct" />} uid={1}>
                   <CardContent>
                     {t('No Deposit Fees')} <small>{t('Fees')}</small>
                   </CardContent>
                 </Card>
-                <Card wrapperClassName="col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="funds_secure.svg" />} uid={2}>
+                <Card wrapperClassName="col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="funds_secure" />} uid={2}>
                   <CardContent>
                     {t('Funds Secured')} <small>{t('In Tier-1 Banks')}</small>
                   </CardContent>
                 </Card>
-                <Card wrapperClassName="col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="timer.svg" />} uid={3}>
+                <Card wrapperClassName="col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="timer" />} uid={3}>
                   <CardContent>
                     {t('Quick')} <small>{t('Processing')}</small>
                   </CardContent>

@@ -28,8 +28,8 @@ export function HeaderMain(props: IHeaderDefaultProps) {
       <div className={classNames('panel-menu', (props.fixed || isBurgerMenuOpen) && 'fixed')}>
         <Container className="py-3 py-lg-0">
           <div className="logo mr-9">
-            <Svg href="logo.svg" _label height={!responsive.md ? 28 : 37} />
-            <Svg href="logo.svg" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
+            <Svg href="logo" _label height={!responsive.md ? 28 : 37} />
+            <Svg href="logo" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
             <Img src="logo.png" _label={ELabels.bsfx} height={!responsive.md ? 48 : 87} />
           </div>
           <div className="menu">
@@ -48,14 +48,14 @@ export function HeaderMain(props: IHeaderDefaultProps) {
             {!responsive.lg &&
               (isBurgerMenuOpen ? (
                 <Svg
-                  href="close.svg"
+                  href="close"
                   className="close-icon ml-9"
                   height={!responsive.md ? 18 : 21}
                   onClick={() => setOpenBurgerMenu(false)}
                 />
               ) : (
                 <Svg
-                  href="burger_menu.svg"
+                  href="burger_menu"
                   className="burger-icon ml-9"
                   height={!responsive.md ? 18 : 21}
                   onClick={() => setOpenBurgerMenu(true)}

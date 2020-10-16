@@ -56,7 +56,7 @@ export const Modal = memo(
             ref={elementRef}
           >
             <Svg
-              href="close.svg"
+              href="close"
               className="common-modal__close"
               height={18}
               onClick={(e) => {

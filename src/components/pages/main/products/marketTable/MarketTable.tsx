@@ -40,16 +40,16 @@ export const MarketTable = memo((props: IMarketTable) => {
 							<div className={tdClass}>{item.raw.toString() === 'N/A' ? item.raw : item.raw + ' per round'}</div>
 						</div>
 						<div className={fullViewParamClass}>
-							<Svg href="info.svg" isIcon />
+							<Svg href="info" isIcon />
 						</div>
 						<div className={fullViewParamClass}>
-							<Svg href="info.svg" isIcon />
+							<Svg href="info" isIcon />
 						</div>
 						<div className={fullViewParamClass}>{item.lotSize}</div>
 						<div className={fullViewParamClass}>{item.minTrade}</div>
 						<div className={fullViewParamClass}>{item.valuePerTick}</div>
 						<div className={fullViewParamClass}>
-							<Svg href="info.svg" isIcon />
+							<Svg href="info" isIcon />
 						</div>
 						<div className={tdClass}>{platforms[item.platform]}</div>
 					</div>

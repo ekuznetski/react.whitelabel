@@ -37,7 +37,7 @@ export function UserProfileCard() {
           </div>
           <div className="profile-info__email">{clientProfile.email}</div>
           <div className="profile-info__status danger">
-            <Svg href="warning.svg" /> {t('Verify your profile')}
+            <Svg href="warning" /> {t('Verify your profile')}
           </div>
         </div>
       </div>
@@ -46,13 +46,13 @@ export function UserProfileCard() {
           <Button className="px-3">
             <LocaleNavLink exact to="/deposit">
               {t('Add Deposit')}
-              <Svg href="coins.svg" className="ml-4" />
+              <Svg href="coins" className="ml-4" />
             </LocaleNavLink>
           </Button>
         </div>
         <div className="profile-options__nav ml-auto" ref={profileNavRef}>
           <Button className={isDropdownMenuOpen ? 'active' : ''} onClick={toggleDropdownMenu}>
-            <Svg href="gear.svg" />
+            <Svg href="gear" />
           </Button>
           <DropDown
             parentRef={profileNavRef}

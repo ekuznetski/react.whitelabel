@@ -40,7 +40,7 @@ export const Button = memo(
         disabled={_disabled || _loading}
         ref={ref}
       >
-        {_loading ? <Svg href="loading.svg" width={20} height={20} className="loader" /> : props.children}
+        {_loading ? <Svg href="loading" width={20} height={20} className="loader" /> : props.children}
       </button>
     );
   }),

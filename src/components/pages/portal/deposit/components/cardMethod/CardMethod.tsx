@@ -71,7 +71,7 @@ export function CardMethod() {
                     <Input label="CVV/CVC" name={EFields.cvc} />
                   </Col>
                   <Col xs={12} sm={6}>
-                    <Svg href="shrimp.svg" width={20} />
+                    <Svg href="shrimp" width={20} />
                   </Col>
                   <Col xs={12}>
                     <Button type="submit">Deposit</Button>

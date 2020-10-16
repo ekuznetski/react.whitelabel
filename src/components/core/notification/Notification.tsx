@@ -62,7 +62,7 @@ export function Notification(props: INotification) {
       </Container>
       <div className="notification-progress" style={{ width: progress + '%' }} />
       <Svg
-        href="close.svg"
+        href="close"
         className="notification-close"
         height={18}
         onClick={(e: any) => {

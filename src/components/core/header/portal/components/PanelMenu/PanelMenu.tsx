@@ -89,8 +89,8 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
           ))}
         </div>
         <div className="header-panel-menu__dropdown-footer px-7">
-          <Svg href="logo.svg" _label height={12} />
-          <Svg href="logo.svg" _label={ELabels.arofx} height={12} />
+          <Svg href="logo" _label height={12} />
+          <Svg href="logo" _label={ELabels.arofx} height={12} />
           <Img src="logo.png" _label={ELabels.bsfx} height={16} />
           <span>{t('Est since 1977')}</span>
         </div>

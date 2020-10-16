@@ -29,7 +29,7 @@ export function ProfileMenu() {
         {clientProfile.first_name[0]}
         {clientProfile.surname[0]}
       </div>
-      <Svg href="chevron.svg" className="header-profile-menu__chevron" onClick={toggleDropdownMenu} />
+      <Svg href="chevron" className="header-profile-menu__chevron" onClick={toggleDropdownMenu} />
       <DropDown
         parentRef={facepileRef}
         items={profileMenuConfig}

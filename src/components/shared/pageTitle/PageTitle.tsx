@@ -25,7 +25,7 @@ export function PageTitle({ showBackButton = true, sizes = { xs: 12 }, ...props 
       {showBackButton && (
         <div className="page-title__to-dashboard">
           <LocaleNavLink exact to="/dashboard">
-            <Svg href="arrow_left.svg" className="mr-3" />
+            <Svg href="arrow_left" className="mr-3" />
             Back To Dashboard
           </LocaleNavLink>
         </div>
