@@ -38,26 +38,41 @@
     }
 
     .tab__link {
-      font-size: 18px;
-      line-height: 28px;
-      text-align: center;
-      color: $text;
-      cursor: pointer;
-      transition: color 0.25s;
-      font-weight: 500;
+      &__label {
+        font-size: 18px;
+        line-height: 28px;
+        text-align: center;
+        color: $text;
+        cursor: pointer;
+        transition: color 0.25s;
+        font-weight: 500;
+      }
 
-      svg {
+      &__icon {
         transition: fill 0.25s;
+        fill: $blue;
       }
 
       &.active {
-        color: $dark-text;
+        .tab__link {
+          &__label {
+            color: $dark-text;
+          }
+        }
       }
 
       &.disabled {
-        color: $dark-grey !important;
-        cursor: default;
-        font-weight: 300;
+        .tab__link {
+          &__label {
+            color: $dark-grey !important;
+            cursor: default;
+            font-weight: 300;
+          }
+
+          &__icon {
+            filter: grayscale(1) brightness(1.1);
+          }
+        }
       }
     }
 
@@ -85,6 +100,7 @@
 
     .tab__content {
       display: none;
+
       &.active {
         display: block;
         animation-name: fadeIn;
@@ -92,28 +108,34 @@
       }
     }
   }
+
   &.vertical {
     flex-direction: row;
+
     .isMobile &,
     .isTablet & {
       flex-direction: column;
+
       .common-tabs {
         &__navigation,
         &__container {
           display: none;
         }
       }
+
       &.show_labels {
         .common-tabs__navigation {
           display: flex;
         }
       }
+
       &.show_content {
         .common-tabs__container {
           display: block;
         }
       }
     }
+
     .common-tabs {
       &__navigation {
         flex-direction: column;
@@ -125,12 +147,78 @@
         &:after {
           display: none;
         }
+
+        .tab__link {
+          @include d-flex(center, space-between);
+          position: relative;
+          font-weight: 600;
+          z-index: 1;
+          border-radius: $border-radius;
+          transition: background 0.1s, box-shadow 0.1s;
+          cursor: pointer;
+
+          &:before,
+          &:after {
+            content: '';
+            position: absolute;
+            left: 16px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid $dark-grey;
+          }
+
+          &.active {
+            background: #fff;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+
+            &:after {
+              background-color: $blue;
+              border-color: $blue;
+            }
+          }
+
+          &__label {
+            @include d-flex(start, center, column);
+            text-align: left;
+            font-size: 16px;
+            line-height: 26px;
+            min-height: 76px;
+
+            &-subtitle {
+              font-weight: 400;
+              color: rgba(0, 0, 0, 0.4);
+            }
+          }
+
+          &.disabled {
+            .tab__link {
+              &__icon {
+              }
+            }
+          }
+        }
       }
+
       &__container {
         background-color: #fff;
         border-radius: $border-radius;
         box-shadow: box-shadow(15, 0.1);
         width: 100%;
+      }
+    }
+  }
+}
+
+.isDesktop {
+  .common-tabs.vertical {
+    .common-tabs__navigation {
+      .tab__link {
+        border-radius: $border-radius 0 0 $border-radius;
+
+        &.active {
+          box-shadow: -4px 0 10px 0 rgba(0, 0, 0, 0.05), 5px 0 0 0 #fff;
+        }
       }
     }
   }
