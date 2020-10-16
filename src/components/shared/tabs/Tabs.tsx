@@ -145,7 +145,7 @@ export function Tabs({
                   : children}
               </div>
               {!isDesktop && isVertical ? (
-                <div className={classNames('common-tabs__container', isVertical && 'py-8 px-9')}>
+                <div className={'common-tabs__nav mt-8'}>
                   {state.mobileDisplay === EMobileDisplay.labels && (
                     <Button onClick={() => switchMobileDisplay(EMobileDisplay.content)}>{t('Continue')}</Button>
                   )}
