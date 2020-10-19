@@ -86,7 +86,7 @@ export function TabContentChooseAmount() {
   }
 
   return (
-    <div className="choose-amount-wrapper py-10 px-9">
+    <div className="choose-amount-wrapper">
       <Formik
         initialValues={{
           [EFields.account]: account ?? tradingAccounts[0],
@@ -106,7 +106,7 @@ export function TabContentChooseAmount() {
           return (
             <Form className="m-auto form fadein-row">
               <Row>
-                <Col xs={12} md={5}>
+                <Col xs={12} md={6} lg={7} xl={5}>
                   Choose account to fund
                   <TradingAccountsSelect
                     className={classNames(tradingAccounts.length === 1 ? 'd-none' : '')}
@@ -119,8 +119,8 @@ export function TabContentChooseAmount() {
               </Row>
               {isDesktop && (
                 <Radio
-                  colClassName="col-4 mb-8"
-                  className="mb-10"
+                  colClassName="col-4 mb-7 pr-0"
+                  className="mb-10 mr-0"
                   name={EFields.amount}
                   options={options}
                   onClick={(e: any) => {
@@ -144,7 +144,7 @@ export function TabContentChooseAmount() {
                 <Col className="you-get-title">{t('You get')}</Col>
               </Row>
               <Row>
-                <Col md={8}>
+                <Col md={7} xl={8}>
                   <div className="you-get-amount d-flex align-items-center">
                     <span className="you-get-amount__symbol pr-3">{values[EFields.account].currencySymbol}</span>
                     {(values[EFields.amount] !== 'custom' && values[EFields.amount]) ||
@@ -152,16 +152,20 @@ export function TabContentChooseAmount() {
                       '0'}
                   </div>
                 </Col>
-                <Col md={4} className="align-items-center d-flex">
+                <Col md={5} xl={4} className="align-items-center d-flex">
                   <Button type="submit">{t('Proceed to Payment')}</Button>
                 </Col>
               </Row>
               <Row>
-                <Col md={{ span: 4, offset: 8 }} className="d-flex justify-content-between align-items-center">
-                  <Svg href="shrimp.svg" height="40" width="45" />
-                  <Svg href="shrimp.svg" height="40" width="45" />
-                  <Svg href="shrimp.svg" height="40" width="45" />
-                  <Svg href="shrimp.svg" height="40" width="45" />
+                <Col
+                  md={{ span: 4, offset: 8 }}
+                  lg={{ span: 5, offset: 7 }}
+                  className="d-flex justify-content-between align-items-center"
+                >
+                  <Svg href="shrimp" height="40" width="45" />
+                  <Svg href="shrimp" height="40" width="45" />
+                  <Svg href="shrimp" height="40" width="45" />
+                  <Svg href="shrimp" height="40" width="45" />
                 </Col>
               </Row>
             </Form>

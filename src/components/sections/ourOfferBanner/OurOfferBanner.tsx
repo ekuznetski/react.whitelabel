@@ -14,18 +14,18 @@ export const OurOfferBannerSection = memo(
         <Container>
           <Row>
             <Col xs={12} md={4} className="py-8">
-              <Svg href="zero_pct.svg" height={48} className="mr-5 mb-md-4 mb-lg-0" />
+              <Svg href="zero_pct" height={48} className="mr-5 mb-md-4 mb-lg-0" />
               {t('Zero Deposit Fees')}
             </Col>
             <Col xs={12} md={4} className="py-8">
-              <Svg href="graph.svg" height={48} className="mr-5 mb-md-4 mb-lg-0" />
+              <Svg href="graph" height={48} className="mr-5 mb-md-4 mb-lg-0" />
               <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
                 Max. Leverage <b>1:200</b>
               </Trans>
               ,
             </Col>
             <Col xs={12} md={4} className="py-8">
-              <Svg href="gear_24hr.svg" height={48} className="mr-5 mb-md-4 mb-lg-0" />
+              <Svg href="gear_24hr" height={48} className="mr-5 mb-md-4 mb-lg-0" />
               {t('24 5 Customer Support')}
             </Col>
           </Row>

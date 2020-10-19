@@ -145,7 +145,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
               </>
             ) : (
               <Svg
-                href="no-filter.svg"
+                href="no-filter"
                 width={160}
                 height={160}
                 style={{ fill: '#b0b4b9' }}

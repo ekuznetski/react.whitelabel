@@ -135,7 +135,7 @@ export function CardMethod() {
                     <Input label="Сardholder Name" name={EFields.cardholderName} className="cardholder" />
                   </Col>
                   <Col xs={12} className="card-number">
-                    {cardType && <Svg href={`${cardType}-logo.svg`} width={45} className={`card-icon ${cardType}`} />}
+                    {cardType && <Svg href={`${cardType}-logo`} width={45} className={`card-icon ${cardType}`} />}
                     <Input
                       label="Сard Number"
                       name={EFields.cardNumber}
@@ -192,7 +192,7 @@ export function CardMethod() {
                     <Input type="number" label="CVV/CVC" regex={/^\d{0,3}$/} name={EFields.cvc} />
                   </Col>
                   <Col xs={12} sm={6}>
-                    <Svg href="shrimp.svg" width={20} />
+                    <Svg href="shrimp" width={20} />
                   </Col>
                   <Col xs={12}>
                     <Button type="submit">Deposit</Button>

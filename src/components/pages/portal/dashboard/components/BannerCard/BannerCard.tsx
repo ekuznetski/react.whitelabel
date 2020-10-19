@@ -125,10 +125,10 @@ export function BannerCard() {
         </div>
         <div className="banner-options__nav ml-auto">
           <Button onClick={() => setActiveCardIdx((activeCardIdx + 1) % cards.length)} className="mr-4">
-            <Svg href="chevron_left.svg" height={24} />
+            <Svg href="chevron_left" height={24} />
           </Button>
           <Button onClick={() => setActiveCardIdx((activeCardIdx - 1 < 0 ? cards.length : activeCardIdx) - 1)}>
-            <Svg href="chevron_right.svg" height={24} />
+            <Svg href="chevron_right" height={24} />
           </Button>
         </div>
       </div>

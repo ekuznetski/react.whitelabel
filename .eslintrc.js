@@ -23,5 +23,6 @@ module.exports = {
   extends: [],
   rules: {
     'func-style': ['error', 'declaration'],
+    'space-in-brackets': ['error', 'always'],
   },
 };

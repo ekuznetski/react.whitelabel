@@ -15,6 +15,7 @@ import {
   Registration,
   ResetPassword,
   TransactionStatement,
+  Verification,
   Withdrawal,
 } from '@components/pages';
 import {
@@ -175,8 +176,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
-      icon: 'coins.svg',
-      parent: { title: 'Funds Management', icon: 'money.svg' },
+      icon: 'coins',
+      parent: { title: 'Funds Management', icon: 'money' },
     },
   },
   {
@@ -192,7 +193,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
-      icon: 'coins.svg',
+      icon: 'coins',
       parent: 'Funds Management',
     },
   },
@@ -208,7 +209,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
-      icon: 'internal-transfer.svg',
+      icon: 'internal-transfer',
       parent: 'Funds Management',
     },
   },
@@ -221,7 +222,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     menuItem: {
-      icon: 'coins.svg',
+      icon: 'coins',
       parent: 'Funds Management',
     },
   },
@@ -237,8 +238,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
       accountType: ETradingType.live,
     },
     menuItem: {
-      icon: 'filter.svg',
-      parent: { title: 'Trading Accounts', icon: 'trading_graph.svg' },
+      icon: 'filter',
+      parent: { title: 'Trading Accounts', icon: 'trading_graph' },
     },
   },
   {
@@ -253,8 +254,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
       accountType: ETradingType.demo,
     },
     menuItem: {
-      icon: 'filter.svg',
-      parent: { title: 'Trading Accounts', icon: 'trading_graph.svg' },
+      icon: 'filter',
+      parent: { title: 'Trading Accounts', icon: 'trading_graph' },
     },
   },
   {
@@ -266,8 +267,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     menuItem: {
-      icon: 'coins.svg',
-      parent: { title: 'Tools', icon: 'documents.svg' },
+      icon: 'coins',
+      parent: { title: 'Tools', icon: 'documents' },
     },
   },
   {
@@ -280,6 +281,19 @@ export const routesNavConfig: IRouteNavConfig[] = [
     apiData: {
       strict: [ac_fetchBankDetails],
     },
+    activators: [allowAuthorizedGuard],
+    menuItem: false,
+  },
+  {
+    meta: {
+      title: 'Verification',
+    },
+    path: '/verification',
+    component: Verification,
+    appSection: EAppSection.portal,
+    // apiData: {
+    //   strict: [ac_fetchBankDetails], // TINS, CCard Data
+    // },
     activators: [allowAuthorizedGuard],
     menuItem: false,
   },

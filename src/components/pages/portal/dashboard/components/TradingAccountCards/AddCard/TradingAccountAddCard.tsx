@@ -17,7 +17,7 @@ export const TradingAccountAddCard = memo(function TradingAccountAddCard(props: 
     <div className={classNames('trading-account-add-card', props.inline ? 'col-12 inline' : 'col-4')}>
       <div className="trading-account-card-wrapper">
         <div className={classNames('account-card__btn', !props.inline && 'mb-2')}>
-          <Svg href="plus.svg" />
+          <Svg href="plus" />
         </div>
         <div className="account-card__text">
           {t('Create')} {props.type == ETradingType.demo ? t('Demo') : t('Live')} {t('Account')}

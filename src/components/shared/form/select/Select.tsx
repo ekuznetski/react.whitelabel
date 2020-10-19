@@ -285,7 +285,7 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
         <div className="trading-item__number">{account.accountId}</div>
         <div className="trading-item__spacer mx-3" />
         <div className="trading-item__balance">
-          <Svg href={account.currency.toLowerCase() + '.svg'} className="mr-1" height={12} />
+          <Svg href={account.currency.toLowerCase()} className="mr-1" height={12} />
           {account.balance}
         </div>
       </div>

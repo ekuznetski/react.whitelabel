@@ -10,7 +10,7 @@ export function HeaderAuth(props: IHeaderDefaultProps) {
 		<div className={classNames('panel-menu', props.fixed && 'fixed')}>
 			<Container>
 				<div className="logo">
-					<Svg className="m-auto" href="logo.svg" _label />
+					<Svg className="m-auto" href="logo" _label />
 				</div>
 			</Container>
 		</div>

@@ -14,12 +14,12 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
     <div className={classNames('withdrawal-history-item mb-10', props.status.toLowerCase())}>
       <div className="withdrawal-info ">
         <div className="withdrawal-item__icon px-6">
-          <Svg href="shrimp.svg" height={18} />
+          <Svg href="shrimp" height={18} />
         </div>
         <div className="withdrawal-item__amount px-6">
           <div className="item-cel__title mb-2">{t('Requested')}</div>
           <div className="item-cel__content">
-            <Svg href={props.currency.toLowerCase() + '.svg'} className="mr-1" height={14} />
+            <Svg href={props.currency.toLowerCase()} className="mr-1" height={14} />
             {props.amount}
           </div>
         </div>
@@ -57,14 +57,14 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
               <div className="withdrawal-cell px-2">{item.reference}</div>
               <div className="withdrawal-cell px-2">{item.paymentMethod}</div>
               <div className="withdrawal-cell">
-                <Svg href={props.currency.toLowerCase() + '.svg'} height={14} />
+                <Svg href={props.currency.toLowerCase()} height={14} />
                 {item.amount}
               </div>
             </div>
           ))}
           <div className="withdrawal-table__row footer">
             {t('Total Amount')}
-            <Svg href={props.currency.toLowerCase() + '.svg'} className="ml-1" height={14} />
+            <Svg href={props.currency.toLowerCase()} className="ml-1" height={14} />
             {props.items?.reduce((acc, item) => acc + item.amount, 0)}
           </div>
         </div>
@@ -72,7 +72,7 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
       <Modal className="withdrawal-history-item__modal" isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
         <ModalTitle title={t('Confirmation')} subTitle={t('Please confirm withdrawal cancellation')} />
         <ModalContext>
-          <Svg href="shrimp.svg" width={100} className="p-7" />
+          <Svg href="shrimp" width={100} className="p-7" />
         </ModalContext>
         <ModalNav>
           <Button

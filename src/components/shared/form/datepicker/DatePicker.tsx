@@ -92,7 +92,7 @@ export const DatePicker = memo(
             {label}
           </label>
         )}
-        <Svg href="calendar.svg" height={28} />
+        <Svg href="calendar" height={28} />
         <input value={_value()} onFocus={onFocusHandler} onChange={(e) => e.preventDefault()} />
         <DropDown
           className={classNames('datepicker', state.isFocused && 'focused')}

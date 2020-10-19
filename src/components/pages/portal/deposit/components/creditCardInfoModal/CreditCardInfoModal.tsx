@@ -14,7 +14,7 @@ export function CreditCardInfoModal({ isModalOpen, setModalOpen }: IBillingDetai
     <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
       <ModalTitle title={t('Confirmation')} subTitle={t('Please confirm withdrawal cancellation')} />
       <ModalContext>
-        <Svg href="shrimp.svg" width={100} className="p-7" />
+        <Svg href="shrimp" width={100} className="p-7" />
       </ModalContext>
       <ModalNav>
         <Button

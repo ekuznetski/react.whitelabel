@@ -29,6 +29,7 @@
     "@svgr/webpack": "^5.4.0",
     "ahooks": "^2.6.1",
     "bootstrap": "^4.5.2",
+    "card-validator": "^8.1.0",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "classnames": "^2.2.6",
     "compression": "^1.7.4",

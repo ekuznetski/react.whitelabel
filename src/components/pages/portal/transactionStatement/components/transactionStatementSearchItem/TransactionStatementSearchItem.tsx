@@ -17,7 +17,7 @@ export const TransactionStatementSearchItem = memo(function TransactionStatement
       name: 'amount',
       context: (
         <>
-          <Svg href={props.currency.toLowerCase() + '.svg'} className="mr-1" height={14} />
+          <Svg href={props.currency.toLowerCase()} className="mr-1" height={14} />
           {props.amount}
         </>
       ),

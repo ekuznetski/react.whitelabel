@@ -1,15 +1,15 @@
+import { useDeviceDetect } from '@utils/hooks';
 import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect, useMemo, useState } from 'react';
-import { ActiveTab, EMobileDisplay, TabsProvider, useTabsDispatch, useTabsState } from './tabs-context';
-import './Tabs.scss';
-import { Button } from '..';
 import { useTranslation } from 'react-i18next';
-import { useDeviceDetect } from '@utils/hooks';
+import { Button, Svg } from '..';
+import { ActiveTab, EMobileDisplay, TabData, TabsProvider, useTabsDispatch, useTabsState } from './tabs-context';
+import './Tabs.scss';
 
 export interface ITabs {
-  labels?: { value: string | React.ReactFragment; anchor: string; disabled?: boolean }[];
-  content?: { value: string | React.ReactFragment; anchor: string }[];
+  labels?: { value: TabData; anchor: string; disabled?: boolean }[];
+  content?: { value: TabData; anchor: string }[];
   children?: React.ReactNode;
   activeTab?: string; // anchor
   className?: string;
@@ -20,8 +20,10 @@ export interface ITabs {
 
 export interface ITab {
   disabled?: boolean;
-  label?: string | React.ReactFragment;
-  content?: string | React.ReactFragment;
+  label?: TabData;
+  subLabel?: TabData;
+  labelIcon?: string;
+  content?: TabData;
   children?: React.ReactNode;
   anchor: string | number; // anchor
   className?: string;
@@ -92,6 +94,10 @@ export function Tabs({
           dispatch({ type: 'setActive', anchor });
         }
 
+        function switchMobileDisplay(setDisplay: EMobileDisplay) {
+          dispatch({ type: 'setMobileDisplay', mobileDisplay: setDisplay });
+        }
+
         return useMemo(
           () => (
             <div
@@ -112,7 +118,18 @@ export function Tabs({
                     onClick={() => !label.disabled && switchTab(label.anchor)}
                     ref={(ref) => activeTabProps?.anchor === label.anchor && (activeNavTabLink = ref)}
                   >
-                    {label.value}
+                    <div className={classNames('tab__link__label', isVertical && 'py-6 pl-12 pr-4')}>
+                      <div className="tab__link__label-title">{label.value}</div>
+                      {label.desc && <div className="tab__link__label-subtitle">{label.desc}</div>}
+                    </div>
+                    {label.icon && (
+                      <Svg
+                        className="tab__link__icon mr-9"
+                        href={label.icon}
+                        width={isVertical ? 40 : 24}
+                        height={24}
+                      />
+                    )}
                   </div>
                 ))}
                 {activeTabProps && !isVertical && (
@@ -122,16 +139,21 @@ export function Tabs({
                   />
                 )}
               </div>
-              <div className="common-tabs__container">
+              <div className={classNames('common-tabs__container', isVertical && 'py-8 px-9')}>
                 {!children
                   ? state.contents.map((content, c) => <Tab key={c} anchor={content.anchor} content={content.value} />)
                   : children}
               </div>
-              {!isDesktop && isVertical && state.mobileDisplay === EMobileDisplay.labels && (
-                <Button onClick={() => dispatch({ type: 'setMobileDisplay', mobileDisplay: EMobileDisplay.content })}>
-                  {t('Continue')}
-                </Button>
-              )}
+              {!isDesktop && isVertical ? (
+                <div className={'common-tabs__nav mt-8'}>
+                  {state.mobileDisplay === EMobileDisplay.labels && (
+                    <Button onClick={() => switchMobileDisplay(EMobileDisplay.content)}>{t('Continue')}</Button>
+                  )}
+                  {state.mobileDisplay === EMobileDisplay.content && (
+                    <Button onClick={() => switchMobileDisplay(EMobileDisplay.labels)}>{t('Back')}</Button>
+                  )}
+                </div>
+              ) : null}
             </div>
           ),
           [active],
@@ -161,7 +183,7 @@ export const Tab = memo(
         dispatch({
           type: 'add',
           anchor: props.anchor,
-          label: props.label,
+          label: { value: props.label, desc: props.subLabel, icon: props.labelIcon },
           content: props.content,
           disabled: props.disabled,
         });
@@ -185,13 +207,27 @@ export const Tab = memo(
   }),
 );
 
-export const TabLabel = memo(function TabLabel(props: { children: string | React.ReactFragment; className?: string }) {
+export const TabLabel = memo(function TabLabel(props: {
+  children: TabData;
+  className?: string;
+  subTitle?: TabData;
+  icon?: string;
+}) {
   const dispatch = useTabsDispatch();
-  useEffect(() => dispatch({ type: 'addTempLabel', label: props.children }), []);
+  useEffect(() => {
+    dispatch({ type: 'addTempLabel', label: { value: props.children, icon: props?.icon } });
+    if (props.subTitle) dispatch({ type: 'addTempSubLabel', label: { value: props.subTitle } });
+  }, []);
   return null;
 });
 
-const TabContent = memo(function TabContent(props: { content: string | React.ReactFragment; className?: string }) {
+export const TabSubLabel = memo(function TabSubLabel(props: { children: TabData; className?: string }) {
+  const dispatch = useTabsDispatch();
+  useEffect(() => dispatch({ type: 'addTempSubLabel', label: { value: props.children } }), []);
+  return null;
+});
+
+const TabContent = memo(function TabContent(props: { content: TabData; className?: string }) {
   const dispatch = useTabsDispatch();
   useEffect(() => dispatch({ type: 'addTempContent', content: props.content }), []);
   return <>{props.content}</>;
