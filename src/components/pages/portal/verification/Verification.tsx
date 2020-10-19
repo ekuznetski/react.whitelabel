@@ -2,6 +2,7 @@ import { PageTitle, Tab, Tabs } from '@components/shared';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { AdditionalInformation } from './components';
 import './Verification.scss';
 
 export const Verification = memo(function Verification() {
@@ -24,17 +25,7 @@ export const Verification = memo(function Verification() {
               Upload Documents
             </Tab>
             <Tab label={t('Additional Information')} anchor="additionalInformation">
-              <Tabs className="client-additional-information__tabs" isVertical={true}>
-                <Tab label={t('Complete EDD Form')} subLabel={'success'} labelIcon="coins" anchor="eddForm">
-                  Complete EDD Form
-                </Tab>
-                <Tab label={t('Tax Identification')} anchor="taxIdentification">
-                  Tax Identification
-                </Tab>
-                <Tab label={t('Debit/Credit Card Verification')} anchor="cardVerification">
-                  Debit/Credit Card Verification
-                </Tab>
-              </Tabs>
+              <AdditionalInformation />
             </Tab>
           </Tabs>
         </Col>
