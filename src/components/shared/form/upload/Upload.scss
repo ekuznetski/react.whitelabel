@@ -1,0 +1,45 @@
+@import '~/variables';
+
+.upload-file-wrapper {
+  .upload-file {
+    &__section {
+      @include d-flex(center, center, column);
+      border: 1px dashed $blue;
+      border-radius: $border-radius;
+      background: rgba(lighten($blue, 10%), 0.06) url('/assets/img/dots-bg.png');
+      overflow: hidden;
+      flex: 0 0 300px;
+      min-height: 300px;
+      max-height: 300px;
+
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+    &__fieldName {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 26px;
+    }
+
+    &__desc {
+      @include d-flex(center, center);
+      text-align: center;
+    }
+
+    &__icon {
+      @include d-flex(center, center);
+    }
+
+    &__chooseBtn {
+      @include d-flex(center, center, column);
+      text-align: center;
+
+      a {
+        cursor: pointer;
+        color: $blue !important;
+        text-decoration: underline !important;
+      }
+    }
+  }
+}
