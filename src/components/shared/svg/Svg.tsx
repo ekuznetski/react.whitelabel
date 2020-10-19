@@ -21,7 +21,7 @@ export const Svg = memo((props: { isIcon?: boolean; _label?: ELabels | boolean }
     try {
       const SvgComponent = require(`../../../assets${labelFolder}/svg/${path
         .basename(props.href)
-        .replace(/\.*$/, '')}.svg`);
+        .replace('.svg', '')}.svg`);
       return <SvgComponent.ReactComponent {...innerProps} />;
     } catch (e) {
       console.error(e);
