@@ -25,7 +25,13 @@
     &.center {
       justify-content: center;
       &:after {
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, $grey, $grey, rgba(0, 0, 0, 0) 100%);
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba($dark-grey, 0.6),
+          rgba($dark-grey, 0.6),
+          rgba(0, 0, 0, 0) 100%
+        );
       }
     }
 

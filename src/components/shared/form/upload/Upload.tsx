@@ -1,9 +1,8 @@
-import { Svg } from '@components/shared';
 import { useCombinedRef } from '@utils/hooks';
-import { useDrop } from 'ahooks';
+import { useDrop, useSetState } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { UploadEmptyView } from './components';
 import { UploadProvider, UploadText, useUploadDispatch } from './upload-context';
 import './Upload.scss';
 
@@ -22,6 +21,11 @@ interface UploadProps {
   errorText?: string;
   isLoading?: (val: boolean) => void;
   isError?: (val: boolean) => void;
+}
+
+interface UploadState {
+  view: UploadViewState;
+  file: File | null;
 }
 
 enum UploadViewState {
@@ -43,13 +47,27 @@ export const UploadFile = memo(
     },
     _ref,
   ) {
-    const [view, setView] = React.useState<UploadViewState>(UploadViewState.empty);
-    const [files, setFiles] = React.useState([]);
-    const [getDropProps, { isHovering }] = useDrop({
-      onFiles: (files: File[], e) => console.log(files, e),
+    const [uploadState, setState] = useSetState<UploadState>({
+      view: UploadViewState.empty,
+      file: null,
     });
-    const { t } = useTranslation();
+    const [getDropProps, { isHovering }] = useDrop({
+      onFiles: (files: File[], e) => onFilesChanged(files),
+    });
     const ref = useCombinedRef(_ref);
+
+    function onFilesChanged(files: File[]) {
+      if (files.length) {
+        const file = files[0];
+        const _fileSize = file.size / 1024;
+        const _fileExtension = file.name.split('.').pop();
+
+        // @ts-ignore
+        if (_fileSize <= maxFileSizeKb && _fileExtension && accept.includes(_fileExtension)) {
+          setState({ file, view: UploadViewState.ready });
+        }
+      }
+    }
 
     console.log(getDropProps);
 
@@ -74,22 +92,29 @@ export const UploadFile = memo(
 
           if (!state.fileIcon && !props.icon)
             console.error(
-              'UploadFile must be provided with the Icon through the UploadFile.icon param or or UploadFileIcon component',
+              'UploadFile must be provided with the Icon through the UploadFile.icon param or UploadFileIcon component',
             );
+
+          function renderView() {
+            switch (uploadState.view) {
+              case UploadViewState.empty:
+                return <UploadEmptyView fieldName={props.fieldName} desc={state.desc} fileIcon={state.fileIcon} />;
+              case UploadViewState.error:
+                return <UploadEmptyView fieldName={props.fieldName} desc={state.desc} fileIcon={state.fileIcon} />;
+              case UploadViewState.loading:
+                return <UploadEmptyView fieldName={props.fieldName} desc={state.desc} fileIcon={state.fileIcon} />;
+              case UploadViewState.ready:
+                return <UploadEmptyView fieldName={props.fieldName} desc={state.desc} fileIcon={state.fileIcon} />;
+            }
+          }
 
           return state.fileIcon ? (
             <div className="upload-file-wrapper" ref={ref}>
               <div className={classNames('upload-file__section col', isHovering && 'isHovering')} {...getDropProps}>
-                <div className="upload-file__fieldName">{t('Upload File', { fieldName: props.fieldName })}</div>
-                {state.desc && <div className="upload-file__desc mt-2 col-8">{state.desc}</div>}
-                <div className="upload-file__icon my-9">
-                  <Svg href={state.fileIcon?.name} width={state.fileIcon?.width} height={state.fileIcon?.height} />
-                </div>
-                <div className="upload-file__chooseBtn">
-                  <Trans i18nKey="Drag File Here">
-                    Drag file here <br /> or <a onClick={console.log}>Browse file</a>
-                  </Trans>
-                </div>
+                <label className="upload-file__label" onChange={(e) => onFilesChanged(e.target.files)}>
+                  <input type="file" accept={accept.map((f) => `.${f}`).join(',')} />
+                </label>
+                {renderView()}
               </div>
             </div>
           ) : null;
