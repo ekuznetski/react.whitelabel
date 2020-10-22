@@ -5,6 +5,7 @@ import {
   Country,
   EAccountLeverage,
   ECountryCode,
+  ECountryName,
   ECurrencyCode,
   ETradingAccountType,
   ETradingPlatform,
@@ -18,20 +19,20 @@ export class MClientProfile {
   username: string;
   first_name: string;
   surname: string;
-  country: Country | null;
+  country: Country;
   state: {
-    name?: ThisType<typeof CCountryStateName[keyof typeof CCountryStateName]>;
-    code?: ThisType<typeof CCountryStateCode[keyof typeof CCountryStateCode]>;
-  } | null;
+    name: ThisType<typeof CCountryStateName[keyof typeof CCountryStateName]> | '';
+    code: ThisType<typeof CCountryStateCode[keyof typeof CCountryStateCode]> | '';
+  };
   street: string;
   city: string;
   postcode: string;
-  phone_prefix_code: Country | null;
+  phone_prefix_code: Country;
   phone_prefix: string;
   phone: number;
   dob: Moment;
-  nationality: Country | null;
-  dual_nationality: Country | null;
+  nationality: Country;
+  dual_nationality: Country;
   jurisdiction: string;
   curr: ECurrencyCode;
 
@@ -55,8 +56,8 @@ export class MClientProfile {
   show_praxis_and_webmoney: boolean;
 
   // clint Meta
-  affiliate_code: string | null;
-  raf_id: string | null;
+  affiliate_code: string;
+  raf_id: string;
   ic_hash: string;
   userId: string;
   sfid: string;
@@ -73,22 +74,43 @@ export class MClientProfile {
     this.username = props.username;
     this.first_name = props.first_name;
     this.surname = props.surname;
-    this.country = countries.find((country) => country.name === props.country) || null;
-    this.state =
-      (props.state &&
-        countries
-          .filter((country) => country.states)
-          .find((country) => country.states?.find((state) => state.name === props.state))) ||
-      null;
+    this.country = countries.find((country) => country.name === props.country) || {
+      name: undefined,
+      code: undefined,
+      phoneCode: '',
+    };
+    this.state = (
+      props.state &&
+      countries
+        .filter((country) => country.states)
+        .find((country) => country.states?.find((state) => state.code === props.state))
+    )//@ts-ignore
+    ?.states
+      ?.filter((state: any) => state.code === props.state) || {
+      name: '',
+      code: '',
+    };
     this.street = props.street;
     this.city = props.city;
     this.postcode = props.postcode;
-    this.phone_prefix_code = countries.find((country) => country.phoneCode === props.phone_prefix) || null;
+    this.phone_prefix_code = countries.find((country) => country.phoneCode === props.phone_prefix) || {
+      name: undefined,
+      code: undefined,
+      phoneCode: '',
+    };
     this.phone_prefix = props.phone_prefix;
     this.phone = parseInt(props.phone);
     this.dob = moment(props.dob);
-    this.nationality = countries.find((country) => country.name === props.nationality) || null;
-    this.dual_nationality = countries.find((country) => country.name === props.dual_nationality) || null;
+    this.nationality = countries.find((country) => country.name === props.nationality) || {
+      name: undefined,
+      code: undefined,
+      phoneCode: '',
+    };
+    this.dual_nationality = countries.find((country) => country.name === props.dual_nationality) || {
+      name: undefined,
+      code: undefined,
+      phoneCode: '',
+    };
     this.jurisdiction = props.jurisdiction;
     this.curr = ECurrencyCode[props.curr.toLowerCase() as keyof typeof ECurrencyCode] || ECurrencyCode.usd;
 
@@ -124,8 +146,8 @@ export class MClientProfile {
     this.enable_citioptions = props.enable_citioptions;
 
     // clint Meta
-    this.affiliate_code = props.affiliate_code;
-    this.raf_id = props.raf_id;
+    this.affiliate_code = props.affiliate_code || '';
+    this.raf_id = props.raf_id || '';
     this.ic_hash = props.ic_hash;
     this.userId = props.userId;
     this.sfid = props.sfid;
