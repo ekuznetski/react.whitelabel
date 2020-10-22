@@ -34,7 +34,7 @@ export const Router = memo(function Router() {
           path: route?.path,
           appSection: route?.appSection,
           meta: route?.meta,
-          state,
+          state: Object.assign({}, state, route?.state),
         }),
       );
     }
@@ -143,7 +143,7 @@ function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
   return (
     <>
       <PageLoader isLoading={isLoading} />
-      {!isLoading && route.component && <route.component routeState={route.state} />}
+      {!isLoading && route.component && <route.component />}
     </>
   );
 }
