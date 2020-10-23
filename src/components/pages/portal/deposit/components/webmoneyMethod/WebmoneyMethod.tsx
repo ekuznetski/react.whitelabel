@@ -8,12 +8,12 @@ import { BillingDetailsModal, DetailsHeader } from '..';
 import { DepositContext, useDepositDispatch, useDepositState } from '../../depositContext';
 import { ac_addDeposit, IStore } from '@store';
 import { ELanguage, EDepositMethodCode, ETradingType } from '@domain/enums';
-import { ISkrillDepositRequest } from '@domain/interfaces';
+import { ISkrillDepositRequest, IWebmoneyDepositRequest } from '@domain/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { MClientProfile } from '@domain/models';
-import { appendAndSubmitForm } from '@utils/fn';
+import cheerio from 'cheerio';
 
-export function SkrillMethod() {
+export function WebmoneyMethod() {
   const dispatch = useDispatch();
   const { account, amount, billingDetails } = useDepositState();
   const { profile, locale } = useSelector<IStore, { profile: MClientProfile; locale: ELanguage }>((state) => ({
@@ -30,17 +30,10 @@ export function SkrillMethod() {
 
   function submit() {
     if (account && amount) {
-      const preparedData: ISkrillDepositRequest = {
-        PaymentMethod: EDepositMethodCode.skrill,
-        first_name: profile.first_name,
-        surname: profile.surname,
-        city: billingDetails?.city ?? profile.city,
-        postcode: billingDetails?.postcode ?? profile.city,
-        email: profile.email,
+      const preparedData: IWebmoneyDepositRequest = {
+        PaymentMethod: EDepositMethodCode.webmoney,
         amount: amount,
         currency: account?.currency as string,
-        country_code: billingDetails?.country?.code as string,
-        language_code: locale,
       };
       if (account && account?.type !== ETradingType.fake) {
         Object.assign(preparedData, {
@@ -48,12 +41,15 @@ export function SkrillMethod() {
           trade_platform: account.platform as string,
         });
       }
-      console.log(appendAndSubmitForm('https://api.hycm.com/deposits/add', preparedData));
-      // dispatch(
-      //   ac_addDeposit<ISkrillDepositRequest>(preparedData, (e) => {
-      //     console.log('link', e);
-      //     window.location = e.split('action="')[1].split('"')[0];
-      //   }),
+      const form = document.createElement('form');
+
+      document.body.appendChild(form);
+
+      dispatch(
+        ac_addDeposit<IWebmoneyDepositRequest>(preparedData, (e) => {
+          // window.location = e.split('action="')[1].split('"')[0];
+        }),
+      );
     }
   }
 

@@ -28,7 +28,7 @@ import {
   ac_logout,
 } from '@store';
 import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
-import { EAppSection, ETradingType } from '../enums';
+import { EAppSection, EResponseStatus, ETradingType } from '../enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
 
 // Data to be loaded on EVERY page of app section
@@ -179,6 +179,34 @@ export const routesNavConfig: IRouteNavConfig[] = [
       icon: 'coins',
       parent: { title: 'Funds Management', icon: 'money' },
     },
+  },
+  {
+    meta: {
+      title: 'Success Deposit',
+    },
+    path: '/deposit/success',
+    component: Deposit,
+    state: { depositResult: EResponseStatus.success },
+    appSection: EAppSection.portal,
+    activators: [allowAuthorizedGuard],
+    apiData: {
+      strict: [ac_fetchTradingAccounts],
+    },
+    menuItem: false,
+  },
+  {
+    meta: {
+      title: 'Failure Deposit',
+    },
+    path: '/deposit/failure',
+    component: Deposit,
+    state: { depositResult: EResponseStatus.failure },
+    appSection: EAppSection.portal,
+    activators: [allowAuthorizedGuard],
+    apiData: {
+      strict: [ac_fetchTradingAccounts],
+    },
+    menuItem: false,
   },
   {
     meta: {

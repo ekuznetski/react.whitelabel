@@ -1,15 +1,19 @@
 import { Button, Input, Svg } from '@components/shared';
-import { FieldValidators, RegexValidators } from '@domain';
+import { FieldValidators } from '@domain';
 import { Form, Formik } from 'formik';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { BillingDetailsModal, CreditCardInfoModal, DetailsHeader } from '..';
-import { depositActionCreators, DepositContext } from '../../depositContext';
+import { depositActionCreators, IDepositState, useDepositDispatch, useDepositState } from '../../depositContext';
 import cardValidator from 'card-validator';
 import './CardMethod.scss';
-import { ECreditCardType } from '@domain/enums';
+import { ECreditCardType, ELanguage, EDepositMethodCode, ETradingType } from '@domain/enums';
+import { useDispatch, useSelector } from 'react-redux';
+import { ac_addDeposit, IStore } from '@store';
+import { MClientProfile } from '@domain/models';
+import { ICreditCardDepositRequest } from '@domain/interfaces';
 
 enum EFields {
   'cardholderName' = 'cardholderName',
@@ -20,19 +24,26 @@ enum EFields {
 }
 
 export function CardMethod() {
-  const { dispatch } = useContext<any>(DepositContext);
+  const { account, amount, billingDetails }: IDepositState = useDepositState();
+  const depositContextDispatch = useDepositDispatch();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [cardNumberCaretPosition, setCardNumberCaretPosition] = useState<any>();
   const [cardType, setCardType] = useState<string | null>(null);
   const [isBillingDetailsModalOpen, setIsBillingDetailsModalOpen] = React.useState<boolean>(false);
   const [isCreditCardInfoModalOpen, setCreditCardInfoModalOpen] = React.useState<boolean>(false);
   const ref = React.createRef<HTMLInputElement>();
-
+  const { profile, locale } = useSelector<IStore, { profile: MClientProfile; locale: ELanguage }>((state) => ({
+    profile: state.data.client.profile,
+    locale: state.app.route.locale,
+  }));
   const currentYear = new Date().getFullYear();
 
-  useEffect(() => {
-    ref.current?.setSelectionRange(cardNumberCaretPosition.start, cardNumberCaretPosition.end);
-  }, [cardNumberCaretPosition]);
+  // useEffect(() => {
+  //   // if (cardNumberCaretPosition?.start && cardNumberCaretPosition?.end) {
+  //   ref.current?.setSelectionRange(cardNumberCaretPosition?.start, cardNumberCaretPosition?.end);
+  //   // }
+  // }, [cardNumberCaretPosition]);
 
   function openBillingDetailsModal(e: React.MouseEvent) {
     e.preventDefault();
@@ -112,17 +123,52 @@ export function CardMethod() {
         <DetailsHeader />
         <Formik
           initialValues={{
-            cardholderName: '',
-            cardNumber: '',
-            month: '',
-            year: '',
-            cvc: '',
+            cardholderName: 'TEST TEST',
+            cardNumber: '4000000000000077',
+            month: '12',
+            year: '25',
+            cvc: '123',
           }}
           validationSchema={validationSchema}
           onSubmit={(data) => {
             const _data = { ...data };
             _data.cardNumber = _data.cardNumber.replaceAll(' ', '');
-            dispatch(depositActionCreators.setDepositDetails(_data));
+            const preparedData: ICreditCardDepositRequest = {
+              amount: amount as string,
+              PaymentMethod: EDepositMethodCode.creditCard,
+              currency: account?.currency as string,
+              first_name: profile.first_name,
+              surname: profile.surname,
+              postcode: billingDetails?.postcode ?? profile.postcode,
+              city: billingDetails?.city ?? profile.city,
+              country: (billingDetails?.country?.name ?? profile.country.name) as string,
+              country_code: (billingDetails?.country?.code ?? profile.country.code) as string,
+              phone: profile.phone.toString(),
+              email: profile.email,
+              address: billingDetails?.address ?? profile.street,
+              language_code: locale.toUpperCase(),
+              name_on_card: _data.cardholderName,
+              card_number: _data.cardNumber,
+              expiry_month: _data.month,
+              expiry_year: _data.year.slice(-2),
+              cvv: _data.cvc,
+              deposit_ip: '',
+            };
+            if (account && account?.type !== ETradingType.fake) {
+              Object.assign(preparedData, {
+                trade_platform: account.platformName as string,
+                trade_account: account.accountId?.toString(),
+              });
+            }
+            if (!!billingDetails?.state_code || !!profile.state.code) {
+              console.log(123);
+              Object.assign(preparedData, {
+                state_code: (billingDetails?.state_code as string) ?? profile.state.code,
+              });
+            }
+            dispatch(ac_addDeposit<ICreditCardDepositRequest>(preparedData));
+            depositContextDispatch(depositActionCreators.setDepositDetails(_data));
+            console.log(preparedData);
           }}
         >
           {(props: any) => {

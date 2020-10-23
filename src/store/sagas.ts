@@ -1,5 +1,6 @@
 import { ETradingPlatform } from '@domain/enums';
 import {
+  IAddDepositResponse,
   IBankDetailsResponse,
   IBaseResponse,
   IClientAddResponse,
@@ -23,6 +24,7 @@ import {
   MWithdrawalHistoryItem,
 } from '@domain/models';
 import {
+  addDepositRequest,
   clientAddRequest,
   clientSetProfileRequest,
   createMT4DemoAccountRequest,
@@ -198,7 +200,6 @@ export function* logoutSaga() {
   yield $$(EActionTypes.logout, function* () {
     const { response }: any = yield call(logoutRequest);
     yield put(ac_clearStore());
-    console.log('store cleared');
     return response;
   });
 }
@@ -350,5 +351,12 @@ export function* fetchTransactionalStatementsSage() {
     const data = new MTransactionalStatementData(response);
     yield put(ac_saveTransactionalStatements(data));
     return response;
+  });
+}
+
+export function* addDepositSage() {
+  yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
+    const data: IAddDepositResponse = yield call(addDepositRequest, payload);
+    return data;
   });
 }

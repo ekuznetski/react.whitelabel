@@ -1,0 +1,30 @@
+@import '~/variables';
+
+.deposit-success-failure-wrapper {
+  .deposit-success-failure-box {
+    background: #fff;
+    box-shadow: box-shadow(15, 0.1);
+    border-radius: $border-radius;
+    text-align: center;
+    .payment-methods-imgs {
+      width: 280px;
+    }
+    .result {
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .sub-result {
+      color: $text;
+    }
+  }
+  .deposit-success {
+    .result {
+      color: $green;
+    }
+  }
+  .deposit-failure {
+    .result {
+      color: $red;
+    }
+  }
+}

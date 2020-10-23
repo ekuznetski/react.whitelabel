@@ -10,7 +10,8 @@ import * as Yup from 'yup';
 import { depositActionCreators, DepositContext, IDepositState } from '../../depositContext';
 import './TabContentBankWire.scss';
 import classNames from 'classnames';
-import { ECurrencyCode } from '@domain/enums';
+import { ECurrencyCode, ETradingType } from '@domain/enums';
+import { FieldValidators } from '@domain';
 
 function BankRadio({ bank }: any) {
   const { t } = useTranslation();
@@ -51,7 +52,7 @@ export function TabContentBankWire() {
   const { dispatch } = useContext<any>(DepositContext);
 
   const { tradingAccounts } = useSelector<IStore, { tradingAccounts: MTradingAccount[] }>((state) => ({
-    tradingAccounts: state.data.tradingData.accounts,
+    tradingAccounts: state.data.tradingData.accounts.filter((acc) => acc.type !== ETradingType.demo),
   }));
 
   enum EFields {
@@ -59,7 +60,7 @@ export function TabContentBankWire() {
     'bank' = 'bank',
   }
   const { t } = useTranslation();
-  const banks = {
+  const banks: { [k in keyof ECurrencyCode | string]: any } = {
     [ECurrencyCode.usd]: [
       {
         bankTitle: (
@@ -112,12 +113,12 @@ export function TabContentBankWire() {
   };
 
   const validationSchema = Yup.object().shape({
-    // account: FieldValidators.requiredString,
-    // bank: FieldValidators.requiredString,
+    account: FieldValidators.requiredString,
+    bank: FieldValidators.requiredString,
   });
 
   return (
-    <div className="bank-wire-deposit py-10 px-9">
+    <div className="bank-wire-deposit">
       <Formik
         initialValues={{
           [EFields.account]: account ?? tradingAccounts[0],
@@ -127,30 +128,41 @@ export function TabContentBankWire() {
           console.log(data);
         }}
       >
-        {(props: any) => {
+        {({ values, setFieldValue }: any) => {
+          const banksCurrency =
+            (values[EFields.account]?.currency && banks[values[EFields.account]?.currency]) ?? banks[ECurrencyCode.usd];
           return (
             <Form className="m-auto form fadein-row">
-              <Row>
-                <Col xs={12} sm={4}>
-                  Choose account to fund
-                  <TradingAccountsSelect
-                    className={classNames(tradingAccounts.length === 1 ? 'd-none' : '')}
-                    placeholder={t('Choose Trading Account')}
-                    name={EFields.account}
-                    options={tradingAccounts}
-                    onChange={(e: MTradingAccount) => dispatch(depositActionCreators.setAccount(e))}
-                  />
-                </Col>
-              </Row>
+              {account?.type !== ETradingType.fake && (
+                <Row>
+                  <Col xs={12} sm={5}>
+                    Choose account to fund
+                    <TradingAccountsSelect
+                      className={classNames(tradingAccounts.length === 1 ? 'd-none' : '')}
+                      placeholder={t('Choose Trading Account')}
+                      name={EFields.account}
+                      options={tradingAccounts}
+                      onChange={(e: MTradingAccount) => {
+                        dispatch(depositActionCreators.setAccount(e));
+                        setFieldValue(EFields.bank, banksCurrency[0].filename.replace('.pdf', ''));
+                      }}
+                    />
+                  </Col>
+                </Row>
+              )}
               <Row>
                 <Col xs={12}>
                   {account?.currency && (
                     <Radio
+                      colClassName={classNames(
+                        banks[account.currency]?.length === 1
+                          ? 'col-6 col-xs-12'
+                          : `col-${12 / banksCurrency?.length ?? 1}`,
+                      )}
                       className="mb-10"
                       name={EFields.bank}
                       showMarkDot={true}
-                      // @ts-ignore
-                      options={banks[account.currency].map((bank: any) => ({
+                      options={(banks[account.currency] ?? banks[ECurrencyCode.usd]).map((bank: any) => ({
                         label: <BankRadio bank={bank} />,
                         value: bank.filename.replace('.pdf', ''),
                       }))}

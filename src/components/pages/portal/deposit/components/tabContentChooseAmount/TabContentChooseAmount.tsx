@@ -1,18 +1,18 @@
 import { Button, Input, IRadioItem, Radio, Svg, TradingAccountsSelect } from '@components/shared';
-import { ECurrency, ECurrencySymbol } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import { IStore } from '@store';
 import { Form, Formik, FormikProps, useFormikContext } from 'formik';
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { availableAmounts, depositActionCreators, DepositContext } from '../../depositContext';
+import { depositActionCreators, useDepositDispatch, useDepositState } from '../../depositContext';
 import './TabContentChooseAmount.scss';
 import classNames from 'classnames';
 import { Col, Row } from 'react-bootstrap';
 import { useDeviceDetect } from '@utils/hooks';
 import { FieldValidators } from '@domain';
+import { AllowedCurrToMethodMap, ETradingType } from '@domain/enums';
 
 enum EFields {
   'account' = 'account',
@@ -21,33 +21,47 @@ enum EFields {
 }
 
 export function TabContentChooseAmount() {
+  const { amount, account, staticAmounts, method } = useDepositState();
   const { tradingAccounts } = useSelector<IStore, { tradingAccounts: MTradingAccount[] }>((state) => ({
-    tradingAccounts: state.data.tradingData.accounts,
+    tradingAccounts: state.data.tradingData.accounts.filter(
+      (acc) => acc.type !== ETradingType.demo && AllowedCurrToMethodMap?.[method as string].includes(acc?.currency),
+    ),
   }));
-  const { amount, account } = useContext<any>(DepositContext).state;
-  const { dispatch } = useContext<any>(DepositContext);
+  const dispatch = useDepositDispatch();
   const { t } = useTranslation();
   const { isDesktop } = useDeviceDetect();
   const ref = React.createRef<HTMLInputElement>();
 
-  const options: IRadioItem[] = availableAmounts.map((el) => ({
+  // @ts-ignore
+  const options: IRadioItem[] = staticAmounts?.map((el: any) => ({
     label: `${account?.currencySymbol}  ${el}`,
     value: el,
     className: 'amount-item',
   }));
 
   const validationSchema = Yup.object().shape({
-    account: FieldValidators.requiredString,
+    account: Yup.object().required('This field is required'),
     amount: isDesktop ? FieldValidators.requiredString : FieldValidators.notRequiredString,
-    customAmount: Yup.number().when([EFields.amount], {
-      is: (amount) => !!amount && amount !== 'custom',
-      then: FieldValidators.notRequiredNumber,
-      otherwise: FieldValidators.requiredNumber,
+    customAmount: Yup.number().test('isCustomAmount', '', function (value) {
+      const { path, parent, createError } = this;
+      const { account, amount }: { account: MTradingAccount; amount: string } = parent;
+      if (!!value && amount === 'custom' && !!account?.minDeposit && value < account.minDeposit) {
+        return createError({
+          path,
+          message: `${t('Minimum amount is')} ${account?.minDeposit}${account?.currencySymbol}`,
+        });
+      } else if (!value && amount === 'custom') {
+        return createError({
+          path,
+          message: t('This field is required'),
+        });
+      }
+      return true;
     }),
   });
 
   function CustomAmountInput() {
-    const { values, setFieldValue }: { values: any; setFieldValue: any } = useFormikContext();
+    const { values, setFieldValue, resetForm } = useFormikContext();
     return (
       <div onClick={() => ref.current?.focus()}>
         <div className="title ml-13 mt-7 mb-10">{t('Custom Amount')}</div>
@@ -58,8 +72,18 @@ export function TabContentChooseAmount() {
           onChange={(e: { target: { value: string } }) => {
             const value = e.target.value;
             if (/^\d{0,9}$/gm.test(value) || value === '') {
-              setFieldValue(EFields.customAmount, value);
-              setFieldValue(EFields.amount, 'custom');
+              if (value !== '' && !!account?.minDeposit && parseInt(value, 10) >= account?.minDeposit) {
+                resetForm({
+                  values: {
+                    ...(values as object),
+                    [EFields.customAmount]: value,
+                    [EFields.amount]: 'custom',
+                  },
+                });
+              } else {
+                setFieldValue(EFields.customAmount, value);
+                setFieldValue(EFields.amount, 'custom');
+              }
             }
           }}
           type="number"
@@ -78,21 +102,23 @@ export function TabContentChooseAmount() {
     className: 'custom-amount-item',
   });
 
-  const preselectedAmount = isDesktop ? (availableAmounts.includes(amount) ? amount : 'custom') : '';
-  const preselectedCustomAmount = !availableAmounts.includes(amount) ? amount : '';
+  const preselectedAmount = isDesktop && amount ? (staticAmounts?.includes(parseInt(amount)) ? amount : 'custom') : '';
+  const preselectedCustomAmount = amount && !staticAmounts?.includes(parseInt(amount)) ? amount : '';
 
   function formatAmount(amount: number) {
     return Intl.NumberFormat(navigator?.language ?? 'en-US').format(amount);
   }
 
+  const initialValues = {
+    [EFields.account]: account ?? tradingAccounts[0],
+    [EFields.amount]: preselectedAmount,
+    [EFields.customAmount]: preselectedCustomAmount,
+  };
+
   return (
     <div className="choose-amount-wrapper">
       <Formik
-        initialValues={{
-          [EFields.account]: account ?? tradingAccounts[0],
-          [EFields.amount]: preselectedAmount,
-          [EFields.customAmount]: preselectedCustomAmount,
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(data) => {
           const amount =
@@ -102,21 +128,31 @@ export function TabContentChooseAmount() {
           dispatch(depositActionCreators.setAmount(amount));
         }}
       >
-        {({ values, setFieldValue }: FormikProps<any>) => {
+        {({ values, setFieldValue, initialValues }: FormikProps<any>) => {
+          useEffect(() => {
+            if (!tradingAccounts.map((e) => e.accountId).includes(values[EFields.account]?.accountId as string)) {
+              setFieldValue(EFields.account, tradingAccounts[0]);
+              dispatch(depositActionCreators.setAccount(tradingAccounts[0]));
+            }
+          }, [method]);
+
           return (
             <Form className="m-auto form fadein-row">
-              <Row>
-                <Col xs={12} md={6} lg={7} xl={5}>
-                  Choose account to fund
-                  <TradingAccountsSelect
-                    className={classNames(tradingAccounts.length === 1 ? 'd-none' : '')}
-                    placeholder={t('Choose Trading Account')}
-                    name={EFields.account}
-                    options={tradingAccounts}
-                    onChange={(e: MTradingAccount) => dispatch(depositActionCreators.setAccount(e))}
-                  />
-                </Col>
-              </Row>
+              {account?.type !== ETradingType.fake && (
+                <Row>
+                  <Col xs={12} md={6} lg={7} xl={5}>
+                    {t('Choose account to fund')}
+
+                    <TradingAccountsSelect
+                      className={classNames(tradingAccounts.length === 1 ? 'd-none' : '')}
+                      placeholder={t('Choose Trading Account')}
+                      name={EFields.account}
+                      options={tradingAccounts}
+                      onChange={(e: MTradingAccount) => dispatch(depositActionCreators.setAccount(e))}
+                    />
+                  </Col>
+                </Row>
+              )}
               {isDesktop && (
                 <Radio
                   colClassName="col-4 mb-7 pr-0"
@@ -147,7 +183,7 @@ export function TabContentChooseAmount() {
                 <Col md={7} xl={8}>
                   <div className="you-get-amount d-flex align-items-center">
                     <span className="you-get-amount__symbol pr-3">{values[EFields.account].currencySymbol}</span>
-                    {(values[EFields.amount] !== 'custom' && values[EFields.amount]) ||
+                    {(values[EFields.amount] !== 'custom' && formatAmount(values[EFields.amount])) ||
                       formatAmount(values[EFields.customAmount]) ||
                       '0'}
                   </div>

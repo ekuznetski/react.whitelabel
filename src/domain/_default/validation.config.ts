@@ -45,3 +45,12 @@ export const FieldValidators = {
     .required('This field is required')
     .max(45, 'Name must not exceed ${max} characters'),
 };
+export const CustomFieldValidators = {
+  country: Yup.object()
+    .shape({
+      name: FieldValidators.requiredString,
+      code: FieldValidators.requiredString,
+      phoneCode: FieldValidators.requiredString,
+    })
+    .required('This field is required'),
+};

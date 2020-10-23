@@ -3,12 +3,12 @@ import {
   AnyFunction,
   IClientAddRequest,
   IContent,
+  ICreateTradingAccountRequest,
   IEditProfileRequest,
   IGeoIp,
   IInternalTransferRequestData,
   ILoginRequest,
   INotificationState,
-  ICreateTradingAccountRequest,
   IResetPasswordRequest,
   ISetProfileRequest,
   ITransactionalStatementsRequestData,
@@ -25,6 +25,7 @@ import {
 } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
+import { IAddDepositRequest } from '../domain/interfaces/app/deposit.interface';
 
 export function ac_showNotification(payload: Omit<INotificationState, 'visible'>): IAction {
   return {
@@ -330,5 +331,18 @@ export function ac_saveTransactionalStatements(payload: MTransactionalStatementD
   return {
     type: EActionTypes.saveTransactionalStatements,
     payload,
+  };
+}
+
+export function ac_addDeposit<T>(
+  payload: T,
+  onSuccess: AnyFunction = () => {},
+  onFailure: AnyFunction = () => {},
+): IAction {
+  return {
+    type: EActionTypes.addDeposit,
+    payload,
+    onSuccess,
+    onFailure,
   };
 }

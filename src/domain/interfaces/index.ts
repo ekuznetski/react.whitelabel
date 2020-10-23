@@ -5,6 +5,7 @@ export * from './app/routeGuard.interface';
 export * from './app/registration.interface';
 export * from './app/clientBannerCard.interface';
 export * from './app/notification.interface';
+export * from './app/deposit.interface';
 // Data
 export * from './data/bankDetails.interface';
 export * from './data/content.interface';

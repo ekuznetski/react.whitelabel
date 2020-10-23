@@ -60,4 +60,7 @@ export enum EActionTypes {
   // APP - Registration
   userExists = '[APP - Registration] User Exists',
   preRegister = '[APP - Registration] Client Add',
+
+  // APP - Deposit
+  addDeposit = '[APP - Deposit] add deposit',
 }
