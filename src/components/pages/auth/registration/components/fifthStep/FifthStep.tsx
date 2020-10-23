@@ -34,8 +34,8 @@ export function FifthStep({ name, submitFn }: any) {
             <Form className="m-auto form fadein-row">
               <h4 className="section-title mb-5">{t('Declaration')}</h4>
               <Checkbox name={EFields.declaration} className="mb-10">
-                <Trans i18nKey="Customer introduction agreement">
-                  I, {{ name }}, declare that I have carefully read and understood, <a href="#">Customer Agreement</a>,{' '}
+                <Trans i18nKey="Customer introduction agreement" values={{ name }}>
+                  I, {name} , declare that I have carefully read and understood, <a href="#">Customer Agreement</a>,
                   <a href="#">Terms of Business</a> and all other policies as found here which I fully accept and agree
                   with. I accept I am electronically signing these documents, and that this is a legally binding
                   contractual agreement.

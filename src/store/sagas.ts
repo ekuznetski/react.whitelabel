@@ -235,7 +235,6 @@ export function* resetPasswordSaga() {
 export function* setProfileSaga() {
   yield $$(EActionTypes.register, function* ({ payload }: IAction) {
     const { response }: ISetProfileResponse = yield call(clientSetProfileRequest, payload);
-    yield put(ac_saveProfile(new MClientProfile(response.profile)));
     return response;
   });
 }

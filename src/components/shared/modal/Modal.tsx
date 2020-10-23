@@ -89,9 +89,9 @@ export function ModalTitle(props: {
 }
 
 export function ModalContext(props: { className?: string; children: React.ReactNode }) {
-  return <div className="modal-content__context">{props.children}</div>;
+  return <div className={classNames('modal-content__context', props.className)}>{props.children}</div>;
 }
 
 export function ModalNav(props: { className?: string; children: React.ReactNode }) {
-  return <div className="modal-content__nav">{props.children}</div>;
+  return <div className={classNames('modal-content__nav', props.className)}>{props.children}</div>;
 }

@@ -177,7 +177,7 @@ export function Registration() {
 
       <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen} className="continue-registration-modal">
         <ModalTitle title={t('Do you want to continue registration')} />
-        <ModalContext>
+        <ModalContext className="my-10">
           <Img src="live-account-bg.png" height="200" />
         </ModalContext>
         <ModalNav>
