@@ -1,5 +1,5 @@
 import { AuthAlreadyRegisteredLink, Button, Input, LocaleLink, PhoneCodeSelect } from '@components/shared';
-import { FieldValidators } from '@domain';
+import { CustomFieldValidators, FieldValidators } from '@domain';
 import { countries, ERegSteps } from '@domain/enums';
 import { ac_userExists, IStore } from '@store';
 import { Form, Formik } from 'formik';
@@ -50,7 +50,7 @@ export function FirstStep({ submitFn }: any) {
     first_name: FieldValidators.name,
     surname: FieldValidators.name,
     email: FieldValidators.email,
-    phone_prefix: FieldValidators.requiredString,
+    phone_prefix: CustomFieldValidators.country,
     phone: FieldValidators.numbers,
   });
 
