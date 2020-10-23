@@ -5,6 +5,7 @@ export * from './form/radio/Radio';
 export * from './form/checkbox/Checkbox';
 export * from './form/button/Button';
 export * from './form/datepicker/DatePicker';
+export * from './form/upload/Upload';
 export * from './img/Img';
 export * from './loader/Loader';
 export * from './svg/Svg';
