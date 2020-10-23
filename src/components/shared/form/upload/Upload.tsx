@@ -1,8 +1,8 @@
 import { useCombinedRef } from '@utils/hooks';
 import { useDrop, useSetState } from 'ahooks';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useEffect } from 'react';
-import { UploadEmptyView } from './components';
+import React, { createRef, forwardRef, memo, useEffect } from 'react';
+import { UploadEmptyView, UploadReadyView } from './components';
 import { UploadProvider, UploadText, useUploadDispatch } from './upload-context';
 import './Upload.scss';
 
@@ -55,6 +55,7 @@ export const UploadFile = memo(
       onFiles: (files: File[], e) => onFilesChanged(files),
     });
     const ref = useCombinedRef(_ref);
+    const labelRef = createRef<HTMLLabelElement>();
 
     function onFilesChanged(files: File[]) {
       if (files.length) {
@@ -95,6 +96,12 @@ export const UploadFile = memo(
               'UploadFile must be provided with the Icon through the UploadFile.icon param or UploadFileIcon component',
             );
 
+          function sectionClickHandler() {
+            if (uploadState.view === UploadViewState.empty && labelRef.current) {
+              labelRef.current.click();
+            }
+          }
+
           function renderView() {
             switch (uploadState.view) {
               case UploadViewState.empty:
@@ -104,14 +111,20 @@ export const UploadFile = memo(
               case UploadViewState.loading:
                 return <UploadEmptyView fieldName={props.fieldName} desc={state.desc} fileIcon={state.fileIcon} />;
               case UploadViewState.ready:
-                return <UploadEmptyView fieldName={props.fieldName} desc={state.desc} fileIcon={state.fileIcon} />;
+                if (!uploadState.file) setState({ view: UploadViewState.empty });
+                else return <UploadReadyView fieldName={props.fieldName} file={uploadState.file} />;
+                return null;
             }
           }
 
           return state.fileIcon ? (
             <div className="upload-file-wrapper" ref={ref}>
-              <div className={classNames('upload-file__section col', isHovering && 'isHovering')} {...getDropProps}>
-                <label className="upload-file__label" onChange={(e) => onFilesChanged(e.target.files)}>
+              <div
+                className={classNames('upload-file__section col', isHovering && 'isHovering')}
+                {...getDropProps}
+                onClick={sectionClickHandler}
+              >
+                <label className="upload-file__label" onChange={(e) => onFilesChanged(e.target.files)} ref={labelRef}>
                   <input type="file" accept={accept.map((f) => `.${f}`).join(',')} />
                 </label>
                 {renderView()}
