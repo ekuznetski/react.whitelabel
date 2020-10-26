@@ -36,11 +36,35 @@
       }
     }
 
-    &__fieldName {
+    &__field-name {
       font-weight: 500;
       font-size: 16px;
       line-height: 26px;
       text-align: center;
+    }
+
+    &__drop-zone {
+      @include d-flex(center, center);
+      flex: 1 0 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    &__file-preview {
+      @include d-flex(center, center);
+      height: 160px;
+      width: 160px;
+      overflow: hidden;
+      border: 1px solid $dark-grey;
+      border-radius: $border-radius;
+      background: $grey-bg;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+
+      font-size: 24px;
+      font-weight: 500;
+      text-transform: uppercase;
     }
 
     &__desc {

@@ -2,15 +2,26 @@ import React from 'react';
 
 export type UploadText = string | React.ReactFragment | undefined;
 export type UploadIcon = { name: string; height?: number; width?: number };
+export enum UploadViewState {
+  empty = 'empty',
+  error = 'error',
+  loading = 'loading',
+  ready = 'ready',
+}
 type Action = {
-  type: 'addDesc' | 'addIcon';
+  type: 'addDesc' | 'addIcon' | 'addFile' | 'removeFile';
   desc?: UploadText;
   fileIcon?: UploadIcon;
+  file?: File;
+  fileDataURL?: string;
 };
 type Dispatch = (action: Action) => void;
 type State = {
+  file: File | null;
+  fileDataURL: string | null;
   desc: UploadText;
   fileIcon: UploadIcon;
+  view: UploadViewState;
 };
 type UploadProviderProps = {
   children: (state: State, action: Dispatch) => React.ReactNode;
@@ -27,6 +38,17 @@ function UploadReducer(state: State, action: Action) {
     case 'addIcon': {
       return { ...state, fileIcon: action.fileIcon || { name: '' } };
     }
+    case 'addFile': {
+      return {
+        ...state,
+        file: action.file || null,
+        fileDataURL: action.fileDataURL || null,
+        view: UploadViewState.ready,
+      };
+    }
+    case 'removeFile': {
+      return { ...state, file: null, view: UploadViewState.empty };
+    }
     default: {
       throw new Error(`Unhandled Tabs action type: ${action.type}`);
     }
@@ -35,8 +57,11 @@ function UploadReducer(state: State, action: Action) {
 
 function UploadProvider({ children }: UploadProviderProps) {
   const [state, dispatch] = React.useReducer<React.Reducer<State, Action>>(UploadReducer, {
+    file: null,
     desc: undefined,
     fileIcon: { name: '' },
+    fileDataURL: null,
+    view: UploadViewState.empty,
   });
 
   return (

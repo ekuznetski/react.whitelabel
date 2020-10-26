@@ -1,9 +1,7 @@
 import { useCombinedRef } from '@utils/hooks';
-import { useDrop, useSetState } from 'ahooks';
-import classNames from 'classnames';
-import React, { createRef, forwardRef, memo, useEffect } from 'react';
+import React, { forwardRef, memo, useEffect } from 'react';
 import { UploadEmptyView, UploadReadyView } from './components';
-import { UploadProvider, UploadText, useUploadDispatch } from './upload-context';
+import { UploadProvider, UploadText, UploadViewState, useUploadDispatch } from './upload-context';
 import './Upload.scss';
 
 interface UploadProps {
@@ -26,13 +24,7 @@ interface UploadProps {
 interface UploadState {
   view: UploadViewState;
   file: File | null;
-}
-
-enum UploadViewState {
-  empty = 'empty',
-  error = 'error',
-  loading = 'loading',
-  ready = 'ready',
+  fileDataURL: string | null;
 }
 
 export const UploadFile = memo(
@@ -47,34 +39,11 @@ export const UploadFile = memo(
     },
     _ref,
   ) {
-    const [uploadState, setState] = useSetState<UploadState>({
-      view: UploadViewState.empty,
-      file: null,
-    });
-    const [getDropProps, { isHovering }] = useDrop({
-      onFiles: (files: File[], e) => onFilesChanged(files),
-    });
-    const ref = useCombinedRef(_ref);
-    const labelRef = createRef<HTMLLabelElement>();
-
-    function onFilesChanged(files: File[]) {
-      if (files.length) {
-        const file = files[0];
-        const _fileSize = file.size / 1024;
-        const _fileExtension = file.name.split('.').pop();
-
-        // @ts-ignore
-        if (_fileSize <= maxFileSizeKb && _fileExtension && accept.includes(_fileExtension)) {
-          setState({ file, view: UploadViewState.ready });
-        }
-      }
-    }
-
-    console.log(getDropProps);
-
     return (
       <UploadProvider>
         {(state, dispatch) => {
+          const ref = useCombinedRef(_ref);
+
           useEffect(() => {
             if (props.description) {
               dispatch({
@@ -96,37 +65,22 @@ export const UploadFile = memo(
               'UploadFile must be provided with the Icon through the UploadFile.icon param or UploadFileIcon component',
             );
 
-          function sectionClickHandler() {
-            if (uploadState.view === UploadViewState.empty && labelRef.current) {
-              labelRef.current.click();
-            }
-          }
-
           function renderView() {
-            switch (uploadState.view) {
+            switch (state.view) {
               case UploadViewState.empty:
-                return <UploadEmptyView fieldName={props.fieldName} desc={state.desc} fileIcon={state.fileIcon} />;
+                return <UploadEmptyView fieldName={props.fieldName} accept={accept} maxFileSizeKb={maxFileSizeKb} />;
               case UploadViewState.error:
-                return <UploadEmptyView fieldName={props.fieldName} desc={state.desc} fileIcon={state.fileIcon} />;
-              case UploadViewState.loading:
-                return <UploadEmptyView fieldName={props.fieldName} desc={state.desc} fileIcon={state.fileIcon} />;
-              case UploadViewState.ready:
-                if (!uploadState.file) setState({ view: UploadViewState.empty });
-                else return <UploadReadyView fieldName={props.fieldName} file={uploadState.file} />;
                 return null;
+              case UploadViewState.loading:
+                return null;
+              case UploadViewState.ready:
+                return <UploadReadyView fieldName={props.fieldName} />;
             }
           }
 
           return state.fileIcon ? (
             <div className="upload-file-wrapper" ref={ref}>
-              <div
-                className={classNames('upload-file__section col', isHovering && 'isHovering')}
-                {...getDropProps}
-                onClick={sectionClickHandler}
-              >
-                <label className="upload-file__label" onChange={(e) => onFilesChanged(e.target.files)} ref={labelRef}>
-                  <input type="file" accept={accept.map((f) => `.${f}`).join(',')} />
-                </label>
+              <div className={classNames('upload-file__section', state.view !== UploadViewState.empty && 'col')}>
                 {renderView()}
               </div>
             </div>
