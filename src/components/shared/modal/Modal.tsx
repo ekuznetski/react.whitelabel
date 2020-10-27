@@ -1,10 +1,7 @@
-import { EAppSection } from '@domain/enums';
-import { IStore } from '@store';
 import { useCombinedRef } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { useSelector } from 'react-redux';
 import { useLockScroll } from 'utils/hooks/useLockScroll';
 import { Svg } from '..';
 import './Modal.scss';
@@ -20,9 +17,6 @@ export interface IModal {
 
 export const Modal = memo(
   forwardRef<HTMLDivElement, IModal>(function Modal(props: any, ref) {
-    const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({
-      section: state.app.route.appSection,
-    }));
     const wrapperRef = React.createRef<HTMLDivElement>();
     const elementRef = useCombinedRef(ref);
 
@@ -33,7 +27,7 @@ export const Modal = memo(
     }, []);
 
     useEffect(() => {
-      useLockScroll(props.isOpen, section);
+      useLockScroll(props.isOpen);
     }, [props.isOpen]);
 
     return (

@@ -21,6 +21,10 @@
     outline: transparent;
   }
 
+  &:active {
+    background: lighten($dark-blue, 5%);
+  }
+
   &.noBg {
     color: $dark-blue;
     border-color: $dark-blue;

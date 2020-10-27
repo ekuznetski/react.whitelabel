@@ -17,10 +17,17 @@ body {
     min-height: 100vh;
     justify-content: space-between;
 
-    .main-wrapper {
-      min-height: 75vh;
+    &.locked {
+      overflow-y: hidden;
+      height: 100vh;
     }
-    
+
+    &:not(.locked) {
+      .main-wrapper {
+        min-height: 75vh;
+      }
+    }
+
     &.portal {
       background: $grey-bg-light;
 

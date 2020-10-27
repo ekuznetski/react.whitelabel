@@ -39,7 +39,6 @@
     &__field-name {
       font-weight: 500;
       font-size: 16px;
-      line-height: 26px;
       text-align: center;
     }
 
@@ -52,19 +51,93 @@
 
     &__file-preview {
       @include d-flex(center, center);
-      height: 160px;
-      width: 160px;
+      height: 140px;
+      width: 140px;
       overflow: hidden;
-      border: 1px solid $dark-grey;
       border-radius: $border-radius;
       background: $grey-bg;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
+      position: relative;
 
       font-size: 24px;
       font-weight: 500;
       text-transform: uppercase;
+
+      &__loader {
+        $line-size: 4px;
+
+        @include d-flex(center, center);
+        border: $line-size solid lighten($dark-grey, 10%);
+        box-shadow: inset 0 0 10px rgba($dark-blue, 0.5);
+        width: 100%;
+        height: 100%;
+
+        &.error {
+          border: $line-size solid lighten($red, 10%);
+          box-shadow: inset 0 0 10px rgba($red, 0.5);
+        }
+
+        &:not(.error) {
+          span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            &:before,
+            &:after {
+              position: absolute;
+              width: $line-size;
+              height: 100%;
+              background: $dark-blue;
+              content: '';
+              box-shadow: 0 0 20px $dark-blue;
+            }
+
+            &:before {
+              top: auto;
+              right: 0;
+              bottom: 0;
+              animation: drawframeRight 4s linear infinite 0.5s;
+            }
+
+            &:after {
+              top: 0;
+              bottom: auto;
+              left: 0;
+              animation: drawframeLeft 4s linear infinite 1.5s;
+            }
+          }
+
+          &:before,
+          &:after {
+            position: absolute;
+            width: 100%;
+            height: $line-size;
+            background: $dark-blue;
+            box-shadow: 0 0 20px $dark-blue;
+            content: '';
+          }
+
+          &:before {
+            top: 0;
+            right: 0;
+            left: auto;
+            animation: drawframeTop 4s linear infinite -0.02s;
+          }
+
+          &:after {
+            right: auto;
+            bottom: 0;
+            left: 0;
+            animation: drawframeBottom 4s linear infinite 1s;
+          }
+        }
+      }
     }
 
     &__desc {
@@ -86,5 +159,115 @@
         text-decoration: underline !important;
       }
     }
+  }
+}
+
+/* Animations */
+@keyframes drawframeTop {
+  0% {
+    right: 0;
+    left: auto;
+    width: 100%;
+  }
+  12.5% {
+    right: 0;
+    left: auto;
+    width: 0%;
+  }
+  50% {
+    right: auto;
+    left: 0;
+    width: 0%;
+  }
+  62.5% {
+    right: auto;
+    left: -4px;
+    width: calc(100% + 4px);
+  }
+  100% {
+    right: auto;
+    left: -4px;
+    width: calc(100% + 4px);
+  }
+}
+@keyframes drawframeBottom {
+  0% {
+    right: auto;
+    left: 0;
+    width: 100%;
+  }
+  12.5% {
+    right: auto;
+    left: 0;
+    width: 0%;
+  }
+  50% {
+    right: 0;
+    left: auto;
+    width: 0%;
+  }
+  62.5% {
+    right: 0;
+    left: auto;
+    width: 100%;
+  }
+  100% {
+    right: 0;
+    left: auto;
+    width: 100%;
+  }
+}
+@keyframes drawframeRight {
+  0% {
+    top: auto;
+    bottom: 0;
+    height: 100%;
+  }
+  12.5% {
+    top: auto;
+    bottom: 0;
+    height: 0%;
+  }
+  50% {
+    top: 0;
+    bottom: auto;
+    height: 0%;
+  }
+  62.5% {
+    top: 0;
+    bottom: auto;
+    height: 100%;
+  }
+  100% {
+    top: 0;
+    bottom: auto;
+    height: 100%;
+  }
+}
+@keyframes drawframeLeft {
+  0% {
+    top: 0;
+    bottom: auto;
+    height: 100%;
+  }
+  12.5% {
+    top: 0;
+    bottom: auto;
+    height: 0%;
+  }
+  50% {
+    top: auto;
+    bottom: 0;
+    height: 0%;
+  }
+  62.5% {
+    top: auto;
+    bottom: 0;
+    height: 100%;
+  }
+  100% {
+    top: auto;
+    bottom: 0;
+    height: 100%;
   }
 }

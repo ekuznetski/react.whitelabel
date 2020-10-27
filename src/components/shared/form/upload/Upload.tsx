@@ -1,4 +1,5 @@
 import { useCombinedRef } from '@utils/hooks';
+import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect } from 'react';
 import { UploadEmptyView, UploadReadyView } from './components';
 import { UploadProvider, UploadText, UploadViewState, useUploadDispatch } from './upload-context';
@@ -72,7 +73,7 @@ export const UploadFile = memo(
               case UploadViewState.error:
                 return null;
               case UploadViewState.loading:
-                return null;
+                return <UploadReadyView fieldName={props.fieldName} />;
               case UploadViewState.ready:
                 return <UploadReadyView fieldName={props.fieldName} />;
             }

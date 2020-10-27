@@ -1,11 +1,11 @@
 import { Footer, Header, Router } from '@components/core';
 import { localesConfig } from '@domain';
-import { ELanguage } from '@domain/enums';
-import { ac_updateRouteParams, store } from '@store';
+import { EAppSection, ELanguage } from '@domain/enums';
+import { ac_updateRouteParams, IStore, store } from '@store';
 import React, { Suspense, useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { useTranslation } from 'react-i18next';
-import { connect, Provider, useDispatch } from 'react-redux';
+import { connect, Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './App.scss';
 import { browserName, osName } from 'react-device-detect';
@@ -23,6 +23,9 @@ function App() {
 }
 
 function Main() {
+  const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({
+    section: state.app.route.appSection,
+  }));
   const { pathname } = useLocation();
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -40,6 +43,14 @@ function Main() {
       );
     }
   }, []);
+
+  useEffect(() => {
+    if (section) {
+      const _root = document.getElementById('root');
+      Object.keys(EAppSection).forEach((_section) => _root?.classList.remove(_section));
+      _root?.classList.add(section);
+    }
+  }, [section]);
 
   return (
     <>
