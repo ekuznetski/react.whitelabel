@@ -26,6 +26,10 @@ export function Notification(props: INotification) {
   const _timeout = notificationProps.timeout === null ? null : notificationProps.timeout || 10000; // if null don't show progress bar
   const _tick = 20;
 
+  useEffect(() => {
+    return () => closeNotification();
+  }, []);
+
   useInterval(() => {
     if (progress >= 100) {
       closeNotification();
@@ -36,7 +40,8 @@ export function Notification(props: INotification) {
 
   useEffect(() => {
     if (notificationProps.visible && _timeout !== null) setInterval(_tick);
-  }, [notificationProps.timeout]);
+    if (!notificationProps.visible && progress != 0) closeNotification();
+  }, [notificationProps]);
 
   function closeNotification() {
     setInterval(null);
