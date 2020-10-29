@@ -1,4 +1,5 @@
 import { Svg } from '@components/shared';
+import { formatNumberWithCommas } from '@utils/fn';
 import { useDrop } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, memo } from 'react';
@@ -51,6 +52,26 @@ export const UploadEmptyView = memo(function UploadEmptyView({
             file: file,
           });
         }
+      } else {
+        if (_fileSize > maxFileSizeKb) {
+          dispatch({
+            type: 'showError',
+            error: t('File size exceed limit', {
+              size: formatNumberWithCommas(_fileSize.toFixed(0)),
+              limit: formatNumberWithCommas(maxFileSizeKb.toFixed(0)),
+            }),
+          });
+        } else if (!_fileExtension) {
+          dispatch({
+            type: 'showError',
+            error: t('Error'),
+          });
+        } else if (_fileExtension && !accept.includes(_fileExtension)) {
+          dispatch({
+            type: 'showError',
+            error: t('Error'),
+          });
+        }
       }
     }
   }
@@ -71,7 +92,7 @@ export const UploadEmptyView = memo(function UploadEmptyView({
         <input type="file" accept={accept.map((f) => `.${f}`).join(',')} />
       </label>
       <div className="upload-file__empty-view">
-        <div className="upload-file__field-name">{t('Upload File', { fieldName: fieldName })}</div>
+        <div className="upload-file__field-title">{t('Upload File', { fieldName: fieldName })}</div>
         {desc && <div className="upload-file__desc mt-2 col-8">{desc}</div>}
         <div className="upload-file__icon my-9">
           <Svg href={fileIcon?.name} width={fileIcon?.width} height={fileIcon?.height} />

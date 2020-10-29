@@ -9,11 +9,12 @@ export enum UploadViewState {
   ready = 'ready',
 }
 type Action = {
-  type: 'addDesc' | 'addIcon' | 'addFile' | 'removeFile';
+  type: 'addDesc' | 'addIcon' | 'addFile' | 'removeFile' | 'showError';
   desc?: UploadText;
   fileIcon?: UploadIcon;
   file?: File;
   fileDataURL?: string;
+  error?: string | React.ReactFragment;
 };
 type Dispatch = (action: Action) => void;
 type State = {
@@ -22,6 +23,7 @@ type State = {
   desc: UploadText;
   fileIcon: UploadIcon;
   view: UploadViewState;
+  error: string | React.ReactFragment | null;
 };
 type UploadProviderProps = {
   children: (state: State, action: Dispatch) => React.ReactNode;
@@ -37,6 +39,9 @@ function UploadReducer(state: State, action: Action) {
     }
     case 'addIcon': {
       return { ...state, fileIcon: action.fileIcon || { name: '' } };
+    }
+    case 'showError': {
+      return { ...state, error: action.error || null, view: UploadViewState.error };
     }
     case 'addFile': {
       return {
@@ -62,6 +67,7 @@ function UploadProvider({ children }: UploadProviderProps) {
     fileIcon: { name: '' },
     fileDataURL: null,
     view: UploadViewState.empty,
+    error: null,
   });
 
   return (

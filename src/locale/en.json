@@ -152,6 +152,7 @@
   "Back Side": "Back Side",
   "Drag File Here>": "Drag file here <1> or <3>Browse file</3>",
   "Min Spread": "Min Spread",
+  "File size exceed limit": "The file is {{size}} KB exceeding the maximum file size of {{limit}} KB",
   "Swap Long": "Swap Long",
   "Swap Short": "Swap Short",
   "Lot Size": "Lot Size",

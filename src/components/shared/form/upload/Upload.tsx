@@ -71,9 +71,7 @@ export const UploadFile = memo(
               case UploadViewState.empty:
                 return <UploadEmptyView fieldName={props.fieldName} accept={accept} maxFileSizeKb={maxFileSizeKb} />;
               case UploadViewState.error:
-                return null;
               case UploadViewState.loading:
-                return <UploadReadyView fieldName={props.fieldName} />;
               case UploadViewState.ready:
                 return <UploadReadyView fieldName={props.fieldName} />;
             }

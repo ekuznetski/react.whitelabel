@@ -8,22 +8,22 @@ interface UploadReadyViewProps {
 }
 
 export const UploadReadyView = memo(function UploadReadyView({ fieldName }: UploadReadyViewProps) {
-  const { fileDataURL, file, view } = useUploadState();
+  const state = useUploadState();
   const dispatch = useUploadDispatch();
   const { t } = useTranslation();
 
   return (
-    <div
-      className={classNames(
-        'upload-file__ready-view',
-        view === UploadViewState.loading && 'loading',
-        view === UploadViewState.error && 'error',
-      )}
-    >
-      <div className="upload-file__field-name">{fieldName}</div>
-      <div className="upload-file__file-preview my-7 mx-auto" style={{ backgroundImage: `url(${fileDataURL})` }}>
-        {!fileDataURL && file?.name?.split('.')?.pop()}
-        <div className="upload-file__file-preview__loader">
+    <div className="upload-file__ready-view">
+      <div className="upload-file__field-title">{state.error || fieldName}</div>
+      <div className="upload-file__file-preview my-7 mx-auto" style={{ backgroundImage: `url(${state.fileDataURL})` }}>
+        {!state.fileDataURL && state.file?.name?.split('.')?.pop()}
+        <div
+          className={classNames(
+            'upload-file__file-preview__state',
+            state.view === UploadViewState.loading && 'upload-file__file-preview__state--loading',
+            state.view === UploadViewState.error && 'upload-file__file-preview__state--error',
+          )}
+        >
           <span />
         </div>
       </div>

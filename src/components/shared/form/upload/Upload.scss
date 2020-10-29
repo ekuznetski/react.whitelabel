@@ -36,7 +36,7 @@
       }
     }
 
-    &__field-name {
+    &__field-title {
       font-weight: 500;
       font-size: 16px;
       text-align: center;
@@ -65,7 +65,7 @@
       font-weight: 500;
       text-transform: uppercase;
 
-      &__loader {
+      &__state {
         $line-size: 4px;
 
         @include d-flex(center, center);
@@ -74,12 +74,12 @@
         width: 100%;
         height: 100%;
 
-        &.error {
+        &--error {
           border: $line-size solid lighten($red, 10%);
           box-shadow: inset 0 0 10px rgba($red, 0.5);
         }
 
-        &:not(.error) {
+        &--loading {
           span {
             position: absolute;
             top: 0;
