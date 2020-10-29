@@ -127,6 +127,6 @@ export const DropDown = memo<IDropdown>(function DropDown({
         </div>
       </div>
     </div>,
-    document.body,
+    document.getElementById('dynamic-portals') || document.body,
   );
 });

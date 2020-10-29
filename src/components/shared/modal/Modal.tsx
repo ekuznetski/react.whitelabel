@@ -61,7 +61,7 @@ export const Modal = memo(
             <div className="common-modal__content">{props.children}</div>
           </div>
         </div>,
-        document.body,
+        document.getElementById('dynamic-portals') || document.body,
       )
     );
   }),

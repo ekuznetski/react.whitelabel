@@ -70,6 +70,7 @@ function Main() {
         </main>
       </div>
       <Footer />
+      <div id="dynamic-portals" />
     </>
   );
 }
