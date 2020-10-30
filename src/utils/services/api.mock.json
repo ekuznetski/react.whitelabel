@@ -466,5 +466,18 @@
         }
       }
     }
+  },
+  "v2": {
+    "documents": {
+      "upload": {
+        "response": {
+          "status": "success",
+          "message": [
+            { "id": "102559", "document_type": "ID", "document_status": "Pending", "created": "2020-10-30 11:03:23" }
+          ],
+          "messageCode": 54
+        }
+      }
+    }
   }
 }

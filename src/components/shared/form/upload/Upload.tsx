@@ -1,6 +1,11 @@
+import { Button } from '@components/shared';
+import { DocumentsTypeEnum } from '@domain/enums';
+import { ac_uploadDocuments, EActionTypes } from '@store';
 import { useCombinedRef } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { UploadEmptyView, UploadReadyView } from './components';
 import { UploadProvider, UploadText, UploadViewState, useUploadDispatch } from './upload-context';
 import './Upload.scss';
@@ -40,34 +45,42 @@ export const UploadFile = memo(
     },
     _ref,
   ) {
+    const { t } = useTranslation();
+    const dispatch = useDispatch();
+
     return (
       <UploadProvider>
-        {(state, dispatch) => {
+        {(contextState, contextDispatch) => {
           const ref = useCombinedRef(_ref);
 
           useEffect(() => {
             if (props.description) {
-              dispatch({
+              contextDispatch({
                 type: 'addDesc',
                 desc: props.description,
               });
             }
 
             if (props.icon) {
-              dispatch({
+              contextDispatch({
                 type: 'addIcon',
                 fileIcon: { name: props.icon, width: props.iconWidth, height: props.iconHeight },
               });
             }
           }, []);
 
-          if (!state.fileIcon && !props.icon)
+          if (!contextState.fileIcon && !props.icon)
             console.error(
               'UploadFile must be provided with the Icon through the UploadFile.icon param or UploadFileIcon component',
             );
 
+          function Submit() {
+            contextDispatch({ type: 'uploadFile' });
+            dispatch(ac_uploadDocuments({ CCBack: new Blob() }));
+          }
+
           function renderView() {
-            switch (state.view) {
+            switch (contextState.view) {
               case UploadViewState.empty:
                 return <UploadEmptyView fieldName={props.fieldName} accept={accept} maxFileSizeKb={maxFileSizeKb} />;
               case UploadViewState.error:
@@ -77,11 +90,18 @@ export const UploadFile = memo(
             }
           }
 
-          return state.fileIcon ? (
+          return contextState.fileIcon ? (
             <div className="upload-file-wrapper" ref={ref}>
-              <div className={classNames('upload-file__section', state.view !== UploadViewState.empty && 'col')}>
+              <div className={classNames('upload-file__section', contextState.view !== UploadViewState.empty && 'col')}>
                 {renderView()}
               </div>
+              <Button
+                className="upload-file__btn mt-9"
+                disabled={contextState.view !== UploadViewState.ready}
+                onClick={Submit}
+              >
+                {t('Confirm & Upload')}
+              </Button>
             </div>
           ) : null;
         }}

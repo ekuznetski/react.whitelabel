@@ -9,7 +9,7 @@ export enum UploadViewState {
   ready = 'ready',
 }
 type Action = {
-  type: 'addDesc' | 'addIcon' | 'addFile' | 'removeFile' | 'showError';
+  type: 'addDesc' | 'addIcon' | 'addFile' | 'removeFile' | 'showError' | 'uploadFile';
   desc?: UploadText;
   fileIcon?: UploadIcon;
   file?: File;
@@ -52,7 +52,10 @@ function UploadReducer(state: State, action: Action) {
       };
     }
     case 'removeFile': {
-      return { ...state, file: null, view: UploadViewState.empty };
+      return { ...state, file: null, view: UploadViewState.empty, error: null };
+    }
+    case 'uploadFile': {
+      return { ...state, view: UploadViewState.loading };
     }
     default: {
       throw new Error(`Unhandled Tabs action type: ${action.type}`);

@@ -40,6 +40,10 @@
       font-weight: 500;
       font-size: 16px;
       text-align: center;
+
+      // &.error {
+      //   color: $red;
+      // }
     }
 
     &__drop-zone {
@@ -69,17 +73,18 @@
         $line-size: 4px;
 
         @include d-flex(center, center);
+        position: absolute;
         border: $line-size solid lighten($dark-grey, 10%);
         box-shadow: inset 0 0 10px rgba($dark-blue, 0.5);
         width: 100%;
         height: 100%;
 
-        &--error {
+        &.error {
           border: $line-size solid lighten($red, 10%);
           box-shadow: inset 0 0 10px rgba($red, 0.5);
         }
 
-        &--loading {
+        &.loading {
           span {
             position: absolute;
             top: 0;

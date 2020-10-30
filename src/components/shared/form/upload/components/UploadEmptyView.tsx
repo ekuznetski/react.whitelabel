@@ -56,7 +56,7 @@ export const UploadEmptyView = memo(function UploadEmptyView({
         if (_fileSize > maxFileSizeKb) {
           dispatch({
             type: 'showError',
-            error: t('File size exceed limit', {
+            error: t('File Size Exceed Limit', {
               size: formatNumberWithCommas(_fileSize.toFixed(0)),
               limit: formatNumberWithCommas(maxFileSizeKb.toFixed(0)),
             }),
@@ -64,12 +64,12 @@ export const UploadEmptyView = memo(function UploadEmptyView({
         } else if (!_fileExtension) {
           dispatch({
             type: 'showError',
-            error: t('Error'),
+            error: t('File Extension Not Detected'),
           });
         } else if (_fileExtension && !accept.includes(_fileExtension)) {
           dispatch({
             type: 'showError',
-            error: t('Error'),
+            error: t('File Extension Not Allowed', { ext: _fileExtension }),
           });
         }
       }
@@ -88,8 +88,12 @@ export const UploadEmptyView = memo(function UploadEmptyView({
       {...getDropProps}
       onClick={sectionClickHandler}
     >
-      <label className="upload-file__label" onChange={(e) => onFilesChanged(e.target.files)} ref={labelRef}>
-        <input type="file" accept={accept.map((f) => `.${f}`).join(',')} />
+      <label className="upload-file__label" ref={labelRef}>
+        <input
+          type="file"
+          accept={accept.map((f) => `.${f}`).join(',')}
+          onChange={(e) => onFilesChanged(e.target.files as any)}
+        />
       </label>
       <div className="upload-file__empty-view">
         <div className="upload-file__field-title">{t('Upload File', { fieldName: fieldName })}</div>

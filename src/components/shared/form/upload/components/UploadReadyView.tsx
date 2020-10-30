@@ -14,14 +14,14 @@ export const UploadReadyView = memo(function UploadReadyView({ fieldName }: Uplo
 
   return (
     <div className="upload-file__ready-view">
-      <div className="upload-file__field-title">{state.error || fieldName}</div>
+      <div className={classNames('upload-file__field-title', state.error && 'error')}>{state.error || fieldName}</div>
       <div className="upload-file__file-preview my-7 mx-auto" style={{ backgroundImage: `url(${state.fileDataURL})` }}>
         {!state.fileDataURL && state.file?.name?.split('.')?.pop()}
         <div
           className={classNames(
             'upload-file__file-preview__state',
-            state.view === UploadViewState.loading && 'upload-file__file-preview__state--loading',
-            state.view === UploadViewState.error && 'upload-file__file-preview__state--error',
+            state.view === UploadViewState.loading && 'loading',
+            state.view === UploadViewState.error && 'error',
           )}
         >
           <span />

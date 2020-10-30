@@ -4,3 +4,4 @@ export * from './withdrawals';
 export * from './statements';
 export * from './profile';
 export * from './bankDetails';
+export * from './documents';

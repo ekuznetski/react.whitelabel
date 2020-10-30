@@ -16,8 +16,8 @@ export enum EResponseStatus {
 }
 
 export enum EModalType {
-	success = 'success',
-	failure = 'failure',
+  success = 'success',
+  failure = 'failure',
 }
 
 export enum EFormStatus {
@@ -45,6 +45,12 @@ export enum ENotificationType {
   info = 'info',
   success = 'success',
   failure = 'failure',
+}
+
+export enum EDocumentsStatus {
+  approved = 'Approved',
+  rejected = 'Rejected',
+  pending = 'Pending',
 }
 
 export enum ClientStatus {

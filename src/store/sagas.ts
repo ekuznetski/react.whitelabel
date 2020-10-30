@@ -7,6 +7,7 @@ import {
   IClientProfileResponse,
   IClientStatusDataResponse,
   ICreateTradingAccountRequest,
+  IDocumentsInterfaceResponse,
   IEditProfileResponse,
   ILoginResponse,
   ISetProfileResponse,
@@ -20,6 +21,7 @@ import {
   MClientData,
   MClientProfile,
   MClientTradingData,
+  MDocument,
   MTransactionalStatementData,
   MWithdrawalHistoryItem,
 } from '@domain/models';
@@ -36,6 +38,7 @@ import {
   getBankDetailsRequest,
   getClientDataRequest,
   getContentRequest,
+  getDocumentsRequest,
   getGeoIpRequest,
   getProfileRequest,
   getTransactionalStatementsRequest,
@@ -47,6 +50,7 @@ import {
   resetPasswordRequest,
   tradingAccountsRequest,
   updateBankDetailsRequest,
+  uploadFileRequest,
   userExistsRequest,
   withdrawalsHistoryRequest,
   withdrawalsLimitRequest,
@@ -55,6 +59,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { store } from './';
 import {
   ac_clearStore,
+  ac_fetchDocuments,
   ac_fetchTradingAccounts,
   ac_fetchWithdrawHistory,
   ac_requestActionFailure,
@@ -62,6 +67,7 @@ import {
   ac_saveBankDetails,
   ac_saveClientData,
   ac_saveContent,
+  ac_saveDocuments,
   ac_saveGeoIpData,
   ac_saveProfile,
   ac_saveTradingAccounts,
@@ -340,6 +346,27 @@ export function* makeInternalTransferSage() {
   yield $$(EActionTypes.makeInternalTransfer, function* ({ payload }: IAction) {
     const { response }: any = yield call(internalTransferRequest, payload);
     yield put(ac_fetchTradingAccounts());
+    return response;
+  });
+}
+
+export function* getDocumentsSage() {
+  yield $$(
+    EActionTypes.makeInternalTransfer,
+    function* () {
+      const { response }: IDocumentsInterfaceResponse = yield call(getDocumentsRequest);
+      const data = response.message.map((document) => new MDocument(document));
+      yield put(ac_saveDocuments(data));
+      return response;
+    },
+    'data.client.documents',
+  );
+}
+
+export function* uploadFileSage() {
+  yield $$(EActionTypes.makeInternalTransfer, function* ({ payload }: IAction) {
+    const { response }: any = yield call(uploadFileRequest, payload);
+    yield put(ac_fetchDocuments({ force: true }));
     return response;
   });
 }

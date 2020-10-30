@@ -1,4 +1,4 @@
-import { EAppSection, ELanguage } from '@domain/enums';
+import { DocumentsTypeEnum, EAppSection, ELanguage } from '@domain/enums';
 import {
   AnyFunction,
   IClientAddRequest,
@@ -20,6 +20,7 @@ import {
   MClientData,
   MClientProfile,
   MClientTradingData,
+  MDocument,
   MTransactionalStatementData,
   MWithdrawalHistoryItem,
 } from '@domain/models';
@@ -341,6 +342,33 @@ export function ac_addDeposit<T>(
 ): IAction {
   return {
     type: EActionTypes.addDeposit,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_fetchDocuments({ force = null }: { force: true | null }): IAction {
+  return {
+    type: EActionTypes.fetchDocuments,
+    force,
+  };
+}
+
+export function ac_saveDocuments(payload: MDocument[]): IAction {
+  return {
+    type: EActionTypes.saveDocuments,
+    payload,
+  };
+}
+
+export function ac_uploadDocuments(
+  payload: { [K in typeof DocumentsTypeEnum[keyof typeof DocumentsTypeEnum]]?: Blob },
+  onSuccess: AnyFunction = () => {},
+  onFailure: AnyFunction = () => {},
+): IAction {
+  return {
+    type: EActionTypes.fetchDocuments,
     payload,
     onSuccess,
     onFailure,

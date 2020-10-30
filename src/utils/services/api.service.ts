@@ -88,3 +88,5 @@ export const createMT4DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/
 export const createMT5LiveAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt5accounts/create`);
 export const createMT5DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt5accounts/demo/create`);
 export const addDepositRequest = request(EHttpMethod.post, `${apiUrl}/deposits/add`);
+export const uploadFileRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/upload`);
+export const getDocumentsRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/getDocuments`);

@@ -27,7 +27,9 @@ export function Notification(props: INotification) {
   const _tick = 20;
 
   useEffect(() => {
-    return () => closeNotification();
+    return () => {
+      dispatch(ac_hideNotification());
+    };
   }, []);
 
   useInterval(() => {
