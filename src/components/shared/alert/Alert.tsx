@@ -6,7 +6,7 @@ import './Alert.scss';
 
 type IAlert = {
 	viewType?: 'message' | 'block';
-	type: 'success' | 'warning' | 'error' | 'info';
+	type: 'success' | 'warning' | 'error' | 'info' | 'text';
 	children: React.ReactNode;
 	className?: string;
 	sizes: ColProps;

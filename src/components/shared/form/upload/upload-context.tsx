@@ -7,6 +7,7 @@ export enum UploadViewState {
   error = 'error',
   loading = 'loading',
   ready = 'ready',
+  complete = 'complete',
 }
 type Action = {
   type: 'addDesc' | 'addIcon' | 'addFile' | 'removeFile' | 'showError' | 'uploadFile';

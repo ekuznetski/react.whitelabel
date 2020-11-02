@@ -1,9 +1,9 @@
 import { Button } from '@components/shared';
-import { DocumentsTypeEnum } from '@domain/enums';
-import { ac_uploadDocuments, EActionTypes } from '@store';
+import { ac_uploadDocuments } from '@store';
 import { useCombinedRef } from '@utils/hooks';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useEffect } from 'react';
+import React, { forwardRef, memo, useEffect, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { UploadEmptyView, UploadReadyView } from './components';
@@ -18,20 +18,66 @@ interface UploadProps {
   icon?: string;
   iconWidth?: number;
   iconHeight?: number;
-  chooseBtn?: UploadText;
   accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx' | 'tiff')[];
   maxFileSizeKb?: number;
   disabled?: boolean;
-  errorText?: string;
-  isLoading?: (val: boolean) => void;
-  isError?: (val: boolean) => void;
+  errorText?: UploadText;
+  transferControls?: false & { onChange: (state: UploadViewState) => void };
+  isLoading?: () => void;
+  isError?: () => void;
 }
 
-interface UploadState {
-  view: UploadViewState;
-  file: File | null;
-  fileDataURL: string | null;
+interface MultiUploadProps {
+  children: React.ReactElement[];
+  accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx' | 'tiff')[];
+  maxFileSizeKb?: number;
+  disabled?: boolean;
+  isLoading?: () => void;
+  isError?: () => void;
 }
+
+// not working with HMR
+export const MultiUpload = memo(
+  forwardRef<HTMLDivElement, MultiUploadProps>(function MultiUpload(
+    {
+      accept = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx', 'tiff'],
+      maxFileSizeKb = 15 * 1024, // 15mb
+      disabled = false,
+      ...props
+    },
+    _ref,
+  ) {
+    const [filesContext, setFilesContext] = useState<UploadViewState[]>([]);
+    const { t } = useTranslation();
+
+    useEffect(() => {
+      if (!Array.isArray(props.children)) throw new Error('MultiUpload must contain more than one ReactElement');
+    }, []);
+
+    return (
+      <Row>
+        {props.children.map((child, idx) => {
+          if (child.type == UploadFile) {
+            return (
+              <Col key={idx}>
+                {React.cloneElement(child, {
+                  accept: accept || child.props.accept,
+                  maxFileSizeKb: maxFileSizeKb || child.props.maxFileSizeKb,
+                  disabled: disabled || child.props.disabled,
+                  transferControls: true,
+                })}
+              </Col>
+            );
+          }
+          return <></>;
+        })}
+        <Col xs={12}>
+          <Button className="upload-file__btn mt-9">{t('Confirm & Upload')}</Button>
+        </Col>
+      </Row>
+    );
+  }),
+);
 
 export const UploadFile = memo(
   forwardRef<HTMLDivElement, UploadProps>(function UploadFile(
@@ -69,6 +115,23 @@ export const UploadFile = memo(
             }
           }, []);
 
+          useEffect(() => {
+            switch (contextState.view) {
+              case UploadViewState.loading:
+                props.isLoading?.();
+                break;
+              case UploadViewState.error:
+                props.isError?.();
+                break;
+            }
+          }, [contextState.view]);
+
+          if (props.transferControls) {
+            useEffect(() => {
+              
+            }, [contextState]);
+          }
+
           if (!contextState.fileIcon && !props.icon)
             console.error(
               'UploadFile must be provided with the Icon through the UploadFile.icon param or UploadFileIcon component',
@@ -82,7 +145,14 @@ export const UploadFile = memo(
           function renderView() {
             switch (contextState.view) {
               case UploadViewState.empty:
-                return <UploadEmptyView fieldName={props.fieldName} accept={accept} maxFileSizeKb={maxFileSizeKb} />;
+                return (
+                  <UploadEmptyView
+                    fieldName={props.fieldName}
+                    accept={accept}
+                    maxFileSizeKb={maxFileSizeKb}
+                    errorText={props.errorText}
+                  />
+                );
               case UploadViewState.error:
               case UploadViewState.loading:
               case UploadViewState.ready:
@@ -95,13 +165,15 @@ export const UploadFile = memo(
               <div className={classNames('upload-file__section', contextState.view !== UploadViewState.empty && 'col')}>
                 {renderView()}
               </div>
-              <Button
-                className="upload-file__btn mt-9"
-                disabled={contextState.view !== UploadViewState.ready}
-                onClick={Submit}
-              >
-                {t('Confirm & Upload')}
-              </Button>
+              {!props.transferControls && (
+                <Button
+                  className="upload-file__btn mt-9"
+                  disabled={contextState.view !== UploadViewState.ready}
+                  onClick={Submit}
+                >
+                  {t('Confirm & Upload')}
+                </Button>
+              )}
             </div>
           ) : null;
         }}

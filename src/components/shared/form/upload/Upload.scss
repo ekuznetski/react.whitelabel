@@ -84,34 +84,40 @@
           box-shadow: inset 0 0 10px rgba($red, 0.5);
         }
 
+        &.complete {
+          border: $line-size solid lighten($green, 10%);
+          box-shadow: inset 0 0 10px rgba($green, 0.5);
+        }
+
         &.loading {
           span {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: -4px;
+            left: -4px;
             display: block;
-            width: 100%;
-            height: 100%;
+            width: calc(100% + 8px);
+            height: calc(100% + 8px);
 
             &:before,
             &:after {
               position: absolute;
               width: $line-size;
-              height: 100%;
+              height: calc(100% + 8px);
               background: $dark-blue;
               content: '';
               box-shadow: 0 0 20px $dark-blue;
+              z-index:2;
             }
 
             &:before {
               top: auto;
               right: 0;
-              bottom: 0;
+              bottom: -4px;
               animation: drawframeRight 4s linear infinite 0.5s;
             }
 
             &:after {
-              top: 0;
+              top: -4px;
               bottom: auto;
               left: 0;
               animation: drawframeLeft 4s linear infinite 1.5s;
@@ -121,24 +127,25 @@
           &:before,
           &:after {
             position: absolute;
-            width: 100%;
+            width: calc(100% + 8px);
             height: $line-size;
             background: $dark-blue;
             box-shadow: 0 0 20px $dark-blue;
             content: '';
+            z-index:2;
           }
 
           &:before {
-            top: 0;
-            right: 0;
+            top: -4px;
+            right: -4px;
             left: auto;
             animation: drawframeTop 4s linear infinite -0.02s;
           }
 
           &:after {
             right: auto;
-            bottom: 0;
-            left: 0;
+            bottom: -4px;
+            left: -4px;
             animation: drawframeBottom 4s linear infinite 1s;
           }
         }
@@ -170,109 +177,109 @@
 /* Animations */
 @keyframes drawframeTop {
   0% {
-    right: 0;
+    right: -4px;
     left: auto;
-    width: 100%;
+    width: calc(100% + 8px);
   }
   12.5% {
-    right: 0;
+    right: -4px;
     left: auto;
     width: 0%;
   }
   50% {
     right: auto;
-    left: 0;
+    left: -4px;
     width: 0%;
   }
   62.5% {
     right: auto;
     left: -4px;
-    width: calc(100% + 4px);
+    width: calc(100% + 8px);
   }
   100% {
     right: auto;
     left: -4px;
-    width: calc(100% + 4px);
+    width: calc(100% + 8px);
   }
 }
 @keyframes drawframeBottom {
   0% {
     right: auto;
-    left: 0;
-    width: 100%;
+    left: -4px;
+    width: calc(100% + 8px);
   }
   12.5% {
     right: auto;
-    left: 0;
+    left: -4px;
     width: 0%;
   }
   50% {
-    right: 0;
+    right: -4px;
     left: auto;
     width: 0%;
   }
   62.5% {
-    right: 0;
+    right: -4px;
     left: auto;
-    width: 100%;
+    width: calc(100% + 8px);
   }
   100% {
-    right: 0;
+    right: -4px;
     left: auto;
-    width: 100%;
+    width: calc(100% + 8px);
   }
 }
 @keyframes drawframeRight {
   0% {
     top: auto;
-    bottom: 0;
-    height: 100%;
+    bottom: -4px;
+    height: calc(100% + 8px);
   }
   12.5% {
     top: auto;
-    bottom: 0;
+    bottom: -4px;
     height: 0%;
   }
   50% {
-    top: 0;
+    top: -4px;
     bottom: auto;
     height: 0%;
   }
   62.5% {
-    top: 0;
+    top: -4px;
     bottom: auto;
-    height: 100%;
+    height: calc(100% + 8px);
   }
   100% {
-    top: 0;
+    top: -4px;
     bottom: auto;
-    height: 100%;
+    height: calc(100% + 8px);
   }
 }
 @keyframes drawframeLeft {
   0% {
-    top: 0;
+    top: -4px;
     bottom: auto;
-    height: 100%;
+    height: calc(100% + 8px);
   }
   12.5% {
-    top: 0;
+    top: -4px;
     bottom: auto;
     height: 0%;
   }
   50% {
     top: auto;
-    bottom: 0;
+    bottom: -4px;
     height: 0%;
   }
   62.5% {
     top: auto;
-    bottom: 0;
-    height: 100%;
+    bottom: -4px;
+    height: calc(100% + 8px);
   }
   100% {
     top: auto;
-    bottom: 0;
-    height: 100%;
+    bottom: -4px;
+    height: calc(100% + 8px);
   }
 }

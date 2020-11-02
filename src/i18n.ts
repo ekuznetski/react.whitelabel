@@ -13,7 +13,7 @@ i18n
       en: [ELanguage.en],
       default: [ELanguage.en],
     },
-    debug: !env.PRODUCTION,
+    // debug: !env.PRODUCTION,
     backend: {
       loadPath: `./locale/{{lng}}.json`,
     },

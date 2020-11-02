@@ -4,18 +4,20 @@ import { useDrop } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, memo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { UploadViewState, useUploadDispatch, useUploadState } from '../upload-context';
+import { UploadText, UploadViewState, useUploadDispatch, useUploadState } from '../upload-context';
 
 interface UploadEmptyViewProps {
   fieldName: string;
   accept: string[];
   maxFileSizeKb: number;
+  errorText?: UploadText;
 }
 
 export const UploadEmptyView = memo(function UploadEmptyView({
   fieldName,
   accept,
   maxFileSizeKb,
+  ...props
 }: UploadEmptyViewProps) {
   const [getDropProps, { isHovering }] = useDrop({
     onFiles: (files: File[], e) => onFilesChanged(files),
@@ -56,10 +58,12 @@ export const UploadEmptyView = memo(function UploadEmptyView({
         if (_fileSize > maxFileSizeKb) {
           dispatch({
             type: 'showError',
-            error: t('File Size Exceed Limit', {
-              size: formatNumberWithCommas(_fileSize.toFixed(0)),
-              limit: formatNumberWithCommas(maxFileSizeKb.toFixed(0)),
-            }),
+            error:
+              props.errorText ||
+              t('File Size Exceed Limit', {
+                size: formatNumberWithCommas(_fileSize.toFixed(0)),
+                limit: formatNumberWithCommas(maxFileSizeKb.toFixed(0)),
+              }),
           });
         } else if (!_fileExtension) {
           dispatch({
