@@ -1,4 +1,5 @@
 import { Svg } from '@components/shared';
+import { DocumentsTypeEnum } from '@domain/enums';
 import { formatNumberWithCommas } from '@utils/fn';
 import { useDrop } from 'ahooks';
 import classNames from 'classnames';
@@ -29,7 +30,6 @@ export const UploadEmptyView = memo(function UploadEmptyView({
   const labelRef = createRef<HTMLLabelElement>();
 
   function onFilesChanged(files: File[]) {
-    console.log(files);
     if (files.length) {
       const file = files[0];
       const _fileSize = file.size / 1024;

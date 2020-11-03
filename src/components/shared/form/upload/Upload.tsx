@@ -1,16 +1,27 @@
 import { Button } from '@components/shared';
+import { DocumentsTypeEnum } from '@domain/enums';
 import { ac_uploadDocuments } from '@store';
+import { deepDifference, shallowEqual } from '@utils/fn';
 import { useCombinedRef } from '@utils/hooks';
+import { useSetState } from 'ahooks';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useEffect, useState } from 'react';
+import React, { forwardRef, memo, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { UploadEmptyView, UploadReadyView } from './components';
-import { UploadProvider, UploadText, UploadViewState, useUploadDispatch } from './upload-context';
+import {
+  UploadDispatch,
+  UploadProvider,
+  UploadState,
+  UploadText,
+  UploadViewState,
+  useUploadDispatch,
+} from './upload-context';
 import './Upload.scss';
 
 interface UploadProps {
+  fileType: DocumentsTypeEnum;
   fieldName: string;
   className?: string;
   uploadSectionClassName?: string;
@@ -22,7 +33,10 @@ interface UploadProps {
   maxFileSizeKb?: number;
   disabled?: boolean;
   errorText?: UploadText;
-  transferControls?: false & { onChange: (state: UploadViewState) => void };
+  transferControls?: false & {
+    trackContextState: (state: UploadState) => void;
+    regContextDispatch: (dispatch: UploadDispatch) => void;
+  };
   isLoading?: () => void;
   isError?: () => void;
 }
@@ -47,24 +61,70 @@ export const MultiUpload = memo(
     },
     _ref,
   ) {
-    const [filesContext, setFilesContext] = useState<UploadViewState[]>([]);
+    const [multiContextDispatch, setMultiContextDispatch] = useSetState<{ [k: string]: any }>({});
+    const [multiContextState, setMultiContextState] = useSetState<{ [k: string]: any }>({});
     const { t } = useTranslation();
+    const dispatch = useDispatch();
 
     useEffect(() => {
       if (!Array.isArray(props.children)) throw new Error('MultiUpload must contain more than one ReactElement');
     }, []);
 
+    useEffect(() => {
+      Object.keys(multiContextState).forEach((key) => {
+        const _ = Object.keys(multiContextState);
+      });
+    }, [multiContextState]);
+
+    function trackUploadFileContext(uploadFileId: string) {
+      return function (contextData: UploadState) {
+        if (multiContextState[uploadFileId] && !shallowEqual(multiContextState[uploadFileId], contextData)) {
+          const diff = deepDifference(multiContextState[uploadFileId], contextData);
+          if (diff.view && (contextData.view == UploadViewState.error || contextData.view == UploadViewState.empty)) {
+            Object.keys(multiContextDispatch)
+              .filter((k) => k != uploadFileId)
+              .forEach((key) => {
+                multiContextDispatch[key]({
+                  type: contextData.view == UploadViewState.error ? 'showError' : 'removeFile',
+                });
+              });
+          }
+        }
+
+        setMultiContextState({ [uploadFileId]: contextData });
+      };
+    }
+
+    function regUploadFileContextDispatch(uploadFileId: string) {
+      return function (contextDispatch: UploadDispatch) {
+        setMultiContextDispatch({ [uploadFileId]: contextDispatch });
+      };
+    }
+
+    function Submit() {
+      const uploadDocs = {};
+      Object.keys(multiContextState).forEach((key) => {
+        Object.assign(uploadDocs, { [multiContextState[key].fileType]: multiContextState[key].file });
+        multiContextDispatch[key]({ type: 'uploadFile' });
+      });
+      // dispatch(ac_uploadDocuments(uploadDocs));
+    }
+
     return (
       <Row>
         {props.children.map((child, idx) => {
           if (child.type == UploadFile) {
+            const _id = `uf${idx}`;
             return (
               <Col key={idx}>
                 {React.cloneElement(child, {
                   accept: accept || child.props.accept,
                   maxFileSizeKb: maxFileSizeKb || child.props.maxFileSizeKb,
                   disabled: disabled || child.props.disabled,
-                  transferControls: true,
+                  transferControls: {
+                    trackContextState: trackUploadFileContext(_id),
+                    regContextDispatch: regUploadFileContextDispatch(_id),
+                  },
                 })}
               </Col>
             );
@@ -72,7 +132,13 @@ export const MultiUpload = memo(
           return <></>;
         })}
         <Col xs={12}>
-          <Button className="upload-file__btn mt-9">{t('Confirm & Upload')}</Button>
+          <Button
+            className="upload-file__btn mt-9"
+            disabled={!Object.keys(multiContextState).every((k) => multiContextState[k].view === UploadViewState.ready)}
+            onClick={Submit}
+          >
+            {t('Confirm & Upload')}
+          </Button>
         </Col>
       </Row>
     );
@@ -85,8 +151,6 @@ export const UploadFile = memo(
       accept = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx', 'tiff'],
       maxFileSizeKb = 15 * 1024, // 15mb
       disabled = false,
-      // loading: (val) => if (val) this._updateState(EFileDropState.LOADING),
-      // uploadError: (val) => if (val) this._updateState(EFileDropState.ERROR),
       ...props
     },
     _ref,
@@ -100,18 +164,15 @@ export const UploadFile = memo(
           const ref = useCombinedRef(_ref);
 
           useEffect(() => {
-            if (props.description) {
-              contextDispatch({
-                type: 'addDesc',
-                desc: props.description,
-              });
-            }
+            contextDispatch({
+              type: 'initFile',
+              fileType: props.fileType,
+              desc: props.description || undefined,
+              fileIcon: props.icon ? { name: props.icon, width: props.iconWidth, height: props.iconHeight } : undefined,
+            });
 
-            if (props.icon) {
-              contextDispatch({
-                type: 'addIcon',
-                fileIcon: { name: props.icon, width: props.iconWidth, height: props.iconHeight },
-              });
+            if (props.transferControls) {
+              props.transferControls?.regContextDispatch?.(contextDispatch);
             }
           }, []);
 
@@ -128,7 +189,7 @@ export const UploadFile = memo(
 
           if (props.transferControls) {
             useEffect(() => {
-              
+              props.transferControls?.trackContextState?.(contextState);
             }, [contextState]);
           }
 
@@ -139,7 +200,7 @@ export const UploadFile = memo(
 
           function Submit() {
             contextDispatch({ type: 'uploadFile' });
-            dispatch(ac_uploadDocuments({ CCBack: new Blob() }));
+            dispatch(ac_uploadDocuments({ [props.fileType]: new Blob() }));
           }
 
           function renderView() {

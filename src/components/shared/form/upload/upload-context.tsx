@@ -1,3 +1,4 @@
+import { DocumentsTypeEnum } from '@domain/enums';
 import React from 'react';
 
 export type UploadText = string | React.ReactFragment | undefined;
@@ -10,15 +11,17 @@ export enum UploadViewState {
   complete = 'complete',
 }
 type Action = {
-  type: 'addDesc' | 'addIcon' | 'addFile' | 'removeFile' | 'showError' | 'uploadFile';
+  type: 'initFile' | 'addDesc' | 'addIcon' | 'addFileType' | 'addFile' | 'removeFile' | 'showError' | 'uploadFile';
   desc?: UploadText;
+  fileType?: DocumentsTypeEnum;
   fileIcon?: UploadIcon;
   file?: File;
   fileDataURL?: string;
   error?: string | React.ReactFragment;
 };
-type Dispatch = (action: Action) => void;
-type State = {
+export type UploadDispatch = (action: Action) => void;
+export type UploadState = {
+  fileType: DocumentsTypeEnum | null;
   file: File | null;
   fileDataURL: string | null;
   desc: UploadText;
@@ -27,14 +30,23 @@ type State = {
   error: string | React.ReactFragment | null;
 };
 type UploadProviderProps = {
-  children: (state: State, action: Dispatch) => React.ReactNode;
+  children: (state: UploadState, action: UploadDispatch) => React.ReactNode;
 };
 
-const UploadStateContext = React.createContext<State | undefined>(undefined);
-const UploadDispatchContext = React.createContext<Dispatch | undefined>(undefined);
+const UploadStateContext = React.createContext<UploadState | undefined>(undefined);
+const UploadDispatchContext = React.createContext<UploadDispatch | undefined>(undefined);
 
-function UploadReducer(state: State, action: Action) {
+function UploadReducer(state: UploadState, action: Action) {
   switch (action.type) {
+    case 'initFile': {
+      return {
+        ...state,
+        desc: action.desc,
+        fileIcon: action.fileIcon || { name: '' },
+        fileType: action.fileType || null,
+      };
+    }
+
     case 'addDesc': {
       return { ...state, desc: action.desc };
     }
@@ -65,7 +77,8 @@ function UploadReducer(state: State, action: Action) {
 }
 
 function UploadProvider({ children }: UploadProviderProps) {
-  const [state, dispatch] = React.useReducer<React.Reducer<State, Action>>(UploadReducer, {
+  const [state, dispatch] = React.useReducer<React.Reducer<UploadState, Action>>(UploadReducer, {
+    fileType: null,
     file: null,
     desc: undefined,
     fileIcon: { name: '' },
