@@ -8,11 +8,21 @@ import {
   TakeControlOfTradesSection,
   WorkshopCards,
 } from '@components/sections';
-import { Button, Card, CardContent, CardHeader, Cards, LocaleLink, SectionBg, Svg } from '@components/shared';
-import { EWorkshopType } from '@domain/enums';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Cards,
+  LabelView,
+  LocaleLink,
+  SectionBg,
+  Svg,
+} from '@components/shared';
+import { ELabels, EWorkshopType } from '@domain/enums';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import './Home.scss';
 import { StockPrices } from './stocks_prices/StockPrices';
 
@@ -111,9 +121,9 @@ export function Home() {
           <Row className="mb-9 mb-lg-18">
             <Col xs={12} md={8} lg={6}>
               <div className="page-top__title mb-5 mb-lg-9">
-                {t('Trade smart')}
+                {t('Home Page Top Title')}
                 <br />
-                {t('Trade safe')}
+                {t('Home Page Top Subtitle')}
               </div>
               <div className="page-top__description mb-11 mb-lg-10">{t('Home Page Top Section Desc')}</div>
               <Button>
@@ -132,8 +142,63 @@ export function Home() {
           </Row>
         </Container>
       </section>
-      <PrestigiousPlatformTechnologySection />
-      <MobileTradingWithMT5Section className="pt-0" />
+      <LabelView>
+        {{
+          '*': <PrestigiousPlatformTechnologySection />,
+          [ELabels.bsfx]: (
+            <PrestigiousPlatformTechnologySection
+              title={
+                <Trans i18nKey="Main Prestigious Platform Technology Title">
+                  A <b>User Experience</b>
+                  <br />
+                  Like No Other
+                </Trans>
+              }
+              description={
+                <Trans i18nKey="Main Prestigious Platform Technology Desc">
+                  <p className="mb-6">
+                    BSFX uses a simple, clean platform provided by Metatrader to ensure excellent user experience. By FX
+                    traders, for FX traders.
+                  </p>
+                  <p>
+                    Metatrader is considered the forex industry standard because of its <b>leading technology</b>. The
+                    platform is suitable for all types of traders and features a mobile app, Expert Advisors, and
+                    advanced technical analysis.
+                  </p>
+                </Trans>
+              }
+              className="title-uppercase"
+            />
+          ),
+        }}
+      </LabelView>
+      <LabelView>
+        {{
+          '*': <MobileTradingWithMT5Section className="pt-0" />,
+          [ELabels.bsfx]: (
+            <MobileTradingWithMT5Section
+              title={
+                <Trans i18nKey="Main Mobile Trading Section Title">
+                  Trading <b>on the go</b>
+                </Trans>
+              }
+              description={
+                <Trans i18nKey="Main Mobile Trading Section Desc">
+                  <div className="mb-6">
+                    Everything you need to trade in your pocket. Use your smartphone to open and close trading
+                    positions, and manage your accounts.
+                  </div>
+                  <div className="mb-6">
+                    Download the Metatrader app for your smartphone or tablet and trade wherever you are. Available for
+                    Android and iOS.
+                  </div>
+                </Trans>
+              }
+              className="pt-0"
+            />
+          ),
+        }}
+      </LabelView>
       <TakeControlOfTradesSection className="py-16" data={takeControlItems} />
       <AccountTypesForTradingStylesSection />
       <OurOfferBannerSection />
@@ -164,6 +229,7 @@ export function Home() {
                       <Svg href={card.icon} className="mr-5" />
                       {card.title}
                     </CardHeader>
+
                     <CardContent className="text-left">
                       <div className="mb-1">
                         <b>{t('exchange')}</b>

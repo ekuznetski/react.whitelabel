@@ -34,7 +34,7 @@ export function Platform() {
                 <div>{t('World-Leading MetaTrader Platform:0')}</div>
                 <div>{t('World-Leading MetaTrader Platform:1')}</div>
                 <div>
-                  <strong>{t('Powered by AroFX')}</strong>
+                  <strong>{t('Platform Page Top Subtitle')}</strong>
                 </div>
               </div>
             </div>
@@ -71,10 +71,8 @@ export function Platform() {
                   }}
                 >
                   CFD for
-                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'currencies' } }}>
-                    Currencies
-                  </LocaleLink>
-                  ,<LocaleLink to={{ pathname: '/products', state: { scrollTo: 'stocks' } }}>Stocks</LocaleLink>,
+                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'currencies' } }}>Currencies</LocaleLink>,
+                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'stocks' } }}>Stocks</LocaleLink>,
                   <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'indices' } }}>Indices</LocaleLink>,
                   <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'commodities' } }}>
                     Commodities
