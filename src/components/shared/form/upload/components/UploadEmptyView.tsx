@@ -107,7 +107,7 @@ export const UploadEmptyView = memo(function UploadEmptyView({
         </div>
         <div className="upload-file__nav">
           <Trans i18nKey="Drag File Here">
-            Drag file here <br /> or <a onClick={console.log}>Browse file</a>
+            Drag file here <br /> or <a>Browse file</a>
           </Trans>
         </div>
       </div>

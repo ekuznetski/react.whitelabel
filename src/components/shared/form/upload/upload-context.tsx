@@ -37,6 +37,7 @@ const UploadStateContext = React.createContext<UploadState | undefined>(undefine
 const UploadDispatchContext = React.createContext<UploadDispatch | undefined>(undefined);
 
 function UploadReducer(state: UploadState, action: Action) {
+  console.log(action.type);
   switch (action.type) {
     case 'initFile': {
       return {
@@ -65,7 +66,7 @@ function UploadReducer(state: UploadState, action: Action) {
       };
     }
     case 'removeFile': {
-      return { ...state, file: null, view: UploadViewState.empty, error: null };
+      return { ...state, file: null, fileDataURL: null, view: UploadViewState.empty, error: null };
     }
     case 'uploadFile': {
       return { ...state, view: UploadViewState.loading };

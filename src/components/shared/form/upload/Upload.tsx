@@ -78,18 +78,18 @@ export const MultiUpload = memo(
 
     function trackUploadFileContext(uploadFileId: string) {
       return function (contextData: UploadState) {
-        if (multiContextState[uploadFileId] && !shallowEqual(multiContextState[uploadFileId], contextData)) {
-          const diff = deepDifference(multiContextState[uploadFileId], contextData);
-          if (diff.view && (contextData.view == UploadViewState.error || contextData.view == UploadViewState.empty)) {
-            Object.keys(multiContextDispatch)
-              .filter((k) => k != uploadFileId)
-              .forEach((key) => {
-                multiContextDispatch[key]({
-                  type: contextData.view == UploadViewState.error ? 'showError' : 'removeFile',
-                });
-              });
-          }
-        }
+        // if (multiContextState[uploadFileId] && !shallowEqual(multiContextState[uploadFileId], contextData)) {
+        //   const diff = deepDifference(multiContextState[uploadFileId], contextData);
+        //   if (diff.view && multiContextState[uploadFileId] == UploadViewState.error) {
+        //     Object.keys(multiContextDispatch)
+        //       .filter((k) => k != uploadFileId)
+        //       .forEach((key) => {
+        //         multiContextDispatch[key]({
+        //           type: contextData.view == UploadViewState.error ? 'showError' : 'removeFile',
+        //         });
+        //       });
+        //   }
+        // }
 
         setMultiContextState({ [uploadFileId]: contextData });
       };
