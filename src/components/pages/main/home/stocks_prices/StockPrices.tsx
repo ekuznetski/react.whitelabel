@@ -18,7 +18,7 @@ export function StockPrices() {
   const priceTabs: IPriceTabItem[] = [
     {
       name: 'Forex',
-      icon: 'filter.svg',
+      icon: 'filter',
       anchor: MarketType.forex,
       info: {
         title: t('Number Of Markets', { num: '40+', market: t('Forex') }),
@@ -33,7 +33,7 @@ export function StockPrices() {
     },
     {
       name: 'Stocks',
-      icon: 'graph_bars.svg',
+      icon: 'graph_bars',
       anchor: MarketType.stocks,
       info: {
         title: t('Number Of Markets', { num: '40+', market: t('Stocks') }),
@@ -48,7 +48,7 @@ export function StockPrices() {
     },
     {
       name: 'Indices',
-      icon: 'indices.svg',
+      icon: 'indices',
       anchor: MarketType.indices,
       info: {
         title: t('Indices'),
@@ -63,7 +63,7 @@ export function StockPrices() {
     },
     {
       name: 'Commodities',
-      icon: 'commodities.svg',
+      icon: 'commodities',
       anchor: MarketType.commodities,
       info: {
         title: t('Commodities'),
@@ -78,7 +78,7 @@ export function StockPrices() {
     },
     {
       name: 'Cryptocurrencies',
-      icon: 'crypto.svg',
+      icon: 'crypto',
       anchor: MarketType.crypto,
       info: {
         title: t('Cryptocurrencies'),
@@ -145,7 +145,7 @@ function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
       </div>
       <LocaleLink className="see-all" to={{ pathname: '/products', state: { scrollTo: anchor } }}>
         {t('See all products')}
-        <Svg href="chevron_right.svg" className="ml-1" />
+        <Svg href="chevron_right" className="ml-1" />
       </LocaleLink>
     </div>
   );
@@ -226,7 +226,7 @@ function StockPricesChartCarousel({ priceData }: IPriceTabItem) {
         className={classNames('carousel-left', activeIndex == 0 && 'disabled')}
         onClick={() => activeIndex > 0 && setActiveIndex(activeIndex - 1)}
       >
-        <Svg href="chevron_left.svg" width={30} height={30} />
+        <Svg href="chevron_left" width={30} height={30} />
       </div>
       <div className="carousel-wrapper" ref={wrapper}>
         <div className="carousel-container" ref={container}>
@@ -244,7 +244,7 @@ function StockPricesChartCarousel({ priceData }: IPriceTabItem) {
         className={classNames('carousel-right', activeIndex == priceData.length - 3 && 'disabled')}
         onClick={() => activeIndex < priceData.length - 3 && setActiveIndex(activeIndex + 1)}
       >
-        <Svg href="chevron_right.svg" width={30} height={30} />
+        <Svg href="chevron_right" width={30} height={30} />
       </div>
     </div>
   );
@@ -262,7 +262,7 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
           <div className="title mb-1">{props.name}</div>
           <div className="variation">
             <Svg
-              href={props.variation >= 0 ? 'arrow_up.svg' : 'arrow_down.svg'}
+              href={props.variation >= 0 ? 'arrow_up' : 'arrow_down'}
               width={20}
               height={20}
               className={props.variation >= 0 ? 'up' : 'down'}

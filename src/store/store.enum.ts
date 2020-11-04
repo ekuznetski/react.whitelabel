@@ -22,14 +22,27 @@ export enum EActionTypes {
   fetchTransactionalStatements = '[DATA - Client] Fetch Transactional Statements',
   saveTransactionalStatements = '[DATA - Client] Save Transactional Statements',
 
+  // DATA - Document
+  fetchDocuments = '[DATA - Documents] Fetch',
+  saveDocuments = '[DATA - Documents] Save',
+  uploadDocuments = '[DATA - Documents] Upload Documents',
+
+  // DATA - Bank Details
+  fetchBankDetails = '[DATA - Bank] Fetch Bank Details',
+  updateBankDetails = '[DATA - Bank] Update Bank Details',
+  saveBankDetails = '[DATA - Bank] Save Bank Details',
+
   // DATA - Accounts
   makeInternalTransfer = '[DATA - Account] Internal Transfer',
+  createLiveTradingAccount = '[DATA - Account] Create Live Trading Account',
+  createDemoTradingAccount = '[DATA - Account] Create Demo Trading Account',
 
   // DATA - Withdrawal
   fetchWithdrawHistory = '[DATA - Withdrawal] Fetch History',
   saveWithdrawHistory = '[DATA - Withdrawal] Save History',
   fetchWithdrawLimit = '[DATA - Withdrawal] Fetch Account Limit',
   saveWithdrawLimit = '[DATA - Withdrawal] Save Account Limit',
+  withdrawFunds = '[DATA - Withdrawal] Withdrawal Funds',
 
   //DATA - Authorization
   forgotPassword = '[DATA - Authorization] Forgot Password',
@@ -52,4 +65,7 @@ export enum EActionTypes {
   // APP - Registration
   userExists = '[APP - Registration] User Exists',
   preRegister = '[APP - Registration] Client Add',
+
+  // APP - Deposit
+  addDeposit = '[APP - Deposit] add deposit',
 }

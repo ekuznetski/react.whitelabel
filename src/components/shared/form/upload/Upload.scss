@@ -1,0 +1,285 @@
+@import '~/variables';
+
+.upload-file-wrapper {
+  .upload-file {
+    &__empty-view {
+      @include d-flex(center, center, column);
+    }
+
+    &__section {
+      @include d-flex(center, center, column);
+      border: 1px dashed $blue;
+      border-radius: $border-radius;
+      background: rgba(lighten($blue, 10%), 0.06) url('/assets/img/dots-bg.png');
+      overflow: hidden;
+      flex: 0 0 300px;
+      min-height: 300px;
+      max-height: 300px;
+
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+    &__label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      margin: 0;
+      cursor: pointer;
+
+      input {
+        position: absolute;
+        left: -10000px;
+      }
+    }
+
+    &__field-title {
+      font-weight: 500;
+      font-size: 16px;
+      text-align: center;
+
+      // &.error {
+      //   color: $red;
+      // }
+    }
+
+    &__drop-zone {
+      @include d-flex(center, center);
+      flex: 1 0 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    &__file-preview {
+      @include d-flex(center, center);
+      height: 140px;
+      width: 140px;
+      overflow: hidden;
+      border-radius: $border-radius;
+      background: $grey-bg;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      position: relative;
+
+      font-size: 24px;
+      font-weight: 500;
+      text-transform: uppercase;
+
+      &__state {
+        $line-size: 4px;
+
+        @include d-flex(center, center);
+        position: absolute;
+        border: $line-size solid lighten($dark-grey, 10%);
+        box-shadow: inset 0 0 10px rgba($dark-blue, 0.5);
+        width: 100%;
+        height: 100%;
+
+        &.error {
+          border: $line-size solid lighten($red, 10%);
+          box-shadow: inset 0 0 10px rgba($red, 0.5);
+        }
+
+        &.complete {
+          border: $line-size solid lighten($green, 10%);
+          box-shadow: inset 0 0 10px rgba($green, 0.5);
+        }
+
+        &.loading {
+          span {
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            display: block;
+            width: calc(100% + 8px);
+            height: calc(100% + 8px);
+
+            &:before,
+            &:after {
+              position: absolute;
+              width: $line-size;
+              height: calc(100% + 8px);
+              background: $dark-blue;
+              content: '';
+              box-shadow: 0 0 20px $dark-blue;
+              z-index:2;
+            }
+
+            &:before {
+              top: auto;
+              right: 0;
+              bottom: -4px;
+              animation: drawframeRight 4s linear infinite 0.5s;
+            }
+
+            &:after {
+              top: -4px;
+              bottom: auto;
+              left: 0;
+              animation: drawframeLeft 4s linear infinite 1.5s;
+            }
+          }
+
+          &:before,
+          &:after {
+            position: absolute;
+            width: calc(100% + 8px);
+            height: $line-size;
+            background: $dark-blue;
+            box-shadow: 0 0 20px $dark-blue;
+            content: '';
+            z-index:2;
+          }
+
+          &:before {
+            top: -4px;
+            right: -4px;
+            left: auto;
+            animation: drawframeTop 4s linear infinite -0.02s;
+          }
+
+          &:after {
+            right: auto;
+            bottom: -4px;
+            left: -4px;
+            animation: drawframeBottom 4s linear infinite 1s;
+          }
+        }
+      }
+    }
+
+    &__desc {
+      @include d-flex(center, center);
+      text-align: center;
+    }
+
+    &__icon {
+      @include d-flex(center, center);
+    }
+
+    &__nav {
+      @include d-flex(center, center, column);
+      text-align: center;
+
+      a {
+        cursor: pointer;
+        color: $blue !important;
+        text-decoration: underline !important;
+      }
+    }
+  }
+}
+
+/* Animations */
+@keyframes drawframeTop {
+  0% {
+    right: -4px;
+    left: auto;
+    width: calc(100% + 8px);
+  }
+  12.5% {
+    right: -4px;
+    left: auto;
+    width: 0%;
+  }
+  50% {
+    right: auto;
+    left: -4px;
+    width: 0%;
+  }
+  62.5% {
+    right: auto;
+    left: -4px;
+    width: calc(100% + 8px);
+  }
+  100% {
+    right: auto;
+    left: -4px;
+    width: calc(100% + 8px);
+  }
+}
+@keyframes drawframeBottom {
+  0% {
+    right: auto;
+    left: -4px;
+    width: calc(100% + 8px);
+  }
+  12.5% {
+    right: auto;
+    left: -4px;
+    width: 0%;
+  }
+  50% {
+    right: -4px;
+    left: auto;
+    width: 0%;
+  }
+  62.5% {
+    right: -4px;
+    left: auto;
+    width: calc(100% + 8px);
+  }
+  100% {
+    right: -4px;
+    left: auto;
+    width: calc(100% + 8px);
+  }
+}
+@keyframes drawframeRight {
+  0% {
+    top: auto;
+    bottom: -4px;
+    height: calc(100% + 8px);
+  }
+  12.5% {
+    top: auto;
+    bottom: -4px;
+    height: 0%;
+  }
+  50% {
+    top: -4px;
+    bottom: auto;
+    height: 0%;
+  }
+  62.5% {
+    top: -4px;
+    bottom: auto;
+    height: calc(100% + 8px);
+  }
+  100% {
+    top: -4px;
+    bottom: auto;
+    height: calc(100% + 8px);
+  }
+}
+@keyframes drawframeLeft {
+  0% {
+    top: -4px;
+    bottom: auto;
+    height: calc(100% + 8px);
+  }
+  12.5% {
+    top: -4px;
+    bottom: auto;
+    height: 0%;
+  }
+  50% {
+    top: auto;
+    bottom: -4px;
+    height: 0%;
+  }
+  62.5% {
+    top: auto;
+    bottom: -4px;
+    height: calc(100% + 8px);
+  }
+  100% {
+    top: auto;
+    bottom: -4px;
+    height: calc(100% + 8px);
+  }
+}

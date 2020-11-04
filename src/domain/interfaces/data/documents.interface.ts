@@ -1,16 +1,14 @@
-import { EResponseStatus, DocumentsTypeEnum } from '@domain/enums';
+import { IBaseResponse } from '..';
 
-export interface IDocumentsInterfaceResponse {
-	response: {
-		status: EResponseStatus;
-		message: IDocuments[];
-		messageCode: number;
-	};
+export interface IDocument {
+  id: string;
+  document_status: string;
+  document_type: string;
+  created: string;
 }
 
-export interface IDocuments {
-	id: string;
-	document_status: string;
-	document_type: DocumentsTypeEnum;
-	created: string;
-}
+export type IDocumentsInterfaceResponse = {
+  response: {
+    message: IDocument[];
+  };
+} & IBaseResponse;

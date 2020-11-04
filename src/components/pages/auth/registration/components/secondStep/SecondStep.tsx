@@ -1,5 +1,5 @@
 import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shared';
-import { FieldValidators } from '@domain';
+import { CustomFieldValidators, FieldValidators } from '@domain';
 import { countries, ECountryCodeToName, ERegSteps } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
@@ -34,13 +34,13 @@ export function SecondStep({ submitFn }: any) {
     .reduce((acc: any, month, idx) => [...acc, { value: idx + 1, label: month }], []);
 
   const validationSchema = Yup.object().shape({
-    tax_checkbox: FieldValidators.notRequired,
+    tax_checkbox: FieldValidators.notRequiredString,
     tax_country: Yup.string().when('tax_checkbox', {
       is: true,
-      then: FieldValidators.alphaWithSpaceAndApostropheOnly,
-      otherwise: FieldValidators.notRequired,
+      then: CustomFieldValidators.country,
+      otherwise: FieldValidators.notRequiredString,
     }),
-    country: FieldValidators.alphaWithSpaceAndApostropheOnly,
+    country: CustomFieldValidators.country,
     dayOfBirth: FieldValidators.requiredNumber
       .min(1, t('Invalid value'))
       .max(31, t('Day Limit'))
@@ -70,11 +70,11 @@ export function SecondStep({ submitFn }: any) {
   });
 
   function Submit(data: FormikValues) {
-    data.country = ECountryCodeToName[data.country];
+    data.country = data.country.name;
     if (!data.tax_checkbox) {
       data.tax_country = data.country;
     } else {
-      data.tax_country = ECountryCodeToName[data.tax_country];
+      data.tax_country = data.tax_country.name;
     }
     Object.assign(data, { dob: `${data.yearOfBirth}-${data.monthOfBirth}-${data.dayOfBirth}` });
     const unusedKeys: any[] = [EFields.yearOfBirth, EFields.monthOfBirth, EFields.dayOfBirth, EFields.tax_checkbox];
@@ -106,7 +106,6 @@ export function SecondStep({ submitFn }: any) {
       >
         {(props: any) => {
           const { values, setFieldValue } = props;
-
           return (
             <Form className="m-auto form fadein-row">
               <h4 className="section-title mb-5">{t('Additional Information')}</h4>

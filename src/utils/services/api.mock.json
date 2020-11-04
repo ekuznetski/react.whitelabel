@@ -1,6 +1,6 @@
 {
   "clients": {
-    "getProfile": {
+    "getProfile!": {
       "response": {
         "status": "success",
         "message": {
@@ -157,47 +157,99 @@
         "message": [
           {
             "Platform": "Mt4",
-            "AccountId": "2015898380",
-            "Group": "CMdemoUSD",
-            "Leverage": "200",
+            "AccountId": "1000001998",
+            "Group": "CMdemoMktGBP",
+            "Leverage": "400",
             "Balance": 0,
-            "Currency": "USD",
+            "Currency": "GBP",
             "Type": "Demo",
-            "AccountType": "Fixed",
+            "AccountType": "Classic",
             "Min_withdrawal": 20,
             "AllowLeverageChange": false
           },
           {
             "Platform": "Mt4",
-            "AccountId": "2015898454",
-            "Group": "CMdemoMktRawGBP",
-            "Leverage": "200",
-            "Balance": 0,
+            "AccountId": "220001127",
+            "Group": "SVINT-S",
+            "Leverage": "500",
+            "Balance": 381,
             "Currency": "USD",
             "Type": "Live",
-            "AccountType": "Raw",
+            "AccountType": "Fixed",
             "Min_withdrawal": 20,
-            "AllowLeverageChange": false
+            "AllowLeverageChange": true
           },
           {
-            "Platform": "Mt5",
-            "AccountId": "520000306",
-            "Group": "M5CMVIN-V",
-            "Leverage": "200",
-            "Balance": 90,
-            "Currency": "USD",
+            "Platform": "Mt4",
+            "AccountId": "220001225",
+            "Group": "SVIEU-S-EUR",
+            "Leverage": "400",
+            "Balance": 10021,
+            "Currency": "EUR",
             "Type": "Live",
-            "AccountType": "Raw",
+            "AccountType": "Fixed",
             "Min_withdrawal": 20,
-            "AllowLeverageChange": false
+            "AllowLeverageChange": true
+          },
+          {
+            "Platform": "Mt4",
+            "AccountId": "220001226",
+            "Group": "SVVGB-S-GBP",
+            "Leverage": "400",
+            "Balance": 10021,
+            "Currency": "GBP",
+            "Type": "Live",
+            "AccountType": "Classic",
+            "Min_withdrawal": 20,
+            "AllowLeverageChange": true
+          },
+          {
+            "Platform": "Mt4",
+            "AccountId": "220001227",
+            "Group": "SVVAE-S-AED",
+            "Leverage": "500",
+            "Balance": 37200,
+            "Currency": "AED",
+            "Type": "Live",
+            "AccountType": "Classic",
+            "Min_withdrawal": 100,
+            "AllowLeverageChange": true
+          },
+          {
+            "Platform": "Mt4",
+            "AccountId": "220001228",
+            "Group": "SVVRU-S-RUB",
+            "Leverage": "300",
+            "Balance": 76800,
+            "Currency": "RUB",
+            "Type": "Live",
+            "AccountType": "Classic",
+            "Min_withdrawal": 1200,
+            "AllowLeverageChange": true
+          },
+          {
+            "Platform": "Mt4",
+            "AccountId": "220001229",
+            "Group": "SVICD-S-CAD",
+            "Leverage": "400",
+            "Balance": 70,
+            "Currency": "CAD",
+            "Type": "Live",
+            "AccountType": "Fixed",
+            "Min_withdrawal": 20,
+            "AllowLeverageChange": true
           }
         ],
-        "totalBalance": 929,
-        "balances": { "EUR": 0, "USD": 929, "GBP": 0, "AED": 0, "RUB": 0, "CAD": 0 },
+        "totalBalance": 134493,
+        "balances": { "EUR": 10021, "USD": 381, "GBP": 10021, "AED": 37200, "RUB": 76800, "CAD": 70 },
         "totalDemoBalance": 0,
         "balancesDemo": { "EUR": 0, "USD": 0, "GBP": 0, "AED": 0, "RUB": 0, "CAD": 0 },
         "messageCode": 54,
-        "promotions": [{ "name": "deposit_promotion", "type": "percentage", "value": 10 }]
+        "promotions": [
+          { "name": "deposit_promotion", "type": "percentage", "value": 10 },
+          { "name": "fp_promotion", "type": "fixed", "value": 20 },
+          { "name": "sms_promotion", "type": "fixed", "value": 20 }
+        ]
       }
     },
     "bankingStatements": {
@@ -363,13 +415,22 @@
       }
     }
   },
-  "mt4accounts": {
+  "1mt4accounts": {
     "create": {
       "response": {
         "status": "success",
         "message": "Trading account created",
         "messageCode": 35,
         "data": { "trade_account_id": "220002709", "Currency": "CAD", "pwd": "pHFCxQjk", "platform": "MT4" }
+      }
+    },
+    "demo": {
+      "create": {
+        "response": {
+          "status": "failure",
+          "message": "Similar Account already exist",
+          "messageCode": 35
+        }
       }
     }
   },
@@ -387,6 +448,35 @@
           "branch_address": "dsfsdf / 123, Test"
         },
         "messageCode": 25
+      }
+    },
+    "saveaccount": {
+      "response": {
+        "status": "success",
+        "message": "Bank Account added successfully",
+        "messageCode": 23,
+        "data": {
+          "beneficiary_name": "12323",
+          "beneficiary_bank": "test",
+          "beneficiary_bank_account_no": "1234",
+          "swift_code": "aaasas34sa2",
+          "iban": "test",
+          "branch_name": "test",
+          "branch_address": "test"
+        }
+      }
+    }
+  },
+  "v2": {
+    "documents": {
+      "upload": {
+        "response": {
+          "status": "success",
+          "message": [
+            { "id": "102559", "document_type": "ID", "document_status": "Pending", "created": "2020-10-30 11:03:23" }
+          ],
+          "messageCode": 54
+        }
       }
     }
   }

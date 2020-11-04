@@ -249,7 +249,7 @@ export const ECountryName: ECountryName = Object.values(ECountryCodeName).reduce
 );
 export type ECountryCodeToName = { [K: string]: string };
 export const ECountryCodeToName: ECountryCodeToName = Object.keys(ECountryCodeName).reduce(
-  (acc, key) => Object.assign({}, acc, { [key]: ECountryCodeName[key] }),
+  (acc, key) => Object.assign({}, acc, { [key]: ECountryCodeName[key as keyof typeof ECountryCodeName] }),
   {},
 );
 

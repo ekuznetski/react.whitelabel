@@ -1,23 +1,30 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { Nullable } from '@domain/interfaces';
-import { EDepositMethods } from '@domain/enums';
-import { IDataStore, IStore, store } from '@store';
-import { MTradingAccount } from '@domain/models';
+import { Country, EDepositMethods, ETradingType, StaticAmounts } from '@domain/enums';
+import { IStore } from '@store';
+import { MClientProfile, MTradingAccount } from '@domain/models';
 import { useSelector } from 'react-redux';
-
-export const availableAmounts = ['100', '450', '900', '4500', '9000', '18000', '45000'];
 
 export type IDepositState = Nullable<{
   amount: string;
   account: MTradingAccount;
+  staticAmounts: number[];
   method: EDepositMethods;
   isAmountSelected: boolean;
   depositDetails: any;
+  billingDetails: {
+    country: Country;
+    state_code: string | null;
+    city: string;
+    address: string;
+    postcode: string;
+  };
 }>;
 
 export enum EDepositActionTypes {
   setMethod = 'setMethod',
   setAmount = 'setAmount',
+  setBillingDetails = 'setBillingDetails',
   setAccount = 'setAccount',
   setIsAmountSelected = 'setIsAmountSelected',
   setDepositDetails = 'setDepositDetails',
@@ -33,10 +40,13 @@ export const depositActionCreators = {
     type: EDepositActionTypes.setMethod,
     payload,
   }),
-  setAccount: (payload: MTradingAccount) => ({
-    type: EDepositActionTypes.setAccount,
-    payload,
-  }),
+  setAccount: (payload: MTradingAccount) => {
+    console.log('payload', payload.accountId);
+    return {
+      type: EDepositActionTypes.setAccount,
+      payload,
+    };
+  },
   setAmount: (payload: string) => ({
     type: EDepositActionTypes.setAmount,
     payload,
@@ -49,15 +59,21 @@ export const depositActionCreators = {
     type: EDepositActionTypes.setDepositDetails,
     payload,
   }),
+  setBillingDetails: (payload: { [key: string]: any }) => ({
+    type: EDepositActionTypes.setBillingDetails,
+    payload,
+  }),
 };
 
 export const depositStateInit = {
   // TODO remove back isAmountSelected to false
-  amount: availableAmounts[0],
+  amount: null,
   account: null,
+  staticAmounts: [],
   method: EDepositMethods.creditCard,
   isAmountSelected: false,
   depositDetails: null,
+  billingDetails: null,
 };
 
 function reducer(state: IDepositState, action: IDepositAction): IDepositState {
@@ -70,6 +86,8 @@ function reducer(state: IDepositState, action: IDepositAction): IDepositState {
       return { ...state, account: payload };
     case EDepositActionTypes.setMethod:
       return { ...state, method: payload };
+    case EDepositActionTypes.setBillingDetails:
+      return { ...state, billingDetails: payload };
     case EDepositActionTypes.setIsAmountSelected:
       return { ...state, isAmountSelected: payload };
     case EDepositActionTypes.setDepositDetails:
@@ -87,12 +105,46 @@ export const DepositContext = React.createContext<{
   dispatch: null,
 });
 
-export function DepositContextWrapper({ children }: React.PropsWithChildren<any>) {
-  const { tradingAccounts } = useSelector<IStore, { tradingAccounts: MTradingAccount[] }>((state) => ({
-    tradingAccounts: state.data.tradingData.accounts,
+export function DepositProvider({ children }: React.PropsWithChildren<any>) {
+  const { tradingAccounts, profile } = useSelector<
+    IStore,
+    { tradingAccounts: MTradingAccount[]; profile: MClientProfile }
+  >((state) => ({
+    tradingAccounts: state.data.tradingData.accounts.filter((acc) => acc.type !== ETradingType.demo),
+    profile: state.data.client.profile,
   }));
-  const _depositStateInit = { ...depositStateInit, account: tradingAccounts[0] };
+  const billingDetails = {
+    country: profile.country,
+    state_code: (profile?.state.code as string) ?? null,
+    city: profile.city,
+    address: profile.street,
+    postcode: profile.postcode,
+  };
+  const _staticAmounts = StaticAmounts[tradingAccounts[0].currency];
+  const _depositStateInit = {
+    ...depositStateInit,
+    amount: _staticAmounts[0].toString(),
+    staticAmounts: _staticAmounts,
+    account: tradingAccounts[0],
+    billingDetails: billingDetails,
+  };
   const [state, dispatch] = useReducer(reducer, _depositStateInit);
 
   return <DepositContext.Provider value={{ state, dispatch }}>{children(state, dispatch)}</DepositContext.Provider>;
+}
+
+export function useDepositState() {
+  const context = React.useContext(DepositContext);
+  if (context === undefined) {
+    throw new Error('useDepositState must be used within a DepositProvider');
+  }
+  return context.state;
+}
+
+export function useDepositDispatch(): any {
+  const context = React.useContext(DepositContext);
+  if (context === undefined) {
+    throw new Error('useDepositDispatch must be used within a DepositProvider');
+  }
+  return context.dispatch;
 }

@@ -1,6 +1,7 @@
 import { EAppSection, ELanguage } from '@domain/enums';
 import { AnyFunction, IContent, IGeoIp, ILogin, INotificationState } from '@domain/interfaces';
 import {
+  MBankDetails,
   MClientData,
   MClientProfile,
   MClientTradingData,
@@ -23,6 +24,7 @@ export interface IDataStore {
     history: MWithdrawalHistoryItem[];
     limit: number;
   };
+  bankDetails: MBankDetails;
 }
 
 export interface IAppStore {

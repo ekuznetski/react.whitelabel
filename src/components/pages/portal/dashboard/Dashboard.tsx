@@ -50,7 +50,7 @@ export const Dashboard = memo(function Dashboard() {
       {
         value: (
           <>
-            <Svg href="filter.svg" className="mr-2" /> {t('My Trading Accounts')}
+            <Svg href="filter" className="mr-2" /> {t('My Trading Accounts')}
           </>
         ),
         anchor: 'tradingAccounts',
@@ -58,7 +58,7 @@ export const Dashboard = memo(function Dashboard() {
       {
         value: (
           <>
-            <Svg href="filter.svg" className="mr-2" /> {t('My Demo Accounts')}
+            <Svg href="filter" className="mr-2" /> {t('My Demo Accounts')}
           </>
         ),
         anchor: 'demoAccounts',
@@ -77,7 +77,7 @@ export const Dashboard = memo(function Dashboard() {
           <Row>
             <Col xs={12} md={6}>
               <div className="section-title mb-9">
-                <Svg href="profile.svg" height={24} className="mr-3" />
+                <Svg href="profile" height={24} className="mr-3" />
                 {t('Profile')}
               </div>
             </Col>
@@ -102,7 +102,7 @@ export const Dashboard = memo(function Dashboard() {
           <Row>
             <Col xs={12} md={6}>
               <div className="section-title mb-9">
-                <Svg href="workshop.svg" height={24} className="mr-3" />
+                <Svg href="workshop" height={24} className="mr-3" />
                 {t('Webinars and Workshops')}
               </div>
             </Col>

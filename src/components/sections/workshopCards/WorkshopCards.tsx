@@ -51,11 +51,11 @@ export const WorkshopCards = memo(
               <div className="workshop-cards__item-content">
                 <div className="item-schedule px-8">
                   <div className="item-schedule__day mr-5">
-                    <Svg href="calendar.svg" className="mr-1" />
+                    <Svg href="calendar" className="mr-1" />
                     {workshop.schedule.day}
                   </div>
                   <div className="item-schedule__time">
-                    <Svg href="clock.svg" className="mr-1" />
+                    <Svg href="clock" className="mr-1" />
                     {workshop.schedule.time}
                   </div>
                 </div>

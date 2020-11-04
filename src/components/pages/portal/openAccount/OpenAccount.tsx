@@ -9,16 +9,21 @@ import {
   PageTitle,
   Radio,
   Select,
-  Svg
+  Svg,
 } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ETradingAccountType, ETradingPlatform, ETradingType } from '@domain/enums';
-import { Form, Formik, FormikProps } from 'formik';
+import { EModalType, ETradingAccountType, ETradingPlatform, ETradingType } from '@domain/enums';
+import { ICreateTradingAccountRequest, ICreateTradingAccountResponse } from '@domain/interfaces';
+import { ac_createTradingAccount, EActionTypes, IAppStore, IStore } from '@store';
+import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import './OpenAccount.scss';
+
+type modalOptionsProps = { type: EModalType | null; isOpen: boolean; data: ICreateTradingAccountResponse | null };
 
 enum EFields {
   'platform' = 'platform',
@@ -27,9 +32,16 @@ enum EFields {
   'leverage' = 'leverage',
 }
 
-export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
-  const [isModalSuccessOpen, setModalSuccessOpen] = React.useState(false);
-  const [isModalFailureOpen, setModalFailureOpen] = React.useState(false);
+export const OpenAccount = memo(function OpenAccount() {
+  const { route } = useSelector<IStore, Pick<IAppStore, 'route'>>((state) => ({
+    route: state.app.route,
+  }));
+  const [modalOptions, setModalOptions] = React.useState<modalOptionsProps>({
+    type: null,
+    isOpen: false,
+    data: null,
+  });
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
@@ -54,6 +66,26 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
     { label: 'Classic', value: ETradingAccountType.classic },
     { label: 'Raw', value: ETradingAccountType.raw },
   ];
+  const tradingPlatformsList = [
+    { label: 'MetaTrader 4', value: ETradingPlatform.mt4 },
+    { label: 'MetaTrader 5', value: ETradingPlatform.mt5 },
+  ];
+
+  function closeModal(type: EModalType) {
+    return (isOpen: boolean) => setModalOptions({ type, isOpen, data: null });
+  }
+
+  function Submit(data: FormikValues) {
+    console.log(data);
+    dispatch(
+      ac_createTradingAccount(
+        data as ICreateTradingAccountRequest,
+        route.state.accountType === ETradingType.demo,
+        (accountData) => setModalOptions({ type: EModalType.success, isOpen: true, data: accountData }),
+        () => setModalOptions({ type: EModalType.failure, isOpen: true, data: null }),
+      ),
+    );
+  }
 
   return (
     <>
@@ -61,7 +93,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
         <Row>
           <Col xs={12}>
             <PageTitle
-              title={routeState.accountType === ETradingType.demo ? t('Open Demo Account') : t('Open Live Account')}
+              title={route.state.accountType === ETradingType.demo ? t('Open Demo Account') : t('Open Live Account')}
             />
           </Col>
         </Row>
@@ -75,34 +107,21 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
                 leverage: '',
               }}
               validationSchema={validationSchema}
-              onSubmit={(data) => {
-                console.log('submit', data);
-                let showError = confirm('Call `mt(4|5)accounts/demo/create` API. \n With success?');
-                if (showError) setModalSuccessOpen(true);
-                else setModalFailureOpen(true);
-              }}
+              onSubmit={Submit}
             >
-              {({ values, setFieldValue }: FormikProps<any>) => {
-                if (values.leverage && values.platform === ETradingPlatform.mt4) {
-                  setFieldValue(EFields.leverage, '');
-                }
-
+              {() => {
                 return (
                   <Form className="open-account__form">
-                    <Radio
-                      className="mb-8"
-                      name={EFields.platform}
-                      options={[
-                        { label: 'MetaTrader 4', value: ETradingPlatform.mt4 },
-                        { label: 'MetaTrader 5', value: ETradingPlatform.mt5 },
-                      ]}
-                    />
+                    <Radio className="mb-8" name={EFields.platform} options={tradingPlatformsList} />
                     <Select placeholder="Account Type" options={tradingAccountTypesList} name={EFields.account_type} />
-                    {values.platform === ETradingPlatform.mt4 && (
-                      <Select placeholder="Leverage" options={leverageList} name={EFields.leverage} />
-                    )}
+                    <Select placeholder="Leverage" options={leverageList} name={EFields.leverage} />
                     <CurrencySelect placeholder="Currency" name={EFields.currency} />
-                    <Button type="submit">{t('Submit')}</Button>
+                    <Button
+                      type="submit"
+                      loadingOnAction={[EActionTypes.createLiveTradingAccount, EActionTypes.createDemoTradingAccount]}
+                    >
+                      {t('Submit')}
+                    </Button>
                   </Form>
                 );
               }}
@@ -110,35 +129,48 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
           </Col>
         </Row>
       </Container>
-      <Modal className="open-account__modal success" isOpen={isModalSuccessOpen} isOpenDispatcher={setModalSuccessOpen}>
-        <ModalTitle title={t('Successful Submission')}>
-          <small className="mt-1">
-            {t('Demo Live trade account with ID')} <b>1000008251</b> {t('added successfully')}
-          </small>
-        </ModalTitle>
-        <ModalContext>
-          <Svg href="shrimp.svg" width={100} className="p-7" />
-        </ModalContext>
-        <ModalNav>
-          <Button onClick={() => setModalSuccessOpen(false)}>
-            <LocaleNavLink to="/dashboard">{t('Continue')}</LocaleNavLink>
-          </Button>
-        </ModalNav>
-      </Modal>
-      <Modal className="open-account__modal failure" isOpen={isModalFailureOpen} isOpenDispatcher={setModalFailureOpen}>
-        <ModalTitle title={t('Unsuccessful Submission')} subTitle={t('Something went wrong. Please try again')} />
-        <ModalContext>
-          <Svg href="shrimp.svg" width={100} className="p-7" />
-        </ModalContext>
-        <ModalNav>
-          <Button className="red mr-5" onClick={() => setModalFailureOpen(false)}>
-            {t('Try Again')}
-          </Button>
-          <Button className="red noBg mr-5" onClick={() => setModalFailureOpen(false)}>
-            <LocaleNavLink to="/dashboard">{t('Back to Dashboard')}</LocaleNavLink>
-          </Button>
-        </ModalNav>
-      </Modal>
+      {modalOptions.type === EModalType.success && (
+        <Modal
+          className="open-account__modal success"
+          isOpen={modalOptions.isOpen}
+          isOpenDispatcher={closeModal(EModalType.success)}
+        >
+          <ModalTitle title={t('Successful Submission')}>
+            <small className="mt-1">
+              {t('Demo Live trade account with ID')} <b>{modalOptions.data?.trade_account_id}</b>{' '}
+              {t('added successfully')}
+            </small>
+          </ModalTitle>
+          <ModalContext>
+            <Svg href="shrimp" width={100} className="p-7" />
+          </ModalContext>
+          <ModalNav>
+            <Button className="col-12 col-md-8 mx-auto" onClick={() => closeModal(EModalType.success)(false)}>
+              <LocaleNavLink to="/dashboard">{t('Continue')}</LocaleNavLink>
+            </Button>
+          </ModalNav>
+        </Modal>
+      )}
+      {modalOptions.type === EModalType.failure && (
+        <Modal
+          className="open-account__modal failure"
+          isOpen={modalOptions.isOpen}
+          isOpenDispatcher={closeModal(EModalType.failure)}
+        >
+          <ModalTitle title={t('Unsuccessful Submission')} subTitle={t('A Similar Trade Account Already Exists')} />
+          <ModalContext>
+            <Svg href="shrimp" width={100} className="p-7" />
+          </ModalContext>
+          <ModalNav>
+            <Button className="red mr-5" onClick={() => closeModal(EModalType.failure)(false)}>
+              {t('Try Again')}
+            </Button>
+            <Button className="red noBg mr-5" onClick={() => closeModal(EModalType.failure)(false)}>
+              <LocaleNavLink to="/dashboard">{t('Back to Dashboard')}</LocaleNavLink>
+            </Button>
+          </ModalNav>
+        </Modal>
+      )}
     </>
   );
 });

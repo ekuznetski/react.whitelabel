@@ -23,22 +23,22 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
 
   const accountNavItems = [
     {
-      icon: 'coins.svg',
+      icon: 'coins',
       path: '/deposit',
       title: t('Launch MT4 Web'),
     },
     {
-      icon: 'coins.svg',
+      icon: 'coins',
       path: '/deposit',
       title: t('Download MT4 Platform'),
     },
     {
-      icon: 'coins.svg',
+      icon: 'coins',
       path: '/deposit',
       title: t('Get Trading Statement'),
     },
     {
-      icon: 'coins.svg',
+      icon: 'coins',
       title: t('Change Password'),
       onclick: () => setChangePasswordOpen(true),
     },
@@ -65,7 +65,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
         <div className="account-card__balance px-7">
           <div className="balance-title">{t('Balance')}</div>
           <div className="balance-value">
-            <Svg href={card.currency.toLowerCase() + '.svg'} className="mr-2" height={18} />
+            <Svg href={card.currency.toLowerCase()} className="mr-2" height={18} />
             {card.balance}
           </div>
         </div>
@@ -77,7 +77,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
           <Button className="fund px-3 mr-3 noBg">
             <LocaleNavLink exact to="/deposit">
               {t('Fund')}
-              <Svg href="coins.svg" className="ml-4" />
+              <Svg href="coins" className="ml-4" />
             </LocaleNavLink>
           </Button>
           <Button
@@ -85,7 +85,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
             onClick={toggleDropdownMenu}
             ref={navRef}
           >
-            <Svg href="gear.svg" />
+            <Svg href="gear" />
           </Button>
           <DropDown
             width={270}

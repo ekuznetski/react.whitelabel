@@ -19,20 +19,7 @@ export interface ITradingAccounts {
 }
 
 export interface ITradingAccount {
-  AccountId: string;
-  AccountType: string;
-  AllowLeverageChange: boolean;
-  Balance: number;
-  Currency: string;
-  Group: string;
-  Leverage: string;
-  Min_withdrawal: number;
-  Platform: string;
-  Type: string;
-}
-
-export interface ITradingAccount {
-  AccountId: string;
+  AccountId: string | null;
   AccountType: string;
   AllowLeverageChange: boolean;
   Balance: number;
@@ -50,4 +37,18 @@ export interface IInternalTransferRequestData {
   toAccount: number;
   toPlatform: string;
   amount: number;
+}
+
+export interface ICreateTradingAccountRequest {
+  platform: string;
+  account_type: string;
+  currency: string;
+  leverage: string;
+}
+
+export interface ICreateTradingAccountResponse {
+  trade_account_id: string;
+  Currency: string;
+  pwd: string;
+  platform: string;
 }

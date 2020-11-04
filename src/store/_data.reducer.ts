@@ -21,12 +21,16 @@ export const initDataStore: Nullable<IDataStore> = {
     history: [],
     limit: null,
   },
+  bankDetails: null,
 };
 
 export function dataStoreReducer(state = initDataStore as IDataStore, action: IAction) {
   switch (action.type) {
     case EActionTypes.clearStore:
       return initDataStore;
+
+    case EActionTypes.saveBankDetails:
+      return { ...state, bankDetails: { ...state.content, ...action.payload } };
 
     case EActionTypes.saveContent:
       return { ...state, content: { ...state.content, ...action.payload } };

@@ -34,7 +34,6 @@ export function ThirdStep({ submitFn }: any) {
             {t('From #', { val: '1.8' })}
           </div>
           <div className="commission">{t('No commission')}</div>
-          <div className="select-mark" />
         </>
       ),
       value: t('Fixed'),
@@ -49,7 +48,6 @@ export function ThirdStep({ submitFn }: any) {
             {t('From #', { val: '1.2' })}
           </div>
           <div className="commission">{t('No commission')}</div>
-          <div className="select-mark" />
         </>
       ),
       value: t('Classic'),
@@ -64,7 +62,6 @@ export function ThirdStep({ submitFn }: any) {
             {t('From #', { val: '0.2' })}
           </div>
           <div className="commission">{t('Plus # per round', { val: '4' })}</div>
-          <div className="select-mark" />
         </>
       ),
       value: 'Raw',

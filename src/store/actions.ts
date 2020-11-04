@@ -1,8 +1,9 @@
-import { EAppSection, ELanguage } from '@domain/enums';
+import { DocumentsTypeEnum, EAppSection, ELanguage } from '@domain/enums';
 import {
   AnyFunction,
   IClientAddRequest,
   IContent,
+  ICreateTradingAccountRequest,
   IEditProfileRequest,
   IGeoIp,
   IInternalTransferRequestData,
@@ -12,16 +13,20 @@ import {
   ISetProfileRequest,
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
+  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import {
+  MBankDetails,
   MClientData,
   MClientProfile,
   MClientTradingData,
+  MDocument,
   MTransactionalStatementData,
   MWithdrawalHistoryItem,
 } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
+import { IAddDepositRequest } from '../domain/interfaces/app/deposit.interface';
 
 export function ac_showNotification(payload: Omit<INotificationState, 'visible'>): IAction {
   return {
@@ -151,6 +156,28 @@ export function ac_resetPassword(
   };
 }
 
+export function ac_fetchBankDetails(): IAction {
+  return {
+    type: EActionTypes.fetchBankDetails,
+  };
+}
+
+export function ac_updateBankDetails(payload: MBankDetails, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+  return {
+    type: EActionTypes.updateBankDetails,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_saveBankDetails(payload: MBankDetails): IAction {
+  return {
+    type: EActionTypes.saveBankDetails,
+    payload,
+  };
+}
+
 export function ac_fetchGeoIpData(): IAction {
   return {
     type: EActionTypes.fetchGeoIpData,
@@ -226,6 +253,20 @@ export function ac_saveWithdrawHistory(payload: MWithdrawalHistoryItem[]): IActi
   };
 }
 
+export function ac_createTradingAccount(
+  payload: ICreateTradingAccountRequest,
+  demo: boolean,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
+  return {
+    type: demo ? EActionTypes.createDemoTradingAccount : EActionTypes.createLiveTradingAccount,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
 export function ac_fetchWithdrawLimit(payload: { accountId: number; platform: string }): IAction {
   return {
     type: EActionTypes.fetchWithdrawLimit,
@@ -237,6 +278,14 @@ export function ac_saveWithdrawLimit(payload: { limit: number }): IAction {
   return {
     type: EActionTypes.saveWithdrawLimit,
     payload,
+  };
+}
+
+export function ac_withdrawFunds(payload: IWithdrawFundRequest, onSuccess: AnyFunction): IAction {
+  return {
+    type: EActionTypes.withdrawFunds,
+    payload,
+    onSuccess,
   };
 }
 
@@ -283,5 +332,45 @@ export function ac_saveTransactionalStatements(payload: MTransactionalStatementD
   return {
     type: EActionTypes.saveTransactionalStatements,
     payload,
+  };
+}
+
+export function ac_addDeposit<T>(
+  payload: T,
+  onSuccess: AnyFunction = () => {},
+  onFailure: AnyFunction = () => {},
+): IAction {
+  return {
+    type: EActionTypes.addDeposit,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_fetchDocuments({ force = null }: { force: true | null }): IAction {
+  return {
+    type: EActionTypes.fetchDocuments,
+    force,
+  };
+}
+
+export function ac_saveDocuments(payload: MDocument[]): IAction {
+  return {
+    type: EActionTypes.saveDocuments,
+    payload,
+  };
+}
+
+export function ac_uploadDocuments(
+  payload: { [K in typeof DocumentsTypeEnum[keyof typeof DocumentsTypeEnum]]?: Blob },
+  onSuccess: AnyFunction = () => {},
+  onFailure: AnyFunction = () => {},
+): IAction {
+  return {
+    type: EActionTypes.fetchDocuments,
+    payload,
+    onSuccess,
+    onFailure,
   };
 }

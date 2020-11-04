@@ -1,7 +1,7 @@
 import { IconFlag, Svg } from '@components/shared';
 import { countries, Currencies, EFormStatus } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
-import { useCounter } from 'ahooks';
+import { useCounter, useSetState } from 'ahooks';
 import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
 import React, { memo, useEffect, useState } from 'react';
@@ -97,25 +97,32 @@ export const Select = memo(function Select({
 }: ISelect) {
   const { status: FormStatus } = useFormikContext();
   const [field, meta, helpers] = useField(props as any);
-
-  if (!preselectedValue && (meta.initialValue || field.value)) {
-    preselectedValue = options.find((el: any) => el.value === meta.initialValue ?? field.value) || null;
-  }
-
-  const [selectedValue, setSelectedValue] = useState(preselectedValue ?? null);
-  const [state, setState] = useState({
+  const [state, setState] = useSetState({
+    value: null,
     isFilled: !!meta.initialValue,
     isFocused: false,
   });
   const _disabled = props.isDisabled || FormStatus === EFormStatus.disabled;
+
+  useEffect(() => {
+    let _intSelectedValue = preselectedValue;
+    if (!_intSelectedValue && (meta.initialValue || field.value)) {
+      _intSelectedValue = options.find((el: any) => el.value === meta.initialValue ?? field.value) || null;
+    }
+    setState({ value: _intSelectedValue });
+  }, []);
+
+  useEffect(() => {
+    if (!!field.value && field.value != state.value)
+      setState({ value: options.find((option: any) => option.value == field.value) });
+  }, [field.value]);
 
   function onChangeSelect(e: any) {
     let _val = e;
     if (props.isMulti) {
       _val = { value: _val?.map((item: ISelectItem) => item.value) || [] };
     }
-    setState({ ...state, isFilled: !!_val?.value });
-    setSelectedValue(e);
+    setState({ isFilled: !!_val?.value });
     helpers.setValue(_val?.value);
     if (props.onChange) {
       props.onChange(_val?.value);
@@ -130,6 +137,7 @@ export const Select = memo(function Select({
       Input,
     },
   });
+
   return (
     <div
       className={classNames(
@@ -155,7 +163,7 @@ export const Select = memo(function Select({
         onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
         // onMenuClose={() => setState({ isFocused: false, isFilled: !!field.value })}
-        value={selectedValue}
+        value={state.value}
         onChange={onChangeSelect}
       />
       {!_disabled && meta.touched && meta.error ? <div className="error">{meta.error}</div> : null}
@@ -285,7 +293,7 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
         <div className="trading-item__number">{account.accountId}</div>
         <div className="trading-item__spacer mx-3" />
         <div className="trading-item__balance">
-          <Svg href={account.currency.toLowerCase() + '.svg'} className="mr-1" height={12} />
+          <Svg href={account.currency.toLowerCase()} className="mr-1" height={12} />
           {account.balance}
         </div>
       </div>
@@ -294,7 +302,7 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
   }));
 
   function Option({ children, ...props }: any) {
-    const selectedValue = props.selectProps?.value?.value.accountId;
+    const selectedValue = props.selectProps?.value?.value?.accountId;
     const currentOptionValue = props.data.value.accountId;
     const isSelected = selectedValue === currentOptionValue;
 

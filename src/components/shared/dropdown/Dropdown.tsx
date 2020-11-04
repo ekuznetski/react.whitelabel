@@ -5,6 +5,8 @@ import React, { memo, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './Dropdown.scss';
 import { LinkProps } from 'react-router-dom';
+import { IAppStore, IStore } from '@store';
+import { useSelector } from 'react-redux';
 
 type IDropdown = {
   className?: string;
@@ -40,6 +42,9 @@ export const DropDown = memo<IDropdown>(function DropDown({
   noArrow = false,
   ...props
 }) {
+  const { route } = useSelector<IStore, Partial<IAppStore>>((state) => ({
+    route: state.app.route,
+  }));
   const [initialHeight, setInitialHeight] = React.useState<number | string>(0);
   const [parentBCR, setParentBCR] = useState<DOMRect | null>(null);
   const { width: viewportWidth } = useSize(document.body);
@@ -51,6 +56,10 @@ export const DropDown = memo<IDropdown>(function DropDown({
   useEffect(() => {
     setInitialHeight(props.items ? props.items.length * itemHeight + offsetY : height);
   }, []);
+
+  useEffect(() => {
+    if (isOpen) props.isOpenDispatcher(false);
+  }, [route?.path]);
 
   useEventListener('scroll', () => {
     if (isOpen) props.isOpenDispatcher(false);
@@ -118,6 +127,6 @@ export const DropDown = memo<IDropdown>(function DropDown({
         </div>
       </div>
     </div>,
-    document.body,
+    document.getElementById('dynamic-portals') || document.body,
   );
 });

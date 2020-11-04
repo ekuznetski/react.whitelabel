@@ -15,9 +15,11 @@ import {
   Registration,
   ResetPassword,
   TransactionStatement,
+  Verification,
   Withdrawal,
 } from '@components/pages';
 import {
+  ac_fetchBankDetails,
   ac_fetchClientData,
   ac_fetchGeoIpData,
   ac_fetchProfile,
@@ -26,7 +28,7 @@ import {
   ac_logout,
 } from '@store';
 import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
-import { EAppSection, ETradingType } from '../enums';
+import { EAppSection, EResponseStatus, ETradingType } from '../enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
 
 // Data to be loaded on EVERY page of app section
@@ -174,9 +176,37 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
-      icon: 'coins.svg',
-      parent: { title: 'Funds Management', icon: 'money.svg' },
+      icon: 'coins',
+      parent: { title: 'Funds Management', icon: 'money' },
     },
+  },
+  {
+    meta: {
+      title: 'Success Deposit',
+    },
+    path: '/deposit/success',
+    component: Deposit,
+    state: { depositResult: EResponseStatus.success },
+    appSection: EAppSection.portal,
+    activators: [allowAuthorizedGuard],
+    apiData: {
+      strict: [ac_fetchTradingAccounts],
+    },
+    menuItem: false,
+  },
+  {
+    meta: {
+      title: 'Failure Deposit',
+    },
+    path: '/deposit/failure',
+    component: Deposit,
+    state: { depositResult: EResponseStatus.failure },
+    appSection: EAppSection.portal,
+    activators: [allowAuthorizedGuard],
+    apiData: {
+      strict: [ac_fetchTradingAccounts],
+    },
+    menuItem: false,
   },
   {
     meta: {
@@ -191,7 +221,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
-      icon: 'coins.svg',
+      icon: 'coins',
       parent: 'Funds Management',
     },
   },
@@ -207,7 +237,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [ac_fetchTradingAccounts],
     },
     menuItem: {
-      icon: 'coins.svg',
+      icon: 'internal-transfer',
       parent: 'Funds Management',
     },
   },
@@ -220,7 +250,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     menuItem: {
-      icon: 'coins.svg',
+      icon: 'coins',
       parent: 'Funds Management',
     },
   },
@@ -236,8 +266,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
       accountType: ETradingType.live,
     },
     menuItem: {
-      icon: 'filter.svg',
-      parent: { title: 'Trading Accounts', icon: 'trading_graph.svg' },
+      icon: 'filter',
+      parent: { title: 'Trading Accounts', icon: 'trading_graph' },
     },
   },
   {
@@ -252,8 +282,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
       accountType: ETradingType.demo,
     },
     menuItem: {
-      icon: 'filter.svg',
-      parent: { title: 'Trading Accounts', icon: 'trading_graph.svg' },
+      icon: 'filter',
+      parent: { title: 'Trading Accounts', icon: 'trading_graph' },
     },
   },
   {
@@ -265,8 +295,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     menuItem: {
-      icon: 'coins.svg',
-      parent: { title: 'Tools', icon: 'documents.svg' },
+      icon: 'coins',
+      parent: { title: 'Tools', icon: 'documents' },
     },
   },
   {
@@ -276,6 +306,22 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/profile',
     component: Profile,
     appSection: EAppSection.portal,
+    apiData: {
+      strict: [ac_fetchBankDetails],
+    },
+    activators: [allowAuthorizedGuard],
+    menuItem: false,
+  },
+  {
+    meta: {
+      title: 'Verification',
+    },
+    path: '/verification',
+    component: Verification,
+    appSection: EAppSection.portal,
+    // apiData: {
+    //   strict: [ac_fetchBankDetails], // TINS, CCard Data
+    // },
     activators: [allowAuthorizedGuard],
     menuItem: false,
   },

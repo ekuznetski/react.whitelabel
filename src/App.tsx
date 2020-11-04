@@ -1,13 +1,16 @@
 import { Footer, Header, Router } from '@components/core';
 import { localesConfig } from '@domain';
-import { ELanguage } from '@domain/enums';
-import { ac_updateRouteParams, store } from '@store';
+import { EAppSection, ELanguage } from '@domain/enums';
+import { ac_updateRouteParams, IStore, store } from '@store';
 import React, { Suspense, useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { useTranslation } from 'react-i18next';
-import { connect, Provider, useDispatch } from 'react-redux';
+import { connect, Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './App.scss';
+import { browserName, osName } from 'react-device-detect';
+import classNames from 'classnames';
+import { useDeviceDetect } from '@utils/hooks';
 
 function App() {
   return (
@@ -20,9 +23,13 @@ function App() {
 }
 
 function Main() {
+  const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({
+    section: state.app.route.appSection,
+  }));
   const { pathname } = useLocation();
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
+  const device = useDeviceDetect();
 
   useEffect(() => {
     const _locale = pathname.split('/')[1] as ELanguage;
@@ -37,15 +44,33 @@ function Main() {
     }
   }, []);
 
+  useEffect(() => {
+    if (section) {
+      const _root = document.getElementById('root');
+      Object.keys(EAppSection).forEach((_section) => _root?.classList.remove(_section));
+      _root?.classList.add(section);
+    }
+  }, [section]);
+
   return (
     <>
-      <div className="main-wrapper">
+      <div
+        className={classNames(
+          'main-wrapper',
+          osName.toLowerCase(),
+          browserName.toLowerCase().replace(/mobile|\s/g, ''),
+          device.isMobile && 'isMobile',
+          device.isTablet && 'isTablet',
+          device.isDesktop && 'isDesktop',
+        )}
+      >
         <Header />
         <main className="router-context">
           <Router />
         </main>
       </div>
       <Footer />
+      <div id="dynamic-portals" />
     </>
   );
 }

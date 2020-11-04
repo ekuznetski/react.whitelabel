@@ -6,7 +6,7 @@ import './Alert.scss';
 
 type IAlert = {
 	viewType?: 'message' | 'block';
-	type: 'success' | 'warning' | 'error' | 'info';
+	type: 'success' | 'warning' | 'error' | 'info' | 'text';
 	children: React.ReactNode;
 	className?: string;
 	sizes: ColProps;
@@ -16,7 +16,7 @@ export const Alert = memo(
 	forwardRef<HTMLDivElement, IAlert>(function Alert({ viewType = 'block', ...props }, ref) {
 		return (
 			<Col {...props.sizes} className={classNames('common-alert p-2', props.className, viewType, props.type)} ref={ref}>
-				<Svg href="warning.svg" width={16} className="mr-2" />
+				<Svg href="warning" width={16} className="mr-2" />
 				<div className="alert-context">{props.children}</div>
 			</Col>
 		);

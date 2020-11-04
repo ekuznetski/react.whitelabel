@@ -1,71 +1,133 @@
-import { PageTitle, Tab, TabLabel, Tabs } from '@components/shared';
-import { EDepositMethods } from '@domain/enums';
+import { PageTitle, Tab, Tabs } from '@components/shared';
+import { AllowedCurrToMethodMap, ECurrencyCode, EDepositMethods } from '@domain/enums';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount, TabLabelDepositMethod } from './components';
+import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
 import './Deposit.scss';
-import { depositActionCreators, DepositContextWrapper, IDepositAction, IDepositState } from './depositContext';
+import { depositActionCreators, DepositProvider, IDepositAction, IDepositState } from './depositContext';
+import { DepositSuccessFailure } from './depositSuccessFailure/DepositSuccessFailure';
+import { useSelector } from 'react-redux';
+import { IAppStore, IStore } from '@store';
 
-export const Deposit = memo(function Deposit(props) {
+export const Deposit = memo(function Deposit() {
+  const { route, tradingAccountsCurrencies } = useSelector<
+    IStore,
+    { tradingAccountsCurrencies: ECurrencyCode[] } & Pick<IAppStore, 'route'>
+  >((state) => ({
+    route: state.app.route,
+    tradingAccountsCurrencies: Array.from(
+      state.data.tradingData.accounts.reduce(
+        (currencies, account) => currencies.add(account.currency),
+        new Set<ECurrencyCode>(),
+      ),
+    ),
+  }));
   const { t } = useTranslation();
 
   return (
-    <DepositContextWrapper>
+    <DepositProvider>
       {(state: IDepositState, dispatch: React.Dispatch<IDepositAction> | null) => {
+        if (route.state.depositMethod && state.method !== route.state.depositMethod) {
+          dispatch?.(depositActionCreators.setMethod(route.state.depositMethod));
+        }
+
         return (
           <Container className="deposit-page-wrapper">
             <Row>
               <Col xs={12}>
                 <PageTitle title={t('Deposit')} />
-                {!state.isAmountSelected && (
-                  <Tabs
-                    activeTab={state.method ?? EDepositMethods.creditCard}
-                    isVertical={true}
-                    onChange={(e) => {
-                      if (dispatch && e.anchor) dispatch?.(depositActionCreators.setMethod(e.anchor as any));
-                    }}
-                  >
-                    <Tab anchor={EDepositMethods.creditCard}>
-                      <TabLabel>
-                        <TabLabelDepositMethod title="Visa/MasterCard" subTitle={t('Instant')} icon="visa-with-bg" />
-                      </TabLabel>
-                      <TabContentChooseAmount />
-                    </Tab>
-                    <Tab anchor={EDepositMethods.netteller}>
-                      <TabLabel>
-                        <TabLabelDepositMethod title="Neteller" subTitle={t('Instant')} icon="webmoney-with-bg" />
-                      </TabLabel>
-                      <TabContentChooseAmount />
-                    </Tab>
-                    <Tab anchor={EDepositMethods.skrill}>
-                      <TabLabel>
-                        <TabLabelDepositMethod title="Skrill" subTitle={t('Instant')} icon="webmoney-with-bg" />
-                      </TabLabel>
-                      <TabContentChooseAmount />
-                    </Tab>
-                    <Tab anchor={EDepositMethods.bankWire}>
-                      <TabLabel>
-                        <TabLabelDepositMethod
-                          title={t('Wire Bank Transfer')}
-                          subTitle={t('1 3 days')}
-                          icon="webmoney-with-bg"
-                        />
-                      </TabLabel>
-                      <TabContentBankWire />
-                    </Tab>
-                  </Tabs>
+
+                {route.state.depositResult ? (
+                  <DepositSuccessFailure result={route.state.depositResult} />
+                ) : (
+                  <>
+                    {!state.isAmountSelected && (
+                      <Tabs
+                        activeTab={state.method ?? EDepositMethods.creditCard}
+                        isVertical={true}
+                        onChange={(e) => {
+                          if (dispatch && e.anchor) {
+                            dispatch?.(depositActionCreators.setMethod(e.anchor as any));
+                          }
+                        }}
+                      >
+                        <Tab
+                          label="Visa/MasterCard"
+                          subLabel={t('Instant')}
+                          labelIcon={EDepositMethods.creditCard}
+                          anchor={EDepositMethods.creditCard}
+                          disabled={
+                            !tradingAccountsCurrencies.some((currency) =>
+                              AllowedCurrToMethodMap[EDepositMethods.creditCard].includes(currency),
+                            )
+                          }
+                        >
+                          <TabContentChooseAmount />
+                        </Tab>
+                        <Tab
+                          label="Neteller"
+                          subLabel={t('Instant')}
+                          labelIcon={EDepositMethods.neteller}
+                          anchor={EDepositMethods.neteller}
+                          disabled={
+                            !tradingAccountsCurrencies.some((currency) =>
+                              AllowedCurrToMethodMap[EDepositMethods.neteller].includes(currency),
+                            )
+                          }
+                        >
+                          <TabContentChooseAmount />
+                        </Tab>
+                        <Tab
+                          label="Webmoney"
+                          subLabel={t('Instant')}
+                          labelIcon={EDepositMethods.webmoney}
+                          anchor={EDepositMethods.webmoney}
+                          disabled={
+                            !tradingAccountsCurrencies.some((currency) =>
+                              AllowedCurrToMethodMap[EDepositMethods.webmoney].includes(currency),
+                            )
+                          }
+                        >
+                          <TabContentChooseAmount />
+                        </Tab>
+                        <Tab
+                          label="Skrill"
+                          subLabel={t('Instant')}
+                          labelIcon={EDepositMethods.skrill}
+                          anchor={EDepositMethods.skrill}
+                          disabled={
+                            !tradingAccountsCurrencies.some((currency) =>
+                              AllowedCurrToMethodMap[EDepositMethods.skrill].includes(currency),
+                            )
+                          }
+                        >
+                          <TabContentChooseAmount />
+                        </Tab>
+                        <Tab
+                          label={t('Wire Bank Transfer')}
+                          subLabel={t('1 3 days')}
+                          labelIcon={EDepositMethods.bankWire}
+                          anchor={EDepositMethods.bankWire}
+                          disabled={
+                            !tradingAccountsCurrencies.some((currency) =>
+                              AllowedCurrToMethodMap[EDepositMethods.bankWire].includes(currency),
+                            )
+                          }
+                        >
+                          <TabContentBankWire />
+                        </Tab>
+                      </Tabs>
+                    )}
+                    {state.isAmountSelected && <DetailsFormWrapper />}
+                  </>
                 )}
-                {state.isAmountSelected && <DetailsFormWrapper />}
               </Col>
             </Row>
-            <pre>{JSON.stringify(state.account)}</pre>
-            <pre>{state.amount}</pre>
-            <pre>{state.method?.toString()}</pre>
-            <pre>{state.isAmountSelected?.toString()}</pre>
+            <pre>{JSON.stringify(state, null, '\t')}</pre>
           </Container>
         );
       }}
-    </DepositContextWrapper>
+    </DepositProvider>
   );
 });

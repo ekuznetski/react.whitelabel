@@ -45,6 +45,14 @@
 		}
 	}
 
+	&.text {
+		color: $grey;
+
+		svg {
+			fill: $grey;
+		}
+	}
+
 	&.message {
 	}
 

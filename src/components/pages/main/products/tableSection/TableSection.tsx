@@ -41,7 +41,7 @@ export const TableSection = memo(
         <div className="container">
           <div className={rowClass}>
             <div className={infoColClass}>
-              {!preview ? <Svg href="close.svg" className="close" onClick={toggleTableView(props.tableType)} /> : null}
+              {!preview ? <Svg href="close" className="close" onClick={toggleTableView(props.tableType)} /> : null}
               <div className="table-section__title mb-7">{props.title}</div>
               <div className="table-section__desc mb-8">{props.desc}</div>
               {preview ? (
@@ -60,12 +60,12 @@ export const TableSection = memo(
                 {preview ? (
                   <>
                     {t('See all products')}
-                    <Svg href="chevron.svg" height={20} />
+                    <Svg href="chevron" height={20} />
                   </>
                 ) : (
                   <>
                     {t('See less products')}
-                    <Svg href="chevron.svg" className="up" height={20} />
+                    <Svg href="chevron" className="up" height={20} />
                   </>
                 )}
               </div>

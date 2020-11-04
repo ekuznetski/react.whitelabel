@@ -1,5 +1,5 @@
 import { IBaseResponse } from '../general.interface';
-import { _statusPair, ITins, IDocuments, IMifidData } from '..';
+import { _statusPair, ITins, IDocument, IMifidData } from '..';
 import { EResponseStatus } from '@domain/enums';
 
 export type AddInfoFormStatus =
@@ -64,7 +64,7 @@ export type IEDDData = {
 };
 
 export interface IClientData {
-	document_data?: IDocuments[] & _updatedData<IDocuments[]>;
+	document_data?: IDocument[] & _updatedData<IDocument[]>;
 	edd_data: IEDDData & _updatedData<IEDDData>;
 	mifid_data: IMifidData & _updatedData<IMifidData>;
 	tins_data: ITins & _updatedData<ITins>;

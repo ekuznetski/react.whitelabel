@@ -83,32 +83,32 @@ export function Home() {
   const tradeProductsCards = [
     {
       title: 'Forex',
-      icon: 'filter.svg',
+      icon: 'filter',
       exchange: 'EUR/USD, GBP/USD, USD/JPY',
     },
     {
       title: 'Stocks',
-      icon: 'graph_bars.svg',
+      icon: 'graph_bars',
       exchange: 'Apple, Amazon, Facebook',
     },
     {
       title: 'Indices',
-      icon: 'indices.svg',
+      icon: 'indices',
       exchange: 'US500, UK100, Japan225',
     },
     {
       title: 'Cryptocurrencies',
-      icon: 'crypto.svg',
+      icon: 'crypto',
       exchange: '',
     },
     {
       title: 'Commodities',
-      icon: 'commodities.svg',
+      icon: 'commodities',
       exchange: 'Cocoa, Cotton, Sugar',
     },
     {
       title: 'ETFs',
-      icon: 'etfs.svg',
+      icon: 'etfs',
       exchange: 'iShares, ProShares',
     },
   ];

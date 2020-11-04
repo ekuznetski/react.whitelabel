@@ -60,6 +60,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
     }
   };
 }
+
 // export const getContentRequest = request(EHttpMethod.get, `https://baconipsum.com/api/?type=meat-and-filler`);
 export const getContentRequest = (d: any) => new Promise((resolve, reject) => resolve({}));
 export const getGeoIpRequest = request(EHttpMethod.get, `${apiUrl}/frontend/geoIp`);
@@ -75,6 +76,17 @@ export const resetPasswordRequest = request(EHttpMethod.post, `${apiUrl}/clients
 export const userExistsRequest = request(EHttpMethod.post, `${apiUrl}/clients/exist`);
 export const withdrawalsHistoryRequest = request(EHttpMethod.get, `${apiUrl}/withdrawals/getHistory`);
 export const withdrawalsLimitRequest = request(EHttpMethod.post, `${apiUrl}/withdrawals/limit`);
+export const mt4WithdrawFundsRequest = request(EHttpMethod.post, `${apiUrl}/withdrawals/mt4`);
+export const mt5WithdrawFundsRequest = request(EHttpMethod.post, `${apiUrl}/withdrawals/mt5`);
 export const tradingAccountsRequest = request(EHttpMethod.get, `${apiUrl}/clients/getTradingAccounts`);
 export const internalTransferRequest = request(EHttpMethod.post, `${apiUrl}/accounts/transfer`);
 export const getTransactionalStatementsRequest = request(EHttpMethod.post, `${apiUrl}/clients/bankingStatements`);
+export const getBankDetailsRequest = request(EHttpMethod.post, `${apiUrl}/bankaccounts/getbankdetails`);
+export const updateBankDetailsRequest = request(EHttpMethod.post, `${apiUrl}/bankaccounts/saveaccount`);
+export const createMT4LiveAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt4accounts/create`);
+export const createMT4DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt4accounts/demo/create`);
+export const createMT5LiveAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt5accounts/create`);
+export const createMT5DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt5accounts/demo/create`);
+export const addDepositRequest = request(EHttpMethod.post, `${apiUrl}/deposits/add`);
+export const uploadFileRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/upload`);
+export const getDocumentsRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/getDocuments`);

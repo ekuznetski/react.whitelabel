@@ -1,25 +1,39 @@
 import React from 'react';
 
+export enum EMobileDisplay {
+  labels = 'labels',
+  content = 'content ',
+}
+export type TabData = string | React.ReactFragment | undefined;
 type TabAnchor = number | string | undefined;
-type TabData = string | React.ReactFragment | undefined;
 type Action = {
-  type: 'instantInit' | 'add' | 'addTempLabel' | 'addTempContent' | 'setActive';
-  label?: TabData;
+  type:
+    | 'instantInit'
+    | 'add'
+    | 'addTempLabel'
+    | 'addTempSubLabel'
+    | 'addTempContent'
+    | 'setActive'
+    | 'setMobileDisplay';
+  label?: { value: TabData; desc?: TabData; icon?: string };
   content?: TabData;
   anchor?: TabAnchor;
   disabled?: boolean;
-  labels?: { value: TabData; anchor: number | string; disabled?: boolean }[];
+  labels?: { value: TabData; desc?: TabData; icon?: string; anchor: number | string; disabled?: boolean }[];
   contents?: { value: TabData; anchor: number | string }[];
+  mobileDisplay?: EMobileDisplay;
 };
 type Dispatch = (action: Action) => void;
 type State = {
-  labels: { value: TabData; anchor: number | string; disabled?: boolean }[];
+  labels: { value: TabData; desc?: TabData; icon?: string; anchor: number | string; disabled?: boolean }[];
   contents: { value: TabData; anchor: number | string }[];
   anchors: TabAnchor[];
   active: TabAnchor;
-  tempLabel: TabData;
+  tempLabel: { value: TabData; icon?: string } | undefined;
+  tempSubLabel: TabData;
   tempContent: TabData;
   initial: boolean;
+  mobileDisplay: EMobileDisplay;
 };
 type ActiveTab = {
   label?: { value: TabData; anchor: number | string; disabled?: boolean };
@@ -38,6 +52,9 @@ function TabsReducer(state: State, action: Action) {
     case 'setActive': {
       return { ...state, active: action.anchor };
     }
+    case 'setMobileDisplay': {
+      return { ...state, mobileDisplay: action.mobileDisplay ?? EMobileDisplay.labels };
+    }
     case 'instantInit': {
       const anchors = action.labels?.map((label) => label.anchor) || [];
       return {
@@ -51,6 +68,9 @@ function TabsReducer(state: State, action: Action) {
     }
     case 'addTempLabel': {
       return { ...state, tempLabel: action.label };
+    }
+    case 'addTempSubLabel': {
+      return { ...state, tempSubLabel: action.label };
     }
     case 'addTempContent': {
       return { ...state, tempContent: action.content };
@@ -70,7 +90,13 @@ function TabsReducer(state: State, action: Action) {
       const _labels = state.labels || [];
       if ((action.label || state.tempLabel) && (action.anchor != null || action.anchor != undefined))
         _labels.push({
-          value: action.label || state.tempLabel,
+          ...{
+            value: undefined,
+            ...(action.label ? action.label : {}),
+            ...(state.tempLabel
+              ? { value: state.tempLabel.value, desc: state.tempSubLabel, icon: state.tempLabel.icon }
+              : {}),
+          },
           anchor: action.anchor,
           disabled: action.disabled,
         });
@@ -105,8 +131,10 @@ function TabsProvider({ children }: TabsProviderProps) {
     contents: [],
     active: '',
     tempLabel: undefined,
+    tempSubLabel: undefined,
     tempContent: undefined,
     initial: false,
+    mobileDisplay: EMobileDisplay.labels,
   });
   const active = {
     anchor: state.active,

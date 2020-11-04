@@ -1,10 +1,10 @@
 import * as Yup from 'yup';
-const RegexValidators = Object.freeze({
+export const RegexValidators = Object.freeze({
   address: /^(\d|[A-z]|\.|,|-|#|'|\/| )+$/,
   city: /^[A-Za-z\ ]+$/,
   email: /^([A-Za-z_\-.]|\d)+@([A-Za-z\-]|\d)+(\.[A-Za-z\d]+)+$/,
   loginAndEmail: /^([A-Za-z_\-.]|\d)+$|^([A-Za-z_\-.]|\d)+@([A-Za-z\-]|\d)+(\.[A-Za-z]+)+$/,
-  name: /^[A-Za-z][A-Za-z' -]+$/,
+  name: /^[a-zA-Z][a-zA-Z .,'-]*$/,
   password: /^(?=.*\d)(?=.*[A-z]).*$/,
   numbersOnly: /^\d+$/,
   alphaWithSpaceAndApostropheOnly: /^[A-Za-z' ]+$/,
@@ -21,7 +21,8 @@ const RegexValidators = Object.freeze({
 export const FieldValidators = {
   requiredString: Yup.string().required('This field is required').typeError('Value must be a string'),
   requiredNumber: Yup.number().required('This field is required').typeError('Value must be a number'),
-  notRequired: Yup.string().notRequired(),
+  notRequiredString: Yup.string().notRequired(),
+  notRequiredNumber: Yup.number().notRequired(),
   name: Yup.string().matches(RegexValidators.name, 'Invalid value').required('This field is required'),
   email: Yup.string().email('Invalid email').required('This field is required'),
   numbers: Yup.string().matches(RegexValidators.numbersOnly, 'Invalid value').required('This field is required'),
@@ -43,4 +44,13 @@ export const FieldValidators = {
     .matches(RegexValidators.swift, 'Invalid SWIFT Code')
     .required('This field is required')
     .max(45, 'Name must not exceed ${max} characters'),
+};
+export const CustomFieldValidators = {
+  country: Yup.object()
+    .shape({
+      name: FieldValidators.requiredString,
+      code: FieldValidators.requiredString,
+      phoneCode: FieldValidators.requiredString,
+    })
+    .required('This field is required'),
 };

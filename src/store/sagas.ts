@@ -1,8 +1,13 @@
+import { ETradingPlatform } from '@domain/enums';
 import {
+  IAddDepositResponse,
+  IBankDetailsResponse,
   IBaseResponse,
   IClientAddResponse,
   IClientProfileResponse,
   IClientStatusDataResponse,
+  ICreateTradingAccountRequest,
+  IDocumentsInterfaceResponse,
   IEditProfileResponse,
   ILoginResponse,
   ISetProfileResponse,
@@ -10,29 +15,42 @@ import {
   ITransactionalStatementsResponse,
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
+  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import {
   MClientData,
   MClientProfile,
   MClientTradingData,
+  MDocument,
   MTransactionalStatementData,
   MWithdrawalHistoryItem,
 } from '@domain/models';
 import {
+  addDepositRequest,
   clientAddRequest,
   clientSetProfileRequest,
+  createMT4DemoAccountRequest,
+  createMT4LiveAccountRequest,
+  createMT5DemoAccountRequest,
+  createMT5LiveAccountRequest,
   editProfileRequest,
   forgotPasswordRequest,
+  getBankDetailsRequest,
   getClientDataRequest,
   getContentRequest,
+  getDocumentsRequest,
   getGeoIpRequest,
   getProfileRequest,
   getTransactionalStatementsRequest,
   internalTransferRequest,
   loginRequest,
   logoutRequest,
+  mt4WithdrawFundsRequest,
+  mt5WithdrawFundsRequest,
   resetPasswordRequest,
   tradingAccountsRequest,
+  updateBankDetailsRequest,
+  uploadFileRequest,
   userExistsRequest,
   withdrawalsHistoryRequest,
   withdrawalsLimitRequest,
@@ -41,11 +59,15 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { store } from './';
 import {
   ac_clearStore,
+  ac_fetchDocuments,
   ac_fetchTradingAccounts,
+  ac_fetchWithdrawHistory,
   ac_requestActionFailure,
   ac_requestActionSuccess,
+  ac_saveBankDetails,
   ac_saveClientData,
   ac_saveContent,
+  ac_saveDocuments,
   ac_saveGeoIpData,
   ac_saveProfile,
   ac_saveTradingAccounts,
@@ -156,6 +178,22 @@ export function* changeProfilePasswordSaga() {
   });
 }
 
+export function* getBankDetailsSaga() {
+  yield $$(EActionTypes.fetchBankDetails, function* () {
+    const { response }: IBankDetailsResponse = yield call(getBankDetailsRequest);
+    yield put(ac_saveBankDetails(response.message));
+    return response;
+  });
+}
+
+export function* updateBankDetailsSaga() {
+  yield $$(EActionTypes.updateBankDetails, function* ({ payload }: IAction) {
+    const { response }: IBankDetailsResponse = yield call(updateBankDetailsRequest, payload);
+    yield put(ac_saveBankDetails(response.data));
+    return response;
+  });
+}
+
 export function* loginSaga() {
   yield $$(EActionTypes.login, function* ({ payload }: IAction) {
     const { response }: ILoginResponse = yield call(loginRequest, payload);
@@ -168,7 +206,6 @@ export function* logoutSaga() {
   yield $$(EActionTypes.logout, function* () {
     const { response }: any = yield call(logoutRequest);
     yield put(ac_clearStore());
-    console.log('store cleared');
     return response;
   });
 }
@@ -204,8 +241,18 @@ export function* resetPasswordSaga() {
 export function* setProfileSaga() {
   yield $$(EActionTypes.register, function* ({ payload }: IAction) {
     const { response }: ISetProfileResponse = yield call(clientSetProfileRequest, payload);
-    yield put(ac_saveProfile(new MClientProfile(response.profile)));
     return response;
+  });
+}
+
+export function* withdrawFundsSaga() {
+  yield $$(EActionTypes.withdrawFunds, function* ({ payload }: IAction<IWithdrawFundRequest>) {
+    yield call(
+      payload?.trade_platform === ETradingPlatform.mt4 ? mt4WithdrawFundsRequest : mt5WithdrawFundsRequest,
+      payload,
+    );
+    yield put(ac_fetchWithdrawHistory());
+    return;
   });
 }
 
@@ -265,10 +312,61 @@ export function* getTradingAccountsSage() {
   );
 }
 
+export function* createLiveTradingAccountsSage() {
+  yield $$(EActionTypes.createLiveTradingAccount, function* ({ payload }: IAction<ICreateTradingAccountRequest>) {
+    const { response } = yield call(
+      payload?.platform === ETradingPlatform.mt4 ? createMT4LiveAccountRequest : createMT5LiveAccountRequest,
+      {
+        account_type: payload?.account_type,
+        currency: payload?.currency,
+        leverage: payload?.leverage,
+      },
+    );
+    yield put(ac_fetchTradingAccounts());
+    return response.data;
+  });
+}
+
+export function* createDemoTradingAccountsSage() {
+  yield $$(EActionTypes.createDemoTradingAccount, function* ({ payload }: IAction<ICreateTradingAccountRequest>) {
+    const { response } = yield call(
+      payload?.platform === ETradingPlatform.mt4 ? createMT4DemoAccountRequest : createMT5DemoAccountRequest,
+      {
+        account_type: payload?.account_type,
+        currency: payload?.currency,
+        leverage: payload?.leverage,
+      },
+    );
+    yield put(ac_fetchTradingAccounts());
+    return response.data;
+  });
+}
+
 export function* makeInternalTransferSage() {
   yield $$(EActionTypes.makeInternalTransfer, function* ({ payload }: IAction) {
     const { response }: any = yield call(internalTransferRequest, payload);
     yield put(ac_fetchTradingAccounts());
+    return response;
+  });
+}
+
+export function* getDocumentsSage() {
+  yield $$(
+    EActionTypes.makeInternalTransfer,
+    function* () {
+      const { response }: IDocumentsInterfaceResponse = yield call(getDocumentsRequest);
+      const data = response.message.map((document) => new MDocument(document));
+      yield put(ac_saveDocuments(data));
+      return response;
+    },
+    'data.client.documents',
+  );
+}
+
+export function* uploadFileSage() {
+  yield $$(EActionTypes.makeInternalTransfer, function* ({ payload }: IAction) {
+    const { response }: any = yield call(uploadFileRequest, payload);
+    yield put(ac_fetchDocuments({ force: true }));
     return response;
   });
 }
@@ -279,5 +377,12 @@ export function* fetchTransactionalStatementsSage() {
     const data = new MTransactionalStatementData(response);
     yield put(ac_saveTransactionalStatements(data));
     return response;
+  });
+}
+
+export function* addDepositSage() {
+  yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
+    const data: IAddDepositResponse = yield call(addDepositRequest, payload);
+    return data;
   });
 }

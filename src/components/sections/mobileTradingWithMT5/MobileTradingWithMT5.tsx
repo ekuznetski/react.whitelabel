@@ -79,10 +79,10 @@ export const MobileTradingWithMT5Section = memo(
               </div>
               <div className="store-links">
                 <Button className="mr-md-6 px-7 mb-7 mb-md-0">
-                  <Svg href="app_store_logo.svg" />
+                  <Svg href="app_store_logo" />
                 </Button>
                 <Button className="mr-md-6 px-7">
-                  <Svg href="google_play_logo.svg" />
+                  <Svg href="google_play_logo" />
                 </Button>
               </div>
             </Col>

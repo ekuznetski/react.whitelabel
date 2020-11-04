@@ -1,5 +1,4 @@
 export * from './tabContentChooseAmount/TabContentChooseAmount';
-export * from './tabLabelDepositMethod/TabLabelDepositMethod';
 export * from './tabContentBankWire/TabContentBankWire';
 export * from './cardMethod/CardMethod';
 export * from './netellerMethod/NetellerMethod';
@@ -8,3 +7,4 @@ export * from './detailsFormWrapper/DetailsFormWrapper';
 export * from './detailsHeader/DetailsHeader';
 export * from './bilingDetailsModal/BillingDetailsModal';
 export * from './creditCardInfoModal/CreditCardInfoModal';
+export * from './webmoneyMethod/WebmoneyMethod';

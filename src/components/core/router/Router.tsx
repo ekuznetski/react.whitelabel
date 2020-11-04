@@ -34,7 +34,7 @@ export const Router = memo(function Router() {
           path: route?.path,
           appSection: route?.appSection,
           meta: route?.meta,
-          state,
+          state: Object.assign({}, state, route?.state),
         }),
       );
     }
@@ -105,7 +105,7 @@ function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
       _batchDispatch.push(_ac);
     });
 
-    useLockScroll(true, route.appSection);
+    useLockScroll(true);
 
     batch(() => {
       _batchDispatch.forEach((action) => store.dispatch(action));
@@ -123,7 +123,7 @@ function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
         ? openedRequests.filter((request) => _routeStrictRequests.includes(request)).length > 0
         : false;
 
-      useLockScroll(hasUncompletedStrictRequest, route.appSection);
+      useLockScroll(hasUncompletedStrictRequest);
       setRouteLoading(hasUncompletedStrictRequest);
 
       if (route.activators && !hasUncompletedStrictRequest) {
@@ -143,7 +143,7 @@ function RenderRoute({ route, prevPath, openedRequests }: IRenderRoute) {
   return (
     <>
       <PageLoader isLoading={isLoading} />
-      {!isLoading && route.component && <route.component routeState={route.state} />}
+      {!isLoading && route.component && <route.component />}
     </>
   );
 }

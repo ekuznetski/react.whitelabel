@@ -18,3 +18,4 @@ export * from './portal/openAccount/OpenAccount';
 export * from './portal/internalTransfer/InternalTransfer';
 export * from './portal/transactionStatement/TransactionStatement';
 export * from './portal/platformDownload/PlatformDownload';
+export * from './portal/verification/Verification';
