@@ -123,11 +123,7 @@ export function Home() {
               <div className="page-top__title mb-5 mb-lg-9">
                 {t('Home Page Top Title')}
                 <br />
-                <LabelView>
-                  {{
-                    [ELabels.arofx]: t('Home Page Top Subtitle'),
-                  }}
-                </LabelView>
+                {t('Home Page Top Subtitle')}
               </div>
               <div className="page-top__description mb-11 mb-lg-10">{t('Home Page Top Section Desc')}</div>
               <Button>
@@ -148,7 +144,7 @@ export function Home() {
       </section>
       <LabelView>
         {{
-          [ELabels.arofx]: <PrestigiousPlatformTechnologySection />,
+          '*': <PrestigiousPlatformTechnologySection />,
           [ELabels.bsfx]: (
             <PrestigiousPlatformTechnologySection
               title={
@@ -178,7 +174,7 @@ export function Home() {
       </LabelView>
       <LabelView>
         {{
-          [ELabels.arofx]: <MobileTradingWithMT5Section className="pt-0" />,
+          '*': <MobileTradingWithMT5Section className="pt-0" />,
           [ELabels.bsfx]: (
             <MobileTradingWithMT5Section
               title={

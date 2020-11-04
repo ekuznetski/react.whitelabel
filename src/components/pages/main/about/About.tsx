@@ -99,7 +99,7 @@ export function About() {
               <div className="trusted__title mb-9">
                 <LabelView>
                   {{
-                    [ELabels.arofx]: t('Trusted Section Title'),
+                    '*': t('Trusted Section Title'),
                     [ELabels.bsfx]: (
                       <Trans i18nKey="Trusted Section Title">
                         GLOBAL <strong>TRAINING AND TRADING</strong>
@@ -111,12 +111,12 @@ export function About() {
               <div className="trusted__description mb-13">
                 <LabelView>
                   {{
-                    [ELabels.arofx]: t('Trusted Section Desc'),
+                    '*': t('Trusted Section Desc'),
                     [ELabels.bsfx]: (
                       <Trans i18nKey="Trusted Section Desc">
                         We believe in training first and trading second, so we have teamed up with an affordable FX
                         trading training academy. Learn how to trade for less than $1 per day at{' '}
-                        <a href="">www.yulfx.com</a>. We have executives stationed globally to introduce clients to the
+                        <a href="">www.bsfx.com</a>. We have executives stationed globally to introduce clients to the
                         BSFX platform and welcome them to a $6 trillion-a-day FX industry. We believe in giving back to
                         the trading community, so we are1 involved in building training stations across the globe to
                         provide an FX education.
