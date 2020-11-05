@@ -1,0 +1,71 @@
+@import '~/variables';
+
+.upload-wrapper {
+  .select-document-type {
+    @include d-flex(center, center, column);
+    border-radius: $border-radius;
+    background: $grey;
+    height: 280px;
+
+    &__note {
+    }
+    &__list {
+      @include d-flex(center, center);
+
+      .list__item {
+        @include d-flex(center, center, column);
+        width: 160px;
+        height: 160px;
+        background: #fff;
+        border: 1px solid $dark-grey;
+        border-radius: $border-radius;
+      }
+    }
+  }
+
+  .documents-list {
+    &__item {
+      @include d-flex(center);
+      background: $grey-bg;
+      border-left: 6px solid rgba($dark-grey, 0.6);
+
+      .document {
+        &__type {
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+        &__status {
+          font-size: 14px;
+        }
+      }
+
+      &.approved {
+        background: rgba($green, 0.1);
+        border-color: rgba($green, 0.6);
+
+        .document__status {
+          color: $green;
+        }
+      }
+
+      &.rejected {
+        background: rgba($red, 0.1);
+        border-color: rgba($red, 0.6);
+
+        .document__status {
+          color: $red;
+        }
+      }
+
+      &.pending {
+        background: rgba($yellow, 0.1);
+        border-color: rgba($yellow, 0.6);
+
+        .document__status {
+          color: $yellow;
+        }
+      }
+    }
+  }
+}

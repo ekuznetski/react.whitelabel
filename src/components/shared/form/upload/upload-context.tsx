@@ -1,4 +1,4 @@
-import { DocumentsTypeEnum } from '@domain/enums';
+import { EDocumentsType } from '@domain/enums';
 import React from 'react';
 
 export type UploadText = string | React.ReactFragment | undefined;
@@ -13,7 +13,7 @@ export enum UploadViewState {
 type Action = {
   type: 'initFile' | 'addDesc' | 'addIcon' | 'addFileType' | 'addFile' | 'removeFile' | 'showError' | 'uploadFile';
   desc?: UploadText;
-  fileType?: DocumentsTypeEnum;
+  fileType?: EDocumentsType;
   fileIcon?: UploadIcon;
   file?: File;
   fileDataURL?: string;
@@ -21,7 +21,7 @@ type Action = {
 };
 export type UploadDispatch = (action: Action) => void;
 export type UploadState = {
-  fileType: DocumentsTypeEnum | null;
+  fileType: EDocumentsType | null;
   file: File | null;
   fileDataURL: string | null;
   desc: UploadText;
@@ -37,7 +37,6 @@ const UploadStateContext = React.createContext<UploadState | undefined>(undefine
 const UploadDispatchContext = React.createContext<UploadDispatch | undefined>(undefined);
 
 function UploadReducer(state: UploadState, action: Action) {
-  console.log(action.type);
   switch (action.type) {
     case 'initFile': {
       return {

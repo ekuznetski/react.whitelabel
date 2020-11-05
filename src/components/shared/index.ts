@@ -16,6 +16,7 @@ export * from './iconFlag/IconFlag';
 export * from './dropdown/Dropdown';
 export * from './modal/Modal';
 export * from './alert/Alert';
+export * from './uploadWrapper/UploadWrapper';
 export * from './localeNavLink/LocaleNavLink';
 export * from './localeLink/LocaleLink';
 export * from './authAlreadyRegisteredLink/AuthAlreadyRegisteredLink';

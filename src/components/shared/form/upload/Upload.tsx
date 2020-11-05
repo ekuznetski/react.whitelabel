@@ -1,5 +1,5 @@
 import { Button } from '@components/shared';
-import { DocumentsTypeEnum } from '@domain/enums';
+import { EDocumentsType } from '@domain/enums';
 import { ac_uploadDocuments } from '@store';
 import { deepDifference, shallowEqual } from '@utils/fn';
 import { useCombinedRef } from '@utils/hooks';
@@ -21,7 +21,7 @@ import {
 import './Upload.scss';
 
 interface UploadProps {
-  fileType: DocumentsTypeEnum;
+  fileType: EDocumentsType;
   fieldName: string;
   className?: string;
   uploadSectionClassName?: string;
@@ -107,7 +107,7 @@ export const MultiUpload = memo(
         Object.assign(uploadDocs, { [multiContextState[key].fileType]: multiContextState[key].file });
         multiContextDispatch[key]({ type: 'uploadFile' });
       });
-      // dispatch(ac_uploadDocuments(uploadDocs));
+      dispatch(ac_uploadDocuments(uploadDocs));
     }
 
     return (

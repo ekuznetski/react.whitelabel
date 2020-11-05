@@ -17,8 +17,8 @@ export interface IRouteNavConfig {
   activators?: ((routeProps?: RouteProps) => boolean | { path: Path; state?: { [key: string]: any } })[];
   state?: { [key: string]: any };
   apiData?: {
-    lazy?: (() => IAction)[];
-    strict?: (() => IAction)[];
+    lazy?: ((args?: { force: true | null }) => IAction)[];
+    strict?: ((args?: { force: true | null }) => IAction)[];
   };
   menuItem: boolean | IMenuItemConfig;
 }
@@ -30,8 +30,8 @@ export interface IRouteRedirectConfig {
 }
 export type IRoutesInitialApiData = {
   [K in typeof EAppSection[keyof typeof EAppSection]]: {
-    lazy?: (() => IAction)[];
-    strict?: (() => IAction)[];
+    lazy?: ((args?: { force: true | null }) => IAction)[];
+    strict?: ((args?: { force: true | null }) => IAction)[];
   };
 };
 

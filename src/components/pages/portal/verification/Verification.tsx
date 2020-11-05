@@ -1,5 +1,4 @@
-import { MultiUpload, PageTitle, Tab, Tabs, UploadFile } from '@components/shared';
-import { DocumentsTypeEnum } from '@domain/enums';
+import { PageTitle, Tab, Tabs } from '@components/shared';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -18,25 +17,9 @@ export const Verification = memo(function Verification() {
       </Row>
       <Row className="justify-content-center">
         <Col xs={12}>
-          <Tabs className="client-verification__tabs">
+          <Tabs className="client-verification__tabs" activeTab="additionalInformation">
             <Tab label={t('Financial Profile')} anchor="financialProfile">
               Financial Profile
-              <MultiUpload>
-                <UploadFile
-                  fileType={DocumentsTypeEnum.CCFront}
-                  fieldName={t('Front Side')}
-                  description="Please cover the 6 middle digits as shown below"
-                  icon="shrimp"
-                  iconWidth={40}
-                />
-                <UploadFile
-                  fileType={DocumentsTypeEnum.CCBack}
-                  fieldName={t('Front Side')}
-                  description="Please cover the 6 middle digits as shown below"
-                  icon="shrimp"
-                  iconWidth={40}
-                />
-              </MultiUpload>
             </Tab>
             <Tab label={t('Upload Documents')} anchor="uploadDocuments">
               Upload Documents
