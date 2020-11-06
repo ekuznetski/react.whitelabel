@@ -5,7 +5,7 @@
     @include d-flex(center, center, column);
     border-radius: $border-radius;
     background: $grey;
-    height: 280px;
+    height: 300px;
 
     &__note {
     }
@@ -19,6 +19,14 @@
         background: #fff;
         border: 1px solid $dark-grey;
         border-radius: $border-radius;
+        cursor: pointer;
+        transition: border-color 0.3s, box-shadow 0.2s;
+        box-shadow: box-shadow(15, 0.1);
+
+        &:hover {
+          border-color: $blue;
+          box-shadow: box-shadow(10, 0.1);
+        }
       }
     }
   }

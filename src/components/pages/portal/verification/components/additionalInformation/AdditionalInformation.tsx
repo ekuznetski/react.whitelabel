@@ -1,4 +1,4 @@
-import { DocsType, MultiUpload, Tab, Tabs, UploadFile, UploadWrapper } from '@components/shared';
+import { DocsType, MultipleUpload, Tab, Tabs, UploadDocumentCard, UploadFile, UploadWrapper } from '@components/shared';
 import { EDocumentsType } from '@domain/enums';
 import { MDocument } from '@domain/models';
 import { IStore } from '@store';
@@ -14,15 +14,15 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
   const { t } = useTranslation();
   const docsTypeList: DocsType[] = [
     {
-      icon: 'upload_bank_drop',
+      icon: 'upload_bank',
       label: t('Bank Statement'),
     },
     {
-      icon: 'upload_bill_drop',
+      icon: 'upload_bill',
       label: t('Utility Bill'),
     },
     {
-      icon: 'upload_other_drop',
+      icon: 'upload_other',
       label: t('Other Documents'),
     },
   ];
@@ -38,8 +38,27 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
         </Tab>
         <Tab label={t('Debit/Credit Card Verification')} anchor="cardVerification">
           {t('Debit/Credit Card Verification')}
-          <UploadWrapper documents={[]} documentsTypeList={docsTypeList}>
-            <MultiUpload>
+
+          <UploadWrapper documents={[]}>
+            <UploadDocumentCard icon="upload_bank" label={t('Bank Statement')}>
+              <MultipleUpload>
+                <UploadFile
+                  fileType={EDocumentsType.CCFront}
+                  fieldName={t('Front Side')}
+                  description="Please cover the 6 middle digits as shown below"
+                  icon="shrimp"
+                  iconWidth={40}
+                />
+                <UploadFile
+                  fileType={EDocumentsType.CCBack}
+                  fieldName={t('Front Side')}
+                  description="Please cover the 6 middle digits as shown below"
+                  icon="shrimp"
+                  iconWidth={40}
+                />
+              </MultipleUpload>
+            </UploadDocumentCard>
+            <UploadDocumentCard icon="upload_bill" label={t('Utility Bill')}>
               <UploadFile
                 fileType={EDocumentsType.CCFront}
                 fieldName={t('Front Side')}
@@ -47,14 +66,7 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
                 icon="shrimp"
                 iconWidth={40}
               />
-              <UploadFile
-                fileType={EDocumentsType.CCBack}
-                fieldName={t('Front Side')}
-                description="Please cover the 6 middle digits as shown below"
-                icon="shrimp"
-                iconWidth={40}
-              />
-            </MultiUpload>
+            </UploadDocumentCard>
           </UploadWrapper>
         </Tab>
       </Tabs>

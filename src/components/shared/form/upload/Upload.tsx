@@ -17,7 +17,7 @@ import {
   UploadText,
   UploadViewState,
   useUploadDispatch,
-} from './upload-context';
+} from './upload.context';
 import './Upload.scss';
 
 interface UploadProps {
@@ -41,7 +41,7 @@ interface UploadProps {
   isError?: () => void;
 }
 
-interface MultiUploadProps {
+interface MultipleUploadProps {
   children: React.ReactElement[];
   accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx' | 'tiff')[];
   maxFileSizeKb?: number;
@@ -51,8 +51,8 @@ interface MultiUploadProps {
 }
 
 // not working with HMR
-export const MultiUpload = memo(
-  forwardRef<HTMLDivElement, MultiUploadProps>(function MultiUpload(
+export const MultipleUpload = memo(
+  forwardRef<HTMLDivElement, MultipleUploadProps>(function MultipleUpload(
     {
       accept = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx', 'tiff'],
       maxFileSizeKb = 15 * 1024, // 15mb

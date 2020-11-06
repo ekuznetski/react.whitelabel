@@ -4,7 +4,7 @@ import { useDrop } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, memo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { UploadText, UploadViewState, useUploadDispatch, useUploadState } from '../upload-context';
+import { UploadText, UploadViewState, useUploadDispatch, useUploadState } from '../upload.context';
 
 interface UploadEmptyViewProps {
   fieldName: string;

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UploadViewState, useUploadDispatch, useUploadState } from '../upload-context';
+import { UploadViewState, useUploadDispatch, useUploadState } from '../upload.context';
 
 interface UploadReadyViewProps {
   fieldName: string;
