@@ -128,6 +128,16 @@ body {
   outline: none;
 }
 
+a {
+  color: $blue;
+  cursor: pointer;
+
+  &:hover {
+    color: $blue;
+    // text-decoration: none;
+  }
+}
+
 //todo remove
 button,
 .btn {

@@ -2,7 +2,7 @@ import { MDocument } from '@domain/models';
 import { useSetState } from 'ahooks';
 import classNames from 'classnames';
 import React, { memo, useEffect } from 'react';
-import { MultipleUpload, Svg, UploadFile } from '..';
+import { Button, MultipleUpload, Svg, UploadFile } from '..';
 import { DocsType, EUploadWrapperViewType } from './uploadWrapper.context';
 import { $t } from './UploadWrapper.locale';
 import './UploadWrapper.scss';
@@ -71,8 +71,22 @@ export function UploadWrapper({ children, documents, ...props }: IUploadWrapperP
           />
         );
       case EUploadWrapperViewType.upload:
-        // @ts-ignore
-        return !Array.isArray(children) ? children : children[state.selectedDocTypeIdx].props.children;
+        console.log(children);
+        return (
+          <>
+            <div className="upload-wrapper__header mb-2">
+              <a className="upload-wrapper__back" onClick={() => setState({ view: EUploadWrapperViewType.select })}>Back</a>
+              {
+                // @ts-ignore
+                !Array.isArray(children) ? children.props.label : children[state.selectedDocTypeIdx].props.label
+              }
+            </div>
+            {
+              // @ts-ignore
+              !Array.isArray(children) ? children : children[state.selectedDocTypeIdx].props.children
+            }
+          </>
+        );
       case EUploadWrapperViewType.documents:
         return <DocumentsList documents={documents} />;
     }

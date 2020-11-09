@@ -37,7 +37,7 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
           {t('Tax Identification')}
         </Tab>
         <Tab label={t('Debit/Credit Card Verification')} anchor="cardVerification">
-          {t('Debit/Credit Card Verification')}
+          {/* {t('Debit/Credit Card Verification')} */}
 
           <UploadWrapper documents={[]}>
             <UploadDocumentCard icon="upload_bank" label={t('Bank Statement')}>
