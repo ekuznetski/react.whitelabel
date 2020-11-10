@@ -11,7 +11,16 @@ export enum UploadViewState {
   complete = 'complete',
 }
 type Action = {
-  type: 'initFile' | 'addDesc' | 'addIcon' | 'addFileType' | 'addFile' | 'removeFile' | 'showError' | 'uploadFile';
+  type:
+    | 'initFile'
+    | 'addDesc'
+    | 'addIcon'
+    | 'addFileType'
+    | 'addFile'
+    | 'removeFile'
+    | 'showError'
+    | 'uploadFile'
+    | 'complete';
   desc?: UploadText;
   fileType?: EDocumentsType;
   fileIcon?: UploadIcon;
@@ -69,6 +78,9 @@ function UploadReducer(state: UploadState, action: Action) {
     }
     case 'uploadFile': {
       return { ...state, view: UploadViewState.loading };
+    }
+    case 'complete': {
+      return { ...state, view: UploadViewState.complete };
     }
     default: {
       throw new Error(`Unhandled Tabs action type: ${action.type}`);

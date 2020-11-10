@@ -43,7 +43,7 @@
     &__item {
       @include d-flex(center);
       background: $grey-bg;
-      border-left: 6px solid rgba($dark-grey, 0.6);
+      border-left: 4px solid rgba($dark-grey, 0.6);
 
       .document {
         &__type {

@@ -13,7 +13,7 @@ export const UploadReadyView = memo(function UploadReadyView({ fieldName }: Uplo
   const { t } = useTranslation();
 
   return (
-    <div className="upload-file__ready-view">
+    <div className={classNames('upload-file__ready-view', state.view)}>
       <div className={classNames('upload-file__field-title', state.error && 'error')}>{state.error || fieldName}</div>
       <div className="upload-file__file-preview my-7 mx-auto" style={{ backgroundImage: `url(${state.fileDataURL})` }}>
         {!state.fileDataURL && state.file?.name?.split('.')?.pop()}
@@ -21,6 +21,7 @@ export const UploadReadyView = memo(function UploadReadyView({ fieldName }: Uplo
           className={classNames(
             'upload-file__file-preview__state',
             state.view === UploadViewState.loading && 'loading',
+            state.view === UploadViewState.complete && 'complete',
             state.view === UploadViewState.error && 'error',
           )}
         >

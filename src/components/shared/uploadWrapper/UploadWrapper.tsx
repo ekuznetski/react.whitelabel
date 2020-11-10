@@ -2,10 +2,17 @@ import { MDocument } from '@domain/models';
 import { useSetState } from 'ahooks';
 import classNames from 'classnames';
 import React, { memo, useEffect } from 'react';
-import { Button, MultipleUpload, Svg, UploadFile } from '..';
-import { DocsType, EUploadWrapperViewType } from './uploadWrapper.context';
+import { MultipleUpload, Svg, UploadFile } from '..';
+import { UploadWrapperProvider } from './uploadWrapper.context';
 import { $t } from './UploadWrapper.locale';
 import './UploadWrapper.scss';
+
+export type DocsType = { icon: string; iconHeight?: number; label: string | React.ReactFragment };
+export enum EUploadWrapperViewType {
+  select = 'select',
+  upload = 'upload',
+  documents = 'documents',
+}
 
 interface IUploadWrapperProps {
   children:
@@ -24,75 +31,87 @@ interface IUploadWrapperState {
 }
 
 export function UploadWrapper({ children, documents, ...props }: IUploadWrapperProps) {
-  const [state, setState] = useSetState<IUploadWrapperState>({
-    documentsTypeList: [],
-    selectedDocTypeIdx: 0,
-    view: null,
-  });
+  // const [state, setState] = useSetState<IUploadWrapperState>({
+  //   documentsTypeList: [],
+  //   selectedDocTypeIdx: 0,
+  //   view: null,
+  // });
 
-  useEffect(() => {
-    const documentsTypeList: DocsType[] = [];
+  return (
+    <UploadWrapperProvider>
+      {(state, dispatch) => {
+        useEffect(() => {
+          const documentsTypeList: DocsType[] = [];
 
-    if (
-      !Array.isArray(children) &&
-      !(children.type == UploadFile || children.type == MultipleUpload || children.type == UploadDocumentCard)
-    ) {
-      throw new Error(
-        'UploadWrapper must and could contain only <UploadFile>, <MultiUpload> or <UploadDocumentCard> component',
-      );
-    } else if (
-      (Array.isArray(children) && children.every((child) => child.type == UploadDocumentCard)) ||
-      (!Array.isArray(children) && children.type == UploadDocumentCard)
-    ) {
-      [children].flat().forEach((child) => {
-        const _props: any = { ...child.props };
-        delete _props.children;
-        documentsTypeList.push(_props);
-      });
-    }
+          if (
+            !Array.isArray(children) &&
+            !(children.type == UploadFile || children.type == MultipleUpload || children.type == UploadDocumentCard)
+          ) {
+            throw new Error(
+              'UploadWrapper must and could contain only <UploadFile>, <MultiUpload> or <UploadDocumentCard> component',
+            );
+          } else if (
+            (Array.isArray(children) && children.every((child) => child.type == UploadDocumentCard)) ||
+            (!Array.isArray(children) && children.type == UploadDocumentCard)
+          ) {
+            [children].flat().forEach((child) => {
+              const _props: any = { ...child.props };
+              delete _props.children;
+              documentsTypeList.push(_props);
+            });
+          }
 
-    if (documents?.length) setState({ view: EUploadWrapperViewType.documents });
-    else if (documentsTypeList.length && documentsTypeList.length > 1)
-      setState({ view: EUploadWrapperViewType.select, documentsTypeList });
-    else setState({ view: EUploadWrapperViewType.upload });
-  }, []);
+          if (documents?.length) dispatch({ view: EUploadWrapperViewType.documents });
+          else if (documentsTypeList.length && documentsTypeList.length > 1) {
+            dispatch({ view: EUploadWrapperViewType.select, documentsTypeList });
+          } else dispatch({ view: EUploadWrapperViewType.upload });
+        }, []);
 
-  function selectDocTypeIdxToUpload(idx: number) {
-    setState({ selectedDocTypeIdx: idx, view: EUploadWrapperViewType.upload });
-  }
+        console.log(state)
 
-  function renderView() {
-    switch (state.view) {
-      case EUploadWrapperViewType.select:
-        return (
-          <SelectDocumentType
-            typesList={state.documentsTypeList as DocsType[]}
-            onDocTypeSelected={selectDocTypeIdxToUpload}
-          />
-        );
-      case EUploadWrapperViewType.upload:
-        console.log(children);
-        return (
-          <>
-            <div className="upload-wrapper__header mb-2">
-              <a className="upload-wrapper__back" onClick={() => setState({ view: EUploadWrapperViewType.select })}>Back</a>
-              {
-                // @ts-ignore
-                !Array.isArray(children) ? children.props.label : children[state.selectedDocTypeIdx].props.label
-              }
-            </div>
-            {
-              // @ts-ignore
-              !Array.isArray(children) ? children : children[state.selectedDocTypeIdx].props.children
-            }
-          </>
-        );
-      case EUploadWrapperViewType.documents:
-        return <DocumentsList documents={documents} />;
-    }
-  }
+        function selectDocTypeIdxToUpload(idx: number) {
+          dispatch({ activeDocTypeIdx: idx, view: EUploadWrapperViewType.upload });
+        }
 
-  return <div className="upload-wrapper">{renderView()}</div>;
+        function renderView() {
+          switch (state.view) {
+            case EUploadWrapperViewType.select:
+              return (
+                <SelectDocumentType
+                  typesList={state.documentsTypeList as DocsType[]}
+                  onDocTypeSelected={selectDocTypeIdxToUpload}
+                />
+              );
+            case EUploadWrapperViewType.upload:
+              return (
+                <>
+                  <div className="upload-wrapper__header mb-7">
+                    <a
+                      className="upload-wrapper__back"
+                      onClick={() => dispatch({ view: EUploadWrapperViewType.select })}
+                    >
+                      Back
+                    </a>
+                    {
+                      // @ts-ignore
+                      !Array.isArray(children) ? children.props.label : children[state.selectedDocTypeIdx].props.label
+                    }
+                  </div>
+                  {
+                    // @ts-ignore
+                    !Array.isArray(children) ? children : children[state.selectedDocTypeIdx].props.children
+                  }
+                </>
+              );
+            case EUploadWrapperViewType.documents:
+              return <DocumentsList documents={documents} />;
+          }
+        }
+
+        return <div className="upload-wrapper">{renderView()}</div>;
+      }}
+    </UploadWrapperProvider>
+  );
 }
 
 export const UploadDocumentCard = memo(function DocumentCard(

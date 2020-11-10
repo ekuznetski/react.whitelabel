@@ -1,7 +1,6 @@
-import { Button } from '@components/shared';
+import { Button, EUploadWrapperViewType, useUploadWrapperDispatch } from '@components/shared';
 import { EDocumentsType } from '@domain/enums';
 import { ac_uploadDocuments } from '@store';
-import { deepDifference, shallowEqual } from '@utils/fn';
 import { useCombinedRef } from '@utils/hooks';
 import { useSetState } from 'ahooks';
 import classNames from 'classnames';
@@ -37,8 +36,9 @@ interface UploadProps {
     trackContextState: (state: UploadState) => void;
     regContextDispatch: (dispatch: UploadDispatch) => void;
   };
+  isComplete?: () => void;
   isLoading?: () => void;
-  isError?: () => void;
+  isError?: (el: UploadState) => void;
 }
 
 interface MultipleUploadProps {
@@ -46,8 +46,9 @@ interface MultipleUploadProps {
   accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx' | 'tiff')[];
   maxFileSizeKb?: number;
   disabled?: boolean;
+  isComplete?: () => void;
   isLoading?: () => void;
-  isError?: () => void;
+  isError?: (el: UploadState) => void;
 }
 
 // not working with HMR
@@ -63,17 +64,27 @@ export const MultipleUpload = memo(
   ) {
     const [multiContextDispatch, setMultiContextDispatch] = useSetState<{ [k: string]: any }>({});
     const [multiContextState, setMultiContextState] = useSetState<{ [k: string]: any }>({});
-    const { t } = useTranslation();
+    const wrapperDispatch = useUploadWrapperDispatch();
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     useEffect(() => {
       if (!Array.isArray(props.children)) throw new Error('MultiUpload must contain more than one ReactElement');
     }, []);
 
     useEffect(() => {
-      Object.keys(multiContextState).forEach((key) => {
-        const _ = Object.keys(multiContextState);
-      });
+      const _ = Object.keys(multiContextState);
+
+      if (_.every((key) => multiContextState[key].view === UploadViewState.loading)) {
+        props.isLoading?.();
+      } else if (_.every((key) => multiContextState[key].view === UploadViewState.complete)) {
+        wrapperDispatch?.({ view: EUploadWrapperViewType.documents });
+        props.isComplete?.();
+      } else if (_.some((key) => multiContextState[key].view === UploadViewState.error)) {
+        props.isError?.(
+          multiContextState[_.find((key) => multiContextState[key].view === UploadViewState.error) as string],
+        );
+      }
     }, [multiContextState]);
 
     function trackUploadFileContext(uploadFileId: string) {
@@ -155,8 +166,9 @@ export const UploadFile = memo(
     },
     _ref,
   ) {
-    const { t } = useTranslation();
+    const wrapperDispatch = useUploadWrapperDispatch();
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     return (
       <UploadProvider>
@@ -177,13 +189,22 @@ export const UploadFile = memo(
           }, []);
 
           useEffect(() => {
-            switch (contextState.view) {
-              case UploadViewState.loading:
-                props.isLoading?.();
-                break;
-              case UploadViewState.error:
-                props.isError?.();
-                break;
+            if (!props.transferControls) {
+              switch (contextState.view) {
+                case UploadViewState.loading:
+                  setTimeout(() => {
+                    contextDispatch({ type: 'complete' });
+                  }, 500)
+                  props.isLoading?.();
+                  break;
+                case UploadViewState.complete:
+                  wrapperDispatch?.({ view: EUploadWrapperViewType.documents });
+                  props.isComplete?.();
+                  break;
+                case UploadViewState.error:
+                  props.isError?.(contextState);
+                  break;
+              }
             }
           }, [contextState.view]);
 
@@ -216,6 +237,7 @@ export const UploadFile = memo(
                 );
               case UploadViewState.error:
               case UploadViewState.loading:
+              case UploadViewState.complete:
               case UploadViewState.ready:
                 return <UploadReadyView fieldName={props.fieldName} />;
             }
