@@ -5,9 +5,7 @@ import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Notification } from '..';
-import { HeaderAuth } from './auth/HeaderAuth';
-import { HeaderMain } from './main/HeaderMain';
-import { HeaderPortal } from './portal/HeaderPortal';
+import { HeaderAuth, HeaderMain, HeaderPortal } from './';
 
 export const Header = memo(function Header() {
   const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({

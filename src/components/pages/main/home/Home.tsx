@@ -201,17 +201,23 @@ export function Home() {
       </LabelView>
       <TakeControlOfTradesSection className="py-16" data={takeControlItems} />
       <AccountTypesForTradingStylesSection />
-      <OurOfferBannerSection />
-      <section className="workshop-cards pt-18">
-        <Container>
-          <Row>
-            <Col xs={12}>
-              <div className="workshop-cards__title mb-6 mb-md-12">{t('Free upcoming webinar workshop')}</div>
-            </Col>
-          </Row>
-          <WorkshopCards data={workshopsData} />
-        </Container>
-      </section>
+      <LabelView>
+        {{
+          '*': <><OurOfferBannerSection />
+          <section className="workshop-cards pt-18">
+            <Container>
+              <Row>
+                <Col xs={12}>
+                  <div className="workshop-cards__title mb-6 mb-md-12">{t('Free upcoming webinar workshop')}</div>
+                </Col>
+              </Row>
+              <WorkshopCards data={workshopsData} />
+            </Container>
+          </section></>,
+          [ELabels.bsfx]: null,
+        }}
+      </LabelView>
+
       <OpenLiveAccountBannerSection />
       <section className="trade-products">
         <Container>

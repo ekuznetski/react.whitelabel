@@ -1,9 +1,5 @@
 // Main Pages
-export * from './main/contacts/Contacts';
-export * from './main/about/About';
-export * from './main/home/Home';
-export * from './main/platform/Platform';
-export * from './main/products/Products';
+export * from './main/index';
 // Auth Pages
 export * from './auth/registration/Registration';
 export * from './auth/login/Login';

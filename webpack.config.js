@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const fs = require('fs');
+const glob = require('glob')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = (_env, arguments) => {
@@ -34,13 +35,39 @@ module.exports = (_env, arguments) => {
   }
 
   const _targetLabelCustomizationScssFiles = ['theme.scss', 'variables.scss'];
-  let targetLabelConfigsAlias = {};
+  let targetLabelConfigsDomainAlias = {};
+  let targetLabelConfigsComponentsAlias = {};
   let targetLabelConfigsScss = [];
 
   // Generate map to replace files for different domain
   if (targetLabel) {
-    const filenames = fs.readdirSync(`./src/domain/${targetLabelAssetFolder}`);
-    targetLabelConfigsAlias = filenames
+    const domainFilenames = fs.readdirSync(`./src/domain/${targetLabelAssetFolder}`);
+    const componentFilepaths = glob.sync(`./src/components/**/*.{tsx,ts,js,scss}`).filter((filePath) => filePath.includes(`/${targetLabelAssetFolder}`))
+        
+    targetLabelConfigsComponentsAlias = componentFilepaths.filter((filePath) => {
+      const basename = path.basename(filePath);
+      const filename = basename.match(/([^\\/]*)\.(\w+)$/)[1]
+      const extension = basename.match(/([^\\/]*)\.(\w+)$/)[2]
+      //filter out scss files when there's also a tsx file since its already imported
+      return (!componentFilepaths.find((cpath) =>
+        path.basename(cpath) === `${filename}.tsx`) || extension !== 'scss')
+    })
+    .reduce(
+        (acc, filePath) => {
+          const basename = path.basename(filePath);
+          const filename = basename.match(/([^\\/]*)\.(\w+)$/)[1]
+          const extension = basename.match(/([^\\/]*)\.(\w+)$/)[2]
+          switch(extension){
+            case 'scss':
+              return Object.assign(acc, {[`./${filename}.${extension}`]: `./${targetLabelAssetFolder}/${filename}.${extension}`})
+            case 'tsx':
+            default:
+              return Object.assign(acc, {[`./${filename[0].toLowerCase()}${filename.slice(1)}/${filename}`]: 
+              `./${filename[0].toLowerCase()}${filename.slice(1)}/${targetLabelAssetFolder}/${filename}`})
+          }},
+        {});
+
+    targetLabelConfigsDomainAlias = domainFilenames
       .filter((file) => _targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName))
       .map((file) => {
         const extension = ['tsx', 'ts', 'js'];
@@ -48,11 +75,11 @@ module.exports = (_env, arguments) => {
         return extension.includes(fileMeta[2]) ? fileMeta[1] : fileMeta[0];
       })
       .reduce(
-        (acc, file) => Object.assign({}, acc, { [`./_default/${file}`]: `./${targetLabelAssetFolder}/${file}` }),
+        (acc, file) => Object.assign(acc, { [`./_default/${file}`]: `./${targetLabelAssetFolder}/${file}` }),
         {},
       );
 
-    targetLabelConfigsScss = filenames.filter(
+    targetLabelConfigsScss = domainFilenames.filter(
       (file) => !_targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName),
     );
   }
@@ -73,7 +100,8 @@ module.exports = (_env, arguments) => {
       extensions: ['.tsx', '.ts', '.js', '.json', '.sass', '.scss', '.css'],
       alias: {
         'react-dom': '@hot-loader/react-dom',
-        ...targetLabelConfigsAlias,
+        ...targetLabelConfigsDomainAlias,
+        ...targetLabelConfigsComponentsAlias,
       },
       plugins: [new TsconfigPathsPlugin()],
     },
@@ -177,7 +205,6 @@ module.exports = (_env, arguments) => {
               Object.assign(_context, JSON.parse(content));
               return JSON.stringify(_context, null, 2);
             },
-            cacheTransform: true,
           },
           {
             from: 'assets/**/*',

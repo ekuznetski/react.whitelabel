@@ -26,6 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "@hot-loader/react-dom": "^16.13.0",
+    "@react-google-maps/api": "^1.13.0",
     "@svgr/webpack": "^5.4.0",
     "ahooks": "^2.6.1",
     "bootstrap": "^4.5.2",
@@ -38,6 +39,7 @@
     "domino": "^2.1.6",
     "express": "^4.17.1",
     "formik": "^2.1.5",
+    "glob": "^7.1.6",
     "html-loader": "^1.1.0",
     "i18next": "^19.7.0",
     "i18next-http-backend": "^1.0.18",
@@ -67,6 +69,7 @@
     "@types/compression": "^1.7.0",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/googlemaps": "^3.40.3",
     "@types/react": "^16.9.44",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",

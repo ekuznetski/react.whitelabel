@@ -20,7 +20,7 @@ import { useResponsive } from 'ahooks';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import './About.scss';
-import { MobileDepositTable } from './mobileDepositTable/MobileDepositTable';
+import { MobileDepositTable } from './components/index';
 
 export function About() {
   const responsive = useResponsive();
@@ -82,11 +82,20 @@ export function About() {
         <SectionBg img="about-page-top.jpg" />
         <div className="container">
           <div className="row">
-            <div className="col-md-8 col-lg-7">
+            <div className="col-md-8 col-lg-7 page-top__header">
               <div className="page-top__title mb-7">{t('Who Are We')}</div>
               <div className="page-top__description mb-9">{t('About Us Page Desc')}</div>
               <Button>
-                <LocaleLink to="/registration">{t('Open An Account')}</LocaleLink>
+                <LocaleLink to="/registration">
+                  <LabelView>
+                    {{
+                      '*': t('Open An Account'),
+                      [ELabels.bsfx]: (
+                        t('Start Trading')
+                      ),
+                    }}
+                  </LabelView>
+                </LocaleLink>
               </Button>
             </div>
           </div>
@@ -95,7 +104,7 @@ export function About() {
       <section className="trusted">
         <div className="container">
           <div className="row">
-            <div className="col-lg-8 mx-auto text-center">
+            <div className="trusted__text col-lg-8 mx-auto text-center">
               <div className="trusted__title mb-9">
                 <LabelView>
                   {{
@@ -131,7 +140,7 @@ export function About() {
                 id="trustedCards"
                 className="trusted__cards"
                 cards={trustedCards}
-                cardWrapperClass="col-12 col-md-6 col-lg-3 mb-9 mb-lg-0"
+                cardWrapperClass="card col-12 col-md-6 col-lg-3 mb-9 mb-lg-0"
               />
             </div>
           </div>
@@ -149,17 +158,17 @@ export function About() {
                 </Trans>
               </div>
               <Cards id="depositCards" className="deposit__cards mb-16">
-                <Card wrapperClassName="col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="zero_pct" />} uid={1}>
+                <Card wrapperClassName="card col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="zero_pct" />} uid={1}>
                   <CardContent>
                     {t('No Deposit Fees')} <small>{t('Fees')}</small>
                   </CardContent>
                 </Card>
-                <Card wrapperClassName="col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="funds_secure" />} uid={2}>
+                <Card wrapperClassName="card col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="funds_secure" />} uid={2}>
                   <CardContent>
                     {t('Funds Secured')} <small>{t('In Tier-1 Banks')}</small>
                   </CardContent>
                 </Card>
-                <Card wrapperClassName="col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="timer" />} uid={3}>
+                <Card wrapperClassName="card col-12 col-md-4 mb-9 mb-md-0" header={<Svg href="timer" />} uid={3}>
                   <CardContent>
                     {t('Quick')} <small>{t('Processing')}</small>
                   </CardContent>
@@ -183,21 +192,21 @@ export function About() {
             <div className="col-lg-12">
               <Cards id="inTouchCards" className="in_touch__cards">
                 <Card
-                  wrapperClassName="col-12 col-md-4 mb-9 mb-md-0"
+                  wrapperClassName="card col-12 col-md-4 mb-9 mb-md-0"
                   className="p-10"
                   header={6}
                   content={'Offices in the world’s leading financial centres'}
                   uid={1}
                 ></Card>
                 <Card
-                  wrapperClassName="col-12 col-md-4 mb-9 mb-md-0"
+                  wrapperClassName="card col-12 col-md-4 mb-9 mb-md-0"
                   className="p-10"
                   header={140}
                   content={'Service provision in over 140 countries'}
                   uid={2}
                 ></Card>
                 <Card
-                  wrapperClassName="col-12 col-md-4 mb-9 mb-md-0"
+                  wrapperClassName="card col-12 col-md-4 mb-9 mb-md-0"
                   className="p-10"
                   header={10}
                   content={'Customer support in 10 languages'}

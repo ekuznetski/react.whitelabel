@@ -1,0 +1,236 @@
+@import '~/variables';
+
+.platform-wrapper {
+  .page-top {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    background: rgb(92, 115, 131);
+    color: #fff;
+    padding: 0;
+    overflow: hidden;
+
+    .blur{
+      z-index:1;
+      &:before {
+        position: absolute;
+        content: '';
+        display: block;
+        background: $dark-text;
+        width: calc(100% + 100px);
+        height:10000%;
+        left: -10%;
+        top: -5000%;
+        opacity: 0.7;
+        z-index:-1;
+      }
+    }
+
+    &__title {
+      font-size: 40px;
+      line-height: 50px;
+      text-transform: uppercase;
+    }
+
+    .download-buttons {
+      display: flex;
+      flex-wrap: wrap;
+
+      button {
+        background-color: transparentize($color: $blue, $amount: 0.6);
+        color: #fff;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        width: 100%;
+      }
+
+      .desktop_button{
+        text-transform: uppercase;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+      .store-link {
+        flex: 1 0 180px;
+      }
+    }
+
+    @media (min-width: $viewport-xl-min-w) {
+      .blur{
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+      .container{
+        padding-top: 7rem !important;
+      }
+      .download-buttons{
+        flex: 0 0 83.33333%;
+        max-width: 83.33333%;
+      }
+    }
+
+    @media (min-width: $viewport-lg-min-w){
+      .desktop_button {
+          margin-bottom: 1.5rem !important;
+          margin-right: 0 !important;
+      }
+    }
+
+    @media (max-width: $viewport-xl-w) {
+      .blur{
+        &:before {
+          background-color: transparent;
+        }
+      }
+      .download-buttons{
+        .desktop_button{
+          text-transform: uppercase;
+          flex: 0 0 280px;
+        }
+        .store-link {
+          flex: 0 0 180px;
+        }
+      }
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      height:400px;
+      align-items: center;
+      .blur{
+        &:before {
+          background-color: transparent;
+        }
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      height: 580px;
+
+      &__title {
+        font-size: 30px;
+        line-height: 40px;
+      }
+
+      .download-buttons {
+        flex-direction: column;
+        width: 100%;
+
+        &.row{
+          margin:0;
+        }
+
+        .desktop_button{
+          flex: 0 0 50px;
+        }
+
+        .store-link {
+          flex: 0 0 50px;
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+
+  .assets {
+    &__title {
+      font-weight: 400;
+      font-size: 36px;
+      line-height: 50px;
+      text-align: center;
+      color: $dark-text;
+    }
+
+    &__description {
+      font-size: 18px;
+      line-height: 30px;
+      text-align: center;
+      color: $dark-text;
+    }
+
+    @media (max-width: $viewport-md-w) {
+      &__title {
+        font-size: 24px;
+        line-height: 34px;
+      }
+
+      &__description {
+        font-size: 16px;
+        line-height: 26px;
+      }
+
+      .common-tabs {
+        display: none;
+      }
+    }
+  }
+
+  .perfect {
+    background: #1a1b1c;
+    color: #ffffff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+
+    &__title {
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 46px;
+    }
+
+    &__description {
+      font-size: 18px;
+      line-height: 30px;
+    }
+
+    &__items {
+      display: flex;
+      align-items: center;
+    }
+
+    &__item {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+
+      &:not(:last-child) {
+        border-right: 1px solid rgba(250, 250, 250, 0.4);
+      }
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      height: 350px;
+    }
+
+    @media (max-width: $viewport-md-w) {
+      text-align: left;
+      height: 440px;
+
+      &__title {
+        font-size: 24px;
+        line-height: 34px;
+      }
+
+      &__description {
+        font-size: 16px;
+        line-height: 26px;
+      }
+
+      &__items {
+        flex-direction: column;
+      }
+
+      &__item {
+        flex-direction: row;
+        align-items: center;
+
+        &:not(:last-child) {
+          border-right: 0;
+        }
+      }
+    }
+  }
+}

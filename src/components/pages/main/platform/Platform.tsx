@@ -29,7 +29,7 @@ export function Platform() {
         <SectionBg img="platform-page-top.jpg" />
         <div className="container pt-15">
           <div className="row">
-            <div className="col-lg-7">
+            <div className="col-lg-7 blur">
               <div className="page-top__title mb-7">
                 <div>{t('World-Leading MetaTrader Platform:0')}</div>
                 <div>{t('World-Leading MetaTrader Platform:1')}</div>
@@ -37,15 +37,15 @@ export function Platform() {
                   <strong>{t('Platform Page Top Subtitle')}</strong>
                 </div>
               </div>
-            </div>
-            <div className="col-12 col-lg-9 col-xl-8 download-buttons">
-              <Button className="mr-6 px-7">{t('Download Desktop Version')}</Button>
+            <div className="download-buttons row">
+              <Button className="mr-6 px-7 desktop_button">{t('Download Desktop Version')}</Button  >
               <Button className="mr-6 px-7 store-link">
                 <Svg href="app_store_logo" />
               </Button>
               <Button className="px-7 store-link">
                 <Svg href="google_play_logo" />
               </Button>
+            </div>
             </div>
           </div>
         </div>
@@ -88,19 +88,19 @@ export function Platform() {
             <div className="col-12 col-lg-9">
               <Tabs>
                 <Tab label="Forex" anchor="forex">
-                  <Table {..._tempTableData} />,
+                  <Table {..._tempTableData} />
                 </Tab>
                 <Tab label="Indices" anchor="indices">
-                  <Table {..._tempTableData} />,
+                  <Table {..._tempTableData} />
                 </Tab>
                 <Tab label="Stocks" anchor="stocks">
-                  <Table {..._tempTableData} />,
+                  <Table {..._tempTableData} />
                 </Tab>
                 <Tab label="Commodities" anchor="commodities">
-                  <Table {..._tempTableData} />,
+                  <Table {..._tempTableData} />
                 </Tab>
                 <Tab label="Cryptocurrencies" anchor="cryptocurrencies">
-                  <Table {..._tempTableData} />,
+                  <Table {..._tempTableData} />
                 </Tab>
               </Tabs>
             </div>
@@ -118,15 +118,15 @@ export function Platform() {
               <div className="perfect__description mb-13">{t('Automate your trading strategies')}</div>
             </div>
             <div className="col-12 col-lg-8 offset-lg-2 perfect__items">
-              <div className="perfect__item pb-9 py-md-0">
+              <div className="perfect__item pb-7 pb-sm-0">
                 <Svg href="pc_install" width={48} className="mb-md-4 mr-5 mr-md-0" />
                 {t('Easy to install')}
               </div>
-              <div className="perfect__item py-9 py-md-0">
-                <Svg href="bridge" width={48} className="mb-md-4 mr-5 mr-md-0" />
+              <div className="perfect__item py-7 py-sm-0">
+                <Svg href="bridge" width={48} height={39} className="mb-md-4 mr-5 mr-md-0" />
                 {t('No third party bridges')}
               </div>
-              <div className="perfect__item pt-9 py-md-0">
+              <div className="perfect__item pt-7 pt-sm-0">
                 <Svg href="time_reverse_clock" width={48} className="mb-md-4 mr-5 mr-md-0" />
                 {t('24 5 Trading')}
               </div>
