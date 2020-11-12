@@ -84,6 +84,7 @@ export type ISelect = {
   className?: string;
   label?: string | null | undefined;
   options: ISelectItem[];
+  inline?: boolean;
 } & FieldAttributes<any>;
 
 export const Select = memo(function Select({
@@ -92,6 +93,7 @@ export const Select = memo(function Select({
   placeholder = '',
   className = '',
   label = null,
+  inline = false,
   options,
   ...props
 }: ISelect) {
@@ -107,9 +109,9 @@ export const Select = memo(function Select({
   useEffect(() => {
     let _intSelectedValue = preselectedValue;
     if (!_intSelectedValue && (meta.initialValue || field.value)) {
-      _intSelectedValue = options.find((el: any) => el.value === meta.initialValue ?? field.value) || null;
+      _intSelectedValue = options.find((el: any) => el.value === (meta.initialValue || field.value)) || null;
     }
-    setState({ value: _intSelectedValue });
+    setState({ value: _intSelectedValue, isFilled: !!_intSelectedValue });
   }, []);
 
   useEffect(() => {
@@ -141,7 +143,8 @@ export const Select = memo(function Select({
   return (
     <div
       className={classNames(
-        'field select-wrapper mb-8',
+        'field select-wrapper',
+        !inline && 'mb-8',
         className,
         meta.touched && !!meta.error && 'field-error',
         !!label && 'with-label',

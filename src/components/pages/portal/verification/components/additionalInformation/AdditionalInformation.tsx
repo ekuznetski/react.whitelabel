@@ -1,45 +1,48 @@
-import { DocsType, MultipleUpload, Tab, Tabs, UploadDocumentCard, UploadFile, UploadWrapper } from '@components/shared';
-import { EDocumentsType } from '@domain/enums';
-import { MDocument } from '@domain/models';
+import { MultipleUpload, Tab, Tabs, UploadDocumentCard, UploadFile, UploadWrapper } from '@components/shared';
+import { EClientStatusCode, EDocumentsType } from '@domain/enums';
+import { MClientData, MClientProfile, MDocument } from '@domain/models';
 import { IStore } from '@store';
-import React, { memo } from 'react';
+import { useSetState } from 'ahooks';
+import React, { memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { EddForm } from '..';
 import './AdditionalInformation.scss';
 
+enum EAddInfoTabs {
+  edd = 'edd',
+  tins = 'tins',
+  card = 'card',
+}
+
 export const AdditionalInformation = memo(function AdditionalInformation() {
-  const { documents } = useSelector<IStore, { documents: MDocument[] }>((state) => ({
+  const { statusData, profile, documents } = useSelector<
+    IStore,
+    { statusData: MClientData; profile: MClientProfile; documents: MDocument[] }
+  >((state) => ({
+    statusData: state.data.client.statusData,
+    profile: state.data.client.profile,
     documents: state.data.client.documents,
   }));
   const { t } = useTranslation();
-  const docsTypeList: DocsType[] = [
-    {
-      icon: 'upload_bank',
-      label: t('Bank Statement'),
-    },
-    {
-      icon: 'upload_bill',
-      label: t('Utility Bill'),
-    },
-    {
-      icon: 'upload_other',
-      label: t('Other Documents'),
-    },
-  ];
+
+  const initialActiveTab =
+    (EClientStatusCode.required === statusData.edd_status.code && EAddInfoTabs.edd) ||
+    (EClientStatusCode.required === statusData.tins_status.code && EAddInfoTabs.tins) ||
+    // EClientStatusCode.required === statusData.card.code && EAddInfoTabs.eddForm ||
+    EAddInfoTabs.edd;
 
   return (
     <div className="additional-information">
-      <Tabs className="client-additional-information__tabs" isVertical={true}>
-        <Tab label={t('Complete EDD Form')} subLabel={'success'} anchor="eddForm">
-          {t('Complete EDD Form')}
+      <Tabs className="client-additional-information__tabs" isVertical={true} activeTab={initialActiveTab}>
+        <Tab label={t('Complete EDD Form')} subLabel={'success'} anchor={EAddInfoTabs.edd}>
+          <EddForm />
         </Tab>
-        <Tab label={t('Tax Identification')} anchor="taxIdentification">
-          {t('Tax Identification')}
+        <Tab label={t('Tax Identification')} anchor={EAddInfoTabs.tins}>
+          asd
         </Tab>
-        <Tab label={t('Debit/Credit Card Verification')} anchor="cardVerification">
-          {/* {t('Debit/Credit Card Verification')} */}
-
-          <UploadWrapper documents={[]}>
+        <Tab label={t('Debit/Credit Card Verification')} anchor={EAddInfoTabs.card}>
+          <UploadWrapper documents={documents}>
             <UploadDocumentCard icon="upload_bank" label={t('Bank Statement')}>
               <MultipleUpload>
                 <UploadFile

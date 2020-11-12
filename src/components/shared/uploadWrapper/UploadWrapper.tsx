@@ -67,8 +67,6 @@ export function UploadWrapper({ children, documents, ...props }: IUploadWrapperP
           } else dispatch({ view: EUploadWrapperViewType.upload });
         }, []);
 
-        console.log(state)
-
         function selectDocTypeIdxToUpload(idx: number) {
           dispatch({ activeDocTypeIdx: idx, view: EUploadWrapperViewType.upload });
         }

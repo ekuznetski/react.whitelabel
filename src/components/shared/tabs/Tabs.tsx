@@ -84,6 +84,12 @@ export function Tabs({
         }, []);
 
         useEffect(() => {
+          if (activeTab && activeTab != state.active) {
+            switchTab(activeTab);
+          }
+        }, [activeTab]);
+
+        useEffect(() => {
           if ((active.anchor != null || active.anchor != undefined) && activeTabProps?.anchor !== active?.anchor) {
             setActiveTabProps({ anchor: active.anchor, tabHeight: tabsContentRef[active.anchor]?.clientHeight });
             onChange?.(active);

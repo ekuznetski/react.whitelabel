@@ -8,6 +8,7 @@
 @import 'node_modules/bootstrap/scss/root';
 @import 'node_modules/bootstrap/scss/reboot';
 @import '~/theme';
+@import '~/mixin';
 
 .noselect {
 	-webkit-touch-callout: none; /* iOS Safari */

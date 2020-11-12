@@ -6,7 +6,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { DetailsHeader } from '..';
-import { depositActionCreators, DepositContext, useDepositDispatch, useDepositState } from '../../depositContext';
+import { depositActionCreators, DepositContext, useDepositDispatch, useDepositState } from '../../deposit.context';
 import { NetellerInfoModal } from '../netellerInfoModal/NetellerInfoModal';
 import { useDispatch } from 'react-redux';
 import { ac_addDeposit } from '@store';

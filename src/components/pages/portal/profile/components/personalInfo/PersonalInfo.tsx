@@ -69,7 +69,7 @@ export const PersonalInfo = memo(
 
     return (
       <div className="personal-info">
-        <Container className="internal-transfer-page-wrapper">
+        <Container className="personal-info-page-wrapper">
           <Row className="justify-content-center">
             <Col xs={12} md={10} lg={8} xl={7} className="form-wrapper py-10 px-9">
               <Formik
@@ -89,7 +89,7 @@ export const PersonalInfo = memo(
               >
                 {({ values, setFieldValue }: FormikProps<any>) => {
                   return (
-                    <Form className="internal-transfer__form">
+                    <Form className="personal-info__form">
                       <Input label={t('Email')} name={EFields.email} />
                       <Row>
                         <Col xs={12} md={6}>
@@ -99,7 +99,7 @@ export const PersonalInfo = memo(
                           <Input label={t('Last Name')} name={EFields.surname} />
                         </Col>
                       </Row>
-                      <div className="form_breakline mt-2 mb-10" />
+                      <div className="form-breakline mt-2 mb-10" />
                       <CountrySelect label={t('Country')} name={EFields.country} />
                       <Input label={t('City')} name={EFields.city} />
                       <Input label={t('Full Address')} name={EFields.street} />
@@ -109,7 +109,7 @@ export const PersonalInfo = memo(
                           name={EFields.postcode}
                         />
                       )}
-                      <div className="form_breakline mt-10 mb-10" />
+                      <div className="form-breakline mt-10 mb-10" />
                       <div className="phone-wrapper">
                         <PhoneCodeSelect name={EFields.phone_prefix} />
                         <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />

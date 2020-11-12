@@ -6,7 +6,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { BillingDetailsModal, CreditCardInfoModal, DetailsHeader } from '..';
-import { depositActionCreators, IDepositState, useDepositDispatch, useDepositState } from '../../depositContext';
+import { depositActionCreators, IDepositState, useDepositDispatch, useDepositState } from '../../deposit.context';
 import cardValidator from 'card-validator';
 import './CardMethod.scss';
 import { ECreditCardType, ELanguage, EDepositMethodCode, ETradingType } from '@domain/enums';

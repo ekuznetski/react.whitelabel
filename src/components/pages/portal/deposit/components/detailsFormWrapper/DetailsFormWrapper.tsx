@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { EDepositMethods } from '@domain/enums';
-import { DepositContext } from '../../depositContext';
+import { DepositContext } from '../../deposit.context';
 import { NetellerMethod, CardMethod, SkrillMethod, WebmoneyMethod } from '..';
 
 export function DetailsFormWrapper() {

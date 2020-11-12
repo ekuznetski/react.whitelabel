@@ -28,8 +28,9 @@
       "@utils/fn": ["utils/fn/index.ts"],
       "@domain": ["domain/index.ts"],
       "@store": ["store/index.ts"],
-      "~/variables": ["variables.scss"],
-      "~/theme": ["theme.scss"]
+      "~/variables": ["scss/variables.scss"],
+      "~/theme": ["scss/theme.scss"],
+      "~/mixin": ["scss/mixin.scss"],
     }
   },
   "include": ["src"],

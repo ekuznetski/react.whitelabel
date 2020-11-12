@@ -7,45 +7,11 @@ import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { depositActionCreators, DepositContext, IDepositState } from '../../depositContext';
+import { depositActionCreators, DepositContext, IDepositState } from '../../deposit.context';
 import './TabContentBankWire.scss';
 import classNames from 'classnames';
 import { ECurrencyCode, ETradingType } from '@domain/enums';
 import { FieldValidators } from '@domain';
-
-function BankRadio({ bank }: any) {
-  const { t } = useTranslation();
-  return (
-    <div className="bank-details">
-      <div className="bank-header mt-9">
-        <div className="bank-header__title">{bank.bankTitle}</div>
-        <div className="bank-header__currency py-3 mt-9 mb-7">{bank.currency}</div>
-      </div>
-      <div className="bank-wrapper">
-        <div className="bank-wrapper__title">{t('Beneficiary name')}</div>
-        <div className="bank-wrapper__text pb-3">{bank.beneficiaryName}</div>
-
-        <div className="bank-wrapper__title">{t('Beneficiary bank name')}</div>
-        <div className="bank-wrapper__text pb-3">{bank.beneficiaryBankName}</div>
-
-        <div className="bank-wrapper__title">{t('Beneficiary Bank address')}</div>
-        <div className="bank-wrapper__text pb-3">{bank.beneficiary_bank_address}</div>
-
-        <div className="bank-wrapper__title">SWIFT:</div>
-        <div className="bank-wrapper__text pb-3">{bank.swift}</div>
-
-        <div className="bank-wrapper__title">IBAN:</div>
-        <div className="bank-wrapper__text pb-3">{bank.iban}</div>
-
-        <div className="bank-wrapper__title">{t('Bank account number')}</div>
-        <div className="bank-wrapper__text pb-3">{bank.accountNumber}</div>
-
-        <div className="bank-wrapper__title">{t('Currency')}:</div>
-        <div className="bank-wrapper__text pb-3">{bank.currency}</div>
-      </div>
-    </div>
-  );
-}
 
 export function TabContentBankWire() {
   const { account }: IDepositState = useContext(DepositContext).state;
@@ -54,11 +20,6 @@ export function TabContentBankWire() {
   const { tradingAccounts } = useSelector<IStore, { tradingAccounts: MTradingAccount[] }>((state) => ({
     tradingAccounts: state.data.tradingData.accounts.filter((acc) => acc.type !== ETradingType.demo),
   }));
-
-  enum EFields {
-    'account' = 'account',
-    'bank' = 'bank',
-  }
   const { t } = useTranslation();
   const banks: { [k in keyof ECurrencyCode | string]: any } = {
     [ECurrencyCode.usd]: [
@@ -121,7 +82,7 @@ export function TabContentBankWire() {
     <div className="bank-wire-deposit">
       <Formik
         initialValues={{
-          [EFields.account]: account ?? tradingAccounts[0],
+          account: account ?? tradingAccounts[0],
         }}
         validationSchema={validationSchema}
         onSubmit={(data) => {
@@ -130,7 +91,7 @@ export function TabContentBankWire() {
       >
         {({ values, setFieldValue }: any) => {
           const banksCurrency =
-            (values[EFields.account]?.currency && banks[values[EFields.account]?.currency]) ?? banks[ECurrencyCode.usd];
+            (values.account?.currency && banks[values.account?.currency]) ?? banks[ECurrencyCode.usd];
           return (
             <Form className="m-auto form fadein-row">
               {account?.type !== ETradingType.fake && (
@@ -140,11 +101,11 @@ export function TabContentBankWire() {
                     <TradingAccountsSelect
                       className={classNames(tradingAccounts.length === 1 ? 'd-none' : '')}
                       placeholder={t('Choose Trading Account')}
-                      name={EFields.account}
+                      name="account"
                       options={tradingAccounts}
                       onChange={(e: MTradingAccount) => {
                         dispatch(depositActionCreators.setAccount(e));
-                        setFieldValue(EFields.bank, banksCurrency[0].filename.replace('.pdf', ''));
+                        setFieldValue('bank', banksCurrency[0].filename.replace('.pdf', ''));
                       }}
                     />
                   </Col>
@@ -154,13 +115,13 @@ export function TabContentBankWire() {
                 <Col xs={12}>
                   {account?.currency && (
                     <Radio
-                      colClassName={classNames(
+                      optionClassName={classNames(
                         banks[account.currency]?.length === 1
                           ? 'col-6 col-xs-12'
                           : `col-${12 / banksCurrency?.length ?? 1}`,
                       )}
                       className="mb-10"
-                      name={EFields.bank}
+                      name="bank"
                       showMarkDot={true}
                       options={(banks[account.currency] ?? banks[ECurrencyCode.usd]).map((bank: any) => ({
                         label: <BankRadio bank={bank} />,
@@ -195,6 +156,40 @@ export function TabContentBankWire() {
             </Row>
           </Col>
         </Row>
+      </div>
+    </div>
+  );
+}
+
+function BankRadio({ bank }: any) {
+  const { t } = useTranslation();
+  return (
+    <div className="bank-details">
+      <div className="bank-header mt-9">
+        <div className="bank-header__title">{bank.bankTitle}</div>
+        <div className="bank-header__currency py-3 mt-9 mb-7">{bank.currency}</div>
+      </div>
+      <div className="bank-wrapper">
+        <div className="bank-wrapper__title">{t('Beneficiary name')}</div>
+        <div className="bank-wrapper__text pb-3">{bank.beneficiaryName}</div>
+
+        <div className="bank-wrapper__title">{t('Beneficiary bank name')}</div>
+        <div className="bank-wrapper__text pb-3">{bank.beneficiaryBankName}</div>
+
+        <div className="bank-wrapper__title">{t('Beneficiary Bank address')}</div>
+        <div className="bank-wrapper__text pb-3">{bank.beneficiary_bank_address}</div>
+
+        <div className="bank-wrapper__title">SWIFT:</div>
+        <div className="bank-wrapper__text pb-3">{bank.swift}</div>
+
+        <div className="bank-wrapper__title">IBAN:</div>
+        <div className="bank-wrapper__text pb-3">{bank.iban}</div>
+
+        <div className="bank-wrapper__title">{t('Bank account number')}</div>
+        <div className="bank-wrapper__text pb-3">{bank.accountNumber}</div>
+
+        <div className="bank-wrapper__title">{t('Currency')}:</div>
+        <div className="bank-wrapper__text pb-3">{bank.currency}</div>
       </div>
     </div>
   );

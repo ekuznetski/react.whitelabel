@@ -1,4 +1,4 @@
-import { ClientStatusCode } from '@domain/enums';
+import { EClientStatusCode } from '@domain/enums';
 import { AddInfoFormStatus, IClientStatusData, _statusPair } from '@domain/interfaces';
 
 export class MClientData {
@@ -34,12 +34,12 @@ export class MClientData {
 	}
 
 	get isApproved(): boolean {
-		return this.client_status?.code === ClientStatusCode.clientApproved;
+		return this.client_status?.code === EClientStatusCode.clientApproved;
 	}
 
 	// Client didn't login or trade for 90 days
 	get isDormant(): boolean {
-		return this.client_status?.code === ClientStatusCode.dormant;
+		return this.client_status?.code === EClientStatusCode.dormant;
 	}
 
 	get isNotApprovedAndNotDormant(): boolean {

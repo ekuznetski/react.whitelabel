@@ -1,0 +1,9 @@
+@import '~/variables';
+
+.edd-form {
+  &__col-title {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 500;
+  }
+}
