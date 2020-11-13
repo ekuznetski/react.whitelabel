@@ -8,6 +8,8 @@ import './Verification.scss';
 export const Verification = memo(function Verification() {
   const { t } = useTranslation();
 
+  
+
   return (
     <Container className="client-verification-page-wrapper">
       <Row>

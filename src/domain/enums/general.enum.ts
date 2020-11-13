@@ -53,7 +53,7 @@ export enum EDocumentsStatus {
   pending = 'Pending',
 }
 
-export enum ClientStatus {
+export enum EClientStatus {
   notSubmitted = 'Not submitted',
   submitted = 'Submitted',
   notRequested = 'Not requested',
@@ -72,7 +72,7 @@ export enum ClientStatus {
   dormant = 'The Client is Dormant',
 }
 
-export enum ClientStatusCode {
+export enum EClientStatusCode {
   notSubmitted = 0,
   submitted = 1,
   notRequested = 2,

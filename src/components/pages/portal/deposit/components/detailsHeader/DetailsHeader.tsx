@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { depositActionCreators, DepositContext } from '../../depositContext';
+import { depositActionCreators, DepositContext } from '../../deposit.context';
 import { Img, Svg } from '@components/shared';
 import './DetailsHeader.scss';
 import { EDepositMethods } from '@domain/enums';

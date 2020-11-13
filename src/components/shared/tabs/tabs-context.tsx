@@ -14,6 +14,7 @@ type Action = {
     | 'addTempSubLabel'
     | 'addTempContent'
     | 'setActive'
+    | 'setCustomMobileBackBtn'
     | 'setMobileDisplay';
   label?: { value: TabData; desc?: TabData; icon?: string };
   content?: TabData;
@@ -22,6 +23,7 @@ type Action = {
   labels?: { value: TabData; desc?: TabData; icon?: string; anchor: number | string; disabled?: boolean }[];
   contents?: { value: TabData; anchor: number | string }[];
   mobileDisplay?: EMobileDisplay;
+  customMobileBackBtn?: boolean;
 };
 type Dispatch = (action: Action) => void;
 type State = {
@@ -34,6 +36,7 @@ type State = {
   tempContent: TabData;
   initial: boolean;
   mobileDisplay: EMobileDisplay;
+  customMobileBackBtn: boolean;
 };
 type ActiveTab = {
   label?: { value: TabData; anchor: number | string; disabled?: boolean };
@@ -50,10 +53,16 @@ const TabsDispatchContext = React.createContext<Dispatch | undefined>(undefined)
 function TabsReducer(state: State, action: Action) {
   switch (action.type) {
     case 'setActive': {
-      return { ...state, active: action.anchor };
+      return {
+        ...state,
+        active: action.anchor,
+      };
     }
     case 'setMobileDisplay': {
-      return { ...state, mobileDisplay: action.mobileDisplay ?? EMobileDisplay.labels };
+      return {
+        ...state,
+        mobileDisplay: action.mobileDisplay ?? EMobileDisplay.labels,
+      };
     }
     case 'instantInit': {
       const anchors = action.labels?.map((label) => label.anchor) || [];
@@ -74,6 +83,9 @@ function TabsReducer(state: State, action: Action) {
     }
     case 'addTempContent': {
       return { ...state, tempContent: action.content };
+    }
+    case 'setCustomMobileBackBtn': {
+      return { ...state, customMobileBackBtn: action.customMobileBackBtn || false };
     }
     case 'add': {
       if (state.initial) return state;
@@ -135,6 +147,7 @@ function TabsProvider({ children }: TabsProviderProps) {
     tempContent: undefined,
     initial: false,
     mobileDisplay: EMobileDisplay.labels,
+    customMobileBackBtn: false,
   });
   const active = {
     anchor: state.active,

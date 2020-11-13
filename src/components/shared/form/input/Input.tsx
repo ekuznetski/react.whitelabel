@@ -18,6 +18,7 @@ export const Input = memo(
       forceShowError = null,
       regex = null,
       isLoading = null,
+      inline = false,
       ...props
     },
     _ref,
@@ -63,7 +64,8 @@ export const Input = memo(
     return (
       <div
         className={classNames(
-          'field input mb-8',
+          'field input',
+          !inline && 'mb-8',
           !!label && 'with-label',
           meta.touched && meta.error && 'field-error',
           state.isFocused && 'focused',

@@ -1,8 +1,8 @@
-import { ClientStatus, ClientStatusCode } from '@domain/enums';
+import { EClientStatus, EClientStatusCode } from '@domain/enums';
 
-export function getClientStatusPair(status: keyof typeof ClientStatus) {
+export function getClientStatusPair(status: keyof typeof EClientStatus) {
   return {
-    code: ClientStatusCode[status],
-    message: ClientStatus[status],
+    code: EClientStatusCode[status],
+    message: EClientStatus[status],
   };
 }

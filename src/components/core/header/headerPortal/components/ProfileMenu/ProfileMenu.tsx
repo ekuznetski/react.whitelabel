@@ -27,7 +27,7 @@ export function ProfileMenu() {
         ref={facepileRef}
       >
         {clientProfile.first_name[0]}
-        {clientProfile.surname[0]}
+        {clientProfile.last_name[0]}
       </div>
       <Svg href="chevron" className="header-profile-menu__chevron" onClick={toggleDropdownMenu} />
       <DropDown

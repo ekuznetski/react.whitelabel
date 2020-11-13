@@ -5,7 +5,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
 import './Deposit.scss';
-import { depositActionCreators, DepositProvider, IDepositAction, IDepositState } from './depositContext';
+import { depositActionCreators, DepositProvider, IDepositAction, IDepositState } from './deposit.context';
 import { DepositSuccessFailure } from './depositSuccessFailure/DepositSuccessFailure';
 import { useSelector } from 'react-redux';
 import { IAppStore, IStore } from '@store';
