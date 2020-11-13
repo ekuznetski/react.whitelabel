@@ -48,7 +48,7 @@ module.exports = (_env, arguments) => {
       const basename = path.basename(filePath);
       const filename = basename.match(/([^\\/]*)\.(\w+)$/)[1]
       const extension = basename.match(/([^\\/]*)\.(\w+)$/)[2]
-      //filter out scss files when there's also a tsx file since its already imported
+      //filter out scss files when there's also a tsx file since its already imported and doesnt need an alias
       return (!componentFilepaths.find((cpath) =>
         path.basename(cpath) === `${filename}.tsx`) || extension !== 'scss')
     })

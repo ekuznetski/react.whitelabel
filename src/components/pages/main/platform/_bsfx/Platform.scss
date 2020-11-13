@@ -94,7 +94,7 @@
     }
 
     @media (max-width: $viewport-lg-w) {
-      height:400px;
+      height:450px;
       align-items: center;
       .blur{
         &:before {
@@ -104,7 +104,7 @@
     }
 
     @media (max-width: $viewport-md-w) {
-      height: 580px;
+      height: 500px;
 
       &__title {
         font-size: 30px;

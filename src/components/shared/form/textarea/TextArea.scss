@@ -1,0 +1,88 @@
+@import '~/variables';
+
+.field.textarea {
+	position: relative;
+	border-radius: 2px;
+	border: 1px solid $dark-grey;
+	transition: border-color 0.2s, box-shadow 0.2s;
+	height: 100%;
+	width: 100%;
+
+	&.with-label {
+		.label {
+			transform: translate3d(10px, 50%, 0);
+			transform-origin: left top;
+			transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+			pointer-events: none;
+		}
+
+		textarea {
+            padding-top: 18px;
+            resize: none;
+		}
+	}
+
+	.input-loader {
+		position: absolute;
+		right: 8px;
+		top: 8px;
+	}
+
+	&.focused {
+		box-shadow: box-shadow(5, 0.05);
+		border-color: $blue;
+	}
+
+	&.focused .label,
+	&.filled .label {
+		transform: translate3d(10px, 4px, 0) scale(0.75);
+	}
+
+	.label {
+		color: $text;
+		line-height: 24px;
+		font-size: 14px;
+		position: absolute;
+		left: 0;
+		margin-bottom: 0;
+	}
+
+	textarea {
+		height: 100%;
+		width: 100%;
+		padding-left: 12px;
+		padding-right: 12px;
+		line-height: 24px;
+		font-size: 14px;
+		border: none;
+		outline: transparent;
+	}
+
+	// textarea:-webkit-autofill,
+	// textarea:-webkit-autofill:hover,
+	// textarea:-webkit-autofill:focus {
+	// 	border: none;
+	// 	-webkit-text-fill-color: $dark-text;
+	// 	-webkit-box-shadow: 0 0 0 1000px #fff inset;
+	// }
+
+	.error {
+		font-size: 10px;
+		color: $red;
+		position: absolute;
+		top: calc(100% + 4px);
+	}
+
+	&.field-error {
+		border-color: $red;
+		position: relative;
+	}
+
+	&.disabled {
+		background: $grey;
+
+		.label {
+			color: rgba(#000, 0.3);
+		}
+	}
+}

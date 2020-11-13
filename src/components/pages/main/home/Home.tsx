@@ -119,11 +119,16 @@ export function Home() {
         <SectionBg img="home-page-top.jpg" />
         <Container>
           <Row className="mb-9 mb-lg-18">
-            <Col xs={12} md={8} lg={6}>
+            <Col xs={12} md={8} lg={6} className="page-top__header">
               <div className="page-top__title mb-5 mb-lg-9">
                 {t('Home Page Top Title')}
-                <br />
-                {t('Home Page Top Subtitle')}
+                <LabelView>
+                    {{
+                      '*': <><br />
+                     {t('Home Page Top Subtitle')}</>,
+                      [ELabels.bsfx]: null,
+                    }}
+                  </LabelView>
               </div>
               <div className="page-top__description mb-11 mb-lg-10">{t('Home Page Top Section Desc')}</div>
               <Button>

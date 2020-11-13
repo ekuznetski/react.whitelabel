@@ -2,7 +2,7 @@
 
 .product-wrapper {
 	.page-top {
-		height: 450px;
+		height: 400px;
 		display: flex;
 		align-items: center;
 		background: #1A1B1C;
@@ -27,10 +27,6 @@
 			&.active {
 				background: $dark-blue;
 			}
-		}
-
-		@media (max-width: $viewport-lg-w) {
-			height: 400px;
 		}
 
 		@media (max-width: $viewport-md-w) {

@@ -1,0 +1,167 @@
+@import '~/variables';
+
+.home-wrapper {
+  .page-top {
+    height: 900px;
+    display: flex;
+    align-items: center;
+    background: rgb(92, 115, 131);
+    color: #fff;
+    overflow: hidden;
+
+    &__title {
+      font-size: 60px;
+      line-height: 70px;
+    }
+
+    &__description {
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 34px;
+    }
+
+    button {
+      background: $dark-blue;
+      border-radius: $border-radius;
+      width: 225px;
+      height: $btn-size-lg;
+      color: #fff;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    @media (min-width: $viewport-xl-min-w) {
+      &__header{
+        z-index:1;
+        margin-left: 4rem;
+        margin-right: 4rem;
+        &:before {
+          position: absolute;
+          content: '';
+          display: block;
+          background: $dark-text;
+          width: calc(100% + 80px);
+          height:10000%;
+          left: -11%;
+          top: -5000%;
+          opacity: 0.7;
+          z-index:-1;
+        }
+      }
+  
+      .col-12{
+        padding: 0;
+      }
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      height: 550px;
+      align-items: flex-end;
+
+      &__title {
+        font-size: 50px;
+        line-height: 60px;
+      }
+
+      &__description {
+        font-size: 22px;
+        line-height: 34px;
+      }
+
+      button {
+        height: 50px;
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      align-items: center;
+
+      &__title {
+        font-size: 30px;
+        line-height: 40px;
+      }
+
+      &__description {
+        font-size: 20px;
+        line-height: 30px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .stocks {
+    margin-top: -200px;
+    z-index: 1;
+
+    .col-12{
+      padding: 0;
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      margin-top: -80px;
+    }
+  }
+
+  .account-types-for-trading-styles-section{
+    &__title{
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    &__description{
+      text-align: left;
+    }
+
+    &__header{
+      flex: 0 0 83.33333%;
+      max-width: 83.33333%;
+    }
+  }
+
+  .trade-products {
+    &__title {
+      font-size: 36px;
+      line-height: 46px;
+      color: $dark-text;
+    }
+
+    .common-cards {
+      svg {
+        padding: 13px;
+        border-radius: $border-radius;
+        background: $grey-bg;
+        min-width: 50px;
+        height: 50px;
+        fill: $blue;
+      }
+
+      &__item {
+        height: 200px;
+        padding: 30px;
+
+        &-header {
+          span {
+            font-weight: 300;
+            font-size: 40px;
+            text-align: right;
+            color: $blue;
+            margin-left: auto;
+            display: flex;
+          }
+        }
+
+        &-content {
+          .greyText {
+            font-size: 16px;
+            line-height: 26px;
+            color: $text;
+          }
+        }
+      }
+    }
+  }
+}

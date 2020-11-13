@@ -1,6 +1,7 @@
 // Components Kit
 export * from './form/select/Select';
 export * from './form/input/Input';
+export * from './form/textarea/TextArea';
 export * from './form/radio/Radio';
 export * from './form/checkbox/Checkbox';
 export * from './form/button/Button';
