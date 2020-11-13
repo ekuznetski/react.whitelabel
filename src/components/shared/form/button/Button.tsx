@@ -12,6 +12,7 @@ interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   checkFormValidity?: boolean;
   loadingOnAction?: EActionTypes | EActionTypes[];
   isLoading?: boolean;
+  noBg?: boolean;
 }
 
 export const Button = memo(
@@ -35,7 +36,7 @@ export const Button = memo(
 
     return (
       <button
-        className={classNames('common-button', className, (_disabled || _loading) && 'disabled')}
+        className={classNames('common-button', props.noBg && 'noBg', className, (_disabled || _loading) && 'disabled')}
         {..._buttonProps}
         disabled={_disabled || _loading}
         ref={ref}

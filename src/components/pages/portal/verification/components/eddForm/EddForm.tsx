@@ -1,15 +1,15 @@
-import { Alert, Button, CountrySelect, Input, Radio, Select } from '@components/shared';
+import { Alert, Button, CountrySelect, Input, Radio, Select, TabMobileBackButton } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { MClientData, MClientProfile } from '@domain/models';
 import { EActionTypes, IStore } from '@store';
+import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import './eddForm.config';
-import { empStatNgSelectValList } from './eddForm.config';
+import { config } from './eddForm.config';
 import './EddForm.scss';
 
 export const EddForm = memo(function EddForm() {
@@ -19,16 +19,17 @@ export const EddForm = memo(function EddForm() {
       profile: state.data.client.profile,
     }),
   );
+  const viewportSize = useResponsive();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const previousEmployerValidation = Yup.string().when('years_address', {
+  const previousEmployerValidation = Yup.string().when('years_employment', {
     is: (val) => val < 3,
     then: Yup.string().required(),
   });
   const validationSchema = Yup.object().shape({
     nationality: Yup.mixed().required(),
-    own_property: Yup.boolean().required(),
+    own_property: Yup.string().required(),
     address: FieldValidators.street.required(),
     years_address: Yup.number().required(),
     previous_address: Yup.string().when('years_address', {
@@ -110,14 +111,7 @@ export const EddForm = memo(function EddForm() {
                   {t('Do you own the property?')}
                 </Col>
                 <Col xs={12} lg={6}>
-                  <Radio
-                    className="mb-8 mb-lg-0"
-                    name="own_property"
-                    options={[
-                      { label: t('Yes'), value: 'yes' },
-                      { label: t('No'), value: 'no' },
-                    ]}
-                  />
+                  <Radio className="mb-8 mb-lg-0" name="own_property" options={config.ownPropertyOptions} />
                 </Col>
                 <Col xs={12} lg={6}>
                   <Input label={t('Years at current address')} name="years_address" />
@@ -125,7 +119,6 @@ export const EddForm = memo(function EddForm() {
                 <Col xs={12}>
                   <Input label={t('Home Address')} name="address" className="mb-0" />
                 </Col>
-
                 {values.years_address && values.years_address < 3 && (
                   <>
                     <Col xs={12} className="edd-form__col-title mt-n2 mb-2">
@@ -138,19 +131,7 @@ export const EddForm = memo(function EddForm() {
                 )}
                 <Col xs={12} className="form-breakline mt-2 mb-10" />
                 <Col xs={12}>
-                  <Radio
-                    optionClassName="col-6"
-                    name="employment_status"
-                    options={[
-                      { label: t('Employed: Financial Services Related'), value: 'fin-service' },
-                      { label: t('Employed'), value: 'employed' },
-                      { label: t('Employed: Other'), value: 'employed-other' },
-                      { label: t('Retired'), value: 'retired' },
-                      { label: t('Self Employed'), value: 'self-employed' },
-                      { label: t('Unemployed'), value: 'unemployed' },
-                      { label: t('Other'), value: 'other' },
-                    ]}
-                  />
+                  <Radio optionClassName="col-6" name="employment_status" options={config.employmentStatusOptions} />
                 </Col>
                 {values.employment_status && values.employment_status == 'employed-other' && (
                   <>
@@ -191,7 +172,7 @@ export const EddForm = memo(function EddForm() {
                       <Select
                         inline={true}
                         label={t('Country')}
-                        options={empStatNgSelectValList}
+                        options={config.empStatNgSelectValList}
                         name="employment_status_ext"
                         className="mb-0"
                       />
@@ -211,14 +192,7 @@ export const EddForm = memo(function EddForm() {
                   {t('Working at a Financial Institution?')}
                 </Col>
                 <Col xs={12} lg={6}>
-                  <Radio
-                    className="mb-8"
-                    name="working_financial"
-                    options={[
-                      { label: 'Yes', value: 'yes' },
-                      { label: 'No', value: 'no' },
-                    ]}
-                  />
+                  <Radio className="mb-8" name="working_financial" options={config.workingFinancialOptions} />
                 </Col>
                 <Col xs={12} />
                 <Col xs={12} lg={6}>
@@ -237,13 +211,7 @@ export const EddForm = memo(function EddForm() {
                     className="mb-8"
                     optionClassName="col-6"
                     name="appr_annual_income"
-                    options={[
-                      { label: 'Below 50,000', value: 'below-50000' },
-                      { label: '50,000 to 100,000', value: '50000-to-100000' },
-                      { label: '100,000 to 250,000', value: '100000-to-250000' },
-                      { label: '250,000 to 500,000', value: '250000-to-500000' },
-                      { label: 'Above 500,000', value: 'above-500000' },
-                    ]}
+                    options={config.apprAnnualIncomeOptions}
                   />
                 </Col>
                 <Col xs={12} className="edd-form__col-title mb-2">
@@ -254,12 +222,7 @@ export const EddForm = memo(function EddForm() {
                     className="mb-8"
                     optionClassName="col-6"
                     name="appr_net_worth"
-                    options={[
-                      { label: 'Below 250,000', value: 'below-250000' },
-                      { label: '250,000 to 1,000,000', value: '250000-to-1000000' },
-                      { label: '1,000,000 to 5,000,000', value: '1000000-to-5000000' },
-                      { label: 'Above 5,000,000', value: 'above-5000000' },
-                    ]}
+                    options={config.apprNetWorthOptions}
                   />
                 </Col>
                 <Col xs={12} className="edd-form__col-title mb-2">
@@ -270,13 +233,7 @@ export const EddForm = memo(function EddForm() {
                     className="mb-8"
                     optionClassName="col-6"
                     name="funds_available"
-                    options={[
-                      { label: 'Below 25,000', value: 'below-25000' },
-                      { label: '25,000 to 50,000', value: '25000-to-50000' },
-                      { label: '50,000 to 150,000', value: '50000-to-150000' },
-                      { label: '150,000 to 300,000', value: '150000-to-300000' },
-                      { label: 'Above 300,000', value: 'above-300000' },
-                    ]}
+                    options={config.fundsAvailableOptions}
                   />
                 </Col>
                 {values.years_employment && values.years_employment < 3 && (
@@ -302,21 +259,25 @@ export const EddForm = memo(function EddForm() {
                         className="mb-8"
                         optionClassName="col-6"
                         name="pr_appr_annual_income"
-                        options={[
-                          { label: 'Below 50,000', value: 'below-50000' },
-                          { label: '50,000 to 100,000', value: '50000-to-100000' },
-                          { label: '100,000 to 250,000', value: '100000-to-250000' },
-                          { label: '250,000 to 500,000', value: '250000-to-500000' },
-                          { label: 'Above 500,000', value: 'above-500000' },
-                        ]}
+                        options={config.prApprAnnualIncomeOptions}
                       />
                     </Col>
                   </>
                 )}
+                <Col xs={12} className="form-breakline wide mb-8" />
+                <Col xs={12} md={viewportSize.lg ? 12 : 6}>
+                  <Button type="submit" loadingOnAction={EActionTypes.editProfile}>
+                    {t('Save')}
+                  </Button>
+                </Col>
+                <Col xs={12} md={6} className="d-lg-none">
+                  <TabMobileBackButton onClick={() => console.log(1)}>
+                    <Button type="button" noBg>
+                      {t('Back')}
+                    </Button>
+                  </TabMobileBackButton>
+                </Col>
               </Row>
-              <Button type="submit" loadingOnAction={EActionTypes.editProfile}>
-                {t('Save')}
-              </Button>
             </Form>
           );
         }}

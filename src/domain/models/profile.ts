@@ -4,8 +4,6 @@ import {
   countries,
   Country,
   EAccountLeverage,
-  ECountryCode,
-  ECountryName,
   ECurrencyCode,
   ETradingAccountType,
   ETradingPlatform,
@@ -18,7 +16,7 @@ export class MClientProfile {
   email: string;
   username: string;
   first_name: string;
-  surname: string;
+  last_name: string;
   country: Country;
   state: {
     name: ThisType<typeof CCountryStateName[keyof typeof CCountryStateName]> | '';
@@ -73,7 +71,7 @@ export class MClientProfile {
     this.email = props.email;
     this.username = props.username;
     this.first_name = props.first_name;
-    this.surname = props.surname;
+    this.last_name = props.surname;
     this.country = countries.find((country) => country.name === props.country) || {
       name: undefined,
       code: undefined,
@@ -84,8 +82,7 @@ export class MClientProfile {
       countries
         .filter((country) => country.states)
         .find((country) => country.states?.find((state) => state.code === props.state))
-    )//@ts-ignore
-    ?.states
+    )?.states //@ts-ignore
       ?.filter((state: any) => state.code === props.state) || {
       name: '',
       code: '',

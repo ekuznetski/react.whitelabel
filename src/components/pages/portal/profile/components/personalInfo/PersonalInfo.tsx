@@ -76,7 +76,7 @@ export const PersonalInfo = memo(
                 initialValues={{
                   email: profile.email,
                   first_name: profile.first_name,
-                  surname: profile.surname,
+                  surname: profile.last_name,
                   country: profile.country,
                   city: profile.city,
                   street: profile.street,

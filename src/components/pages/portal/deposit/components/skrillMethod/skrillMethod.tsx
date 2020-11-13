@@ -33,7 +33,7 @@ export function SkrillMethod() {
       const preparedData: ISkrillDepositRequest = {
         PaymentMethod: EDepositMethodCode.skrill,
         first_name: profile.first_name,
-        surname: profile.surname,
+        surname: profile.last_name,
         city: billingDetails?.city ?? profile.city,
         postcode: billingDetails?.postcode ?? profile.city,
         email: profile.email,

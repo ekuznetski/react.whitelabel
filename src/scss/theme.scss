@@ -50,9 +50,20 @@ body {
       }
 
       .form-breakline {
+        position: relative;
+        height: 1px;
+
+        &.wide {
+          &:before {
+            width: 1000%;
+            left: -500%;
+          }
+        }
+
         &:before {
           content: '';
           display: flex;
+          position: absolute;
           width: 100%;
           height: 1px;
           background: $grey;

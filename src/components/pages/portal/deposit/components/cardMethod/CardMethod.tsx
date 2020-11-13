@@ -138,7 +138,7 @@ export function CardMethod() {
               PaymentMethod: EDepositMethodCode.creditCard,
               currency: account?.currency as string,
               first_name: profile.first_name,
-              surname: profile.surname,
+              surname: profile.last_name,
               postcode: billingDetails?.postcode ?? profile.postcode,
               city: billingDetails?.city ?? profile.city,
               country: (billingDetails?.country?.name ?? profile.country.name) as string,

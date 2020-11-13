@@ -155,7 +155,7 @@ export function Tabs({
                   {state.mobileDisplay === EMobileDisplay.labels && (
                     <Button onClick={() => switchMobileDisplay(EMobileDisplay.content)}>{t('Continue')}</Button>
                   )}
-                  {state.mobileDisplay === EMobileDisplay.content && (
+                  {state.mobileDisplay === EMobileDisplay.content && !state.customMobileBackBtn && (
                     <Button onClick={() => switchMobileDisplay(EMobileDisplay.labels)}>{t('Back')}</Button>
                   )}
                 </div>
@@ -213,12 +213,7 @@ export const Tab = memo(
   }),
 );
 
-export const TabLabel = memo(function TabLabel(props: {
-  children: TabData;
-  className?: string;
-  subTitle?: TabData;
-  icon?: string;
-}) {
+export const TabLabel = memo(function TabLabel(props: { children: TabData; subTitle?: TabData; icon?: string }) {
   const dispatch = useTabsDispatch();
   useEffect(() => {
     dispatch({ type: 'addTempLabel', label: { value: props.children, icon: props?.icon } });
@@ -227,13 +222,38 @@ export const TabLabel = memo(function TabLabel(props: {
   return null;
 });
 
-export const TabSubLabel = memo(function TabSubLabel(props: { children: TabData; className?: string }) {
+export const TabSubLabel = memo(function TabSubLabel(props: { children: TabData }) {
   const dispatch = useTabsDispatch();
   useEffect(() => dispatch({ type: 'addTempSubLabel', label: { value: props.children } }), []);
   return null;
 });
 
-const TabContent = memo(function TabContent(props: { content: TabData; className?: string }) {
+export const TabMobileBackButton = memo(function TabSubLabel(props: {
+  children: React.ReactElement;
+  onClick: Function;
+}) {
+  const dispatch = useTabsDispatch();
+  const viewportSize = useResponsive();
+
+  useEffect(() => {
+    dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: true });
+    return () => dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: false });
+  }, []);
+
+  useEffect(() => {
+    if (!viewportSize.md && viewportSize.lg) dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: false });
+    else dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: true });
+  }, [viewportSize]);
+
+  return React.cloneElement(props.children, {
+    onClick: () => {
+      props.onClick();
+      dispatch({ type: 'setMobileDisplay', mobileDisplay: EMobileDisplay.labels });
+    },
+  });
+});
+
+const TabContent = memo(function TabContent(props: { content: TabData }) {
   const dispatch = useTabsDispatch();
   useEffect(() => dispatch({ type: 'addTempContent', content: props.content }), []);
   return <>{props.content}</>;
