@@ -52,7 +52,7 @@
     font-size: 10px;
     color: $red;
     position: absolute;
-    top: calc(100% + 4px);
+    top: calc(100% - 18px);
   }
 
   &.field-error {

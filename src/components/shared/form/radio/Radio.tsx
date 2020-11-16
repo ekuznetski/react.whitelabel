@@ -51,7 +51,7 @@ export const Radio = memo(function ({
       )}
     >
       {options.map((el: IRadioItem) => (
-        <div className={classNames(colClassName, el.className)} key={el.value}>
+        <div className={classNames(colClassName, el.className, 'mb-7')} key={el.value}>
           <label className={classNames('radio-label', field.value === el.value.toString() && 'selected')}>
             {(!React.isValidElement(el.label) || showMarkDot) && <span className="mark d-none d-sm-block" />}
             <FastField
