@@ -20,7 +20,7 @@ export type IRadio = FastFieldAttributes<{
   options: IRadioItem[];
 }>;
 
-export const Radio = memo(function ({
+export const Radio = memo(function Radio({
   colClassName = 'col',
   className = '',
   options,
@@ -40,7 +40,6 @@ export const Radio = memo(function ({
     helpers.setValue(e.target.value);
     props.onClick?.(e);
   }
-
   return (
     <Row
       className={classNames(
