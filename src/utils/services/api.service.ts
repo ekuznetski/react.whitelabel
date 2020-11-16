@@ -18,6 +18,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
       // RETURN MOCK RESPONSE
       const [c, s] = path.split('/').splice(-2);
       const mockResponse = (mockData as any)?.[c]?.[s];
+      console.log(c,s, mockResponse)
       if (mockResponse) {
         return new Promise((resolve) => {
           setTimeout(() => resolve(mockResponse), 450);
@@ -90,3 +91,5 @@ export const createMT5DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/
 export const addDepositRequest = request(EHttpMethod.post, `${apiUrl}/deposits/add`);
 export const uploadFileRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/upload`);
 export const getDocumentsRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/getDocuments`);
+export const partnershipRegistrationRequest = request(EHttpMethod.post, `${apiUrl}/frontend/extra/partnershipEmail`);
+export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${apiUrl}/ibs/add`);

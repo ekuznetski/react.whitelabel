@@ -7,7 +7,7 @@
   overflow: hidden;
   transition: height 0.25s;
   position: absolute;
-  z-index: 99;
+  z-index: 9999;
 
   &.fixed {
     position: fixed;

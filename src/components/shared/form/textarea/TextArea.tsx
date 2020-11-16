@@ -1,10 +1,10 @@
-import React, { memo, useState, useEffect, forwardRef } from 'react';
+import React, { memo, useState, useEffect, forwardRef, useRef } from 'react';
 import './TextArea.scss';
 import { useField, useFormikContext } from 'formik';
 import classNames from 'classnames';
 import { EFormStatus } from '@domain/enums';
 import { Loader } from '@components/shared';
-import { useCombinedRef } from '@utils/hooks';
+import { useScroll } from '@utils/hooks';
 
 export const TextArea = memo(
   forwardRef<HTMLTextAreaElement, any>(function Input(
@@ -24,7 +24,9 @@ export const TextArea = memo(
   ) {
     const { status: FormStatus } = useFormikContext();
     const [field, meta, helpers] = useField(props);
-    const ref = useCombinedRef(_ref);
+    const ref = useRef(null)
+    const _scroll = useScroll(ref);
+    const hideLabel = _scroll.top > 0;
     const [state, setState] = useState({
       isFocused: false,
       isFilled: !!meta.initialValue,
@@ -72,7 +74,7 @@ export const TextArea = memo(
           className,
         )}
       >
-        {!!label && (
+        {!!label && !hideLabel && (
           <label className="label" htmlFor={props.name}>
             {label}
           </label>

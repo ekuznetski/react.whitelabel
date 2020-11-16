@@ -19,8 +19,8 @@ import {
 import { ELabels } from '@domain/enums';
 import { useResponsive } from 'ahooks';
 import { Login } from 'components/pages/auth/login/Login';
-import React, {useRef} from 'react';
-import {AffiliateForm} from './components/programForm/AffiliateForm'
+import React, {useRef, useState} from 'react';
+import {AffiliateForm, BrokersForm} from './components'
 import { Trans, useTranslation } from 'react-i18next';
 import './Partnerships.scss';
 
@@ -28,11 +28,13 @@ export function Partnerships() {
   const responsive = useResponsive();
   const { t } = useTranslation();
   const formRef = useRef<HTMLDivElement>(null)
+  const [activeTab, setTab] = useState("affiliate")
 
   const _tempTabsData: ITabs = {
     labels: [
       { value: t('Affiliate'), anchor: 'affiliate' },
       { value: t('IB'), anchor: 'ib' },
+      { value: t('White Label'), anchor: 'whiteLabel' },
     ],
     content: [
       {
@@ -40,14 +42,19 @@ export function Partnerships() {
         anchor: 'affiliate',
       },
       {
-        value: <AffiliateForm/>,
+        value: <BrokersForm/>,
         anchor: 'ib',
+      },
+      {
+        value: <AffiliateForm/>,
+        anchor: 'whiteLabel',
       },
     ],
   };
 
-  const navigateToForm = () => {
+  const navigateToForm = (program?: string) => {
     formRef.current && formRef.current.scrollIntoView({ behavior: 'smooth' });
+    program && setTab(program)
   }
 
   return (
@@ -59,14 +66,14 @@ export function Partnerships() {
             <div className="col-md-8 col-lg-7 page-top__header">
               <div className="page-top__title mb-7">{t('Partnerships')}</div>
               <div className="page-top__description mb-9">{t('Partnerships Page Desc')}</div>
-              <Button onClick={navigateToForm}>
+              <Button onClick={() => navigateToForm(activeTab)}>
                   {t('Become an BSFX Partner')}
               </Button>
             </div>
           </div>
         </div>
       </section>
-      <PartnershipPrograms />
+      <PartnershipPrograms onNavigate={navigateToForm}/>
       <section className="potential">
         <SectionBg img="potential-bg.jpg" />
         <div className="container">
@@ -94,7 +101,7 @@ export function Partnerships() {
                   CHOOSE YOUR <strong>PROGRAM</strong>
                 </Trans>
             </div>
-            <Tabs className="programForms__tabs" {..._tempTabsData} />
+            <Tabs activeTab={activeTab} className="programForms__tabs" {..._tempTabsData} />
             </div>
           </div>
         </div>

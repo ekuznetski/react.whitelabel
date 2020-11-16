@@ -14,6 +14,8 @@ import {
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
   IWithdrawFundRequest,
+  IPartnershipRegistrationRequest,
+  IPartnershipIBRegistrationRequest,
 } from '@domain/interfaces';
 import {
   MBankDetails,
@@ -368,6 +370,32 @@ export function ac_uploadDocuments(
 ): IAction {
   return {
     type: EActionTypes.fetchDocuments,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_partnershipRegisterStandard(
+  payload: IPartnershipRegistrationRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction = null,
+): IAction {
+  return {
+    type: EActionTypes.partnershipRegister,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_partnershipRegisterIB(
+  payload: IPartnershipIBRegistrationRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction = null,
+): IAction {
+  return {
+    type: EActionTypes.partnershipRegisterIB,
     payload,
     onSuccess,
     onFailure,

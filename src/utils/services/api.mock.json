@@ -479,5 +479,22 @@
         }
       }
     }
+  },
+  "extra": {
+    "partnershipEmail": {
+      "response": {
+        "status": "failure",
+        "message": "Error message"
+      }
+    }
+  },
+  "ibs": {
+    "add": {
+      "response": {
+        "status": "failure",
+        "message": "Unexpected Error occured, please try again later",
+        "messageCode": 4
+      }
+    }
   }
 }

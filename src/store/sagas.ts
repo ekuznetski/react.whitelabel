@@ -16,6 +16,8 @@ import {
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
   IWithdrawFundRequest,
+  IPartnershipRegistrationResponse,
+  IPartnershipIBRegistrationResponse,
 } from '@domain/interfaces';
 import {
   MClientData,
@@ -54,6 +56,8 @@ import {
   userExistsRequest,
   withdrawalsHistoryRequest,
   withdrawalsLimitRequest,
+  partnershipRegistrationRequest,
+  partnershipIBRegistrationRequest,
 } from '@utils/services';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { store } from './';
@@ -384,5 +388,19 @@ export function* addDepositSage() {
   yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
     const data: IAddDepositResponse = yield call(addDepositRequest, payload);
     return data;
+  });
+}
+
+export function* partnershipRegistrationSaga() {
+  yield $$(EActionTypes.partnershipRegister, function* ({ payload }: IAction) {
+    const { response }: IPartnershipRegistrationResponse = yield call(partnershipRegistrationRequest, payload);
+    return response;
+  });
+}
+
+export function* registerIBSaga() {
+  yield $$(EActionTypes.partnershipRegisterIB, function* ({ payload }: IAction) {
+    const { response }: IPartnershipIBRegistrationResponse = yield call(partnershipIBRegistrationRequest, payload);
+    return response;
   });
 }

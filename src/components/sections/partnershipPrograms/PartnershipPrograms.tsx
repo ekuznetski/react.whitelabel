@@ -3,28 +3,34 @@ import { ELabels } from '@domain/enums';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { AnyFunction } from '@domain/interfaces';
 import './PartnershipPrograms.scss';
 
+export interface ISelect {
+  onNavigate: AnyFunction;
+}
+
 export const PartnershipPrograms = memo(
-  forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function PartnershipPrograms(
-    props,
-    ref,
-  ) {
+  forwardRef<HTMLDivElement, ISelect & React.HTMLAttributes<HTMLDivElement>>(function PartnershipPrograms(props, ref) {
     const { t } = useTranslation();
 
     const programPoints = {
-        affiliate: [
-            t("Mobile optimised marketing tools"),
-            t("Dedicated affiliate manager"),
-            t("Round-the-clock access to all your analytics")
-        ],
-        brokers: [
-            t("Multi-level marketing rebate tiers"),
-            t("Free market reviews for clients"),
-            t("Customisable marketing and advertising tools"),
-            t("Local office and events support")
-        ],
-    }
+      affiliate: [
+        t('Mobile optimised marketing tools'),
+        t('Dedicated affiliate manager'),
+        t('Round-the-clock access to all your analytics'),
+      ],
+      brokers: [
+        t('Multi-level marketing rebate tiers'),
+        t('Free market reviews for clients'),
+        t('Customisable marketing and advertising tools'),
+        t('Local office and events support'),
+      ],
+    };
+
+    const onProgramSelect = (program: string) => () => {
+      props?.onNavigate?.(program);
+    };
 
     return (
       <section className={classNames('partnership-programs-styles-section', props.className)} ref={ref}>
@@ -36,9 +42,7 @@ export const PartnershipPrograms = memo(
                   <strong>CUSTOM-MADE</strong> FOR YOU
                 </Trans>
               </div>
-              <div className="partnership-programs-styles-section__description mb-13">
-                {t('Programs Section Desc')}
-              </div>
+              <div className="partnership-programs-styles-section__description mb-13">{t('Programs Section Desc')}</div>
             </div>
             <div className="col-12 p-0">
               <Cards id="partnershipProgramsStylesSectionCards">
@@ -51,15 +55,11 @@ export const PartnershipPrograms = memo(
                   </CardHeader>
                   <CardContent className="text-left">
                     <div className="common-cards__item-content-points">
-                        {programPoints.affiliate.map((point) => 
-                            <div className="common-cards__item-content-points__item">
-                                {point}
-                            </div>
-                        )}
+                      {programPoints.affiliate.map((point) => (
+                        <div className="common-cards__item-content-points__item">{point}</div>
+                      ))}
                     </div>
-                    <Button>
-                        {t("Sign up")}
-                    </Button>
+                    <Button onClick={onProgramSelect('affiliate')}>{t('Sign Up')}</Button>
                   </CardContent>
                 </Card>
                 <Card wrapperClassName="card col-12 col-md-6 col-lg-4 mb-7 mb-md-0" uid={2}>
@@ -71,15 +71,11 @@ export const PartnershipPrograms = memo(
                   </CardHeader>
                   <CardContent className="text-left">
                     <div className="common-cards__item-content-points">
-                        {programPoints.brokers.map((point) => 
-                            <div className="common-cards__item-content-points__item">
-                                {point}
-                            </div>
-                        )}
+                      {programPoints.brokers.map((point) => (
+                        <div className="common-cards__item-content-points__item">{point}</div>
+                      ))}
                     </div>
-                    <Button>
-                        {t("Sign up")}
-                    </Button>
+                    <Button onClick={onProgramSelect('ib')}>{t('Sign Up')}</Button>
                   </CardContent>
                 </Card>
               </Cards>

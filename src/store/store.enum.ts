@@ -68,4 +68,8 @@ export enum EActionTypes {
 
   // APP - Deposit
   addDeposit = '[APP - Deposit] add deposit',
+
+  //APP - Partnership
+  partnershipRegisterIB = '[APP - Partnership] Register IB',
+  partnershipRegister = '[APP - Partnership] Register',
 }

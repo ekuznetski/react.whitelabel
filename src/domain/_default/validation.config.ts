@@ -26,6 +26,11 @@ export const FieldValidators = {
   name: Yup.string().matches(RegexValidators.name, 'Invalid value').required('This field is required'),
   email: Yup.string().email('Invalid email').required('This field is required'),
   numbers: Yup.string().matches(RegexValidators.numbersOnly, 'Invalid value').required('This field is required'),
+  phone: Yup.string().matches(RegexValidators.numbersOnly, 'Invalid value').required('This field is required')
+  .min(6, 'Minimum length ${min} numbers')
+  .max(20, 'Maximum length ${max} numbers'),
+  company: Yup.string().matches(RegexValidators.name, 'Invalid value').required('This field is required')
+  .max(40, 'Maximum length ${max} characters'),
   loginAndEmail: Yup.string()
     .matches(RegexValidators.loginAndEmail, 'Invalid value')
     .required('This field is required'),
@@ -37,7 +42,8 @@ export const FieldValidators = {
     .min(8, 'Minimum length ${max} symbols')
     .max(40, 'Maximum length ${max} symbols')
     .required('This field is required'),
-  street: Yup.string().matches(RegexValidators.address, 'Invalid value').required('This field is required'),
+  street: Yup.string().matches(RegexValidators.address, 'Invalid value').required('This field is required')
+  .max(100, 'Maximum length ${max} characters'),
   city: Yup.string().matches(RegexValidators.city, 'Invalid value').required('This field is required'),
   postcode: Yup.string().matches(RegexValidators.postcode, 'Invalid zip code'),
   swift: Yup.string()

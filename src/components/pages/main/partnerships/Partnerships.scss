@@ -308,10 +308,6 @@
 
 					&-header,
 					&-content {
-						// @media (max-width: $viewport-lg-w) {
-						// 	font-size: 22px;
-						// 	line-height: 34px;
-						// }
 						justify-content: center;
 						text-align: center;
 
@@ -337,12 +333,18 @@
 	}
 
 	.programForms{
+		background-color: #F8F8F9;;
 		&__title{
 			font-size: 36px;
 			line-height: 46px;
 			color: $dark-text;
 			text-align: center;
 			margin-bottom: 34px;
+		}
+		&__tabs{
+			.tab__link__label-title{
+				text-transform: uppercase;
+			}
 		}
 	}
 
