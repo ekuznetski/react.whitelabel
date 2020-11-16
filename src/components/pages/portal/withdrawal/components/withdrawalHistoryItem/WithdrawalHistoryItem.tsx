@@ -38,7 +38,7 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
       </div>
       {props.status === ETaskStatus.pending && (
         <div className="withdrawal-option p-6">
-          <Button className="noBg" onClick={() => setModalOpen(true)}>
+          <Button noBg onClick={() => setModalOpen(true)}>
             {t('Cancel Withdrawal')}
           </Button>
         </div>
@@ -84,7 +84,7 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
           >
             {t('Confirm')}
           </Button>
-          <Button className="noBg" onClick={() => setModalOpen(false)}>
+          <Button noBg onClick={() => setModalOpen(false)}>
             {t('Cancel')}
           </Button>
         </ModalNav>

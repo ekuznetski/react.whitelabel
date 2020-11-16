@@ -165,7 +165,7 @@ export const OpenAccount = memo(function OpenAccount() {
             <Button className="red mr-5" onClick={() => closeModal(EModalType.failure)(false)}>
               {t('Try Again')}
             </Button>
-            <Button className="red noBg mr-5" onClick={() => closeModal(EModalType.failure)(false)}>
+            <Button className="red mr-5" noBg onClick={() => closeModal(EModalType.failure)(false)}>
               <LocaleNavLink to="/dashboard">{t('Back to Dashboard')}</LocaleNavLink>
             </Button>
           </ModalNav>

@@ -96,7 +96,7 @@ export const EddForm = memo(function EddForm() {
         validationSchema={validationSchema}
         onSubmit={Submit}
       >
-        {({ values, setFieldValue }: FormikProps<any>) => {
+        {({ values, submitCount, setFieldValue }: FormikProps<any>) => {
           useEffect(() => {
             setFieldValue('employment_status_ext', '');
           }, [values.employment_status]);
@@ -266,13 +266,13 @@ export const EddForm = memo(function EddForm() {
                 )}
                 <Col xs={12} className="form-breakline wide mb-8" />
                 <Col xs={12} md={viewportSize.lg ? 12 : 6}>
-                  <Button type="submit" loadingOnAction={EActionTypes.editProfile}>
+                  <Button type="submit" loadingOnAction={EActionTypes.editProfile} checkFormValidity={submitCount > 0}>
                     {t('Save')}
                   </Button>
                 </Col>
                 <Col xs={12} md={6} className="d-lg-none">
                   <TabMobileBackButton onClick={() => console.log(1)}>
-                    <Button type="button" noBg>
+                    <Button type="button" isLoading={true} noBg>
                       {t('Back')}
                     </Button>
                   </TabMobileBackButton>
