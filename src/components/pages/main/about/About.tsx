@@ -180,7 +180,7 @@ export function About() {
         </div>
       </section>
       <section className="in_touch">
-        <SectionBg img="in-touch-bg.png" />
+        <SectionBg img="in-touch-bg.jpg" />
         <div className="container">
           <div className="row">
             <div className="col-lg-8 offset-lg-2 text-center">
