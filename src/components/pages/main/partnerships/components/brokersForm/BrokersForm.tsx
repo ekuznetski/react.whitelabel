@@ -10,15 +10,14 @@ import {
 } from '@components/shared';
 import { CustomFieldValidators, env, FieldValidators } from '@domain';
 import { countries, ELabelsName, ENotificationType } from '@domain/enums';
-import { ILoginRequest, IPartnershipIBRegisterRequest } from '@domain/interfaces';
-import { ac_login, ac_partnershipRegisterIB, ac_showNotification, IStore } from '@store';
+import { IPartnershipIBRegistrationRequest } from '@domain/interfaces';
+import { ac_partnershipRegisterIB, ac_showNotification, IStore } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-// import './BrokersForm.scss';
 
 enum EFields {
   'firstName' = 'firstName',
@@ -56,7 +55,7 @@ export const BrokersForm = memo(() => {
     console.log(data);
     dispatch(
       ac_partnershipRegisterIB(
-        data as IPartnershipIBRegisterRequest,
+        data as IPartnershipIBRegistrationRequest,
         () => {
           console.log('successss');
           dispatch(
