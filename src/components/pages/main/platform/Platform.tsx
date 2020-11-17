@@ -110,7 +110,7 @@ export function Platform() {
       <OurOfferBannerSection />
       <PrestigiousPlatformTechnologySection />
       <section className="perfect">
-        <SectionBg img="perfect-for-eas.png" />
+        <SectionBg img="perfect-for-eas.jpg" />
         <div className="container">
           <div className="row">
             <div className="col-12">

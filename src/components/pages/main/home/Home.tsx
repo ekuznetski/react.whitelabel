@@ -23,95 +23,12 @@ import { ELabels, EWorkshopType } from '@domain/enums';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
+import { StockPrices } from './components';
+import { config } from './home.config';
 import './Home.scss';
-import { StockPrices } from './stocks_prices/StockPrices';
 
 export function Home() {
   const { t } = useTranslation();
-
-  const takeControlItems = [
-    {
-      title: t('Trade With The Metatrader 5 Platform'),
-      desc: t('The Forex Industry Standard'),
-      img: 'computer.png',
-    },
-    {
-      title: 'Mobile first',
-      desc: t('Get Trading Apps'),
-      img: 'phone.png',
-    },
-    {
-      title: t('Don’t miss a thing'),
-      desc: t('Never miss an opportunity'),
-      img: 'trade_info.png',
-    },
-  ];
-  const workshopsData = [
-    {
-      type: EWorkshopType.webinar,
-      author: {
-        img: 'avatar-1.jpg',
-        name: 'William Bailey',
-        title: t('Chief Currency Analyst'),
-      },
-      schedule: {
-        day: t('Every Monday'),
-        time: '12:30 PM – 1:00 PM GMT',
-      },
-      info: {
-        title: 'FX Week Ahead: Live Market Analysis',
-        description: t('Get ready for trading'),
-      },
-    },
-    {
-      type: EWorkshopType.workshop,
-      author: {
-        img: 'avatar-1.jpg',
-        name: 'Mike Hamilton',
-        title: t('Chief Currency Analyst'),
-      },
-      schedule: {
-        day: t('Every Wednesday'),
-        time: '12:30 PM – 1:00 PM GMT',
-      },
-      info: {
-        title: 'FX Week Ahead: Live Market Analysis',
-        description: 'Our workshops desc',
-      },
-    },
-  ];
-  const tradeProductsCards = [
-    {
-      title: 'Forex',
-      icon: 'filter',
-      exchange: 'EUR/USD, GBP/USD, USD/JPY',
-    },
-    {
-      title: 'Stocks',
-      icon: 'graph_bars',
-      exchange: 'Apple, Amazon, Facebook',
-    },
-    {
-      title: 'Indices',
-      icon: 'indices',
-      exchange: 'US500, UK100, Japan225',
-    },
-    {
-      title: 'Cryptocurrencies',
-      icon: 'crypto',
-      exchange: '',
-    },
-    {
-      title: 'Commodities',
-      icon: 'commodities',
-      exchange: 'Cocoa, Cotton, Sugar',
-    },
-    {
-      title: 'ETFs',
-      icon: 'etfs',
-      exchange: 'iShares, ProShares',
-    },
-  ];
 
   return (
     <div className="home-wrapper">
@@ -208,7 +125,7 @@ export function Home() {
           ),
         }}
       </LabelView>
-      <TakeControlOfTradesSection className="py-16" data={takeControlItems} />
+      <TakeControlOfTradesSection className="py-16" data={config.takeControlItems} />
       <AccountTypesForTradingStylesSection />
       <LabelView>
         {{
@@ -222,7 +139,7 @@ export function Home() {
                       <div className="workshop-cards__title mb-6 mb-md-12">{t('Free upcoming webinar workshop')}</div>
                     </Col>
                   </Row>
-                  <WorkshopCards data={workshopsData} />
+                  <WorkshopCards data={config.workshopsData} />
                 </Container>
               </section>
             </>
@@ -242,7 +159,7 @@ export function Home() {
             </Col>
             <Col xs={12} className="p-0">
               <Cards id="tradeProductsCards">
-                {tradeProductsCards.map((card, c) => (
+                {config.tradeProductsCards.map((card, c) => (
                   <Card key={c} wrapperClassName="col-12 col-md-6 col-lg-4 mb-9" uid={c}>
                     <CardHeader className="mb-7">
                       <Svg href={card.icon} className="mr-5" />
