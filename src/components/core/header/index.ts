@@ -1,3 +1,3 @@
-export * from './headerAuth/HeaderAuth';
-export * from './headerMain/HeaderMain';
-export * from './headerPortal/HeaderPortal';
+export * from './auth/HeaderAuth';
+export * from './main/HeaderMain';
+export * from './portal/HeaderPortal';
