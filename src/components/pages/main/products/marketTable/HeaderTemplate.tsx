@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolean }) {
+export const HeaderTableTemplate = memo(function({ preview }: { preview: boolean }) {
   const tdClass = classNames('td', !preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
   const { t } = useTranslation();

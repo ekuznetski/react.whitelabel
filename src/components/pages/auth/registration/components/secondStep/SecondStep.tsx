@@ -46,7 +46,7 @@ export function SecondStep({ submitFn }: any) {
       .max(31, t('Day Limit'))
       .when([EFields.monthOfBirth, EFields.yearOfBirth], {
         is: (monthOfBirth, yearOfBirth) => !!monthOfBirth && !!yearOfBirth,
-        then: FieldValidators.requiredNumber.min(1, t('Invalid value')).test('max', '', function (value) {
+        then: FieldValidators.requiredNumber.min(1, t('Invalid value')).test('max', '', function(value) {
           const { path, parent, createError } = this;
           const { monthOfBirth, yearOfBirth } = parent;
           const maxDay = new Date(yearOfBirth, monthOfBirth, 0).getDate();

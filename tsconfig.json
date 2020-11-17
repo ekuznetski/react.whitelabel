@@ -30,7 +30,7 @@
       "@store": ["store/index.ts"],
       "~/variables": ["scss/variables.scss"],
       "~/theme": ["scss/theme.scss"],
-      "~/mixin": ["scss/mixin.scss"],
+      "~/mixin": ["scss/mixin.scss"]
     }
   },
   "include": ["src"],

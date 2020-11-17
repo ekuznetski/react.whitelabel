@@ -20,7 +20,7 @@ export type IRadio = FastFieldAttributes<{
   options: IRadioItem[];
 }>;
 
-export const Radio = memo(function ({
+export const Radio = memo(function({
   optionClassName = 'col',
   className = '',
   options,

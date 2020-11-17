@@ -1,19 +1,19 @@
 image: node:12.18.4-alpine
 
 variables:
-    DOCKER_DRIVER: overlay2
-    SERVER: 'wl-prodServer'
+  DOCKER_DRIVER: overlay2
+  SERVER: 'wl-prodServer'
 
 before_script:
-    - apk update && apk add openssh-client git
-    - mkdir -p -m 700 ~/.ssh
-    - eval $(ssh-agent -s)
-    - echo "$JUMP_KEY" | tr -d '\r' > jump_key.pem
-    - chmod 400 jump_key.pem
-    - ssh-add jump_key.pem
-    - echo "$ssh_config" > ~/.ssh/config
-    - chmod 400 ~/.ssh/config
-    - apk add yarn
+  - apk update && apk add openssh-client git
+  - mkdir -p -m 700 ~/.ssh
+  - eval $(ssh-agent -s)
+  - echo "$JUMP_KEY" | tr -d '\r' > jump_key.pem
+  - chmod 400 jump_key.pem
+  - ssh-add jump_key.pem
+  - echo "$ssh_config" > ~/.ssh/config
+  - chmod 400 ~/.ssh/config
+  - apk add yarn
 
 stages:
   - compile
@@ -21,88 +21,68 @@ stages:
   - update:wl
 
 compile:wl:
-    cache:
-        key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
-        paths:
-            - node_modules/
-    stage: compile
-    script:
-        - export NG_CLI_ANALYTICS=ci    
-        - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
-        - yarn install
-        - yarn run build:bsfx:ssr
-        - cp -R node_modules dist/
-        - tar -czf dist_wl.tar.gz dist
-    artifacts:
-        paths:
-            - dist_wl.tar.gz
-        expire_in: 40 minutes
-    tags:
-        - wl
-    only:
-        refs:
-            - dev   
-    allow_failure: true
+  cache:
+    key: '$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG'
+    paths:
+      - node_modules/
+  stage: compile
+  script:
+    - export NG_CLI_ANALYTICS=ci
+    - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
+    - yarn install
+    - yarn run build:bsfx:ssr
+    - cp -R node_modules dist/
+    - tar -czf dist_wl.tar.gz dist
+  artifacts:
+    paths:
+      - dist_wl.tar.gz
+    expire_in: 40 minutes
+  tags:
+    - wl
+  only:
+    refs:
+      - dev
+  allow_failure: true
 
 deploy:wl:web:
-    stage: deploy:wl
-    script:
-        - ssh $SERVER "sudo mkdir -p /var/www/wl &&
-            sudo mkdir -p /var/www/wl/server &&
-            sudo chmod 777 /var/www/wl/server"
-        - scp dist_wl.tar.gz $SERVER:/var/www/wl/server/dist_wl.tar.gz
-        - ssh $SERVER "
-            sudo chmod 755 /var/www/wl/server &&
-            cd /var/www/wl/server &&
-            sudo rm -rf server/dist/ &&
-            sudo tar -xzf dist_wl.tar.gz &&
-            sudo rm -rf dist_wl.tar.gz &&
-            ls -al &&
-            sudo chmod 755 /var/www/wl/server &&
-            sudo chmod 755 /var/www/wl/server/dist &&
-            cd /var/www/wl/server && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
-            cd /var/www/wl/logs && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
-            sudo docker container exec wl pm2 stop server &&
-            sudo docker container exec wl pm2 start server &&
-            exit"
-    dependencies:
-        - compile:wl
-    only:
-        refs:
-            - dev             
-    tags:
-        - wl
-    allow_failure: true
+  stage: deploy:wl
+  script:
+    - ssh $SERVER "sudo mkdir -p /var/www/wl && sudo mkdir -p /var/www/wl/server && sudo chmod 777 /var/www/wl/server"
+    - scp dist_wl.tar.gz $SERVER:/var/www/wl/server/dist_wl.tar.gz
+    - ssh $SERVER " sudo chmod 755 /var/www/wl/server && cd /var/www/wl/server && sudo rm -rf server/dist/ && sudo tar
+      -xzf dist_wl.tar.gz && sudo rm -rf dist_wl.tar.gz && ls -al && sudo chmod 755 /var/www/wl/server && sudo chmod 755
+      /var/www/wl/server/dist && cd /var/www/wl/server && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f
+      {} + && cd /var/www/wl/logs && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + && sudo docker
+      container exec wl pm2 stop server && sudo docker container exec wl pm2 start server && exit"
+  dependencies:
+    - compile:wl
+  only:
+    refs:
+      - dev
+  tags:
+    - wl
+  allow_failure: true
 
 update:wl:docker:
-    stage: update:wl
-    script:
-        - cd deploy-scripts &&
-        - tar czf docker.tar.gz docker-compose.yml Dockerfile pm2_services.json
-        - ssh $SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker/"
-        - scp docker.tar.gz $SERVER:/var/www/wl/temp_docker
-        - ssh $SERVER "
-            cd /var/www/wl/ &&
-            sudo mkdir -p /var/www/wl/logs &&
-            sudo chmod 777 /var/www/wl/logs &&
-            sudo tar -xzf temp_docker/docker.tar.gz -C /var/www/wl/ &&
-            sudo rm -rf docker.tar.gz temp_docker &&
-            sudo docker-compose down &&
-            sudo docker-compose build &&
-            sudo docker-compose up -d &&
-            sudo docker ps -a &&
-            exit"
-    only:
-        refs:
-            - dev
-        changes:
-            - deploy-scripts/docker-compose.yml
-            - deploy-scripts/Dockerfile
-            - deploy-scripts/pm2_services.json              
-    tags:
-        - wl    
-    when: manual
-
+  stage: update:wl
+  script:
+    - cd deploy-scripts &&
+    - tar czf docker.tar.gz docker-compose.yml Dockerfile pm2_services.json
+    - ssh $SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker/"
+    - scp docker.tar.gz $SERVER:/var/www/wl/temp_docker
+    - ssh $SERVER " cd /var/www/wl/ && sudo mkdir -p /var/www/wl/logs && sudo chmod 777 /var/www/wl/logs && sudo tar
+      -xzf temp_docker/docker.tar.gz -C /var/www/wl/ && sudo rm -rf docker.tar.gz temp_docker && sudo docker-compose
+      down && sudo docker-compose build && sudo docker-compose up -d && sudo docker ps -a && exit"
+  only:
+    refs:
+      - dev
+    changes:
+      - deploy-scripts/docker-compose.yml
+      - deploy-scripts/Dockerfile
+      - deploy-scripts/pm2_services.json
+  tags:
+    - wl
+  when: manual
 # sudo docker exec wl sudo /restart_nginx.sh &&
 # update:wl:nginx:
 #     stage: update:wl
@@ -125,7 +105,7 @@ update:wl:docker:
 #             - dev
 #         changes:
 #             - deploy-scripts/nginx/**/*
-              
+
 #     tags:
 #         - wl
 #     when: manual
@@ -158,7 +138,7 @@ update:wl:docker:
 #             - deploy-scripts/pm2_services.json
 #             - deploy-scripts/restart_nginx.sh
 #             - deploy-scripts/nginx.sh
-              
+
 #     tags:
-#         - wl    
+#         - wl
 #     when: manual

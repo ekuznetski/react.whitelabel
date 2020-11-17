@@ -1,158 +1,158 @@
 @import '~/variables';
 
 .trading-account-single-card {
-	.trading-account-card-wrapper {
-		display: flex;
-		flex-direction: column;
-		background: #fff;
-		box-shadow: box-shadow(10, 0.1);
-		border-radius: $border-radius;
-		height: 360px;
+  .trading-account-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    box-shadow: box-shadow(10, 0.1);
+    border-radius: $border-radius;
+    height: 360px;
 
-		[class^='account-card__'] {
-			height: 90px;
-			display: flex;
-		}
+    [class^='account-card__'] {
+      height: 90px;
+      display: flex;
+    }
 
-		.account-card {
-			&__details {
-				align-items: center;
-				border-bottom: 1px solid $grey;
+    .account-card {
+      &__details {
+        align-items: center;
+        border-bottom: 1px solid $grey;
 
-				.account {
-					&__logo {
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						width: 50px;
-						height: 50px;
-						background: $dark-text;
-						border-radius: 50%;
+        .account {
+          &__logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: $dark-text;
+            border-radius: 50%;
 
-						color: #fff;
-					}
+            color: #fff;
+          }
 
-					&__info {
-						.info {
-							&-type {
-								font-weight: 500;
-								font-size: 16px;
-								line-height: 24px;
+          &__info {
+            .info {
+              &-type {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 24px;
 
-								color: $dark-text;
-							}
+                color: $dark-text;
+              }
 
-							&-number {
-								font-size: 16px;
-								line-height: 24px;
+              &-number {
+                font-size: 16px;
+                line-height: 24px;
 
-								color: $dark-text;
-							}
-						}
-					}
+                color: $dark-text;
+              }
+            }
+          }
 
-					&__currency {
-						display: flex;
-						align-items: center;
+          &__currency {
+            display: flex;
+            align-items: center;
 
-						font-size: 14px;
-						line-height: 24px;
+            font-size: 14px;
+            line-height: 24px;
 
-						color: $text;
-					}
-				}
-			}
+            color: $text;
+          }
+        }
+      }
 
-			&__balance,
-			&__leverage {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				border-bottom: 1px solid $grey;
+      &__balance,
+      &__leverage {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom: 1px solid $grey;
 
-				.balance,
-				.leverage {
-					&-title {
-						font-size: 14px;
-						line-height: 24px;
+        .balance,
+        .leverage {
+          &-title {
+            font-size: 14px;
+            line-height: 24px;
 
-						color: $text;
-					}
+            color: $text;
+          }
 
-					&-value {
-						display: flex;
-						align-items: center;
-						font-weight: 500;
-						font-size: 24px;
-						line-height: 34px;
+          &-value {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 34px;
 
-						color: $dark-text;
-					}
-				}
-			}
+            color: $dark-text;
+          }
+        }
+      }
 
-			&__options {
-				align-items: center;
+      &__options {
+        align-items: center;
 
-				.common-button {
-					&.fund {
-						&:hover {
-							border-color: $dark-text;
+        .common-button {
+          &.fund {
+            &:hover {
+              border-color: $dark-text;
 
-							a {
-								color: $dark-text;
+              a {
+                color: $dark-text;
 
-								svg {
-									fill: $dark-text;
-								}
-							}
-						}
-					}
+                svg {
+                  fill: $dark-text;
+                }
+              }
+            }
+          }
 
-					&.nav {
-						flex: 0 0 50px;
-						background: $grey-bg;
-						transition: all 0.3s;
+          &.nav {
+            flex: 0 0 50px;
+            background: $grey-bg;
+            transition: all 0.3s;
 
-						svg {
-							transition: all 0.3s;
-						}
+            svg {
+              transition: all 0.3s;
+            }
 
-						&.active {
-							background: $dark-text;
+            &.active {
+              background: $dark-text;
 
-							svg {
-								fill: #fff;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+              svg {
+                fill: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
-	&.inline {
-		.trading-account-card-wrapper {
-			flex-direction: row;
-			height: 90px;
-			width: 100%;
+  &.inline {
+    .trading-account-card-wrapper {
+      flex-direction: row;
+      height: 90px;
+      width: 100%;
 
-			.account-card {
-				&__details {
-					flex: 0 0 35%;
-					border-right: 1px solid $grey;
-					border-bottom: 0;
-				}
-				&__balance,
-				&__leverage {
-					flex: 0 0 20%;
-					border-right: 1px solid $grey;
-					border-bottom: 0;
-				}
-				&__options {
-					flex: 0 0 25%;
-				}
-			}
-		}
-	}
+      .account-card {
+        &__details {
+          flex: 0 0 35%;
+          border-right: 1px solid $grey;
+          border-bottom: 0;
+        }
+        &__balance,
+        &__leverage {
+          flex: 0 0 20%;
+          border-right: 1px solid $grey;
+          border-bottom: 0;
+        }
+        &__options {
+          flex: 0 0 25%;
+        }
+      }
+    }
+  }
 }

@@ -56,7 +56,7 @@ export function Tabs({
     throw new Error('Tabs must have (props.children) or (labels && content)!');
   }
 
-  window.onload = function () {
+  window.onload = function() {
     setLineProps({
       navLineWidth: activeNavTabLink?.clientWidth,
       navLineLeft: activeNavTabLink?.offsetLeft,

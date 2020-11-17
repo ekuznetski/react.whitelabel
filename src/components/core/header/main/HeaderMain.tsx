@@ -31,7 +31,11 @@ export function HeaderMain(props: IHeaderDefaultProps) {
           <div className="logo mr-9">
             <Svg href="logo" _label height={!responsive.md ? 28 : 37} />
             <Svg href="logo" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
-            <Img src={(props.fixed || isBurgerMenuOpen) ? "logo_blue.png" : "logo_white.png"} _label={ELabels.bsfx} height={!responsive.md ? 48 : 60} />
+            <Img
+              src={props.fixed || isBurgerMenuOpen ? 'logo_blue.png' : 'logo_white.png'}
+              _label={ELabels.bsfx}
+              height={!responsive.md ? 48 : 60}
+            />
           </div>
           <div className="menu">
             {_mainRoutesConfig.map((route) => (

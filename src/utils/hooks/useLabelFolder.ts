@@ -7,7 +7,9 @@ export function useLabelFolder(path?: string) {
 
   if (ELabels[targetLabel] == undefined || ELabels[targetLabel] == null) {
     throw new Error(
-      'env.LABEL value: ' + targetLabel + ' is not supported! Pls check that the value exist in EProjects enum or add it',
+      'env.LABEL value: ' +
+        targetLabel +
+        ' is not supported! Pls check that the value exist in EProjects enum or add it',
     );
   }
 

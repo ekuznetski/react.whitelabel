@@ -24,7 +24,7 @@ export const TextArea = memo(
   ) {
     const { status: FormStatus } = useFormikContext();
     const [field, meta, helpers] = useField(props);
-    const ref = useRef(null)
+    const ref = useRef(null);
     const _scroll = useScroll(ref);
     const hideLabel = _scroll.top > 0;
     const [state, setState] = useState({

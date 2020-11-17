@@ -302,7 +302,7 @@
   "Name": "Name",
   "Message": "Message",
   "Company": "Company",
-  
+
   "Market Event Notification Desc": [
     "To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our ",
     "and you consent to receive newsletters, special offers and be contacted by HYCM representatives via phone or e-mail. You can opt-out any time you wish to."
@@ -395,5 +395,5 @@
     "Deposit now and <1>receive a 10% bonus</1> up to $5K instantly added to your account",
     "Fund Your Account with <1>$0 Fees</1>"
   ],
-  "Accept Policy" : "I have read and accept the Privacy Policy of {{name}}"
+  "Accept Policy": "I have read and accept the Privacy Policy of {{name}}"
 }

@@ -6,7 +6,12 @@ import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Area, AreaChart } from 'recharts';
-import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu } from '../../../../../domain/interfaces/app/home.interface';
+import {
+  IPriceCarouselItem,
+  IPriceTabInfo,
+  IPriceTabItem,
+  IPriceTabMenu,
+} from '../../../../../domain/interfaces/app/home.interface';
 import { priceRawData } from './price_data';
 import './StockPrices.scss';
 

@@ -1,18 +1,18 @@
 @import '~/variables';
 
 .withdrawal-page__history {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-	.withdrawal-history {
-		&__title {
-			font-size: 22px;
-			line-height: 30px;
-			color: $dark-text;
-			@include d-flex(center, center);
-		}
+  .withdrawal-history {
+    &__title {
+      font-size: 22px;
+      line-height: 30px;
+      color: $dark-text;
+      @include d-flex(center, center);
+    }
 
-		&__content {
-		}
-	}
+    &__content {
+    }
+  }
 }

@@ -1,27 +1,27 @@
 @import '~/variables';
 
 .open-account__modal {
-	&.success {
-		.modal-content {
-			&__title {
-				color: $green;
+  &.success {
+    .modal-content {
+      &__title {
+        color: $green;
 
-				small {
-					color: $text;
-				}
-			}
-		}
-	}
+        small {
+          color: $text;
+        }
+      }
+    }
+  }
 
-	&.failure {
-		.modal-content {
-			&__title {
-				color: $red;
+  &.failure {
+    .modal-content {
+      &__title {
+        color: $red;
 
-				small {
-					color: $text;
-				}
-			}
-		}
-	}
+        small {
+          color: $text;
+        }
+      }
+    }
+  }
 }

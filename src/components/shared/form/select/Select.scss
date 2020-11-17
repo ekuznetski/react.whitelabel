@@ -13,10 +13,10 @@
     border-color: $blue;
   }
 
-	&.focused .label,
-	&.filled .label {
-		transform: translate3d(10px, 4px, 0) scale(0.75);
-	}
+  &.focused .label,
+  &.filled .label {
+    transform: translate3d(10px, 4px, 0) scale(0.75);
+  }
 
   .label {
     color: $text;

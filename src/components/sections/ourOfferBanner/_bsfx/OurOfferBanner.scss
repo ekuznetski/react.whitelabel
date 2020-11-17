@@ -1,71 +1,70 @@
 @import '~/variables';
 
 .our-offer-banner-section {
-	background: $grey-bg;
-	font-size: 18px;
-	line-height: 30px;
-	color: $dark-text;
-	padding: 0 !important;
-	display: flex;
-	align-items: center;
-	height: 150px;
+  background: $grey-bg;
+  font-size: 18px;
+  line-height: 30px;
+  color: $dark-text;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  height: 150px;
 
-	.container{
-		height: inherit;
-		.row{
-			height: inherit;
-		}
-	}
+  .container {
+    height: inherit;
+    .row {
+      height: inherit;
+    }
+  }
 
-	[class*='col-'] {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: inherit;
-		border-right: 3px solid #fff;
-		&:first-child{
-			border-left: 3px solid #fff;
-		}
-	}
+  [class*='col-'] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+    border-right: 3px solid #fff;
+    &:first-child {
+      border-left: 3px solid #fff;
+    }
+  }
 
-	svg {
-		fill: $bsfx-blue;
-	}
+  svg {
+    fill: $bsfx-blue;
+  }
 
-	@media (max-width: $viewport-lg-w) {
-		[class*='col-'] {
-			flex-direction: column;
-			&:last-child{
-				border-right: none;
-			}
-			&:first-child{
-				border-left: none;
-			}
-				
-		}
-	}
+  @media (max-width: $viewport-lg-w) {
+    [class*='col-'] {
+      flex-direction: column;
+      &:last-child {
+        border-right: none;
+      }
+      &:first-child {
+        border-left: none;
+      }
+    }
+  }
 
-	@media (max-width: $viewport-md-w) {
-		height: auto;
+  @media (max-width: $viewport-md-w) {
+    height: auto;
 
-		[class*='col-'] {
-			flex-direction: row;
-			justify-content: unset;
-			position: relative;
+    [class*='col-'] {
+      flex-direction: row;
+      justify-content: unset;
+      position: relative;
 
-			&:not(:last-child) {
-				border-right: 0;
+      &:not(:last-child) {
+        border-right: 0;
 
-				&:after {
-					content: '';
-					width: 90%;
-					height: 1px;
-					background: $dark-grey;
-					position: absolute;
-					bottom: 0;
-					left: 5%;
-				}
-			}
-		}
-	}
+        &:after {
+          content: '';
+          width: 90%;
+          height: 1px;
+          background: $dark-grey;
+          position: absolute;
+          bottom: 0;
+          left: 5%;
+        }
+      }
+    }
+  }
 }

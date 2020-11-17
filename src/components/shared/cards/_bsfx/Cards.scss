@@ -1,91 +1,91 @@
 @import '~/variables';
 
 .common-cards {
-	display: flex;
-	flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 
-	&__container {
-		display: flex;
-		flex-wrap: wrap;
-		width: 100%;
-		padding: 10px 0;
-	}
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 10px 0;
+  }
 
-	&__item {
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		background: #ffffff;
-		box-shadow: box-shadow(15, 0.1);
-		border-radius: $border-radius;
-		text-align: center;
-		padding: 28px;
+  &__item {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: #ffffff;
+    box-shadow: box-shadow(15, 0.1);
+    border-radius: $border-radius;
+    text-align: center;
+    padding: 28px;
 
-		&-header {
-			display: flex;
-			align-items: center;
-			font-weight: 500;
-			font-size: 24px;
-			line-height: 34px;
-			color: $dark-text;
-			margin-bottom: 20px;
+    &-header {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 34px;
+      color: $dark-text;
+      margin-bottom: 20px;
 
-			small {
-				margin-left: 10px;
-				font-size: 18px;
-				color: $blue;
-			}
-		}
+      small {
+        margin-left: 10px;
+        font-size: 18px;
+        color: $blue;
+      }
+    }
 
-		&-content {
-			text-align: left;
-			font-size: 18px;
-			line-height: 30px;
-			color: $dark-text;
-		}
+    &-content {
+      text-align: left;
+      font-size: 18px;
+      line-height: 30px;
+      color: $dark-text;
+    }
 
-		&-observer {
-			display: table;
-			width: 10%;
-			height: 1px;
-			margin: 0 auto;
-		}
-	}
+    &-observer {
+      display: table;
+      width: 10%;
+      height: 1px;
+      margin: 0 auto;
+    }
+  }
 
-	.cardsNav {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
+  .cardsNav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 
-		.cardsNav__item {
-			flex: 0 0 9px;
-			border-radius: 20px;
-			height: 9px;
-			margin: 0 5px;
-			background: #cacfd5;
+    .cardsNav__item {
+      flex: 0 0 9px;
+      border-radius: 20px;
+      height: 9px;
+      margin: 0 5px;
+      background: #cacfd5;
 
-			&.active {
-				background: $dark-blue;
-			}
-		}
-	}
+      &.active {
+        background: $dark-blue;
+      }
+    }
+  }
 
-	@media (max-width: $viewport-lg-w) {
-		&__item {
-			&-content{
-				font-size: 16px;
-				line-height: 26px;
-			}
-		}
-	}
+  @media (max-width: $viewport-lg-w) {
+    &__item {
+      &-content {
+        font-size: 16px;
+        line-height: 26px;
+      }
+    }
+  }
 
-	@media (max-width: $viewport-md-w) {
-		&__container {
-			flex-wrap: unset;
-			overflow-x: scroll;
+  @media (max-width: $viewport-md-w) {
+    &__container {
+      flex-wrap: unset;
+      overflow-x: scroll;
 
-			@include hideScrollbar;
-		}
-	}
+      @include hideScrollbar;
+    }
+  }
 }

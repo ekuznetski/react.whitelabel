@@ -10,20 +10,24 @@ import { Nullable } from '@domain/interfaces';
 export const reducers = combineReducers({ data: dataStoreReducer, app: appStoreReducer });
 const sagaMiddleware = createSagaMiddleware();
 export const initStore: Nullable<IStore> = {
-	data: initDataStore,
-	app: initAppStore,
+  data: initDataStore,
+  app: initAppStore,
 };
 
 const preloadedState: IStore =
-	typeof window !== 'undefined' && (window as any).__PRELOADED_STATE__
-		? (window as any).__PRELOADED_STATE__
-		: initStore;
+  typeof window !== 'undefined' && (window as any).__PRELOADED_STATE__
+    ? (window as any).__PRELOADED_STATE__
+    : initStore;
 
 // @ts-ignore
-export const store = createStore<IStore>(reducers, preloadedState, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+export const store = createStore<IStore>(
+  reducers,
+  preloadedState,
+  composeWithDevTools(applyMiddleware(sagaMiddleware)),
+);
 
 Object.keys(sagaMiddlewareRunners).forEach((runner: any) => {
-	sagaMiddleware.run((sagaMiddlewareRunners as any)[runner]);
+  sagaMiddleware.run((sagaMiddlewareRunners as any)[runner]);
 });
 
 export * from './_app.reducer';
