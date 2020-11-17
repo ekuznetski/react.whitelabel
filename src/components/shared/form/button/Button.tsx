@@ -29,10 +29,11 @@ export const Button = memo(
     const _disabled =
       props.disabled ||
       (formikProps && (formikProps?.status === EFormStatus.disabled || (checkFormValidity && !formikProps?.isValid)));
-    const _buttonProps = { ...props };
-    delete _buttonProps.children;
-    delete _buttonProps.isLoading;
-    delete _buttonProps.loadingOnAction;
+    const _buttonProps = ['children', 'isLoading', 'loadingOnAction', 'noBg'].reduce(
+      // @ts-ignore
+      (acc, el) => (delete acc[el], acc),
+      { ...props },
+    );
 
     return (
       <button

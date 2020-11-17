@@ -112,7 +112,7 @@ export function BannerCard() {
       </div>
       <div className="banner-card__options px-11">
         <div className="banner-options__btn">
-          <Button className="px-9 noBg">
+          <Button className="px-9" noBg>
             {cards[activeCardIdx].link.path ? (
               // @ts-ignore
               <LocaleNavLink exact to={cards[activeCardIdx].link?.path}>
