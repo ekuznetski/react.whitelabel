@@ -123,12 +123,16 @@ export function Home() {
               <div className="page-top__title mb-5 mb-lg-9">
                 {t('Home Page Top Title')}
                 <LabelView>
-                    {{
-                      '*': <><br />
-                     {t('Home Page Top Subtitle')}</>,
-                      [ELabels.bsfx]: null,
-                    }}
-                  </LabelView>
+                  {{
+                    '*': (
+                      <>
+                        <br />
+                        {t('Home Page Top Subtitle')}
+                      </>
+                    ),
+                    [ELabels.bsfx]: null,
+                  }}
+                </LabelView>
               </div>
               <div className="page-top__description mb-11 mb-lg-10">{t('Home Page Top Section Desc')}</div>
               <Button>
@@ -208,17 +212,21 @@ export function Home() {
       <AccountTypesForTradingStylesSection />
       <LabelView>
         {{
-          '*': <><OurOfferBannerSection />
-          <section className="workshop-cards pt-18">
-            <Container>
-              <Row>
-                <Col xs={12}>
-                  <div className="workshop-cards__title mb-6 mb-md-12">{t('Free upcoming webinar workshop')}</div>
-                </Col>
-              </Row>
-              <WorkshopCards data={workshopsData} />
-            </Container>
-          </section></>,
+          '*': (
+            <>
+              <OurOfferBannerSection />
+              <section className="workshop-cards pt-18">
+                <Container>
+                  <Row>
+                    <Col xs={12}>
+                      <div className="workshop-cards__title mb-6 mb-md-12">{t('Free upcoming webinar workshop')}</div>
+                    </Col>
+                  </Row>
+                  <WorkshopCards data={workshopsData} />
+                </Container>
+              </section>
+            </>
+          ),
           [ELabels.bsfx]: null,
         }}
       </LabelView>

@@ -37,15 +37,15 @@ export function Platform() {
                   <strong>{t('Platform Page Top Subtitle')}</strong>
                 </div>
               </div>
-            <div className="download-buttons row">
-              <Button className="mr-6 px-7 desktop_button">{t('Download Desktop Version')}</Button  >
-              <Button className="mr-6 px-7 store-link">
-                <Svg href="app_store_logo" />
-              </Button>
-              <Button className="px-7 store-link">
-                <Svg href="google_play_logo" />
-              </Button>
-            </div>
+              <div className="download-buttons row">
+                <Button className="mr-6 px-7 desktop_button">{t('Download Desktop Version')}</Button>
+                <Button className="mr-6 px-7 store-link">
+                  <Svg href="app_store_logo" />
+                </Button>
+                <Button className="px-7 store-link">
+                  <Svg href="google_play_logo" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

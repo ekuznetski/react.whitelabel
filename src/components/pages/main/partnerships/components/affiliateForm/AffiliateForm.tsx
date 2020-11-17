@@ -81,7 +81,7 @@ export const AffiliateForm = memo(() => {
                 <Input label={t('Name')} name={EFields.name} multiple />
                 <Input label={t('Email')} type="email" name={EFields.email} />
                 <div className="phone-wrapper fadeFromBottom-row__3">
-                  <PhoneCodeSelect placeholder={t('Prefix')} name={EFields.phone_prefix}/>
+                  <PhoneCodeSelect placeholder={t('Prefix')} name={EFields.phone_prefix} />
                   <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
                 </div>
                 <TextArea label={t('Message')} name={EFields.message} rows={4} />

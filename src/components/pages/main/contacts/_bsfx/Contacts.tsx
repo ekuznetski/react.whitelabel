@@ -1,4 +1,4 @@
-import { Button, Cards, ISingleCard, SectionBg, Svg, Map } from '@components/shared';
+import { SectionBg, Svg, Map } from '@components/shared';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -36,9 +36,9 @@ export function Contacts() {
   ];
 
   const officeCoords = {
-    lat: 51.505076, 
-    lng: -0.019478
-  }
+    lat: 51.505076,
+    lng: -0.019478,
+  };
 
   return (
     <div className="contacts-wrapper">
@@ -57,9 +57,7 @@ export function Contacts() {
           <Row className="flex-column">
             {contactsList.map((contact, c) => (
               <Col key={c} className="col-12 contacts__list-header">
-                <div className="contacts__title col-12 col-xl-3 mb-9 mb-xl-0">
-                  {contact.title}
-                </div>
+                <div className="contacts__title col-12 col-xl-3 mb-9 mb-xl-0">{contact.title}</div>
                 <div className="contacts__list">
                   {contact.points.map((point, p) => (
                     <div key={p} className="contacts__list-item mx-6">
@@ -75,10 +73,12 @@ export function Contacts() {
       </section>
       <section className="map">
         <Map
-          defaultCenter = {officeCoords}
-          markers = {[{
-            position: officeCoords,
-          }]}
+          defaultCenter={officeCoords}
+          markers={[
+            {
+              position: officeCoords,
+            },
+          ]}
         />
       </section>
     </div>

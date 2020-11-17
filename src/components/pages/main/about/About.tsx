@@ -90,9 +90,7 @@ export function About() {
                   <LabelView>
                     {{
                       '*': t('Open An Account'),
-                      [ELabels.bsfx]: (
-                        t('Start Trading')
-                      ),
+                      [ELabels.bsfx]: t('Start Trading'),
                     }}
                   </LabelView>
                 </LocaleLink>

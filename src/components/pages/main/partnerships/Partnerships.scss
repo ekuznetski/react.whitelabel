@@ -1,362 +1,360 @@
 @import '~/variables';
 
 .partnership-wrapper {
-	.page-top {
-		height: 600px;
-		display: flex;
-		align-items: center;
-		background: rgb(92, 115, 131);
-		color: #fff;
-		overflow: hidden;
-		
-		.section-bg {
-			background-size: cover !important;
-			width: 100%;
-			height: 100%;
-	
-			position: absolute;
-			left: 0;
-			top: 0;
-			z-index: 0;
-		}
-	
-		&__title {
-			font-weight: normal;
-			font-size: 50px;
-			line-height: 60px;
-			text-transform: uppercase;
-		}
-	
-		&__description {
-			font-size: 18px;
-			line-height: 30px;
-		}
-	
-		button {
-			background: $dark-blue;
-			border-radius: $border-radius;
-			width: 225px;
-			height: $btn-size-lg;
-			color: #fff;
-			font-weight: 500;
-			font-size: 16px;
-			line-height: 24px;
-			text-transform: uppercase;
-		}
+  .page-top {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    background: rgb(92, 115, 131);
+    color: #fff;
+    overflow: hidden;
 
-		@media (min-width: $viewport-md-min-w){
-			&__header {
-				flex: 0 0 50%;
-				max-width: 50%;
-			}
-		}
+    .section-bg {
+      background-size: cover !important;
+      width: 100%;
+      height: 100%;
 
-		@media (min-width: $viewport-lg-min-w){
-			&__header {
-				flex: 0 0 41.66667%;
-				max-width: 41.66667%;
-			}
-		}
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 0;
+    }
 
-		@media (min-width: $viewport-xl-min-w) {
-			&__header{
-				margin-top: 3rem;
-				z-index:1;
-				&:before {
-					position: absolute;
-					content: '';
-					display: block;
-					background: $dark-text;
-					width: calc(100% + 80px);
-					height:10000%;
-					left: -10%;
-					top: -5000%;
-					opacity: 0.7;
-					z-index:-1
-				}
-			}
-		}
+    &__title {
+      font-weight: normal;
+      font-size: 50px;
+      line-height: 60px;
+      text-transform: uppercase;
+    }
 
-			
-		@media (max-width: $viewport-lg-w) {
-			height:450px;
-			padding: 70px 0 !important;
-			align-items: center;
-			
-			&__title {
-				font-size: 50px;
-				line-height: 60px;
-				color: #ffffff;
-			}
-	
-			&__description {
-				font-size: 16px;
-				line-height: 26px;
-			}
-	
-			button {
-				height: 50px;
-			}
+    &__description {
+      font-size: 18px;
+      line-height: 30px;
+    }
 
-			.section-bg{
-				background-position: 75% 50% !important;
-			}
-		}
-	
-		@media (max-width: $viewport-sm-w) {
-			&__title {
-				font-size: 30px;
-				line-height: 40px;
-			}
-	
-			&__header{
-				&:before {
-					position: absolute;
-					content: '';
-					display: block;
-					background: $dark-text;
-					width: 10000%;
-					height:10000%;
-					left: 0;
-					top: -5000%;
-					opacity: 0.9;
-					z-index:-1
-				}
-			}
-	
-			button {
-				width: 100%;
-			}
-		}
-	}
-	.programs {
-		display: flex;
-		align-items: center;
+    button {
+      background: $dark-blue;
+      border-radius: $border-radius;
+      width: 225px;
+      height: $btn-size-lg;
+      color: #fff;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      text-transform: uppercase;
+    }
 
-		&__title {
-			font-size: 36px;
-			line-height: 50px;
-			text-align: center;
-		}
+    @media (min-width: $viewport-md-min-w) {
+      &__header {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
 
-		&__description {
-			font-size: 18px;
-			line-height: 30px;
-		}
+    @media (min-width: $viewport-lg-min-w) {
+      &__header {
+        flex: 0 0 41.66667%;
+        max-width: 41.66667%;
+      }
+    }
 
-		.programs__cards {
-			.common-cards{
-				&__container{
-					.card{
-						border-right: 1px solid #F1F2F2;
-						&:last-child{
-							border-right: none;
-						}
-					}
-				}
-				&__item {
-					height: 140px;
-					box-shadow: none;
-					padding: 0;
+    @media (min-width: $viewport-xl-min-w) {
+      &__header {
+        margin-top: 3rem;
+        z-index: 1;
+        &:before {
+          position: absolute;
+          content: '';
+          display: block;
+          background: $dark-text;
+          width: calc(100% + 80px);
+          height: 10000%;
+          left: -10%;
+          top: -5000%;
+          opacity: 0.7;
+          z-index: -1;
+        }
+      }
+    }
 
-					&-header {
-						font-size: 24px;
-						line-height: 34px;
-						color: $dark-text;
-						justify-content: center;
+    @media (max-width: $viewport-lg-w) {
+      height: 450px;
+      padding: 70px 0 !important;
+      align-items: center;
 
-						small {
-							margin-left: 10px;
-							font-size: 18px;
-							color: $bsfx-blue;
-						}
-					}
+      &__title {
+        font-size: 50px;
+        line-height: 60px;
+        color: #ffffff;
+      }
 
-					&-content {
-						text-align: center;
-					}
+      &__description {
+        font-size: 16px;
+        line-height: 26px;
+      }
 
-					svg {
-						padding: 13px;
-						border-radius: $border-radius;
-						background: $grey-bg;
-						width: 50px;
-						height: 50px;
-					}
-				}
-			}
-		}
+      button {
+        height: 50px;
+      }
 
-		@media (min-width: $viewport-md-min-w){
-			.programs__cards {
-				.common-cards{
-					&__container{
-						.card{
-							flex: 0 0 25%;
-							max-width: 25%;
-						}
-					}
-				}
-			}
-		}
+      .section-bg {
+        background-position: 75% 50% !important;
+      }
+    }
 
-		@media (min-width: $viewport-lg-min-w){
-			.programs__text {
-				flex: 0 0 91.66667%;
-				max-width: 91.66667%;
-			}
-		}
+    @media (max-width: $viewport-sm-w) {
+      &__title {
+        font-size: 30px;
+        line-height: 40px;
+      }
 
-		@media (max-width: $viewport-sm-w) {
-			.programs{
-				&__title{
-					font-size: 24px;
-					line-height: 34px;
-				}
-				&__description{
-					font-size: 16px;
-					line-height: 26px;
-				}
-			}
-		}
+      &__header {
+        &:before {
+          position: absolute;
+          content: '';
+          display: block;
+          background: $dark-text;
+          width: 10000%;
+          height: 10000%;
+          left: 0;
+          top: -5000%;
+          opacity: 0.9;
+          z-index: -1;
+        }
+      }
 
-		@media (max-width: $viewport-md-w) {
-			.programs__cards {
-				.common-cards__container {
-					flex-flow: unset;
-				}
-			}
-		}
+      button {
+        width: 100%;
+      }
+    }
+  }
+  .programs {
+    display: flex;
+    align-items: center;
 
-		@media (max-width: $viewport-lg-w) {
-			.programs__cards {
-				.common-cards__container {
-					flex-flow: unset;
-					.card{
-						padding:0;
-					}
-				}
-			}
-		}
-	}
+    &__title {
+      font-size: 36px;
+      line-height: 50px;
+      text-align: center;
+    }
 
-	.potential {
-		background: #1a1b1c;
-		color: #ffffff;
-		text-align: center;
-		height: 450px;
+    &__description {
+      font-size: 18px;
+      line-height: 30px;
+    }
 
-		.row{
-			justify-content: center;
-		}
-	
-		&__title {
-		  font-size: 36px;
-		  line-height: 46px;
-		}
-	
-		&__description {
-		  font-size: 18px;
-		  line-height: 30px;
-		}
-	
-		@media (max-width: $viewport-md-w) {
-		  &__title {
-			font-size: 24px;
-			line-height: 34px;
-		  }
-	
-		  &__description {
-			font-size: 16px;
-			line-height: 26px;
-		  }
-		}
-	  }
+    .programs__cards {
+      .common-cards {
+        &__container {
+          .card {
+            border-right: 1px solid #f1f2f2;
+            &:last-child {
+              border-right: none;
+            }
+          }
+        }
+        &__item {
+          height: 140px;
+          box-shadow: none;
+          padding: 0;
 
-	.deposit {
-		display: flex;
-		align-items: center;
+          &-header {
+            font-size: 24px;
+            line-height: 34px;
+            color: $dark-text;
+            justify-content: center;
 
-		&__title {
-			font-size: 36px;
-			line-height: 46px;
-			text-align: center;
+            small {
+              margin-left: 10px;
+              font-size: 18px;
+              color: $bsfx-blue;
+            }
+          }
 
-			b {
-				display: block;
-			}
-		}
+          &-content {
+            text-align: center;
+          }
 
-		.deposit__cards {
-			.common-cards{
-				&__container{
-					.card{
-						border-right: 1px solid #F1F2F2;
-						&:last-child{
-							border-right: none;
-						}
-					}
-				}
-				&__item {
-					height: 200px;
-					text-align: center;
-					box-shadow: none;
-					padding: 0;
-					svg {
-						fill: $bsfx-blue;
-					}
+          svg {
+            padding: 13px;
+            border-radius: $border-radius;
+            background: $grey-bg;
+            width: 50px;
+            height: 50px;
+          }
+        }
+      }
+    }
 
-					&-header,
-					&-content {
-						justify-content: center;
-						text-align: center;
+    @media (min-width: $viewport-md-min-w) {
+      .programs__cards {
+        .common-cards {
+          &__container {
+            .card {
+              flex: 0 0 25%;
+              max-width: 25%;
+            }
+          }
+        }
+      }
+    }
 
-						small {
-							display: block;
-						}
-					}
-				}
-			}
-		}
-		@media (max-width: $viewport-lg-w) {
-			.deposit__cards {
-				.common-cards{
-					&__item {
-						&-content {
-							font-size: 22px;
-							line-height: 34px;
-						}
-					}
-				}
-			}
-		}
-	}
+    @media (min-width: $viewport-lg-min-w) {
+      .programs__text {
+        flex: 0 0 91.66667%;
+        max-width: 91.66667%;
+      }
+    }
 
-	.programForms{
-		background-color: #F8F8F9;;
-		&__title{
-			font-size: 36px;
-			line-height: 46px;
-			color: $dark-text;
-			text-align: center;
-			margin-bottom: 34px;
-		}
-		&__tabs{
-			.tab__link__label-title{
-				text-transform: uppercase;
-			}
-		}
-	}
+    @media (max-width: $viewport-sm-w) {
+      .programs {
+        &__title {
+          font-size: 24px;
+          line-height: 34px;
+        }
+        &__description {
+          font-size: 16px;
+          line-height: 26px;
+        }
+      }
+    }
 
-	@media (max-width: $viewport-sm-w) {
-		.common-cards{
-			&__container{
-				.card{
-					border-left:none !important;
-					border-right:none !important;
-				}
-			}
-		}
-	}
+    @media (max-width: $viewport-md-w) {
+      .programs__cards {
+        .common-cards__container {
+          flex-flow: unset;
+        }
+      }
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      .programs__cards {
+        .common-cards__container {
+          flex-flow: unset;
+          .card {
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .potential {
+    background: #1a1b1c;
+    color: #ffffff;
+    text-align: center;
+    height: 450px;
+
+    .row {
+      justify-content: center;
+    }
+
+    &__title {
+      font-size: 36px;
+      line-height: 46px;
+    }
+
+    &__description {
+      font-size: 18px;
+      line-height: 30px;
+    }
+
+    @media (max-width: $viewport-md-w) {
+      &__title {
+        font-size: 24px;
+        line-height: 34px;
+      }
+
+      &__description {
+        font-size: 16px;
+        line-height: 26px;
+      }
+    }
+  }
+
+  .deposit {
+    display: flex;
+    align-items: center;
+
+    &__title {
+      font-size: 36px;
+      line-height: 46px;
+      text-align: center;
+
+      b {
+        display: block;
+      }
+    }
+
+    .deposit__cards {
+      .common-cards {
+        &__container {
+          .card {
+            border-right: 1px solid #f1f2f2;
+            &:last-child {
+              border-right: none;
+            }
+          }
+        }
+        &__item {
+          height: 200px;
+          text-align: center;
+          box-shadow: none;
+          padding: 0;
+          svg {
+            fill: $bsfx-blue;
+          }
+
+          &-header,
+          &-content {
+            justify-content: center;
+            text-align: center;
+
+            small {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    @media (max-width: $viewport-lg-w) {
+      .deposit__cards {
+        .common-cards {
+          &__item {
+            &-content {
+              font-size: 22px;
+              line-height: 34px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .programForms {
+    background-color: #f8f8f9;
+    &__title {
+      font-size: 36px;
+      line-height: 46px;
+      color: $dark-text;
+      text-align: center;
+      margin-bottom: 34px;
+    }
+    &__tabs {
+      .tab__link__label-title {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-sm-w) {
+    .common-cards {
+      &__container {
+        .card {
+          border-left: none !important;
+          border-right: none !important;
+        }
+      }
+    }
+  }
 }
-

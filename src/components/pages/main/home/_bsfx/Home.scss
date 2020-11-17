@@ -32,8 +32,8 @@
     }
 
     @media (min-width: $viewport-xl-min-w) {
-      &__header{
-        z-index:1;
+      &__header {
+        z-index: 1;
         margin-left: 4rem;
         margin-right: 4rem;
         &:before {
@@ -42,15 +42,15 @@
           display: block;
           background: $dark-text;
           width: calc(100% + 80px);
-          height:10000%;
+          height: 10000%;
           left: -11%;
           top: -5000%;
           opacity: 0.7;
-          z-index:-1;
+          z-index: -1;
         }
       }
-  
-      .col-12{
+
+      .col-12 {
         padding: 0;
       }
     }
@@ -97,7 +97,7 @@
     margin-top: -200px;
     z-index: 1;
 
-    .col-12{
+    .col-12 {
       padding: 0;
     }
 
@@ -106,17 +106,17 @@
     }
   }
 
-  .account-types-for-trading-styles-section{
-    &__title{
+  .account-types-for-trading-styles-section {
+    &__title {
       text-align: left;
       text-transform: uppercase;
     }
 
-    &__description{
+    &__description {
       text-align: left;
     }
 
-    &__header{
+    &__header {
       flex: 0 0 83.33333%;
       max-width: 83.33333%;
     }

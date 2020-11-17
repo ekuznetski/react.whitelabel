@@ -1,24 +1,30 @@
 @import '~/variables';
 
-.field.input, .field textarea, .field.select-wrapper{
-	border-color: transparent !important;
-	box-shadow: box-shadow(10, 0.05);
-	
-	&.focused {
-		border-color: $blue !important;
-		box-shadow: box-shadow(10, 0.1);
-	}
+.field.input,
+.field textarea,
+.field.select-wrapper {
+  border-color: transparent !important;
+  box-shadow: box-shadow(10, 0.05);
+
+  &.focused {
+    border-color: $blue !important;
+    box-shadow: box-shadow(10, 0.1);
+  }
 }
 
-.field.textarea{
-	border-color: transparent !important;
-	box-shadow: none !important;
+.common-tabs__container {
+  overflow: visible !important;
+}
 
-	&.focused{
-		textarea{
-			border: 1px solid #cacfd5;
-			border-color: $blue !important;
-			box-shadow: box-shadow(10, 0.1);
-		}
-	}
+.field.textarea {
+  border-color: transparent !important;
+  box-shadow: none !important;
+
+  &.focused {
+    textarea {
+      border: 1px solid #cacfd5;
+      border-color: $blue !important;
+      box-shadow: box-shadow(10, 0.1);
+    }
+  }
 }
