@@ -8,3 +8,5 @@ export * from './withdrawals.enum';
 export * from './deposit.enum';
 export * from './language.enum';
 export * from './registration.enum';
+export * from './financialProfile.enum';
+export * from './financialProfileSteps.enum';

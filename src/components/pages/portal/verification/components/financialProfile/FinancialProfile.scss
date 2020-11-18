@@ -1,0 +1,32 @@
+@import '~/variables';
+
+.financial-profile {
+  .progress-bar {
+    background-color: $grey;
+    height: 4px;
+    margin: 50px 0;
+    .progress-bar-active {
+      height: 2px;
+      background-color: $dark-blue;
+      transition: width 0.35s;
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        top: -4px;
+        right: 0;
+        display: block;
+        width: 3px;
+        height: 10px;
+        background-color: $dark-blue;
+      }
+      .progress {
+        position: absolute;
+        width: 30px;
+        right: -15px;
+        text-align: center;
+        top: -30px;
+      }
+    }
+  }
+}
