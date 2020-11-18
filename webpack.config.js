@@ -118,7 +118,7 @@ module.exports = (_env, arguments) => {
       (file) => !_targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName),
     );
 
-    console.log(targetLabelComponentsAlias);
+    // console.log(targetLabelComponentsAlias);
   }
   return {
     context: path.join(__dirname, 'src'),

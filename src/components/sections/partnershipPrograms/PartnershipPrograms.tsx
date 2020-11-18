@@ -5,6 +5,7 @@ import React, { forwardRef, memo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { AnyFunction } from '@domain/interfaces';
 import './PartnershipPrograms.scss';
+import { Col, Container, Row } from 'react-bootstrap';
 
 export interface ISelect {
   onNavigate: AnyFunction;
@@ -16,14 +17,14 @@ export const PartnershipPrograms = memo(
 
     const programPoints = {
       affiliate: [
-        t('Mobile optimised marketing tools'),
+        t('Mobile optimized marketing tools'),
         t('Dedicated affiliate manager'),
         t('Round-the-clock access to all your analytics'),
       ],
       brokers: [
         t('Multi-level marketing rebate tiers'),
         t('Free market reviews for clients'),
-        t('Customisable marketing and advertising tools'),
+        t('Customizable marketing and advertising tools'),
         t('Local office and events support'),
       ],
     };
@@ -33,55 +34,51 @@ export const PartnershipPrograms = memo(
     };
 
     return (
-      <section className={classNames('partnership-programs-styles-section', props.className)} ref={ref}>
-        <div className="container">
-          <div className="row">
-            <div className="col-12 partnership-programs-styles-section__header">
-              <div className="partnership-programs-styles-section__title mb-4">
+      <section className={classNames('partnership-programs-section', props.className)} ref={ref}>
+        <Container>
+          <Row>
+            <Col xs={12} className="partnership-programs__header">
+              <div className="partnership-programs__title mb-4">
                 <Trans i18nKey="Programs Section Title">
                   <strong>CUSTOM-MADE</strong> FOR YOU
                 </Trans>
               </div>
-              <div className="partnership-programs-styles-section__description mb-13">{t('Programs Section Desc')}</div>
-            </div>
-            <div className="col-12 p-0">
-              <Cards id="partnershipProgramsStylesSectionCards">
+              <div className="partnership-programs__description mb-11">{t('Programs Section Desc')}</div>
+            </Col>
+            <Col xs={12} className="p-0">
+              <Cards id="partnership-programs__cards">
                 <Card wrapperClassName="card col-12 col-md-6 col-lg-4 mb-7 mb-md-0" uid={1}>
-                  <CardHeader className="mb-7 header">
-                    <div>
-                      <Svg href="affiliate" _label={ELabels.bsfx} className="mr-5" />
-                      {t('Affiliate Program')}
-                    </div>
+                  <CardHeader className="mb-8 header">
+                    <Svg href="affiliate" _label={ELabels.bsfx} className="mr-5" />
+                    {t('Affiliate Program')}
                   </CardHeader>
                   <CardContent className="text-left">
-                    <div className="common-cards__item-content-points">
+                    <div className="points">
                       {programPoints.affiliate.map((point) => (
-                        <div className="common-cards__item-content-points__item">{point}</div>
+                        <div className="points__item mb-4">{point}</div>
                       ))}
                     </div>
                     <Button onClick={onProgramSelect('affiliate')}>{t('Sign Up')}</Button>
                   </CardContent>
                 </Card>
                 <Card wrapperClassName="card col-12 col-md-6 col-lg-4 mb-7 mb-md-0" uid={2}>
-                  <CardHeader className="mb-7 header">
-                    <div>
-                      <Svg href="brokers" _label={ELabels.bsfx} className="mr-5" />
-                      {t('Introducing Brokers')}
-                    </div>
+                  <CardHeader className="mb-8 header">
+                    <Svg href="brokers" _label={ELabels.bsfx} className="mr-5" />
+                    {t('Introducing Brokers')}
                   </CardHeader>
                   <CardContent className="text-left">
-                    <div className="common-cards__item-content-points">
+                    <div className="points">
                       {programPoints.brokers.map((point) => (
-                        <div className="common-cards__item-content-points__item">{point}</div>
+                        <div className="points__item mb-4">{point}</div>
                       ))}
                     </div>
                     <Button onClick={onProgramSelect('ib')}>{t('Sign Up')}</Button>
                   </CardContent>
                 </Card>
               </Cards>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </section>
     );
   }),

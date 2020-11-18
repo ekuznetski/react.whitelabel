@@ -61,7 +61,7 @@ export const AffiliateForm = memo(() => {
   }
 
   return (
-    <Container>
+    <Container className="affiliate-form">
       <Row>
         <Col sm={12} md={7} lg={5} className="m-auto">
           <Formik
