@@ -1,3 +1,6 @@
+@import '~/variables';
+@import '~/mixin';
+
 body {
   font-family: 'Poppins', sans-serif;
   color: $dark-text;
