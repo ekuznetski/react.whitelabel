@@ -5,32 +5,32 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
 import './Deposit.scss';
-import { depositActionCreators, DepositProvider, IDepositAction, IDepositState } from './depositContext';
+import { depositActionCreators, DepositProvider, IDepositAction, IDepositState } from './deposit.context';
 import { DepositSuccessFailure } from './depositSuccessFailure/DepositSuccessFailure';
 import { useSelector } from 'react-redux';
 import { IAppStore, IStore } from '@store';
 
 export const Deposit = memo(function Deposit() {
-  const { t } = useTranslation();
-  const { route } = useSelector<IStore, Pick<IAppStore, 'route'>>((state) => ({
+  const { route, tradingAccountsCurrencies } = useSelector<
+    IStore,
+    { tradingAccountsCurrencies: ECurrencyCode[] } & Pick<IAppStore, 'route'>
+  >((state) => ({
     route: state.app.route,
+    tradingAccountsCurrencies: Array.from(
+      state.data.tradingData.accounts.reduce(
+        (currencies, account) => currencies.add(account.currency),
+        new Set<ECurrencyCode>(),
+      ),
+    ),
   }));
+  const { t } = useTranslation();
+
   return (
     <DepositProvider>
       {(state: IDepositState, dispatch: React.Dispatch<IDepositAction> | null) => {
         if (route.state.depositMethod && state.method !== route.state.depositMethod) {
           dispatch?.(depositActionCreators.setMethod(route.state.depositMethod));
         }
-        const { tradingAccountsCurrencies } = useSelector<IStore, { tradingAccountsCurrencies: ECurrencyCode[] }>(
-          (state) => ({
-            tradingAccountsCurrencies: Array.from(
-              state.data.tradingData.accounts.reduce(
-                (currencies, account) => currencies.add(account.currency),
-                new Set<ECurrencyCode>(),
-              ),
-            ),
-          }),
-        );
 
         return (
           <Container className="deposit-page-wrapper">

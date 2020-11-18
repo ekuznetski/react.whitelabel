@@ -41,7 +41,7 @@ compile:wl:
         - wl
     only:
         refs:
-            - dev   
+            - bsfx_pages   
     allow_failure: true
 
 deploy:wl:web:
@@ -69,7 +69,7 @@ deploy:wl:web:
         - compile:wl
     only:
         refs:
-            - dev             
+            - bsfx_pages             
     tags:
         - wl
     allow_failure: true
@@ -94,7 +94,7 @@ update:wl:docker:
             exit"
     only:
         refs:
-            - dev
+            - bsfx_pages
         changes:
             - deploy-scripts/docker-compose.yml
             - deploy-scripts/Dockerfile
@@ -122,7 +122,7 @@ update:wl:docker:
 #             exit"
 #     only:
 #         refs:
-#             - dev
+#             - bsfx_pages
 #         changes:
 #             - deploy-scripts/nginx/**/*
               
@@ -151,7 +151,7 @@ update:wl:docker:
 #             exit"
 #     only:
 #         refs:
-#             - dev
+#             - bsfx_pages
 #         changes:
 #             - deploy-scripts/docker-compose.yml
 #             - deploy-scripts/Dockerfile

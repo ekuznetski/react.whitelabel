@@ -1,6 +1,6 @@
 {
   "clients": {
-    "getProfile!": {
+    "getProfile": {
       "response": {
         "status": "success",
         "message": {
@@ -415,7 +415,7 @@
       }
     }
   },
-  "1mt4accounts": {
+  "mt4accounts": {
     "create": {
       "response": {
         "status": "success",

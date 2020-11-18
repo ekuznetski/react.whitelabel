@@ -5,6 +5,7 @@ import {
   MClientData,
   MClientProfile,
   MClientTradingData,
+  MDocument,
   MTransactionalStatementData,
   MWithdrawalHistoryItem,
 } from '@domain/models';
@@ -18,6 +19,7 @@ export interface IDataStore {
     statusData: MClientData;
     preferences: ILogin;
     statements: MTransactionalStatementData;
+    documents: MDocument[];
   };
   tradingData: MClientTradingData;
   withdrawals: {

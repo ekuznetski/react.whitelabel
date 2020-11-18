@@ -149,9 +149,3 @@ $spacers: (
     $spacer * 9,
   ),
 );
-
-@function sp($spacerKey) {
-  $sp: map-get($spacers, $spacerKey);
-
-  @return $sp;
-}

@@ -14,12 +14,12 @@ import {
 import { FieldValidators } from '@domain';
 import { EModalType, ETradingAccountType, ETradingPlatform, ETradingType } from '@domain/enums';
 import { ICreateTradingAccountRequest, ICreateTradingAccountResponse } from '@domain/interfaces';
-import { ac_createTradingAccount, EActionTypes } from '@store';
+import { ac_createTradingAccount, EActionTypes, IAppStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import './OpenAccount.scss';
 
@@ -32,7 +32,10 @@ enum EFields {
   'leverage' = 'leverage',
 }
 
-export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
+export const OpenAccount = memo(function OpenAccount() {
+  const { route } = useSelector<IStore, Pick<IAppStore, 'route'>>((state) => ({
+    route: state.app.route,
+  }));
   const [modalOptions, setModalOptions] = React.useState<modalOptionsProps>({
     type: null,
     isOpen: false,
@@ -77,7 +80,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
     dispatch(
       ac_createTradingAccount(
         data as ICreateTradingAccountRequest,
-        routeState.accountType === ETradingType.demo,
+        route.state.accountType === ETradingType.demo,
         (accountData) => setModalOptions({ type: EModalType.success, isOpen: true, data: accountData }),
         () => setModalOptions({ type: EModalType.failure, isOpen: true, data: null }),
       ),
@@ -90,7 +93,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
         <Row>
           <Col xs={12}>
             <PageTitle
-              title={routeState.accountType === ETradingType.demo ? t('Open Demo Account') : t('Open Live Account')}
+              title={route.state.accountType === ETradingType.demo ? t('Open Demo Account') : t('Open Live Account')}
             />
           </Col>
         </Row>
@@ -162,7 +165,7 @@ export const OpenAccount = memo(function OpenAccount({ routeState }: any) {
             <Button className="red mr-5" onClick={() => closeModal(EModalType.failure)(false)}>
               {t('Try Again')}
             </Button>
-            <Button className="red noBg mr-5" onClick={() => closeModal(EModalType.failure)(false)}>
+            <Button className="red mr-5" noBg onClick={() => closeModal(EModalType.failure)(false)}>
               <LocaleNavLink to="/dashboard">{t('Back to Dashboard')}</LocaleNavLink>
             </Button>
           </ModalNav>

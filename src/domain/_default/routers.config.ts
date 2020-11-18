@@ -21,6 +21,7 @@ import {
 import {
   ac_fetchBankDetails,
   ac_fetchClientData,
+  ac_fetchDocuments,
   ac_fetchGeoIpData,
   ac_fetchProfile,
   ac_fetchTradingAccounts,
@@ -319,6 +320,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/verification',
     component: Verification,
     appSection: EAppSection.portal,
+    apiData: {
+      strict: [ac_fetchDocuments],
+    },
     // apiData: {
     //   strict: [ac_fetchBankDetails], // TINS, CCard Data
     // },

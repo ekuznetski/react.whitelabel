@@ -1,4 +1,4 @@
-import { DocumentsTypeEnum, EAppSection, ELanguage } from '@domain/enums';
+import { EAppSection, EDocumentsType, ELanguage } from '@domain/enums';
 import {
   AnyFunction,
   IClientAddRequest,
@@ -26,7 +26,6 @@ import {
 } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
-import { IAddDepositRequest } from '../domain/interfaces/app/deposit.interface';
 
 export function ac_showNotification(payload: Omit<INotificationState, 'visible'>): IAction {
   return {
@@ -348,10 +347,10 @@ export function ac_addDeposit<T>(
   };
 }
 
-export function ac_fetchDocuments({ force = null }: { force: true | null }): IAction {
+export function ac_fetchDocuments(payload?: { force: true | null }): IAction {
   return {
     type: EActionTypes.fetchDocuments,
-    force,
+    force: payload?.force || null,
   };
 }
 
@@ -363,7 +362,7 @@ export function ac_saveDocuments(payload: MDocument[]): IAction {
 }
 
 export function ac_uploadDocuments(
-  payload: { [K in typeof DocumentsTypeEnum[keyof typeof DocumentsTypeEnum]]?: Blob },
+  payload: { [K in typeof EDocumentsType[keyof typeof EDocumentsType]]?: Blob },
   onSuccess: AnyFunction = () => {},
   onFailure: AnyFunction = () => {},
 ): IAction {

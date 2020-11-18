@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { depositActionCreators, useDepositDispatch, useDepositState } from '../../depositContext';
+import { depositActionCreators, useDepositDispatch, useDepositState } from '../../deposit.context';
 import './TabContentChooseAmount.scss';
 import classNames from 'classnames';
 import { Col, Row } from 'react-bootstrap';
@@ -155,7 +155,7 @@ export function TabContentChooseAmount() {
               )}
               {isDesktop && (
                 <Radio
-                  colClassName="col-4 pr-0"
+                  optionClassName="col-4 pr-0"
                   className="mb-10 mr-0"
                   name={EFields.amount}
                   options={options}

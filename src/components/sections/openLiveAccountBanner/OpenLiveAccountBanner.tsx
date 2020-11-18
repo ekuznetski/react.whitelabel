@@ -1,8 +1,9 @@
-import { Button, LocaleLink, SectionBg } from '@components/shared';
+import { Button, LabelView, LocaleLink, SectionBg } from '@components/shared';
+import { ELabels } from '@domain/enums';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import './OpenLiveAccountBanner.scss';
 
 export const OpenLiveAccountBannerSection = memo(
@@ -16,8 +17,15 @@ export const OpenLiveAccountBannerSection = memo(
           <Row>
             <Col lg={5} className="mb-12 mb-lg-0">
               <div className="open-live-account-banner__title mb-7">
-                {t('Banner Section Title:0')}
-                <b>{t('Banner Section Title:1')}</b>
+                <LabelView label={ELabels.arofx}>
+                  <Trans i18nKey="Banner Section Title">
+                    Financial Experience <b>You Can Rely On</b>
+                  </Trans>
+                </LabelView>
+                <Trans i18nKey="Banner Section Title">
+                  <strong>FOR</strong> TRADERS <br />
+                  <strong>BY</strong> TRADERS
+                </Trans>
               </div>
               <div className="open-live-account-banner__description">{t('Banner Section Desc')}</div>
             </Col>

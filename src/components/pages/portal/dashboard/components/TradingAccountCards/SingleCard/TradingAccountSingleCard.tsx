@@ -74,7 +74,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
           <div className="leverage-value">{card.leverage}</div>
         </div>
         <div className="account-card__options px-7">
-          <Button className="fund px-3 mr-3 noBg">
+          <Button className="fund px-3 mr-3" noBg>
             <LocaleNavLink exact to="/deposit">
               {t('Fund')}
               <Svg href="coins" className="ml-4" />

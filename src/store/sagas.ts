@@ -350,9 +350,9 @@ export function* makeInternalTransferSage() {
   });
 }
 
-export function* getDocumentsSage() {
+export function* fetchDocumentsSage() {
   yield $$(
-    EActionTypes.makeInternalTransfer,
+    EActionTypes.fetchDocuments,
     function* () {
       const { response }: IDocumentsInterfaceResponse = yield call(getDocumentsRequest);
       const data = response.message.map((document) => new MDocument(document));
@@ -364,7 +364,7 @@ export function* getDocumentsSage() {
 }
 
 export function* uploadFileSage() {
-  yield $$(EActionTypes.makeInternalTransfer, function* ({ payload }: IAction) {
+  yield $$(EActionTypes.uploadDocuments, function* ({ payload }: IAction) {
     const { response }: any = yield call(uploadFileRequest, payload);
     yield put(ac_fetchDocuments({ force: true }));
     return response;

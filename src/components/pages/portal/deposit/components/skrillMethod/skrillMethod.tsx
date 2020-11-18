@@ -5,7 +5,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { BillingDetailsModal, DetailsHeader } from '..';
-import { DepositContext, useDepositDispatch, useDepositState } from '../../depositContext';
+import { DepositContext, useDepositDispatch, useDepositState } from '../../deposit.context';
 import { ac_addDeposit, IStore } from '@store';
 import { ELanguage, EDepositMethodCode, ETradingType } from '@domain/enums';
 import { ISkrillDepositRequest } from '@domain/interfaces';
@@ -33,7 +33,7 @@ export function SkrillMethod() {
       const preparedData: ISkrillDepositRequest = {
         PaymentMethod: EDepositMethodCode.skrill,
         first_name: profile.first_name,
-        surname: profile.surname,
+        surname: profile.last_name,
         city: billingDetails?.city ?? profile.city,
         postcode: billingDetails?.postcode ?? profile.city,
         email: profile.email,

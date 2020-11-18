@@ -1,16 +1,26 @@
-import { Button } from '@components/shared';
+import { Button, EUploadWrapperViewType, useUploadWrapperDispatch } from '@components/shared';
+import { EDocumentsType } from '@domain/enums';
 import { ac_uploadDocuments } from '@store';
 import { useCombinedRef } from '@utils/hooks';
+import { useSetState } from 'ahooks';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useEffect, useState } from 'react';
+import React, { forwardRef, memo, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { UploadEmptyView, UploadReadyView } from './components';
-import { UploadProvider, UploadText, UploadViewState, useUploadDispatch } from './upload-context';
+import {
+  UploadDispatch,
+  UploadProvider,
+  UploadState,
+  UploadText,
+  UploadViewState,
+  useUploadDispatch,
+} from './upload.context';
 import './Upload.scss';
 
 interface UploadProps {
+  fileType: EDocumentsType;
   fieldName: string;
   className?: string;
   uploadSectionClassName?: string;
@@ -22,23 +32,28 @@ interface UploadProps {
   maxFileSizeKb?: number;
   disabled?: boolean;
   errorText?: UploadText;
-  transferControls?: false & { onChange: (state: UploadViewState) => void };
+  transferControls?: false & {
+    trackContextState: (state: UploadState) => void;
+    regContextDispatch: (dispatch: UploadDispatch) => void;
+  };
+  isComplete?: () => void;
   isLoading?: () => void;
-  isError?: () => void;
+  isError?: (el: UploadState) => void;
 }
 
-interface MultiUploadProps {
+interface MultipleUploadProps {
   children: React.ReactElement[];
   accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx' | 'tiff')[];
   maxFileSizeKb?: number;
   disabled?: boolean;
+  isComplete?: () => void;
   isLoading?: () => void;
-  isError?: () => void;
+  isError?: (el: UploadState) => void;
 }
 
 // not working with HMR
-export const MultiUpload = memo(
-  forwardRef<HTMLDivElement, MultiUploadProps>(function MultiUpload(
+export const MultipleUpload = memo(
+  forwardRef<HTMLDivElement, MultipleUploadProps>(function MultipleUpload(
     {
       accept = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx', 'tiff'],
       maxFileSizeKb = 15 * 1024, // 15mb
@@ -47,24 +62,80 @@ export const MultiUpload = memo(
     },
     _ref,
   ) {
-    const [filesContext, setFilesContext] = useState<UploadViewState[]>([]);
+    const [multiContextDispatch, setMultiContextDispatch] = useSetState<{ [k: string]: any }>({});
+    const [multiContextState, setMultiContextState] = useSetState<{ [k: string]: any }>({});
+    const wrapperDispatch = useUploadWrapperDispatch();
+    const dispatch = useDispatch();
     const { t } = useTranslation();
 
     useEffect(() => {
       if (!Array.isArray(props.children)) throw new Error('MultiUpload must contain more than one ReactElement');
     }, []);
 
+    useEffect(() => {
+      const _ = Object.keys(multiContextState);
+
+      if (_.every((key) => multiContextState[key].view === UploadViewState.loading)) {
+        props.isLoading?.();
+      } else if (_.every((key) => multiContextState[key].view === UploadViewState.complete)) {
+        wrapperDispatch?.({ view: EUploadWrapperViewType.documents });
+        props.isComplete?.();
+      } else if (_.some((key) => multiContextState[key].view === UploadViewState.error)) {
+        props.isError?.(
+          multiContextState[_.find((key) => multiContextState[key].view === UploadViewState.error) as string],
+        );
+      }
+    }, [multiContextState]);
+
+    function trackUploadFileContext(uploadFileId: string) {
+      return function (contextData: UploadState) {
+        // if (multiContextState[uploadFileId] && !shallowEqual(multiContextState[uploadFileId], contextData)) {
+        //   const diff = deepDifference(multiContextState[uploadFileId], contextData);
+        //   if (diff.view && multiContextState[uploadFileId] == UploadViewState.error) {
+        //     Object.keys(multiContextDispatch)
+        //       .filter((k) => k != uploadFileId)
+        //       .forEach((key) => {
+        //         multiContextDispatch[key]({
+        //           type: contextData.view == UploadViewState.error ? 'showError' : 'removeFile',
+        //         });
+        //       });
+        //   }
+        // }
+
+        setMultiContextState({ [uploadFileId]: contextData });
+      };
+    }
+
+    function regUploadFileContextDispatch(uploadFileId: string) {
+      return function (contextDispatch: UploadDispatch) {
+        setMultiContextDispatch({ [uploadFileId]: contextDispatch });
+      };
+    }
+
+    function Submit() {
+      const uploadDocs = {};
+      Object.keys(multiContextState).forEach((key) => {
+        Object.assign(uploadDocs, { [multiContextState[key].fileType]: multiContextState[key].file });
+        multiContextDispatch[key]({ type: 'uploadFile' });
+      });
+      dispatch(ac_uploadDocuments(uploadDocs));
+    }
+
     return (
       <Row>
         {props.children.map((child, idx) => {
           if (child.type == UploadFile) {
+            const _id = `uf${idx}`;
             return (
               <Col key={idx}>
                 {React.cloneElement(child, {
                   accept: accept || child.props.accept,
                   maxFileSizeKb: maxFileSizeKb || child.props.maxFileSizeKb,
                   disabled: disabled || child.props.disabled,
-                  transferControls: true,
+                  transferControls: {
+                    trackContextState: trackUploadFileContext(_id),
+                    regContextDispatch: regUploadFileContextDispatch(_id),
+                  },
                 })}
               </Col>
             );
@@ -72,7 +143,13 @@ export const MultiUpload = memo(
           return <></>;
         })}
         <Col xs={12}>
-          <Button className="upload-file__btn mt-9">{t('Confirm & Upload')}</Button>
+          <Button
+            className="upload-file__btn mt-9"
+            disabled={!Object.keys(multiContextState).every((k) => multiContextState[k].view === UploadViewState.ready)}
+            onClick={Submit}
+          >
+            {t('Confirm & Upload')}
+          </Button>
         </Col>
       </Row>
     );
@@ -85,14 +162,13 @@ export const UploadFile = memo(
       accept = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx', 'tiff'],
       maxFileSizeKb = 15 * 1024, // 15mb
       disabled = false,
-      // loading: (val) => if (val) this._updateState(EFileDropState.LOADING),
-      // uploadError: (val) => if (val) this._updateState(EFileDropState.ERROR),
       ...props
     },
     _ref,
   ) {
-    const { t } = useTranslation();
+    const wrapperDispatch = useUploadWrapperDispatch();
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     return (
       <UploadProvider>
@@ -100,35 +176,41 @@ export const UploadFile = memo(
           const ref = useCombinedRef(_ref);
 
           useEffect(() => {
-            if (props.description) {
-              contextDispatch({
-                type: 'addDesc',
-                desc: props.description,
-              });
-            }
+            contextDispatch({
+              type: 'initFile',
+              fileType: props.fileType,
+              desc: props.description || undefined,
+              fileIcon: props.icon ? { name: props.icon, width: props.iconWidth, height: props.iconHeight } : undefined,
+            });
 
-            if (props.icon) {
-              contextDispatch({
-                type: 'addIcon',
-                fileIcon: { name: props.icon, width: props.iconWidth, height: props.iconHeight },
-              });
+            if (props.transferControls) {
+              props.transferControls?.regContextDispatch?.(contextDispatch);
             }
           }, []);
 
           useEffect(() => {
-            switch (contextState.view) {
-              case UploadViewState.loading:
-                props.isLoading?.();
-                break;
-              case UploadViewState.error:
-                props.isError?.();
-                break;
+            if (!props.transferControls) {
+              switch (contextState.view) {
+                case UploadViewState.loading:
+                  setTimeout(() => {
+                    contextDispatch({ type: 'complete' });
+                  }, 500)
+                  props.isLoading?.();
+                  break;
+                case UploadViewState.complete:
+                  wrapperDispatch?.({ view: EUploadWrapperViewType.documents });
+                  props.isComplete?.();
+                  break;
+                case UploadViewState.error:
+                  props.isError?.(contextState);
+                  break;
+              }
             }
           }, [contextState.view]);
 
           if (props.transferControls) {
             useEffect(() => {
-              
+              props.transferControls?.trackContextState?.(contextState);
             }, [contextState]);
           }
 
@@ -139,7 +221,7 @@ export const UploadFile = memo(
 
           function Submit() {
             contextDispatch({ type: 'uploadFile' });
-            dispatch(ac_uploadDocuments({ CCBack: new Blob() }));
+            dispatch(ac_uploadDocuments({ [props.fileType]: new Blob() }));
           }
 
           function renderView() {
@@ -155,6 +237,7 @@ export const UploadFile = memo(
                 );
               case UploadViewState.error:
               case UploadViewState.loading:
+              case UploadViewState.complete:
               case UploadViewState.ready:
                 return <UploadReadyView fieldName={props.fieldName} />;
             }

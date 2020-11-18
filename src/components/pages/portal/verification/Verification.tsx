@@ -1,4 +1,4 @@
-import { MultiUpload, PageTitle, Tab, Tabs, UploadFile } from '@components/shared';
+import { PageTitle, Tab, Tabs } from '@components/shared';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +17,7 @@ export const Verification = memo(function Verification() {
       </Row>
       <Row className="justify-content-center">
         <Col xs={12}>
-          <Tabs className="client-verification__tabs">
+          <Tabs className="client-verification__tabs" activeTab="additionalInformation">
             <Tab label={t('Financial Profile')} anchor="financialProfile">
               <FinancialProfile />
             </Tab>

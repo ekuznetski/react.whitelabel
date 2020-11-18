@@ -23,7 +23,7 @@ import {
   IDepositState,
   useDepositDispatch,
   useDepositState,
-} from '../../depositContext';
+} from '../../deposit.context';
 import { Country, ECurrencyCode, ELanguage, ETradingPlatform } from '@domain/enums';
 import * as Yup from 'yup';
 import { CustomFieldValidators, FieldValidators } from '@domain';

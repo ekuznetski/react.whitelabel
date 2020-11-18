@@ -1,18 +1,22 @@
 @import '~/variables';
 
 .client-profile-page-wrapper {
-	.client-profile {
-		&__tabs {
-			.common-tabs {
-				&__navigation {
-					width: 620px;
-					align-self: center;
+  .client-profile {
+    &__tabs {
+      .common-tabs {
+        &__navigation {
+          width: 720px;
+          align-self: center;
 
-					&:after {
-						background: $dark-grey;
-					}
-				}
-			}
-		}
-	}
+          @media (max-width: $viewport-lg-w) {
+            width: 620px;
+          }
+
+          // &:after {
+          // 	background: $dark-grey;
+          // }
+        }
+      }
+    }
+  }
 }

@@ -1,16 +1,26 @@
-import { Button, Img, Svg } from '@components/shared';
+import { Button, Img, LabelView, Svg } from '@components/shared';
+import { ELabels } from '@domain/enums';
 import classNames from 'classnames';
-import React, { forwardRef, HTMLAttributes, memo } from 'react';
+import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import './MobileTradingWithMT5.scss';
 
+interface MobileTradingWithMT5SectionProps {
+  title?: string | React.ReactFragment;
+  description?: string | React.ReactFragment;
+  className?: string;
+}
+
 export const MobileTradingWithMT5Section = memo(
-  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(function MobileTradingWithMT5Section(props, ref) {
+  forwardRef<HTMLDivElement, MobileTradingWithMT5SectionProps>(function MobileTradingWithMT5Section(
+    { title, description, className },
+    ref,
+  ) {
     const { t } = useTranslation();
 
     return (
-      <section className={classNames('mobile-trading-with-mt5', props.className)}>
+      <section className={classNames('mobile-trading-with-mt5', className)}>
         <Container>
           <Row>
             <Col xs={12} lg={5} className="mb-12 mb-lg-0 mt-12 mb-md-0">
@@ -18,13 +28,58 @@ export const MobileTradingWithMT5Section = memo(
             </Col>
             <Col xs={12} lg={6} className="offset-lg-1 pt-lg-10 pr-lg-6">
               <div className="mobile-trading-with-mt5__title mb-7">
-                <b>{t('Mobile Trading')}</b>
-                <br />
-                {t('With MT5')}
+                {title || (
+                  <LabelView>
+                    {{
+                      '*': (
+                        <Trans i18nKey="Mobile Trading Section Title">
+                          <b>Mobile Trading</b>
+                          <br />
+                          With MT5
+                        </Trans>
+                      ),
+                      [ELabels.bsfx]: (
+                        <Trans i18nKey="Mobile Trading Section Title">
+                          <b>Mobile Trading</b>
+                          <br />
+                          With MT4
+                        </Trans>
+                      ),
+                    }}
+                  </LabelView>
+                )}
               </div>
               <div className="mobile-trading-with-mt5__description mb-10">
-                <div className="mb-6">{t('Mobile Trading Section Desc:0')}</div>
-                <div className="mb-6">{t('Mobile Trading Section Desc:1')}</div>
+                {description || (
+                  <LabelView>
+                    {{
+                      '*': (
+                        <Trans i18nKey="Mobile Trading Section Desc">
+                          <div className="mb-6">
+                            Have complete control over your account with our native mobile app; open, close, and manage
+                            trading positions from your mobile phone.
+                          </div>
+                          <div className="mb-6">
+                            Download MetaTrader 5 for Android/iOS on your smartphone or tablet and trade Forex anytime
+                            and anywhere in the world!
+                          </div>
+                        </Trans>
+                      ),
+                      [ELabels.bsfx]: (
+                        <Trans i18nKey="Mobile Trading Section Desc">
+                          <div className="mb-6">
+                            Have complete control over your account with our native mobile app; open, close, and manage
+                            trading positions from your mobile phone.
+                          </div>
+                          <div className="mb-6">
+                            Download MetaTrader 4 for Android/iOS on your smartphone or tablet and trade Forex anytime
+                            and anywhere in the world!
+                          </div>
+                        </Trans>
+                      ),
+                    }}
+                  </LabelView>
+                )}
               </div>
               <div className="store-links">
                 <Button className="mr-md-6 px-7 mb-7 mb-md-0">

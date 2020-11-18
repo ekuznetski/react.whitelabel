@@ -4,7 +4,7 @@ import { useDrop } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, memo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { UploadText, UploadViewState, useUploadDispatch, useUploadState } from '../upload-context';
+import { UploadText, UploadViewState, useUploadDispatch, useUploadState } from '../upload.context';
 
 interface UploadEmptyViewProps {
   fieldName: string;
@@ -29,7 +29,6 @@ export const UploadEmptyView = memo(function UploadEmptyView({
   const labelRef = createRef<HTMLLabelElement>();
 
   function onFilesChanged(files: File[]) {
-    console.log(files);
     if (files.length) {
       const file = files[0];
       const _fileSize = file.size / 1024;
@@ -107,7 +106,7 @@ export const UploadEmptyView = memo(function UploadEmptyView({
         </div>
         <div className="upload-file__nav">
           <Trans i18nKey="Drag File Here">
-            Drag file here <br /> or <a onClick={console.log}>Browse file</a>
+            Drag file here <br /> or <a>Browse file</a>
           </Trans>
         </div>
       </div>

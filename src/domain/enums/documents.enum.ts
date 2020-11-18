@@ -1,5 +1,5 @@
-export enum DocumentsTypeEnum {
-  POR = 'PoR',
+export enum EDocumentsType {
+  PoR = 'PoR',
   ID = 'ID',
   CCCopy = 'CCCopy',
   CCCopy1 = 'CCCopy1',
@@ -13,13 +13,13 @@ export enum DocumentsTypeEnum {
   NoNType = 'NoNType',
 }
 
-export enum DocumentsStatus {
+export enum EDocumentsStatus {
   Pending = 'Pending',
   Submitted = 'Submitted',
   Rejected = 'Rejected',
 }
 
-export enum DocumentsIconStatus {
+export enum EDocumentsIconStatus {
   Pending = 'circle_pending',
   Submitted = 'circle_success',
   Rejected = 'icon-status_error',

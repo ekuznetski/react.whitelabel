@@ -29,11 +29,11 @@ export function UserProfileCard() {
       <div className="user-profile-card__context px-11 pt-11">
         <div className="profile-context__facepile mr-11">
           {clientProfile.first_name[0]}
-          {clientProfile.surname[0]}
+          {clientProfile.last_name[0]}
         </div>
         <div className="profile-context__info">
           <div className="profile-info__name">
-            {clientProfile.first_name} {clientProfile.surname}
+            {clientProfile.first_name} {clientProfile.last_name}
           </div>
           <div className="profile-info__email">{clientProfile.email}</div>
           <div className="profile-info__status danger">

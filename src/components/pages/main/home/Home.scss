@@ -1,122 +1,122 @@
 @import '~/variables';
 
 .home-wrapper {
-	.page-top {
-		height: 900px;
-		display: flex;
-		align-items: center;
-		background: rgb(92, 115, 131);
-		color: #fff;
+  .page-top {
+    height: 900px;
+    display: flex;
+    align-items: center;
+    background: rgb(92, 115, 131);
+    color: #fff;
 
-		&__title {
-			font-weight: 500;
-			font-size: 70px;
-			line-height: 80px;
-		}
+    &__title {
+      font-weight: 500;
+      font-size: 70px;
+      line-height: 80px;
+    }
 
-		&__description {
-			font-weight: 500;
-			font-size: 24px;
-			line-height: 34px;
-		}
+    &__description {
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 34px;
+    }
 
-		button {
-			background: $dark-blue;
-			border-radius: $border-radius;
-			width: 225px;
-			height: $btn-size-lg;
-			color: #fff;
-			font-weight: 500;
-			font-size: 16px;
-			line-height: 24px;
-		}
+    button {
+      background: $dark-blue;
+      border-radius: $border-radius;
+      width: 225px;
+      height: $btn-size-lg;
+      color: #fff;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+    }
 
-		@media (max-width: $viewport-lg-w) {
-			height: 550px;
-			align-items: flex-end;
+    @media (max-width: $viewport-lg-w) {
+      height: 550px;
+      align-items: flex-end;
 
-			&__title {
-				font-size: 55px;
-				line-height: 63px;
-			}
+      &__title {
+        font-size: 55px;
+        line-height: 63px;
+      }
 
-			&__description {
-				font-size: 22px;
-				line-height: 34px;
-			}
+      &__description {
+        font-size: 22px;
+        line-height: 34px;
+      }
 
-			button {
-				height: 50px;
-			}
-		}
+      button {
+        height: 50px;
+      }
+    }
 
-		@media (max-width: $viewport-md-w) {
-			align-items: center;
+    @media (max-width: $viewport-md-w) {
+      align-items: center;
 
-			&__title {
-				font-size: 30px;
-				line-height: 40px;
-			}
+      &__title {
+        font-size: 30px;
+        line-height: 40px;
+      }
 
-			&__description {
-				font-size: 20px;
-				line-height: 30px;
-			}
+      &__description {
+        font-size: 20px;
+        line-height: 30px;
+      }
 
-			button {
-				width: 100%;
-			}
-		}
-	}
+      button {
+        width: 100%;
+      }
+    }
+  }
 
-	.stocks {
-		margin-top: -200px;
+  .stocks {
+    margin-top: -200px;
 
-		@media (max-width: $viewport-lg-w) {
-			margin-top: -80px;
-		}
-	}
+    @media (max-width: $viewport-lg-w) {
+      margin-top: -80px;
+    }
+  }
 
-	.trade-products {
-		&__title {
-			font-size: 36px;
-			line-height: 46px;
-			color: $dark-text;
-		}
+  .trade-products {
+    &__title {
+      font-size: 36px;
+      line-height: 46px;
+      color: $dark-text;
+    }
 
-		.common-cards {
-			svg {
-				padding: 13px;
-				border-radius: $border-radius;
-				background: $grey-bg;
-				min-width: 50px;
-				height: 50px;
-				fill: $blue;
-			}
+    .common-cards {
+      svg {
+        padding: 13px;
+        border-radius: $border-radius;
+        background: $grey-bg;
+        min-width: 50px;
+        height: 50px;
+        fill: $blue;
+      }
 
-			&__item {
-				height: 200px;
-				padding: 30px;
+      &__item {
+        height: 200px;
+        padding: 30px;
 
-				&-header {
-					span {
-						font-weight: 300;
-						font-size: 40px;
-						text-align: right;
-						color: $blue;
-						margin-left: auto;
-						display: flex;
-					}
-				}
+        &-header {
+          span {
+            font-weight: 300;
+            font-size: 40px;
+            text-align: right;
+            color: $blue;
+            margin-left: auto;
+            display: flex;
+          }
+        }
 
-				&-content {
-					.greyText {
-						font-size: 16px;
-						line-height: 26px;
-						color: $text;
-					}
-				}
-			}
-		}
-	}
+        &-content {
+          .greyText {
+            font-size: 16px;
+            line-height: 26px;
+            color: $text;
+          }
+        }
+      }
+    }
+  }
 }

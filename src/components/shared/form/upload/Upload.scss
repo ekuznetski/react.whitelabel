@@ -6,6 +6,16 @@
       @include d-flex(center, center, column);
     }
 
+    &__ready-view {
+      &.complete {
+        .upload-file {
+          &__nav {
+            visibility: hidden;
+          }
+        }
+      }
+    }
+
     &__section {
       @include d-flex(center, center, column);
       border: 1px dashed $blue;
@@ -41,9 +51,10 @@
       font-size: 16px;
       text-align: center;
 
-      // &.error {
-      //   color: $red;
-      // }
+      &.error {
+        font-size: 14px;
+        color: $red;
+      }
     }
 
     &__drop-zone {
@@ -106,7 +117,7 @@
               background: $dark-blue;
               content: '';
               box-shadow: 0 0 20px $dark-blue;
-              z-index:2;
+              z-index: 2;
             }
 
             &:before {
@@ -132,7 +143,7 @@
             background: $dark-blue;
             box-shadow: 0 0 20px $dark-blue;
             content: '';
-            z-index:2;
+            z-index: 2;
           }
 
           &:before {

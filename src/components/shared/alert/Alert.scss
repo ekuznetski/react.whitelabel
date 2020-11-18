@@ -46,14 +46,11 @@
 	}
 
 	&.text {
-		color: $grey;
+		color: $text;
 
 		svg {
-			fill: $grey;
+			fill: $text;
 		}
-	}
-
-	&.message {
 	}
 
 	&.block {

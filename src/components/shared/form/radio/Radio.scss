@@ -9,16 +9,15 @@
     font-size: 14px;
     line-height: 20px;
     border-radius: 2px;
-    text-align: center;
-    border: 1px solid #cacfd5;
+    border: 1px solid $dark-grey;
     transition: border-color 0.2s, color 0.2s;
-    padding: 16px;
     width: 100%;
     cursor: pointer;
     position: relative;
     display: flex;
     align-items: center;
     margin: 0;
+    min-height: 50px;
 
     &.selected {
       color: $dark-text;
@@ -27,7 +26,7 @@
 
     .mark {
       position: absolute;
-      left: 24px;
+      left: 20px;
       display: block;
       border-radius: 50%;
       border: 1px solid $dark-grey;
@@ -41,10 +40,6 @@
         background-color: $blue;
         border-color: $blue;
       }
-    }
-
-    @media (min-width: $viewport-sm-min-w) {
-      padding-left: sp(13);
     }
   }
 

@@ -12,6 +12,7 @@ interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   checkFormValidity?: boolean;
   loadingOnAction?: EActionTypes | EActionTypes[];
   isLoading?: boolean;
+  noBg?: boolean;
 }
 
 export const Button = memo(
@@ -28,14 +29,15 @@ export const Button = memo(
     const _disabled =
       props.disabled ||
       (formikProps && (formikProps?.status === EFormStatus.disabled || (checkFormValidity && !formikProps?.isValid)));
-    const _buttonProps = { ...props };
-    delete _buttonProps.children;
-    delete _buttonProps.isLoading;
-    delete _buttonProps.loadingOnAction;
+    const _buttonProps = ['children', 'isLoading', 'loadingOnAction', 'noBg'].reduce(
+      // @ts-ignore
+      (acc, el) => (delete acc[el], acc),
+      { ...props },
+    );
 
     return (
       <button
-        className={classNames('common-button', className, (_disabled || _loading) && 'disabled')}
+        className={classNames('common-button', props.noBg && 'noBg', className, (_disabled || _loading) && 'disabled')}
         {..._buttonProps}
         disabled={_disabled || _loading}
         ref={ref}
