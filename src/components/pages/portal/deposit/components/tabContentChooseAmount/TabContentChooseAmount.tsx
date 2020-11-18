@@ -155,7 +155,7 @@ export function TabContentChooseAmount() {
               )}
               {isDesktop && (
                 <Radio
-                  optionClassName="col-4 mb-7 pr-0"
+                  optionClassName="col-4 pr-0"
                   className="mb-10 mr-0"
                   name={EFields.amount}
                   options={options}

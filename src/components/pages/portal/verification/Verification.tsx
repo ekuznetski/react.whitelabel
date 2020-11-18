@@ -2,7 +2,7 @@ import { PageTitle, Tab, Tabs } from '@components/shared';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { AdditionalInformation } from './components';
+import { AdditionalInformation, FinancialProfile } from './components';
 import './Verification.scss';
 
 export const Verification = memo(function Verification() {
@@ -19,7 +19,7 @@ export const Verification = memo(function Verification() {
         <Col xs={12}>
           <Tabs className="client-verification__tabs" activeTab="additionalInformation">
             <Tab label={t('Financial Profile')} anchor="financialProfile">
-              Financial Profile
+              <FinancialProfile />
             </Tab>
             <Tab label={t('Upload Documents')} anchor="uploadDocuments">
               Upload Documents
