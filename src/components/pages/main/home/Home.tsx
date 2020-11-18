@@ -19,7 +19,7 @@ import {
   SectionBg,
   Svg,
 } from '@components/shared';
-import { ELabels, EWorkshopType } from '@domain/enums';
+import { ELabels } from '@domain/enums';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';

@@ -1,5 +1,5 @@
 import { EWorkshopType } from '@domain/enums';
-import i18n from 'i18next';
+import i18n from 'i18n';
 
 const t = i18n.getFixedT(i18n.language);
 
