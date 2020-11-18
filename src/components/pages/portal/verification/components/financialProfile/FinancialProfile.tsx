@@ -6,7 +6,6 @@ import { IFPState } from '@domain/interfaces';
 import './FinancialProfile.scss';
 
 export const FinancialProfile = memo(function FinancialProfile() {
-  console.log(123);
   const [state, setState] = useState<IFPState>({
     step: EFPSteps.step1,
     data: [],
@@ -30,6 +29,7 @@ export const FinancialProfile = memo(function FinancialProfile() {
       };
     });
   }
+  const progressPercent = (100 / (Object.keys(EFPSteps).length / 2)) * state.step;
   return (
     <div className="financial-profile">
       {state.step !== Object.keys(EFPSteps).length / 2 ? (
@@ -38,11 +38,11 @@ export const FinancialProfile = memo(function FinancialProfile() {
         <FinancialProfileLastStep submitFn={submitFn} />
       )}
       <div className="progress-bar">
-        <div
-          className="progress-bar-active"
-          style={{ width: `${(100 / (Object.keys(EFPSteps).length / 2)) * state.step}%` }}
-        >
-          <div className="progress">{`${(100 / (Object.keys(EFPSteps).length / 2)) * state.step}%`}</div>
+        <div className="progress-bar-active" style={{ width: `${progressPercent}%` }}>
+          <div
+            className="progress"
+            style={{ right: `${progressPercent ? '-15' : '-26'}px` }}
+          >{`${progressPercent}%`}</div>
         </div>
       </div>
       <pre>{JSON.stringify(state, null, '\t')}</pre>

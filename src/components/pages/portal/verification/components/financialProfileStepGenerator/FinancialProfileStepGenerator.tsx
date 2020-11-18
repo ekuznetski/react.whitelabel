@@ -38,14 +38,14 @@ const CreateQuestion = memo(function CreateQuestion({ question, state }: { quest
       return (
         <>
           <h4>{question.text}</h4>
-          <Radio colClassName={'col-6'} {...props} />
+          <Radio optionClassName={'col-6'} {...props} />
         </>
       );
     case EFPQuestionView.radioWithIcon:
       return (
         <>
           <h4>{question.text}</h4>
-          <Radio colClassName={'col-12'} {...props} />
+          <Radio optionClassName={'col-12'} {...props} />
         </>
       );
     case EFPQuestionView.select:
@@ -111,49 +111,20 @@ export const FinancialProfileStepGenerator = memo(function FinancialProfileStep(
     >
       {(props: FormikProps<any>) => {
         return (
-          <>
-            {!state.questions.length && (
-              <>
-                <div className="step-title">Declarations and Acknowledgement of Risks</div>
-                <br />
-                <ul>
-                  <li>
-                    I understand that the nature of my transactions with HYCM will be buying and selling only CFD
-                    products in various underlying assets.
-                  </li>
-                  <li>
-                    I am aware that by not submitting the KYC documents as requested by the Company may lead to the
-                    suspension of my trading rights
-                  </li>
-                  <li>
-                    I am aware that the products offered by HYCM are leverage CFD products which carry a high level of
-                    risk, and it is possible to lose all my capital deposited with HYCM. I further acknowledge that I
-                    have read the Risk Disclosure Notice as available online.
-                  </li>
-                  <li>I have reviewed my answers and responded as accurately as possible.</li>
-                </ul>
-              </>
-            )}
-            <Form className="m-auto form">
-              {state.questions.map((question) => {
-                const name = getQuestionInputName(state, question);
-                return (
-                  <Fragment key={JSON.stringify(question.id)}>
-                    <CreateQuestion state={state} question={question} />
-                    {name && FPAnswers[props.values[name]]?.needRemark && (
-                      <Input name={name + '_remark'} label={t('Please Specify')} />
-                    )}
-                  </Fragment>
-                );
-              })}
-              {!state.questions.length && (
-                <Checkbox name="agreement">
-                  By clicking this tick box, I agree to each of the above declarations
-                </Checkbox>
-              )}
-              <Button type="submit">{t('Submit')}</Button>
-            </Form>
-          </>
+          <Form className="m-auto form">
+            {state.questions.map((question) => {
+              const name = getQuestionInputName(state, question);
+              return (
+                <Fragment key={JSON.stringify(question.id)}>
+                  <CreateQuestion state={state} question={question} />
+                  {name && FPAnswers[props.values[name]]?.needRemark && (
+                    <Input name={name + '_remark'} label={t('Please Specify')} />
+                  )}
+                </Fragment>
+              );
+            })}
+            <Button type="submit">{t('Submit')}</Button>
+          </Form>
         );
       }}
     </Formik>
