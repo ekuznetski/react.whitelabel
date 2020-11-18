@@ -9,21 +9,20 @@ const glob = require('glob');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 /**
- * Return filepath/filename destructed to { filename, extension, basename } 
- * @param {string} filepath; path to the file or filename 
+ * Return filepath/filename destructed to { filename, extension, basename }
+ * @param {string} filepath; path to the file or filename
  */
 function filePathDestructor(filepath) {
   return path.basename(filepath).match(/(?<basename>(?<filename>[^\\/]*)\.(?<extension>\w+)$)/).groups;
 }
 
 /**
- * TitleCase the string
+ * Set the first character of the string to lower
  * @param {string} str: string to convert
  */
-function toTitleCase(str) {
-  return str.replace(/\w\S*/g, (t) => t.charAt(0).toUpperCase() + t.substr(1).toLowerCase());
+function toLowerFirst(str) {
+  return str.replace(/\w\S*/g, (t) => t.charAt(0).toLowerCase() + t.substr(1));
 }
-
 
 module.exports = (_env, arguments) => {
   const env = { PRODUCTION: false, LABEL: null, ..._env };
@@ -68,8 +67,10 @@ module.exports = (_env, arguments) => {
     targetLabelComponentsAlias = componentsFilepaths
       .filter((filePath) => {
         const { filename, extension } = filePathDestructor(filePath);
-        // Filter out .scss if .tsx file with the same name presented 
-        return extension === 'scss' ? !componentsFilepaths.some((componentPath) => componentPath.includes(`/${filename}.tsx`)) : true;
+        // Filter out .scss if .tsx file with the same name presented
+        return extension === 'scss'
+          ? !componentsFilepaths.some((componentPath) => componentPath.includes(`/${filename}.tsx`))
+          : true;
       })
       .reduce((acc, filePath) => {
         const { filename, extension, basename } = filePathDestructor(filePath);
@@ -77,12 +78,14 @@ module.exports = (_env, arguments) => {
           switch (extension) {
             case 'scss':
               return Object.assign(acc, {
-                [`./${basename}`]: `../../${targetLabelAssetFolder}/components/${filename.toLowerCase()}/${basename}`,
+                [`./${basename}`]: `../../${targetLabelAssetFolder}/components/${toLowerFirst(filename)}/${basename}`,
               });
             default:
               // FOR CHILDE COMPONENTS OF PAGE TYPE COMPONENT
               return Object.assign(acc, {
-                [`./${filename.toLowerCase()}/${filename}`]: `../${targetLabelAssetFolder}/components/${filename.toLowerCase()}/${filename}`,
+                [`./${toLowerFirst(filename)}/${filename}`]: `../${targetLabelAssetFolder}/components/${toLowerFirst(
+                  filename,
+                )}/${filename}`,
               });
           }
         } else {
@@ -94,7 +97,9 @@ module.exports = (_env, arguments) => {
             default:
               // ONLY FOR PAGE TYPE COMPONENT REPLACEMENT
               return Object.assign(acc, {
-                [`./${filename}/${toTitleCase(filename)}`]: `./${filename}/${targetLabelAssetFolder}/${toTitleCase(filename)}`,
+                [`./${toLowerFirst(filename)}/${filename}`]: `./${toLowerFirst(
+                  filename,
+                )}/${targetLabelAssetFolder}/${filename}`,
               });
           }
         }
@@ -156,10 +161,7 @@ module.exports = (_env, arguments) => {
 
                     _targetLabelCustomizationScssFiles.forEach((scssFileName) => {
                       if (targetLabelConfigsScss.includes(scssFileName)) {
-                        const fileName = scssFileName
-                          .split('.')
-                          .slice(0, -1)
-                          .join('.');
+                        const fileName = scssFileName.split('.').slice(0, -1).join('.');
                         const relativePath = path
                           .relative(
                             path.dirname(resourcePath),
