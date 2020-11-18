@@ -20,8 +20,8 @@ function filePathDestructor(filepath) {
  * Set the first character of the string to lower
  * @param {string} str: string to convert
  */
-function toLowerFirst(str) {
-  return str.replace(/\w\S*/g, (t) => t.charAt(0).toLowerCase() + t.substr(1));
+function lowerCaseFirstLetter(str) {
+  return str[0].toLowerCase() + str.substr(1);
 }
 
 module.exports = (_env, arguments) => {
@@ -78,12 +78,12 @@ module.exports = (_env, arguments) => {
           switch (extension) {
             case 'scss':
               return Object.assign(acc, {
-                [`./${basename}`]: `../../${targetLabelAssetFolder}/components/${toLowerFirst(filename)}/${basename}`,
+                [`./${basename}`]: `../../${targetLabelAssetFolder}/components/${lowerCaseFirstLetter(filename)}/${basename}`,
               });
             default:
               // FOR CHILDE COMPONENTS OF PAGE TYPE COMPONENT
               return Object.assign(acc, {
-                [`./${toLowerFirst(filename)}/${filename}`]: `../${targetLabelAssetFolder}/components/${toLowerFirst(
+                [`./${lowerCaseFirstLetter(filename)}/${filename}`]: `../${targetLabelAssetFolder}/components/${lowerCaseFirstLetter(
                   filename,
                 )}/${filename}`,
               });
@@ -97,7 +97,7 @@ module.exports = (_env, arguments) => {
             default:
               // ONLY FOR PAGE TYPE COMPONENT REPLACEMENT
               return Object.assign(acc, {
-                [`./${toLowerFirst(filename)}/${filename}`]: `./${toLowerFirst(
+                [`./${lowerCaseFirstLetter(filename)}/${filename}`]: `./${lowerCaseFirstLetter(
                   filename,
                 )}/${targetLabelAssetFolder}/${filename}`,
               });

@@ -1,4 +1,5 @@
 @import '~/variables';
+@import '~/mixin';
 
 .common-alert {
   @include d-flex(center, start);

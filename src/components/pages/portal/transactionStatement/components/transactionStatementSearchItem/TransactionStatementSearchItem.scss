@@ -1,4 +1,5 @@
 @import '~/variables';
+@import '~/mixin';
 
 .transaction-statement-search-item {
   @include d-flex(center, center);
