@@ -3,7 +3,7 @@
 
 .partnership-wrapper {
   .page-top {
-    height: 600px;
+    padding: 230px 0 120px 0 !important;
     display: flex;
     align-items: center;
     background: rgb(92, 115, 131);
@@ -23,8 +23,8 @@
 
     &__title {
       font-weight: normal;
-      font-size: 50px;
-      line-height: 60px;
+      font-size: 40px;
+      line-height: 50px;
       text-transform: uppercase;
     }
 
@@ -36,215 +36,49 @@
     button {
       background: $dark-blue;
       border-radius: $border-radius;
-      width: 225px;
+      width: initial;
+      padding: 24px 32px;
       height: $btn-size-lg;
       color: #fff;
       font-weight: 500;
-      font-size: 16px;
-      line-height: 24px;
+      font-size: 14px;
+      line-height: 17px;
       text-transform: uppercase;
-    }
-
-    @media (min-width: $viewport-md-min-w) {
-      &__header {
-        flex: 0 0 50%;
-        max-width: 50%;
-      }
     }
 
     @media (min-width: $viewport-lg-min-w) {
       &__header {
-        flex: 0 0 41.66667%;
-        max-width: 41.66667%;
+        flex: 0 0 45%;
       }
     }
 
     @media (min-width: $viewport-xl-min-w) {
       &__header {
-        margin-top: 3rem;
-        z-index: 1;
-        &:before {
-          position: absolute;
-          content: '';
-          display: block;
-          background: $dark-text;
-          width: calc(100% + 80px);
-          height: 10000%;
-          left: -10%;
-          top: -5000%;
-          opacity: 0.7;
-          z-index: -1;
-        }
+        flex: 0 0 40%;
       }
     }
 
     @media (max-width: $viewport-lg-w) {
-      height: 450px;
-      padding: 70px 0 !important;
-      align-items: center;
-
-      &__title {
-        font-size: 50px;
-        line-height: 60px;
-        color: #ffffff;
-      }
-
-      &__description {
-        font-size: 16px;
-        line-height: 26px;
-      }
-
-      button {
-        height: 50px;
-      }
+      padding: 150px 0 70px 0 !important;
 
       .section-bg {
         background-position: 75% 50% !important;
       }
     }
 
-    @media (max-width: $viewport-sm-w) {
+    @media (max-width: $viewport-md-w) {
       &__title {
         font-size: 30px;
         line-height: 40px;
-      }
-
-      &__header {
-        &:before {
-          position: absolute;
-          content: '';
-          display: block;
-          background: $dark-text;
-          width: 10000%;
-          height: 10000%;
-          left: 0;
-          top: -5000%;
-          opacity: 0.9;
-          z-index: -1;
-        }
-      }
-
-      button {
-        width: 100%;
-      }
-    }
-  }
-  .programs {
-    display: flex;
-    align-items: center;
-
-    &__title {
-      font-size: 36px;
-      line-height: 50px;
-      text-align: center;
-    }
-
-    &__description {
-      font-size: 18px;
-      line-height: 30px;
-    }
-
-    .programs__cards {
-      .common-cards {
-        &__container {
-          .card {
-            border-right: 1px solid #f1f2f2;
-            &:last-child {
-              border-right: none;
-            }
-          }
-        }
-        &__item {
-          height: 140px;
-          box-shadow: none;
-          padding: 0;
-
-          &-header {
-            font-size: 24px;
-            line-height: 34px;
-            color: $dark-text;
-            justify-content: center;
-
-            small {
-              margin-left: 10px;
-              font-size: 18px;
-              color: #1722c6;
-            }
-          }
-
-          &-content {
-            text-align: center;
-          }
-
-          svg {
-            padding: 13px;
-            border-radius: $border-radius;
-            background: $grey-bg;
-            width: 50px;
-            height: 50px;
-          }
-        }
-      }
-    }
-
-    @media (min-width: $viewport-md-min-w) {
-      .programs__cards {
-        .common-cards {
-          &__container {
-            .card {
-              flex: 0 0 25%;
-              max-width: 25%;
-            }
-          }
-        }
-      }
-    }
-
-    @media (min-width: $viewport-lg-min-w) {
-      .programs__text {
-        flex: 0 0 91.66667%;
-        max-width: 91.66667%;
-      }
-    }
-
-    @media (max-width: $viewport-sm-w) {
-      .programs {
-        &__title {
-          font-size: 24px;
-          line-height: 34px;
-        }
-        &__description {
-          font-size: 16px;
-          line-height: 26px;
-        }
-      }
-    }
-
-    @media (max-width: $viewport-md-w) {
-      .programs__cards {
-        .common-cards__container {
-          flex-flow: unset;
-        }
-      }
-    }
-
-    @media (max-width: $viewport-lg-w) {
-      .programs__cards {
-        .common-cards__container {
-          flex-flow: unset;
-          .card {
-            padding: 0;
-          }
-        }
       }
     }
   }
 
   .potential {
+    padding: 110px 0 !important;
     background: #1a1b1c;
     color: #ffffff;
     text-align: center;
-    height: 450px;
 
     .row {
       justify-content: center;
@@ -253,6 +87,7 @@
     &__title {
       font-size: 36px;
       line-height: 46px;
+      text-transform: uppercase;
     }
 
     &__description {
@@ -260,7 +95,12 @@
       line-height: 30px;
     }
 
+    @media (max-width: $viewport-lg-w) {
+      padding: 80px 0 !important;
+    }
+
     @media (max-width: $viewport-md-w) {
+      padding: 70px 0 !important;
       &__title {
         font-size: 24px;
         line-height: 34px;
@@ -273,67 +113,12 @@
     }
   }
 
-  .deposit {
-    display: flex;
-    align-items: center;
-
-    &__title {
-      font-size: 36px;
-      line-height: 46px;
-      text-align: center;
-
-      b {
-        display: block;
-      }
-    }
-
-    .deposit__cards {
-      .common-cards {
-        &__container {
-          .card {
-            border-right: 1px solid #f1f2f2;
-            &:last-child {
-              border-right: none;
-            }
-          }
-        }
-        &__item {
-          height: 200px;
-          text-align: center;
-          box-shadow: none;
-          padding: 0;
-          svg {
-            fill: #1722c6;
-          }
-
-          &-header,
-          &-content {
-            justify-content: center;
-            text-align: center;
-
-            small {
-              display: block;
-            }
-          }
-        }
-      }
-    }
-    @media (max-width: $viewport-lg-w) {
-      .deposit__cards {
-        .common-cards {
-          &__item {
-            &-content {
-              font-size: 22px;
-              line-height: 34px;
-            }
-          }
-        }
-      }
-    }
+  .common-tabs__navigation.center:after {
+    width: 400px;
   }
 
   .programForms {
-    background-color: #f8f8f9;
+    background-color: $grey-bg-light;
     &__title {
       font-size: 36px;
       line-height: 46px;

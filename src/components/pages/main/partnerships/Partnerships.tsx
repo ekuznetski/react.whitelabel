@@ -52,10 +52,10 @@ export function Partnerships() {
     ],
   };
 
-  const navigateToForm = (program?: string) => {
+  function navigateToForm(program?: string) {
     formRef.current && formRef.current.scrollIntoView({ behavior: 'smooth' });
     program && setTab(program);
-  };
+  }
 
   return (
     <div className="partnership-wrapper">
@@ -63,7 +63,7 @@ export function Partnerships() {
         <SectionBg img="partnership-page-top.jpg" />
         <div className="container">
           <div className="row">
-            <div className="col-md-8 col-lg-7 page-top__header">
+            <div className="col-md-7 col-12 page-top__header">
               <div className="page-top__title mb-7">{t('Partnerships')}</div>
               <div className="page-top__description mb-9">{t('Partnerships Page Desc')}</div>
               <Button onClick={() => navigateToForm(activeTab)}>{t('Become an BSFX Partner')}</Button>
@@ -77,10 +77,10 @@ export function Partnerships() {
         <div className="container">
           <div className="row">
             <div className="col-xl-8 col-12">
-              <div className="potential__title mb-4">{t('Potential Title')}</div>
-              <div className="potential__description mb-14">
+              <div className="potential__title mb-xl-9 mb-md-3 mb-7">{t('Potential Title')}</div>
+              <div className="potential__description">
                 <Trans i18nKey="Potential Desc">
-                  <div>
+                  <div className="mb-md-5 mb-3">
                     All our programs are geared up to help you grow your business and maximise your earning potential.
                   </div>
                   <div>
@@ -88,7 +88,6 @@ export function Partnerships() {
                     start earning right away.
                   </div>
                 </Trans>
-                {t('Automate your trading strategies')}
               </div>
             </div>
           </div>
