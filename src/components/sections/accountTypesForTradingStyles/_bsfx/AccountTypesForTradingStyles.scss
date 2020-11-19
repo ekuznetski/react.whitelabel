@@ -41,11 +41,12 @@
           font-weight: 300;
           font-size: 40px;
           text-align: right;
-          color: $bsfx-blue;
+          color: $dark-blue;
           margin-left: auto;
           display: flex;
+          
           small {
-            color: $bsfx-blue;
+            color: $dark-blue;
           }
         }
       }
