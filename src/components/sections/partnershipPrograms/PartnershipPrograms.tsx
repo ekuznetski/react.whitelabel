@@ -51,7 +51,7 @@ export const PartnershipPrograms = memo(
               <Cards id="partnership-programs__cards">
                 <Card wrapperClassName="card col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={1}>
                   <CardHeader className="mb-8 header">
-                    <Svg href="affiliate" _label={ELabels.bsfx} className="mr-5" />
+                    <Svg href="affiliate" className="mr-5" />
                     {t('Affiliate Program')}
                   </CardHeader>
                   <CardContent className="text-left">
@@ -65,7 +65,7 @@ export const PartnershipPrograms = memo(
                 </Card>
                 <Card wrapperClassName="card col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={2}>
                   <CardHeader className="mb-8 header">
-                    <Svg href="brokers" _label={ELabels.bsfx} className="mr-5" />
+                    <Svg href="brokers" className="mr-5" />
                     {t('Introducing Brokers')}
                   </CardHeader>
                   <CardContent className="text-left">

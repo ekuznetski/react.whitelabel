@@ -1,0 +1,42 @@
+@import '~/variables';
+@import '~/mixin';
+
+.top-header {
+  z-index: 9999;
+  background-color: #fff;
+  position: absolute;
+  width: 100%;
+  padding: 8px 0;
+
+  .container {
+    @include d-flex(center, flex-end);
+    padding-left: 40px;
+
+    a {
+      color: $dark-text;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  &-links {
+    display: flex;
+    justify-content: flex-end;
+
+    .item {
+      margin-right: 30px;
+
+      &:last-child {
+        margin-right: 0px;
+      }
+      svg {
+        margin-right: 5px;
+        fill: $dark-text;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-lg-w) {
+    display: none;
+  }
+}

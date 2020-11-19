@@ -107,7 +107,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/partnerships',
     component: Partnerships,
     appSection: EAppSection.main,
-    menuItem: true,
+    menuItem: false,
   },
   {
     meta: {

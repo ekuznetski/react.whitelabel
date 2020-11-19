@@ -209,6 +209,15 @@
     }
   }
 
+  @media (min-width: $viewport-lg-min-w) {
+    padding-top: 30px;
+
+    &.fixed {
+      padding-top: 0;
+      position: fixed;
+    }
+  }
+
   @media (max-width: $viewport-lg-w) {
     background: linear-gradient(rgba(0, 0, 0, 0.4), transparent);
 
