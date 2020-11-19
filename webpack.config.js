@@ -187,7 +187,9 @@ module.exports = (_env, arguments) => {
               options: {
                 svgoConfig: {
                   plugins: {
+                    removeUselessStrokeAndFill: false,
                     removeViewBox: false,
+                    prefixIds: false,
                   },
                 },
               },
