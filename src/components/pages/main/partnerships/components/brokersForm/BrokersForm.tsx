@@ -78,7 +78,7 @@ export const BrokersForm = memo(() => {
   }
 
   return (
-    <Container>
+    <Container className="ib-form">
       <Row>
         <Col sm={12} md={7} lg={5} className="m-auto">
           <Formik

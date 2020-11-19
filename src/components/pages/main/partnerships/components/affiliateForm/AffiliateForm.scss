@@ -1,12 +1,14 @@
 @import '~/variables';
 @import '~/mixin';
 
-.affiliate-form {
+.affiliate-form,
+.ib-form {
   .field.input,
   .field textarea,
   .field.select-wrapper {
     border-color: transparent;
     box-shadow: box-shadow(10, 0.05);
+    border-radius: 0 !important;
 
     &.focused {
       border-color: $blue;
