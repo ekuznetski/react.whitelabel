@@ -53,25 +53,27 @@ module.exports = (_env, arguments) => {
   const _targetLabelCustomizationScssFiles = ['theme.scss', 'variables.scss'];
   let targetLabelConfigsDomainAlias = {};
   let targetLabelComponentsAlias = {};
+  let targetLabelComponentsKeys = [];
   let targetLabelConfigsScss = [];
+  let componentsFilepaths = [];
 
   // Generate map to replace files for different domain
   if (targetLabel) {
     const domainFilenames = fs.readdirSync(`./src/domain/${targetLabelAssetFolder}`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
-    const componentsFilepaths = glob
+    componentsFilepaths = glob
       .sync(`./src/components/**/!(index).{${componentsExtensionToHandle.toString()}}`)
-      .filter((filePath) => filePath.includes(`/${targetLabelAssetFolder}`));
-
-    targetLabelComponentsAlias = componentsFilepaths
-      .filter((filePath) => {
+      .filter((filePath) => filePath.includes(`/${targetLabelAssetFolder}`))
+      .filter((filePath, idx, originalArr) => {
         const { filename, extension } = filePathDestructor(filePath);
         // Filter out .scss if .tsx file with the same name presented
         return extension === 'scss'
-          ? !componentsFilepaths.some((componentPath) => componentPath.includes(`/${filename}.tsx`))
+          ? !originalArr.some((componentPath) => componentPath.includes(`/${filename}.tsx`))
           : true;
-      })
+      });
+
+    targetLabelComponentsAlias = componentsFilepaths
       .reduce((acc, filePath) => {
         const { filename, extension, basename } = filePathDestructor(filePath);
         if (filePath.match(/(components)/g).length > 1) {
@@ -105,6 +107,8 @@ module.exports = (_env, arguments) => {
         }
       }, {});
 
+    targetLabelComponentsKeys = Object.keys(targetLabelComponentsAlias);
+
     targetLabelConfigsDomainAlias = domainFilenames
       .filter((file) => _targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName))
       .map((filePath) => {
@@ -120,6 +124,7 @@ module.exports = (_env, arguments) => {
 
     // console.log(targetLabelComponentsAlias);
   }
+
   return {
     context: path.join(__dirname, 'src'),
     entry: ['react-hot-loader/patch', './index.tsx'],
@@ -158,19 +163,40 @@ module.exports = (_env, arguments) => {
 
                   if (targetLabel) {
                     const { resourcePath, rootContext } = loaderContext;
+                    const { filename } = filePathDestructor(resourcePath);
 
                     _targetLabelCustomizationScssFiles.forEach((scssFileName) => {
                       if (targetLabelConfigsScss.includes(scssFileName)) {
-                        const fileName = scssFileName.split('.').slice(0, -1).join('.');
+                        const { filename } = filePathDestructor(scssFileName);
                         const relativePath = path
                           .relative(
                             path.dirname(resourcePath),
-                            path.join(rootContext, `domain/${targetLabelAssetFolder}/${fileName}`),
+                            path.join(rootContext, `domain/${targetLabelAssetFolder}/${filename}`),
                           )
                           .replace(/[\\/]/g, '/');
-                        newContent = newContent.replace(`~/${fileName}`, relativePath);
+                        newContent = newContent.replace(`~/${filename}`, relativePath);
                       }
                     });
+
+                    const componentFile = componentsFilepaths
+                      .find(filePath => {
+                        const { filename: _filename, extension } = filePathDestructor(filePath);
+                        return _filename.indexOf('+') === 0 && _filename === filename && extension === 'scss';
+                      });
+
+                    if (componentFile) {
+                      const idx = componentsFilepaths.indexOf(componentFile),
+                        from = componentFile,
+                        to = componentFile.replace(
+                          targetLabelComponentsAlias[targetLabelComponentsKeys[idx]].slice(2),
+                          targetLabelComponentsKeys[idx].slice(2)
+                        ),
+                        _import = `@import '${path.relative(from, to).replace(/[\\/]/g, '/').slice(3)}';`;
+
+                      console.log('import: ', _import);
+                      if (newContent.indexOf(_import) == -1)
+                        newContent = _import + newContent;
+                    }
                   }
 
                   return newContent;
