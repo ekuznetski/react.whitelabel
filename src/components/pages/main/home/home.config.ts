@@ -1,23 +1,20 @@
 import { EWorkshopType } from '@domain/enums';
-import i18n from 'i18n';
-
-const t = i18n.getFixedT(i18n.language);
 
 export const config = {
   takeControlItems: [
     {
-      title: t('Trade With The Metatrader 5 Platform'),
-      desc: t('The Forex Industry Standard'),
+      title: 'Trade With The Metatrader 5 Platform',
+      desc: 'The Forex Industry Standard',
       img: 'computer.png',
     },
     {
       title: 'Mobile first',
-      desc: t('Get Trading Apps'),
+      desc: 'Get Trading Apps',
       img: 'phone.png',
     },
     {
-      title: t('Don’t miss a thing'),
-      desc: t('Never miss an opportunity'),
+      title: 'Don’t miss a thing',
+      desc: 'Never miss an opportunity',
       img: 'trade_info.png',
     },
   ],
@@ -27,15 +24,15 @@ export const config = {
       author: {
         img: 'avatar-1.jpg',
         name: 'William Bailey',
-        title: t('Chief Currency Analyst'),
+        title: 'Chief Currency Analyst',
       },
       schedule: {
-        day: t('Every Monday'),
+        day: 'Every Monday',
         time: '12:30 PM – 1:00 PM GMT',
       },
       info: {
         title: 'FX Week Ahead: Live Market Analysis',
-        description: t('Get ready for trading'),
+        description: 'Get ready for trading',
       },
     },
     {
@@ -43,10 +40,10 @@ export const config = {
       author: {
         img: 'avatar-1.jpg',
         name: 'Mike Hamilton',
-        title: t('Chief Currency Analyst'),
+        title: 'Chief Currency Analyst',
       },
       schedule: {
-        day: t('Every Wednesday'),
+        day: 'Every Wednesday',
         time: '12:30 PM – 1:00 PM GMT',
       },
       info: {
