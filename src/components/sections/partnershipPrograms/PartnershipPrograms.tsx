@@ -57,7 +57,9 @@ export const PartnershipPrograms = memo(
                   <CardContent className="text-left">
                     <div className="points">
                       {programPoints.affiliate.map((point) => (
-                        <div className="points__item mb-4">{point}</div>
+                        <div className="points__item mb-4" key={point}>
+                          {point}
+                        </div>
                       ))}
                     </div>
                     <Button onClick={() => onProgramSelect('affiliate')}>{t('Sign Up')}</Button>
@@ -71,7 +73,9 @@ export const PartnershipPrograms = memo(
                   <CardContent className="text-left">
                     <div className="points">
                       {programPoints.brokers.map((point) => (
-                        <div className="points__item mb-4">{point}</div>
+                        <div className="points__item mb-4" key={point}>
+                          {point}
+                        </div>
                       ))}
                     </div>
                     <Button onClick={() => onProgramSelect('ib')}>{t('Sign Up')}</Button>

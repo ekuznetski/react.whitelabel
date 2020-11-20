@@ -1,28 +1,12 @@
-import { OpenLiveAccountBannerSection, PartnershipPrograms } from '@components/sections';
-import {
-  Button,
-  Card,
-  CardContent,
-  Cards,
-  Img,
-  ISingleCard,
-  ITable,
-  ITabs,
-  LabelView,
-  LocaleLink,
-  PageTitle,
-  SectionBg,
-  Svg,
-  Table,
-  Tabs,
-} from '@components/shared';
-import { ELabels } from '@domain/enums';
+import { PartnershipPrograms } from '@components/sections';
+import { Button, ITabs, SectionBg, Tabs } from '@components/shared';
+import { ELabelsName } from '@domain/enums';
 import { useResponsive } from 'ahooks';
-import { Login } from 'components/pages/auth/login/Login';
 import React, { useRef, useState } from 'react';
 import { AffiliateForm, BrokersForm } from './components';
 import { Trans, useTranslation } from 'react-i18next';
 import './Partnerships.scss';
+import { env } from '@domain';
 
 export function Partnerships() {
   const responsive = useResponsive();
@@ -65,8 +49,22 @@ export function Partnerships() {
           <div className="row">
             <div className="col-md-7 col-12 page-top__header">
               <div className="page-top__title mb-7">{t('Partnerships')}</div>
-              <div className="page-top__description mb-9">{t('Partnerships Page Desc')}</div>
-              <Button onClick={() => navigateToForm(activeTab)}>{t('Become an BSFX Partner')}</Button>
+              <div className="page-top__description mb-9">
+                <Trans
+                  i18nKey="Partnerships Page Desc"
+                  values={{ name: ELabelsName[env.LABEL?.toLowerCase() as keyof typeof ELabelsName] }}
+                >
+                  Become an {name} partner and share in the success of one of the world leading brokers.
+                </Trans>
+              </div>
+              <Button onClick={() => navigateToForm(activeTab)}>
+                <Trans
+                  i18nKey="Partnerships Page Button"
+                  values={{ name: ELabelsName[env.LABEL?.toLowerCase() as keyof typeof ELabelsName] }}
+                >
+                  Become an {name} Partner
+                </Trans>
+              </Button>
             </div>
           </div>
         </div>

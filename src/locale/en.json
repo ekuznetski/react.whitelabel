@@ -396,5 +396,26 @@
     "Fund Your Account with <1>$0 Fees</1>"
   ],
   "Accept Policy": "I have read and accept the Privacy Policy of {{name}}",
-  "Partnership": "Partnership"
+  "Partnership": "Partnership",
+  "Partnerships": "Partnerships",
+  "Partnerships Page Desc": "Become an {{name}} partner and share in the success of one of the world leading brokers.",
+  "Partnerships Page Button": "Become an {{name}} Partner",
+  "Programs Section Title": "<0>CUSTOM-MADE</0> FOR YOU",
+  "Programs Section Desc": "Choose from our 3 partnership programs designed to suit your individual requirements.",
+  "Affiliate Program": "Affiliate Program",
+  "Introducing Brokers": "Introducing Brokers",
+  "Mobile optimised marketing tools": "Mobile optimised marketing tools",
+  "Dedicated affiliate manager": "Dedicated affiliate manager",
+  "Round-the-clock access to all your analytics": "Round-the-clock access to all your analytics",
+  "Multi-level marketing rebate tiers": "Multi-level marketing rebate tiers",
+  "Free market reviews for clients": "Free market reviews for clients",
+  "Customisable marketing and advertising tools": "Customisable marketing and advertising tools",
+  "Local office and events support": "Local office and events support",
+  "Potential Title": "Maximise Your Earning Potential",
+  "Potential Desc": "<0>All our programs are geared up to help you grow your business and maximise your earning potential.</0><1>Join our partnership program today. Let us design your bespoke partnership program so that you can start earning right away.</1>",
+  "Programs Form Title": "CHOOSE YOUR <1>PROGRAM</1>",
+  "Affiliate": "Affiliate",
+  "IB": "IB",
+  "White Label": "White Label",
+  "Help Center": "Help Center"
 }

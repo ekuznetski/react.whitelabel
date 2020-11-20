@@ -8,6 +8,7 @@ import {
   InternalTransfer,
   Login,
   OpenAccount,
+  Partnerships,
   Platform,
   PlatformDownload,
   Products,
@@ -95,6 +96,15 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Contacts,
     appSection: EAppSection.main,
     menuItem: true,
+  },
+  {
+    meta: {
+      title: 'Partnership',
+    },
+    path: '/partnerships',
+    component: Partnerships,
+    appSection: EAppSection.main,
+    menuItem: false,
   },
   {
     meta: {
