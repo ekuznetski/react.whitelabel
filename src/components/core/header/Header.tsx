@@ -6,7 +6,7 @@ import React, { memo, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Notification } from '..';
 import { HeaderAuth, HeaderMain, HeaderPortal } from './';
-import { Topbar } from './main/components';
+import { TopBar } from './main/components';
 
 export const Header = memo(function Header() {
   const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({
@@ -14,30 +14,13 @@ export const Header = memo(function Header() {
   }));
   const _scroll = useScroll(document);
   const fixHeader = _scroll.top > (section === EAppSection.portal ? 110 : 40);
-  const topbarLinks = [
-    {
-      url: '/partnerships',
-      icon: 'affiliate',
-      label: 'Partnership',
-    },
-    {
-      url: '',
-      icon: 'phone',
-      label: 'Help Center',
-    },
-    {
-      url: '/login',
-      icon: 'profile',
-      label: 'Login',
-    },
-  ];
 
   return useMemo(() => {
     const header_class = classNames('header', section, fixHeader && 'fixed');
 
     return (
       <>
-        {section === EAppSection.main && <Topbar links={topbarLinks} />}
+        {section === EAppSection.main && <TopBar />}
         <header className={header_class}>
           <div className="header-wrapper">
             {section === EAppSection.auth && <HeaderAuth fixed={fixHeader} />}

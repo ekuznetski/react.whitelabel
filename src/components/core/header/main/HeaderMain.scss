@@ -2,11 +2,13 @@
 @import '~/mixin';
 
 .header.main {
-  position: absolute;
+  position: fixed;
+  top: 30px;
   z-index: 999;
   width: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.5), transparent);
   box-shadow: box-shadow(50, 0.05);
+  transition: top 0.2s;
 
   .panel-menu {
     .container {
@@ -49,10 +51,12 @@
 
       svg {
         fill: #fff;
+
         .label {
           fill: #fff;
           transition: fill 0.15s;
         }
+
         transition: fill 0.3s;
       }
     }
@@ -60,6 +64,7 @@
     .burger-toggle {
       svg {
         transition: fill 0.3s;
+
         &.close-icon {
           width: 30px;
           height: 30px;
@@ -115,6 +120,7 @@
       background: $dark-blue;
       width: 175px;
       color: #fff;
+
       a {
         color: #fff;
       }
@@ -129,6 +135,7 @@
       .logo {
         svg {
           fill: $bsfx-blue;
+
           .label {
             fill: $dark-text;
           }
@@ -138,6 +145,7 @@
       .burger-toggle {
         svg {
           fill: $dark-text;
+
           &.burger-icon {
             stroke: $dark-text;
           }
@@ -203,19 +211,15 @@
       width: 100%;
       opacity: 0;
       transition: opacity 0.1s;
+
       a {
         color: #fff;
       }
     }
   }
 
-  @media (min-width: $viewport-lg-min-w) {
-    padding-top: 30px;
-
-    &.fixed {
-      padding-top: 0;
-      position: fixed;
-    }
+  &.fixed {
+    top: 0;
   }
 
   @media (max-width: $viewport-lg-w) {
@@ -239,6 +243,7 @@
       .burger-toggle {
         svg {
           transition: fill 0.3s;
+
           &.close-icon {
             height: 24px;
             padding: 2px;
