@@ -21,7 +21,7 @@ export const Topbar = memo(function Topbar({ links }: ITopbarProps) {
         <Container>
           <Col className="top-header-links">
             {links.map(({ url, label, icon }) => (
-              <div className="item">
+              <div className="item" key={url}>
                 <Svg href={icon} height={16} />
                 <LocaleLink to={url}>{t(label)}</LocaleLink>
               </div>

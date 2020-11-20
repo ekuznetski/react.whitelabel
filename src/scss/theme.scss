@@ -28,6 +28,7 @@ body {
     &:not(.locked) {
       .main-wrapper {
         min-height: 75vh;
+        position: relative;
       }
     }
 
