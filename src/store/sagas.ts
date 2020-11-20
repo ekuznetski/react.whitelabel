@@ -382,7 +382,7 @@ export function* fetchTransactionalStatementsSage() {
 
 export function* addDepositSage() {
   yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
-    const data: IAddDepositResponse = yield call(addDepositRequest, payload);
-    return data;
+    const response: IAddDepositResponse = yield call(addDepositRequest, payload);
+    return response;
   });
 }
