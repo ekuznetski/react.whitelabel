@@ -28,10 +28,10 @@ export function HeaderMain(props: IHeaderDefaultProps) {
     <>
       <div className={classNames('panel-menu', (props.fixed || isBurgerMenuOpen) && 'fixed')}>
         <Container className="py-3 py-lg-0">
-          <div className="logo mr-9">
-            <Svg href="logo" _label height={!responsive.md ? 28 : 37} />
-            <Svg href="logo" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
-            <Svg href="logo" _label={ELabels.bsfx} height={!responsive.md ? 48 : 60} />
+          <div className="logo">
+            <Svg href="logo" className="mr-9" _label height={!responsive.md ? 28 : 37} />
+            <Svg href="logo" className="mr-9" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
+            <Svg href="logo" className="mr-1" _label={ELabels.bsfx} height={!responsive.md ? 48 : 60} />
           </div>
           <div className="menu">
             {_mainRoutesConfig.map((route) => (
