@@ -31,7 +31,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
             (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
             (e.data?.status && e.data.status === EResponseStatus.failure)
           ) {
-            throw new Error(e);
+            throw e;
           } else {
             return e.data;
           }
