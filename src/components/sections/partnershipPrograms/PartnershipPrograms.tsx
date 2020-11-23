@@ -39,12 +39,12 @@ export const PartnershipPrograms = memo(
           <Row>
             <Col xs={12} className="partnership-programs__header">
               <div className="partnership-programs__title mb-md-7 mb-5">
-                <Trans i18nKey="Programs Section Title">
+                <Trans i18nKey="Custom Made For You">
                   <strong>CUSTOM-MADE</strong> FOR YOU
                 </Trans>
               </div>
               <div className="partnership-programs__description mb-xl-11 mb-md-9 mb-7">
-                {t('Programs Section Desc')}
+                {t('Choose From Our Programs')}
               </div>
             </Col>
             <Col xs={12} className="p-0">
