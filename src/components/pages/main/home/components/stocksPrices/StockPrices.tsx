@@ -1,18 +1,13 @@
 import { LocaleLink, Svg } from '@components/shared';
 import { MarketType } from '@domain/enums';
+import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu } from '@domain/interfaces';
 import { usePathLocale } from '@utils/hooks';
 import { useDebounceFn, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Area, AreaChart } from 'recharts';
-import {
-  IPriceCarouselItem,
-  IPriceTabInfo,
-  IPriceTabItem,
-  IPriceTabMenu,
-} from '../../../../../domain/interfaces/app/home.interface';
-import { priceRawData } from './price_data';
+import { priceRawData } from './stockPrices.config';
 import './StockPrices.scss';
 
 export function StockPrices() {
