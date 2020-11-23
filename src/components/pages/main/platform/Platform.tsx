@@ -29,7 +29,7 @@ export function Platform() {
         <SectionBg img="platform-page-top.jpg" />
         <div className="container pt-15">
           <div className="row">
-            <div className="col-lg-7 blur">
+            <div className="col-lg-7">
               <div className="page-top__title mb-7">
                 <div>{t('World-Leading MetaTrader Platform:0')}</div>
                 <div>{t('World-Leading MetaTrader Platform:1')}</div>

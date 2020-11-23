@@ -2,7 +2,7 @@ import { SectionBg, Svg, Map } from '@components/shared';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import './Contacts.scss';
+import './+Contacts.scss';
 
 export function Contacts() {
   const { t } = useTranslation();

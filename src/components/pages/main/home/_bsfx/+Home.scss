@@ -1,0 +1,94 @@
+@import '~/variables';
+
+.home-wrapper {
+  .page-top {
+    height: initial;
+    overflow: hidden;
+
+    &__title {
+      font-weight: 400;
+      text-transform: uppercase;
+      font-size: 60px;
+      line-height: 70px;
+    }
+
+    @media (min-width: $viewport-xl-min-w) {
+      &__header {
+        margin-left: 4rem;
+        margin-right: 4rem;
+      }
+
+      .container {
+        padding: 80px 0 60px 0;
+      }
+
+      .col-12 {
+        padding: 0;
+      }
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      &__title {
+        font-size: 50px;
+        line-height: 60px;
+      }
+    }
+    @media (max-width: $viewport-md-w) {
+      &__title {
+        font-size: 30px;
+        line-height: 40px;
+      }
+      &__description {
+        font-size: 20px;
+        line-height: 30px;
+      }
+    }
+  }
+
+  button {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-transform: uppercase;
+  }
+  .stocks {
+    .stockPrices {
+      &-item__info-title,
+      &-menu__item {
+        svg {
+          display: none !important;
+        }
+      }
+      &-menu__item {
+        margin-right: 40px !important;
+        text-transform: uppercase;
+      }
+    }
+    z-index: 1;
+
+    .col-12 {
+      padding: 0;
+    }
+  }
+
+  .mobile-trading-with-mt5__title,
+  .prestigious-platform-technology__title {
+    text-transform: uppercase;
+  }
+
+  .account-types-for-trading-styles-section {
+    &__title {
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    &__description {
+      text-align: left;
+    }
+
+    &__header {
+      flex: 0 0 83.33333%;
+      max-width: 83.33333%;
+    }
+  }
+}
