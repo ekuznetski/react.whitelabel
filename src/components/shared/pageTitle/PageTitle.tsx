@@ -40,12 +40,7 @@ export function PageTitle({ showBackButton = true, sizes = { xs: 12 }, ...props 
           )}
         >
           <div className="title">
-            <LabelView>
-              {{
-                '*': props.icon && <Svg href={props.icon} />,
-                [ELabels.bsfx]: props.icon && <Img src={`${props.icon}.png`} height={75} className="mb-8" />,
-              }}
-            </LabelView>
+            <Svg href={props.icon} />
             {props.title}
           </div>
           {props.description && <div className="description mt-5">{props.description}</div>}
