@@ -48,6 +48,7 @@ import {
   mt4WithdrawFundsRequest,
   mt5WithdrawFundsRequest,
   resetPasswordRequest,
+  financialProfileRequest,
   tradingAccountsRequest,
   updateBankDetailsRequest,
   uploadFileRequest,
@@ -298,6 +299,13 @@ export function* getClientStatusDataSaga() {
     },
     'data.client.statusData',
   );
+}
+
+export function* financialProfileSage() {
+  yield $$(EActionTypes.submitFinancialProfile, function* ({ payload }: IAction) {
+    const { response }: any = yield call(financialProfileRequest, payload);
+    return response;
+  });
 }
 
 export function* getTradingAccountsSage() {

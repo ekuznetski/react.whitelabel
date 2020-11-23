@@ -22,6 +22,9 @@ export enum EActionTypes {
   fetchTransactionalStatements = '[DATA - Client] Fetch Transactional Statements',
   saveTransactionalStatements = '[DATA - Client] Save Transactional Statements',
 
+  // DATA - Financial Profile
+  submitFinancialProfile = '[DATA - Financial Profile] Submit',
+
   // DATA - Document
   fetchDocuments = '[DATA - Documents] Fetch',
   saveDocuments = '[DATA - Documents] Save',
