@@ -1,30 +1,13 @@
 @import '~/variables';
-@import '~/mixin';
 
 .about-wrapper {
   .page-top {
-    height: 600px;
-    display: flex;
-    align-items: center;
-    background: rgb(92, 115, 131);
-    color: #fff;
+    height: initial;
     overflow: hidden;
+    padding: 160px 0 80px 0 !important;
 
     &__header {
       margin-top: 2rem;
-      z-index: 1;
-      &:before {
-        position: absolute;
-        content: '';
-        display: block;
-        background: $dark-text;
-        width: calc(100% + 80px);
-        height: 10000%;
-        left: -10%;
-        top: -5000%;
-        opacity: 0.7;
-        z-index: -1;
-      }
     }
 
     .section-bg {
@@ -43,22 +26,6 @@
       font-size: 50px;
       line-height: 60px;
       text-transform: uppercase;
-    }
-
-    &__description {
-      font-size: 18px;
-      line-height: 30px;
-    }
-
-    button {
-      background: $dark-blue;
-      border-radius: $border-radius;
-      width: 225px;
-      height: $btn-size-lg;
-      color: #fff;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 24px;
     }
 
     @media (min-width: $viewport-md-min-w) {
@@ -83,16 +50,10 @@
       &__title {
         font-size: 50px;
         line-height: 60px;
-        color: #ffffff;
       }
 
       &__description {
-        font-size: 16px;
         line-height: 26px;
-      }
-
-      button {
-        height: 50px;
       }
 
       .section-bg {
@@ -110,42 +71,9 @@
         font-size: 36px;
         line-height: 40px;
       }
-
-      &__header {
-        &:before {
-          position: absolute;
-          content: '';
-          display: block;
-          background: $dark-text;
-          width: 10000%;
-          height: 10000%;
-          left: 0;
-          top: -5000%;
-          opacity: 0.9;
-          z-index: -1;
-        }
-      }
-
-      button {
-        width: 100%;
-      }
     }
   }
   .trusted {
-    display: flex;
-    align-items: center;
-
-    &__title {
-      font-size: 36px;
-      line-height: 50px;
-      text-align: center;
-    }
-
-    &__description {
-      font-size: 18px;
-      line-height: 30px;
-    }
-
     .trusted__cards {
       .common-cards {
         &__container {
@@ -214,18 +142,9 @@
       }
     }
 
-    @media (max-width: $viewport-md-w) {
-      .trusted__cards {
-        .common-cards__container {
-          flex-flow: unset;
-        }
-      }
-    }
-
     @media (max-width: $viewport-lg-w) {
       .trusted__cards {
         .common-cards__container {
-          flex-flow: unset;
           .card {
             padding: 0;
           }
@@ -235,19 +154,6 @@
   }
 
   .deposit {
-    display: flex;
-    align-items: center;
-
-    &__title {
-      font-size: 36px;
-      line-height: 46px;
-      text-align: center;
-
-      b {
-        display: block;
-      }
-    }
-
     .deposit__cards {
       .common-cards {
         &__container {

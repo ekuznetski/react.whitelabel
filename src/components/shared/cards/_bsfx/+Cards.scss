@@ -1,0 +1,27 @@
+@import '~/variables';
+
+.common-cards {
+  .cardsNav {
+    .cardsNav__item {
+      flex: 0 0 9px;
+      border-radius: 20px;
+      height: 9px;
+      margin: 0 5px;
+      box-shadow: none;
+      background: #cacfd5;
+
+      &.active {
+        background: $dark-blue;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-lg-w) {
+    &__item {
+      &-content {
+        font-size: 16px;
+        line-height: 26px;
+      }
+    }
+  }
+}
