@@ -49,22 +49,8 @@ export function Partnerships() {
           <div className="row">
             <div className="col-md-7 col-12 page-top__header">
               <div className="page-top__title mb-7">{t('Partnerships')}</div>
-              <div className="page-top__description mb-9">
-                <Trans
-                  i18nKey="Partnerships Page Desc"
-                  values={{ name: ELabelsName[env.LABEL?.toLowerCase() as keyof typeof ELabelsName] }}
-                >
-                  Become an {name} partner and share in the success of one of the world leading brokers.
-                </Trans>
-              </div>
-              <Button onClick={() => navigateToForm(activeTab)}>
-                <Trans
-                  i18nKey="Partnerships Page Button"
-                  values={{ name: ELabelsName[env.LABEL?.toLowerCase() as keyof typeof ELabelsName] }}
-                >
-                  Become an {name} Partner
-                </Trans>
-              </Button>
+              <div className="page-top__description mb-9">{t('Partnerships Page Desc')}</div>
+              <Button onClick={() => navigateToForm(activeTab)}>{t('Become a Partner')}</Button>
             </div>
           </div>
         </div>
@@ -75,9 +61,9 @@ export function Partnerships() {
         <div className="container">
           <div className="row">
             <div className="col-xl-8 col-12">
-              <div className="potential__title mb-xl-9 mb-md-3 mb-7">{t('Potential Title')}</div>
+              <div className="potential__title mb-xl-9 mb-md-3 mb-7">{t('Maximise Your Earning Potential')}</div>
               <div className="potential__description">
-                <Trans i18nKey="Potential Desc">
+                <Trans i18nKey="Join Our Partnership Program Today">
                   <div className="mb-md-5 mb-3">
                     All our programs are geared up to help you grow your business and maximise your earning potential.
                   </div>
@@ -96,7 +82,7 @@ export function Partnerships() {
           <div className="row">
             <div className="col-12 px-0 px-md-5">
               <div className="programForms__title">
-                <Trans i18nKey="Programs Form Title">
+                <Trans i18nKey="Choose Your Program">
                   CHOOSE YOUR <strong>PROGRAM</strong>
                 </Trans>
               </div>
