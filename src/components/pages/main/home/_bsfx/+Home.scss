@@ -15,11 +15,17 @@
 
     @media (min-width: $viewport-xl-min-w) {
       .container {
-        padding: 80px 0 60px;
+        padding-top: 80px;
+        padding-bottom: 60px;
       }
     }
 
     @media (max-width: $viewport-xl-w) {
+      .container {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+
       &__title {
         font-size: 50px;
         line-height: 60px;
@@ -27,6 +33,11 @@
     }
 
     @media (max-width: $viewport-lg-w) {
+      .container {
+        padding-top: 40px;
+        padding-bottom: 20px;
+      }
+
       &__title {
         font-size: 30px;
         line-height: 40px;
@@ -35,6 +46,13 @@
       &__description {
         font-size: 20px;
         line-height: 30px;
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      .container {
+        padding-top: 40px;
+        padding-bottom: 30px;
       }
     }
   }
@@ -72,11 +90,6 @@
 
     &__description {
       text-align: left;
-    }
-
-    &__header {
-      flex: 0 0 colSizePrc(10);
-      max-width: colSizePrc(10);
     }
   }
 }
