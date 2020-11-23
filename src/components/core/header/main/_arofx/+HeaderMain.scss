@@ -1,0 +1,18 @@
+@import '~/variables';
+@import '~/mixin';
+
+.header.main {
+  .panel-menu {
+    &.fixed {
+      .logo {
+        svg {
+          fill: $blue;
+
+          .label {
+            fill: $dark-text;
+          }
+        }
+      }
+    }
+  }
+}
