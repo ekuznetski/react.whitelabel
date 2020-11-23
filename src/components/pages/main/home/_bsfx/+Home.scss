@@ -1,4 +1,5 @@
 @import '~/variables';
+@import '~/mixin';
 
 .home-wrapper {
   .page-top {
@@ -13,34 +14,45 @@
     }
 
     @media (min-width: $viewport-xl-min-w) {
-      &__header {
-        margin-left: 4rem;
-        margin-right: 4rem;
-      }
-
       .container {
-        padding: 80px 0 60px 0;
-      }
-
-      .col-12 {
-        padding: 0;
+        padding-top: 80px;
+        padding-bottom: 60px;
       }
     }
 
-    @media (max-width: $viewport-lg-w) {
+    @media (max-width: $viewport-xl-w) {
+      .container {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+
       &__title {
         font-size: 50px;
         line-height: 60px;
       }
     }
-    @media (max-width: $viewport-md-w) {
+
+    @media (max-width: $viewport-lg-w) {
+      .container {
+        padding-top: 40px;
+        padding-bottom: 20px;
+      }
+
       &__title {
         font-size: 30px;
         line-height: 40px;
       }
+
       &__description {
         font-size: 20px;
         line-height: 30px;
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      .container {
+        padding-top: 40px;
+        padding-bottom: 30px;
       }
     }
   }
@@ -51,23 +63,17 @@
     line-height: 17px;
     text-transform: uppercase;
   }
+
   .stocks {
     .stockPrices {
       &-item__info-title,
       &-menu__item {
+        text-transform: uppercase;
+
         svg {
-          display: none !important;
+          display: none;
         }
       }
-      &-menu__item {
-        margin-right: 40px !important;
-        text-transform: uppercase;
-      }
-    }
-    z-index: 1;
-
-    .col-12 {
-      padding: 0;
     }
   }
 
@@ -84,11 +90,6 @@
 
     &__description {
       text-align: left;
-    }
-
-    &__header {
-      flex: 0 0 83.33333%;
-      max-width: 83.33333%;
     }
   }
 }

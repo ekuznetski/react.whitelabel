@@ -28,3 +28,8 @@
 
   @return $sp;
 }
+
+@function colSizePrc($columnSize) {
+  $sp: percentage($columnSize / $grid-columns);
+  @return $sp;
+}
