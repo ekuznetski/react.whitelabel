@@ -6,9 +6,10 @@
     .panel {
       .logo {
         svg {
-          fill: $blue;
+          fill: $dark-text;
+          
           .label {
-            fill: $dark-text;
+            fill: $blue;
           }
         }
       }

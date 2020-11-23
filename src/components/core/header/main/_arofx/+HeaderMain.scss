@@ -3,13 +3,21 @@
 
 .header.main {
   .panel-menu {
+    .logo {
+      svg {
+        .label {
+          fill: $blue;
+        }
+      }
+    }
+
     &.fixed {
       .logo {
         svg {
-          fill: $blue;
+          fill: $dark-text;
 
           .label {
-            fill: $dark-text;
+            fill: $dark-blue;
           }
         }
       }

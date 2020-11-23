@@ -109,7 +109,6 @@ module.exports = (_env, arguments) => {
 
     targetLabelComponentsKeys = Object.keys(targetLabelComponentsAlias);
 
-
     targetLabelConfigsDomainAlias = domainFilenames
       .filter((file) => _targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName))
       .map((filePath) => {
@@ -127,6 +126,7 @@ module.exports = (_env, arguments) => {
   }
 
   return {
+    stats: "minimal",
     context: path.join(__dirname, 'src'),
     entry: ['react-hot-loader/patch', './index.tsx'],
     output: {
