@@ -13,7 +13,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
  * @param {string} filepath; path to the file or filename
  */
 function filePathDestructor(filepath) {
-  return path.basename(filepath).match(/(?<basename>(?<filename>[^\\/]*)\.(?<extension>\w+)$)/).groups;
+  return path.basename(filepath).match(/(?<basename>(?<filenamePrefix>\+?)(?<filename>[^\\/]*)\.(?<extension>\w+)$)/).groups;
 }
 
 /**
@@ -75,39 +75,40 @@ module.exports = (_env, arguments) => {
 
     targetLabelComponentsAlias = componentsFilepaths
       .reduce((acc, filePath) => {
-        const { filename, extension, basename } = filePathDestructor(filePath);
+        const { filenamePrefix, filename, extension, basename } = filePathDestructor(filePath);
         if (filePath.match(/(components)/g).length > 1) {
           switch (extension) {
             case 'scss':
               return Object.assign(acc, {
-                [`./${basename}`]: `../../${targetLabelAssetFolder}/components/${lowerCaseFirstLetter(filename)}/${basename}`,
+                [`./${filename}.${extension}`]: `../../${targetLabelAssetFolder}/components/${lowerCaseFirstLetter(filename)}/${basename}`,
               });
             default:
               // FOR CHILDE COMPONENTS OF PAGE TYPE COMPONENT
               return Object.assign(acc, {
                 [`./${lowerCaseFirstLetter(filename)}/${filename}`]: `../${targetLabelAssetFolder}/components/${lowerCaseFirstLetter(
                   filename,
-                )}/${filename}`,
+                )}/${filenamePrefix}${filename}`,
               });
           }
         } else {
           switch (extension) {
             case 'scss':
               return Object.assign(acc, {
-                [`./${basename}`]: `./${targetLabelAssetFolder}/${basename}`,
+                [`./${filename}.${extension}`]: `./${targetLabelAssetFolder}/${basename}`,
               });
             default:
               // ONLY FOR PAGE TYPE COMPONENT REPLACEMENT
               return Object.assign(acc, {
                 [`./${lowerCaseFirstLetter(filename)}/${filename}`]: `./${lowerCaseFirstLetter(
                   filename,
-                )}/${targetLabelAssetFolder}/${filename}`,
+                )}/${targetLabelAssetFolder}/${filenamePrefix}${filename}`,
               });
           }
         }
       }, {});
 
     targetLabelComponentsKeys = Object.keys(targetLabelComponentsAlias);
+
 
     targetLabelConfigsDomainAlias = domainFilenames
       .filter((file) => _targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName))
@@ -180,8 +181,8 @@ module.exports = (_env, arguments) => {
 
                     const componentFile = componentsFilepaths
                       .find(filePath => {
-                        const { filename: _filename, extension } = filePathDestructor(filePath);
-                        return _filename.indexOf('+') === 0 && _filename === filename && extension === 'scss';
+                        const { filenamePrefix, filename: _filename, extension } = filePathDestructor(filePath);
+                        return filenamePrefix && _filename === filename && extension === 'scss';
                       });
 
                     if (componentFile) {
@@ -193,7 +194,6 @@ module.exports = (_env, arguments) => {
                         ),
                         _import = `@import '${path.relative(from, to).replace(/[\\/]/g, '/').slice(3)}';`;
 
-                      console.log('import: ', _import);
                       if (newContent.indexOf(_import) == -1)
                         newContent = _import + newContent;
                     }

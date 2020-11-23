@@ -20,7 +20,7 @@ import { useResponsive } from 'ahooks';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import './About.scss';
-import { MobileDepositTable } from './components/index';
+import { MobileDepositTable } from './components';
 
 export function About() {
   const responsive = useResponsive();

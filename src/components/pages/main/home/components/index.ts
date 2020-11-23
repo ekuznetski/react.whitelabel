@@ -1,1 +1,1 @@
-export * from './stocks_prices/StockPrices';
+export * from './stocksPrices/StockPrices';
