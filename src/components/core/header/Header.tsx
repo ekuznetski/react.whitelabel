@@ -33,3 +33,5 @@ export const Header = memo(function Header() {
     );
   }, [section, fixHeader]);
 });
+
+export default Header;

@@ -18,6 +18,12 @@
       bottom: 0px;
       left: 0;
     }
+
+    &.noUnderLine {
+      &:after {
+        display: none;
+      }
+    }
   }
 
   .outer-links-container {
