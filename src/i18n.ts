@@ -17,9 +17,9 @@ i18n
     backend: {
       loadPath: `./locale/{{lng}}.json`,
     },
-    interpolation: {
-      escapeValue: false,
-    },
+    // interpolation: {
+    //   escapeValue: false,
+    // },
     keySeparator: ':',
     react: {
       wait: true,
