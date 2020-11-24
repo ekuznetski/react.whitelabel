@@ -2,7 +2,7 @@ import { useCombinedRef } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { useLockScroll } from 'utils/hooks/useLockScroll';
+import { useLockScroll } from '@utils/hooks';
 import { Svg } from '..';
 import './Modal.scss';
 
