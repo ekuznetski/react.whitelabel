@@ -13,7 +13,16 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
  * @param {string} filepath; path to the file or filename
  */
 function filePathDestructor(filepath) {
-  return path.basename(filepath).match(/(?<basename>(?<filenamePrefix>\+?)(?<filename>[^\\/]*)\.(?<extension>\w+)$)/).groups;
+  return path.basename(filepath).match(/(?<basename>(?<filenamePrefix>\+?)(?<filename>([^\\/\.]*\.?(?<fileType>[^\\/]*)))\.(?<extension>\w+)$)/).groups;
+}
+
+/**
+ * Return file parent folder name
+ * @param {string} filepath; path to the file or filename
+ * @param {string} targetLabelFolder; target label folder name
+ */
+function fileParentFolder(filepath, targetLabelFolder) {
+  return path.dirname(filepath).replace(`/${targetLabelFolder}`, '').split('/').pop();
 }
 
 /**
@@ -27,20 +36,20 @@ function lowerCaseFirstLetter(str) {
 module.exports = (_env, arguments) => {
   const env = { PRODUCTION: false, LABEL: null, ..._env };
   const targetLabel = env.LABEL && env.LABEL.length && env.LABEL.toLowerCase();
-  const targetLabelAssetFolder = targetLabel ? `_${targetLabel}` : '_default';
+  const targetLabelFolder = targetLabel ? `_${targetLabel}` : '_default';
   const excludeAssets = [];
 
   // Generate exclude assets paths
   fs.readdirSync(path.join(__dirname, 'src/assets')).forEach((file) => {
     const absolutePath = path.join(__dirname, 'src/assets', file);
 
-    if (fs.lstatSync(absolutePath).isDirectory() && /^\_[^(default)].*/.test(file) && file !== targetLabelAssetFolder) {
+    if (fs.lstatSync(absolutePath).isDirectory() && /^\_[^(default)].*/.test(file) && file !== targetLabelFolder) {
       excludeAssets.push(file);
     }
   });
 
   // Generate env object to pass to React
-  const targetLabelEnvPath = path.join(__dirname, `src/domain/${targetLabelAssetFolder}/env.config.json`);
+  const targetLabelEnvPath = path.join(__dirname, `src/domain/${targetLabelFolder}/env.config.json`);
   if (fs.existsSync(targetLabelEnvPath)) {
     const data = fs.readFileSync(targetLabelEnvPath);
     const json = data && JSON.parse(data);
@@ -59,12 +68,12 @@ module.exports = (_env, arguments) => {
 
   // Generate map to replace files for different domain
   if (targetLabel) {
-    const domainFilenames = fs.readdirSync(`./src/domain/${targetLabelAssetFolder}`);
+    const domainFilenames = fs.readdirSync(`./src/domain/${targetLabelFolder}`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
     componentsFilepaths = glob
       .sync(`./src/components/**/!(index).{${componentsExtensionToHandle.toString()}}`)
-      .filter((filePath) => filePath.includes(`/${targetLabelAssetFolder}`))
+      .filter((filePath) => filePath.includes(`/${targetLabelFolder}`))
       .filter((filePath, idx, originalArr) => {
         const { filename, extension } = filePathDestructor(filePath);
         // Filter out .scss if .tsx file with the same name presented
@@ -76,38 +85,47 @@ module.exports = (_env, arguments) => {
     targetLabelComponentsAlias = componentsFilepaths
       .reduce((acc, filePath) => {
         const { filenamePrefix, filename, extension, basename } = filePathDestructor(filePath);
+        const folderName = fileParentFolder(filePath, targetLabelFolder);
+
         if (filePath.match(/(components)/g).length > 1) {
           switch (extension) {
             case 'scss':
               return Object.assign(acc, {
-                [`./${filename}.${extension}`]: `../../${targetLabelAssetFolder}/components/${lowerCaseFirstLetter(filename)}/${basename}`,
+                [`./${filename}.${extension}`]: `../../${targetLabelFolder}/components/${folderName}/${basename}`,
+              });
+            case 'ts':
+              return Object.assign(acc, {
+                [`./${filename}`]: `../../${targetLabelFolder}/components/${folderName}/${filename}`,
               });
             default:
               // FOR CHILDE COMPONENTS OF PAGE TYPE COMPONENT
               return Object.assign(acc, {
-                [`./${lowerCaseFirstLetter(filename)}/${filename}`]: `../${targetLabelAssetFolder}/components/${lowerCaseFirstLetter(
-                  filename,
-                )}/${filenamePrefix}${filename}`,
+                [`./${folderName}/${filename}`]: `../${targetLabelFolder}/components/${folderName}/${filenamePrefix}${filename}`,
               });
           }
         } else {
           switch (extension) {
             case 'scss':
               return Object.assign(acc, {
-                [`./${filename}.${extension}`]: `./${targetLabelAssetFolder}/${basename}`,
+                [`./${filename}.${extension}`]: `./${targetLabelFolder}/${basename}`,
+              });
+            case 'ts':
+              return Object.assign(acc, {
+                [`./${filename}`]: `./${targetLabelFolder}/${filename}`,
               });
             default:
               // ONLY FOR PAGE TYPE COMPONENT REPLACEMENT
               return Object.assign(acc, {
-                [`./${lowerCaseFirstLetter(filename)}/${filename}`]: `./${lowerCaseFirstLetter(
-                  filename,
-                )}/${targetLabelAssetFolder}/${filenamePrefix}${filename}`,
+                [`./${folderName}/${filename}`]: `./${folderName}/${targetLabelFolder}/${filenamePrefix}${filename}`,
               });
           }
         }
       }, {});
 
     targetLabelComponentsKeys = Object.keys(targetLabelComponentsAlias);
+
+    // console.log(componentsFilepaths, targetLabelComponentsAlias);
+    // return;
 
     targetLabelConfigsDomainAlias = domainFilenames
       .filter((file) => _targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName))
@@ -116,7 +134,7 @@ module.exports = (_env, arguments) => {
         const { filename, extension, basename } = filePathDestructor(filePath);
         return extensions.includes(extension) ? filename : basename;
       })
-      .reduce((acc, file) => Object.assign(acc, { [`./_default/${file}`]: `./${targetLabelAssetFolder}/${file}` }), {});
+      .reduce((acc, file) => Object.assign(acc, { [`./_default/${file}`]: `./${targetLabelFolder}/${file}` }), {});
 
     targetLabelConfigsScss = domainFilenames.filter(
       (file) => !_targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName),
@@ -172,7 +190,7 @@ module.exports = (_env, arguments) => {
                         const relativePath = path
                           .relative(
                             path.dirname(resourcePath),
-                            path.join(rootContext, `domain/${targetLabelAssetFolder}/${filename}`),
+                            path.join(rootContext, `domain/${targetLabelFolder}/${filename}`),
                           )
                           .replace(/[\\/]/g, '/');
                         newContent = newContent.replace(`~/${filename}`, relativePath);
@@ -254,7 +272,7 @@ module.exports = (_env, arguments) => {
       new CopyPlugin({
         patterns: [
           {
-            from: `locale/${targetLabel ? `${targetLabelAssetFolder}/` : ''}*.json`,
+            from: `locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.json`,
             to: 'locale/',
             flatten: true,
             transform(content, absolutePath) {
@@ -278,12 +296,12 @@ module.exports = (_env, arguments) => {
             globOptions: {
               ignore: [
                 ...excludeAssets.map((asset) => `**/${asset}/**`),
-                ...(targetLabel ? [`**/${targetLabelAssetFolder}/**`] : []),
+                ...(targetLabel ? [`**/${targetLabelFolder}/**`] : []),
               ],
             },
           },
           {
-            from: `assets/${targetLabelAssetFolder}/**/*`,
+            from: `assets/${targetLabelFolder}/**/*`,
             to: 'assets/',
             flatten: true,
             force: true,
