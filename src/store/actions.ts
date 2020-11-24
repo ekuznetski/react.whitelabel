@@ -401,3 +401,11 @@ export function ac_partnershipRegisterIB(
     onFailure,
   };
 }
+
+export function ac_fetchStocksPrices(onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+  return {
+    type: EActionTypes.fetchStocksPrices,
+    onSuccess,
+    onFailure,
+  };
+}
