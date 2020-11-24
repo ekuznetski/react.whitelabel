@@ -32,6 +32,7 @@ import {
 import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
 import { EAppSection, EResponseStatus, ETradingType } from '../enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
+import i18n from 'i18next';
 
 // Data to be loaded on EVERY page of app section
 export const routesInitialApiData: IRoutesInitialApiData = {
@@ -46,7 +47,13 @@ export const routesInitialApiData: IRoutesInitialApiData = {
   },
 };
 
-export const routesRedirectConfig: IRouteRedirectConfig[] = [];
+export const routesRedirectConfig: IRouteRedirectConfig[] = [
+  {
+    path: '',
+    redirectTo: i18n.language,
+    appSection: EAppSection.main,
+  },
+];
 
 export const routesNavConfig: IRouteNavConfig[] = [
   {
