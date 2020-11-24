@@ -79,8 +79,6 @@
   "Max Leverage": "Max. Leverage",
   "Max Leverage #": "Max. Leverage <1>{{val}}</1>",
   "# Max Leverage": "{{val}} Max. Leverage",
-  "Number Of Markets": "{{num}} {{market}}",
-  "Number Of Markets Styled": "<0>{{num}}</0> {{market}}",
   "24 5 Customer Support": "24/5 Customer Support",
   "Prestigious Platform Technology Title": "$t(Prestigious MT5)<1/><3>$t(Platform Technology)</3>",
   "Prestigious MT5": "Prestigious MT5",
@@ -269,31 +267,22 @@
   "Please confirm withdrawal cancellation": "Please confirm withdrawal cancellation",
   "Secure ID or Authentication Code": "Secure ID or Authentication Code",
   "Email or Account ID": "Email or Account ID",
-  "Legal Forms and Documents": "Legal Forms & Documents",
+  "Legal Forms and Documents": "234 Legal Forms & Documents",
   "Risk Warnings": "Risk Warnings",
   "Cookies Policy": "Cookies Policy",
-  "High Risk Investment Warning Portal Desc": [
-    "High Risk Investment Warning: ",
-    "CFDs are leveraged products and can result in the loss of all invested capital. Please consider our Risk Disclosure Notice. HYCM Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number 25228 (IBC 2018). Other subsidiaries of Henyep Group are regulated by the CySEC, FCA and DFSA."
-  ],
-  "High Risk Investment Warning Main Desc": [
-    "High Risk Investment Warning: ",
-    "Contracts for Difference (‘CFDs’) are complex financial products that are traded on margin. Trading CFDs carries a high degree of risk. It is possible to lose all your capital. These products may not be suitable for everyone and you should ensure that you understand the risks involved. Seek independent expert advice if necessary and speculate only with funds that you can afford to lose. Please think carefully whether such trading suits you, taking into consideration all the relevant circumstances as well as your personal resources. We do not recommend clients posting their entire account balance to meet margin requirements.Clients can minimise their level of exposure by requesting a change in leverage limit.For more information please refer to HYCM’ s Risk Disclosure."
-  ],
-  "Disclaimer desc": [
-    "Disclaimer: ",
-    "The content of this page is for information purposes only and it is not intended as a recommendation or advice. Any indication of past performance or simulated past performance included in advertisements published by HYCM is not a reliable indicator of future results. The customer carries the sole responsibility for all the businesses or investments that are carried out at HYCM."
-  ],
-  "Regional Restrictions": [
-    "Regional Restrictions: ",
-    "We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong, Japan, the United States of America and some other regions. For more information please refer to our ",
-    "Help Center"
-  ],
-  "Copyright 2020 HYCM": "Copyright © 2020 HYCM",
+  "Disclaimer": "Disclaimer",
+  "High Risk Investment Warning": "High Risk Investment Warning",
+  "High Risk Investment Warning Portal Desc": "CFDs are leveraged products and can result in the loss of all invested capital. Please consider our Risk Disclosure Notice. HYCM Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number 25228 (IBC 2018). Other subsidiaries of Henyep Group are regulated by the CySEC, FCA and DFSA.",
+  "High Risk Investment Warning Main Desc": "Contracts for Difference (‘CFDs’) are complex financial products that are traded on margin. Trading CFDs carries a high degree of risk. It is possible to lose all your capital. These products may not be suitable for everyone and you should ensure that you understand the risks involved. Seek independent expert advice if necessary and speculate only with funds that you can afford to lose. Please think carefully whether such trading suits you, taking into consideration all the relevant circumstances as well as your personal resources. We do not recommend clients posting their entire account balance to meet margin requirements.Clients can minimize their level of exposure by requesting a change in leverage limit.For more information please refer to HYCM’ s Risk Disclosure.",
+  "Disclaimer Desc": "The content of this page is for information purposes only and it is not intended as a recommendation or advice. Any indication of past performance or simulated past performance included in advertisements published by HYCM is not a reliable indicator of future results. The customer carries the sole responsibility for all the businesses or investments that are carried out at HYCM.",
+  "Regional Restrictions": "Regional Restrictions",
+  "Regional Restrictions Desc": "We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong, Japan, the United States of America and some other regions. For more information please refer to our <1>Help Center</1>",
+  "Label Copyright": "Copyright © 2020",
   "Journey since 1977": "*Henyep’s journey started since 1977.",
   "Est since 1977": "Est. Since 1977*",
   "Page loading": "Page loading...",
   "First Name": "First Name",
+  "Mobile first": "Mobile first",
   "Last Name": "Last Name",
   "Surname": "Surname",
   "Email": "Email",
@@ -302,7 +291,6 @@
   "Name": "Name",
   "Message": "Message",
   "Company": "Company",
-
   "Market Event Notification Desc": [
     "To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our ",
     "and you consent to receive newsletters, special offers and be contacted by HYCM representatives via phone or e-mail. You can opt-out any time you wish to."

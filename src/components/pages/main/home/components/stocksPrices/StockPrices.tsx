@@ -21,7 +21,7 @@ export function StockPrices() {
       icon: 'filter',
       anchor: MarketType.forex,
       info: {
-        title: t('Number Of Markets', { num: '40+', market: t('Forex') }),
+        title: `40+ ${t('Forex')}`,
         desc: t('Product Section Forex Desc'),
         points: [
           <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
@@ -36,7 +36,7 @@ export function StockPrices() {
       icon: 'graph_bars',
       anchor: MarketType.stocks,
       info: {
-        title: t('Number Of Markets', { num: '40+', market: t('Stocks') }),
+        title: `40+ ${t('Stocks')}`,
         desc: t('Product Section Stocks Desc'),
         points: [
           <Trans i18nKey="Max Leverage #" values={{ val: '1:20' }}>
@@ -126,7 +126,6 @@ export function StockPrices() {
 }
 
 function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
-  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
 
   return (
