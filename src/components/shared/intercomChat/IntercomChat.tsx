@@ -8,17 +8,17 @@ import { IntercomProvider, useIntercom } from 'react-use-intercom';
 import { IIntercomChatParams, IntercomChatAppId } from './intercomChat.context';
 
 export const IntercomChat = memo(function IntercomChat() {
-  const targetLabel: keyof typeof ELabels = env.LABEL?.toLowerCase() || 'default';
   const { clientInfo } = useSelector<IStore, { clientInfo: MClientProfile }>((state) => ({
     clientInfo: state.data.client.profile,
   }));
 
-  // const onHide = () => console.log('Intercom did hide the Messenger');
-  const onHide = React.useCallback(() => console.log('Intercom did hide the Messenger'), []);
-  const onShow = React.useCallback(() => console.log('Intercom did show the Messenger'), []);
+  const targetLabel: keyof typeof ELabels = env.LABEL?.toLowerCase() || 'default';
+
+  const onHide = React.useCallback(() => console.log('Messenger now hiden'), []);
+  const onShow = React.useCallback(() => console.log('Messenger now shown'), []);
 
   return (
-    <IntercomProvider appId={IntercomChatAppId[targetLabel]} onHide={onHide} onShow={onShow} autoBoot>
+    <IntercomProvider appId={IntercomChatAppId[targetLabel]} onHide={onHide} onShow={onShow}>
       <Chat {...clientInfo} />
     </IntercomProvider>
   );
@@ -33,16 +33,14 @@ export const Chat = memo<IIntercomChatParams>(function Chat(clientInfo) {
         ...clientInfo,
         name: `${clientInfo.first_name} ${clientInfo.last_name}`,
         phone: clientInfo.phone?.toString(),
-        userId: clientInfo.ic_hash,
       });
-    } else {
+    }
+    return () => {
+      //clear data
       shutdown();
       boot();
-    }
+    };
   }, [clientInfo]);
-
-  // const bootWithProps = () => boot({ name: 'Russo' });
-  // const bootWithProps = React.useCallback(() => boot({ name: 'Russo' }), [boot]);
 
   return <></>;
 });

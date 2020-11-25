@@ -20,7 +20,7 @@ export * from './uploadWrapper';
 export * from './localeNavLink/LocaleNavLink';
 export * from './localeLink/LocaleLink';
 export * from './authAlreadyRegisteredLink/AuthAlreadyRegisteredLink';
-export * from './intercomChat/intercomChat';
+export * from './intercomChat/IntercomChat';
 
 // Elements
 export * from './labelView/LabelView';
