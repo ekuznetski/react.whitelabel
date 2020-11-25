@@ -48,11 +48,11 @@ export const routesInitialApiData: IRoutesInitialApiData = {
 };
 
 export const routesRedirectConfig: IRouteRedirectConfig[] = [
-  {
-    path: '',
-    redirectTo: i18n.language,
-    appSection: EAppSection.main,
-  },
+  // {
+  //   path: '',
+  //   redirectTo: i18n.language || 'en',
+  //   appSection: EAppSection.main,
+  // },
 ];
 
 export const routesNavConfig: IRouteNavConfig[] = [
@@ -63,9 +63,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '',
     component: Home,
     appSection: EAppSection.main,
-    apiData: {
-      lazy: [ac_fetchGeoIpData],
-    },
     menuItem: true,
   },
   {

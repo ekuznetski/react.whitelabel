@@ -13,7 +13,10 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
  * @param {string} filepath; path to the file or filename
  */
 function filePathDestructor(filepath) {
-  return path.basename(filepath).match(/(?<basename>(?<filenamePrefix>\+?)(?<filename>([^\\/\.]*\.?(?<fileType>[^\\/]*)))\.(?<extension>\w+)$)/).groups;
+  return path
+    .basename(filepath)
+    .match(/(?<basename>(?<filenamePrefix>\+?)(?<filename>([^\\/\.]*\.?(?<fileType>[^\\/]*)))\.(?<extension>\w+)$)/)
+    .groups;
 }
 
 /**
@@ -34,7 +37,11 @@ function lowerCaseFirstLetter(str) {
 }
 
 module.exports = (_env, arguments) => {
-  const env = { PRODUCTION: false, LABEL: null, ..._env };
+  const env = {
+    PRODUCTION: false,
+    LABEL: null,
+    ..._env,
+  };
   const targetLabel = env.LABEL && env.LABEL.length && env.LABEL.toLowerCase();
   const targetLabelFolder = targetLabel ? `_${targetLabel}` : '_default';
   const excludeAssets = [];
@@ -54,13 +61,16 @@ module.exports = (_env, arguments) => {
     const data = fs.readFileSync(targetLabelEnvPath);
     const json = data && JSON.parse(data);
     if (json) {
-      const _env = Object.assign({}, json, env, { LABEL: targetLabel || 'default' });
+      const _env = Object.assign({}, json, env, {
+        LABEL: targetLabel || 'default',
+      });
       fs.writeFileSync(targetLabelEnvPath, JSON.stringify(_env, null, 2));
     }
   }
 
   const _targetLabelCustomizationScssFiles = ['theme.scss', 'variables.scss'];
-  let targetLabelConfigsDomainAlias = {};
+  let targetLabelLocaleAlias = {};
+  let targetLabelConfigsAlias = {};
   let targetLabelComponentsAlias = {};
   let targetLabelComponentsKeys = [];
   let targetLabelConfigsScss = [];
@@ -69,6 +79,7 @@ module.exports = (_env, arguments) => {
   // Generate map to replace files for different domain
   if (targetLabel) {
     const domainFilenames = fs.readdirSync(`./src/domain/${targetLabelFolder}`);
+    const localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
     componentsFilepaths = glob
@@ -82,59 +93,94 @@ module.exports = (_env, arguments) => {
           : true;
       });
 
-    targetLabelComponentsAlias = componentsFilepaths
-      .reduce((acc, filePath) => {
-        const { filenamePrefix, filename, extension, basename } = filePathDestructor(filePath);
-        const folderName = fileParentFolder(filePath, targetLabelFolder);
+    targetLabelComponentsAlias = componentsFilepaths.reduce((acc, filePath) => {
+      const { filenamePrefix, fileType, filename, extension, basename } = filePathDestructor(filePath);
+      const folderName = fileParentFolder(filePath, targetLabelFolder);
 
-        if (filePath.match(/(components)/g).length > 1) {
-          switch (extension) {
-            case 'scss':
-              return Object.assign(acc, {
-                [`./${filename}.${extension}`]: `../../${targetLabelFolder}/components/${folderName}/${basename}`,
-              });
-            case 'ts':
-              return Object.assign(acc, {
-                [`./${filename}`]: `../../${targetLabelFolder}/components/${folderName}/${filename}`,
-              });
-            default:
-              // FOR CHILDE COMPONENTS OF PAGE TYPE COMPONENT
-              return Object.assign(acc, {
-                [`./${folderName}/${filename}`]: `../${targetLabelFolder}/components/${folderName}/${filenamePrefix}${filename}`,
-              });
-          }
-        } else {
-          switch (extension) {
-            case 'scss':
-              return Object.assign(acc, {
-                [`./${filename}.${extension}`]: `./${targetLabelFolder}/${basename}`,
-              });
-            case 'ts':
-              return Object.assign(acc, {
-                [`./${filename}`]: `./${targetLabelFolder}/${filename}`,
-              });
-            default:
-              // ONLY FOR PAGE TYPE COMPONENT REPLACEMENT
-              return Object.assign(acc, {
-                [`./${folderName}/${filename}`]: `./${folderName}/${targetLabelFolder}/${filenamePrefix}${filename}`,
-              });
-          }
+      if (filePath.match(/(components)/g).length > 1) {
+        switch (extension) {
+          case 'scss':
+            return Object.assign(acc, {
+              [`./${filename}.${extension}`]: `../../${targetLabelFolder}/components/${folderName}/${basename}`,
+            });
+          case 'ts':
+            return Object.assign(acc, {
+              [`./${filename}`]: `../../${targetLabelFolder}/components/${folderName}/${filename}`,
+            });
+          default:
+            switch (fileType) {
+              case 'config':
+                return Object.assign(acc, {
+                  [`./${filename}`]: `../../${targetLabelFolder}/components/${folderName}/${filename}`,
+                });
+              default:
+                // FOR CHILDE COMPONENTS OF PAGE TYPE COMPONENT
+                return Object.assign(acc, {
+                  [`./${folderName}/${filename}`]: `../${targetLabelFolder}/components/${folderName}/${filenamePrefix}${filename}`,
+                });
+            }
         }
-      }, {});
+      } else {
+        switch (extension) {
+          case 'scss':
+            return Object.assign(acc, {
+              [`./${filename}.${extension}`]: `./${targetLabelFolder}/${basename}`,
+            });
+          case 'ts':
+            return Object.assign(acc, {
+              [`./${filename}`]: `./${targetLabelFolder}/${filename}`,
+            });
+          default:
+            switch (fileType) {
+              case 'config':
+                return Object.assign(acc, {
+                  [`./${filename}`]: `./${targetLabelFolder}/${filename}`,
+                });
+              default:
+                // ONLY FOR PAGE TYPE COMPONENT REPLACEMENT
+                return Object.assign(acc, {
+                  [`./${folderName}/${filename}`]: `./${folderName}/${targetLabelFolder}/${filenamePrefix}${filename}`,
+                });
+            }
+        }
+      }
+    }, {});
 
     targetLabelComponentsKeys = Object.keys(targetLabelComponentsAlias);
 
     // console.log(componentsFilepaths, targetLabelComponentsAlias);
     // return;
 
-    targetLabelConfigsDomainAlias = domainFilenames
+    targetLabelConfigsAlias = domainFilenames
       .filter((file) => _targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName))
       .map((filePath) => {
         const extensions = ['tsx', 'ts', 'js'];
         const { filename, extension, basename } = filePathDestructor(filePath);
         return extensions.includes(extension) ? filename : basename;
       })
-      .reduce((acc, file) => Object.assign(acc, { [`./_default/${file}`]: `./${targetLabelFolder}/${file}` }), {});
+      .reduce(
+        (acc, file) =>
+          Object.assign(acc, {
+            [`./_default/${file}`]: `./${targetLabelFolder}/${file}`,
+          }),
+        {},
+      );
+
+    targetLabelLocaleAlias = localeFilenames
+      .map((filePath) => {
+        const { filename } = filePathDestructor(filePath);
+        return filename;
+      })
+      .reduce(
+        (acc, file) =>
+          Object.assign(acc, {
+            [`./locale/${file}`]: `./locale/${targetLabelFolder}/${file}`,
+          }),
+        {},
+      );
+
+    // console.log(targetLabelLocaleAlias, localeFilenames);
+    // return;
 
     targetLabelConfigsScss = domainFilenames.filter(
       (file) => !_targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName),
@@ -144,7 +190,7 @@ module.exports = (_env, arguments) => {
   }
 
   return {
-    stats: "minimal",
+    stats: 'minimal',
     context: path.join(__dirname, 'src'),
     entry: ['react-hot-loader/patch', './index.tsx'],
     output: {
@@ -161,7 +207,8 @@ module.exports = (_env, arguments) => {
       extensions: ['.tsx', '.ts', '.js', '.json', '.sass', '.scss', '.css'],
       alias: {
         'react-dom': '@hot-loader/react-dom',
-        ...targetLabelConfigsDomainAlias,
+        ...targetLabelLocaleAlias,
+        ...targetLabelConfigsAlias,
         ...targetLabelComponentsAlias,
       },
       plugins: [new TsconfigPathsPlugin()],
@@ -172,7 +219,12 @@ module.exports = (_env, arguments) => {
         {
           test: /\.(sa|sc|c)ss$/,
           use: [
-            { loader: MiniCssExtractPlugin.loader, options: { hmr: !env.PRODUCTION } },
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                hmr: !env.PRODUCTION,
+              },
+            },
             'css-loader',
             {
               loader: 'sass-loader',
@@ -197,23 +249,21 @@ module.exports = (_env, arguments) => {
                       }
                     });
 
-                    const componentFile = componentsFilepaths
-                      .find(filePath => {
-                        const { filenamePrefix, filename: _filename, extension } = filePathDestructor(filePath);
-                        return filenamePrefix && _filename === filename && extension === 'scss';
-                      });
+                    const componentFile = componentsFilepaths.find((filePath) => {
+                      const { filenamePrefix, filename: _filename, extension } = filePathDestructor(filePath);
+                      return filenamePrefix && _filename === filename && extension === 'scss';
+                    });
 
                     if (componentFile) {
                       const idx = componentsFilepaths.indexOf(componentFile),
                         from = componentFile,
                         to = componentFile.replace(
                           targetLabelComponentsAlias[targetLabelComponentsKeys[idx]].slice(2),
-                          targetLabelComponentsKeys[idx].slice(2)
+                          targetLabelComponentsKeys[idx].slice(2),
                         ),
                         _import = `@import '${path.relative(from, to).replace(/[\\/]/g, '/').slice(3)}';`;
 
-                      if (newContent.indexOf(_import) == -1)
-                        newContent = _import + newContent;
+                      if (newContent.indexOf(_import) == -1) newContent = _import + newContent;
                     }
                   }
 
@@ -271,24 +321,24 @@ module.exports = (_env, arguments) => {
     plugins: [
       new CopyPlugin({
         patterns: [
-          {
-            from: `locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.json`,
-            to: 'locale/',
-            flatten: true,
-            transform(content, absolutePath) {
-              const _context = {};
-              if (targetLabel) {
-                const name = path.basename(absolutePath);
-                const data = fs.readFileSync(path.join(__dirname, `src/locale/${name}`));
-                const json = data && JSON.parse(data);
-                if (json) {
-                  Object.assign(_context, json);
-                }
-              }
-              Object.assign(_context, JSON.parse(content));
-              return JSON.stringify(_context, null, 2);
-            },
-          },
+          // {
+          //   from: `locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.json`,
+          //   to: 'locale/',
+          //   flatten: true,
+          //   transform(content, absolutePath) {
+          //     const _context = {};
+          //     if (targetLabel) {
+          //       const name = path.basename(absolutePath);
+          //       const data = fs.readFileSync(path.join(__dirname, `src/locale/${name}`));
+          //       const json = data && JSON.parse(data);
+          //       if (json) {
+          //         Object.assign(_context, json);
+          //       }
+          //     }
+          //     Object.assign(_context, JSON.parse(content));
+          //     return JSON.stringify(_context, null, 2);
+          //   },
+          // },
           {
             from: 'assets/**/*',
             flatten: true,
