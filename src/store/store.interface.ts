@@ -39,6 +39,7 @@ export interface IAppStore {
       desc: string;
     };
     state: any;
+    isLoading: boolean;
   };
   requests: {
     activeList: EActionTypes[];

@@ -1,4 +1,4 @@
-import { Footer, Header, Router } from '@components/core';
+import { Footer, Header, PageLoader, Router } from '@components/core';
 import { localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
 import { ac_updateRouteParams, IStore, store } from '@store';

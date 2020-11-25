@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 
   font-weight: 500;
   font-size: 55px;
@@ -18,10 +19,11 @@
 
   color: $dark-text;
   opacity: 1;
-  transition: opacity 0.35s;
+  transition: opacity 0s;
 
   &.hide {
+    top: -100%;
     opacity: 0;
-    transition: opacity 0.35s;
+    transition: opacity 0.35s, top 0s 0.35s;
   }
 }

@@ -394,7 +394,7 @@ export function* addDepositSaga() {
 
 export function* fetchStocksPricesSaga() {
   yield $$(EActionTypes.fetchStocksPrices, function* () {
-    const data: IAddDepositResponse = yield call(getStocksPricesRequest);
+    const data = yield call(getStocksPricesRequest);
     return data;
   });
 }

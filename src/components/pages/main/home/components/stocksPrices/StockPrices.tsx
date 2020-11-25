@@ -1,8 +1,7 @@
 import { LocaleLink, Svg } from '@components/shared';
 import { MarketType } from '@domain/enums';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu } from '@domain/interfaces';
-import { usePathLocale } from '@utils/hooks';
-import { useDebounceFn, useResponsive } from 'ahooks';
+import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -155,7 +154,8 @@ function StockPricesMenu({ items, activeTab, selectTab }: IPriceTabMenu) {
   const menuRef = createRef<HTMLDivElement>();
   let activeMenuItemRef: any = createRef();
   const responsive = useResponsive();
-  const { run } = useDebounceFn(
+
+  useDebounceEffect(
     () => {
       if (activeMenuItemRef) {
         if (menuRef.current) {
@@ -165,10 +165,9 @@ function StockPricesMenu({ items, activeTab, selectTab }: IPriceTabMenu) {
         setLineProps({ width: activeMenuItemRef.clientWidth, left: activeMenuItemRef.offsetLeft });
       }
     },
+    [activeTab.anchor, responsive],
     { wait: 0 },
   );
-
-  useEffect(run, [activeTab.anchor, responsive]);
 
   return (
     <div className="stockPrices-menu" ref={menuRef}>

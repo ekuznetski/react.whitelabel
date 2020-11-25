@@ -56,9 +56,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '',
     component: Home,
     appSection: EAppSection.main,
-    apiData: {
-      lazy: [ac_fetchGeoIpData],
-    },
     menuItem: true,
   },
   {

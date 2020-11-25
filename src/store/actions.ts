@@ -207,6 +207,7 @@ export function ac_updateRouteParams(payload: {
     desc?: string;
   };
   state?: any;
+  isLoading?: boolean;
 }): IAction {
   return {
     type: EActionTypes.updateRoute,
@@ -402,7 +403,7 @@ export function ac_partnershipRegisterIB(
   };
 }
 
-export function ac_fetchStocksPrices(onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+export function ac_fetchStocksPrices(onSuccess: AnyFunction = null, onFailure: AnyFunction = null): IAction {
   return {
     type: EActionTypes.fetchStocksPrices,
     onSuccess,
