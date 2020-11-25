@@ -11,12 +11,14 @@ import './App.scss';
 import { browserName, osName } from 'react-device-detect';
 import classNames from 'classnames';
 import { useDeviceDetect } from '@utils/hooks';
+import { IntercomChat } from '@components/shared';
 
 function App() {
   return (
     <Provider store={store}>
       <Suspense fallback={null}>
         <WrappedMain />
+        <IntercomChat />
       </Suspense>
     </Provider>
   );
