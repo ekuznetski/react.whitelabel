@@ -101,7 +101,7 @@ export const Withdrawal = memo(function Withdrawal() {
             <PageTitle
               sizes={{ xs: 12, md: 10, lg: 8, xl: 7 }}
               title="Withdrawal"
-              description={t('HYCM withdrawal policy desc')}
+              description={t('Withdrawal Policy Desc')}
             />
           </Col>
         </Row>
