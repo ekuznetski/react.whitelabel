@@ -1,5 +1,5 @@
 import { Footer, Header, Router } from '@components/core';
-import { env, localesConfig } from '@domain';
+import { localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
 import { ac_updateRouteParams, IStore, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
@@ -11,10 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { connect, Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './App.scss';
-import { browserName, osName } from 'react-device-detect';
-import classNames from 'classnames';
-import { useDeviceDetect } from '@utils/hooks';
-import TagManager from 'react-gtm-module';
 
 function App() {
   return (
@@ -36,11 +32,6 @@ function Main() {
   const device = useDeviceDetect();
 
   useEffect(() => {
-    TagManager.initialize({
-      gtmId: env.GTMID,
-      events: { 'gtm.start': new Date().getTime(), event: 'gtm.js' },
-    });
-
     const _locale = pathname.split('/')[1] as ELanguage;
     if (localesConfig.includes(_locale)) {
       i18n.changeLanguage(_locale);
