@@ -7,6 +7,8 @@ import './FinancialProfile.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { ac_submitFinancialProfile, IStore } from '@store';
 import { MClientData } from '@domain/models';
+import { Svg } from '@components/shared';
+import { Col } from 'react-bootstrap';
 
 export const FinancialProfile = memo(function FinancialProfile() {
   const { statusData } = useSelector<IStore, { statusData: MClientData }>((state) => ({
@@ -48,7 +50,10 @@ export const FinancialProfile = memo(function FinancialProfile() {
   }
   const progressPercent = (100 / (Object.keys(EFPSteps).length / 2)) * state.step;
   return statusData.fp_status.code === EClientStatusCode.submitted ? (
-    <>FP is submitted</>
+    <div className="text-center">
+      <h3>Financial profile Completed</h3>
+      <Svg className="mt-5" href="profile-completed" width={78} />
+    </div>
   ) : (
     <div className="financial-profile">
       {state.step !== Object.keys(EFPSteps).length / 2 ? (
