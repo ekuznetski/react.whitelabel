@@ -1,0 +1,18 @@
+@import '~/variables';
+@import '~/mixin';
+
+.header.portal {
+  .header-wrapper {
+    .panel {
+      .logo {
+        svg {
+          fill: $dark-text;
+          
+          .label {
+            fill: $blue;
+          }
+        }
+      }
+    }
+  }
+}

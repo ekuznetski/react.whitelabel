@@ -110,7 +110,11 @@ export function ThirdStep({ submitFn }: any) {
                 ]}
               />
               <h4 className="section-title mb-5">{t('Choose Account Type')}</h4>
-              <Radio className="mb-10 account_type" name={EFields.account_type} options={accountTypeOptions} />
+              <Radio
+                className="mb-10 account_type justify-content-between no-gutters"
+                name={EFields.account_type}
+                options={accountTypeOptions}
+              />
               <Row>
                 <Col xs={12} sm={6}>
                   <h5 className="select-title">{t('Account Currency')}</h5>

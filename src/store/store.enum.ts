@@ -22,6 +22,9 @@ export enum EActionTypes {
   fetchTransactionalStatements = '[DATA - Client] Fetch Transactional Statements',
   saveTransactionalStatements = '[DATA - Client] Save Transactional Statements',
 
+  // DATA - Financial Profile
+  submitFinancialProfile = '[DATA - Financial Profile] Submit',
+
   // DATA - Document
   fetchDocuments = '[DATA - Documents] Fetch',
   saveDocuments = '[DATA - Documents] Save',
@@ -67,5 +70,12 @@ export enum EActionTypes {
   preRegister = '[APP - Registration] Client Add',
 
   // APP - Deposit
-  addDeposit = '[APP - Deposit] add deposit',
+  addDeposit = '[APP - Deposit] Add',
+
+  //APP - Partnership
+  partnershipRegisterIB = '[APP - Partnership] Register IB',
+  partnershipRegister = '[APP - Partnership] Register',
+
+  // APP - Stocks Prices
+  fetchStocksPrices = '[APP - Stocks Prices] Fetch',
 }

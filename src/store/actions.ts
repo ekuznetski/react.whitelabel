@@ -11,9 +11,12 @@ import {
   INotificationState,
   IResetPasswordRequest,
   ISetProfileRequest,
+  ISubmitFPRequest,
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
   IWithdrawFundRequest,
+  IPartnershipRegistrationRequest,
+  IPartnershipIBRegistrationRequest,
 } from '@domain/interfaces';
 import {
   MBankDetails,
@@ -205,6 +208,7 @@ export function ac_updateRouteParams(payload: {
     desc?: string;
   };
   state?: any;
+  isLoading?: boolean;
 }): IAction {
   return {
     type: EActionTypes.updateRoute,
@@ -222,6 +226,13 @@ export function ac_requestActionSuccess(payload: { requestActionType?: EActionTy
 export function ac_requestActionFailure(payload: { requestActionType?: EActionTypes }): IAction {
   return {
     type: EActionTypes.requestFailure,
+    payload,
+  };
+}
+
+export function ac_submitFinancialProfile(payload: ISubmitFPRequest): IAction {
+  return {
+    type: EActionTypes.submitFinancialProfile,
     payload,
   };
 }
@@ -369,6 +380,40 @@ export function ac_uploadDocuments(
   return {
     type: EActionTypes.fetchDocuments,
     payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_partnershipRegisterStandard(
+  payload: IPartnershipRegistrationRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction = null,
+): IAction {
+  return {
+    type: EActionTypes.partnershipRegister,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_partnershipRegisterIB(
+  payload: IPartnershipIBRegistrationRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction = null,
+): IAction {
+  return {
+    type: EActionTypes.partnershipRegisterIB,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_fetchStocksPrices(onSuccess: AnyFunction = null, onFailure: AnyFunction = null): IAction {
+  return {
+    type: EActionTypes.fetchStocksPrices,
     onSuccess,
     onFailure,
   };

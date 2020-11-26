@@ -1,0 +1,25 @@
+@import '~/variables';
+@import '~/mixin';
+
+.top-header {
+  position: relative;
+  z-index: 9999;
+
+  &__links {
+    @include d-flex(center, flex-end);
+    height: 30px;
+  }
+
+  &__item {
+    @include d-flex(center);
+
+    a {
+      font-size: 14px;
+      color: $dark-text;
+    }
+
+    svg {
+      fill: $dark-text;
+    }
+  }
+}

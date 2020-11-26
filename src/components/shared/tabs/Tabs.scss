@@ -1,4 +1,5 @@
 @import '~/variables';
+@import '~/mixin';
 
 .common-tabs {
   display: flex;
@@ -94,7 +95,6 @@
 
   &__container {
     position: relative;
-    overflow: hidden;
 
     @keyframes fadeIn {
       0% {

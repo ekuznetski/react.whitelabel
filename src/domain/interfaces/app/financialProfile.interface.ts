@@ -18,9 +18,20 @@ export interface IFPQuestion {
   answers: number[];
   step: EFPSteps;
 }
+
 export interface IFPAnswer {
   apiId: number;
   text: string;
   icon?: string;
   needRemark?: boolean;
+}
+
+export interface ISubmitFPRequestItem {
+  question: string | number;
+  answer: string | number;
+  remark?: string;
+}
+
+export interface ISubmitFPRequest {
+  kyc_answer: string;
 }

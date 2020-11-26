@@ -5,22 +5,22 @@ export type BasicTarget<T = HTMLElement> = (() => T | null) | T | null | Mutable
 type TargetElement = HTMLElement | Document | Window;
 
 export function getTargetElement(
-	target?: BasicTarget<TargetElement>,
-	defaultElement?: TargetElement,
+  target?: BasicTarget<TargetElement>,
+  defaultElement?: TargetElement,
 ): TargetElement | undefined | null {
-	if (!target) {
-		return defaultElement;
-	}
+  if (!target) {
+    return defaultElement;
+  }
 
-	let targetElement: TargetElement | undefined | null;
+  let targetElement: TargetElement | undefined | null;
 
-	if (typeof target === 'function') {
-		targetElement = target();
-	} else if ('current' in target) {
-		targetElement = target.current;
-	} else {
-		targetElement = target;
-	}
+  if (typeof target === 'function') {
+    targetElement = target();
+  } else if ('current' in target) {
+    targetElement = target.current;
+  } else {
+    targetElement = target;
+  }
 
-	return targetElement;
+  return targetElement;
 }

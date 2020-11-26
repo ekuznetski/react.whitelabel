@@ -1,70 +1,71 @@
 @import '~/variables';
+@import '~/mixin';
 
 .take-control-of-trades-section {
-	background: $grey-bg-light;
+  background: $grey-bg-light;
 
-	&__title {
-		font-size: 36px;
-		line-height: 46px;
-		color: $dark-text;
-		text-align: center;
-	}
+  &__title {
+    font-size: 36px;
+    line-height: 46px;
+    color: $dark-text;
+    text-align: center;
+  }
 
-	&__item {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-evenly;
-		align-items: center;
-		color: #ffffff;
-		background: $blue;
-		height: 440px;
-		text-align: center;
-		overflow: hidden;
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    color: #ffffff;
+    background: $blue;
+    height: 440px;
+    text-align: center;
+    overflow: hidden;
 
-		&.even {
-			background: $dark-text;
-		}
+    &.even {
+      background: $dark-text;
+    }
 
-		.item-title {
-			font-size: 24px;
-			line-height: 34px;
-		}
+    .item-title {
+      font-size: 24px;
+      line-height: 34px;
+    }
 
-		.item-description {
-			font-size: 16px;
-			line-height: 26px;
-		}
+    .item-description {
+      font-size: 16px;
+      line-height: 26px;
+    }
 
-		img {
-			max-height: 200px;
-		}
-	}
+    img {
+      max-height: 200px;
+    }
+  }
 
-	button {
-		background: $dark-blue;
-		width: 225px;
-		height: $btn-size-lg;
-		font-weight: 500;
-		font-size: 16px;
-		line-height: 24px;
-		color: #ffffff;
-		margin: 0 auto;
-	}
+  button {
+    background: $dark-blue;
+    width: 225px;
+    height: $btn-size-lg;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    margin: 0 auto;
+  }
 
-	@media (max-width: $viewport-lg-w) {
-		.controls-row {
-			flex-wrap: unset;
-			overflow-x: scroll;
+  @media (max-width: $viewport-lg-w) {
+    .controls-row {
+      flex-wrap: unset;
+      overflow-x: scroll;
 
-			@include hideScrollbar;
-		}
-	}
+      @include hideScrollbar;
+    }
+  }
 
-	@media (max-width: $viewport-lg-w) {
-		&__item {
-			img {
-				max-height: 140px;
-			}
-		}
-	}
+  @media (max-width: $viewport-lg-w) {
+    &__item {
+      img {
+        max-height: 140px;
+      }
+    }
+  }
 }

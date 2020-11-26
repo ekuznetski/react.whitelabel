@@ -25,7 +25,7 @@ export const ChangePassword = memo(
       currentPassword: FieldValidators.password,
       newPassword: Yup.string().when('currentPassword', {
         is: (val: string) => val?.length > 0,
-        then: FieldValidators.password.test('muchOlpPassword', '', function (value) {
+        then: FieldValidators.password.test('muchOlpPassword', '', function(value) {
           const { path, parent, createError } = this;
           const { currentPassword }: { currentPassword: string } = parent;
           if (value && value === currentPassword) {

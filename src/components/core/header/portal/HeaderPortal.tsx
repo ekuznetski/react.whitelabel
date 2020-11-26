@@ -1,4 +1,4 @@
-import { Button, Img, LocaleLink, Svg } from '@components/shared';
+import { Button, LocaleLink, Svg } from '@components/shared';
 import { EAppSection, ELabels } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
 import { getAppSectionMenu } from '@utils/fn';
@@ -23,7 +23,7 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
           <div className="logo mr-xl-9">
             <Svg href="logo" _label height={!responsive.md ? 28 : 37} />
             <Svg href="logo" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
-            <Img src="logo.png" _label={ELabels.bsfx} height={!responsive.md ? 48 : 87} />
+            <Svg href="logo" _label={ELabels.bsfx} height={!responsive.md ? 48 : 60} />
           </div>
           <PanelMenu menuConfig={_portalMenuConfig} />
           <Button className="ml-auto d-none d-md-block">

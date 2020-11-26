@@ -8,6 +8,7 @@ import {
   InternalTransfer,
   Login,
   OpenAccount,
+  Partnerships,
   Platform,
   PlatformDownload,
   Products,
@@ -31,6 +32,7 @@ import {
 import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
 import { EAppSection, EResponseStatus, ETradingType } from '../enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
+import i18n from 'i18next';
 
 // Data to be loaded on EVERY page of app section
 export const routesInitialApiData: IRoutesInitialApiData = {
@@ -45,7 +47,13 @@ export const routesInitialApiData: IRoutesInitialApiData = {
   },
 };
 
-export const routesRedirectConfig: IRouteRedirectConfig[] = [];
+export const routesRedirectConfig: IRouteRedirectConfig[] = [
+  // {
+  //   path: '',
+  //   redirectTo: i18n.language || 'en',
+  //   appSection: EAppSection.main,
+  // },
+];
 
 export const routesNavConfig: IRouteNavConfig[] = [
   {
@@ -55,9 +63,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '',
     component: Home,
     appSection: EAppSection.main,
-    apiData: {
-      lazy: [ac_fetchGeoIpData],
-    },
     menuItem: true,
   },
   {
@@ -95,6 +100,15 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Contacts,
     appSection: EAppSection.main,
     menuItem: true,
+  },
+  {
+    meta: {
+      title: 'Partnership',
+    },
+    path: '/partnerships',
+    component: Partnerships,
+    appSection: EAppSection.main,
+    menuItem: false,
   },
   {
     meta: {

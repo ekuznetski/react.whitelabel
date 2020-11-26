@@ -25,10 +25,12 @@ export const AccountTypesForTradingStylesSection = memo(
             </div>
             <div className="col-12 p-0">
               <Cards id="accountTypesForTradingStylesSectionCards">
-                <Card wrapperClassName="col-12 col-md-6 col-lg-4 mb-7 mb-md-0" uid={1}>
-                  <CardHeader className="mb-7">
-                    <Svg href="empty_star" className="mr-5" />
-                    {t('Fixed')}
+                <Card wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={1}>
+                  <CardHeader className="mb-7 header">
+                    <div>
+                      <Svg href="empty_star" className="mr-5" />
+                      {t('Fixed')}
+                    </div>
                     <span>
                       1.8<small>{t('pips')}</small>
                     </span>
@@ -38,10 +40,12 @@ export const AccountTypesForTradingStylesSection = memo(
                     <span className="greyText">{t('No Commission')}</span>
                   </CardContent>
                 </Card>
-                <Card wrapperClassName="col-12 col-md-6 col-lg-4 mb-7 mb-md-0" uid={2}>
-                  <CardHeader className="mb-7">
-                    <Svg href="empty_light" className="mr-5" />
-                    {t('Variable')}
+                <Card wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={2}>
+                  <CardHeader className="mb-7 header">
+                    <div>
+                      <Svg href="empty_light" className="mr-5" />
+                      {t('Variable')}
+                    </div>
                     <span>
                       1.2<small>{t('pips')}</small>
                     </span>

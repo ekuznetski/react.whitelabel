@@ -1,71 +1,71 @@
 @import '~/variables';
 
 .table-section {
-	padding: 70px 0;
+  padding: 70px 0;
 
-	.row.reversed:not(.preview) {
-		flex-flow: row-reverse;
-	}
+  .row.reversed:not(.preview) {
+    flex-flow: row-reverse;
+  }
 
-	.close {
-		cursor: pointer;
-		position: absolute;
-		right: 10px;
-		top: 10px;
-	}
+  .close {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
 
-	&__title {
-		font-weight: 600;
-		font-size: 36px;
-		line-height: 46px;
-		color: $dark-text;
-	}
+  &__title {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 46px;
+    color: $dark-text;
+  }
 
-	&__desc {
-		font-size: 16px;
-		line-height: 26px;
-		color: $text;
-	}
+  &__desc {
+    font-size: 16px;
+    line-height: 26px;
+    color: $text;
+  }
 
-	&__key-points {
-		&__item {
-			font-size: 16px;
-			line-height: 30px;
-			color: $dark-text;
+  &__key-points {
+    &__item {
+      font-size: 16px;
+      line-height: 30px;
+      color: $dark-text;
 
-			&:before {
-				content: '•';
-				display: inline-block;
-				margin-right: 5px;
-			}
-		}
-	}
+      &:before {
+        content: '•';
+        display: inline-block;
+        margin-right: 5px;
+      }
+    }
+  }
 
-	&__toggleTableSize {
-		cursor: pointer;
-		font-weight: 500;
-		font-size: 14px;
-		line-height: 21px;
-		color: $dark-blue;
-		display: table;
+  &__toggleTableSize {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: $dark-blue;
+    display: table;
 
-		&:hover {
-			text-decoration: underline;
-		}
+    &:hover {
+      text-decoration: underline;
+    }
 
-		svg {
-			fill: $dark-blue;
-			margin: -2px 0 0 5px;
+    svg {
+      fill: $dark-blue;
+      margin: -2px 0 0 5px;
 
-			&.up {
-				transform: rotate(180deg);
-			}
-		}
-	}
+      &.up {
+        transform: rotate(180deg);
+      }
+    }
+  }
 
-	@media (max-width: $viewport-lg-w) {
-		.row.reversed:not(.preview) {
-			flex-flow: wrap;
-		}
-	}
+  @media (max-width: $viewport-lg-w) {
+    .row.reversed:not(.preview) {
+      flex-flow: wrap;
+    }
+  }
 }

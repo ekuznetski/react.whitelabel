@@ -1,0 +1,45 @@
+@import '~/variables';
+
+.account-types-for-trading-styles-section {
+  .container {
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  .common-cards {
+    &__item {
+      &-header {
+        span {
+          color: $dark-blue;
+
+          small {
+            color: $dark-blue;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: $viewport-xs-w) {
+    .container {
+      .header {
+        span {
+          margin-top: 20px;
+        }
+      }
+    }
+    .common-cards {
+      &__item {
+        &-header {
+          span {
+            margin-left: 0;
+          }
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    }
+  }
+}

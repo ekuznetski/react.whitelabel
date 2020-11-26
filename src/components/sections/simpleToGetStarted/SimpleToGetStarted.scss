@@ -1,83 +1,83 @@
 @import '~/variables';
 
 .simple-to-get-started {
-	background: #1a1b1c;
-	color: #ffffff;
+  background: #1a1b1c;
+  color: #ffffff;
 
-	&__title {
-		font-size: 36px;
-		line-height: 46px;
+  &__title {
+    font-size: 36px;
+    line-height: 46px;
 
-		b {
-			display: block;
-		}
-	}
+    b {
+      display: block;
+    }
+  }
 
-	&__description {
-		font-size: 16px;
-		line-height: 26px;
-	}
+  &__description {
+    font-size: 16px;
+    line-height: 26px;
+  }
 
-	&__steps {
-		.step {
-			background: rgba(255, 255, 255, 0.1);
-			height: 200px;
+  &__steps {
+    .step {
+      background: rgba(255, 255, 255, 0.1);
+      height: 200px;
 
-			&-title {
-				font-weight: 500;
-				font-size: 18px;
-				line-height: 28px;
-				display: flex;
-				align-items: center;
-				height: 64px;
+      &-title {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 28px;
+        display: flex;
+        align-items: center;
+        height: 64px;
 
-				&-number {
-					font-weight: 300;
-					font-size: 65px;
-					color: #629dff;
-				}
-			}
+        &-number {
+          font-weight: 300;
+          font-size: 65px;
+          color: #629dff;
+        }
+      }
 
-			&-context {
-				font-size: 16px;
-				line-height: 26px;
-			}
-		}
-	}
+      &-context {
+        font-size: 16px;
+        line-height: 26px;
+      }
+    }
+  }
 
-	@media (max-width: $viewport-lg-w) {
-		&__steps {
-			.step {
-				&-title {
-					font-size: 16px;
-					line-height: 24px;
+  @media (max-width: $viewport-lg-w) {
+    &__steps {
+      .step {
+        &-title {
+          font-size: 16px;
+          line-height: 24px;
 
-					&-number {
-						font-size: 55px;
-					}
-				}
-			}
-		}
-	}
+          &-number {
+            font-size: 55px;
+          }
+        }
+      }
+    }
+  }
 
-	@media (max-width: $viewport-md-w) {
-		&__steps {
-			.step {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				height: 140px;
+  @media (max-width: $viewport-md-w) {
+    &__steps {
+      .step {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 140px;
 
-				&-title {
-					font-size: 18px;
-					line-height: 28px;
-				}
+        &-title {
+          font-size: 18px;
+          line-height: 28px;
+        }
 
-				&-content {
-					font-size: 14px;
-					line-height: 24px;
-				}
-			}
-		}
-	}
+        &-content {
+          font-size: 14px;
+          line-height: 24px;
+        }
+      }
+    }
+  }
 }

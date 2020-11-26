@@ -1,0 +1,116 @@
+@import '~/variables';
+
+.contacts-wrapper {
+  .page-top {
+    height: 400px;
+    display: flex;
+    background: rgb(92, 115, 131);
+
+    &__title {
+      font-size: 40px;
+      line-height: 50px;
+      color: #ffffff;
+    }
+
+    .section-bg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 0;
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      height: 400px;
+    }
+
+    @media (max-width: $viewport-md-w) {
+      height: 350px;
+    }
+
+    @media (max-width: $viewport-sm-w) {
+      height: 285px;
+    }
+  }
+
+  .contacts {
+    padding: 110px 0 60px 0 !important;
+    &__title {
+      font-size: 24px;
+      line-height: 34px;
+      color: $dark-text;
+
+      &-line {
+        width: 40px;
+        height: 2px;
+        background: $dark-blue;
+      }
+    }
+
+    &__list {
+      display: flex;
+      &-header {
+        display: flex;
+        flex-direction: row;
+        &:not(:last-child) {
+          padding-bottom: 50px;
+          border-bottom: 1px solid $grey;
+        }
+        &:last-child {
+          padding-top: 50px;
+        }
+      }
+      &-item {
+        font-size: 16px;
+        line-height: 26px;
+        color: $text;
+
+        svg {
+          fill: $dark-blue;
+        }
+      }
+    }
+
+    @media (max-width: $viewport-xl-w) {
+      padding: 90px 0 !important;
+      &__list {
+        &-header {
+          flex-direction: column;
+          &:not(:last-child) {
+            padding-bottom: 30px;
+          }
+          &:last-child {
+            padding-top: 30px;
+          }
+        }
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      padding: 60px 0 !important;
+      &__title {
+        &-line {
+          margin: 0 auto;
+        }
+      }
+      &__list {
+        flex-direction: column;
+        &-item {
+          &:not(:last-child) {
+            padding-bottom: 15px;
+          }
+        }
+        &-header {
+          &:last-child {
+            padding-bottom: 0px !important;
+          }
+        }
+      }
+    }
+  }
+
+  .map {
+    padding: 0 !important;
+  }
+}

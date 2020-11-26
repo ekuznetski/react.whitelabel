@@ -1,3 +1,6 @@
+@import '~/variables';
+@import '~/mixin';
+
 body {
   font-family: 'Poppins', sans-serif;
   color: $dark-text;
@@ -25,6 +28,7 @@ body {
     &:not(.locked) {
       .main-wrapper {
         min-height: 75vh;
+        position: relative;
       }
     }
 

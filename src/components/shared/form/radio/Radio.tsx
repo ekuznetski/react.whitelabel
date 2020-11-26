@@ -60,7 +60,8 @@ export const Radio = memo(function Radio({
         >
           <label
             className={classNames(
-              'radio-label pl-7 pr-7 py-3',
+              'radio-label',
+              !React.isValidElement(el.label) && 'pl-7 pr-7 py-3',
               showMarkDot && 'pl-sm-13',
               field.value === el.value.toString() && 'selected',
             )}
