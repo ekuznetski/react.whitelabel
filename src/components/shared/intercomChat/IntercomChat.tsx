@@ -1,46 +1,65 @@
 import { env } from '@domain';
-import { ELabels } from '@domain/enums';
 import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
-import React, { memo, useEffect } from 'react';
+import React, { forwardRef, memo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { IntercomProvider, useIntercom } from 'react-use-intercom';
-import { IIntercomChatParams, IntercomChatAppId } from './intercomChat.context';
+import { IIntercomChatParams } from './intercomChat.interface';
 
 export const IntercomChat = memo(function IntercomChat() {
-  const { clientInfo } = useSelector<IStore, { clientInfo: MClientProfile }>((state) => ({
-    clientInfo: state.data.client.profile,
+  const { clientProfile } = useSelector<IStore, { clientProfile: MClientProfile }>((state) => ({
+    clientProfile: state.data.client.profile,
   }));
 
-  const targetLabel: keyof typeof ELabels = env.LABEL?.toLowerCase() || 'default';
+  const userInfo = clientProfile
+    ? {
+        email: clientProfile.email,
+        name: `${clientProfile.first_name}  ${clientProfile.last_name}`,
+        phone: `${clientProfile.phone_prefix} ${clientProfile.phone}`,
+        country: clientProfile.country,
+        currency: clientProfile.curr,
+        accountType: clientProfile.account_type,
+        manager: clientProfile.manager,
+        userHash: clientProfile.ic_hash,
+        userId: clientProfile.userId,
+        salesforce: 'https://eu1.salesforce.com/' + clientProfile.sfid,
+        deposit: clientProfile.ftd.toString(),
+        jurisdiction: clientProfile.jurisdiction,
+        approved: clientProfile.aprv.toString(),
+      }
+    : undefined;
 
-  const onHide = React.useCallback(() => console.log('Messenger now hiden'), []);
-  const onShow = React.useCallback(() => console.log('Messenger now shown'), []);
+  function onHide() {
+    console.log('Messenger now hiden');
+  }
+  function onShow() {
+    console.log('Messenger now shown');
+  }
 
   return (
-    <IntercomProvider appId={IntercomChatAppId[targetLabel]} onHide={onHide} onShow={onShow}>
-      <Chat {...clientInfo} />
+    <IntercomProvider appId={env.INTERCOM_CHAT_APP_ID} onHide={onHide} onShow={onShow}>
+      <Chat userInfo={userInfo} />
     </IntercomProvider>
   );
 });
 
-export const Chat = memo<IIntercomChatParams>(function Chat(clientInfo) {
-  const { boot, update, shutdown } = useIntercom();
+export const Chat = memo(
+  forwardRef<HTMLDivElement, IIntercomChatParams>(function Chat({ userInfo }, ref) {
+    const { boot, update, shutdown } = useIntercom();
 
-  useEffect(() => {
-    if (clientInfo.first_name) {
-      update({
-        ...clientInfo,
-        name: `${clientInfo.first_name} ${clientInfo.last_name}`,
-        phone: clientInfo.phone?.toString(),
-      });
-    }
-    return () => {
-      //clear data
-      shutdown();
-      boot();
-    };
-  }, [clientInfo]);
+    useEffect(() => {
+      if (userInfo) {
+        update(userInfo);
+      }
+      return () => {
+        //clear data if logged out
+        if (!userInfo) {
+          shutdown();
+          boot();
+        }
+      };
+    }, [userInfo]);
 
-  return <></>;
-});
+    return null;
+  }),
+);

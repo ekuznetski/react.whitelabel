@@ -1,5 +1,5 @@
-import { Footer, Header, PageLoader, Router } from '@components/core';
-import { localesConfig } from '@domain';
+import { Footer, Header, Router } from '@components/core';
+import { env, localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
 import { ac_updateRouteParams, IStore, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
@@ -18,7 +18,7 @@ function App() {
     <Provider store={store}>
       <Suspense fallback={null}>
         <WrappedMain />
-        <IntercomChat />
+        {env.INTERCOM_CHAT_APP_ID && <IntercomChat />}
       </Suspense>
     </Provider>
   );
