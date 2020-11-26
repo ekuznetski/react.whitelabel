@@ -11,6 +11,7 @@ import {
   INotificationState,
   IResetPasswordRequest,
   ISetProfileRequest,
+  ISubmitFPRequest,
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
   IWithdrawFundRequest,
@@ -225,6 +226,13 @@ export function ac_requestActionSuccess(payload: { requestActionType?: EActionTy
 export function ac_requestActionFailure(payload: { requestActionType?: EActionTypes }): IAction {
   return {
     type: EActionTypes.requestFailure,
+    payload,
+  };
+}
+
+export function ac_submitFinancialProfile(payload: ISubmitFPRequest): IAction {
+  return {
+    type: EActionTypes.submitFinancialProfile,
     payload,
   };
 }

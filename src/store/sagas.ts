@@ -50,6 +50,7 @@ import {
   mt4WithdrawFundsRequest,
   mt5WithdrawFundsRequest,
   resetPasswordRequest,
+  financialProfileRequest,
   tradingAccountsRequest,
   updateBankDetailsRequest,
   uploadFileRequest,
@@ -305,6 +306,13 @@ export function* getClientStatusDataSaga() {
   );
 }
 
+export function* financialProfileSage() {
+  yield $$(EActionTypes.submitFinancialProfile, function* ({ payload }: IAction) {
+    const { response }: any = yield call(financialProfileRequest, payload);
+    return response;
+  });
+}
+
 export function* getTradingAccountsSage() {
   yield $$(
     EActionTypes.fetchTradingAccounts,
@@ -387,8 +395,8 @@ export function* fetchTransactionalStatementsSage() {
 
 export function* addDepositSaga() {
   yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
-    const data: IAddDepositResponse = yield call(addDepositRequest, payload);
-    return data;
+    const response: IAddDepositResponse = yield call(addDepositRequest, payload);
+    return response;
   });
 }
 
