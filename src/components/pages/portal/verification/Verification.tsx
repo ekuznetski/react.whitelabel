@@ -17,7 +17,7 @@ export const Verification = memo(function Verification() {
       </Row>
       <Row className="justify-content-center">
         <Col xs={12}>
-          <Tabs className="client-verification__tabs" activeTab="additionalInformation">
+          <Tabs className="client-verification__tabs" activeTab="financialProfile">
             <Tab label={t('Financial Profile')} anchor="financialProfile">
               <FinancialProfile />
             </Tab>
