@@ -32,8 +32,8 @@
 
         &-label {
           position: absolute;
-          width: 30px;
-          right: -15px;
+          width: 50px;
+          right: -25px;
           text-align: center;
           top: -30px;
           transition: right 0.35s;
@@ -45,7 +45,7 @@
       .progress-bar {
         &__progress {
           &-label {
-            right: -30px;
+            right: -50px;
             text-align: left;
           }
         }
