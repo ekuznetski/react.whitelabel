@@ -17,7 +17,7 @@ export function BannerCard() {
   const { t } = useTranslation();
   const { clientProfile, clientAccount } = useSelector<IStore, IBannerCardState>((state) => ({
     clientProfile: state.data.client.profile,
-    clientAccount: state.data.client.preferences,
+    clientAccount: state.data.client.settings,
   }));
   const [activeCardIdx, setActiveCardIdx] = React.useState(0);
 

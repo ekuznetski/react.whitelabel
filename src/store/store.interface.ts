@@ -17,7 +17,7 @@ export interface IDataStore {
   client: {
     profile: MClientProfile;
     statusData: MClientData;
-    preferences: ILogin;
+    settings: ILogin;
     statements: MTransactionalStatementData;
     documents: MDocument[];
   };

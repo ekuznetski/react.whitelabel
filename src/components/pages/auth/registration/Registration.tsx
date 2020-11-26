@@ -1,7 +1,7 @@
 import { Button, Img, Modal, ModalContext, ModalNav, ModalTitle, PageTitle, Svg } from '@components/shared';
 import { ENotificationType, ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
-import { ac_login, ac_preRegister, ac_register, ac_showNotification } from '@store';
+import { ac_fetchClientSettings, ac_login, ac_preRegister, ac_register, ac_showNotification } from '@store';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -94,7 +94,29 @@ export function Registration() {
     setFormData({ ...formData, ...data });
     if (activeStep === ERegSteps.step1) {
       const preRegister = new Promise((resolve) => {
-        dispatch(ac_preRegister(data[ERegSteps.step1], () => resolve())); //TODO add checking
+        dispatch(
+          ac_preRegister(
+            data[ERegSteps.step1],
+            () => {
+              dispatch(
+                ac_fetchClientSettings(
+                  { username: data[ERegSteps.step1]['email'] },
+                  () => resolve(),
+                  () =>
+                    ac_showNotification({
+                      type: ENotificationType.failure,
+                      context: 'Registration unsuccessful',
+                    }),
+                ),
+              );
+            },
+            () =>
+              ac_showNotification({
+                type: ENotificationType.failure,
+                context: 'Registration unsuccessful',
+              }),
+          ),
+        );
       });
       await preRegister;
       setName(`${data?.[ERegSteps.step1]?.first_name} ${data?.[ERegSteps.step1]?.surname}`);

@@ -8,7 +8,7 @@ export const initDataStore: Nullable<IDataStore> = {
   client: {
     profile: null,
     statusData: null,
-    preferences: {
+    settings: {
       show_promotions: true,
       phone_verification: 'pending',
       show_compliance_popup: false,
@@ -38,6 +38,9 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
 
     case EActionTypes.saveProfile:
       return { ...state, client: { ...state.client, profile: action.payload } };
+
+    case EActionTypes.saveClientSettings:
+      return { ...state, client: { ...state.client, settings: action.payload } };
 
     case EActionTypes.saveClientData:
       return { ...state, client: { ...state.client, statusData: action.payload } };
