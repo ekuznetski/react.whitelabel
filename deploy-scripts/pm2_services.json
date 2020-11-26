@@ -1,12 +1,12 @@
 {
-    "apps": [
-        {
-            "name": "server",
-            "script": "server.js",
-            "watch": false,
-            "node_args": "--max_old_space_size=8192",
-            "error_file": "/app/logs/server_error.log",
-            "out_file": "/app/logs/server_out.log"
-        }
-    ]
+  "apps": [
+    {
+      "name": "server",
+      "script": "server.js",
+      "watch": false,
+      "node_args": "--max_old_space_size=8192",
+      "error_file": "/app/logs/server_error.log",
+      "out_file": "/app/logs/server_out.log"
+    }
+  ]
 }

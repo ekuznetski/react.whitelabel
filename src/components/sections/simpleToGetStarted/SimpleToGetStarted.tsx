@@ -11,7 +11,7 @@ export const SimpleToGetStartedSection = memo(
 
     return (
       <section className={classNames('simple-to-get-started', props.className)} ref={ref}>
-        <SectionBg img="simple-to-get-started.png" />
+        <SectionBg img="simple-to-get-started.jpg" />
         <Container>
           <Row>
             <Col xs={12} lg={4} xl={3} className="mb-11 mb-lg-0">

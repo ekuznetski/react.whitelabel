@@ -1,132 +1,133 @@
 @import '~/variables';
+@import '~/mixin';
 
 .header-panel-menu {
-	display: flex;
-	align-items: center;
-	position: relative;
-	height: 110px;
-	transition: height 0.35s;
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 110px;
+  transition: height 0.35s;
 
-	&__item {
-		margin-right: 30px;
-		display: flex;
-		align-items: center;
-		height: 100%;
+  &__item {
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    height: 100%;
 
-		&-link {
-			height: 70px;
-			display: flex;
-			align-items: center;
-			cursor: pointer;
+    &-link {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
 
-			a {
-				color: $dark-text;
-				font-size: 16px;
-				display: flex;
-				padding: 4px 0 0;
-				align-items: center;
-				text-decoration: none;
-				transition: color 0.35s;
-				position: relative;
-			}
+      a {
+        color: $dark-text;
+        font-size: 16px;
+        display: flex;
+        padding: 4px 0 0;
+        align-items: center;
+        text-decoration: none;
+        transition: color 0.35s;
+        position: relative;
+      }
 
-			&-link {
-				height: 100%;
-				display: flex;
+      &-link {
+        height: 100%;
+        display: flex;
 
-				a {
-					color: $dark-text;
-					height: 60px;
-					margin: auto 0;
-					cursor: pointer;
+        a {
+          color: $dark-text;
+          height: 60px;
+          margin: auto 0;
+          cursor: pointer;
 
-					&:hover {
-						& + .menu-dropdown {
-							transition: all 0.35s 0.5s;
-						}
-					}
-				}
-			}
-		}
-	}
+          &:hover {
+            & + .menu-dropdown {
+              transition: all 0.35s 0.5s;
+            }
+          }
+        }
+      }
+    }
+  }
 
-	&__dropdown {
-		position: absolute;
-		top: 90px;
-		left: 0;
-		transition: all 0.3s;
-		border-radius: $border-radius;
-		box-shadow: box-shadow(55, 0.2);
-		height: 40px;
-		visibility: hidden;
-		opacity: 0.2;
-		background: #fff;
-		width: 280px;
-		display: flex;
-		flex-direction: column;
+  &__dropdown {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    transition: all 0.3s;
+    border-radius: $border-radius;
+    box-shadow: box-shadow(55, 0.2);
+    height: 40px;
+    visibility: hidden;
+    opacity: 0.2;
+    background: #fff;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
 
-		&.visible {
-			visibility: visible;
-			opacity: 1;
-		}
+    &.visible {
+      visibility: visible;
+      opacity: 1;
+    }
 
-		&:before {
-			content: '';
-			display: table;
-			border: 8px solid transparent;
-			border-bottom-color: #fff;
-			position: absolute;
-			top: -16px;
-			left: calc(50% - 8px);
-		}
+    &:before {
+      content: '';
+      display: table;
+      border: 8px solid transparent;
+      border-bottom-color: #fff;
+      position: absolute;
+      top: -16px;
+      left: calc(50% - 8px);
+    }
 
-		&-itemsList {
-			overflow: hidden;
-			height: 100%;
+    &-itemsList {
+      overflow: hidden;
+      height: 100%;
 
-			.item {
-				a {
-					color: $dark-text;
-					font-size: 16px;
-					display: flex;
-					padding: 4px 0 0;
-					align-items: center;
-					text-decoration: none;
-					transition: color 0.35s;
-					position: relative;
-					height: 50px;
-					// border-bottom: 1px solid $grey;
+      .item {
+        a {
+          color: $dark-text;
+          font-size: 16px;
+          display: flex;
+          padding: 4px 0 0;
+          align-items: center;
+          text-decoration: none;
+          transition: color 0.35s;
+          position: relative;
+          height: 50px;
+          // border-bottom: 1px solid $grey;
 
-					&:hover {
-						color: $blue;
-					}
+          &:hover {
+            color: $blue;
+          }
 
-					svg {
-						fill: $dark-blue;
-					}
-				}
+          svg {
+            fill: $dark-blue;
+          }
+        }
 
-				&:last-child {
-					a {
-						border: 0;
-					}
-				}
-			}
-		}
+        &:last-child {
+          a {
+            border: 0;
+          }
+        }
+      }
+    }
 
-		&-footer {
-			background: $grey;
-			height: 28px;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			font-size: 10px;
-			line-height: 18px;
-			color: $dark-grey;
+    &-footer {
+      background: $grey;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10px;
+      line-height: 18px;
+      color: $dark-grey;
 
-			svg {
-				filter: grayscale(100%) brightness(160%);
-			}
-		}
-	}
+      svg {
+        filter: grayscale(100%) brightness(160%);
+      }
+    }
+  }
 }

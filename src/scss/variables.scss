@@ -1,29 +1,10 @@
-// Mixin
-@mixin hideScrollbar {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-top: -10px;
-  margin-bottom: -10px;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    //Chrome, Safari, Opera
-    display: none;
-  }
-}
-
-@mixin d-flex($align: start, $justify: start, $direction: row) {
-  display: flex;
-  align-items: $align;
-  justify-content: $justify;
-  flex-direction: $direction;
-}
-
 // Viewport
+$viewport-xs-min-w: 375px;
 $viewport-sm-min-w: 576px;
 $viewport-md-min-w: 768px;
 $viewport-lg-min-w: 992px;
 $viewport-xl-min-w: 1200px;
+$viewport-xs-w: 374px;
 $viewport-sm-w: 575px;
 $viewport-md-w: 767px;
 $viewport-lg-w: 991px;
@@ -32,10 +13,6 @@ $viewport-xl-w: 1199px;
 // Overall
 $border-radius: 3px;
 $border-shadow-color: rgb(38, 51, 75);
-
-@function box-shadow($size, $alpha) {
-  @return 0px 3px #{$size}px rgba($border-shadow-color, $alpha);
-}
 
 // Form
 $form-elements-height: 48px;
@@ -67,6 +44,7 @@ $yellow: #ffba3a;
 // Fonts
 
 // Grid
+$grid-columns: 12;
 $grid-gutter-width: 28px !default;
 $grid-breakpoints: (
   xs: 0,

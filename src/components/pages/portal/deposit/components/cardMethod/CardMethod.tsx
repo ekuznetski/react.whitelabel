@@ -87,7 +87,7 @@ export function CardMethod() {
       then: FieldValidators.requiredNumber
         .min(1, t('This field is invalid'))
         .max(12, t('This field is invalid'))
-        .test('isBiggerCurrentMonth', '', function (value) {
+        .test('isBiggerCurrentMonth', '', function(value) {
           if (value) {
             const { path, parent, createError } = this;
             const { year } = parent;

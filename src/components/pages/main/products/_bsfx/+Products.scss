@@ -1,0 +1,44 @@
+@import '~/variables';
+
+.product-wrapper {
+  .page-top {
+    height: 400px;
+
+    &__title {
+      text-transform: uppercase;
+    }
+
+    button {
+      height: 50px;
+      text-transform: uppercase;
+      background-color: transparentize($color: $blue, $amount: 0.6);
+      border: none;
+      &.active {
+        background: $dark-blue;
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      .container {
+        padding-top: 50px !important;
+      }
+      button {
+        font-size: 12px;
+        height: 40px;
+        min-height: 40px;
+        text-transform: initial;
+      }
+      &__title {
+        width: 280px;
+        font-size: 30px;
+        line-height: 40px;
+      }
+    }
+  }
+
+  @media (min-width: $viewport-xl-w) {
+    .table-section:nth-child(odd) {
+      background: $grey-bg-light;
+    }
+  }
+}

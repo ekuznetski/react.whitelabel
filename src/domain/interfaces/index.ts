@@ -3,9 +3,11 @@ export * from './app/form.interface';
 export * from './app/routeConfig.interface';
 export * from './app/routeGuard.interface';
 export * from './app/registration.interface';
+export * from './app/home.interface';
 export * from './app/clientBannerCard.interface';
 export * from './app/notification.interface';
 export * from './app/deposit.interface';
+export * from './app/partnership.interface';
 export * from './app/financialProfile.interface';
 // Data
 export * from './data/bankDetails.interface';

@@ -4,7 +4,7 @@ export function deepFreeze(o: { [key: string]: any }) {
     return o;
   }
 
-  Object.getOwnPropertyNames(o).forEach(function (prop) {
+  Object.getOwnPropertyNames(o).forEach(function(prop) {
     if (
       o[prop] !== null &&
       (typeof o[prop] === 'object' || typeof o[prop] === 'function') &&

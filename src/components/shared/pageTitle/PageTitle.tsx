@@ -1,7 +1,8 @@
 import { ColNumberAttr } from '@domain/interfaces';
 import classNames from 'classnames';
+import { ELabels } from '@domain/enums';
 import React from 'react';
-import { LocaleNavLink, Svg } from '..';
+import { Img, LabelView, LocaleNavLink, Svg } from '..';
 import './PageTitle.scss';
 
 type IPageTitle = {
@@ -39,7 +40,7 @@ export function PageTitle({ showBackButton = true, sizes = { xs: 12 }, ...props 
           )}
         >
           <div className="title">
-            {props.icon && <Svg href={props.icon} />}
+            <Svg href={props.icon} />
             {props.title}
           </div>
           {props.description && <div className="description mt-5">{props.description}</div>}

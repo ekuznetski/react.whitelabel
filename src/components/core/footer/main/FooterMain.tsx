@@ -1,7 +1,10 @@
-import { Svg } from '@components/shared';
+import { LabelView, Svg } from '@components/shared';
+import { ELabels } from '@domain/enums';
+import classNames from 'classnames';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
+import { config } from './FooterMain.config';
 import './FooterMain.scss';
 
 export default function FooterMain() {
@@ -16,39 +19,61 @@ export default function FooterMain() {
       </Row>
       <Row className="mb-lg-11 mb-9">
         <Col xs={12} className="outer-links-container">
-          <div className="links mb-9">
-            <a className="links-item">{t('Legal Forms and Documents')}</a>
-            <div className="links-divider"></div>
-            <a className="links-item">{t('Risk Warnings')}</a>
-            <div className="links-divider"></div>
-            <a className="links-item">{t('Cookies Policy')}</a>
+          <div className="links">
+            {config?.documents?.map((documents, index) => (
+              <React.Fragment key={index}>
+                <a href={documents.link} className="links-item">
+                  {documents.name}
+                </a>
+                {index + 1 != config.documents.length && <div className="links-divider"></div>}
+              </React.Fragment>
+            ))}
           </div>
           <div className="social-links ml-auto">
-            <Svg href="facebook" className="mr-5" />
-            <Svg href="tweeter" className="mr-5" />
-            <Svg href="linkedin" className="mr-5" />
-            <Svg href="instagram" className="mr-5" />
-            <Svg href="youtube" />
+            {config?.socialMediaLinks?.map((socialLink, index) => (
+              <a key={index} href={socialLink.link} className="noUnderLine">
+                <Svg
+                  href={socialLink.icon}
+                  className={classNames(index + 1 != config.socialMediaLinks.length && 'mr-5')}
+                />
+              </a>
+            ))}
           </div>
         </Col>
       </Row>
       <Row className="mb-4">
         <Col xs={12} className="context mb-lg-9 mb-7">
-          <b>{t('High Risk Investment Warning Main Desc:0')}</b>
-          {t('High Risk Investment Warning Main Desc:1')}
+          <b className="mr-2">{t('High Risk Investment Warning')}:</b>
+          {t('High Risk Investment Warning Main Desc')}
         </Col>
         <Col xs={12} className="context mb-lg-9 mb-7">
-          <b>{t('Disclaimer desc:0')}</b> {t('Disclaimer desc:1')}
+          <b className="mr-2">{t('Disclaimer')}:</b>
+          {t('Disclaimer Desc')}
         </Col>
         <Col xs={12} className="context mb-lg-9 mb-7">
-          <b>{t('Regional Restrictions:0')}</b>
-          {t('Regional Restrictions:1')}
-          <a>{t('Regional Restrictions:2')}</a>.
+          <b className="mr-2">{t('Regional Restrictions')}:</b>
+          <Trans i18nKey="Regional Restrictions Desc">
+            Regional Restrictions Desc
+            <a className="ml-2">{t('Help Center')}</a>
+          </Trans>
         </Col>
       </Row>
       <hr />
       <Row className="mt-lg-11 mt-9 copyright">
-        <Col xs={12}>{t('Copyright 2020 HYCM')}</Col>
+        <LabelView>
+          {{
+            [ELabels.bsfx]: (
+              <Col xs={12} className="mb-lg-9 mb-7">
+                <Trans i18nKey="Regulation Desc">
+                  Regulation Desc
+                  <b>Registration Number</b>
+                  <a className="ml-2">Label Link</a>
+                </Trans>
+              </Col>
+            ),
+          }}
+        </LabelView>
+        <Col xs={12}>{t('Label Copyright')}</Col>
       </Row>
     </Container>
   );

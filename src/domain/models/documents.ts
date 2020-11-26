@@ -13,8 +13,7 @@ export class MDocument {
     this.id = props.id;
     this.document_status =
       EDocumentsStatus[props.document_status as keyof typeof EDocumentsStatus] || EDocumentsStatus.pending;
-    this.document_type =
-      EDocumentsType[props.document_type as keyof typeof EDocumentsType] || EDocumentsType.NoNType;
+    this.document_type = EDocumentsType[props.document_type as keyof typeof EDocumentsType] || EDocumentsType.NoNType;
     this.created = moment(props.created);
   }
 }

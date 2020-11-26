@@ -88,7 +88,7 @@ export const MultipleUpload = memo(
     }, [multiContextState]);
 
     function trackUploadFileContext(uploadFileId: string) {
-      return function (contextData: UploadState) {
+      return function(contextData: UploadState) {
         // if (multiContextState[uploadFileId] && !shallowEqual(multiContextState[uploadFileId], contextData)) {
         //   const diff = deepDifference(multiContextState[uploadFileId], contextData);
         //   if (diff.view && multiContextState[uploadFileId] == UploadViewState.error) {
@@ -107,7 +107,7 @@ export const MultipleUpload = memo(
     }
 
     function regUploadFileContextDispatch(uploadFileId: string) {
-      return function (contextDispatch: UploadDispatch) {
+      return function(contextDispatch: UploadDispatch) {
         setMultiContextDispatch({ [uploadFileId]: contextDispatch });
       };
     }
@@ -194,7 +194,7 @@ export const UploadFile = memo(
                 case UploadViewState.loading:
                   setTimeout(() => {
                     contextDispatch({ type: 'complete' });
-                  }, 500)
+                  }, 500);
                   props.isLoading?.();
                   break;
                 case UploadViewState.complete:

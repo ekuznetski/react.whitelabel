@@ -1,0 +1,59 @@
+@import '~/variables';
+
+.open-live-account-banner {
+  &:before {
+    display: none;
+    z-index: 1;
+    top: 50%;
+  }
+
+  .open-account {
+    z-index: 1;
+
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      background: $dark-text;
+      width: calc(100% + 40px);
+      right: -20px;
+      top: -500%;
+      height: 1000%;
+      opacity: 0.5;
+      z-index: -1;
+    }
+  }
+
+  @media (max-width: $viewport-lg-w) {
+    &:before {
+      display: block;
+    }
+
+    &__description {
+      font-size: 18px;
+      line-height: 30px;
+    }
+
+    .open-account {
+      text-align: left;
+
+      &:before {
+        display: none;
+      }
+
+      button {
+        width: 255px;
+        height: 65px;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-sm-w) {
+    .open-account {
+      button {
+        margin: 0;
+        width: 280px;
+      }
+    }
+  }
+}

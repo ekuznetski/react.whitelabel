@@ -5,9 +5,8 @@ import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Notification } from '..';
-import { HeaderAuth } from './auth/HeaderAuth';
-import { HeaderMain } from './main/HeaderMain';
-import { HeaderPortal } from './portal/HeaderPortal';
+import { HeaderAuth, HeaderMain, HeaderPortal } from './';
+import { TopBar } from './main/components';
 
 export const Header = memo(function Header() {
   const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({
@@ -17,10 +16,11 @@ export const Header = memo(function Header() {
   const fixHeader = _scroll.top > (section === EAppSection.portal ? 110 : 40);
 
   return useMemo(() => {
-    const header_class = classNames('header', section);
+    const header_class = classNames('header', section, fixHeader && 'fixed');
 
     return (
       <>
+        {section === EAppSection.main && <TopBar />}
         <header className={header_class}>
           <div className="header-wrapper">
             {section === EAppSection.auth && <HeaderAuth fixed={fixHeader} />}
@@ -33,3 +33,5 @@ export const Header = memo(function Header() {
     );
   }, [section, fixHeader]);
 });
+
+export default Header;

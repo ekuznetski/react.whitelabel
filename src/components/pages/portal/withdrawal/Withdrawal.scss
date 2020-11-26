@@ -1,11 +1,11 @@
 @import '~/variables';
 
 .withdrawal-page-wrapper {
-	.withdrawal-page {
-		&__desc {
-			font-size: 14px;
-			line-height: 24px;
-			text-align: center;
-		}
-	}
+  .withdrawal-page {
+    &__desc {
+      font-size: 14px;
+      line-height: 24px;
+      text-align: center;
+    }
+  }
 }

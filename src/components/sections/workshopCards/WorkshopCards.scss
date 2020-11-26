@@ -1,199 +1,200 @@
 @import '~/variables';
+@import '~/mixin';
 
 .workshop-cards {
-	&__title {
-		font-size: 36px;
-		line-height: 46px;
-		color: $dark-text;
-		text-align: center;
-	}
+  &__title {
+    font-size: 36px;
+    line-height: 46px;
+    color: $dark-text;
+    text-align: center;
+  }
 
-	&__item {
-		display: flex;
-		height: 305px;
-		background: #ffffff;
-		box-shadow: box-shadow(15, 0.1);
-		border-radius: $border-radius;
+  &__item {
+    display: flex;
+    height: 305px;
+    background: #ffffff;
+    box-shadow: box-shadow(15, 0.1);
+    border-radius: $border-radius;
 
-		&-author {
-			flex: 0 0 190px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			border-right: 1px solid $grey;
+    &-author {
+      flex: 0 0 190px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-right: 1px solid $grey;
 
-			.author-info {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				height: 100%;
-			}
+      .author-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+      }
 
-			.item {
-				&-img {
-					width: 73px;
-					height: 73px;
-					border-radius: 50%;
-					box-shadow: box-shadow(15, 0.1);
-				}
+      .item {
+        &-img {
+          width: 73px;
+          height: 73px;
+          border-radius: 50%;
+          box-shadow: box-shadow(15, 0.1);
+        }
 
-				&-name {
-					font-weight: 500;
-					font-size: 14px;
-					line-height: 21px;
-					color: $dark-text;
-				}
+        &-name {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 21px;
+          color: $dark-text;
+        }
 
-				&-title {
-					font-size: 12px;
-					line-height: 20px;
-					color: $text;
-				}
+        &-title {
+          font-size: 12px;
+          line-height: 20px;
+          color: $text;
+        }
 
-				&-type {
-					font-size: 12px;
-					line-height: 20px;
-					display: flex;
-					align-items: center;
+        &-type {
+          font-size: 12px;
+          line-height: 20px;
+          display: flex;
+          align-items: center;
 
-					&.webinar {
-						color: #ae2737;
-						&:before {
-							background: #ae2737;
-						}
-					}
+          &.webinar {
+            color: #ae2737;
+            &:before {
+              background: #ae2737;
+            }
+          }
 
-					&.seminar {
-						color: $blue;
-						&:before {
-							background: $blue;
-						}
-					}
+          &.seminar {
+            color: $blue;
+            &:before {
+              background: $blue;
+            }
+          }
 
-					&.workshop {
-						color: #8d33ff;
-						&:before {
-							background: #8d33ff;
-						}
-					}
+          &.workshop {
+            color: #8d33ff;
+            &:before {
+              background: #8d33ff;
+            }
+          }
 
-					&:before {
-						content: '';
-						display: block;
-						width: 6px;
-						height: 6px;
-						border-radius: 50%;
-						margin-right: 5px;
-					}
-				}
-			}
-		}
+          &:before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
 
-		&-content {
-			.item-schedule {
-				display: flex;
-				align-items: center;
-				font-size: 12px;
-				line-height: 20px;
-				color: $text;
-				height: 58px;
-				border-bottom: 1px solid $grey;
+    &-content {
+      .item-schedule {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        line-height: 20px;
+        color: $text;
+        height: 58px;
+        border-bottom: 1px solid $grey;
 
-				svg {
-					fill: $text;
-				}
-			}
+        svg {
+          fill: $text;
+        }
+      }
 
-			.item-info {
-				&__title {
-					font-weight: 500;
-					font-size: 18px;
-					line-height: 26px;
-					color: $dark-text;
-				}
+      .item-info {
+        &__title {
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 26px;
+          color: $dark-text;
+        }
 
-				&__description {
-					font-size: 12px;
-					line-height: 20px;
-					color: $text;
-				}
-			}
-		}
+        &__description {
+          font-size: 12px;
+          line-height: 20px;
+          color: $text;
+        }
+      }
+    }
 
-		button {
-			background: $dark-blue;
-			font-weight: 500;
-			font-size: 16px;
-			line-height: 24px;
-			color: #ffffff;
-			width: 100%;
-		}
-	}
+    button {
+      background: $dark-blue;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: #ffffff;
+      width: 100%;
+    }
+  }
 
-	&__nav {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 
-		.workshops-nav__item {
-			flex: 0 0 40px;
-			height: 2px;
-			margin: 0 5px;
-			box-shadow: box-shadow(5, 0.1);
-			background: #cacfd5;
+    .workshops-nav__item {
+      flex: 0 0 40px;
+      height: 2px;
+      margin: 0 5px;
+      box-shadow: box-shadow(5, 0.1);
+      background: #cacfd5;
 
-			&.active {
-				background: #337fff;
-			}
-		}
-	}
+      &.active {
+        background: #337fff;
+      }
+    }
+  }
 
-	@media (max-width: $viewport-lg-w) {
-		.workshop-cards-row {
-			flex-wrap: unset;
-			overflow-x: scroll;
+  @media (max-width: $viewport-lg-w) {
+    .workshop-cards-row {
+      flex-wrap: unset;
+      overflow-x: scroll;
 
-			@include hideScrollbar;
-		}
-	}
+      @include hideScrollbar;
+    }
+  }
 
-	@media (max-width: $viewport-md-w) {
-		height: auto;
+  @media (max-width: $viewport-md-w) {
+    height: auto;
 
-		&__title {
-			font-size: 24px;
-			line-height: 34px;
-		}
+    &__title {
+      font-size: 24px;
+      line-height: 34px;
+    }
 
-		&__item {
-			height: auto;
-			flex-direction: column;
+    &__item {
+      height: auto;
+      flex-direction: column;
 
-			&-author {
-				flex: 0 0 auto;
-				flex-direction: row;
-				border-bottom: 1px solid $grey;
-				border-right: 0;
+      &-author {
+        flex: 0 0 auto;
+        flex-direction: row;
+        border-bottom: 1px solid $grey;
+        border-right: 0;
 
-				.author-info {
-					align-items: flex-start;
-				}
+        .author-info {
+          align-items: flex-start;
+        }
 
-				button {
-					display: none;
-				}
-			}
+        button {
+          display: none;
+        }
+      }
 
-			&-content {
-				.item-schedule {
-					border: 0;
-				}
-			}
+      &-content {
+        .item-schedule {
+          border: 0;
+        }
+      }
 
-			&-footer {
-				border-top: 1px solid $grey;
-			}
-		}
-	}
+      &-footer {
+        border-top: 1px solid $grey;
+      }
+    }
+  }
 }

@@ -91,3 +91,6 @@ export const createMT5DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/
 export const addDepositRequest = request(EHttpMethod.post, `${apiUrl}/deposits/add`);
 export const uploadFileRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/upload`);
 export const getDocumentsRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/getDocuments`);
+export const partnershipRegistrationRequest = request(EHttpMethod.post, `${apiUrl}/frontend/extra/partnershipEmail`);
+export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${apiUrl}/ibs/add`);
+export const getStocksPricesRequest = request(EHttpMethod.post, `https://prices.hycm.com/graphs/prices2`);

@@ -8,3 +8,4 @@ export * from './usePathLocale';
 export * from './useLocationParams';
 export * from './useUrlParams';
 export * from './useDeviceDetect';
+export * from './useLockScroll';

@@ -40,7 +40,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
     }),
     amount: Yup.number().when('accountFrom', {
       is: (val: MTradingAccount) => !!val,
-      then: FieldValidators.requiredNumber.test('compareBalance', '', function (value) {
+      then: FieldValidators.requiredNumber.test('compareBalance', '', function(value) {
         const { path, parent, createError } = this;
         const { accountFrom }: { accountFrom: MTradingAccount } = parent;
         if (value && value > accountFrom.balance) {

@@ -1,15 +1,16 @@
 @import '~/theme';
 
 .header {
-	&.main {
-		background: linear-gradient(180deg, rgba($bsfx-blue, 0.1) 0%, rgba(23, 34, 198, 0) 100%), rgba(darken($bsfx-blue, 30%), 0.1);
-		.panel-menu {
-			.container {
-				&:after {
-					width: 1000%;
-					left: -500%;
-				}
-			}
-		}
-	}
+  &.main {
+    background: linear-gradient(180deg, rgba($bsfx-blue, 0.1) 0%, rgba(23, 34, 198, 0) 100%),
+      rgba(darken($bsfx-blue, 30%), 0.1);
+    .panel-menu {
+      .container {
+        &:after {
+          width: 1000%;
+          left: -500%;
+        }
+      }
+    }
+  }
 }
