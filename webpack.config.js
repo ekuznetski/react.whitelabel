@@ -67,8 +67,6 @@ module.exports = (_env, arguments) => {
       fs.writeFileSync(targetLabelEnvPath, JSON.stringify(_env, null, 2));
     }
   }
-
-  const _targetLabelCustomizationScssFiles = ['theme.scss', 'variables.scss'];
   let targetLabelLocaleAlias = {};
   let targetLabelConfigsAlias = {};
   let targetLabelComponentsAlias = {};
@@ -76,10 +74,14 @@ module.exports = (_env, arguments) => {
   let targetLabelConfigsScss = [];
   let componentsFilepaths = [];
 
+  let stylesFilenames = [];
+  let domainFilenames = [];
+  let localeFilenames = [];
   // Generate map to replace files for different domain
   if (targetLabel) {
-    const domainFilenames = fs.readdirSync(`./src/domain/${targetLabelFolder}`);
-    const localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
+    stylesFilenames = fs.readdirSync(`./src/scss/${targetLabelFolder}`);
+    domainFilenames = fs.readdirSync(`./src/domain/${targetLabelFolder}`);
+    localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
     componentsFilepaths = glob
@@ -152,7 +154,6 @@ module.exports = (_env, arguments) => {
     // return;
 
     targetLabelConfigsAlias = domainFilenames
-      .filter((file) => _targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName))
       .map((filePath) => {
         const extensions = ['tsx', 'ts', 'js'];
         const { filename, extension, basename } = filePathDestructor(filePath);
@@ -182,9 +183,17 @@ module.exports = (_env, arguments) => {
     // console.log(targetLabelLocaleAlias, localeFilenames);
     // return;
 
-    targetLabelConfigsScss = domainFilenames.filter(
-      (file) => !_targetLabelCustomizationScssFiles.every((scssFileName) => file !== scssFileName),
-    );
+    targetLabelConfigsScss = stylesFilenames.map((filePath) => {
+      const { basename } = filePathDestructor(filePath);
+      return basename;
+    })
+      .reduce(
+        (acc, file) =>
+          Object.assign(acc, {
+            [`./scss/${file}`]: `./scss/${targetLabelFolder}/${file}`,
+          }),
+        {},
+      );
 
     // console.log(targetLabelComponentsAlias);
   }
@@ -236,17 +245,15 @@ module.exports = (_env, arguments) => {
                     const { resourcePath, rootContext } = loaderContext;
                     const { filename } = filePathDestructor(resourcePath);
 
-                    _targetLabelCustomizationScssFiles.forEach((scssFileName) => {
-                      if (targetLabelConfigsScss.includes(scssFileName)) {
-                        const { filename } = filePathDestructor(scssFileName);
-                        const relativePath = path
-                          .relative(
-                            path.dirname(resourcePath),
-                            path.join(rootContext, `domain/${targetLabelFolder}/${filename}`),
-                          )
-                          .replace(/[\\/]/g, '/');
-                        newContent = newContent.replace(`~/${filename}`, relativePath);
-                      }
+                    stylesFilenames.forEach((labelScssFilePath) => {
+                      const { filename } = filePathDestructor(labelScssFilePath);
+                      const relativePath = path
+                        .relative(
+                          path.dirname(resourcePath),
+                          path.join(rootContext, `scss/${targetLabelFolder}/${filename}`),
+                        )
+                        .replace(/[\\/]/g, '/');
+                      newContent = newContent.replace(`~/${filename}`, relativePath);
                     });
 
                     const componentFile = componentsFilepaths.find((filePath) => {
