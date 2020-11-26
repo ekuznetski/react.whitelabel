@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { ELabels } from '@domain/enums';
 
 export function useLabelFolder(path?: string) {
-  const targetLabel: keyof typeof ELabels = env.LABEL?.toLowerCase() || 'default';
+  const targetLabel = (env.LABEL?.toLowerCase() as ELabels) || ELabels.default;
 
   if (ELabels[targetLabel] == undefined || ELabels[targetLabel] == null) {
     throw new Error(
