@@ -26,7 +26,7 @@
 
     &.focused {
       textarea {
-        border: 1px solid #cacfd5;
+        border: 1px solid $dark-grey;
         border-color: $blue;
         box-shadow: box-shadow(10, 0.1);
       }
