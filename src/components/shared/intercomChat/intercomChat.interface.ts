@@ -1,8 +1,6 @@
 import { Country, ECurrencyCode, ETradingAccountType } from '@domain/enums';
 
-export type IIntercomChatParams = IIntercomParams;
-
-interface IIntercomParams {
+export interface IIntercomChatParams {
   userInfo?: {
     email: string;
     name: string;
@@ -14,7 +12,6 @@ interface IIntercomParams {
     userHash: string;
     salesforce: string;
     deposit: string;
-    jurisdiction: string;
     approved: string;
     userId: string;
   };

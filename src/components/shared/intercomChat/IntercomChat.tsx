@@ -1,14 +1,19 @@
 import { env } from '@domain';
 import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
-import React, { forwardRef, memo, useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { IntercomProvider, useIntercom } from 'react-use-intercom';
 import { IIntercomChatParams } from './intercomChat.interface';
 
 export const IntercomChat = memo(function IntercomChat() {
-  const { clientProfile } = useSelector<IStore, { clientProfile: MClientProfile }>((state) => ({
+  if (!env.INTERCOM_ID) {
+    return null;
+  }
+
+  const { clientProfile, locale } = useSelector<IStore, { clientProfile: MClientProfile; locale: string }>((state) => ({
     clientProfile: state.data.client.profile,
+    locale: state.app.route.locale,
   }));
 
   const userInfo = clientProfile
@@ -24,42 +29,29 @@ export const IntercomChat = memo(function IntercomChat() {
         userId: clientProfile.userId,
         salesforce: 'https://eu1.salesforce.com/' + clientProfile.sfid,
         deposit: clientProfile.ftd.toString(),
-        jurisdiction: clientProfile.jurisdiction,
         approved: clientProfile.aprv.toString(),
+        language: locale,
       }
     : undefined;
 
-  function onHide() {
-    console.log('Messenger now hiden');
-  }
-  function onShow() {
-    console.log('Messenger now shown');
-  }
-
   return (
-    <IntercomProvider appId={env.INTERCOM_CHAT_APP_ID} onHide={onHide} onShow={onShow}>
+    <IntercomProvider appId={env.INTERCOM_ID}>
       <Chat userInfo={userInfo} />
     </IntercomProvider>
   );
 });
 
-export const Chat = memo(
-  forwardRef<HTMLDivElement, IIntercomChatParams>(function Chat({ userInfo }, ref) {
-    const { boot, update, shutdown } = useIntercom();
+export const Chat = memo(function Chat({ userInfo }: IIntercomChatParams) {
+  const { boot, update, shutdown } = useIntercom();
 
-    useEffect(() => {
-      if (userInfo) {
-        update(userInfo);
-      }
-      return () => {
-        //clear data if logged out
-        if (!userInfo) {
-          shutdown();
-          boot();
-        }
-      };
-    }, [userInfo]);
+  useEffect(() => {
+    if (userInfo) {
+      update(userInfo);
+    } else {
+      shutdown();
+      boot();
+    }
+  }, [userInfo?.email]);
 
-    return null;
-  }),
-);
+  return null;
+});
