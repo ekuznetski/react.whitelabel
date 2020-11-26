@@ -41,7 +41,7 @@ export const Withdrawal = memo(function Withdrawal() {
     [EFields.amount]: Yup.number().when('account', {
       is: (val) => !!val,
       then: FieldValidators.requiredNumber
-        .test('min', '', function (value) {
+        .test('min', '', function(value) {
           const { path, parent, createError } = this;
           const { account }: { account: MTradingAccount } = parent;
           if (value && value < account.minWithdrawal) {
@@ -55,7 +55,7 @@ export const Withdrawal = memo(function Withdrawal() {
           }
           return true;
         })
-        .test('max', '', function (value) {
+        .test('max', '', function(value) {
           const { path, parent, createError } = this;
           const { account }: { account: MTradingAccount } = parent;
           const limit = Math.min(store.withdrawalLimit, account.balance);

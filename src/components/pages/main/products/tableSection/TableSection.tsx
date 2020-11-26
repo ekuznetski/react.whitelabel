@@ -25,6 +25,7 @@ export const TableSection = memo(
       props.reversed && preview ? 'offset-lg-1' : '',
     );
     const tableColClass = classNames(
+      'tableCol',
       preview ? 'col-12 col-lg-8 col-xl-7' : 'col-12',
       props.reversed || !preview ? '' : 'offset-xl-1',
     );

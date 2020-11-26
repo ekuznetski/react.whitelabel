@@ -31,7 +31,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
             (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
             (e.data?.status && e.data.status === EResponseStatus.failure)
           ) {
-            throw new Error(e);
+            throw e;
           } else {
             return e.data;
           }
@@ -48,7 +48,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
             (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
             (e.data?.status && e.data.status === EResponseStatus.failure)
           ) {
-            throw new Error(e);
+            throw e;
           } else {
             return e.data;
           }
@@ -56,7 +56,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
       }
     } catch (err) {
       console.error(err);
-      throw new Error(err);
+      throw err;
     }
   };
 }
@@ -79,6 +79,7 @@ export const withdrawalsLimitRequest = request(EHttpMethod.post, `${apiUrl}/with
 export const mt4WithdrawFundsRequest = request(EHttpMethod.post, `${apiUrl}/withdrawals/mt4`);
 export const mt5WithdrawFundsRequest = request(EHttpMethod.post, `${apiUrl}/withdrawals/mt5`);
 export const tradingAccountsRequest = request(EHttpMethod.get, `${apiUrl}/clients/getTradingAccounts`);
+export const financialProfileRequest = request(EHttpMethod.post, `${apiUrl}/clients/newKyc`);
 export const internalTransferRequest = request(EHttpMethod.post, `${apiUrl}/accounts/transfer`);
 export const getTransactionalStatementsRequest = request(EHttpMethod.post, `${apiUrl}/clients/bankingStatements`);
 export const getBankDetailsRequest = request(EHttpMethod.post, `${apiUrl}/bankaccounts/getbankdetails`);
@@ -90,3 +91,6 @@ export const createMT5DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/
 export const addDepositRequest = request(EHttpMethod.post, `${apiUrl}/deposits/add`);
 export const uploadFileRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/upload`);
 export const getDocumentsRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/getDocuments`);
+export const partnershipRegistrationRequest = request(EHttpMethod.post, `${apiUrl}/frontend/extra/partnershipEmail`);
+export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${apiUrl}/ibs/add`);
+export const getStocksPricesRequest = request(EHttpMethod.post, `https://prices.hycm.com/graphs/prices2`);

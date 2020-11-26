@@ -42,7 +42,7 @@ export function TabContentChooseAmount() {
   const validationSchema = Yup.object().shape({
     account: Yup.object().required('This field is required'),
     amount: isDesktop ? FieldValidators.requiredString : FieldValidators.notRequiredString,
-    customAmount: Yup.number().test('isCustomAmount', '', function (value) {
+    customAmount: Yup.number().test('isCustomAmount', '', function(value) {
       const { path, parent, createError } = this;
       const { account, amount }: { account: MTradingAccount; amount: string } = parent;
       if (!!value && amount === 'custom' && !!account?.minDeposit && value < account.minDeposit) {

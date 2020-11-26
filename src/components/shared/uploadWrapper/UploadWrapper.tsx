@@ -90,15 +90,11 @@ export function UploadWrapper({ children, documents, ...props }: IUploadWrapperP
                     >
                       Back
                     </a>
-                    {
-                      // @ts-ignore
-                      !Array.isArray(children) ? children.props.label : children[state.selectedDocTypeIdx].props.label
-                    }
+                    {// @ts-ignore
+                    !Array.isArray(children) ? children.props.label : children[state.selectedDocTypeIdx].props.label}
                   </div>
-                  {
-                    // @ts-ignore
-                    !Array.isArray(children) ? children : children[state.selectedDocTypeIdx].props.children
-                  }
+                  {// @ts-ignore
+                  !Array.isArray(children) ? children : children[state.selectedDocTypeIdx].props.children}
                 </>
               );
             case EUploadWrapperViewType.documents:

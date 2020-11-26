@@ -28,7 +28,12 @@ export function LabelView({ children, label = ELabels.default }: IDomainView) {
     // @ts-ignore
     let tempContent: React.ReactFragment = children?.['*'];
     let key = Object.keys(children).filter(
-      (key) => key != '*' && key.toLowerCase().split(',').includes(env.LABEL?.toLowerCase()),
+      (key) =>
+        key != '*' &&
+        key
+          .toLowerCase()
+          .split(',')
+          .includes(env.LABEL?.toLowerCase()),
     );
 
     if (key.length) {

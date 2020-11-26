@@ -56,7 +56,7 @@ export function ResetPassword() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.failure,
-              context: 'Reset password Failure',
+              context: `Reset password failure: ${e.data.response.message}`,
               timeout: null,
             }),
           );

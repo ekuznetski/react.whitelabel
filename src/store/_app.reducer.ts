@@ -13,6 +13,7 @@ export const initAppStore: Nullable<IAppStore> = {
       desc: null,
     },
     state: null,
+    isLoading: true
   },
   requests: {
     activeList: [],
@@ -44,6 +45,7 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.withdrawFunds:
     case EActionTypes.createLiveTradingAccount:
     case EActionTypes.createDemoTradingAccount:
+    case EActionTypes.fetchStocksPrices:
       return {
         ...state,
         requests: {

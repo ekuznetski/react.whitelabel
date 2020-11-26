@@ -1,6 +1,7 @@
 // Components Kit
 export * from './form/select/Select';
 export * from './form/input/Input';
+export * from './form/textarea/TextArea';
 export * from './form/radio/Radio';
 export * from './form/checkbox/Checkbox';
 export * from './form/button/Button';
@@ -21,6 +22,7 @@ export * from './localeNavLink/LocaleNavLink';
 export * from './localeLink/LocaleLink';
 export * from './authAlreadyRegisteredLink/AuthAlreadyRegisteredLink';
 export * from './intercomChat/IntercomChat';
+export * from './map/Map';
 
 // Elements
 export * from './labelView/LabelView';

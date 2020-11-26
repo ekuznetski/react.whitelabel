@@ -6,13 +6,13 @@ import { IHeaderDefaultProps } from '@domain/interfaces';
 import classNames from 'classnames';
 
 export function HeaderAuth(props: IHeaderDefaultProps) {
-	return (
-		<div className={classNames('panel-menu', props.fixed && 'fixed')}>
-			<Container>
-				<div className="logo">
-					<Svg className="m-auto" href="logo" _label />
-				</div>
-			</Container>
-		</div>
-	);
+  return (
+    <div className={classNames('panel-menu', props.fixed && 'fixed')}>
+      <Container>
+        <div className="logo">
+          <Svg className="m-auto" href="logo" _label />
+        </div>
+      </Container>
+    </div>
+  );
 }

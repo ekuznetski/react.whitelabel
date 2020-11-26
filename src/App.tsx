@@ -1,16 +1,16 @@
-import { Footer, Header, Router } from '@components/core';
+import { Footer, Header, PageLoader, Router } from '@components/core';
 import { localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
 import { ac_updateRouteParams, IStore, store } from '@store';
+import { useDeviceDetect } from '@utils/hooks';
+import classNames from 'classnames';
 import React, { Suspense, useEffect } from 'react';
+import { browserName, osName } from 'react-device-detect';
 import { hot } from 'react-hot-loader/root';
 import { useTranslation } from 'react-i18next';
 import { connect, Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './App.scss';
-import { browserName, osName } from 'react-device-detect';
-import classNames from 'classnames';
-import { useDeviceDetect } from '@utils/hooks';
 import { IntercomChat } from '@components/shared';
 
 function App() {

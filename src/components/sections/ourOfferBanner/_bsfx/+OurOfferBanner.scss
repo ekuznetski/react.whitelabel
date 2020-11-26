@@ -1,0 +1,47 @@
+@import '~/variables';
+
+.our-offer-banner-section {
+  .container {
+    height: inherit;
+    .row {
+      height: inherit;
+    }
+  }
+
+  [class*='col-'] {
+    height: inherit;
+    border-right: 3px solid #fff;
+    &:first-child {
+      border-left: 3px solid #fff;
+    }
+    &:not(:last-child) {
+      border-right: 3px solid #fff;
+    }
+  }
+
+  svg {
+    fill: $dark-blue;
+  }
+
+  @media (max-width: $viewport-lg-w) {
+    [class*='col-'] {
+      &:last-child {
+        border-right: none;
+      }
+      &:first-child {
+        border-left: none;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    [class*='col-'] {
+      &:not(:last-child) {
+        border-bottom: 3px solid #fff;
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+}

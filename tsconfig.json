@@ -29,8 +29,9 @@
       "@domain": ["domain/index.ts"],
       "@store": ["store/index.ts"],
       "~/variables": ["scss/variables.scss"],
+      "~/utilities": ["scss/utilities.scss"],
       "~/theme": ["scss/theme.scss"],
-      "~/mixin": ["scss/mixin.scss"],
+      "~/mixin": ["scss/mixin.scss"]
     }
   },
   "include": ["src"],

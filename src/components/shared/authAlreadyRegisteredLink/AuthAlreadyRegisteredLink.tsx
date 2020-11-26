@@ -6,7 +6,7 @@ import './AuthAlreadyRegisteredLink.scss';
 
 export function AuthAlreadyRegisteredLink({ className }: any) {
   const { t } = useTranslation();
-  
+
   return (
     <div className={classNames('mt-5 text-center auth-under-form', className)}>
       {t('Already Registered')}

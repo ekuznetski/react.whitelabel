@@ -1,3 +1,3 @@
 export interface IContent {
-	[key: string]: any;
+  [key: string]: any;
 }

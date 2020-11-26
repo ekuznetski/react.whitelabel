@@ -16,6 +16,8 @@ import {
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
   IWithdrawFundRequest,
+  IPartnershipRegistrationResponse,
+  IPartnershipIBRegistrationResponse,
 } from '@domain/interfaces';
 import {
   MClientData,
@@ -48,12 +50,16 @@ import {
   mt4WithdrawFundsRequest,
   mt5WithdrawFundsRequest,
   resetPasswordRequest,
+  financialProfileRequest,
   tradingAccountsRequest,
   updateBankDetailsRequest,
   uploadFileRequest,
   userExistsRequest,
   withdrawalsHistoryRequest,
   withdrawalsLimitRequest,
+  partnershipRegistrationRequest,
+  partnershipIBRegistrationRequest,
+  getStocksPricesRequest,
 } from '@utils/services';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { store } from './';
@@ -300,6 +306,13 @@ export function* getClientStatusDataSaga() {
   );
 }
 
+export function* financialProfileSage() {
+  yield $$(EActionTypes.submitFinancialProfile, function* ({ payload }: IAction) {
+    const { response }: any = yield call(financialProfileRequest, payload);
+    return response;
+  });
+}
+
 export function* getTradingAccountsSage() {
   yield $$(
     EActionTypes.fetchTradingAccounts,
@@ -380,9 +393,30 @@ export function* fetchTransactionalStatementsSage() {
   });
 }
 
-export function* addDepositSage() {
+export function* addDepositSaga() {
   yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
-    const data: IAddDepositResponse = yield call(addDepositRequest, payload);
+    const response: IAddDepositResponse = yield call(addDepositRequest, payload);
+    return response;
+  });
+}
+
+export function* fetchStocksPricesSaga() {
+  yield $$(EActionTypes.fetchStocksPrices, function* () {
+    const data = yield call(getStocksPricesRequest);
     return data;
+  });
+}
+
+export function* partnershipRegistrationSaga() {
+  yield $$(EActionTypes.partnershipRegister, function* ({ payload }: IAction) {
+    const { response }: IPartnershipRegistrationResponse = yield call(partnershipRegistrationRequest, payload);
+    return response;
+  });
+}
+
+export function* registerIBSaga() {
+  yield $$(EActionTypes.partnershipRegisterIB, function* ({ payload }: IAction) {
+    const { response }: IPartnershipIBRegistrationResponse = yield call(partnershipIBRegistrationRequest, payload);
+    return response;
   });
 }
