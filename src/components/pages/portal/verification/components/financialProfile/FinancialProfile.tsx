@@ -49,27 +49,30 @@ export const FinancialProfile = memo(function FinancialProfile() {
     });
   }
   const progressPercent = (100 / (Object.keys(EFPSteps).length / 2)) * state.step;
-  return statusData.fp_status.code === EClientStatusCode.submitted ? (
-    <div className="text-center">
-      <h3>Financial profile Completed</h3>
-      <Svg className="mt-5" href="profile-completed" width={78} />
-    </div>
-  ) : (
-    <div className="financial-profile">
-      {state.step !== Object.keys(EFPSteps).length / 2 ? (
-        <FinancialProfileStepGenerator state={state} submitFn={submitFn} />
-      ) : (
-        <FinancialProfileLastStep submitFn={submitFn} />
-      )}
-      <div className="progress-bar">
-        <div className="progress-bar-active" style={{ width: `${progressPercent}%` }}>
-          <div
-            className="progress"
-            style={{ right: `${progressPercent ? '-15' : '-26'}px` }}
-          >{`${progressPercent}%`}</div>
+  return (
+    <div className="financial-profile form-wrapper py-10 px-9 col-xl-8 col-lg-10 col-12 m-auto">
+      {statusData.fp_status.code === EClientStatusCode.submitted ? (
+        <div className="text-center">
+          <h3>Financial profile Completed</h3>
+          <Svg className="mt-5" href="profile-completed" width={78} />
         </div>
-      </div>
-      <pre>{JSON.stringify(state, null, '\t')}</pre>
+      ) : (
+        <>
+          {state.step !== Object.keys(EFPSteps).length / 2 ? (
+            <FinancialProfileStepGenerator state={state} submitFn={submitFn} />
+          ) : (
+            <FinancialProfileLastStep submitFn={submitFn} />
+          )}
+          <div className="progress-bar">
+            <div className="progress-bar-active" style={{ width: `${progressPercent}%` }}>
+              <div
+                className="progress"
+                style={{ right: `${progressPercent ? '-15' : '-26'}px` }}
+              >{`${progressPercent}%`}</div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 });
