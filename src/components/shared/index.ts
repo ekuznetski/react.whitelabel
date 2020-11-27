@@ -21,6 +21,7 @@ export * from './uploadWrapper';
 export * from './localeNavLink/LocaleNavLink';
 export * from './localeLink/LocaleLink';
 export * from './authAlreadyRegisteredLink/AuthAlreadyRegisteredLink';
+export * from './intercomChat/IntercomChat';
 export * from './map/Map';
 
 // Elements
