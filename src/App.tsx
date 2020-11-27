@@ -11,12 +11,14 @@ import { useTranslation } from 'react-i18next';
 import { connect, Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './App.scss';
+import { IntercomChat } from '@components/shared';
 
 function App() {
   return (
     <Provider store={store}>
       <Suspense fallback={null}>
         <WrappedMain />
+        <IntercomChat />
       </Suspense>
     </Provider>
   );

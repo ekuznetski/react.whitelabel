@@ -1,65 +1,21 @@
-import React, { Fragment, memo } from 'react';
-import { AnyFunction, IFPQuestion, IFPState } from '@domain/interfaces';
-import { EFPQuestionView } from '@domain/enums';
-import { Button, Checkbox, Input, IRadioItem, Radio, Select } from '@components/shared';
+import { Button, Input, IRadioItem, Radio, Select } from '@components/shared';
 import { FieldValidators, FPAnswers } from '@domain';
+import { EFPQuestionView } from '@domain/enums';
+import { AnyFunction, IFPQuestion, IFPState } from '@domain/interfaces';
 import { Form, Formik, FormikProps } from 'formik';
-import * as Yup from 'yup';
+import React, { Fragment, memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 
-function getQuestionInputName(state: IFPState, question: IFPQuestion): string | null {
-  const lastAnswerId = state.data.slice(-1)[0]?.answer;
-  if (state.data.length && typeof question.id === 'object' && !question.id[lastAnswerId]) {
-    return null;
-  }
-  return state.data.length && typeof question.id !== 'number' ? `q_${question.id[lastAnswerId]}` : `q_${question.id}`;
+interface FinancialProfileStepGeneratorProps {
+  state: IFPState;
+  submitFn: AnyFunction;
 }
-
-const CreateQuestion = memo(function CreateQuestion({ question, state }: { question: IFPQuestion; state: IFPState }) {
-  const options = question.answers.reduce((acc: IRadioItem[], e) => {
-    if (question.answers.includes(e)) {
-      acc.push({
-        label: FPAnswers[e].text,
-        value: FPAnswers[e].apiId.toString(),
-      });
-    }
-    return acc;
-  }, []);
-  const name = getQuestionInputName(state, question);
-  if (!name) {
-    return null;
-  }
-  const props = {
-    name: name,
-    options: options,
-  };
-  switch (question.view) {
-    case EFPQuestionView.radio:
-      return (
-        <>
-          <h4>{question.text}</h4>
-          <Radio optionClassName={'col-6'} {...props} />
-        </>
-      );
-    case EFPQuestionView.radioWithIcon:
-      return (
-        <>
-          <h4>{question.text}</h4>
-          <Radio optionClassName={'col-12'} {...props} />
-        </>
-      );
-    case EFPQuestionView.select:
-      return <Select {...props} label={question.text} />;
-  }
-});
 
 export const FinancialProfileStepGenerator = memo(function FinancialProfileStep({
   state,
   submitFn,
-}: {
-  state: IFPState;
-  submitFn: AnyFunction;
-}) {
+}: FinancialProfileStepGeneratorProps) {
   const { t } = useTranslation();
   const initValues = state.questions.reduce((acc, question) => {
     const name = getQuestionInputName(state, question);
@@ -75,11 +31,13 @@ export const FinancialProfileStepGenerator = memo(function FinancialProfileStep(
     }
     return acc;
   }, {});
+
   if (!Object.keys(initValues).length) {
     Object.assign(initValues, {
       agreement: '',
     });
   }
+
   const validationSchema = Yup.object().shape(
     Object.keys(initValues).reduce((acc, name) => {
       if (name.includes('_remark')) {
@@ -100,6 +58,7 @@ export const FinancialProfileStepGenerator = memo(function FinancialProfileStep(
       return acc;
     }, {}),
   );
+
   return (
     <Formik
       enableReinitialize={true}
@@ -112,10 +71,10 @@ export const FinancialProfileStepGenerator = memo(function FinancialProfileStep(
       {(props: FormikProps<any>) => {
         return (
           <Form className="m-auto form">
-            {state.questions.map((question) => {
+            {state.questions.map((question, q) => {
               const name = getQuestionInputName(state, question);
               return (
-                <Fragment key={JSON.stringify(question.id)}>
+                <Fragment key={q}>
                   <CreateQuestion state={state} question={question} />
                   {name && FPAnswers[props.values[name]]?.needRemark && (
                     <Input name={name + '_remark'} label={t('Please Specify')} />
@@ -130,3 +89,48 @@ export const FinancialProfileStepGenerator = memo(function FinancialProfileStep(
     </Formik>
   );
 });
+
+const CreateQuestion = memo(function CreateQuestion({ question, state }: { question: IFPQuestion; state: IFPState }) {
+  const options = question.answers.reduce((acc: IRadioItem[], e) => {
+    if (question.answers.includes(e)) {
+      acc.push({
+        label: FPAnswers[e].text,
+        value: FPAnswers[e].apiId.toString(),
+      });
+    }
+    return acc;
+  }, []);
+  const name = getQuestionInputName(state, question);
+
+  if (!name) return null;
+
+  const props = { name, options };
+  switch (question.view) {
+    case EFPQuestionView.radio:
+      return (
+        <>
+          <div className="financial-profile__step-title mb-9">{question.text}</div>
+          <Radio className="mb-10" optionClassName={'col-6'} {...props} />
+        </>
+      );
+    case EFPQuestionView.radioWithIcon:
+      return (
+        <>
+          <div className="financial-profile__step-title mb-9">{question.text}</div>
+          <Radio className="mb-10" optionClassName={'col-12'} {...props} />
+        </>
+      );
+    case EFPQuestionView.select:
+      return <Select {...props} label={question.text} />;
+  }
+});
+
+function getQuestionInputName(state: IFPState, question: IFPQuestion): string | null {
+  const lastAnswerId = state.data.slice(-1)[0]?.answer;
+
+  if (state.data.length && typeof question.id === 'object' && !question.id[lastAnswerId]) {
+    return null;
+  }
+
+  return state.data.length && typeof question.id !== 'number' ? `q_${question.id[lastAnswerId]}` : `q_${question.id}`;
+}

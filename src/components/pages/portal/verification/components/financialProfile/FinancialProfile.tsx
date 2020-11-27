@@ -1,25 +1,29 @@
-import React, { memo, useState } from 'react';
-import { FinancialProfileLastStep, FinancialProfileStepGenerator } from '..';
+import { Svg } from '@components/shared';
 import { FPQuestions } from '@domain';
 import { EClientStatusCode, EFPSteps } from '@domain/enums';
 import { IFPState, ISubmitFPRequest, ISubmitFPRequestItem } from '@domain/interfaces';
-import './FinancialProfile.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { ac_submitFinancialProfile, IStore } from '@store';
 import { MClientData } from '@domain/models';
-import { Svg } from '@components/shared';
-import { Col } from 'react-bootstrap';
+import { ac_submitFinancialProfile, IStore } from '@store';
+import classNames from 'classnames';
+import React, { memo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { FinancialProfileLastStep, FinancialProfileStepGenerator } from './components';
+import './FinancialProfile.scss';
 
 export const FinancialProfile = memo(function FinancialProfile() {
   const { statusData } = useSelector<IStore, { statusData: MClientData }>((state) => ({
     statusData: state.data.client.statusData,
   }));
-  const dispatch = useDispatch();
   const [state, setState] = useState<IFPState>({
     step: EFPSteps.step1,
     data: [],
     questions: FPQuestions.filter((e) => e.step === EFPSteps.step1),
   });
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const progressPercent = (100 / (Object.keys(EFPSteps).length / 2)) * state.step;
+
   function submitFn(data: any) {
     if (state.step === Object.keys(EFPSteps).length / 2) {
       const preparedData: ISubmitFPRequest = { kyc_answer: JSON.stringify(state.data) };
@@ -40,6 +44,7 @@ export const FinancialProfile = memo(function FinancialProfile() {
           return result;
         },
       );
+
     setState((__state: IFPState) => {
       return {
         step: __state.step + 1,
@@ -48,12 +53,12 @@ export const FinancialProfile = memo(function FinancialProfile() {
       };
     });
   }
-  const progressPercent = (100 / (Object.keys(EFPSteps).length / 2)) * state.step;
+
   return (
-    <div className="financial-profile form-wrapper py-10 px-9 col-xl-8 col-lg-10 col-12 m-auto">
+    <div className="financial-profile form-wrapper py-10 px-9 col-xl-10 col-12 m-auto">
       {statusData.fp_status.code === EClientStatusCode.submitted ? (
         <div className="text-center">
-          <h3>Financial profile Completed</h3>
+          <h3>{t('Financial Profile Completed')}</h3>
           <Svg className="mt-5" href="profile-completed" width={78} />
         </div>
       ) : (
@@ -63,12 +68,15 @@ export const FinancialProfile = memo(function FinancialProfile() {
           ) : (
             <FinancialProfileLastStep submitFn={submitFn} />
           )}
-          <div className="progress-bar">
-            <div className="progress-bar-active" style={{ width: `${progressPercent}%` }}>
-              <div
-                className="progress"
-                style={{ right: `${progressPercent ? '-15' : '-26'}px` }}
-              >{`${progressPercent}%`}</div>
+          <div
+            className={classNames(
+              'financial-profile__progress-bar mt-12',
+              progressPercent === 100 && 'full',
+              progressPercent === 0 && 'empty',
+            )}
+          >
+            <div className="progress-bar__progress" style={{ width: `${progressPercent}%` }}>
+              <div className="progress-bar__progress-label">{`${progressPercent}%`}</div>
             </div>
           </div>
         </>

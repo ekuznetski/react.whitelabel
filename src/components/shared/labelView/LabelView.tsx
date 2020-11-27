@@ -4,7 +4,8 @@ import React from 'react';
 
 interface IDomainView {
   children: React.ReactFragment | { [k: string]: React.ReactFragment };
-  label?: ELabels;
+  showOn?: ELabels | ELabels[];
+  hideOn?: ELabels | ELabels[];
 }
 
 /**
@@ -21,19 +22,18 @@ interface IDomainView {
  * ```
  */
 
-export function LabelView({ children, label = ELabels.default }: IDomainView) {
-  let _childer;
-
-  if (Object.prototype.toString.call(children) === '[object Object]') {
+export function LabelView({ children, showOn = ELabels.default, hideOn = [] }: IDomainView) {
+  // @ts-ignore
+  showOn = Array.from<ELabels>([showOn]).flat();
+  // @ts-ignore
+  hideOn = Array.from<ELabels>([hideOn]).flat();
+  let _children;
+  
+  if (!React.isValidElement(children)) {
     // @ts-ignore
     let tempContent: React.ReactFragment = children?.['*'];
     let key = Object.keys(children).filter(
-      (key) =>
-        key != '*' &&
-        key
-          .toLowerCase()
-          .split(',')
-          .includes(env.LABEL?.toLowerCase()),
+      (key) => key != '*' && key.toLowerCase().split(',').includes(env.LABEL?.toLowerCase()),
     );
 
     if (key.length) {
@@ -41,10 +41,13 @@ export function LabelView({ children, label = ELabels.default }: IDomainView) {
       tempContent = children[key[0]];
     }
 
-    _childer = tempContent;
+    _children = tempContent;
   } else {
-    _childer = label.toLowerCase() === env.LABEL?.toLowerCase() && children;
+    _children =
+      (showOn.map((label) => label.toLowerCase()).includes(env.LABEL?.toLowerCase()) &&
+        !hideOn.map((label) => label.toLowerCase()).includes(env.LABEL?.toLowerCase())) &&
+      children;
   }
 
-  return _childer ? <>{_childer}</> : null;
+  return _children ? <>{_children}</> : null;
 }

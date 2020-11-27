@@ -1,27 +1,25 @@
 import { Button } from '@components/shared';
-import { FieldValidators } from '@domain';
-import React, { useContext } from 'react';
+import { EDepositMethodCode, ELanguage, ETradingType } from '@domain/enums';
+import { ISkrillDepositRequest } from '@domain/interfaces';
+import { MClientProfile } from '@domain/models';
+import { IStore } from '@store';
+import { appendAndSubmitForm } from '@utils/fn';
+import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import * as Yup from 'yup';
-import { BillingDetailsModal, DetailsHeader } from '..';
-import { DepositContext, useDepositDispatch, useDepositState } from '../../deposit.context';
-import { ac_addDeposit, IStore } from '@store';
-import { ELanguage, EDepositMethodCode, ETradingType } from '@domain/enums';
-import { ISkrillDepositRequest } from '@domain/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
-import { MClientProfile } from '@domain/models';
-import { appendAndSubmitForm } from '@utils/fn';
+import { BillingDetailsModal, DetailsHeader } from '..';
+import { useDepositState } from '../../deposit.context';
 
 export function SkrillMethod() {
-  const dispatch = useDispatch();
   const { account, amount, billingDetails } = useDepositState();
   const { profile, locale } = useSelector<IStore, { profile: MClientProfile; locale: ELanguage }>((state) => ({
     profile: state.data.client.profile,
     locale: state.app.route.locale,
   }));
-  const { t } = useTranslation();
   const [isBillingDetailsModalOpen, setIsBillingDetailsModalOpen] = React.useState<boolean>(false);
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   function onClickHandler(e: React.MouseEvent) {
     e.preventDefault();
