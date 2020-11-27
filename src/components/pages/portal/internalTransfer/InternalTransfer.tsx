@@ -40,7 +40,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
     }),
     amount: Yup.number().when('accountFrom', {
       is: (val: MTradingAccount) => !!val,
-      then: FieldValidators.requiredNumber.test('compareBalance', '', function(value) {
+      then: FieldValidators.requiredNumber.test('compareBalance', '', function (value) {
         const { path, parent, createError } = this;
         const { accountFrom }: { accountFrom: MTradingAccount } = parent;
         if (value && value > accountFrom.balance) {
@@ -92,6 +92,8 @@ export const InternalTransfer = memo(function InternalTransfer() {
             {t('Two live accounts required')}
           </Alert>
         )}
+      </Row>
+      <Row className="justify-content-center">
         <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
           <Formik
             initialStatus={
