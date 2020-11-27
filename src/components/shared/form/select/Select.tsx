@@ -101,7 +101,7 @@ export const Select = memo(function Select({
   const [field, meta, helpers] = useField(props as any);
   const [state, setState] = useSetState({
     value: null,
-    isFilled: !!meta.initialValue,
+    isFilled: false,
     isFocused: false,
   });
   const _disabled = props.isDisabled || FormStatus === EFormStatus.disabled;
@@ -111,7 +111,7 @@ export const Select = memo(function Select({
     if (!_intSelectedValue && (meta.initialValue || field.value)) {
       _intSelectedValue = options.find((el: any) => el.value === (meta.initialValue || field.value)) || null;
     }
-    setState({ value: _intSelectedValue, isFilled: !!_intSelectedValue });
+    setState({ value: _intSelectedValue, isFilled: !!_intSelectedValue || !!meta.initialValue });
   }, []);
 
   useEffect(() => {
