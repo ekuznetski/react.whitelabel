@@ -9,7 +9,6 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import './AffiliateForm.scss';
 
 enum EFields {
   'name' = 'name',
@@ -61,9 +60,9 @@ export const AffiliateForm = memo(() => {
   }
 
   return (
-    <Container className="affiliate-form">
+    <Container className="affiliate-form partnership__form">
       <Row>
-        <Col sm={12} md={7} lg={5} className="m-auto">
+        <Col sm={12} md={8} lg={6} xl={5} className="m-auto">
           <Formik
             initialValues={{
               name: '',
@@ -80,7 +79,7 @@ export const AffiliateForm = memo(() => {
               <Form className="m-auto form">
                 <Input label={t('Name')} name={EFields.name} multiple />
                 <Input label={t('Email')} type="email" name={EFields.email} />
-                <div className="phone-wrapper fadeFromBottom-row__3">
+                <div className="phone-wrapper">
                   <PhoneCodeSelect placeholder={t('Prefix')} name={EFields.phone_prefix} />
                   <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
                 </div>
