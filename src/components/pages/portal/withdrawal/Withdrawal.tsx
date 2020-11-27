@@ -41,7 +41,7 @@ export const Withdrawal = memo(function Withdrawal() {
     [EFields.amount]: Yup.number().when('account', {
       is: (val) => !!val,
       then: FieldValidators.requiredNumber
-        .test('min', '', function(value) {
+        .test('min', '', function (value) {
           const { path, parent, createError } = this;
           const { account }: { account: MTradingAccount } = parent;
           if (value && value < account.minWithdrawal) {
@@ -55,7 +55,7 @@ export const Withdrawal = memo(function Withdrawal() {
           }
           return true;
         })
-        .test('max', '', function(value) {
+        .test('max', '', function (value) {
           const { path, parent, createError } = this;
           const { account }: { account: MTradingAccount } = parent;
           const limit = Math.min(store.withdrawalLimit, account.balance);
@@ -120,6 +120,8 @@ export const Withdrawal = memo(function Withdrawal() {
               {t('90 inactive days warning:1')}
             </Alert>
           )}
+        </Row>
+        <Row className="justify-content-center">
           <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
             <Formik
               initialStatus={
