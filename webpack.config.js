@@ -183,10 +183,11 @@ module.exports = (_env, arguments) => {
     // console.log(targetLabelLocaleAlias, localeFilenames);
     // return;
 
-    targetLabelConfigsScss = stylesFilenames.map((filePath) => {
-      const { basename } = filePathDestructor(filePath);
-      return basename;
-    })
+    targetLabelConfigsScss = stylesFilenames
+      .map((filePath) => {
+        const { basename } = filePathDestructor(filePath);
+        return basename;
+      })
       .reduce(
         (acc, file) =>
           Object.assign(acc, {
