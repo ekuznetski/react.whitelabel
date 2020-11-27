@@ -1,3 +1,4 @@
+import './i18n'; // Must be the imported before the App!
 import fs from 'fs';
 
 import React from 'react';
