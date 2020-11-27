@@ -32,6 +32,7 @@ export default {
   Fees: 'Fees',
   'Funds Secured': 'Funds Secured',
   'In Tier-1 Banks': 'In Tier-1 Banks',
+  'Financial Profile Completed': 'Financial profile Completed',
   Quick: 'Quick',
   Processing: 'Processing',
   Deposit: 'Deposit',
@@ -217,6 +218,7 @@ export default {
   Create: 'Create',
   Account: 'Account',
   Confirm: 'Confirm',
+  'IB Registration Completed': 'IB Registration Completed!',
   Cancel: 'Cancel',
   'Debit/Credit Card Information': 'Debit/Credit Card Information',
   'Edit your': 'Edit your',
@@ -224,11 +226,19 @@ export default {
   'Change amount': 'Change amount',
   'Neteller notes desc': 'Notes on Deposits and Withdrawals by Neteller online wallet',
   'Beneficiary name': 'Beneficiary name:',
-  'HYCM (Europe) Limited': 'HYCM (Europe) Limited',
+  'WHITE_LABEL (Europe) Limited': 'WHITE_LABEL (Europe) Limited',
   'Beneficiary bank name': 'Beneficiary bank name:',
   'Beneficiary Bank address': 'Beneficiary Bank address:',
   'Bank account number': 'Bank account number:',
   'Transfer to the bank': 'Transfer to the bank:',
+  'Declarations and Acknowledgement of Risks': 'Declarations and Acknowledgement of Risks',
+  'Financial Profile Last Stem Declaration Terms': [
+    'I understand that the nature of my transactions with WHITE_LABEL will be buying and selling only CFD products in various underlying assets.',
+    'I am aware that by not submitting the KYC documents as requested by the Company may lead to the suspension of my trading rights',
+    'I am aware that the products offered by WHITE_LABEL are leverage CFD products which carry a high level of risk, and it is possible to lose all my capital deposited with WHITE_LABEL.I further acknowledge that I have read the Risk Disclosure Notice as available online.',
+    'I have reviewed my answers and responded as accurately as possible.'
+  ],
+  'Financial Profile Agree with Declaration': 'By clicking this tick box, I agree to each of the above declarations',
   Download: 'Download',
   Print: 'Print',
   'Proceed to Payment': 'Proceed to Payment',
@@ -258,8 +268,8 @@ export default {
     'to help you re-activate your account',
   ],
   'You cannot transfer at the moment': 'You cannot transfer at the moment. Your client application is under review',
-  'HYCM withdrawal policy desc':
-    'HYCM prides itself in transparent and efficient withdrawal policies. These procedures can be completed online and are designed with your security in mind. Your funds will normally be transferred back to the original source you used to fund your account. Otherwise, we will transfer the funds to your identified bank account.',
+  'Withdrawal Policy Desc':
+    'WHITE_LABEL prides itself in transparent and efficient withdrawal policies. These procedures can be completed online and are designed with your security in mind. Your funds will normally be transferred back to the original source you used to fund your account. Otherwise, we will transfer the funds to your identified bank account.',
   'Assets Title': '<0>6</0> Asset Classes, <2>150+</2> Instruments',
   'Assets SubTitle':
     'CFD for <1>{{currencies}}</1>, <3>{{stocks}}</3>, <5>{{indices}}</5>, <7>{{commodities}}</7> and <9>{{cryptocurrencies}}</9> at your service on one trading account. Monitor and trade the world’s largest financial markets!',
@@ -288,11 +298,11 @@ export default {
   Disclaimer: 'Disclaimer',
   'High Risk Investment Warning': 'High Risk Investment Warning',
   'High Risk Investment Warning Portal Desc':
-    'CFDs are leveraged products and can result in the loss of all invested capital. Please consider our Risk Disclosure Notice. HYCM Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number 25228 (IBC 2018). Other subsidiaries of Henyep Group are regulated by the CySEC, FCA and DFSA.',
+    'CFDs are leveraged products and can result in the loss of all invested capital. Please consider our Risk Disclosure Notice. WHITE_LABEL Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number 25228 (IBC 2018). Other subsidiaries of Henyep Group are regulated by the CySEC, FCA and DFSA.',
   'High Risk Investment Warning Main Desc':
-    'Contracts for Difference (‘CFDs’) are complex financial products that are traded on margin. Trading CFDs carries a high degree of risk. It is possible to lose all your capital. These products may not be suitable for everyone and you should ensure that you understand the risks involved. Seek independent expert advice if necessary and speculate only with funds that you can afford to lose. Please think carefully whether such trading suits you, taking into consideration all the relevant circumstances as well as your personal resources. We do not recommend clients posting their entire account balance to meet margin requirements.Clients can minimize their level of exposure by requesting a change in leverage limit.For more information please refer to HYCM’ s Risk Disclosure.',
+    'Contracts for Difference (‘CFDs’) are complex financial products that are traded on margin. Trading CFDs carries a high degree of risk. It is possible to lose all your capital. These products may not be suitable for everyone and you should ensure that you understand the risks involved. Seek independent expert advice if necessary and speculate only with funds that you can afford to lose. Please think carefully whether such trading suits you, taking into consideration all the relevant circumstances as well as your personal resources. We do not recommend clients posting their entire account balance to meet margin requirements.Clients can minimize their level of exposure by requesting a change in leverage limit.For more information please refer to WHITE_LABEL’ s Risk Disclosure.',
   'Disclaimer Desc':
-    'The content of this page is for information purposes only and it is not intended as a recommendation or advice. Any indication of past performance or simulated past performance included in advertisements published by HYCM is not a reliable indicator of future results. The customer carries the sole responsibility for all the businesses or investments that are carried out at HYCM.',
+    'The content of this page is for information purposes only and it is not intended as a recommendation or advice. Any indication of past performance or simulated past performance included in advertisements published by WHITE_LABEL is not a reliable indicator of future results. The customer carries the sole responsibility for all the businesses or investments that are carried out at WHITE_LABEL.',
   'Regional Restrictions': 'Regional Restrictions',
   'Regional Restrictions Desc':
     'We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong, Japan, the United States of America and some other regions. For more information please refer to our <1>Help Center</1>',
@@ -312,7 +322,7 @@ export default {
   Company: 'Company',
   'Market Event Notification Desc': [
     'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our ',
-    'and you consent to receive newsletters, special offers and be contacted by HYCM representatives via phone or e-mail. You can opt-out any time you wish to.',
+    'and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. You can opt-out any time you wish to.',
   ],
   Bid: 'Bid',
   Ask: 'Ask',
@@ -420,9 +430,9 @@ export default {
   'Free market reviews for clients': 'Free market reviews for clients',
   'Customisable marketing and advertising tools': 'Customisable marketing and advertising tools',
   'Local office and events support': 'Local office and events support',
-  'Maximise Your Earning Potential': 'Maximise Your Earning Potential',
+  'Maximize Your Earning Potential': 'Maximize Your Earning Potential',
   'Join Our Partnership Program Today':
-    '<0>All our programs are geared up to help you grow your business and maximise your earning potential.</0><1>Join our partnership program today. Let us design your bespoke partnership program so that you can start earning right away.</1>',
+    '<0>All our programs are geared up to help you grow your business and maximize your earning potential.</0><1>Join our partnership program today. Let us design your bespoke partnership program so that you can start earning right away.</1>',
   'Choose Your Program': 'CHOOSE YOUR <1>PROGRAM</1>',
   Affiliate: 'Affiliate',
   IB: 'IB',

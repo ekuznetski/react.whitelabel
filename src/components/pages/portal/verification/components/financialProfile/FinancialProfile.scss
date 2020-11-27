@@ -1,31 +1,69 @@
 @import '~/variables';
 
 .financial-profile {
-  .progress-bar {
+  &__step-title {
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  &__progress-bar {
     background-color: $grey;
     height: 4px;
-    margin: 50px 0;
-    .progress-bar-active {
-      height: 2px;
-      background-color: $dark-blue;
-      transition: width 0.35s;
-      position: relative;
-      &:after {
-        content: '';
-        position: absolute;
-        top: -4px;
-        right: 0;
-        display: block;
-        width: 3px;
-        height: 10px;
+
+    .progress-bar {
+      &__progress {
+        position: relative;
+        height: 2px;
         background-color: $dark-blue;
+        transition: width 0.35s;
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: -4px;
+          right: -3px;
+          display: block;
+          width: 3px;
+          height: 10px;
+          background-color: $dark-blue;
+          transition: right 0.35s;
+        }
+
+        &-label {
+          position: absolute;
+          width: 50px;
+          right: -25px;
+          text-align: center;
+          top: -30px;
+          transition: right 0.35s;
+        }
       }
-      .progress {
-        position: absolute;
-        width: 30px;
-        right: -15px;
-        text-align: center;
-        top: -30px;
+    }
+
+    &.empty {
+      .progress-bar {
+        &__progress {
+          &-label {
+            right: -50px;
+            text-align: left;
+          }
+        }
+      }
+    }
+
+    &.full {
+      .progress-bar {
+        &__progress {
+          &:after {
+            right: 0;
+          }
+
+          &-label {
+            right: 0;
+            text-align: right;
+          }
+        }
       }
     }
   }

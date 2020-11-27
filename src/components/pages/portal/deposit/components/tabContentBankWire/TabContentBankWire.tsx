@@ -1,6 +1,9 @@
 import { Button, Radio, TradingAccountsSelect } from '@components/shared';
+import { FieldValidators } from '@domain';
+import { ECurrencyCode, ETradingType } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import { IStore } from '@store';
+import classNames from 'classnames';
 import { Form, Formik } from 'formik';
 import React, { useContext } from 'react';
 import { Col, Row } from 'react-bootstrap';
@@ -8,10 +11,8 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { depositActionCreators, DepositContext, IDepositState } from '../../deposit.context';
+import { config } from './TabContentBankWire.config';
 import './TabContentBankWire.scss';
-import classNames from 'classnames';
-import { ECurrencyCode, ETradingType } from '@domain/enums';
-import { FieldValidators } from '@domain';
 
 export function TabContentBankWire() {
   const { account }: IDepositState = useContext(DepositContext).state;
@@ -21,57 +22,6 @@ export function TabContentBankWire() {
     tradingAccounts: state.data.tradingData.accounts.filter((acc) => acc.type !== ETradingType.demo),
   }));
   const { t } = useTranslation();
-  const banks: { [k in keyof ECurrencyCode | string]: any } = {
-    [ECurrencyCode.usd]: [
-      {
-        bankTitle: (
-          <>
-            <b>Barclays</b> Bank
-          </>
-        ),
-        beneficiaryName: 'HYCM (Europe) Limited',
-        beneficiaryBankName: 'Barclays Bank PLC',
-        beneficiary_bank_address: 'Leicester, Leicestershire, LE87 2BB, UNITED KINGDOM',
-        swift: 'BARCGB22',
-        iban: 'GB72 BARC 20000084099233',
-        accountNumber: '84099233',
-        currency: 'USD',
-        filename: '111.pdf',
-      },
-      {
-        bankTitle: (
-          <>
-            <b>Lorem Ipsum</b> Bank
-          </>
-        ),
-        beneficiaryName: 'Lorem (ipsum) Limited',
-        beneficiaryBankName: 'Lorem Ipsum Bank PLC',
-        beneficiary_bank_address: 'Leicester, Leicestershire, LE87 2BB, UNITED KINGDOM',
-        swift: 'BARCGB22',
-        iban: 'GB33 BARC 20000078462877',
-        accountNumber: '78462877',
-        currency: 'USD',
-        filename: '333.pdf',
-      },
-    ],
-    [ECurrencyCode.eur]: [
-      {
-        bankTitle: (
-          <>
-            <b>Barclays</b> Bank
-          </>
-        ),
-        beneficiaryName: 'HYCM (Europe) Limited',
-        beneficiaryBankName: 'Barclays Bank PLC',
-        beneficiary_bank_address: 'Leicester, Leicestershire, LE87 2BB, UNITED KINGDOM',
-        swift: 'BARCGB22',
-        iban: 'GB33 BARC 20000078462877',
-        accountNumber: '78462877',
-        currency: 'EUR',
-        filename: '222.pdf',
-      },
-    ],
-  };
 
   const validationSchema = Yup.object().shape({
     account: FieldValidators.requiredString,
@@ -91,7 +41,7 @@ export function TabContentBankWire() {
       >
         {({ values, setFieldValue }: any) => {
           const banksCurrency =
-            (values.account?.currency && banks[values.account?.currency]) ?? banks[ECurrencyCode.usd];
+            (values.account?.currency && config.banks[values.account?.currency]) ?? config.banks[ECurrencyCode.usd];
           return (
             <Form className="m-auto form fadein-row">
               {account?.type !== ETradingType.fake && (
@@ -116,14 +66,14 @@ export function TabContentBankWire() {
                   {account?.currency && (
                     <Radio
                       optionClassName={classNames(
-                        banks[account.currency]?.length === 1
+                        config.banks[account.currency]?.length === 1
                           ? 'col-6 col-xs-12'
                           : `col-${12 / banksCurrency?.length ?? 1}`,
                       )}
                       className="mb-10"
                       name="bank"
                       showMarkDot={true}
-                      options={(banks[account.currency] ?? banks[ECurrencyCode.usd]).map((bank: any) => ({
+                      options={(config.banks[account.currency] ?? config.banks[ECurrencyCode.usd]).map((bank: any) => ({
                         label: <BankRadio bank={bank} />,
                         value: bank.filename.replace('.pdf', ''),
                       }))}
@@ -163,6 +113,7 @@ export function TabContentBankWire() {
 
 function BankRadio({ bank }: any) {
   const { t } = useTranslation();
+
   return (
     <div className="bank-details">
       <div className="bank-header mt-9">

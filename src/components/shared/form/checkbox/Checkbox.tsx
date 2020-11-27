@@ -12,7 +12,8 @@ export const Checkbox = memo(function Checkbox({ className = '', children, ...pr
   return (
     <div
       className={classNames(
-        'field checkbox mb-8',
+        'field checkbox',
+        !className && 'mb-8',
         className,
         !!field.value && 'checked',
         !!meta.error && 'field-error',

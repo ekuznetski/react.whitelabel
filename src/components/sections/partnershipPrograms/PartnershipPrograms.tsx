@@ -1,11 +1,11 @@
 import { Button, Card, CardContent, CardHeader, Cards, Svg } from '@components/shared';
-import { ELabels } from '@domain/enums';
+import { AnyFunction } from '@domain/interfaces';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-import { AnyFunction } from '@domain/interfaces';
-import './PartnershipPrograms.scss';
 import { Col, Container, Row } from 'react-bootstrap';
+import { Trans, useTranslation } from 'react-i18next';
+import { config } from './PartnershipPrograms.config';
+import './PartnershipPrograms.scss';
 
 export interface ISelect {
   onNavigate: AnyFunction;
@@ -15,22 +15,8 @@ export const PartnershipPrograms = memo(
   forwardRef<HTMLDivElement, ISelect & React.HTMLAttributes<HTMLDivElement>>(function PartnershipPrograms(props, ref) {
     const { t } = useTranslation();
 
-    const programPoints = {
-      affiliate: [
-        t('Mobile optimized marketing tools'),
-        t('Dedicated affiliate manager'),
-        t('Round-the-clock access to all your analytics'),
-      ],
-      brokers: [
-        t('Multi-level marketing rebate tiers'),
-        t('Free market reviews for clients'),
-        t('Customizable marketing and advertising tools'),
-        t('Local office and events support'),
-      ],
-    };
-
     function onProgramSelect(program: string) {
-      props.onNavigate(program);
+      props.onNavigate?.(program);
     }
 
     return (
@@ -49,38 +35,26 @@ export const PartnershipPrograms = memo(
             </Col>
             <Col xs={12} className="p-0">
               <Cards id="partnership-programs__cards">
-                <Card wrapperClassName="card col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={1}>
-                  <CardHeader className="mb-8 header">
-                    <Svg href="affiliate" className="mr-5" />
-                    {t('Affiliate Program')}
-                  </CardHeader>
-                  <CardContent className="text-left">
-                    <div className="points">
-                      {programPoints.affiliate.map((point) => (
-                        <div className="points__item mb-4" key={point}>
-                          {point}
-                        </div>
-                      ))}
-                    </div>
-                    <Button onClick={() => onProgramSelect('affiliate')}>{t('Sign Up')}</Button>
-                  </CardContent>
-                </Card>
-                <Card wrapperClassName="card col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={2}>
-                  <CardHeader className="mb-8 header">
-                    <Svg href="brokers" className="mr-5" />
-                    {t('Introducing Brokers')}
-                  </CardHeader>
-                  <CardContent className="text-left">
-                    <div className="points">
-                      {programPoints.brokers.map((point) => (
-                        <div className="points__item mb-4" key={point}>
-                          {point}
-                        </div>
-                      ))}
-                    </div>
-                    <Button onClick={() => onProgramSelect('ib')}>{t('Sign Up')}</Button>
-                  </CardContent>
-                </Card>
+                {config.programsCards.map((card) => (
+                  <Card uid={card.id} wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0">
+                    <CardHeader className="mb-8 header">
+                      <Svg href={card.icon} className="mr-5" />
+                      {card.label}
+                    </CardHeader>
+                    <CardContent className="text-left">
+                      <div className="points">
+                        {card.points.map((point, p) => (
+                          <div className="points__item mb-4" key={p}>
+                            {point}
+                          </div>
+                        ))}
+                      </div>
+                      <Button noBg onClick={() => onProgramSelect(card.id)}>
+                        {card.btnText}
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
               </Cards>
             </Col>
           </Row>

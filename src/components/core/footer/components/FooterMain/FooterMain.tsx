@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
-import { config } from './FooterMain.config';
+import { config } from '@core/footer';
 import './FooterMain.scss';
 
 export default function FooterMain() {

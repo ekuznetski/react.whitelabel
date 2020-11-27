@@ -15,6 +15,7 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "paths": {
+      "@core/*": ["components/core/*"],
       "@components/core": ["components/core/index.ts"],
       "@components/pages": ["components/pages/index.ts"],
       "@components/sections": ["components/sections/index.ts"],

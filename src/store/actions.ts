@@ -304,7 +304,7 @@ export function ac_createTradingAccount(
   };
 }
 
-export function ac_fetchWithdrawLimit(payload: { accountId: number; platform: string }): IAction {
+export function ac_fetchWithdrawLimit(payload: { accountId: string; platform: string }): IAction {
   return {
     type: EActionTypes.fetchWithdrawLimit,
     payload,

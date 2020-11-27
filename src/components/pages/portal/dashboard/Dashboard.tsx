@@ -1,5 +1,6 @@
 import { WorkshopCards } from '@components/sections';
-import { Svg, Tabs } from '@components/shared';
+import { LabelView, Svg, Tabs } from '@components/shared';
+import { ELabels } from '@domain/enums';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -38,17 +39,19 @@ export const Dashboard = memo(function Dashboard() {
             </Col>
           </Row>
         </section>
-        <section className="workshops">
-          <Row>
-            <Col xs={12} md={6}>
-              <div className="section-title mb-9">
-                <Svg href="workshop" height={24} className="mr-3" />
-                {t('Webinars and Workshops')}
-              </div>
-            </Col>
-          </Row>
-          <WorkshopCards data={config.workshopsData} />
-        </section>
+        <LabelView hideOn={ELabels.bsfx}>
+          <section className="workshops">
+            <Row>
+              <Col xs={12} md={6}>
+                <div className="section-title mb-9">
+                  <Svg href="workshop" height={24} className="mr-3" />
+                  {t('Webinars and Workshops')}
+                </div>
+              </Col>
+            </Row>
+            <WorkshopCards data={config.workshopsData} />
+          </section>
+        </LabelView>
       </Container>
     </div>
   );
