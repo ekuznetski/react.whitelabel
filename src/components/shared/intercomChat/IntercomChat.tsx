@@ -32,7 +32,7 @@ export const IntercomChat = memo(function IntercomChat() {
         approved: clientProfile.aprv.toString(),
         language: locale,
       }
-    : undefined;
+    : {language: locale}
 
   return (
     <IntercomProvider appId={env.INTERCOM_ID}>
