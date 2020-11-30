@@ -7,6 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const glob = require('glob');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const tsConfig = require('./tsconfig.json');
 
 /**
  * Return filepath/filename destructed to { filename, extension, basename }
@@ -71,7 +72,7 @@ module.exports = (_env, arguments) => {
   let targetLabelConfigsAlias = {};
   let targetLabelComponentsAlias = {};
   let targetLabelComponentsKeys = [];
-  let targetLabelConfigsScss = [];
+  let targetLabelScssAlias = [];
   let componentsFilepaths = [];
 
   let stylesFilenames = [];
@@ -183,20 +184,23 @@ module.exports = (_env, arguments) => {
     // console.log(targetLabelLocaleAlias, localeFilenames);
     // return;
 
-    targetLabelConfigsScss = stylesFilenames
+    targetLabelScssAlias = stylesFilenames
       .map((filePath) => {
-        const { basename } = filePathDestructor(filePath);
-        return basename;
-      })
-      .reduce(
-        (acc, file) =>
-          Object.assign(acc, {
-            [`./scss/${file}`]: `./scss/${targetLabelFolder}/${file}`,
-          }),
-        {},
-      );
+        const { filename } = filePathDestructor(filePath);
+        return filename;
+      });
 
-    // console.log(targetLabelComponentsAlias);
+    targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
+      const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
+      let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
+      if (_filename) {
+        _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
+      }
+      return Object.assign(acc, { [pathKey.replace('/*', '')]: path.resolve(__dirname, 'src/', _path) });
+    }, {});
+
+    // console.log(targetLabelConfigsScss);
+    // return
   }
 
   return {
@@ -214,14 +218,15 @@ module.exports = (_env, arguments) => {
     },
     mode: 'development',
     resolve: {
+      // plugins: [new TsconfigPathsPlugin()],
       extensions: ['.tsx', '.ts', '.js', '.json', '.sass', '.scss', '.css'],
       alias: {
         'react-dom': '@hot-loader/react-dom',
+        ...targetLabelScssAlias,
         ...targetLabelLocaleAlias,
         ...targetLabelConfigsAlias,
         ...targetLabelComponentsAlias,
       },
-      plugins: [new TsconfigPathsPlugin()],
     },
     devtool: 'inline-source-map',
     module: {

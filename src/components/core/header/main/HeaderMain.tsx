@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useLockScroll } from 'utils/hooks/useLockScroll';
+import { useLockScroll } from '@utils/hooks';
 import './HeaderMain.scss';
 
 export function HeaderMain(props: IHeaderDefaultProps) {

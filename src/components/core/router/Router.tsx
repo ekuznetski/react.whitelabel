@@ -7,7 +7,7 @@ import { useBoolean, useThrottle } from 'ahooks';
 import React, { memo, useEffect } from 'react';
 import { batch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import { useLockScroll } from 'utils/hooks/useLockScroll';
+import { useLockScroll } from '@utils/hooks';
 import { NotFound, PageLoader } from '..';
 
 export const Router = memo(function Router() {
