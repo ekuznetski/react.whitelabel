@@ -1,4 +1,5 @@
 import { Footer, Header, Router } from '@components/core';
+import { IntercomChat } from '@components/shared';
 import { env, localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
 import { ac_updateRouteParams, IStore, store } from '@store';
@@ -6,19 +7,25 @@ import { useDeviceDetect } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { Suspense, useEffect } from 'react';
 import { browserName, osName } from 'react-device-detect';
+import TagManager from 'react-gtm-module';
 import { hot } from 'react-hot-loader/root';
 import { useTranslation } from 'react-i18next';
 import { connect, Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './App.scss';
-import { IntercomChat } from '@components/shared';
+
+if (env.PRODUCTION && env.GTM_ID) {
+  TagManager.initialize({
+    gtmId: env.GTM_ID,
+  });
+}
 
 function App() {
   return (
     <Provider store={store}>
       <Suspense fallback={null}>
         <WrappedMain />
-        <IntercomChat />
+        {env.PRODUCTION && <IntercomChat />}
       </Suspense>
     </Provider>
   );

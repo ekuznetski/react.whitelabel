@@ -1,0 +1,51 @@
+@import '~/variables';
+
+.about-wrapper {
+  &__trusted {
+    display: flex;
+    align-items: center;
+
+    .trusted {
+      &__title {
+        font-size: 36px;
+        line-height: 50px;
+        text-align: center;
+      }
+
+      &__description {
+        font-size: 18px;
+        line-height: 30px;
+      }
+
+      &__cards {
+        .common-cards__item {
+          height: 140px;
+
+          &-header {
+            font-weight: 300;
+            font-size: 40px;
+            color: $blue;
+            justify-content: center;
+
+            small {
+              margin-left: 10px;
+              font-size: 18px;
+            }
+          }
+
+          &-content {
+            text-align: center;
+          }
+        }
+      }
+
+      @media (max-width: $viewport-md-w) {
+        &__cards {
+          .common-cards__container {
+            flex-flow: unset;
+          }
+        }
+      }
+    }
+  }
+}

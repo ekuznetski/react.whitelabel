@@ -1,0 +1,70 @@
+@import '~/variables';
+
+.about-wrapper {
+  &__page-top {
+    height: 750px;
+    display: flex;
+    align-items: center;
+    background: rgb(92, 115, 131);
+    color: #fff;
+
+    .page-top {
+      &__title {
+        font-weight: 500;
+        font-size: 55px;
+        line-height: 63px;
+      }
+
+      &__description {
+        font-size: 18px;
+        line-height: 30px;
+      }
+    }
+
+    button {
+      background: $dark-blue;
+      border-radius: $border-radius;
+      width: 225px;
+      height: $btn-size-lg;
+      color: #fff;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      height: 500px;
+      padding: 70px 0;
+      align-items: flex-end;
+
+      .page-top {
+        &__title {
+          font-size: 36px;
+          line-height: 46px;
+          color: #ffffff;
+        }
+
+        &__description {
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+
+      button {
+        height: 50px;
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      height: 500px;
+    }
+
+    @media (max-width: $viewport-sm-w) {
+      height: 550px;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

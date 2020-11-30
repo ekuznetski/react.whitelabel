@@ -1,16 +1,8 @@
 const path = require('path');
-const fs = require('fs');
 
-const excludeAssets = [];
-const appTarget = 'bsfx' || '';
+const from = './src/components/pages/main/about/_bsfx/components/pageTopSection/+PageTopSection.scss',
+  to = './src/components/pages/main/about/components/pageTopSection/PageTopSection.scss';
 
-fs.readdirSync(path.join(__dirname, 'src/assets')).forEach((file) => {
-  const absolutePath = path.join(__dirname, 'src/assets', file);
-  const targetAssetFolder = appTarget.length ? `_${appTarget}` : '_default';
-
-  if (fs.lstatSync(absolutePath).isDirectory() && /^\_.*/.test(file) && file !== targetAssetFolder) {
-    excludeAssets.push(absolutePath);
-  }
-});
-
-console.log(excludeAssets);
+console.log(
+  path.relative(from, to).replace(/[\\/]/g, '/').slice(3)
+);
