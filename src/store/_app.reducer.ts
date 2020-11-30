@@ -13,7 +13,7 @@ export const initAppStore: Nullable<IAppStore> = {
       desc: null,
     },
     state: null,
-    isLoading: true
+    isLoading: true,
   },
   requests: {
     activeList: [],
@@ -77,10 +77,13 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
       };
 
     case EActionTypes.updateRoute:
+      const _route = { ...state.route, ...action.payload };
       return {
         ...state,
-        route: { ...state.route, ...action.payload },
-        notification: { ...initAppStore.notification, type: state.notification.type },
+        route: _route,
+        ...(_route.path !== state.route.path
+          ? { notification: { ...initAppStore.notification, type: state.notification.type } }
+          : {}),
       };
 
     case EActionTypes.showNotification:
