@@ -178,18 +178,18 @@ module.exports = (_env, arguments) => {
         return filename;
       });
 
-    targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
-      const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
-      let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
-      if (_filename) {
-        _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
-      }
-      return Object.assign(acc, { [pathKey.replace('/*', '')]: path.resolve(__dirname, 'src/', _path) });
-    }, {});
-
     // console.log(targetLabelConfigsScss);
     // return
   }
+
+  targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
+    const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
+    let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
+    if (_filename) {
+      _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
+    }
+    return Object.assign(acc, { [pathKey.replace('/*', '')]: path.resolve(__dirname, 'src/', _path) });
+  }, {});
 
   return {
     stats: 'minimal',
@@ -255,11 +255,16 @@ module.exports = (_env, arguments) => {
                     });
 
                     if (componentFile) {
+                      const { filenamePrefix, basename } = filePathDestructor(componentFile);
                       const idx = componentsFilepaths.indexOf(componentFile),
+                        dir = path.dirname(targetLabelComponentsAlias[targetLabelComponentsKeys[idx]]).replace(/^[..(\\|\/)]+/, ''),
                         from = componentFile,
                         to = componentFile.replace(
-                          targetLabelComponentsAlias[targetLabelComponentsKeys[idx]].slice(2),
-                          targetLabelComponentsKeys[idx].slice(2),
+                          dir,
+                          dir.replace(new RegExp(`${targetLabelFolder}/?`), '')
+                        ).replace(
+                          basename,
+                          basename.replace(filenamePrefix, '')
                         ),
                         _import = `@import '${path.relative(from, to).replace(/[\\/]/g, '/').slice(3)}';`;
 

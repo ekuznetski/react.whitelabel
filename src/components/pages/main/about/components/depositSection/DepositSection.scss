@@ -1,0 +1,41 @@
+@import '~/variables';
+
+.about-wrapper {
+  &__deposit {
+    display: flex;
+    align-items: center;
+
+    .deposit {
+      &__title {
+        font-size: 36px;
+        line-height: 46px;
+        text-align: center;
+
+        b {
+          display: block;
+        }
+      }
+
+      &__cards {
+        .common-cards__item {
+          height: 200px;
+          text-align: center;
+
+          svg {
+            fill: $blue;
+          }
+
+          &-header,
+          &-content {
+            justify-content: center;
+            text-align: center;
+
+            small {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
