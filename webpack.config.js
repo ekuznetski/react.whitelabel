@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
@@ -8,6 +7,7 @@ const fs = require('fs');
 const glob = require('glob');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const tsConfig = require('./tsconfig.json');
+const webpack = require('webpack');
 
 /**
  * Return filepath/filename destructed to { filename, extension, basename }
@@ -56,18 +56,6 @@ module.exports = (_env, arguments) => {
     }
   });
 
-  // Generate env object to pass to React
-  const targetLabelEnvPath = path.join(__dirname, `src/domain/${targetLabelFolder}/env.config.json`);
-  if (fs.existsSync(targetLabelEnvPath)) {
-    const data = fs.readFileSync(targetLabelEnvPath);
-    const json = data && JSON.parse(data);
-    if (json) {
-      const _env = Object.assign({}, json, env, {
-        LABEL: targetLabel || 'default',
-      });
-      fs.writeFileSync(targetLabelEnvPath, JSON.stringify(_env, null, 2));
-    }
-  }
   let targetLabelLocaleAlias = {};
   let targetLabelConfigsAlias = {};
   let targetLabelComponentsAlias = {};
@@ -218,7 +206,6 @@ module.exports = (_env, arguments) => {
     },
     mode: 'development',
     resolve: {
-      // plugins: [new TsconfigPathsPlugin()],
       extensions: ['.tsx', '.ts', '.js', '.json', '.sass', '.scss', '.css'],
       alias: {
         'react-dom': '@hot-loader/react-dom',
@@ -332,26 +319,11 @@ module.exports = (_env, arguments) => {
       ],
     },
     plugins: [
+      new webpack.DefinePlugin(Object.keys(env).reduce((acc, key) => Object.assign(acc, {
+        [`process.env.${key}`]: JSON.stringify(env[key]),
+      }), {})),
       new CopyPlugin({
         patterns: [
-          // {
-          //   from: `locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.json`,
-          //   to: 'locale/',
-          //   flatten: true,
-          //   transform(content, absolutePath) {
-          //     const _context = {};
-          //     if (targetLabel) {
-          //       const name = path.basename(absolutePath);
-          //       const data = fs.readFileSync(path.join(__dirname, `src/locale/${name}`));
-          //       const json = data && JSON.parse(data);
-          //       if (json) {
-          //         Object.assign(_context, json);
-          //       }
-          //     }
-          //     Object.assign(_context, JSON.parse(content));
-          //     return JSON.stringify(_context, null, 2);
-          //   },
-          // },
           {
             from: 'assets/**/*',
             flatten: true,

@@ -7,7 +7,7 @@
     "dev": "fkill :4200 -f -s && webpack-dev-server --port 4200",
     "build": "webpack --mode production --devtool none --env.PRODUCTION=true",
     "build:ssr": "yarn run build && yarn run build:ssr-server",
-    "dev:arofx": "fkill :4200 -f -s && webpack-dev-server --port 4200 --env.LABEL='arofx'",
+    "dev:arofx": "fkill :4200 -f -s && webpack-dev-server --port 4200 --env.LABEL=arofx env LABEL=arofx",
     "build:arofx": "webpack --mode production --devtool none --env.PRODUCTION=true --env.LABEL=arofx",
     "build:arofx:ssr": "yarn run build:arofx && yarn run build:ssr-server --env.LABEL=arofx",
     "dev:bsfx": "fkill :4200 -f -s && webpack-dev-server --port 4200 --env.LABEL='bsfx'",
