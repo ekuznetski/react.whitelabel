@@ -229,6 +229,10 @@
       .menu {
         display: none;
       }
+
+      &:before {
+        transition: top 0.2s;
+      }
     }
   }
 

@@ -10,7 +10,7 @@ export const DepositSection = memo(function DepositSection() {
   const responsive = useResponsive();
   const { t } = useTranslation();
 
-  const _tempTabsData: ITabs = {
+  const tabsData: ITabs = {
     labels: [
       { value: t('Deposit'), anchor: 'deposit' },
       { value: t('Withdrawals'), anchor: 'withdrawals' },
@@ -46,7 +46,7 @@ export const DepositSection = memo(function DepositSection() {
             />
           </div>
           <div className="col-12 px-0 px-md-5">
-            <Tabs className="deposit__tabs" {..._tempTabsData} />
+            <Tabs className="deposit__tabs" {...tabsData} />
           </div>
         </div>
       </div>
