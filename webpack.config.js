@@ -72,7 +72,7 @@ module.exports = (_env, arguments) => {
   let targetLabelConfigsAlias = {};
   let targetLabelComponentsAlias = {};
   let targetLabelComponentsKeys = [];
-  let targetLabelConfigsScss = [];
+  let targetLabelScssAlias = [];
   let componentsFilepaths = [];
 
   let stylesFilenames = [];
@@ -184,14 +184,14 @@ module.exports = (_env, arguments) => {
     // console.log(targetLabelLocaleAlias, localeFilenames);
     // return;
 
-    targetLabelConfigsScss = stylesFilenames
+    targetLabelScssAlias = stylesFilenames
       .map((filePath) => {
         const { filename } = filePathDestructor(filePath);
         return filename;
       });
 
-    targetLabelConfigsScss = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
-      const _filename = targetLabelConfigsScss.find(el => pathKey.includes(el));
+    targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
+      const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
       let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
       if (_filename) {
         _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
@@ -222,10 +222,10 @@ module.exports = (_env, arguments) => {
       extensions: ['.tsx', '.ts', '.js', '.json', '.sass', '.scss', '.css'],
       alias: {
         'react-dom': '@hot-loader/react-dom',
+        ...targetLabelScssAlias,
         ...targetLabelLocaleAlias,
         ...targetLabelConfigsAlias,
         ...targetLabelComponentsAlias,
-        ...targetLabelConfigsScss
       },
     },
     devtool: 'inline-source-map',
