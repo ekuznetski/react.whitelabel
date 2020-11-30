@@ -183,7 +183,7 @@ module.exports = (_env, arguments) => {
   }
 
   targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
-    const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
+      const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
     let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
     if (_filename) {
       _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
@@ -324,9 +324,15 @@ module.exports = (_env, arguments) => {
       ],
     },
     plugins: [
-      new webpack.DefinePlugin(Object.keys(env).reduce((acc, key) => Object.assign(acc, {
-        [`process.env.${key}`]: JSON.stringify(env[key]),
-      }), {})),
+      new webpack.DefinePlugin(
+          Object.keys(env).reduce(
+              (acc, key) =>
+                  Object.assign(acc, {
+                    [`process.env.${key}`]: JSON.stringify(env[key]),
+                  }),
+              {},
+          ),
+      ),
       new CopyPlugin({
         patterns: [
           {
@@ -348,16 +354,16 @@ module.exports = (_env, arguments) => {
           },
         ],
       }),
+      new CaseSensitivePathsPlugin(),
+      new MiniCssExtractPlugin({
+        filename: 'style.css',
+      }),
       new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: ['**/*', '!server.js'],
       }),
       new HtmlWebpackPlugin({
         template: './index.html',
         filename: !!env.PRODUCTION ? 'server.html' : 'index.html',
-      }),
-      new CaseSensitivePathsPlugin(),
-      new MiniCssExtractPlugin({
-        filename: 'style.css',
       }),
     ],
     devServer: {
