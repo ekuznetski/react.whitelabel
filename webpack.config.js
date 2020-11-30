@@ -8,6 +8,7 @@ const fs = require('fs');
 const glob = require('glob');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const tsConfig = require('./tsconfig.json');
+const webpack = require('webpack');
 
 /**
  * Return filepath/filename destructed to { filename, extension, basename }
@@ -56,18 +57,6 @@ module.exports = (_env, arguments) => {
     }
   });
 
-  // Generate env object to pass to React
-  const targetLabelEnvPath = path.join(__dirname, `src/domain/${targetLabelFolder}/env.config.json`);
-  if (fs.existsSync(targetLabelEnvPath)) {
-    const data = fs.readFileSync(targetLabelEnvPath);
-    const json = data && JSON.parse(data);
-    if (json) {
-      const _env = Object.assign({}, json, env, {
-        LABEL: targetLabel || 'default',
-      });
-      fs.writeFileSync(targetLabelEnvPath, JSON.stringify(_env, null, 2));
-    }
-  }
   let targetLabelLocaleAlias = {};
   let targetLabelConfigsAlias = {};
   let targetLabelComponentsAlias = {};
@@ -332,6 +321,9 @@ module.exports = (_env, arguments) => {
       ],
     },
     plugins: [
+      new webpack.DefinePlugin(Object.keys(env).reduce((acc, key) => Object.assign(acc, {
+        [`process.env.${key}`]: JSON.stringify(env[key]),
+      }), {})),
       new CopyPlugin({
         patterns: [
           // {
