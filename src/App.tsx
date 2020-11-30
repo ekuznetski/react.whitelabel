@@ -1,5 +1,5 @@
 import { Footer, Header, Router } from '@components/core';
-import { localesConfig } from '@domain';
+import { env, localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
 import { ac_updateRouteParams, IStore, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
@@ -59,6 +59,7 @@ function Main() {
       <div
         className={classNames(
           'main-wrapper',
+          env.LABEL?.toLowerCase(),
           osName.toLowerCase(),
           browserName.toLowerCase().replace(/mobile|\s/g, ''),
           device.isMobile && 'isMobile',

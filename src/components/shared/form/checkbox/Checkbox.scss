@@ -15,7 +15,7 @@
     .checkbox-mark {
       @include d-flex(center, center);
       border: 1px solid $dark-grey;
-      border-radius: 2px;
+      border-radius: $border-radius; 
       background-color: transparent;
       width: 16px;
       height: 16px;

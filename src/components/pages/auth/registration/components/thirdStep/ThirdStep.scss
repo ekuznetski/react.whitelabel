@@ -23,14 +23,14 @@
 
       .name {
         transition: border-color 0.2s, background-color 0.2s;
-        color: #337fff;
+        color: $dark-blue;
       }
 
       .name,
       .spread,
       .commission {
         padding: 8px 0;
-        border-bottom: 1px solid #cacfd5;
+        border-bottom: 1px solid $dark-grey;
       }
 
       .spread,
@@ -50,7 +50,7 @@
       .mark {
         margin: 8px auto;
         border-radius: 50%;
-        border: 1px solid #cacfd5;
+        border: 1px solid $dark-grey;
         width: 14px;
         height: 14px;
         transition: border-color 0.2s, background-color 0.2s;
@@ -60,12 +60,12 @@
 
       &.selected {
         .mark {
-          background-color: #337fff;
-          border-color: #337fff;
+          background-color: $dark-blue;
+          border-color: $dark-blue;
         }
         .name {
-          border-color: #337fff;
-          background-color: #337fff;
+          border-color: $dark-blue;
+          background-color: $dark-blue;
           color: #ffffff;
         }
       }

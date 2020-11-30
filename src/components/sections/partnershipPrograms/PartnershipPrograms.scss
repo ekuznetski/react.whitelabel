@@ -20,89 +20,48 @@
 
   .common-cards {
     svg {
-      padding: 13px;
+      padding: 12px;
       border-radius: $border-radius;
       background: $grey-bg;
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       fill: $dark-blue;
     }
 
     &__item {
       height: 400px;
-      padding: 30px;
-      justify-content: initial;
-
-      &-header {
-        flex: 0 0 10%;
-
-        span {
-          font-weight: 300;
-          font-size: 40px;
-          text-align: right;
-          color: $blue;
-          margin-left: auto;
-          display: flex;
-        }
-      }
 
       &-content {
-        @include d-flex(center, center, column);
-        flex: 1 1 50%;
+        @include d-flex(start, space-between, column);
+        flex-grow: 1;
 
         .points {
-          flex: 1 1 50%;
-
           &__item {
-            @include d-flex();
-
             font-size: 16px;
             line-height: 26px;
             color: $dark-text;
 
             &:before {
               content: '•';
-              display: block;
+              display: inline-block;
               margin-right: 10px;
             }
           }
         }
-
-        .greyText {
-          font-size: 16px;
-          line-height: 26px;
-          color: $text;
-        }
-
-        .common-button {
-          border: 1px solid $dark-blue;
-          background-color: #fff;
-          color: $dark-blue;
-          text-transform: uppercase;
-        }
       }
     }
-  }
 
-  @media (min-width: $viewport-lg-min-w) {
-    .common-cards {
+    @media (min-width: $viewport-lg-min-w) {
       &__container {
         justify-content: center;
       }
     }
-  }
 
-  @media (max-width: $viewport-lg-w) {
-    .card {
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-    .common-cards {
+    @media (max-width: $viewport-lg-w) {
       &__item {
-        padding: 30px 18px;
-
         &-header {
-          font-size: 22px;
+          font-size: 24px;
+          line-height: 34px;
         }
       }
     }
@@ -114,28 +73,10 @@
         font-size: 24px;
         line-height: 34px;
       }
-    }
 
-    .common-cards {
-      &__container {
-        .card {
-          padding: 10px;
-        }
-      }
-    }
-  }
-
-  @media (max-width: $viewport-sm-w) {
-    .card {
-      &:not(:first-child) {
-        margin-left: 20px;
-      }
-    }
-    .common-cards {
-      &__container {
-        .card {
-          padding: 0;
-        }
+      &__description {
+        font-size: 16px;
+        line-height: 26px;
       }
     }
   }

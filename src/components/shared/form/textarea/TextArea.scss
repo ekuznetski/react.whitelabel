@@ -3,7 +3,7 @@
 
 .field.textarea {
   position: relative;
-  border-radius: 2px;
+  border-radius: $border-radius; 
   border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
   height: 100%;

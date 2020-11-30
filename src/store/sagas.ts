@@ -18,6 +18,7 @@ import {
   IWithdrawFundRequest,
   IPartnershipRegistrationResponse,
   IPartnershipIBRegistrationResponse,
+  IClientSettingsResponse,
 } from '@domain/interfaces';
 import {
   MClientData,
@@ -26,6 +27,7 @@ import {
   MDocument,
   MTransactionalStatementData,
   MWithdrawalHistoryItem,
+  MClientSettings
 } from '@domain/models';
 import {
   addDepositRequest,
@@ -60,6 +62,7 @@ import {
   partnershipRegistrationRequest,
   partnershipIBRegistrationRequest,
   getStocksPricesRequest,
+  getClientSettingsRequest,
 } from '@utils/services';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { store } from './';
@@ -80,6 +83,7 @@ import {
   ac_saveTransactionalStatements,
   ac_saveWithdrawHistory,
   ac_saveWithdrawLimit,
+  ac_saveClientSettings,
 } from './actions';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
@@ -118,7 +122,6 @@ function* $$(
 ) {
   yield takeEvery(actionType, function* (action?: IAction) {
     const { payload, force, onSuccess, onFailure } = action || {};
-
     if (force || !(pathToStore && pathToStoreSnapshot(pathToStore))) {
       try {
         let response = yield success_transform_response_fn(action);
@@ -162,10 +165,27 @@ export function* getProfileSaga() {
     function* () {
       const { response }: IClientProfileResponse = yield call(getProfileRequest);
       yield put(ac_saveProfile(new MClientProfile(response.message)));
+      yield put(ac_saveClientSettings(new MClientSettings(response.message as any)));
       return response;
     },
     'data.client.profile',
   );
+}
+
+export function* getClientSettingsSaga() {
+  yield $$(EActionTypes.fetchClientSettings, function* ({ payload }: IAction) {
+    const { response }: IClientSettingsResponse = yield call(getClientSettingsRequest, payload);
+    yield put(ac_saveClientSettings(new MClientSettings(response.message)));
+    return response;
+  });
+}
+
+export function* getClientSettingsSaga() {
+  yield $$(EActionTypes.fetchClientSettings, function* ({ payload }: IAction) {
+    const { response }: IClientSettingsResponse = yield call(getClientSettingsRequest, payload);
+    yield put(ac_saveClientSettings(new MClientSettings(response.message)));
+    return response;
+  });
 }
 
 export function* editProfileSaga() {

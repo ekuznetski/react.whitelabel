@@ -41,7 +41,7 @@ compile:wl:
         - wl
     only:
         refs:
-            - bsfx_pages   
+            - dev  
     allow_failure: true
 
 deploy:wl:web:
@@ -69,7 +69,7 @@ deploy:wl:web:
         - compile:wl
     only:
         refs:
-            - bsfx_pages             
+            - dev             
     tags:
         - wl
     allow_failure: true

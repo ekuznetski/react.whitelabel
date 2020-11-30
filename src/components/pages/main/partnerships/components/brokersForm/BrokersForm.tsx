@@ -1,18 +1,9 @@
-import {
-  Button,
-  Checkbox,
-  CountrySelect,
-  Input,
-  LocaleLink,
-  PageTitle,
-  PhoneCodeSelect,
-  TextArea,
-} from '@components/shared';
+import { Button, Checkbox, CountrySelect, Input, PhoneCodeSelect } from '@components/shared';
 import { CustomFieldValidators, env, FieldValidators } from '@domain';
 import { countries, ELabelsName, ENotificationType } from '@domain/enums';
 import { IPartnershipIBRegistrationRequest } from '@domain/interfaces';
 import { ac_partnershipRegisterIB, ac_showNotification, IStore } from '@store';
-import { Form, Formik, FormikProps, FormikValues } from 'formik';
+import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
@@ -31,10 +22,9 @@ enum EFields {
   'acceptPolicy' = 'acceptPolicy',
 }
 
-export const BrokersForm = memo(() => {
-  const { geoIp, locale } = useSelector<IStore, any>((state) => ({
+export const BrokersForm = memo(function BrokersForm() {
+  const { geoIp } = useSelector<IStore, any>((state) => ({
     geoIp: state.data.geoIp,
-    locale: state.app.route.locale,
   }));
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -52,16 +42,14 @@ export const BrokersForm = memo(() => {
   });
 
   function Submit(data: FormikValues) {
-    console.log(data);
     dispatch(
       ac_partnershipRegisterIB(
         data as IPartnershipIBRegistrationRequest,
         () => {
-          console.log('successss');
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: 'IB Registration Completed!',
+              context: t('IB Registration Completed'),
             }),
           );
         },
@@ -78,9 +66,9 @@ export const BrokersForm = memo(() => {
   }
 
   return (
-    <Container className="ib-form">
+    <Container className="ib-form partnership__form">
       <Row>
-        <Col sm={12} md={7} lg={5} className="m-auto">
+        <Col sm={12} md={8} lg={6} xl={5} className="m-auto">
           <Formik
             initialValues={{
               firstName: '',
@@ -96,13 +84,13 @@ export const BrokersForm = memo(() => {
             validationSchema={validationSchema}
             onSubmit={Submit}
           >
-            {(props: FormikProps<any>) => (
+            {() => (
               <Form className="m-auto form">
                 <Input label={t('First Name')} name={EFields.firstName} />
                 <Input label={t('Surname')} name={EFields.surName} />
                 <Input label={t('Email')} type="email" name={EFields.email} />
                 <Input label={t('Company')} name={EFields.company} />
-                <div className="phone-wrapper fadeFromBottom-row__3">
+                <div className="phone-wrapper">
                   <PhoneCodeSelect placeholder={t('Prefix')} name={EFields.phone_prefix} />
                   <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
                 </div>

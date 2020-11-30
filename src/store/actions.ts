@@ -29,6 +29,8 @@ import {
 } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
+import { IClientSettingsRequest } from '@domain/interfaces';
+import { MClientSettings } from '../domain/models/clientSettings';
 
 export function ac_showNotification(payload: Omit<INotificationState, 'visible'>): IAction {
   return {
@@ -53,6 +55,19 @@ export function ac_fetchContent(payload: { page: string }): IAction {
 export function ac_fetchProfile() {
   return {
     type: EActionTypes.fetchProfile,
+  };
+}
+
+export function ac_fetchClientSettings(
+  payload: IClientSettingsRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction = null,
+): IAction {
+  return {
+    type: EActionTypes.fetchClientSettings,
+    payload,
+    onSuccess,
+    onFailure,
   };
 }
 
@@ -106,6 +121,13 @@ export function ac_saveProfile(payload: MClientProfile): IAction {
   };
 }
 
+export function ac_saveClientSettings(payload: MClientSettings): IAction {
+  return {
+    type: EActionTypes.saveClientSettings,
+    payload,
+  };
+}
+
 export function ac_userExists(payload: IUserExistsRequest, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
   return {
     type: EActionTypes.userExists,
@@ -128,11 +150,16 @@ export function ac_register(
   };
 }
 
-export function ac_preRegister(payload: { clientData: IClientAddRequest }, onSuccess: AnyFunction): IAction {
+export function ac_preRegister(
+  payload: { clientData: IClientAddRequest },
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
   return {
     type: EActionTypes.preRegister,
     payload,
     onSuccess,
+    onFailure,
   };
 }
 

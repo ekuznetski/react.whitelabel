@@ -94,3 +94,4 @@ export const getDocumentsRequest = request(EHttpMethod.post, `${apiUrl}/v2/docum
 export const partnershipRegistrationRequest = request(EHttpMethod.post, `${apiUrl}/frontend/extra/partnershipEmail`);
 export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${apiUrl}/ibs/add`);
 export const getStocksPricesRequest = request(EHttpMethod.post, `https://prices.hycm.com/graphs/prices2`);
+export const getClientSettingsRequest = request(EHttpMethod.post, `${apiUrl}/clients/settings`);
