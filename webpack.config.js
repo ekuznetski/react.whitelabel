@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
@@ -207,7 +206,6 @@ module.exports = (_env, arguments) => {
     },
     mode: 'development',
     resolve: {
-      // plugins: [new TsconfigPathsPlugin()],
       extensions: ['.tsx', '.ts', '.js', '.json', '.sass', '.scss', '.css'],
       alias: {
         'react-dom': '@hot-loader/react-dom',
@@ -326,24 +324,6 @@ module.exports = (_env, arguments) => {
       }), {})),
       new CopyPlugin({
         patterns: [
-          // {
-          //   from: `locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.json`,
-          //   to: 'locale/',
-          //   flatten: true,
-          //   transform(content, absolutePath) {
-          //     const _context = {};
-          //     if (targetLabel) {
-          //       const name = path.basename(absolutePath);
-          //       const data = fs.readFileSync(path.join(__dirname, `src/locale/${name}`));
-          //       const json = data && JSON.parse(data);
-          //       if (json) {
-          //         Object.assign(_context, json);
-          //       }
-          //     }
-          //     Object.assign(_context, JSON.parse(content));
-          //     return JSON.stringify(_context, null, 2);
-          //   },
-          // },
           {
             from: 'assets/**/*',
             flatten: true,
