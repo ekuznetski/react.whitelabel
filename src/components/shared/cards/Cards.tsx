@@ -38,8 +38,8 @@ export const Cards = memo(
           // }, [state.scrollToUid]);
 
           return (
-            <div data-testid="test-cards" className={classNames('common-cards', className)} ref={ref}>
-              <div data-testid="test-cards__container" className="common-cards__container" ref={containerRef}>
+            <div className={classNames('common-cards', className)} ref={ref}>
+              <div className="common-cards__container" ref={containerRef}>
                 {!children && cards
                   ? cards?.map((card, c) => (
                       <Card
@@ -82,7 +82,6 @@ export const Card = memo(
         <div
           className={classNames('common-cards__item', props.className, activeCardUid === props.uid && 'active')}
           ref={ref}
-          data-testid={'card'}
         >
           {!props.children ? (
             <>
@@ -111,13 +110,9 @@ export const CardsNavigation = memo(
     const { cardsUid, activeCardUid } = useCardsState();
 
     return (
-      <div data-testid="navigation" className="cardsNav d-md-none">
+      <div className="cardsNav d-md-none">
         {cardsUid.map((el, i) => (
-          <div
-            key={i}
-            data-testid="navigation__item"
-            className={classNames('cardsNav__item', activeCardUid === el && 'active')}
-          />
+          <div key={i} className={classNames('cardsNav__item', activeCardUid === el && 'active')} />
         ))}
       </div>
     );

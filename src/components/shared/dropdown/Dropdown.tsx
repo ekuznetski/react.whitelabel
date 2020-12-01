@@ -77,7 +77,6 @@ export const DropDown = memo<IDropdown>(function DropDown({
 
   return ReactDOM.createPortal(
     <div
-      data-testid={'test-dropdown'}
       className={classNames('common-dropdown', className, position, isOpen && 'open', noArrow && 'noArrow')}
       style={{
         width: typeof width === 'number' ? width : width,
