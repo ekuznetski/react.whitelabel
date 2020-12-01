@@ -136,10 +136,12 @@
     ],
     "setupFiles": [
       "<rootDir>/test-shim.js",
-      "<rootDir>/test-setup.js"
+      "<rootDir>/test-setup.js",
+      "<rootDir>/jest-config.js"
     ],
     "moduleNameMapper": {
       ".+\\.(css|styl|less|sass|scss)$": "identity-obj-proxy",
+      "@pages/(.*)$": "<rootDir>/src/components/pages/$1",
       "@components/pages": "<rootDir>/src/components/pages/index.ts",
       "@components/sections": "<rootDir>/src/components/sections/index.ts",
       "@components/shared": "<rootDir>/src/components/shared/index.ts",
@@ -163,7 +165,7 @@
       "tsx"
     ],
     "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js"
+      "^.+\\.(ts|tsx|js)$": "<rootDir>/test-preprocessor.js"
     },
     "testMatch": [
       "**/__tests__/**/*.+(ts|tsx|js)",
