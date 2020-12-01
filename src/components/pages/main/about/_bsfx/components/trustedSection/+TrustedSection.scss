@@ -1,0 +1,83 @@
+@import '~/variables';
+
+.about-wrapper {
+  &__trusted {
+    .trusted {
+      &__cards {
+        .common-cards {
+          &__container {
+            .card {
+              border-right: 1px solid #f1f2f2;
+              &:last-child {
+                border-right: none;
+              }
+            }
+          }
+          &__item {
+            height: 140px;
+            box-shadow: none;
+            padding: 0;
+
+            &-header {
+              font-weight: 300;
+              font-size: 40px;
+              color: $dark-blue;
+              justify-content: center;
+
+              small {
+                margin-left: 10px;
+                font-size: 18px;
+                color: $dark-blue;
+              }
+            }
+
+            &-content {
+              text-align: center;
+            }
+          }
+        }
+      }
+
+      @media (min-width: $viewport-md-min-w) {
+        &__cards {
+          .common-cards {
+            &__container {
+              .card {
+                flex: 0 0 25%;
+                max-width: 25%;
+              }
+            }
+          }
+        }
+      }
+
+      @media (min-width: $viewport-lg-min-w) {
+        &__text {
+          flex: 0 0 91.66667%;
+          max-width: 91.66667%;
+        }
+      }
+
+      @media (max-width: $viewport-sm-w) {
+        &__title {
+          font-size: 24px;
+          line-height: 34px;
+        }
+        &__description {
+          font-size: 16px;
+          line-height: 26px;
+        }
+      }
+
+      @media (max-width: $viewport-lg-w) {
+        &__cards {
+          .common-cards__container {
+            .card {
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
@@ -8,6 +7,7 @@ const fs = require('fs');
 const glob = require('glob');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const tsConfig = require('./tsconfig.json');
+const webpack = require('webpack');
 
 /**
  * Return filepath/filename destructed to { filename, extension, basename }
@@ -56,18 +56,6 @@ module.exports = (_env, arguments) => {
     }
   });
 
-  // Generate env object to pass to React
-  const targetLabelEnvPath = path.join(__dirname, `src/domain/${targetLabelFolder}/env.config.json`);
-  if (fs.existsSync(targetLabelEnvPath)) {
-    const data = fs.readFileSync(targetLabelEnvPath);
-    const json = data && JSON.parse(data);
-    if (json) {
-      const _env = Object.assign({}, json, env, {
-        LABEL: targetLabel || 'default',
-      });
-      fs.writeFileSync(targetLabelEnvPath, JSON.stringify(_env, null, 2));
-    }
-  }
   let targetLabelLocaleAlias = {};
   let targetLabelConfigsAlias = {};
   let targetLabelComponentsAlias = {};
@@ -190,18 +178,18 @@ module.exports = (_env, arguments) => {
         return filename;
       });
 
-    targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
-      const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
-      let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
-      if (_filename) {
-        _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
-      }
-      return Object.assign(acc, { [pathKey.replace('/*', '')]: path.resolve(__dirname, 'src/', _path) });
-    }, {});
-
     // console.log(targetLabelConfigsScss);
     // return
   }
+
+  targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
+      const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
+    let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
+    if (_filename) {
+      _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
+    }
+    return Object.assign(acc, { [pathKey.replace('/*', '')]: path.resolve(__dirname, 'src/', _path) });
+  }, {});
 
   return {
     stats: 'minimal',
@@ -218,7 +206,6 @@ module.exports = (_env, arguments) => {
     },
     mode: 'development',
     resolve: {
-      // plugins: [new TsconfigPathsPlugin()],
       extensions: ['.tsx', '.ts', '.js', '.json', '.sass', '.scss', '.css'],
       alias: {
         'react-dom': '@hot-loader/react-dom',
@@ -268,11 +255,16 @@ module.exports = (_env, arguments) => {
                     });
 
                     if (componentFile) {
+                      const { filenamePrefix, basename } = filePathDestructor(componentFile);
                       const idx = componentsFilepaths.indexOf(componentFile),
+                        dir = path.dirname(targetLabelComponentsAlias[targetLabelComponentsKeys[idx]]).replace(/^[..(\\|\/)]+/, ''),
                         from = componentFile,
                         to = componentFile.replace(
-                          targetLabelComponentsAlias[targetLabelComponentsKeys[idx]].slice(2),
-                          targetLabelComponentsKeys[idx].slice(2),
+                          dir,
+                          dir.replace(new RegExp(`${targetLabelFolder}/?`), '')
+                        ).replace(
+                          basename,
+                          basename.replace(filenamePrefix, '')
                         ),
                         _import = `@import '${path.relative(from, to).replace(/[\\/]/g, '/').slice(3)}';`;
 
@@ -332,26 +324,17 @@ module.exports = (_env, arguments) => {
       ],
     },
     plugins: [
+      new webpack.DefinePlugin(
+          Object.keys(env).reduce(
+              (acc, key) =>
+                  Object.assign(acc, {
+                    [`process.env.${key}`]: JSON.stringify(env[key]),
+                  }),
+              {},
+          ),
+      ),
       new CopyPlugin({
         patterns: [
-          // {
-          //   from: `locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.json`,
-          //   to: 'locale/',
-          //   flatten: true,
-          //   transform(content, absolutePath) {
-          //     const _context = {};
-          //     if (targetLabel) {
-          //       const name = path.basename(absolutePath);
-          //       const data = fs.readFileSync(path.join(__dirname, `src/locale/${name}`));
-          //       const json = data && JSON.parse(data);
-          //       if (json) {
-          //         Object.assign(_context, json);
-          //       }
-          //     }
-          //     Object.assign(_context, JSON.parse(content));
-          //     return JSON.stringify(_context, null, 2);
-          //   },
-          // },
           {
             from: 'assets/**/*',
             flatten: true,
@@ -371,16 +354,16 @@ module.exports = (_env, arguments) => {
           },
         ],
       }),
+      new CaseSensitivePathsPlugin(),
+      new MiniCssExtractPlugin({
+        filename: 'style.css',
+      }),
       new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: ['**/*', '!server.js'],
       }),
       new HtmlWebpackPlugin({
         template: './index.html',
         filename: !!env.PRODUCTION ? 'server.html' : 'index.html',
-      }),
-      new CaseSensitivePathsPlugin(),
-      new MiniCssExtractPlugin({
-        filename: 'style.css',
       }),
     ],
     devServer: {

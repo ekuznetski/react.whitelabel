@@ -2,7 +2,7 @@ import { env } from '@domain';
 import { ELabels } from '@domain/enums';
 import React from 'react';
 
-interface IDomainView {
+interface ILabelView {
   children: React.ReactFragment | { [k: string]: React.ReactFragment };
   showOn?: ELabels | ELabels[];
   hideOn?: ELabels | ELabels[];
@@ -22,7 +22,7 @@ interface IDomainView {
  * ```
  */
 
-export function LabelView({ children, showOn = ELabels.default, hideOn = [] }: IDomainView) {
+export function LabelView({ children, showOn = ELabels.default, hideOn = [] }: ILabelView) {
   // @ts-ignore
   showOn = Array.from<ELabels>([showOn]).flat();
   // @ts-ignore

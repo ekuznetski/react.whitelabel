@@ -176,13 +176,7 @@ export const Select = memo(function Select({
 
 export const MultiSelect = memo(({ closeMenuOnSelect = false, ...props }: ISelect & { closeMenuOnSelect: boolean }) => {
   return (
-    <Select
-      closeMenuOnSelect={false}
-      isMulti
-      name={name}
-      {...props}
-      className={classNames('multi-select', props.className)}
-    />
+    <Select closeMenuOnSelect={false} isMulti {...props} className={classNames('multi-select', props.className)} />
   );
 });
 
@@ -210,7 +204,6 @@ export const PhoneCodeSelect = memo((props: ISelect) => {
   return (
     <Select
       isSearchable={true}
-      name={name}
       options={options}
       filterOption={customFilter}
       {...innerProps}
@@ -241,7 +234,6 @@ export const CountrySelect = memo((props: ISelect) => {
   return (
     <Select
       isSearchable={true}
-      name={name}
       options={options}
       filterOption={customFilter}
       {...innerProps}
@@ -251,7 +243,9 @@ export const CountrySelect = memo((props: ISelect) => {
 });
 
 export const CurrencySelect = memo((props: any) => {
-  const name = props.name;
+  const innerProps = { ...props };
+  delete innerProps.options;
+
   const options = Object.keys(props.options ?? Currencies).map((key: any) => ({
     label: (
       <>
@@ -261,7 +255,6 @@ export const CurrencySelect = memo((props: any) => {
     ),
     value: Currencies[key].code,
   }));
-
   function Option({ children, ...props }: any) {
     const selectedValue = props.selectProps?.value?.value;
     const currentOptionValue = props.data.value;
@@ -276,11 +269,10 @@ export const CurrencySelect = memo((props: any) => {
 
   return (
     <Select
-      className={classNames('currency-select', props.className)}
-      name={name}
-      components={{ Option }}
       options={options}
-      {...props}
+      {...innerProps}
+      className={classNames('currency-select', props.className)}
+      components={{ Option }}
     />
   );
 });

@@ -1,4 +1,4 @@
-import _env from './_default/env.config.json';
+import _env from './_default/env.config';
 export default _env as { [k: string]: any };
 
 export const env: { [k: string]: any } = _env;

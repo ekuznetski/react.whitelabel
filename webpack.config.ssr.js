@@ -21,6 +21,6 @@ module.exports = (_env = {}, arguments) => {
       filename: 'server.js',
     },
     module: configModule,
-    plugins: [...configPlugins.slice(0, 1), ...configPlugins.slice(-2)],
+    plugins: [...configPlugins.slice(0, -2)],
   };
 };
