@@ -2,24 +2,19 @@ import { localesConfig, routesInitialApiData, routesNavConfig, routesRedirectCon
 import { ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
 import { ac_fetchContent, ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
-import { usePathLocale } from '@utils/hooks';
-import { useBoolean, useThrottle } from 'ahooks';
+import { useLockScroll, usePathLocale } from '@utils/hooks';
+import { useBoolean, useThrottleEffect } from 'ahooks';
 import React, { memo, useEffect } from 'react';
 import { batch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import { useLockScroll } from '@utils/hooks';
 import { NotFound, PageLoader } from '..';
 
 export const Router = memo(function Router() {
-  const { routeState, activeRequestsList } = useSelector<
-    IStore,
-    { routeState: IAppStore['route']; activeRequestsList: EActionTypes[] }
-  >((state) => ({
+  const { routeState } = useSelector<IStore, { routeState: IAppStore['route'] }>((state) => ({
     routeState: state.app.route,
-    activeRequestsList: state.app.requests.activeList,
   }));
-  const { pathname, state } = useLocation();
   const { localizePath, delocalizePath } = usePathLocale();
+  const { pathname, state } = useLocation();
 
   useEffect(() => {
     const _path = delocalizePath(pathname);
@@ -54,7 +49,7 @@ export const Router = memo(function Router() {
             key={r}
             exact
             path={localizePath(route.path)}
-            render={() => <RenderRoute route={route} routeState={routeState} openedRequests={activeRequestsList} />}
+            render={() => <RenderRoute route={route} routeState={routeState} />}
           />
         ))}
         <Route component={NotFound} />
@@ -66,13 +61,15 @@ export const Router = memo(function Router() {
 interface IRenderRoute {
   route: IRouteNavConfig;
   routeState: IAppStore['route'];
-  openedRequests: EActionTypes[];
 }
 
-function RenderRoute({ route, routeState, openedRequests }: IRenderRoute) {
+function RenderRoute({ route, routeState }: IRenderRoute) {
+  const { openedRequests } = useSelector<IStore, { openedRequests: EActionTypes[] }>((state) => ({
+    openedRequests: state.app.requests.activeList,
+  }));
   const [firstRender, { setFalse: setFirstRender }] = useBoolean(true);
+  // const [isLoading, { setFalse: setIsLoading }] = useBoolean(true);
   const { localizePath } = usePathLocale();
-  const _openedRequests = useThrottle(openedRequests, { wait: 200 });
   const history = useHistory();
 
   useEffect(() => {
@@ -117,34 +114,38 @@ function RenderRoute({ route, routeState, openedRequests }: IRenderRoute) {
     return () => {
       store.dispatch(ac_updateRouteParams({ isLoading: true }));
     };
-  }, []);
+  }, [firstRender]);
 
-  useEffect(() => {
-    if (!firstRender) {
-      const _routeStrictRequests = [
-        ...(route.apiData?.strict || []),
-        ...(routesInitialApiData[route.appSection]?.strict || []),
-      ].map((action) => action().type);
-      const hasUncompletedStrictRequest = _routeStrictRequests.length
-        ? openedRequests.filter((request) => _routeStrictRequests.includes(request)).length > 0
-        : false;
+  useThrottleEffect(
+    () => {
+      if (!firstRender) {
+        const _routeStrictRequests = [
+          ...(route.apiData?.strict || []),
+          ...(routesInitialApiData[route.appSection]?.strict || []),
+        ].map((action) => action().type);
+        const hasUncompletedStrictRequest = _routeStrictRequests.length
+          ? openedRequests.filter((request) => _routeStrictRequests.includes(request)).length > 0
+          : false;
 
-      useLockScroll(hasUncompletedStrictRequest);
-      store.dispatch(ac_updateRouteParams({ isLoading: hasUncompletedStrictRequest }));
+        useLockScroll(hasUncompletedStrictRequest);
+        store.dispatch(ac_updateRouteParams({ isLoading: hasUncompletedStrictRequest }));
 
-      if (route.activators && !hasUncompletedStrictRequest) {
-        const _redirectParams = route.activators
-          .map((activator) => activator())
-          .find((a) => !a || Object.keys(a).length);
+        if (route.activators && !hasUncompletedStrictRequest) {
+          const _redirectParams = route.activators
+            .map((activator) => activator())
+            .find((a) => !a || Object.keys(a).length);
 
-        if (typeof _redirectParams === 'object') {
-          history.push(localizePath(_redirectParams.path), _redirectParams?.state);
-        } else if (_redirectParams === false) {
-          history.push(localizePath(routeState.path));
+          if (typeof _redirectParams === 'object') {
+            history.push(localizePath(_redirectParams.path), _redirectParams?.state);
+          } else if (_redirectParams === false) {
+            history.push(localizePath(routeState.path));
+          }
         }
       }
-    }
-  }, [_openedRequests]);
+    },
+    [openedRequests],
+    { wait: 100 },
+  );
 
-  return !routeState.isLoading && route.component ? <route.component /> : null;
+  return !firstRender && !routeState.isLoading && route.component ? <route.component /> : null;
 }

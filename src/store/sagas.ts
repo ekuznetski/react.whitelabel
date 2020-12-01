@@ -180,14 +180,6 @@ export function* getClientSettingsSaga() {
   });
 }
 
-export function* getClientSettingsSaga() {
-  yield $$(EActionTypes.fetchClientSettings, function* ({ payload }: IAction) {
-    const { response }: IClientSettingsResponse = yield call(getClientSettingsRequest, payload);
-    yield put(ac_saveClientSettings(new MClientSettings(response.message)));
-    return response;
-  });
-}
-
 export function* editProfileSaga() {
   yield $$(EActionTypes.editProfile, function* ({ payload }: IAction) {
     const { response }: IEditProfileResponse = yield call(editProfileRequest, payload);
