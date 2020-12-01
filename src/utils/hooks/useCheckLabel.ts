@@ -1,4 +1,4 @@
-import env from '@domain';
+import { env } from '@domain';
 import { ELabels } from '@domain/enums';
 
 export function useCheckLabel(label?: string | ELabels | boolean) {
