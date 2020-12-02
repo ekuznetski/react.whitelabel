@@ -183,7 +183,7 @@ module.exports = (_env, arguments) => {
   }
 
   targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
-      const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
+    const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
     let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
     if (_filename) {
       _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
@@ -194,7 +194,15 @@ module.exports = (_env, arguments) => {
   return {
     stats: 'minimal',
     context: path.join(__dirname, 'src'),
-    entry: ['react-hot-loader/patch', './index.tsx'],
+    entry: {
+      main: './index.tsx',
+      vendor: [
+        '@babel/polyfill',
+        (env.PRODUCTION ? 'react-hot-loader/patch' : ''),
+        'events',
+        'react'
+      ]
+    },
     output: {
       path: __dirname + '/dist',
       filename: '[name].[hash].bundle.js',
@@ -304,34 +312,43 @@ module.exports = (_env, arguments) => {
           loader: 'html-loader',
         },
         {
-          test: /\.ts(x?)$/,
+          test: /\.(ts|js)x?$/,
           exclude: /node_modules/,
           use: [
             {
-              loader: 'ts-loader',
+              loader: 'babel-loader',
               options: {
-                transpileOnly: true,
-                experimentalWatchApi: true,
+                presets: [
+                  [
+                    '@babel/preset-env',
+                    !env.PRODUCTION ?
+                      {
+                        modules: false
+                      } :
+                      {
+                        targets: {
+                          node: 'current'
+                        }
+                      }
+                  ],
+                  '@babel/preset-react',
+                  "@babel/preset-typescript"
+                ],
               },
-            },
+            }
           ],
-        },
-        {
-          enforce: 'pre',
-          test: /\.js$/,
-          loader: 'source-map-loader',
         },
       ],
     },
     plugins: [
       new webpack.DefinePlugin(
-          Object.keys(env).reduce(
-              (acc, key) =>
-                  Object.assign(acc, {
-                    [`process.env.${key}`]: JSON.stringify(env[key]),
-                  }),
-              {},
-          ),
+        Object.keys(env).reduce(
+          (acc, key) =>
+            Object.assign(acc, {
+              [`process.env.${key}`]: JSON.stringify(env[key]),
+            }),
+          {},
+        ),
       ),
       new CopyPlugin({
         patterns: [
