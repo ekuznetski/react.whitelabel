@@ -6,8 +6,10 @@ import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Area, AreaChart } from 'recharts';
-import { priceRawData } from './stockPrices.config';
+import { config } from './stockPrices.config';
 import './StockPrices.scss';
+
+const { priceRawData, productsLink, leverages } = config;
 
 export function StockPrices() {
   const [activePriceTab, setPriceTab] = useState<IPriceTabItem | null>();
@@ -23,7 +25,7 @@ export function StockPrices() {
         title: `40+ ${t('Forex')}`,
         desc: t('Product Section Forex Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
+          <Trans i18nKey="Max Leverage #" values={{ val: leverages[MarketType.forex] }}>
             Max. Leverage <b>1:200</b>
           </Trans>,
         ],
@@ -38,7 +40,7 @@ export function StockPrices() {
         title: `40+ ${t('Stocks')}`,
         desc: t('Product Section Stocks Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: '1:20' }}>
+          <Trans i18nKey="Max Leverage #" values={{ val: leverages[MarketType.stocks] }}>
             Max. Leverage <b>1:20</b>
           </Trans>,
         ],
@@ -53,7 +55,7 @@ export function StockPrices() {
         title: t('Indices'),
         desc: t('Product Section Indices Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
+          <Trans i18nKey="Max Leverage #" values={{ val: leverages[MarketType.indices] }}>
             Max. Leverage <b>1:200</b>
           </Trans>,
         ],
@@ -68,7 +70,7 @@ export function StockPrices() {
         title: t('Commodities'),
         desc: t('Product Section Commodities Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: '1:133' }}>
+          <Trans i18nKey="Max Leverage #" values={{ val: leverages[MarketType.commodities] }}>
             Max. Leverage <b>1:133</b>
           </Trans>,
         ],
@@ -83,7 +85,7 @@ export function StockPrices() {
         title: t('Cryptocurrencies'),
         desc: t('Product Section Cryptocurrencies Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: '1:20' }}>
+          <Trans i18nKey="Max Leverage #" values={{ val: leverages[MarketType.crypto] }}>
             Max. Leverage <b>1:20</b>
           </Trans>,
         ],
@@ -141,7 +143,7 @@ function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
           </div>
         ))}
       </div>
-      <LocaleLink className="see-all" to={{ pathname: '/products', state: { scrollTo: anchor } }}>
+      <LocaleLink className="see-all" to={{ pathname: productsLink, state: { scrollTo: anchor } }}>
         {t('See all products')}
         <Svg href="chevron_right" className="ml-1" />
       </LocaleLink>

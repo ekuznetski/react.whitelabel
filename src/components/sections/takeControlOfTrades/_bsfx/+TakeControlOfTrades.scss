@@ -1,0 +1,13 @@
+@import '~/variables';
+@import '~/mixin';
+
+.take-control-of-trades-section {
+  .controls-row {
+    justify-content: center;
+  }
+  @media (max-width: $viewport-md-w) {
+    .controls-row {
+      justify-content: initial;
+    }
+  }
+}

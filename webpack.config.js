@@ -172,18 +172,17 @@ module.exports = (_env, arguments) => {
     // console.log(targetLabelLocaleAlias, localeFilenames);
     // return;
 
-    targetLabelScssAlias = stylesFilenames
-      .map((filePath) => {
-        const { filename } = filePathDestructor(filePath);
-        return filename;
-      });
+    targetLabelScssAlias = stylesFilenames.map((filePath) => {
+      const { filename } = filePathDestructor(filePath);
+      return filename;
+    });
 
     // console.log(targetLabelConfigsScss);
     // return
   }
 
   targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
-    const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
+    const _filename = targetLabelScssAlias.find((el) => pathKey.includes(el));
     let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
     if (_filename) {
       _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
@@ -196,12 +195,7 @@ module.exports = (_env, arguments) => {
     context: path.join(__dirname, 'src'),
     entry: {
       main: './index.tsx',
-      vendor: [
-        '@babel/polyfill',
-        (env.PRODUCTION ? 'react-hot-loader/patch' : ''),
-        'events',
-        'react'
-      ]
+      vendor: ['@babel/polyfill', 'events', 'react'],
     },
     output: {
       path: __dirname + '/dist',
@@ -265,15 +259,13 @@ module.exports = (_env, arguments) => {
                     if (componentFile) {
                       const { filenamePrefix, basename } = filePathDestructor(componentFile);
                       const idx = componentsFilepaths.indexOf(componentFile),
-                        dir = path.dirname(targetLabelComponentsAlias[targetLabelComponentsKeys[idx]]).replace(/^[..(\\|\/)]+/, ''),
+                        dir = path
+                          .dirname(targetLabelComponentsAlias[targetLabelComponentsKeys[idx]])
+                          .replace(/^[..(\\|\/)]+/, ''),
                         from = componentFile,
-                        to = componentFile.replace(
-                          dir,
-                          dir.replace(new RegExp(`${targetLabelFolder}/?`), '')
-                        ).replace(
-                          basename,
-                          basename.replace(filenamePrefix, '')
-                        ),
+                        to = componentFile
+                          .replace(dir, dir.replace(new RegExp(`${targetLabelFolder}/?`), ''))
+                          .replace(basename, basename.replace(filenamePrefix, '')),
                         _import = `@import '${path.relative(from, to).replace(/[\\/]/g, '/').slice(3)}';`;
 
                       if (newContent.indexOf(_import) == -1) newContent = _import + newContent;
@@ -321,21 +313,21 @@ module.exports = (_env, arguments) => {
                 presets: [
                   [
                     '@babel/preset-env',
-                    !env.PRODUCTION ?
-                      {
-                        modules: false
-                      } :
-                      {
-                        targets: {
-                          node: 'current'
+                    !env.PRODUCTION
+                      ? {
+                          modules: false,
                         }
-                      }
+                      : {
+                          targets: {
+                            node: 'current',
+                          },
+                        },
                   ],
                   '@babel/preset-react',
-                  "@babel/preset-typescript"
+                  '@babel/preset-typescript',
                 ],
               },
-            }
+            },
           ],
         },
       ],

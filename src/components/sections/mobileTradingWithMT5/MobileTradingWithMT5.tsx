@@ -5,6 +5,7 @@ import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
 import './MobileTradingWithMT5.scss';
+import { config } from './MobileTradingWithMT5.config';
 
 interface MobileTradingWithMT5SectionProps {
   title?: string | React.ReactFragment;
@@ -83,10 +84,14 @@ export const MobileTradingWithMT5Section = memo(
               </div>
               <div className="store-links">
                 <Button className="mr-md-6 px-7 mb-7 mb-md-0">
-                  <Svg href="app_store_logo" />
+                  <a href={config.appStoreLink}>
+                    <Svg href="app_store_logo" />
+                  </a>
                 </Button>
                 <Button className="mr-md-6 px-7">
-                  <Svg href="google_play_logo" />
+                  <a href={config.googlePlayLink}>
+                    <Svg href="google_play_logo" />
+                  </a>
                 </Button>
               </div>
             </Col>
