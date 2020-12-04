@@ -3,9 +3,5 @@ import { config as _config } from '../../../components/stocksPrices/stockPrices.
 
 export const config = {
   ..._config,
-  leverages: {
-    ..._config.leverages,
-    [MarketType.forex]: '1:500',
-  },
   productsLink: '/range-of-markets',
 };

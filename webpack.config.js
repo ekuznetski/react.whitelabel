@@ -58,6 +58,7 @@ module.exports = (_env, arguments) => {
 
   let targetLabelLocaleAlias = {};
   let targetLabelConfigsAlias = {};
+  let targetLabelPortalConfigsAlias = {};
   let targetLabelComponentsAlias = {};
   let targetLabelComponentsKeys = [];
   let targetLabelScssAlias = [];
@@ -70,6 +71,7 @@ module.exports = (_env, arguments) => {
   if (targetLabel) {
     stylesFilenames = fs.readdirSync(`./src/scss/${targetLabelFolder}`);
     domainFilenames = fs.readdirSync(`./src/domain/${targetLabelFolder}`);
+    portalFilenames = glob.sync(`./src/domain/${targetLabelFolder}/portal/*`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
@@ -143,6 +145,9 @@ module.exports = (_env, arguments) => {
     // return;
 
     targetLabelConfigsAlias = domainFilenames
+      .filter((filePath) => {
+        return filePath.match(/(.ts)/g);
+      })
       .map((filePath) => {
         const extensions = ['tsx', 'ts', 'js'];
         const { filename, extension, basename } = filePathDestructor(filePath);
@@ -155,6 +160,21 @@ module.exports = (_env, arguments) => {
           }),
         {},
       );
+
+    targetLabelPortalConfigsAlias = portalFilenames
+      .filter((filePath) => {
+        return filePath.match(/(.ts)/g);
+      })
+      .map((filePath) => {
+        const extensions = ['tsx', 'ts', 'js'];
+        const { filename, extension, basename } = filePathDestructor(filePath);
+        return extensions.includes(extension) ? filename : basename;
+      })
+      .reduce((acc, file) => {
+        return Object.assign(acc, {
+          [`./_default/portal/${file}`]: `./${targetLabelFolder}/portal/${file}`,
+        });
+      }, {});
 
     targetLabelLocaleAlias = localeFilenames
       .map((filePath) => {
@@ -215,6 +235,7 @@ module.exports = (_env, arguments) => {
         ...targetLabelLocaleAlias,
         ...targetLabelConfigsAlias,
         ...targetLabelComponentsAlias,
+        ...targetLabelPortalConfigsAlias,
       },
     },
     devtool: 'inline-source-map',

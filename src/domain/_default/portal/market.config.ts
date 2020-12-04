@@ -1,25 +1,15 @@
-export enum EMarketTablePlatform {
-  MT4 = 0,
-  MT5 = 1,
-  MT4MT5 = 2,
-}
+import { EMarketTablePlatform, MarketType } from '@domain/enums';
+import { IMarketTableContent } from '@domain/interfaces';
 
-export interface IMarketTableContent {
-  instr: string;
-  fixed: string;
-  classic: string;
-  raw: string;
-  swap_l: string;
-  swap_s: string;
-  lotSize: string;
-  minTrade: string;
-  valuePerTick: string;
-  LeverageInfo?: string;
-  platform: EMarketTablePlatform;
-}
+export const marketLeverages = {
+  [MarketType.forex]: '1:200',
+  [MarketType.stocks]: '1:20',
+  [MarketType.indices]: '1:200',
+  [MarketType.commodities]: '1:133',
+  [MarketType.crypto]: '1:20',
+};
 
-// tslint:disable: max-line-length
-export const Content: { [key: string]: IMarketTableContent[] } = {
+export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
   forex: [
     {
       instr: 'EURUSD',

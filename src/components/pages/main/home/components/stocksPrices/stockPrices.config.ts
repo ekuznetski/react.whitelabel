@@ -218,12 +218,5 @@ export const config = {
       },
     },
   },
-  leverages: {
-    [MarketType.forex]: '1:200',
-    [MarketType.stocks]: '1:20',
-    [MarketType.indices]: '1:200',
-    [MarketType.commodities]: '1:133',
-    [MarketType.crypto]: '1:20',
-  },
   productsLink: '/products',
 };

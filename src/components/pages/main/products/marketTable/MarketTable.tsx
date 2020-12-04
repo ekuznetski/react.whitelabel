@@ -2,7 +2,7 @@ import { Svg } from '@components/shared';
 import { MarketType } from '@domain/enums';
 import { HeaderTableTemplate } from './HeaderTemplate';
 import './MarketTable.scss';
-import { Content } from './table-contents';
+import { marketTableContent } from '@domain';
 import React, { memo, useMemo } from 'react';
 import classNames from 'classnames';
 
@@ -31,7 +31,7 @@ export const MarketTable = memo((props: IMarketTable) => {
     <div className={classNames('market-table', props.className)}>
       <HeaderTableTemplate preview={props.preview} />
       <div className="tbody">
-        {Content[props.type].slice(0, props.preview ? 4 : 1000).map((item, i) => (
+        {marketTableContent[props.type].slice(0, props.preview ? 4 : 1000).map((item, i) => (
           <div key={i} className="tr">
             <div className={tdClass}>{item.instr}</div>
             <div className="td grouped">
