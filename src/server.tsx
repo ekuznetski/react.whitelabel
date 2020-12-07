@@ -41,7 +41,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
   let url = req.url;
 
   const urlArr = url.split('/');
-  if (urlArr.length >= 1 && Object.keys(ELanguage).includes(urlArr[1])) {
+  if (Object.keys(ELanguage).includes(urlArr[1])) {
     url = url.replace(`/${ELanguage[urlArr[1] as keyof typeof ELanguage]}`, '');
   }
 

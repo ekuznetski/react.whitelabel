@@ -127,7 +127,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     meta: {
       title: 'Reset Password',
     },
-    path: '/forgot-password/reset',
+    path: '/reset-password',
     component: Page.ResetPassword,
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
