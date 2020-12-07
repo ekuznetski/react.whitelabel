@@ -19,5 +19,3 @@ export const config = {
     colsPctSize: [20, 20, null, 20],
   },
 };
-
-export default config;

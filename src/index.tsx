@@ -1,6 +1,7 @@
 import './i18n'; // Must be the imported before the App!
 import { env } from '@env';
 import 'core-js/stable';
+import 'react-hot-loader';
 import React from 'react';
 import 'react-day-picker/lib/style.css';
 import ReactDOM from 'react-dom';

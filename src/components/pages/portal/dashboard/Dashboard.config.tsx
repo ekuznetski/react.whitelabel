@@ -182,5 +182,3 @@ export const config: IConfig = {
     },
   ],
 };
-
-export default config;

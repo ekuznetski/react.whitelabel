@@ -48,8 +48,8 @@ module.exports = (_env, arguments) => {
   const excludeAssets = [];
 
   // Generate exclude assets paths
-  fs.readdirSync(path.join(__dirname, 'src/assets')).forEach((file) => {
-    const absolutePath = path.join(__dirname, 'src/assets', file);
+  glob.sync('./src/assets/*').forEach((file) => {
+    const absolutePath = path.join(__dirname, file);
 
     if (fs.lstatSync(absolutePath).isDirectory() && /^\_[^(default)].*/.test(file) && file !== targetLabelFolder) {
       excludeAssets.push(file);
@@ -70,9 +70,9 @@ module.exports = (_env, arguments) => {
   let localeFilenames = [];
   // Generate map to replace files for different domain
   if (targetLabel) {
-    environmentFilenames = fs.readdirSync(`./src/env/${targetLabelFolder}`);
-    stylesFilenames = fs.readdirSync(`./src/scss/${targetLabelFolder}`);
-    domainFilenames = fs.readdirSync(`./src/domain/${targetLabelFolder}`);
+    environmentFilenames = glob.sync(`./src/env/${targetLabelFolder}/*`);
+    stylesFilenames = glob.sync(`./src/scss/${targetLabelFolder}/*`);
+    domainFilenames = glob.sync(`./src/domain/${targetLabelFolder}/*`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
@@ -218,7 +218,7 @@ module.exports = (_env, arguments) => {
     context: path.join(__dirname, 'src'),
     entry: {
       presets: ['@babel/polyfill'],
-      main: './index.tsx',
+      main: ['react-hot-loader/patch', './index.tsx'],
     },
     output: {
       path: __dirname + '/dist/browser',
@@ -396,7 +396,7 @@ module.exports = (_env, arguments) => {
     devServer: {
       contentBase: __dirname + '/dist',
       compress: true,
-      hot: true,
+      hot: false,
       historyApiFallback: true,
       port: 4200,
       watchContentBase: true,

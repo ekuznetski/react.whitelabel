@@ -24,5 +24,3 @@ export const Footer = memo(function Footer() {
     ) : null;
   }, [section, ready]);
 });
-
-export default Footer;

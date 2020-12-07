@@ -34,5 +34,3 @@ export const locale = {
     ),
   }),
 };
-
-export default locale;
