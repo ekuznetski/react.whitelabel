@@ -18,12 +18,6 @@ export const MarketTable = memo((props: IMarketTable) => {
     () => ({
       [ETradingPlatform.mt4]: <div className="platform">MT4</div>,
       [ETradingPlatform.mt5]: <div className="platform">MT5</div>,
-      [ETradingPlatform.mt4mt5]: (
-        <>
-          <div className="platform">MT4</div>
-          <div className="platform">MT5</div>
-        </>
-      ),
     }),
     [],
   );
@@ -52,7 +46,7 @@ export const MarketTable = memo((props: IMarketTable) => {
             <div className={fullViewParamClass}>
               <Svg href="info" isIcon />
             </div>
-            <div className={tdClass}>{platforms[item.platform]}</div>
+            <div className={tdClass}>{item.platform.map((el: ETradingPlatform) => platforms[el])}</div>
           </div>
         ))}
       </div>

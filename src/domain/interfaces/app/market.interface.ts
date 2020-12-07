@@ -11,5 +11,5 @@ export interface IMarketTableContent {
   minTrade: string;
   valuePerTick: string;
   LeverageInfo?: string;
-  platform: ETradingPlatform;
+  platform: ETradingPlatform[];
 }
