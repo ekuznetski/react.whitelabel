@@ -70,7 +70,7 @@ module.exports = (_env, arguments) => {
   let localeFilenames = [];
   // Generate map to replace files for different domain
   if (targetLabel) {
-    environmentFilenames = fs.readdirSync(`./src/environment/${targetLabelFolder}`);
+    environmentFilenames = fs.readdirSync(`./src/env/${targetLabelFolder}`);
     stylesFilenames = fs.readdirSync(`./src/scss/${targetLabelFolder}`);
     domainFilenames = fs.readdirSync(`./src/domain/${targetLabelFolder}`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
