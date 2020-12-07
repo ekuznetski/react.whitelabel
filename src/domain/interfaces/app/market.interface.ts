@@ -1,4 +1,4 @@
-import { EMarketTablePlatform } from '@domain/enums';
+import { ETradingPlatform } from '@domain/enums';
 
 export interface IMarketTableContent {
   instr: string;
@@ -11,5 +11,5 @@ export interface IMarketTableContent {
   minTrade: string;
   valuePerTick: string;
   LeverageInfo?: string;
-  platform: EMarketTablePlatform;
+  platform: ETradingPlatform;
 }

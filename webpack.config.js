@@ -58,7 +58,6 @@ module.exports = (_env, arguments) => {
 
   let targetLabelLocaleAlias = {};
   let targetLabelConfigsAlias = {};
-  let targetLabelPortalConfigsAlias = {};
   let targetLabelComponentsAlias = {};
   let targetLabelComponentsKeys = [];
   let targetLabelScssAlias = [];
@@ -232,7 +231,6 @@ module.exports = (_env, arguments) => {
         ...targetLabelLocaleAlias,
         ...targetLabelConfigsAlias,
         ...targetLabelComponentsAlias,
-        ...targetLabelPortalConfigsAlias,
       },
     },
     devtool: 'inline-source-map',

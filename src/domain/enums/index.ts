@@ -10,4 +10,3 @@ export * from './language.enum';
 export * from './registration.enum';
 export * from './financialProfile.enum';
 export * from './financialProfileSteps.enum';
-export * from './market.enum';

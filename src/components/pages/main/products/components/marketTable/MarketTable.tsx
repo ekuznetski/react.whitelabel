@@ -1,5 +1,5 @@
 import { Svg } from '@components/shared';
-import { MarketType } from '@domain/enums';
+import { MarketType, ETradingPlatform } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { HeaderTableTemplate } from './HeaderTemplate';
@@ -15,14 +15,16 @@ export const MarketTable = memo((props: IMarketTable) => {
   const tdClass = classNames('td', !props.preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
   const platforms = useMemo(
-    () => [
-      <div className="platform">MT4</div>,
-      <div className="platform">MT5</div>,
-      <>
-        <div className="platform">MT4</div>
-        <div className="platform">MT5</div>
-      </>,
-    ],
+    () => ({
+      [ETradingPlatform.mt4]: <div className="platform">MT4</div>,
+      [ETradingPlatform.mt5]: <div className="platform">MT5</div>,
+      [ETradingPlatform.mt4mt5]: (
+        <>
+          <div className="platform">MT4</div>
+          <div className="platform">MT5</div>
+        </>
+      ),
+    }),
     [],
   );
 
