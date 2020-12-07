@@ -70,8 +70,7 @@ module.exports = (_env, arguments) => {
   // Generate map to replace files for different domain
   if (targetLabel) {
     stylesFilenames = fs.readdirSync(`./src/scss/${targetLabelFolder}`);
-    domainFilenames = fs.readdirSync(`./src/domain/${targetLabelFolder}`);
-    portalFilenames = glob.sync(`./src/domain/${targetLabelFolder}/portal/*`);
+    domainFilenames = glob.sync(`./src/domain/${targetLabelFolder}/**`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
@@ -148,46 +147,26 @@ module.exports = (_env, arguments) => {
       .filter((filePath) => {
         return filePath.match(/(.ts)/g);
       })
-      .map((filePath) => {
-        const extensions = ['tsx', 'ts', 'js'];
-        const { filename, extension, basename } = filePathDestructor(filePath);
-        return extensions.includes(extension) ? filename : basename;
-      })
-      .reduce(
-        (acc, file) =>
-          Object.assign(acc, {
-            [`./_default/${file}`]: `./${targetLabelFolder}/${file}`,
-          }),
-        {},
-      );
-
-    targetLabelPortalConfigsAlias = portalFilenames
-      .filter((filePath) => {
-        return filePath.match(/(.ts)/g);
-      })
-      .map((filePath) => {
-        const extensions = ['tsx', 'ts', 'js'];
-        const { filename, extension, basename } = filePathDestructor(filePath);
-        return extensions.includes(extension) ? filename : basename;
-      })
-      .reduce((acc, file) => {
-        return Object.assign(acc, {
-          [`./_default/portal/${file}`]: `./${targetLabelFolder}/portal/${file}`,
-        });
+      .reduce((acc, filePath) => {
+        const { filename } = filePathDestructor(filePath);
+        const parentFolder = fileParentFolder(filePath);
+        if (parentFolder === targetLabelFolder) {
+          return Object.assign(acc, {
+            [`./_default/${filename}`]: `./${targetLabelFolder}/${filename}`,
+          });
+        } else {
+          return Object.assign(acc, {
+            [`./_default/${parentFolder}/${filename}`]: `./${targetLabelFolder}/${parentFolder}/${filename}`,
+          });
+        }
       }, {});
 
-    targetLabelLocaleAlias = localeFilenames
-      .map((filePath) => {
-        const { filename } = filePathDestructor(filePath);
-        return filename;
-      })
-      .reduce(
-        (acc, file) =>
-          Object.assign(acc, {
-            [`./locale/${file}`]: `./locale/${targetLabelFolder}/${file}`,
-          }),
-        {},
-      );
+    targetLabelLocaleAlias = localeFilenames.reduce((acc, filepath) => {
+      const { filename } = filePathDestructor(filepath);
+      return Object.assign(acc, {
+        [`./locale/${filename}`]: `./locale/${targetLabelFolder}/${filename}`,
+      });
+    }, {});
 
     // console.log(targetLabelLocaleAlias, localeFilenames);
     // return;
@@ -288,7 +267,6 @@ module.exports = (_env, arguments) => {
                           .replace(dir, dir.replace(new RegExp(`${targetLabelFolder}/?`), ''))
                           .replace(basename, basename.replace(filenamePrefix, '')),
                         _import = `@import '${path.relative(from, to).replace(/[\\/]/g, '/').slice(3)}';`;
-
                       if (newContent.indexOf(_import) == -1) newContent = _import + newContent;
                     }
                   }
