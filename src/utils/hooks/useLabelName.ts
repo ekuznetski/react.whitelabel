@@ -1,4 +1,4 @@
-import { env } from '@domain';
+import { env } from '@env';
 import { ELabels } from '@domain/enums';
 
 export function useLabelName(): ELabels {

@@ -1,8 +1,9 @@
-import { Button, Checkbox, Input, LocaleLink, PageTitle, PhoneCodeSelect, TextArea } from '@components/shared';
-import { CustomFieldValidators, env, FieldValidators } from '@domain';
-import { countries, ELabelsName, ENotificationType } from '@domain/enums';
+import { Button, Checkbox, Input, PhoneCodeSelect, TextArea } from '@components/shared';
+import { CustomFieldValidators, FieldValidators } from '@domain';
+import { countries, ENotificationType } from '@domain/enums';
 import { IPartnershipRegistrationRequest } from '@domain/interfaces';
 import { ac_partnershipRegisterStandard, ac_showNotification, IStore } from '@store';
+import { useLabelName } from '@utils/hooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -20,12 +21,12 @@ enum EFields {
 }
 
 export const AffiliateForm = memo(() => {
-  const { geoIp, locale } = useSelector<IStore, any>((state) => ({
+  const { geoIp } = useSelector<IStore, any>((state) => ({
     geoIp: state.data.geoIp,
-    locale: state.app.route.locale,
   }));
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const labelName = useLabelName();
 
   const validationSchema = Yup.object().shape({
     [EFields.name]: FieldValidators.name,
@@ -85,10 +86,7 @@ export const AffiliateForm = memo(() => {
                 </div>
                 <TextArea label={t('Message')} name={EFields.message} rows={4} />
                 <Checkbox name={EFields.acceptPolicy} className="mb-10">
-                  <Trans
-                    i18nKey="Accept Policy"
-                    values={{ name: ELabelsName[env.LABEL?.toLowerCase() as keyof typeof ELabelsName] }}
-                  >
+                  <Trans i18nKey="Accept Policy" values={{ name: labelName }}>
                     I have read and accept the Privacy Policy of {name}
                   </Trans>
                 </Checkbox>

@@ -1,87 +1,25 @@
 import { Button, LocaleNavLink, Svg } from '@components/shared';
-import { IClientBannerCard, ILogin } from '@domain/interfaces';
-import { MClientProfile } from '@domain/models';
+import { MClientSettings } from '@domain/models';
 import { IStore } from '@store';
 import classNames from 'classnames';
 import React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { config } from '@pages/portal/dashboard';
 import './BannerCard.scss';
 
 type IBannerCardState = {
-  clientProfile: MClientProfile;
-  clientAccount: ILogin;
+  clientSettings: MClientSettings;
 };
 
 export function BannerCard() {
-  const { t } = useTranslation();
-  const { clientProfile, clientAccount } = useSelector<IStore, IBannerCardState>((state) => ({
-    clientProfile: state.data.client.profile,
-    clientAccount: state.data.client.settings,
+  const { clientSettings } = useSelector<IStore, IBannerCardState>((state) => ({
+    clientSettings: state.data.client.settings,
   }));
   const [activeCardIdx, setActiveCardIdx] = React.useState(0);
 
-  const promotion_cards: IClientBannerCard[] = [
-    {
-      type: 'blue',
-      disabled: true,
-      link: { text: t('Learn more') },
-      text: (
-        <Trans i18nKey="Promotional Cards Texts:0">
-          <span>Earn $20</span> to trade with once you complete your Financial profile and submit your documents
-        </Trans>
-      ),
-    },
-    {
-      type: 'blue',
-      disabled: true,
-      link: { text: t('SMS Verification') },
-      text: (
-        <Trans i18nKey="Promotional Cards Texts:1">
-          Get a <span>$20 bonus</span> added to your trading account when you verify your phone number
-        </Trans>
-      ),
-      title: t('Verify Your Phone Number'),
-    },
-    {
-      type: 'blue',
-      bg_img: 'client_banner_1.jpg',
-      bg_color: 'white',
-      link: { path: 'share', text: t('Invite Now') },
-      text: (
-        <Trans i18nKey="Promotional Cards Texts:2">
-          Invite a friend and get <br /> up to <span>$200 Cash Bonus</span>
-        </Trans>
-      ),
-      title: t('Invite friends for a Bonus'),
-    },
-    {
-      type: 'blue',
-      bg_img: 'client_banner_2.jpg',
-      bg_color: '#eff1f3',
-      link: { path: 'deposit', text: t('Deposit Now') },
-      text: (
-        <Trans i18nKey="Promotional Cards Texts:3">
-          Deposit now and <span>receive a 10% bonus</span> up to $5K instantly added to your account
-        </Trans>
-      ),
-      title: t('10 percent Bonus on deposit'),
-    },
-  ];
-  const bonus_cards: IClientBannerCard[] = [
-    {
-      type: 'blue',
-      bg_img: 'fca_logos',
-      link: { path: 'deposit', text: t('Deposit Now') },
-      text: (
-        <Trans i18nKey="Promotional Cards Texts:4">
-          Fund Your Account with <span>$0 Fees</span>
-        </Trans>
-      ),
-      title: t('Deposit Now').toUpperCase(),
-    },
-  ];
-  const cards = (clientAccount.show_promotions ? promotion_cards : bonus_cards).filter((slide) => !slide.disabled);
+  const cards = (clientSettings.show_promotions ? config.promotion_cards : config.bonus_cards).filter(
+    (slide) => !slide.disabled,
+  );
 
   return (
     <div className="banner-card">

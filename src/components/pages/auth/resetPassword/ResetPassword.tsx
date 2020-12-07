@@ -1,15 +1,15 @@
 import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
 import { FieldValidators } from '@domain';
+import { ENotificationType } from '@domain/enums';
+import { IResetPasswordRequest } from '@domain/interfaces';
+import { ac_login, ac_resetPassword, ac_showNotification } from '@store';
+import { useUrlParams } from '@utils/hooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import * as Yup from 'yup';
-import { useUrlParams } from '@utils/hooks';
-import { ac_login, ac_resetPassword, ac_showNotification } from '@store';
-import { ENotificationType } from '@domain/enums';
 import { useDispatch } from 'react-redux';
-import { IResetPasswordRequest } from '@domain/interfaces';
+import * as Yup from 'yup';
 
 enum EFields {
   'password' = 'password',

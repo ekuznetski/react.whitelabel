@@ -10,6 +10,12 @@ to run use:
 
 ---
 
+## Rules
+
+1. Do never import @domain to any pages
+
+---
+
 Spacers:
 
 - sp(1) = 4px

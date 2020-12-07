@@ -3,7 +3,8 @@ import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Svg } from '..';
+import { Button } from '../form/button/Button';
+import { Svg } from '../svg/Svg';
 import { ActiveTab, EMobileDisplay, TabData, TabsProvider, useTabsDispatch, useTabsState } from './tabs-context';
 import './Tabs.scss';
 
@@ -56,7 +57,7 @@ export function Tabs({
     throw new Error('Tabs must have (props.children) or (labels && content)!');
   }
 
-  window.onload = function() {
+  window.onload = function () {
     setLineProps({
       navLineWidth: activeNavTabLink?.clientWidth,
       navLineLeft: activeNavTabLink?.offsetLeft,

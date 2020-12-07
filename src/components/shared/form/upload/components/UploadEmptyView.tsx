@@ -1,9 +1,9 @@
-import { Svg } from '@components/shared';
 import { formatNumberWithCommas } from '@utils/fn';
 import { useDrop } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, memo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { Svg } from '../../../svg/Svg';
 import { UploadText, UploadViewState, useUploadDispatch, useUploadState } from '../upload.context';
 
 interface UploadEmptyViewProps {

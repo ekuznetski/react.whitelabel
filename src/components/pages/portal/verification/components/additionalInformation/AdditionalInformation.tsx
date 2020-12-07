@@ -2,8 +2,7 @@ import { MultipleUpload, Tab, Tabs, UploadDocumentCard, UploadFile, UploadWrappe
 import { EClientStatusCode, EDocumentsType } from '@domain/enums';
 import { MClientData, MClientProfile, MDocument } from '@domain/models';
 import { IStore } from '@store';
-import { useSetState } from 'ahooks';
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { EddForm } from '..';

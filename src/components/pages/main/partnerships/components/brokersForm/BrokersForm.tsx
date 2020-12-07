@@ -1,8 +1,9 @@
 import { Button, Checkbox, CountrySelect, Input, PhoneCodeSelect } from '@components/shared';
-import { CustomFieldValidators, env, FieldValidators } from '@domain';
-import { countries, ELabelsName, ENotificationType } from '@domain/enums';
+import { CustomFieldValidators, FieldValidators } from '@domain';
+import { countries, ENotificationType } from '@domain/enums';
 import { IPartnershipIBRegistrationRequest } from '@domain/interfaces';
 import { ac_partnershipRegisterIB, ac_showNotification, IStore } from '@store';
+import { useLabelName } from '@utils/hooks';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -26,8 +27,9 @@ export const BrokersForm = memo(function BrokersForm() {
   const { geoIp } = useSelector<IStore, any>((state) => ({
     geoIp: state.data.geoIp,
   }));
-  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const labelName = useLabelName();
 
   const validationSchema = Yup.object().shape({
     [EFields.firstName]: FieldValidators.name,
@@ -97,10 +99,7 @@ export const BrokersForm = memo(function BrokersForm() {
                 <CountrySelect label={t('Country')} name={EFields.country} />
                 <Input label={t('Address')} name={EFields.address} />
                 <Checkbox name={EFields.acceptPolicy} className="mb-10">
-                  <Trans
-                    i18nKey="Accept Policy"
-                    values={{ name: ELabelsName[env.LABEL?.toLowerCase() as keyof typeof ELabelsName] }}
-                  >
+                  <Trans i18nKey="Accept Policy" values={{ name: labelName }}>
                     I have read and accept the Privacy Policy of {name}
                   </Trans>
                 </Checkbox>

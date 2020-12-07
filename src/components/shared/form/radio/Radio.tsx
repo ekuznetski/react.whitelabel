@@ -1,10 +1,10 @@
 import { EFormStatus } from '@domain/enums';
+import { AnyFunction } from '@domain/interfaces';
 import classNames from 'classnames';
 import { FastField, FastFieldAttributes, useField, useFormikContext } from 'formik';
 import React, { memo } from 'react';
 import { Row } from 'react-bootstrap';
 import './Radio.scss';
-import { AnyFunction } from '@domain/interfaces';
 
 export interface IRadioItem {
   label: React.ReactNode;

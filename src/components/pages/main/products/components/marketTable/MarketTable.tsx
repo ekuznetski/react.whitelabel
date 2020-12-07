@@ -1,10 +1,10 @@
 import { Svg } from '@components/shared';
 import { MarketType } from '@domain/enums';
+import classNames from 'classnames';
+import React, { memo, useMemo } from 'react';
 import { HeaderTableTemplate } from './HeaderTemplate';
 import './MarketTable.scss';
 import { Content } from './table-contents';
-import React, { memo, useMemo } from 'react';
-import classNames from 'classnames';
 
 interface IMarketTable {
   type: MarketType;

@@ -1,18 +1,18 @@
 import { Button, Input, IRadioItem, Radio, Svg, TradingAccountsSelect } from '@components/shared';
+import { FieldValidators } from '@domain';
+import { AllowedCurrToMethodMap, ETradingType } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import { IStore } from '@store';
+import { useDeviceDetect } from '@utils/hooks';
+import classNames from 'classnames';
 import { Form, Formik, FormikProps, useFormikContext } from 'formik';
 import React, { useEffect } from 'react';
+import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { depositActionCreators, useDepositDispatch, useDepositState } from '../../deposit.context';
 import './TabContentChooseAmount.scss';
-import classNames from 'classnames';
-import { Col, Row } from 'react-bootstrap';
-import { useDeviceDetect } from '@utils/hooks';
-import { FieldValidators } from '@domain';
-import { AllowedCurrToMethodMap, ETradingType } from '@domain/enums';
 
 enum EFields {
   'account' = 'account',
@@ -42,7 +42,7 @@ export function TabContentChooseAmount() {
   const validationSchema = Yup.object().shape({
     account: Yup.object().required('This field is required'),
     amount: isDesktop ? FieldValidators.requiredString : FieldValidators.notRequiredString,
-    customAmount: Yup.number().test('isCustomAmount', '', function(value) {
+    customAmount: Yup.number().test('isCustomAmount', '', function (value) {
       const { path, parent, createError } = this;
       const { account, amount }: { account: MTradingAccount; amount: string } = parent;
       if (!!value && amount === 'custom' && !!account?.minDeposit && value < account.minDeposit) {

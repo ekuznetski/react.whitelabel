@@ -1,6 +1,6 @@
 import {
   AccountTypesForTradingStylesSection,
-  MobileTradingWithMT5Section,
+  MobileTradingSection,
   OpenLiveAccountBannerSection,
   OurOfferBannerSection,
   PrestigiousPlatformTechnologySection,
@@ -8,20 +8,11 @@ import {
 import { Button, ITable, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { config } from './';
 import './Platform.scss';
 
 export function Platform() {
   const { t } = useTranslation();
-
-  const _tempTableData: ITable = {
-    headers: [t('Instrument'), t('Sell'), t('Buy'), t('Change percent')],
-    rows: [
-      ['Microsoft', '206.24', '206.46', '2.15'],
-      ['Microsoft', '206.24', '206.46', '2.15'],
-      ['Microsoft', '206.24', '206.46', '2.15'],
-      ['Microsoft', '206.24', '206.46', '2.15'],
-    ],
-  };
 
   return (
     <div className="platform-wrapper">
@@ -88,19 +79,19 @@ export function Platform() {
             <div className="col-12 col-lg-9">
               <Tabs>
                 <Tab label="Forex" anchor="forex">
-                  <Table {..._tempTableData} />
+                  <Table {...config.tableData} />
                 </Tab>
                 <Tab label="Indices" anchor="indices">
-                  <Table {..._tempTableData} />
+                  <Table {...config.tableData} />
                 </Tab>
                 <Tab label="Stocks" anchor="stocks">
-                  <Table {..._tempTableData} />
+                  <Table {...config.tableData} />
                 </Tab>
                 <Tab label="Commodities" anchor="commodities">
-                  <Table {..._tempTableData} />
+                  <Table {...config.tableData} />
                 </Tab>
                 <Tab label="Cryptocurrencies" anchor="cryptocurrencies">
-                  <Table {..._tempTableData} />
+                  <Table {...config.tableData} />
                 </Tab>
               </Tabs>
             </div>
@@ -136,7 +127,7 @@ export function Platform() {
       </section>
       <AccountTypesForTradingStylesSection />
       <OpenLiveAccountBannerSection />
-      <MobileTradingWithMT5Section />
+      <MobileTradingSection />
     </div>
   );
 }

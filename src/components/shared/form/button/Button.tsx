@@ -1,10 +1,10 @@
-import { Svg } from '@components/shared';
 import { EFormStatus } from '@domain/enums';
 import { EActionTypes, IStore } from '@store';
 import classNames from 'classnames';
 import { useFormikContext } from 'formik';
 import React, { forwardRef, memo } from 'react';
 import { useSelector } from 'react-redux';
+import { Svg } from '../../svg/Svg';
 import './Button.scss';
 
 interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {

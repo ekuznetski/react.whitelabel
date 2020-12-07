@@ -1,5 +1,3 @@
-export * from './_default/env.config';
-export * from './_default/pages.config';
 export * from './_default/routers.config';
 export * from './_default/locales.config';
 export * from './_default/validation.config';

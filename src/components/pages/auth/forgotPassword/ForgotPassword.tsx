@@ -1,15 +1,15 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PageTitle, Svg } from '@components/shared';
 import { FieldValidators } from '@domain';
+import { ac_forgotPassword, ac_userExists } from '@store';
+import { usePathLocale } from '@utils/hooks';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import './ForgotPassword.scss';
-import { useDispatch } from 'react-redux';
-import { ac_forgotPassword, ac_userExists } from '@store';
-import { usePathLocale } from '@utils/hooks';
-import { useHistory } from 'react-router-dom';
 
 enum EFields {
   'email' = 'email',

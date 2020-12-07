@@ -4,7 +4,7 @@ import { useToggle } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MarketTable } from '../marketTable/MarketTable';
+import { MarketTable } from '..';
 import './TableSection.scss';
 
 export interface ITableSection {

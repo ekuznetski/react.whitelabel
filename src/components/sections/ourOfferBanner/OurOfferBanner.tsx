@@ -1,6 +1,5 @@
 import { LabelView, Svg } from '@components/shared';
 import { ELabels } from '@domain/enums';
-import { env } from '@domain';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -12,7 +11,7 @@ export const OurOfferBannerSection = memo(
     const { t } = useTranslation();
 
     return (
-      <section className={classNames('our-offer-banner-section', props.className, env.LABEL?.toLowerCase())} ref={ref}>
+      <section className={classNames('our-offer-banner-section', props.className)} ref={ref}>
         <Container>
           <Row>
             <Col xs={12} md={4} className="py-8">

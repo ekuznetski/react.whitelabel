@@ -1,9 +1,10 @@
 import { EAppSection, ELanguage } from '@domain/enums';
-import { AnyFunction, IContent, IGeoIp, ILogin, INotificationState } from '@domain/interfaces';
+import { AnyFunction, IContent, IGeoIp, INotificationState } from '@domain/interfaces';
 import {
   MBankDetails,
   MClientData,
   MClientProfile,
+  MClientSettings,
   MClientTradingData,
   MDocument,
   MTransactionalStatementData,
@@ -17,7 +18,7 @@ export interface IDataStore {
   client: {
     profile: MClientProfile;
     statusData: MClientData;
-    settings: ILogin;
+    settings: MClientSettings;
     statements: MTransactionalStatementData;
     documents: MDocument[];
   };

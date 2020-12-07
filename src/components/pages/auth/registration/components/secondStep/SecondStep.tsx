@@ -1,6 +1,6 @@
 import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { countries, ECountryCodeToName, ERegSteps } from '@domain/enums';
+import { countries, ERegSteps } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';
@@ -46,7 +46,7 @@ export function SecondStep({ submitFn }: any) {
       .max(31, t('Day Limit'))
       .when([EFields.monthOfBirth, EFields.yearOfBirth], {
         is: (monthOfBirth, yearOfBirth) => !!monthOfBirth && !!yearOfBirth,
-        then: FieldValidators.requiredNumber.min(1, t('Invalid value')).test('max', '', function(value) {
+        then: FieldValidators.requiredNumber.min(1, t('Invalid value')).test('max', '', function (value) {
           const { path, parent, createError } = this;
           const { monthOfBirth, yearOfBirth } = parent;
           const maxDay = new Date(yearOfBirth, monthOfBirth, 0).getDate();

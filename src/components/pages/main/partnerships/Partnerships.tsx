@@ -1,12 +1,12 @@
 import { PartnershipPrograms } from '@components/sections';
 import { Button, SectionBg, Tabs } from '@components/shared';
-import React, { useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
-import { config } from './Partnerships.config';
+import { config } from './';
 import './Partnerships.scss';
 
-export function Partnerships() {
+export const Partnerships = memo(function Partnerships() {
   const [activeTab, setTab] = useState('affiliate');
   const { t } = useTranslation();
   const formRef = useRef<HTMLDivElement>(null);
@@ -68,6 +68,4 @@ export function Partnerships() {
       </section>
     </div>
   );
-}
-
-export default Partnerships;
+});

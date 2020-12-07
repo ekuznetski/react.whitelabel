@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import './FooterAuth.scss';
 
-export default function FooterAuth() {
+export const FooterAuth = memo(function FooterAuth() {
   const { t } = useTranslation();
 
   return (
@@ -30,4 +30,4 @@ export default function FooterAuth() {
       </Row>
     </Container>
   );
-}
+});

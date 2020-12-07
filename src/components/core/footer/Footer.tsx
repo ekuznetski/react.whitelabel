@@ -4,10 +4,7 @@ import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-
-const FooterAuth = React.lazy(() => import('./components/FooterAuth/FooterAuth'));
-const FooterMain = React.lazy(() => import('./components/FooterMain/FooterMain'));
-const FooterPortal = React.lazy(() => import('./components/FooterPortal/FooterPortal'));
+import { FooterAuth, FooterMain, FooterPortal } from './components';
 
 export const Footer = memo(function Footer() {
   const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({

@@ -1,6 +1,7 @@
 import { Alert, Button, CountrySelect, Input, Radio, Select, TabMobileBackButton } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { MClientData, MClientProfile } from '@domain/models';
+import { MClientProfile } from '@domain/models';
+import { config } from '@pages/portal/verification';
 import { EActionTypes, IStore } from '@store';
 import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
@@ -9,16 +10,12 @@ import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { config } from './eddForm.config';
 import './EddForm.scss';
 
 export const EddForm = memo(function EddForm() {
-  const { statusData, profile } = useSelector<IStore, { statusData: MClientData; profile: MClientProfile }>(
-    (state) => ({
-      statusData: state.data.client.statusData,
-      profile: state.data.client.profile,
-    }),
-  );
+  const { profile } = useSelector<IStore, { profile: MClientProfile }>((state) => ({
+    profile: state.data.client.profile,
+  }));
   const viewportSize = useResponsive();
   const dispatch = useDispatch();
   const { t } = useTranslation();

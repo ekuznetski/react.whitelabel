@@ -1,17 +1,17 @@
 import { Button, Input } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { Form, Formik } from 'formik';
-import React, { useContext, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import * as Yup from 'yup';
-import { DetailsHeader } from '..';
-import { depositActionCreators, DepositContext, useDepositDispatch, useDepositState } from '../../deposit.context';
-import { NetellerInfoModal } from '../netellerInfoModal/NetellerInfoModal';
-import { useDispatch } from 'react-redux';
-import { ac_addDeposit } from '@store';
 import { EDepositMethodCode, ETradingType } from '@domain/enums';
 import { INetellerDepositRequest } from '@domain/interfaces';
+import { ac_addDeposit } from '@store';
+import { Form, Formik } from 'formik';
+import React, { useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import * as Yup from 'yup';
+import { DetailsHeader } from '..';
+import { useDepositState } from '../../deposit.context';
+import { NetellerInfoModal } from '../netellerInfoModal/NetellerInfoModal';
 
 enum EFields {
   'account' = 'account',

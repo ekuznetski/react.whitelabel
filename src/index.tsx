@@ -1,5 +1,5 @@
 import './i18n'; // Must be the imported before the App!
-import { env } from '@domain';
+import { env } from '@env';
 import 'core-js/stable';
 import React from 'react';
 import 'react-day-picker/lib/style.css';

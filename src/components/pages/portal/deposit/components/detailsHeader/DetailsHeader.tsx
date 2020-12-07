@@ -1,10 +1,9 @@
+import { Svg } from '@components/shared';
+import { EDepositMethods } from '@domain/enums';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { depositActionCreators, DepositContext } from '../../deposit.context';
-import { Img, Svg } from '@components/shared';
 import './DetailsHeader.scss';
-import { EDepositMethods } from '@domain/enums';
-import classNames from 'classnames';
 
 export function DetailsHeader() {
   const { amount, account, method } = useContext(DepositContext).state;

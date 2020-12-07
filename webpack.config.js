@@ -61,13 +61,16 @@ module.exports = (_env, arguments) => {
   let targetLabelComponentsAlias = {};
   let targetLabelComponentsKeys = [];
   let targetLabelScssAlias = [];
+  let targetLabelEnvAlias = [];
   let componentsFilepaths = [];
 
   let stylesFilenames = [];
   let domainFilenames = [];
+  let environmentFilenames = [];
   let localeFilenames = [];
   // Generate map to replace files for different domain
   if (targetLabel) {
+    environmentFilenames = fs.readdirSync(`./src/environment/${targetLabelFolder}`);
     stylesFilenames = fs.readdirSync(`./src/scss/${targetLabelFolder}`);
     domainFilenames = fs.readdirSync(`./src/domain/${targetLabelFolder}`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
@@ -156,6 +159,20 @@ module.exports = (_env, arguments) => {
         {},
       );
 
+    targetLabelEnvAlias = environmentFilenames
+      .map((filePath) => {
+        const extensions = ['ts'];
+        const { filename, extension, basename } = filePathDestructor(filePath);
+        return extensions.includes(extension) ? filename : basename;
+      })
+      .reduce(
+        (acc, file) =>
+          Object.assign(acc, {
+            [`./${file}`]: `./${targetLabelFolder}/${file}`,
+          }),
+        {},
+      );
+
     targetLabelLocaleAlias = localeFilenames
       .map((filePath) => {
         const { filename } = filePathDestructor(filePath);
@@ -192,31 +209,27 @@ module.exports = (_env, arguments) => {
   }, {});
 
   return {
-    stats: 'minimal',
+    stats: {
+      moduleAssets: false,
+      children: false,
+      colors: true,
+      logging: 'warn'
+    },
     context: path.join(__dirname, 'src'),
     entry: {
+      presets: ['@babel/polyfill'],
       main: './index.tsx',
-      vendor: [
-        '@babel/polyfill',
-        (env.PRODUCTION ? 'react-hot-loader/patch' : ''),
-        'events',
-        'react'
-      ]
     },
     output: {
-      path: __dirname + '/dist',
+      path: __dirname + '/dist/browser',
       filename: '[name].[hash].bundle.js',
-    },
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
-      },
     },
     mode: 'development',
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.json', '.sass', '.scss', '.css'],
       alias: {
         'react-dom': '@hot-loader/react-dom',
+        ...targetLabelEnvAlias,
         ...targetLabelScssAlias,
         ...targetLabelLocaleAlias,
         ...targetLabelConfigsAlias,
@@ -308,10 +321,6 @@ module.exports = (_env, arguments) => {
           loader: 'url-loader',
         },
         {
-          test: /\.html$/i,
-          loader: 'html-loader',
-        },
-        {
           test: /\.(ts|js)x?$/,
           exclude: /node_modules/,
           use: [
@@ -341,6 +350,7 @@ module.exports = (_env, arguments) => {
       ],
     },
     plugins: [
+      new webpack.PrefetchPlugin(path.join(__dirname, 'src/utils/hooks'), './index.ts'),
       new webpack.DefinePlugin(
         Object.keys(env).reduce(
           (acc, key) =>

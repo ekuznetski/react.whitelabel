@@ -1,5 +1,6 @@
 import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
-import { env, FieldValidators } from '@domain';
+import { FieldValidators } from '@domain';
+import { env } from '@env';
 import { ELabelsName, ENotificationType } from '@domain/enums';
 import { ILoginRequest } from '@domain/interfaces';
 import { ac_login, ac_showNotification } from '@store';
