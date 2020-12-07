@@ -21,9 +21,9 @@ export default {
     'We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong, Japan, the United States of America and some other regions. For more information please refer to our <1>Help Center</1>',
   'Powered by BSFX': 'Powered by BSFX',
   'Platform Page Top Subtitle': '$t(Powered by BSFX)',
-  'Prestigious Platform Technology Title': '$t(Prestigious MT4)<1/><3>$t(Platform Technology)</3>',
+  'Prestigious Platform Technology Title': '$t(Prestigious MT5)<1/><3>$t(Platform Technology)</3>',
   'Prestigious Platform Technology Desc':
-    '<0>Metatrader is the most popular electronic trading platforms and has long been considered the <1>forex industry standard</1> because of its innovative technology.</0><1>The platform is suitable for traders of all levels and expertise, offering flexible trading systems, a mobile app, Expert Advisors, and advanced technical analysis.</1><2>Compared to its predecessor, MT4 has <1>additional features</1> including 6 types of pending orders, 21 timeframes to choose from, and an integrated fundamental economic calendar.</2>',
+    '<0>Metatrader is the most popular electronic trading platforms and has long been considered the <1>forex industry standard</1> because of its innovative technology.</0><1>The platform is suitable for traders of all levels and expertise, offering flexible trading systems, a mobile app, Expert Advisors, and advanced technical analysis.</1><2>Compared to its predecessor, MT5 has <1>additional features</1> including 6 types of pending orders, 21 timeframes to choose from, and an integrated fundamental economic calendar.</2>',
   'Regulation Desc':
     'Blue Square FX Limited Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number <1>25910 (BC2020)</1>. <3>www.bluesquarefx.com</3> is operated by Blue Square FX Limited Limited',
   'Main Mobile Trading Section Title': 'Trading <1>on the go</1>',

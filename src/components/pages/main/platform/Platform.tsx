@@ -5,6 +5,7 @@ import {
   OurOfferBannerSection,
   PrestigiousPlatformTechnologySection,
 } from '@components/sections';
+import { MarketType } from '@domain/enums';
 import { Button, ITable, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -68,7 +69,6 @@ export function Platform() {
                   <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'commodities' } }}>
                     Commodities
                   </LocaleLink>{' '}
-                  and
                   <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'crypto' } }}>
                     Cryptocurrencies
                   </LocaleLink>{' '}
@@ -79,19 +79,19 @@ export function Platform() {
             <div className="col-12 col-lg-9">
               <Tabs>
                 <Tab label="Forex" anchor="forex">
-                  <Table {...config.tableData} />
+                  <Table {...config.tableData[MarketType.forex]} />
                 </Tab>
                 <Tab label="Indices" anchor="indices">
-                  <Table {...config.tableData} />
+                  <Table {...config.tableData[MarketType.indices]} />
                 </Tab>
                 <Tab label="Stocks" anchor="stocks">
-                  <Table {...config.tableData} />
+                  <Table {...config.tableData[MarketType.stocks]} />
                 </Tab>
                 <Tab label="Commodities" anchor="commodities">
-                  <Table {...config.tableData} />
+                  <Table {...config.tableData[MarketType.commodities]} />
                 </Tab>
                 <Tab label="Cryptocurrencies" anchor="cryptocurrencies">
-                  <Table {...config.tableData} />
+                  <Table {...config.tableData[MarketType.crypto]} />
                 </Tab>
               </Tabs>
             </div>
