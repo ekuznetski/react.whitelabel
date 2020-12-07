@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, ColProps } from 'react-bootstrap';
-import { Svg } from '..';
+import { Svg } from '../svg/Svg';
 import './Alert.scss';
 
 type IAlert = {

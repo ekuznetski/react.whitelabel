@@ -1,84 +1,87 @@
 import './i18n'; // Must be the imported before the App!
-import fs from 'fs';
-
-import React from 'react';
-import express from 'express';
-import { StaticRouter } from 'react-router-dom';
+import { Footer, Header, Router } from '@components/core';
+import { routesNavConfig } from '@domain';
+import { EAppSection, ELanguage } from '@domain/enums';
+import { store } from '@store';
+import { routeFetchData } from '@utils/fn';
 import compression from 'compression';
-import { WrappedMain } from './App';
-import { Provider } from 'react-redux';
-import { ac_saveContent, ac_saveProfile, store } from '@store';
+import 'core-js/stable';
+import express from 'express';
+import fs from 'fs';
+import React from 'react';
 import { renderToString } from 'react-dom/server';
+import { Provider } from 'react-redux';
+import { StaticRouter } from 'react-router-dom';
 import { document, window } from 'ssr-window';
-import { getContentRequest, getProfileRequest } from '@utils/services';
-import { routesConfig } from '@domain';
-import { ELanguage } from '@domain/enums';
+import path from 'path';
+import './App.scss';
 
+let requestResolver: { (): void; (value?: unknown): void } | null = null;
 const PORT = process.env.PORT || 4201;
 const app = express();
-const indexFile = 'server.html';
+const indexFile = path.normalize('browser/server.html');
+const unsubscribeRequestResolver = store.subscribe(() => {
+  const storeState = store.getState();
+
+  if (storeState.app.requests.activeList.length == 0 && requestResolver) {
+    requestResolver();
+  }
+});
 
 app.use(compression());
+app.use(express.static('./browser'));
+app.use(express.static('./assets'));
 
-app.use(express.static('./'));
 app.get('*', (req: express.Request, res: express.Response) => {
-  let url = '/' + req.url.replace(/^\/?([^\/]*)\/?.*/, '$1');
+  (global as any).window = window;
+  (global as any).document = document;
+  (global as any).location = window.location;
+
+  const fileExist = fs.existsSync(indexFile);
+  let url = req.url;
+
   const urlArr = url.split('/');
   if (urlArr.length >= 1 && Object.keys(ELanguage).includes(urlArr[1])) {
     url = url.replace(`/${ELanguage[urlArr[1] as keyof typeof ELanguage]}`, '');
   }
-  const requestedRoute = routesConfig.find((el) => el.path === url);
-  if (!requestedRoute) {
-    console.error('cant find content for route', req.url);
-    return fs.readFile(indexFile, 'utf8', async (err, data) => {
-      if (err) {
-        console.error('Something went wrong:', err);
-        return res.status(500).send('Oops, better luck next time!');
-      }
-      return res.send(data);
-    });
+
+  const route = routesNavConfig.find((el) => el.path === url);
+  if (!route || !fileExist) {
+    if (!route) console.error('Cant find content for route', req.url, '[', url, ']');
+    if (!fileExist) console.error('Server.html not found');
+
+    // unsubscribeRequestResolver();
+    return res.status(500).send('Oops, better luck next time!');
   }
-  (global as any).window = window;
-  (global as any).document = document;
-  (global as any).location = window.location;
-  return Promise.all([
-    new Promise((resolve, reject) => {
-      getContentRequest(url)
-        .then((e) => resolve(e))
-        .catch((e) => {
-          reject(e);
-          console.log(e);
-        });
-    }),
-    new Promise((resolve, reject) => {
-      getProfileRequest()
-        .then((e) => resolve(e))
-        .catch((e) => {
-          resolve(null);
-          if (e.response.status !== 403) {
-            console.error(e.response);
-          }
-        });
-    }),
-  ]).then(([content, profile]: any) => {
-    console.log(content);
-    store.dispatch(ac_saveContent({ [url.slice(1)]: content }));
-    store.dispatch(ac_saveProfile(profile));
-    const context = {};
+
+  return new Promise((resolve) => {
+    requestResolver = resolve;
+    routeFetchData(route);
+  }).then(() => {
     const app = renderToString(
-      <Provider store={store}>
-        <StaticRouter location={req.url} context={context}>
-          <WrappedMain />
-        </StaticRouter>
-      </Provider>,
+      <StaticRouter location={url}>
+        <Provider store={store}>
+          <div className="main-wrapper">
+            <Header />
+            <main className="router-context">
+              {route.appSection === EAppSection.portal ? null : route.component && <route.component />}
+            </main>
+          </div>
+          <Footer />
+          <div id="dynamic-portals" />
+        </Provider>
+      </StaticRouter>,
     );
-    console.log(app);
+
     return fs.readFile(indexFile, 'utf8', async (err, data) => {
       if (err) {
         console.error('Something went wrong:', err);
+
+        unsubscribeRequestResolver();
         return res.status(500).send('Oops, better luck next time!');
       }
       const preloadedState = store.getState();
+      preloadedState.app.route.isLoading = false;
       return res.send(
         data.replace(
           '<div id="root"></div>',

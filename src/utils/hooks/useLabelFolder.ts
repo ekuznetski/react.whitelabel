@@ -1,4 +1,4 @@
-import { env } from '@domain';
+import { env } from '@env';
 import { useMemo } from 'react';
 import { ELabels } from '@domain/enums';
 

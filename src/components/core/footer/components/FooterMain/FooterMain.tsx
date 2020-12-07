@@ -1,13 +1,13 @@
 import { LabelView, Svg } from '@components/shared';
+import { config } from '@core/footer';
 import { ELabels } from '@domain/enums';
 import classNames from 'classnames';
-import React from 'react';
+import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
-import { config } from '@core/footer';
 import './FooterMain.scss';
 
-export default function FooterMain() {
+export const FooterMain = memo(function FooterMain() {
   const { t } = useTranslation();
 
   return (
@@ -77,4 +77,4 @@ export default function FooterMain() {
       </Row>
     </Container>
   );
-}
+});

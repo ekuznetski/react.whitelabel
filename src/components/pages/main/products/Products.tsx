@@ -2,10 +2,11 @@ import { OpenLiveAccountBannerSection } from '@components/sections';
 import { Button, SectionBg } from '@components/shared';
 import { MarketType } from '@domain/enums';
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { config } from './';
+import { TableSection } from './components';
 import './Products.scss';
-import { ITableSection, TableSection } from './tableSection/TableSection';
 
 export function Products() {
   const [activeSection, selectedSection] = useState('forex');
@@ -15,96 +16,6 @@ export function Products() {
   );
   let { location, replace }: any = useHistory();
   const { t } = useTranslation();
-
-  const headerNavigation: { label: string; anchor: MarketType }[] = [
-    { label: t('Forex'), anchor: MarketType.forex },
-    { label: t('Stocks'), anchor: MarketType.stocks },
-    { label: t('Indices'), anchor: MarketType.indices },
-    { label: t('Cryptocurrencies'), anchor: MarketType.crypto },
-    { label: t('Commodities'), anchor: MarketType.commodities },
-    { label: t('ETFs'), anchor: MarketType.etfs },
-  ];
-
-  const tableSections: ITableSection[] = [
-    {
-      title: t('Forex'),
-      desc: t('Product Section Forex Desc'),
-      tableType: MarketType.forex,
-      points: [
-        <Trans i18nKey="Spreads from #" values={{ val: '0.2' }}>
-          Spreads from <b>0.2</b>
-        </Trans>,
-        <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
-          Max. Leverage <b>1:200</b>
-        </Trans>,
-        <Trans i18nKey="Margins from just #" values={{ val: '0.50%' }}>
-          Margins from just <b>0.50%</b>
-        </Trans>,
-      ],
-    },
-    {
-      title: t('Stocks'),
-      desc: t('Product Section Stocks Desc'),
-      tableType: MarketType.stocks,
-      reversed: true,
-      points: [
-        <Trans i18nKey="Max Leverage #" values={{ val: '1:20' }}>
-          Max. Leverage <b>1:20</b>
-        </Trans>,
-        <Trans i18nKey="Margins from just #" values={{ val: '5%' }}>
-          Margins from just <b>5%</b>
-        </Trans>,
-      ],
-    },
-    {
-      title: t('Indices'),
-      desc: t('Product Section Indices Desc'),
-      tableType: MarketType.indices,
-      points: [
-        <>
-          <b>15+</b> {t('Most Popular Indices Worldwide')}
-        </>,
-        <Trans i18nKey="Max Leverage #" values={{ val: '1:200' }}>
-          Max. Leverage <b>1:200</b>
-        </Trans>,
-      ],
-    },
-    {
-      title: t('Cryptocurrencies'),
-      desc: t('Product Section Cryptocurrencies Desc'),
-      tableType: MarketType.crypto,
-      reversed: true,
-      points: [
-        <Trans i18nKey="Max Leverage #" values={{ val: '1:20' }}>
-          Max. Leverage <b>1:20</b>
-        </Trans>,
-        <>
-          <b>5</b> {t('Main Cryptocurrencies')}
-        </>,
-      ],
-    },
-    {
-      title: t('Commodities'),
-      desc: t('Product Section Commodities Desc'),
-      tableType: MarketType.commodities,
-      points: [
-        <Trans i18nKey="Max Leverage #" values={{ val: '1:133' }}>
-          Max. Leverage <b>1:133</b>
-        </Trans>,
-      ],
-    },
-    {
-      title: t('ETFs'),
-      desc: t('Product Section ETFs Desc'),
-      tableType: MarketType.etfs,
-      reversed: true,
-      points: [
-        <Trans i18nKey="Max Leverage #" values={{ val: '1:20' }}>
-          Max. Leverage <b>1:20</b>
-        </Trans>,
-      ],
-    },
-  ];
 
   useEffect(() => {
     if (location.state?.scrollTo) {
@@ -135,7 +46,7 @@ export function Products() {
             </div>
           </div>
           <div className="row mx-n1">
-            {headerNavigation.map((navBtn, n) => (
+            {config.headerNavigation.map((navBtn, n) => (
               <div key={n} className="col-6 col-md-4 col-lg-2 px-1 mb-5 mb-lg-0">
                 <Button
                   className={navBtn.anchor === activeSection ? 'active' : ''}
@@ -148,7 +59,7 @@ export function Products() {
           </div>
         </div>
       </section>
-      {tableSections.map((sectionProps, s) => (
+      {config.tableSections.map((sectionProps, s) => (
         <TableSection key={s} {...sectionProps} ref={sectionRefs[sectionProps.tableType]} />
       ))}
       <OpenLiveAccountBannerSection />

@@ -1,7 +1,8 @@
 import { Footer, Header, Router } from '@components/core';
 import { IntercomChat } from '@components/shared';
-import { env, localesConfig } from '@domain';
+import { localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
+import { env } from '@env';
 import { ac_updateRouteParams, IStore, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
 import classNames from 'classnames';
@@ -10,7 +11,7 @@ import { browserName, osName } from 'react-device-detect';
 import TagManager from 'react-gtm-module';
 import { hot } from 'react-hot-loader/root';
 import { useTranslation } from 'react-i18next';
-import { connect, Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './App.scss';
 
@@ -24,14 +25,14 @@ function App() {
   return (
     <Provider store={store}>
       <Suspense fallback={null}>
-        <WrappedMain />
+        <Main />
         {env.PRODUCTION && <IntercomChat />}
       </Suspense>
     </Provider>
   );
 }
 
-function Main() {
+export function Main() {
   const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({
     section: state.app.route.appSection,
   }));
@@ -85,5 +86,4 @@ function Main() {
   );
 }
 
-export const WrappedMain = connect()(Main);
 export default hot(App);

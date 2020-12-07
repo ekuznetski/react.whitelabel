@@ -5,3 +5,4 @@ export * from './clientStatusPair';
 export * from './formatNumberWithCommas';
 export * from './shallowEqual';
 export * from './deepDifference';
+export * from './routeFetchData';

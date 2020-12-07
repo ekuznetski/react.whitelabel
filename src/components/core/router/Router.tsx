@@ -1,11 +1,12 @@
 import { localesConfig, routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@domain';
 import { ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
-import { ac_fetchContent, ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
+import { ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
+import { routeFetchData } from '@utils/fn';
 import { useLockScroll, usePathLocale } from '@utils/hooks';
 import { useBoolean, useThrottleEffect } from 'ahooks';
 import React, { memo, useEffect } from 'react';
-import { batch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { NotFound, PageLoader } from '..';
 
@@ -73,41 +74,7 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
   const history = useHistory();
 
   useEffect(() => {
-    const _batchDispatch: any[] = [];
-
-    // Request Page Content
-    const urlReducer: string[] = []; // Reduce path depth (the parent path will be send to translation req)
-    const urlProxy: { [key: string]: string } = {}; // Replace left side to right side and send to translation req
-    const url = route.path.split('/').reduce((acc: string[], el) => {
-      if (!urlReducer.includes(el)) acc.push(el);
-      if (urlProxy[el]) acc.push(urlProxy[el]);
-      return acc;
-    }, []);
-
-    const page = url.slice(-1).toString() || 'main';
-    _batchDispatch.push(ac_fetchContent({ page }));
-
-    // Request Initial ApiData
-    [
-      ...(routesInitialApiData[route.appSection]?.lazy || []),
-      ...(routesInitialApiData[route.appSection]?.strict || []),
-    ]?.forEach((ac) => {
-      const _ac = ac();
-      // console.log('Request Initial Action: ' + _ac.type);
-      _batchDispatch.push(_ac);
-    });
-
-    // Request Page ApiData
-    [...(route.apiData?.lazy || []), ...(route.apiData?.strict || [])]?.forEach((ac) => {
-      const _ac = ac();
-      // console.log('Request Page Action: ' + _ac.type);
-      _batchDispatch.push(_ac);
-    });
-
-    batch(() => {
-      _batchDispatch.forEach((action) => store.dispatch(action));
-    });
-
+    routeFetchData(route);
     useLockScroll(true);
     setFirstRender();
 

@@ -31,6 +31,8 @@
       "@utils/fn": ["utils/fn/index.ts"],
       "@domain": ["domain/index.ts"],
       "@store": ["store/index.ts"],
+      "@env": ["env/index.ts"],
+      "@i18n": ["i18n.ts"],
       "~/variables": ["scss/variables.scss"],
       "~/utilities": ["scss/utilities.scss"],
       "~/theme": ["scss/theme.scss"],

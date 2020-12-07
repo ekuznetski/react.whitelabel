@@ -1,9 +1,8 @@
-import { useCombinedRef } from '@utils/hooks';
+import { useCombinedRef, useLockScroll } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { useLockScroll } from '@utils/hooks';
-import { Svg } from '..';
+import { Svg } from '../svg/Svg';
 import './Modal.scss';
 
 export interface IModal {
@@ -15,10 +14,12 @@ export interface IModal {
   isOpenDispatcher: React.Dispatch<React.SetStateAction<boolean>> | React.Dispatch<boolean>;
 }
 
+
 export const Modal = memo(
   forwardRef<HTMLDivElement, IModal>(function Modal(props: any, ref) {
     const wrapperRef = React.createRef<HTMLDivElement>();
     const elementRef = useCombinedRef(ref);
+    const TARGET_CONTAINER = document.getElementById('dynamic-portals') || document.body;
 
     useEffect(() => {
       return () => {
@@ -31,6 +32,7 @@ export const Modal = memo(
     }, [props.isOpen]);
 
     return (
+      TARGET_CONTAINER &&
       props.isOpen &&
       ReactDOM.createPortal(
         <div className={classNames('modal-wrapper', props.className)} ref={wrapperRef}>
@@ -61,7 +63,7 @@ export const Modal = memo(
             <div className="common-modal__content">{props.children}</div>
           </div>
         </div>,
-        document.getElementById('dynamic-portals') || document.body,
+        TARGET_CONTAINER,
       )
     );
   }),

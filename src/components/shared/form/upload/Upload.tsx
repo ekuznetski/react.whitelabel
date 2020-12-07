@@ -1,5 +1,5 @@
-import { Button, EUploadWrapperViewType, useUploadWrapperDispatch } from '@components/shared';
-import { EDocumentsType } from '@domain/enums';
+import { Svg } from '@components/shared';
+import { MDocument } from '@domain/models';
 import { ac_uploadDocuments } from '@store';
 import { useCombinedRef } from '@utils/hooks';
 import { useSetState } from 'ahooks';
@@ -8,7 +8,9 @@ import React, { forwardRef, memo, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { Button } from '../button/Button';
 import { UploadEmptyView, UploadReadyView } from './components';
+import { UploadWrapperProvider, useUploadWrapperDispatch } from './upload-wrapper.context';
 import {
   UploadDispatch,
   UploadProvider,
@@ -17,38 +19,29 @@ import {
   UploadViewState,
   useUploadDispatch,
 } from './upload.context';
+import {
+  DocsType,
+  IDocumentsListProps,
+  ISelectDocumentTypeProps,
+  MultipleUploadProps,
+  UploadProps,
+} from './upload.interface';
 import './Upload.scss';
+import { $t } from './UploadWrapper.locale';
 
-interface UploadProps {
-  fileType: EDocumentsType;
-  fieldName: string;
-  className?: string;
-  uploadSectionClassName?: string;
-  description?: UploadText;
-  icon?: string;
-  iconWidth?: number;
-  iconHeight?: number;
-  accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx' | 'tiff')[];
-  maxFileSizeKb?: number;
-  disabled?: boolean;
-  errorText?: UploadText;
-  transferControls?: false & {
-    trackContextState: (state: UploadState) => void;
-    regContextDispatch: (dispatch: UploadDispatch) => void;
-  };
-  isComplete?: () => void;
-  isLoading?: () => void;
-  isError?: (el: UploadState) => void;
+export enum EUploadWrapperViewType {
+  select = 'select',
+  upload = 'upload',
+  documents = 'documents',
 }
-
-interface MultipleUploadProps {
-  children: React.ReactElement[];
-  accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx' | 'tiff')[];
-  maxFileSizeKb?: number;
-  disabled?: boolean;
-  isComplete?: () => void;
-  isLoading?: () => void;
-  isError?: (el: UploadState) => void;
+interface IUploadWrapperProps {
+  children:
+    | React.ReactElement<typeof UploadFile>
+    | React.ReactElement<typeof MultipleUpload>
+    | React.ReactElement<typeof UploadDocumentCard>
+    | React.ReactElement<typeof UploadDocumentCard>[];
+  documents: MDocument[];
+  viewChanged?: (view: EUploadWrapperViewType) => void;
 }
 
 // not working with HMR
@@ -88,7 +81,7 @@ export const MultipleUpload = memo(
     }, [multiContextState]);
 
     function trackUploadFileContext(uploadFileId: string) {
-      return function(contextData: UploadState) {
+      return function (contextData: UploadState) {
         // if (multiContextState[uploadFileId] && !shallowEqual(multiContextState[uploadFileId], contextData)) {
         //   const diff = deepDifference(multiContextState[uploadFileId], contextData);
         //   if (diff.view && multiContextState[uploadFileId] == UploadViewState.error) {
@@ -107,7 +100,7 @@ export const MultipleUpload = memo(
     }
 
     function regUploadFileContextDispatch(uploadFileId: string) {
-      return function(contextDispatch: UploadDispatch) {
+      return function (contextDispatch: UploadDispatch) {
         setMultiContextDispatch({ [uploadFileId]: contextDispatch });
       };
     }
@@ -298,4 +291,134 @@ export const UploadFileIcon = memo(function UploadFileIcon(props: {
   }, []);
 
   return null;
+});
+
+export const UploadWrapper = memo(function UploadWrapper({ children, documents, ...props }: IUploadWrapperProps) {
+  // const [state, setState] = useSetState<IUploadWrapperState>({
+  //   documentsTypeList: [],
+  //   selectedDocTypeIdx: 0,
+  //   view: null,
+  // });
+
+  return (
+    <UploadWrapperProvider>
+      {(state, dispatch) => {
+        useEffect(() => {
+          const documentsTypeList: DocsType[] = [];
+
+          if (
+            !Array.isArray(children) &&
+            !(children.type == UploadFile || children.type == MultipleUpload || children.type == UploadDocumentCard)
+          ) {
+            throw new Error(
+              'UploadWrapper must and could contain only <UploadFile>, <MultiUpload> or <UploadDocumentCard> component',
+            );
+          } else if (
+            (Array.isArray(children) && children.every((child) => child.type == UploadDocumentCard)) ||
+            (!Array.isArray(children) && children.type == UploadDocumentCard)
+          ) {
+            [children].flat().forEach((child) => {
+              const _props: any = { ...child.props };
+              delete _props.children;
+              documentsTypeList.push(_props);
+            });
+          }
+
+          if (documents?.length) dispatch({ view: EUploadWrapperViewType.documents });
+          else if (documentsTypeList.length && documentsTypeList.length > 1) {
+            dispatch({ view: EUploadWrapperViewType.select, documentsTypeList });
+          } else dispatch({ view: EUploadWrapperViewType.upload });
+        }, []);
+
+        function selectDocTypeIdxToUpload(idx: number) {
+          dispatch({ activeDocTypeIdx: idx, view: EUploadWrapperViewType.upload });
+        }
+
+        function renderView() {
+          switch (state.view) {
+            case EUploadWrapperViewType.select:
+              return (
+                <SelectDocumentType
+                  typesList={state.documentsTypeList as DocsType[]}
+                  onDocTypeSelected={selectDocTypeIdxToUpload}
+                />
+              );
+            case EUploadWrapperViewType.upload:
+              return (
+                <>
+                  <div className="upload-wrapper__header mb-7">
+                    <a
+                      className="upload-wrapper__back"
+                      onClick={() => dispatch({ view: EUploadWrapperViewType.select })}
+                    >
+                      Back
+                    </a>
+                    {
+                      // @ts-ignore
+                      !Array.isArray(children) ? children.props.label : children[state.selectedDocTypeIdx].props.label
+                    }
+                  </div>
+                  {
+                    // @ts-ignore
+                    !Array.isArray(children) ? children : children[state.selectedDocTypeIdx].props.children
+                  }
+                </>
+              );
+            case EUploadWrapperViewType.documents:
+              return <DocumentsList documents={documents} />;
+          }
+        }
+
+        return <div className="upload-wrapper">{renderView()}</div>;
+      }}
+    </UploadWrapperProvider>
+  );
+});
+
+export const UploadDocumentCard = memo(function DocumentCard(
+  props: DocsType & {
+    children: React.ReactElement<typeof UploadFile> | React.ReactElement<typeof MultipleUpload>;
+  },
+) {
+  if (!(props.children.type == UploadFile || props.children.type == MultipleUpload)) {
+    throw new Error('UploadWrapper must and could contain only <UploadFile> or <MultiUpload> component');
+  }
+
+  return null;
+});
+
+const SelectDocumentType = memo(function SelectDocumentType({
+  typesList,
+  onDocTypeSelected,
+}: ISelectDocumentTypeProps) {
+  return (
+    <div className="select-document-type">
+      <div className="select-document-type__note mb-7">{$t.selectDocumentTypeNote()}</div>
+      <div className="select-document-type__list">
+        {typesList.map((item, idx) => (
+          <div key={idx} className="list__item mx-2" onClick={() => onDocTypeSelected(idx)}>
+            <Svg href={item.icon} height={50} className="mb-2" />
+            {item.label}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+});
+
+const DocumentsList = memo(function DocumentsList({ documents }: IDocumentsListProps) {
+  return (
+    <div className="documents-list">
+      {documents.map((document) => (
+        <div
+          key={document.id}
+          className={classNames('documents-list__item mb-3 py-2 pr-2', document.document_status.toLowerCase())}
+        >
+          <Svg href="imageType_small" height={16} className="ml-4 mr-3" />
+          <div className="document__type mr-auto">{document.document_type}</div>
+          <div className="document__status">{$t.documentStatus(document.document_status)}</div>
+        </div>
+      ))}
+    </div>
+  );
 });

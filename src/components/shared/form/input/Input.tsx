@@ -1,10 +1,10 @@
-import React, { memo, useState, useEffect, forwardRef } from 'react';
-import './Input.scss';
-import { useField, useFormikContext } from 'formik';
-import classNames from 'classnames';
 import { EFormStatus } from '@domain/enums';
-import { Loader } from '@components/shared';
 import { useCombinedRef } from '@utils/hooks';
+import classNames from 'classnames';
+import { useField, useFormikContext } from 'formik';
+import React, { forwardRef, memo, useEffect, useState } from 'react';
+import { Loader } from '../../loader/Loader';
+import './Input.scss';
 
 export const Input = memo(
   forwardRef<HTMLInputElement, any>(function Input(

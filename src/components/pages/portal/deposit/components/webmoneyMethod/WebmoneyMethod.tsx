@@ -1,17 +1,14 @@
 import { Button } from '@components/shared';
-import { FieldValidators } from '@domain';
-import React, { useContext } from 'react';
+import { EDepositMethodCode, ELanguage, ETradingType } from '@domain/enums';
+import { IWebmoneyDepositRequest } from '@domain/interfaces';
+import { MClientProfile } from '@domain/models';
+import { ac_addDeposit, IStore } from '@store';
+import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import * as Yup from 'yup';
-import { BillingDetailsModal, DetailsHeader } from '..';
-import { DepositContext, useDepositDispatch, useDepositState } from '../../deposit.context';
-import { ac_addDeposit, IStore } from '@store';
-import { ELanguage, EDepositMethodCode, ETradingType } from '@domain/enums';
-import { ISkrillDepositRequest, IWebmoneyDepositRequest } from '@domain/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
-import { MClientProfile } from '@domain/models';
-import cheerio from 'cheerio';
+import { BillingDetailsModal, DetailsHeader } from '..';
+import { useDepositState } from '../../deposit.context';
 
 export function WebmoneyMethod() {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
-import { LocaleLink } from '@components/shared';
 import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { LocaleLink } from '../localeLink/LocaleLink';
 import './AuthAlreadyRegisteredLink.scss';
 
 export function AuthAlreadyRegisteredLink({ className }: any) {

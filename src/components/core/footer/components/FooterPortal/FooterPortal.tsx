@@ -1,10 +1,10 @@
-import React from 'react';
+import { config } from '@core/footer';
+import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { config } from '@core/footer';
 import './FooterPortal.scss';
 
-export default function FooterPortal() {
+export const FooterPortal = memo(function FooterPortal() {
   const { t } = useTranslation();
 
   return (
@@ -34,4 +34,4 @@ export default function FooterPortal() {
       </Row>
     </Container>
   );
-}
+});

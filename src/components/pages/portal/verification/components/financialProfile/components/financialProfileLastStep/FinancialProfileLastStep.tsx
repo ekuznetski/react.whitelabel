@@ -1,9 +1,9 @@
-import React, { memo } from 'react';
-import { FieldValidators } from '@domain';
-import { Form, Formik } from 'formik';
-import { AnyFunction } from '@domain/interfaces';
-import { useTranslation } from 'react-i18next';
 import { Button, Checkbox } from '@components/shared';
+import { FieldValidators } from '@domain';
+import { AnyFunction } from '@domain/interfaces';
+import { Form, Formik } from 'formik';
+import React, { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 interface FinancialProfileStepProps {
@@ -27,9 +27,7 @@ export const FinancialProfileLastStep = memo(function FinancialProfileStep({ sub
       {() => {
         return (
           <>
-            <div className="financial-profile__step-title mb-10">
-              {t('Declarations and Acknowledgement of Risks')}
-            </div>
+            <div className="financial-profile__step-title mb-10">{t('Declarations and Acknowledgement of Risks')}</div>
             <ul>
               {t<string[]>('Financial Profile Last Stem Declaration Terms', { returnObjects: true }).map(
                 (sentence, s) => (

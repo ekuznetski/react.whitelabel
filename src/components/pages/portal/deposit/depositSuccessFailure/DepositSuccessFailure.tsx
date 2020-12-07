@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
-import { EDepositMethods, EResponseStatus } from '@domain/enums';
 import { Button, LocaleLink, Svg } from '@components/shared';
-import { Col, Row } from 'react-bootstrap';
-import './DepositSuccessFailure.scss';
-import { useHistory } from 'react-router-dom';
+import { EDepositMethods, EResponseStatus } from '@domain/enums';
 import { usePathLocale } from '@utils/hooks';
+import React, { memo } from 'react';
+import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import './DepositSuccessFailure.scss';
 
 export const DepositSuccessFailure = memo(function DepositSuccessFailure({ result }: { result: EResponseStatus }) {
   const { t } = useTranslation();

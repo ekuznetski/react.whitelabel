@@ -4,8 +4,8 @@ import { ELabels } from '@domain/enums';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { config } from './';
 import { BannerCard, UserProfileCard } from './components';
-import { config } from './Dashboard.config';
 import './Dashboard.scss';
 
 export const Dashboard = memo(function Dashboard() {

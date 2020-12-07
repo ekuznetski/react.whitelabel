@@ -17,12 +17,11 @@ export function UserProfileCard() {
   }));
   const [isDropdownMenuOpen, setDropdownMenuOpen] = useState(false);
   const profileNavRef = React.createRef<HTMLDivElement>();
+  const { t } = useTranslation();
 
   function toggleDropdownMenu() {
     setDropdownMenuOpen(!isDropdownMenuOpen);
   }
-
-  const { t } = useTranslation();
 
   return (
     <div className="user-profile-card">
