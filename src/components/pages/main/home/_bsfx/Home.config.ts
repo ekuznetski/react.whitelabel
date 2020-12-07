@@ -1,4 +1,4 @@
-import { config as _config } from '../home.config';
+import { config as _config } from '../Home.config';
 
 export const config = {
   ..._config,
