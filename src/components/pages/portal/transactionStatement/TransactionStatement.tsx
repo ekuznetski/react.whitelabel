@@ -43,26 +43,14 @@ export const TransactionStatement = memo(function TransactionStatement() {
     },
     {
       label: t('Last Month Transactions'),
-      value: [
-        moment()
-          .subtract(1, 'months')
-          .startOf('month'),
-        moment()
-          .subtract(1, 'months')
-          .endOf('month'),
-      ],
+      value: [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')],
     },
   ];
   const monthlyTransactionsFilter = Array.apply(0, Array(12))
     .map((_, i) => moment().subtract(i, 'months'))
     .map((_moment, idx) => ({
       label: _moment.format('MMMM YYYY'),
-      value: [
-        moment(_moment)
-          .startOf('month')
-          .startOf('day'),
-        _moment.endOf('month'),
-      ],
+      value: [moment(_moment).startOf('month').startOf('day'), _moment.endOf('month')],
     }));
 
   function Submit(values: FormikValues) {

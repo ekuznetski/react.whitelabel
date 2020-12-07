@@ -47,12 +47,6 @@ export enum ENotificationType {
   failure = 'failure',
 }
 
-export enum EDocumentsStatus {
-  approved = 'Approved',
-  rejected = 'Rejected',
-  pending = 'Pending',
-}
-
 export enum EClientStatus {
   notSubmitted = 'Not submitted',
   submitted = 'Submitted',

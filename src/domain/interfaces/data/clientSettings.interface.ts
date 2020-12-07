@@ -17,6 +17,10 @@ export interface IClientSettings {
   allow_internal_transfer: boolean;
   enable_citioptions: boolean;
   show_praxis_and_webmoney: boolean;
+  phone_verification: string;
+  show_promotions: boolean;
+  show_compliance_popup: boolean;
+  switch_cayman: boolean;
 }
 
 export type IClientSettingsResponse = {

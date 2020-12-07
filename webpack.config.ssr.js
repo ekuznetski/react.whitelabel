@@ -10,10 +10,11 @@ module.exports = (_env = {}, arguments) => {
   const configPlugins = config.plugins;
 
   return {
+    stats: 'errors-only',
     context: path.join(__dirname, 'src'),
     entry: './server.tsx',
     externals: [nodeExternals()],
-    mode: 'production',
+    mode: 'development',
     target: 'node',
     resolve: configResolve,
     output: {

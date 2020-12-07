@@ -1,34 +1,15 @@
-import {
-  Button,
-  CountrySelect,
-  Input,
-  Modal,
-  ModalContext,
-  ModalNav,
-  ModalTitle,
-  Radio,
-  Select,
-  Svg,
-  TradingAccountsSelect,
-} from '@components/shared';
-import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Form, Formik, FormikValues } from 'formik';
-import { Col, Row } from 'react-bootstrap';
-import classNames from 'classnames';
-import { MClientProfile, MTradingAccount } from '@domain/models';
-import {
-  depositActionCreators,
-  DepositContext,
-  IDepositState,
-  useDepositDispatch,
-  useDepositState,
-} from '../../deposit.context';
-import { Country, ECurrencyCode, ELanguage, ETradingPlatform } from '@domain/enums';
-import * as Yup from 'yup';
+import { Button, CountrySelect, Input, Modal, ModalContext, ModalTitle, Select, Svg } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { useSelector } from 'react-redux';
+import { Country } from '@domain/enums';
+import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
+import { Form, Formik, FormikValues } from 'formik';
+import React, { Dispatch, SetStateAction } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import * as Yup from 'yup';
+import { depositActionCreators, useDepositDispatch, useDepositState } from '../../deposit.context';
 
 interface IBillingDetailsModalProps {
   isModalOpen: boolean;
@@ -73,8 +54,9 @@ function BillingForm({ setModalOpen }: any) {
       }}
       validationSchema={validationSchema}
       onSubmit={(data) => {
-        if (!data[EFields.country]?.states) {
-          delete data[EFields.state_code];
+        const _data = { ...data };
+        if (!_data[EFields.country]?.states) {
+          delete _data[EFields.state_code];
         }
         depositContextDispatch(depositActionCreators.setBillingDetails(data));
         setModalOpen(false);

@@ -28,5 +28,3 @@ export const config = {
     ..._config.trustedCards.slice(1),
   ],
 };
-
-export default config;

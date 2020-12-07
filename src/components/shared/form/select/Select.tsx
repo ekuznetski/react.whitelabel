@@ -1,12 +1,13 @@
-import { IconFlag, Svg } from '@components/shared';
 import { countries, Currencies, EFormStatus } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import { useCounter, useSetState } from 'ahooks';
 import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
-import React, { memo, useEffect, useState } from 'react';
-import ReactSelect, { components, createFilter, MenuProps } from 'react-select';
+import React, { memo, useEffect } from 'react';
+import ReactSelect, { components, MenuProps } from 'react-select';
 import { FixedSizeList as List } from 'react-window';
+import { IconFlag } from '../../iconFlag/IconFlag';
+import { Svg } from '../../svg/Svg';
 import './Select.scss';
 
 const OPTION_HEIGHT = 36;
@@ -280,6 +281,7 @@ export const CurrencySelect = memo((props: any) => {
 export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingAccount }) => {
   const innerProps = { ...props };
   delete innerProps.options;
+  delete innerProps.components;
 
   const options = props.options.map((account: MTradingAccount) => ({
     label: (
@@ -310,7 +312,6 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
 
   return (
     <Select
-      name={name}
       options={options}
       components={{ Option }}
       {...innerProps}

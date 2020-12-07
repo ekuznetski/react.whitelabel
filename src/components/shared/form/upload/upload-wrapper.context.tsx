@@ -1,5 +1,6 @@
 import React from 'react';
-import { DocsType, EUploadWrapperViewType } from '..';
+import { EUploadWrapperViewType } from './Upload';
+import { DocsType } from './upload.interface';
 
 export type UploadWrapperDispatch = (action: Action) => void;
 export type UploadWrapperState = {
@@ -61,3 +62,4 @@ function useUploadWrapperDispatch() {
 }
 
 export { UploadWrapperProvider, useUploadWrapperState, useUploadWrapperDispatch };
+

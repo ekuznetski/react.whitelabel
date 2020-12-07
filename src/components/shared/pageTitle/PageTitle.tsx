@@ -1,8 +1,8 @@
 import { ColNumberAttr } from '@domain/interfaces';
 import classNames from 'classnames';
-import { ELabels } from '@domain/enums';
 import React from 'react';
-import { Img, LabelView, LocaleNavLink, Svg } from '..';
+import { LocaleNavLink } from '../localeNavLink/LocaleNavLink';
+import { Svg } from '../svg/Svg';
 import './PageTitle.scss';
 
 type IPageTitle = {

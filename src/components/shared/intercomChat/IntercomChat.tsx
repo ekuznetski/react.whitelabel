@@ -1,4 +1,4 @@
-import { env } from '@domain';
+import { env } from '@env';
 import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
 import React, { memo, useEffect } from 'react';

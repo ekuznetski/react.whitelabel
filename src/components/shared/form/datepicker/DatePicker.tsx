@@ -1,4 +1,3 @@
-import { DropDown, Svg } from '@components/shared';
 import { EFormStatus } from '@domain/enums';
 import { useCombinedRef } from '@utils/hooks';
 import { useResponsive, useSetState } from 'ahooks';
@@ -7,6 +6,8 @@ import { useField, useFormikContext } from 'formik';
 import moment from 'moment';
 import React, { forwardRef, memo, ReactNode, useEffect } from 'react';
 import DayPicker, { DateUtils, DayModifiers } from 'react-day-picker';
+import { DropDown } from '../../dropdown/Dropdown';
+import { Svg } from '../../svg/Svg';
 import './DatePicker.scss';
 
 interface IDatePicker {

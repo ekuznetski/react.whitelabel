@@ -1,16 +1,16 @@
-import { Button, Img, Modal, ModalContext, ModalNav, ModalTitle, PageTitle, Svg } from '@components/shared';
+import { Button, Img, Modal, ModalContext, ModalNav, ModalTitle, PageTitle } from '@components/shared';
 import { ENotificationType, ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
 import { ac_fetchClientSettings, ac_login, ac_preRegister, ac_register, ac_showNotification } from '@store';
+import { usePathLocale } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
 import './Registration.scss';
-import { useHistory } from 'react-router-dom';
-import { usePathLocale } from '@utils/hooks';
 
 function getLocalStorageRegData() {
   const b64String = localStorage.getItem('regData');

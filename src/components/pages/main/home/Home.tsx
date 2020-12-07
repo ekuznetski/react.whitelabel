@@ -1,6 +1,6 @@
 import {
   AccountTypesForTradingStylesSection,
-  MobileTradingWithMT5Section,
+  MobileTradingSection,
   OpenLiveAccountBannerSection,
   OurOfferBannerSection,
   PrestigiousPlatformTechnologySection,
@@ -100,9 +100,9 @@ export function Home() {
       </LabelView>
       <LabelView>
         {{
-          '*': <MobileTradingWithMT5Section className="pt-0" />,
+          '*': <MobileTradingSection className="pt-0" />,
           [ELabels.bsfx]: (
-            <MobileTradingWithMT5Section
+            <MobileTradingSection
               title={
                 <Trans i18nKey="Main Mobile Trading Section Title">
                   Trading <b>on the go</b>

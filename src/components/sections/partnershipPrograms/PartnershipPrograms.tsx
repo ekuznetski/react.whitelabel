@@ -36,7 +36,7 @@ export const PartnershipPrograms = memo(
             <Col xs={12} className="p-0">
               <Cards id="partnership-programs__cards">
                 {config.programsCards.map((card) => (
-                  <Card uid={card.id} wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0">
+                  <Card key={card.id} uid={card.id} wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0">
                     <CardHeader className="mb-8 header">
                       <Svg href={card.icon} className="mr-5" />
                       {card.label}

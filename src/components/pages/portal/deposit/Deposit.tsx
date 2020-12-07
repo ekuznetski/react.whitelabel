@@ -1,14 +1,14 @@
 import { PageTitle, Tab, Tabs } from '@components/shared';
 import { AllowedCurrToMethodMap, ECurrencyCode, EDepositMethods } from '@domain/enums';
+import { IAppStore, IStore } from '@store';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
-import './Deposit.scss';
-import { depositActionCreators, DepositProvider, IDepositAction, IDepositState } from './deposit.context';
-import { DepositSuccessFailure } from './depositSuccessFailure/DepositSuccessFailure';
 import { useSelector } from 'react-redux';
-import { IAppStore, IStore } from '@store';
+import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
+import { depositActionCreators, DepositProvider, IDepositAction, IDepositState } from './deposit.context';
+import './Deposit.scss';
+import { DepositSuccessFailure } from './depositSuccessFailure/DepositSuccessFailure';
 
 export const Deposit = memo(function Deposit() {
   const { route, tradingAccountsCurrencies } = useSelector<

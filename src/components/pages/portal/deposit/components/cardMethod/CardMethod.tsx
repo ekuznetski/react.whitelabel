@@ -1,19 +1,19 @@
 import { Button, Input, Svg } from '@components/shared';
 import { FieldValidators } from '@domain';
+import { ECreditCardType, EDepositMethodCode, ELanguage, ETradingType } from '@domain/enums';
+import { ICreditCardDepositRequest } from '@domain/interfaces';
+import { MClientProfile } from '@domain/models';
+import { ac_addDeposit, IStore } from '@store';
+import cardValidator from 'card-validator';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { BillingDetailsModal, CreditCardInfoModal, DetailsHeader } from '..';
 import { depositActionCreators, IDepositState, useDepositDispatch, useDepositState } from '../../deposit.context';
-import cardValidator from 'card-validator';
 import './CardMethod.scss';
-import { ECreditCardType, ELanguage, EDepositMethodCode, ETradingType } from '@domain/enums';
-import { useDispatch, useSelector } from 'react-redux';
-import { ac_addDeposit, IStore } from '@store';
-import { MClientProfile } from '@domain/models';
-import { ICreditCardDepositRequest } from '@domain/interfaces';
 
 enum EFields {
   'cardholderName' = 'cardholderName',
@@ -87,7 +87,7 @@ export function CardMethod() {
       then: FieldValidators.requiredNumber
         .min(1, t('This field is invalid'))
         .max(12, t('This field is invalid'))
-        .test('isBiggerCurrentMonth', '', function(value) {
+        .test('isBiggerCurrentMonth', '', function (value) {
           if (value) {
             const { path, parent, createError } = this;
             const { year } = parent;

@@ -1,11 +1,11 @@
+import { ETradingType } from '@domain/enums';
 import { IStore } from '@store';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { ITradingAccountSingleCard, TradingAccountSingleCard } from './SingleCard/TradingAccountSingleCard';
-import { ETradingType } from '@domain/enums';
-import './TradingAccountCards.scss';
 import { Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { TradingAccountAddCard } from './AddCard/TradingAccountAddCard';
+import { ITradingAccountSingleCard, TradingAccountSingleCard } from './SingleCard/TradingAccountSingleCard';
+import './TradingAccountCards.scss';
 
 export function TradingAccountCards(props: { type: ETradingType }) {
   const { tradingAccountCards } = useSelector<IStore, { tradingAccountCards: ITradingAccountSingleCard[] }>(

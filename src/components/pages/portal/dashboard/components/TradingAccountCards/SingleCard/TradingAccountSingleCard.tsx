@@ -1,7 +1,8 @@
 import { Button, DropDown, IconFlag, LocaleNavLink, Modal, Svg } from '@components/shared';
 import { Currencies, EAccountLeverage, ECurrencyCode, ETradingAccountType } from '@domain/enums';
+import { config } from '@pages/portal/dashboard';
 import classNames from 'classnames';
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './TradingAccountSingleCard.scss';
 
@@ -9,7 +10,7 @@ export interface ITradingAccountSingleCard {
   platform: string;
   type: ETradingAccountType;
   balance: number;
-  accountId: number;
+  accountId: string;
   leverage: EAccountLeverage;
   currency: ECurrencyCode;
   inline?: boolean;
@@ -21,28 +22,10 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
   const { t } = useTranslation();
   const navRef = React.createRef<HTMLButtonElement>();
 
-  const accountNavItems = [
-    {
-      icon: 'coins',
-      path: '/deposit',
-      title: t('Launch MT4 Web'),
-    },
-    {
-      icon: 'coins',
-      path: '/deposit',
-      title: t('Download MT4 Platform'),
-    },
-    {
-      icon: 'coins',
-      path: '/deposit',
-      title: t('Get Trading Statement'),
-    },
-    {
-      icon: 'coins',
-      title: t('Change Password'),
-      onclick: () => setChangePasswordOpen(true),
-    },
-  ];
+  useEffect(() => {
+    const changePassNavItem = config.accountNavItems.find((item) => item.id == 'password');
+    if (changePassNavItem) changePassNavItem.onClick = () => setDropdownMenuOpen(true);
+  }, []);
 
   function toggleDropdownMenu() {
     setDropdownMenuOpen(!isDropdownMenuOpen);
@@ -90,7 +73,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
           <DropDown
             width={270}
             parentRef={navRef}
-            items={accountNavItems}
+            items={config.accountNavItems}
             isOpen={isDropdownMenuOpen}
             isOpenDispatcher={setDropdownMenuOpen}
             position="right"

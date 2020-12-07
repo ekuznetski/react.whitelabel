@@ -1,10 +1,10 @@
-import React, { memo, useState, useEffect, forwardRef, useRef } from 'react';
-import './TextArea.scss';
-import { useField, useFormikContext } from 'formik';
-import classNames from 'classnames';
 import { EFormStatus } from '@domain/enums';
-import { Loader } from '@components/shared';
 import { useScroll } from '@utils/hooks';
+import classNames from 'classnames';
+import { useField, useFormikContext } from 'formik';
+import React, { forwardRef, memo, useEffect, useRef, useState } from 'react';
+import { Loader } from '../../loader/Loader';
+import './TextArea.scss';
 
 export const TextArea = memo(
   forwardRef<HTMLTextAreaElement, any>(function Input(
