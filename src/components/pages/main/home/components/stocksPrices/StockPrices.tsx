@@ -7,10 +7,8 @@ import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Area, AreaChart } from 'recharts';
-import { config } from './stockPrices.config';
+import { priceRawData } from './stockPrices.config';
 import './StockPrices.scss';
-
-const { priceRawData, productsLink } = config;
 
 export function StockPrices() {
   const [activePriceTab, setPriceTab] = useState<IPriceTabItem | null>();
@@ -144,7 +142,7 @@ function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
           </div>
         ))}
       </div>
-      <LocaleLink className="see-all" to={{ pathname: productsLink, state: { scrollTo: anchor } }}>
+      <LocaleLink className="see-all" to={{ pathname: '/products', state: { scrollTo: anchor } }}>
         {t('See all products')}
         <Svg href="chevron_right" className="ml-1" />
       </LocaleLink>
