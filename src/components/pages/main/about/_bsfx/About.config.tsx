@@ -25,6 +25,6 @@ export const config = {
       content: t('Instruments'),
       uid: 1,
     },
-    ..._config.trustedCards.slice(1),
+    ..._config.trustedCards.filter((card) => card.uid !== 1),
   ],
 };
