@@ -1,6 +1,6 @@
 import { MarketType } from '@domain/enums';
-import { marketLeverages as _marketLeverages } from '@domain';
-export { marketTableContent } from '@domain';
+import { marketLeverages as _marketLeverages } from '../../_default/portal/market.config';
+export { marketTableContent } from '../../_default/portal/market.config';
 
 export const marketLeverages = {
   ..._marketLeverages,
