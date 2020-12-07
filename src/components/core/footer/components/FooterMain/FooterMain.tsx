@@ -54,7 +54,7 @@ export const FooterMain = memo(function FooterMain() {
           <b className="mr-2">{t('Regional Restrictions')}:</b>
           <Trans i18nKey="Regional Restrictions Desc">
             Regional Restrictions Desc
-            <a className="ml-2">{t('Help Center')}</a>
+            <a className="ml-2">{t('Terms and Conditions')}</a>
           </Trans>
         </Col>
       </Row>
