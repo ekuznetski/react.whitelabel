@@ -50,4 +50,9 @@ export const config = {
       ],
     },
   },
+  downloadLinks: {
+    desktopLink: '',
+    appStoreLink: '',
+    googlePlayLink: '',
+  },
 };

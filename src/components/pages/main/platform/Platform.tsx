@@ -30,12 +30,18 @@ export function Platform() {
                 </div>
               </div>
               <div className="col-12 col-lg-9 col-xl-8 download-buttons row">
-                <Button className="mr-6 px-7 desktop_button">{t('Download Desktop Version')}</Button>
+                <Button className="mr-6 px-7 desktop_button">
+                  <a href={config.downloadLinks.desktopLink}>{t('Download Desktop Version')}</a>
+                </Button>
                 <Button className="mr-6 px-7 store-link">
-                  <Svg href="app_store_logo" />
+                  <a href={config.downloadLinks.appStoreLink}>
+                    <Svg href="app_store_logo" />
+                  </a>
                 </Button>
                 <Button className="px-7 store-link">
-                  <Svg href="google_play_logo" />
+                  <a href={config.downloadLinks.googlePlayLink}>
+                    <Svg href="google_play_logo" />
+                  </a>
                 </Button>
               </div>
             </div>
