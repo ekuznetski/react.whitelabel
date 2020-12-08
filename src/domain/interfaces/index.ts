@@ -9,6 +9,7 @@ export * from './app/notification.interface';
 export * from './app/deposit.interface';
 export * from './app/partnership.interface';
 export * from './app/financialProfile.interface';
+export * from './app/market.interface';
 // Data
 export * from './data/bankDetails.interface';
 export * from './data/content.interface';

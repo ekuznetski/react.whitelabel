@@ -71,8 +71,8 @@ module.exports = (_env, arguments) => {
   // Generate map to replace files for different domain
   if (targetLabel) {
     environmentFilenames = glob.sync(`./src/env/${targetLabelFolder}/*`);
-    stylesFilenames = glob.sync(`./src/scss/${targetLabelFolder}/*`);
-    domainFilenames = glob.sync(`./src/domain/${targetLabelFolder}/*`);
+    stylesFilenames = fs.readdirSync(`./src/scss/${targetLabelFolder}`);
+    domainFilenames = glob.sync(`./src/domain/${targetLabelFolder}/**`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
@@ -146,18 +146,22 @@ module.exports = (_env, arguments) => {
     // return;
 
     targetLabelConfigsAlias = domainFilenames
-      .map((filePath) => {
-        const extensions = ['tsx', 'ts', 'js'];
-        const { filename, extension, basename } = filePathDestructor(filePath);
-        return extensions.includes(extension) ? filename : basename;
+      .filter((filePath) => {
+        return filePath.match(/(.ts)/g);
       })
-      .reduce(
-        (acc, file) =>
-          Object.assign(acc, {
-            [`./_default/${file}`]: `./${targetLabelFolder}/${file}`,
-          }),
-        {},
-      );
+      .reduce((acc, filePath) => {
+        const { filename } = filePathDestructor(filePath);
+        const parentFolder = fileParentFolder(filePath);
+        if (parentFolder === targetLabelFolder) {
+          return Object.assign(acc, {
+            [`./_default/${filename}`]: `./${targetLabelFolder}/${filename}`,
+          });
+        } else {
+          return Object.assign(acc, {
+            [`./_default/${parentFolder}/${filename}`]: `./${targetLabelFolder}/${parentFolder}/${filename}`,
+          });
+        }
+      }, {});
 
     targetLabelEnvAlias = environmentFilenames
       .map((filePath) => {
@@ -173,34 +177,27 @@ module.exports = (_env, arguments) => {
         {},
       );
 
-    targetLabelLocaleAlias = localeFilenames
-      .map((filePath) => {
-        const { filename } = filePathDestructor(filePath);
-        return filename;
-      })
-      .reduce(
-        (acc, file) =>
-          Object.assign(acc, {
-            [`./locale/${file}`]: `./locale/${targetLabelFolder}/${file}`,
-          }),
-        {},
-      );
+    targetLabelLocaleAlias = localeFilenames.reduce((acc, filepath) => {
+      const { filename } = filePathDestructor(filepath);
+      return Object.assign(acc, {
+        [`./locale/${filename}`]: `./locale/${targetLabelFolder}/${filename}`,
+      });
+    }, {});
 
     // console.log(targetLabelLocaleAlias, localeFilenames);
     // return;
 
-    targetLabelScssAlias = stylesFilenames
-      .map((filePath) => {
-        const { filename } = filePathDestructor(filePath);
-        return filename;
-      });
+    targetLabelScssAlias = stylesFilenames.map((filePath) => {
+      const { filename } = filePathDestructor(filePath);
+      return filename;
+    });
 
     // console.log(targetLabelConfigsScss);
     // return
   }
 
   targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
-    const _filename = targetLabelScssAlias.find(el => pathKey.includes(el));
+    const _filename = targetLabelScssAlias.find((el) => pathKey.includes(el));
     let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
     if (_filename) {
       _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
@@ -213,7 +210,7 @@ module.exports = (_env, arguments) => {
       moduleAssets: false,
       children: false,
       colors: true,
-      logging: 'warn'
+      logging: 'warn',
     },
     context: path.join(__dirname, 'src'),
     entry: {
@@ -278,17 +275,14 @@ module.exports = (_env, arguments) => {
                     if (componentFile) {
                       const { filenamePrefix, basename } = filePathDestructor(componentFile);
                       const idx = componentsFilepaths.indexOf(componentFile),
-                        dir = path.dirname(targetLabelComponentsAlias[targetLabelComponentsKeys[idx]]).replace(/^[..(\\|\/)]+/, ''),
+                        dir = path
+                          .dirname(targetLabelComponentsAlias[targetLabelComponentsKeys[idx]])
+                          .replace(/^[..(\\|\/)]+/, ''),
                         from = componentFile,
-                        to = componentFile.replace(
-                          dir,
-                          dir.replace(new RegExp(`${targetLabelFolder}/?`), '')
-                        ).replace(
-                          basename,
-                          basename.replace(filenamePrefix, '')
-                        ),
+                        to = componentFile
+                          .replace(dir, dir.replace(new RegExp(`${targetLabelFolder}/?`), ''))
+                          .replace(basename, basename.replace(filenamePrefix, '')),
                         _import = `@import '${path.relative(from, to).replace(/[\\/]/g, '/').slice(3)}';`;
-
                       if (newContent.indexOf(_import) == -1) newContent = _import + newContent;
                     }
                   }
@@ -330,21 +324,21 @@ module.exports = (_env, arguments) => {
                 presets: [
                   [
                     '@babel/preset-env',
-                    !env.PRODUCTION ?
-                      {
-                        modules: false
-                      } :
-                      {
-                        targets: {
-                          node: 'current'
+                    !env.PRODUCTION
+                      ? {
+                          modules: false,
                         }
-                      }
+                      : {
+                          targets: {
+                            node: 'current',
+                          },
+                        },
                   ],
                   '@babel/preset-react',
-                  "@babel/preset-typescript"
+                  '@babel/preset-typescript',
                 ],
               },
-            }
+            },
           ],
         },
       ],

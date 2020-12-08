@@ -24,7 +24,7 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
 import { StockPrices } from './components';
-import { config } from './home.config';
+import { config } from './Home.config';
 import './Home.scss';
 
 export function Home() {
