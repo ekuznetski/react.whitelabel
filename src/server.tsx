@@ -21,11 +21,11 @@ const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
 const unsubscribeRequestResolver = store.subscribe(() => {
-		const storeState = store.getState();
+  const storeState = store.getState();
 
-		if (storeState.app.requests.activeList.length == 0 && requestResolver) {
-				requestResolver();
-		}
+  if (storeState.app.requests.activeList.length == 0 && requestResolver) {
+    requestResolver();
+  }
 });
 
 app.use(compression());
@@ -33,68 +33,68 @@ app.use(express.static('./browser'));
 app.use(express.static('./assets'));
 
 app.get('*', (req: express.Request, res: express.Response) => {
-		(global as any).window = window;
-		(global as any).document = document;
-		(global as any).location = window.location;
+  (global as any).window = window;
+  (global as any).document = document;
+  (global as any).location = window.location;
 
-		const fileExist = fs.existsSync(indexFile);
-		let url = req.url;
+  const fileExist = fs.existsSync(indexFile);
+  let url = req.url;
 
-		const urlArr = url.split('/');
-		if (urlArr.length >= 1 && Object.keys(ELanguage).includes(urlArr[1])) {
-				url = url.replace(`/${ELanguage[urlArr[1] as keyof typeof ELanguage]}`, '');
-		}
+  const urlArr = url.split('/');
+  if (Object.keys(ELanguage).includes(urlArr[1])) {
+    url = url.replace(`/${ELanguage[urlArr[1] as keyof typeof ELanguage]}`, '');
+  }
 
-		const route = routesNavConfig.find((el) => el.path === url);
-		if (!route || !fileExist) {
-				if (!route) console.error('Cant find content for route', req.url, '[', url, ']');
-				if (!fileExist) console.error('Server.html not found');
+  const route = routesNavConfig.find((el) => el.path === url);
+  if (!route || !fileExist) {
+    if (!route) console.error('Cant find content for route', req.url, '[', url, ']');
+    if (!fileExist) console.error('Server.html not found');
 
-				// unsubscribeRequestResolver();
-				return res.status(500).send('Oops, better luck next time!');
-		}
+    // unsubscribeRequestResolver();
+    return res.status(500).send('Oops, better luck next time!');
+  }
 
-		return new Promise((resolve) => {
-				requestResolver = resolve;
-				routeFetchData(route);
-		}).then(() => {
-				const app = renderToString(
-						<StaticRouter location={url}>
-								<Provider store={store}>
-										<div className="main-wrapper">
-												<Header />
-												<main className="router-context">
-														{route.appSection === EAppSection.portal ? null : route.component && <route.component />}
-												</main>
-										</div>
-										<Footer />
-										<div id="dynamic-portals" />
-								</Provider>
-						</StaticRouter>,
-				);
+  return new Promise((resolve) => {
+    requestResolver = resolve;
+    routeFetchData(route);
+  }).then(() => {
+    const app = renderToString(
+      <StaticRouter location={url}>
+        <Provider store={store}>
+          <div className="main-wrapper">
+            <Header />
+            <main className="router-context">
+              {route.appSection === EAppSection.portal ? null : route.component && <route.component />}
+            </main>
+          </div>
+          <Footer />
+          <div id="dynamic-portals" />
+        </Provider>
+      </StaticRouter>,
+    );
 
-				return fs.readFile(indexFile, 'utf8', async (err, data) => {
-						if (err) {
-								console.error('Something went wrong:', err);
+    return fs.readFile(indexFile, 'utf8', async (err, data) => {
+      if (err) {
+        console.error('Something went wrong:', err);
 
-								unsubscribeRequestResolver();
-								return res.status(500).send('Oops, better luck next time!');
-						}
-						const preloadedState = store.getState();
-						preloadedState.app.route.isLoading = false;
-						return res.send(
-								data.replace(
-										'<div id="root"></div>',
-										`<div id="root">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(preloadedState).replace(
-												/</g,
-												'\\u003c',
-										)}</script>`,
-								),
-						);
-				});
-		});
+        unsubscribeRequestResolver();
+        return res.status(500).send('Oops, better luck next time!');
+      }
+      const preloadedState = store.getState();
+      preloadedState.app.route.isLoading = false;
+      return res.send(
+        data.replace(
+          '<div id="root"></div>',
+          `<div id="root">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(preloadedState).replace(
+            /</g,
+            '\\u003c',
+          )}</script>`,
+        ),
+      );
+    });
+  });
 });
 
 app.listen(PORT, () => {
-		console.log(`Server is listening on port ${PORT}`);
+  console.log(`Server is listening on port ${PORT}`);
 });
