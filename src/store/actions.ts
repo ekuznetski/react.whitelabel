@@ -2,6 +2,7 @@ import { EAppSection, EDocumentsType, ELanguage } from '@domain/enums';
 import {
   AnyFunction,
   IClientAddRequest,
+  IClientSettingsRequest,
   IContent,
   ICreateTradingAccountRequest,
   IEditProfileRequest,
@@ -9,19 +10,20 @@ import {
   IInternalTransferRequestData,
   ILoginRequest,
   INotificationState,
+  IPartnershipIBRegistrationRequest,
+  IPartnershipRegistrationRequest,
   IResetPasswordRequest,
   ISetProfileRequest,
   ISubmitFPRequest,
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
   IWithdrawFundRequest,
-  IPartnershipRegistrationRequest,
-  IPartnershipIBRegistrationRequest,
 } from '@domain/interfaces';
 import {
   MBankDetails,
   MClientData,
   MClientProfile,
+  MClientSettings,
   MClientTradingData,
   MDocument,
   MTransactionalStatementData,
@@ -29,8 +31,6 @@ import {
 } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
-import { IClientSettingsRequest } from '@domain/interfaces';
-import { MClientSettings } from '../domain/models/clientSettings';
 
 export function ac_showNotification(payload: Omit<INotificationState, 'visible'>): IAction {
   return {
@@ -60,7 +60,7 @@ export function ac_fetchProfile() {
 
 export function ac_fetchClientSettings(
   payload: IClientSettingsRequest,
-  onSuccess: AnyFunction,
+  onSuccess: AnyFunction = null,
   onFailure: AnyFunction = null,
 ): IAction {
   return {
