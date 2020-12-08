@@ -379,6 +379,13 @@ module.exports = (_env, arguments) => {
             flatten: true,
             force: true,
           },
+          {
+            from: `files/${targetLabelFolder}/**/*`,
+            to: 'files/',
+            flatten: true,
+            force: true,
+            noErrorOnMissing: true,
+          },
         ],
       }),
       new CaseSensitivePathsPlugin(),
