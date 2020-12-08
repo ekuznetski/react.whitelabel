@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
-import { config } from './MobileTradingWithMT5.config';
+import { config } from './MobileTrading.config';
 import './mobileTrading.scss';
 
 interface MobileTradingSectionProps {
