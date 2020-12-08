@@ -1,7 +1,7 @@
+import { ELanguage } from '@domain/enums';
+import { Nullable } from '@domain/interfaces';
 import { EActionTypes } from './store.enum';
 import { IAction, IAppStore } from './store.interface';
-import { Nullable } from '@domain/interfaces';
-import { ELanguage } from '@domain/enums';
 
 export const initAppStore: Nullable<IAppStore> = {
   route: {
@@ -29,6 +29,31 @@ export const initAppStore: Nullable<IAppStore> = {
 
 export function appStoreReducer(state = initAppStore as IAppStore, action: IAction) {
   switch (action.type) {
+    case EActionTypes.fetchClientData:
+    case EActionTypes.fetchContent:
+    case EActionTypes.fetchGeoIpData:
+    case EActionTypes.fetchProfile:
+    case EActionTypes.fetchTradingAccounts:
+    case EActionTypes.fetchWithdrawHistory:
+    case EActionTypes.fetchWithdrawLimit:
+    case EActionTypes.fetchBankDetails:
+    case EActionTypes.fetchDocuments:
+    case EActionTypes.uploadDocuments:
+    case EActionTypes.editProfile:
+    case EActionTypes.changePassword:
+    case EActionTypes.updateBankDetails:
+    case EActionTypes.withdrawFunds:
+    case EActionTypes.createLiveTradingAccount:
+    case EActionTypes.createDemoTradingAccount:
+    case EActionTypes.fetchStocksPrices:
+      return {
+        ...state,
+        requests: {
+          ...state.requests,
+          activeList: [...(state.requests?.activeList || []), action.type],
+        },
+      };
+
     case EActionTypes.requestSuccess:
       return {
         ...state,
@@ -68,12 +93,6 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
       return { ...state, notification: { ...initAppStore.notification, type: state.notification.type } };
 
     default:
-      return {
-        ...state,
-        requests: {
-          ...state.requests,
-          activeList: [...(state.requests?.activeList || []), action.type],
-        },
-      };
+      return state;
   }
 }
