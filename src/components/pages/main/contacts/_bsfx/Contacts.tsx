@@ -2,7 +2,7 @@ import { Map, SectionBg, Svg } from '@components/shared';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { config } from '../';
+import { config } from '@pages/main/contacts/Contacts.config';
 import './Contacts.scss';
 
 export function Contacts() {
