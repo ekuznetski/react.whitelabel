@@ -22,7 +22,7 @@ const app = express();
 const indexFile = path.normalize('browser/server.html');
 const unsubscribeRequestResolver = store.subscribe(() => {
   const storeState = store.getState();
-
+  
   if (storeState.app.requests.activeList.length == 0 && requestResolver) {
     requestResolver();
   }
@@ -94,10 +94,9 @@ app.get('*', (req: express.Request, res: express.Response) => {
       return res.send(
         data.replace(
           '<div id="root"></div>',
-          `<div id="root">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(preloadedState).replace(
-            /</g,
-            '\\u003c',
-          )}</script>`,
+          `<div id="root" class="${route?.appSection}">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(
+            preloadedState,
+          ).replace(/</g, '\\u003c')}</script>`,
         ),
       );
     });
