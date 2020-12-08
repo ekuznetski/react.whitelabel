@@ -24,4 +24,5 @@ export const config = {
       return section;
     }
   }),
+  tableSubHeaders: ['Fixed', 'Variable'],
 };

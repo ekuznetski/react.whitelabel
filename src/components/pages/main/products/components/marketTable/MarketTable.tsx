@@ -30,9 +30,11 @@ export const MarketTable = memo((props: IMarketTable) => {
           <div key={i} className="tr">
             <div className={tdClass}>{item.instr}</div>
             <div className="td grouped">
-              <div className={tdClass}>{item.fixed}</div>
-              <div className={tdClass}>{item.classic}</div>
-              <div className={tdClass}>{item.raw.toString() === 'N/A' ? item.raw : item.raw + ' per round'}</div>
+              {item.fixed && <div className={tdClass}>{item.fixed}</div>}
+              {item.classic && <div className={tdClass}>{item.classic}</div>}
+              {item.raw && (
+                <div className={tdClass}>{item.raw.toString() === 'N/A' ? item.raw : item.raw + ' per round'}</div>
+              )}
             </div>
             <div className={fullViewParamClass}>
               <Svg href="info" isIcon />

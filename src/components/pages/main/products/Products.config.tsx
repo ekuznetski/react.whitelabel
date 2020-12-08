@@ -7,6 +7,7 @@ import { ITableSection } from './components';
 interface IConfig {
   headerNavigation: { label: string; anchor: MarketType }[];
   tableSections: ITableSection[];
+  tableSubHeaders: string[];
 }
 
 const t = i18n.getFixedT(i18n.language);
@@ -100,4 +101,5 @@ export const config: IConfig = {
       ],
     },
   ],
+  tableSubHeaders: ['Fixed', 'Classic', 'Raw'],
 };
