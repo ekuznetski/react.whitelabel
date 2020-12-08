@@ -4,6 +4,10 @@
 .take-control-of-trades-section {
   background: $grey-bg-light;
 
+  .controls-row {
+    justify-content: center;
+  }
+
   &__title {
     font-size: 36px;
     line-height: 46px;
@@ -66,6 +70,12 @@
       img {
         max-height: 140px;
       }
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    .controls-row {
+      justify-content: initial;
     }
   }
 }

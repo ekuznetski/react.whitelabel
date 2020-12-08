@@ -1,26 +1,16 @@
-export enum EMarketTablePlatform {
-  MT4 = 0,
-  MT5 = 1,
-  MT4MT5 = 2,
-}
+import { ETradingPlatform, MarketType } from '@domain/enums';
+import { IMarketTableContent } from '@domain/interfaces';
 
-export interface IMarketTableContent {
-  instr: string;
-  fixed: string;
-  classic: string;
-  raw: string;
-  swap_l: string;
-  swap_s: string;
-  lotSize: string;
-  minTrade: string;
-  valuePerTick: string;
-  LeverageInfo?: string;
-  platform: EMarketTablePlatform;
-}
+export const marketLeverages = {
+  [MarketType.forex]: '1:200',
+  [MarketType.stocks]: '1:20',
+  [MarketType.indices]: '1:200',
+  [MarketType.commodities]: '1:133',
+  [MarketType.crypto]: '1:20',
+};
 
-// tslint:disable: max-line-length
-export const Content: { [key: string]: IMarketTableContent[] } = {
-  forex: [
+export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
+  [MarketType.forex]: [
     {
       instr: 'EURUSD',
       fixed: '1.8',
@@ -31,7 +21,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDJPY',
@@ -43,7 +33,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'GBPUSD',
@@ -55,7 +45,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDCHF',
@@ -67,7 +57,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '1 CHF',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'AUDUSD',
@@ -79,7 +69,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 AUD',
       minTrade: '1.000 AUD',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDCAD',
@@ -91,7 +81,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '1 CAD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'NZDUSD',
@@ -103,7 +93,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 NZD',
       minTrade: '1.000 NZD',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'AUDJPY',
@@ -115,7 +105,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 AUD',
       minTrade: '1.000 AUD',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'GBPAUD',
@@ -127,7 +117,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '1 AUD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'GBPJPY',
@@ -139,7 +129,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'GBPNZD',
@@ -151,7 +141,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '1 NZD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'CADJPY',
@@ -163,7 +153,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 CAD',
       minTrade: '1.000 CAD',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'EURAUD',
@@ -175,7 +165,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '1 AUD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'EURGBP',
@@ -187,7 +177,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '1 GBP',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'EURJPY',
@@ -199,7 +189,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'AUDCAD',
@@ -211,7 +201,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 AUD',
       minTrade: '1.000 AUD',
       valuePerTick: '1 CAD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'AUDCHF',
@@ -223,7 +213,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 AUD',
       minTrade: '1.000 AUD',
       valuePerTick: '1 CHF',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'AUDNOK',
@@ -235,7 +225,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 AUD',
       minTrade: '1.000 AUD',
       valuePerTick: '1 NOK',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'AUDNZD',
@@ -247,7 +237,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 AUD',
       minTrade: '1.000 AUD',
       valuePerTick: '1 NZD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'AUDSEK',
@@ -259,7 +249,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 AUD',
       minTrade: '1.000 AUD',
       valuePerTick: '1 SEK',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'AUDSGD',
@@ -271,7 +261,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 AUD',
       minTrade: '1.000 AUD',
       valuePerTick: '1 SGD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'CADCHF',
@@ -283,7 +273,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 CAD',
       minTrade: '1.000 CAD',
       valuePerTick: '1  CHF',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'CHFJPY',
@@ -295,7 +285,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 CHF',
       minTrade: '1.000 CHF',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'CHFNOK',
@@ -307,7 +297,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 CHF',
       minTrade: '1.000 CHF',
       valuePerTick: '1 NOK',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'EURCAD',
@@ -319,7 +309,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '1 CAD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'EURCHF',
@@ -331,7 +321,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '1 CHF',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'EURNZD',
@@ -343,7 +333,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '1 NZD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'EURSEK',
@@ -355,7 +345,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '1 SEK',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'EURSGD',
@@ -367,7 +357,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '1 SGD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'EURTRY',
@@ -379,7 +369,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '1 TRY',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'GBPCAD',
@@ -391,7 +381,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '1 CAD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'GBPCHF',
@@ -403,7 +393,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '1 CHF',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'GBPSGD',
@@ -415,7 +405,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '1 SGD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'NZDCAD',
@@ -427,7 +417,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 NZD',
       minTrade: '1.000 NZD',
       valuePerTick: '1 CAD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'NZDCHF',
@@ -439,7 +429,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 NZD',
       minTrade: '1.000 NZD',
       valuePerTick: '1 CHF',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'NZDJPY',
@@ -451,7 +441,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 NZD',
       minTrade: '1.000 NZD',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDHUF',
@@ -463,7 +453,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDMXN',
@@ -475,7 +465,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '1 MXN',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDNOK',
@@ -487,7 +477,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '1 NOK',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDPLN',
@@ -499,7 +489,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '1 PLN',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDSEK',
@@ -511,7 +501,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '1 SEK',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDSGD',
@@ -523,7 +513,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '1 SGD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDTRY',
@@ -535,7 +525,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '1 TRY',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDZAR',
@@ -547,7 +537,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '1 ZAR',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDINR',
@@ -559,7 +549,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '10 INR',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'USDRUB',
@@ -571,7 +561,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '10 RUB',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'CHFDKK',
@@ -583,7 +573,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 CHF',
       minTrade: '1.000 CHF',
       valuePerTick: '10 DKK',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'CHFPLN',
@@ -595,7 +585,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 CHF',
       minTrade: '1.000 CHF',
       valuePerTick: '10 PLN',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'EURHKD',
@@ -607,7 +597,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '10 RUB',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'EURHUF',
@@ -619,7 +609,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '10 HUF',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'EURMXN',
@@ -631,7 +621,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '10 MXN',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'EURNOK',
@@ -643,7 +633,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '10 NOK',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'EURPLN',
@@ -655,7 +645,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 EUR',
       minTrade: '1.000 EUR',
       valuePerTick: '10 PLN',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'GBPDKK',
@@ -667,7 +657,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '10 DKK',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'GBPNOK',
@@ -679,7 +669,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '10 NOK',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'GBPPLN',
@@ -691,7 +681,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '10 PLN',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'GBPSEK',
@@ -703,7 +693,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '10 SEK',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'GBPZAR',
@@ -715,7 +705,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 GBP',
       minTrade: '1.000 GBP',
       valuePerTick: '10 ZAR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'HKDJPY',
@@ -727,7 +717,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 HKD',
       minTrade: '1.000 HKD',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'MXNJPY',
@@ -739,7 +729,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 MXN',
       minTrade: '1.000 MXN',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'NOKJPY',
@@ -751,7 +741,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 NOK',
       minTrade: '1.000 NOK',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'NOKSEK',
@@ -763,7 +753,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 NOK',
       minTrade: '1.000 NOK',
       valuePerTick: '10 SEK',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'NZDSGD',
@@ -775,7 +765,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 NZD',
       minTrade: '1.000 NZD',
       valuePerTick: '10 SGD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'SEKJPY',
@@ -787,7 +777,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 SEK',
       minTrade: '1.000 SEK',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'SGDJPY',
@@ -799,7 +789,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 SGD',
       minTrade: '1.000 SGD',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'TRYJPY',
@@ -811,7 +801,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 TRY',
       minTrade: '1.000 TRY',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'USDCZK',
@@ -823,7 +813,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '10 CZK',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'USDDKK',
@@ -835,7 +825,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 USD',
       minTrade: '1.000 USD',
       valuePerTick: '10 DKK',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ZARJPY',
@@ -847,7 +837,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100,000 ZAR',
       minTrade: '1.000 ZAR',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     // {instr: 'EURUSD-Futures'	,fixed:'18.0'	,classic:'17.0'	,raw:'9.0'    ,swap_l:'0.00%'    ,swap_s:'0.00%',	lotSize:'100,000 EUR'	,minTrade:'1.000 EUR'	,valuePerTick:'1 USD'	,platform: PlatformEnum.MT5},
     // {instr: 'AUDUSD-Futures'	,fixed:'25.0'	,classic:'23.0'	,raw:'15.0'   ,swap_l:'0.00%'    ,swap_s:'0.00%',	lotSize:'100,000 AUD'	,minTrade:'1.000 AUD'	,valuePerTick:'1 USD'	,platform: PlatformEnum.MT5},
@@ -857,7 +847,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
     // {instr: 'GBPUSD-Futures'	,fixed:'25.0'	,classic:'25.0'	,raw:'17.0'   ,swap_l:'0.00%'    ,swap_s:'0.00%',	lotSize:'100,000 GBP'	,minTrade:'1.000 GBP'	,valuePerTick:'1 USD'	,platform: PlatformEnum.MT5},
     // {instr: 'JPYUSD-Futures'	,fixed:'23.0'	,classic:'20.0'	,raw:'12.0'	,swap_l:'0.00%'	    ,swap_s:'0.00%',	lotSize:'10,000,000 JPY',minTrade:'100.000 JPY'	,valuePerTick:'100 JPY'	,platform: PlatformEnum.MT5}
   ],
-  stocks: [
+  [MarketType.stocks]: [
     {
       instr: 'American Express',
       fixed: '14',
@@ -868,7 +858,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'AIG',
@@ -880,7 +870,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Air France - KLM',
@@ -892,7 +882,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'AT&T',
@@ -904,7 +894,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Bayer AG',
@@ -916,7 +906,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Bank of America',
@@ -928,7 +918,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Bankia S.A.',
@@ -940,7 +930,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Boeing',
@@ -952,7 +942,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Chevron',
@@ -964,7 +954,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Cisco',
@@ -976,7 +966,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Citigroup',
@@ -988,7 +978,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Commerzbank AG',
@@ -1000,7 +990,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'CocaCola',
@@ -1012,7 +1002,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Deutsche Post',
@@ -1024,7 +1014,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'E.On  AG',
@@ -1036,7 +1026,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Ebay',
@@ -1048,7 +1038,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Exxon Mobil',
@@ -1060,7 +1050,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'FedEx',
@@ -1072,7 +1062,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Ferrari',
@@ -1084,7 +1074,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Ford Motor',
@@ -1096,7 +1086,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'General Electric',
@@ -1108,7 +1098,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'General Motors',
@@ -1120,7 +1110,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Goldman Sachs',
@@ -1132,7 +1122,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Hilton Worldwide',
@@ -1144,7 +1134,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'HP Inc',
@@ -1156,7 +1146,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Illumina',
@@ -1168,7 +1158,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Intel',
@@ -1180,7 +1170,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'IBM',
@@ -1192,7 +1182,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Johnson & Johnson',
@@ -1204,7 +1194,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'JP Morgan',
@@ -1216,7 +1206,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Mastercard',
@@ -1228,7 +1218,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Mapfre S.A.',
@@ -1240,7 +1230,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: "Mcdonald's",
@@ -1252,7 +1242,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Netflix',
@@ -1264,7 +1254,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Oracle',
@@ -1276,7 +1266,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Procter & Gamble',
@@ -1288,7 +1278,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Qualcomm',
@@ -1300,7 +1290,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Societe Generale',
@@ -1312,7 +1302,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Visa',
@@ -1324,7 +1314,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BNP Paribas',
@@ -1336,7 +1326,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Danone',
@@ -1348,7 +1338,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'LVMH',
@@ -1360,7 +1350,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Total',
@@ -1372,7 +1362,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Adidas',
@@ -1384,7 +1374,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Allianz',
@@ -1396,7 +1386,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Daimler',
@@ -1408,7 +1398,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Deutsche Bank',
@@ -1420,7 +1410,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Deutsche Telekom',
@@ -1432,7 +1422,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Siemens',
@@ -1444,7 +1434,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Volkswagen',
@@ -1456,7 +1446,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Ferrari',
@@ -1468,7 +1458,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Uber',
@@ -1480,7 +1470,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Alibaba',
@@ -1492,7 +1482,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Apple',
@@ -1504,7 +1494,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Amazon.Com',
@@ -1516,7 +1506,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Facebook',
@@ -1528,7 +1518,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Google',
@@ -1540,7 +1530,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Jd.Com',
@@ -1552,7 +1542,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Microsoft',
@@ -1564,7 +1554,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Tesla Motors',
@@ -1576,7 +1566,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Twitter',
@@ -1588,10 +1578,10 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '1',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
   ],
-  indices: [
+  [MarketType.indices]: [
     {
       instr: 'US 500 Index CFD',
       fixed: '0.5',
@@ -1602,7 +1592,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$50',
       minTrade: '$0.50',
       valuePerTick: '5.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'US 100 Index CFD',
@@ -1614,7 +1604,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$20',
       minTrade: '$0.20',
       valuePerTick: '2.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'US 30 Index CFD',
@@ -1626,7 +1616,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '5.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'UK 100 Index CFD',
@@ -1638,7 +1628,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$10',
       minTrade: '$0.10',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Germany 30 Index CFD',
@@ -1650,7 +1640,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$15',
       minTrade: '$0.15',
       valuePerTick: '1.50 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Euro 50 Index CFD',
@@ -1662,7 +1652,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$20',
       minTrade: '$0.20',
       valuePerTick: '2.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'France 40 Index CFD',
@@ -1674,7 +1664,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$15',
       minTrade: '$0.15',
       valuePerTick: '1.50 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Italy 40 Index CFD',
@@ -1686,7 +1676,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '0.50 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Spain 35 Index CFD',
@@ -1698,7 +1688,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '0.50 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Japan 225 Index CFD',
@@ -1710,7 +1700,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '5.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Hong Kong 50 Index CFD',
@@ -1722,7 +1712,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '5.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'China H-Shares Index CFD',
@@ -1734,7 +1724,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '5.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'China 300 Index CFD',
@@ -1746,7 +1736,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$20',
       minTrade: '$0.20',
       valuePerTick: '4.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'China A50 Index CFD',
@@ -1758,7 +1748,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '0.50 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'India 50 Index CFDy',
@@ -1770,7 +1760,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '0.50 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'Shanghai 50 Index CFD',
@@ -1782,7 +1772,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$20',
       minTrade: '$0.20',
       valuePerTick: '4.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'US100',
@@ -1794,7 +1784,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$20',
       minTrade: '$0.20',
       valuePerTick: '0.20 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'US30',
@@ -1806,7 +1796,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '0.05 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'US500',
@@ -1818,7 +1808,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$50',
       minTrade: '$0.50',
       valuePerTick: '0.50 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'UK100',
@@ -1830,7 +1820,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$10',
       minTrade: '$0.10',
       valuePerTick: '0.10 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'EUR50',
@@ -1842,7 +1832,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$20',
       minTrade: '$0.20',
       valuePerTick: '0.20 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'FRA40',
@@ -1854,7 +1844,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$15',
       minTrade: '$0.15',
       valuePerTick: '0.15 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'GER30',
@@ -1866,7 +1856,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$10',
       minTrade: '$0.10',
       valuePerTick: '0.10 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'AUS200',
@@ -1878,7 +1868,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$10',
       minTrade: '$0.10',
       valuePerTick: '0.10 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'JPN225',
@@ -1890,7 +1880,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '0.05 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'NL25',
@@ -1902,7 +1892,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$50',
       minTrade: '$0.50',
       valuePerTick: '0.50 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'SPA35',
@@ -1914,7 +1904,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$5',
       minTrade: '$0.05',
       valuePerTick: '0.05 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'SWI20',
@@ -1926,10 +1916,10 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '$10',
       minTrade: '$0.10',
       valuePerTick: '0.10 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
   ],
-  crypto: [
+  [MarketType.crypto]: [
     {
       instr: 'BTCUSD',
       fixed: '3500',
@@ -1940,7 +1930,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '10 Bitcoins',
       minTrade: '0.1 Bitcoins',
       valuePerTick: '0.10 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'LTCUSD',
@@ -1952,7 +1942,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100 Litecoin',
       minTrade: '1 Litecoin',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'ETHUSD',
@@ -1964,7 +1954,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '10 Ethereum',
       minTrade: '0.1 Ethereum',
       valuePerTick: '0.10 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'XRPUSD',
@@ -1976,7 +1966,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1000 Ripple',
       minTrade: '10 Ripple',
       valuePerTick: '0.10 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'BABUSD',
@@ -1988,7 +1978,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100 Bitcoin ABC',
       minTrade: '0.1 Bitcoin ABC',
       valuePerTick: '0.10 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'BTGUSD',
@@ -2000,7 +1990,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100 Bitcoin Gold',
       minTrade: '1 Bitcoin Gold',
       valuePerTick: '0.10 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BTCEUR',
@@ -2012,7 +2002,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '10 Bitcoin',
       minTrade: '1 Bitcoin Gold',
       valuePerTick: '0.10 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'DSHUSD',
@@ -2024,7 +2014,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100 Dash',
       minTrade: '1 Dash',
       valuePerTick: '1.0 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ETCUSD',
@@ -2036,7 +2026,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1000 Ethereum Cls',
       minTrade: '10 Ethereum Cls',
       valuePerTick: '0.1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'IOTUSD',
@@ -2048,7 +2038,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '10000 Iota',
       minTrade: '100 Iota',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'XMRUSD',
@@ -2060,7 +2050,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100 Monero',
       minTrade: '1 Monero',
       valuePerTick: '1.0 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'NEOUSD',
@@ -2072,7 +2062,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1000 Neo',
       minTrade: '10 Neo',
       valuePerTick: '0.1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'QTMUSD',
@@ -2084,7 +2074,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1000 Qtum',
       minTrade: '10 Qtum',
       valuePerTick: '0.1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ZECUSD',
@@ -2096,7 +2086,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100 Zcash',
       minTrade: '1 Zcash',
       valuePerTick: '1.0 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BTCUSD',
@@ -2108,7 +2098,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BTC',
       minTrade: '0.1 BTC',
       valuePerTick: '0.1 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'LTCUSD',
@@ -2120,7 +2110,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 LTC',
       minTrade: '10 LTC',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'ETHUSD',
@@ -2132,7 +2122,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ETH',
       minTrade: '1 ETH',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'XRPUSD',
@@ -2144,7 +2134,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 XRP',
       minTrade: '1000 XRP',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'BABUSD',
@@ -2156,7 +2146,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BAB',
       minTrade: '1 BAB',
       valuePerTick: '0.1 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'BTGUSD',
@@ -2168,7 +2158,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BTG',
       minTrade: '100 BTG',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BTCEUR',
@@ -2180,7 +2170,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BTC',
       minTrade: '0.1 BTC',
       valuePerTick: '0.1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'DSHUSD',
@@ -2192,7 +2182,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 DSH',
       minTrade: '10 DSH',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ETCUSD',
@@ -2204,7 +2194,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ETC',
       minTrade: '100 ETC',
       valuePerTick: '0.1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'IOTUSD',
@@ -2216,7 +2206,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 IOT',
       minTrade: '1000 IOT',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'XMRUSD',
@@ -2228,7 +2218,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 XMR',
       minTrade: '10 XMR',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'NEOUSD',
@@ -2240,7 +2230,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 NEO',
       minTrade: '10 NEO',
       valuePerTick: '0.1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ZECUSD',
@@ -2252,7 +2242,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ZEC',
       minTrade: '10 ZEC',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BSVUSD',
@@ -2264,7 +2254,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BSV',
       minTrade: '1 BSV',
       valuePerTick: '1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'EOSUSD',
@@ -2276,7 +2266,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 EOS',
       minTrade: '100 EOS',
       valuePerTick: '0.1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'STRUSD',
@@ -2288,7 +2278,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 STR',
       minTrade: '10000 STR',
       valuePerTick: '0.1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'TRXUSD',
@@ -2300,7 +2290,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 TRX',
       minTrade: '10000 TRX',
       valuePerTick: '0.1 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BABGBP',
@@ -2312,7 +2302,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BAB',
       minTrade: '0.1 BAB',
       valuePerTick: '0.1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BSVGBP',
@@ -2324,7 +2314,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BSV',
       minTrade: '1 BSV',
       valuePerTick: '1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BTCGBP',
@@ -2336,7 +2326,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BTC',
       minTrade: '0.1 BTC',
       valuePerTick: '0.1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BTGGBP',
@@ -2348,7 +2338,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BTG',
       minTrade: '100 BTG',
       valuePerTick: '1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'DSHGBP',
@@ -2360,7 +2350,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 DSH',
       minTrade: '10 DSH',
       valuePerTick: '1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'EOSGBP',
@@ -2372,7 +2362,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 EOS',
       minTrade: '100 EOS',
       valuePerTick: '0.1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ETCGBP',
@@ -2384,7 +2374,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ETC',
       minTrade: '100 ETC',
       valuePerTick: '0.1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ETHGBP',
@@ -2396,7 +2386,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ETH',
       minTrade: '1 ETH',
       valuePerTick: '1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'IOTGBP',
@@ -2408,7 +2398,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 IOT',
       minTrade: '1000 IOT',
       valuePerTick: '1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'LTCGBP',
@@ -2420,7 +2410,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 LTC',
       minTrade: '10 LTC',
       valuePerTick: '1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'NEOGBP',
@@ -2432,7 +2422,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 NEO',
       minTrade: '10 NEO',
       valuePerTick: '0.1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'STRGBP',
@@ -2444,7 +2434,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 STR',
       minTrade: '10000 STR',
       valuePerTick: '0.1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'TRXGBP',
@@ -2456,7 +2446,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 TRX',
       minTrade: '10000 TRX',
       valuePerTick: '0.1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'XMRGBP',
@@ -2468,7 +2458,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 XMR',
       minTrade: '10 XMR',
       valuePerTick: '1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'XRPGBP',
@@ -2480,7 +2470,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 XRP',
       minTrade: '1000 XRP',
       valuePerTick: '1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ZECGBP',
@@ -2492,7 +2482,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ZEC',
       minTrade: '10 ZEC',
       valuePerTick: '1 GBP',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BABEUR',
@@ -2504,7 +2494,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BAB',
       minTrade: '1 BAB',
       valuePerTick: '0.1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BSVEUR',
@@ -2516,7 +2506,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BSV',
       minTrade: '1 BSV',
       valuePerTick: '1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BTGEUR',
@@ -2528,7 +2518,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BTG',
       minTrade: '100 BTG',
       valuePerTick: '1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'DSHEUR',
@@ -2540,7 +2530,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 DSH',
       minTrade: '10 DSH',
       valuePerTick: '1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'EOSEUR',
@@ -2552,7 +2542,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 EOS',
       minTrade: '100 EOS',
       valuePerTick: '0.1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ETCEUR',
@@ -2564,7 +2554,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ETC',
       minTrade: '100 ETC',
       valuePerTick: '0.1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ETHEUR',
@@ -2576,7 +2566,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ETH',
       minTrade: '1 ETH',
       valuePerTick: '1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'IOTEUR',
@@ -2588,7 +2578,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 IOT',
       minTrade: '1000 IOT',
       valuePerTick: '1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'LTCEUR',
@@ -2600,7 +2590,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 LTC',
       minTrade: '10 LTC',
       valuePerTick: '1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'NEOEUR',
@@ -2612,7 +2602,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 NEO',
       minTrade: '10 NEO',
       valuePerTick: '0.1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'STREUR',
@@ -2624,7 +2614,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 STR',
       minTrade: '10000 STR',
       valuePerTick: '0.1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'TRXEUR',
@@ -2636,7 +2626,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 TRX',
       minTrade: '10000 TRX',
       valuePerTick: '0.1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'XMREUR',
@@ -2648,7 +2638,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 XMR',
       minTrade: '10 XMR',
       valuePerTick: '1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'XRPEUR',
@@ -2660,7 +2650,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 XRP',
       minTrade: '1000 XRP',
       valuePerTick: '1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ZECEUR',
@@ -2672,7 +2662,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ZEC',
       minTrade: '10 ZEC',
       valuePerTick: '1 EUR',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BABJPY',
@@ -2684,7 +2674,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BAB',
       minTrade: '1 BAB',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BSVJPY',
@@ -2696,7 +2686,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BSV',
       minTrade: '1 BSV',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BTCJPY',
@@ -2708,7 +2698,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BTC',
       minTrade: '0.1 BTC',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'BTGJPY',
@@ -2720,7 +2710,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 BTG',
       minTrade: '100 BTG',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'DSHJPY',
@@ -2732,7 +2722,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 DSH',
       minTrade: '10 DSH',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'EOSJPY',
@@ -2744,7 +2734,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 EOS',
       minTrade: '100 EOS',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ETCJPY',
@@ -2756,7 +2746,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ETC',
       minTrade: '100 ETC',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ETHJPY',
@@ -2768,7 +2758,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ETH',
       minTrade: '1 ETH',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'IOTJPY',
@@ -2780,7 +2770,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 IOT',
       minTrade: '1000 IOT',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'LTCJPY',
@@ -2792,7 +2782,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 LTC',
       minTrade: '10 LTC',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'NEOJPY',
@@ -2804,7 +2794,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 NEO',
       minTrade: '10 NEO',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'STRJPY',
@@ -2816,7 +2806,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 STR',
       minTrade: '10000 STR',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'TRXJPY',
@@ -2828,7 +2818,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 TRX',
       minTrade: '10000 TRX',
       valuePerTick: '10 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'XMRJPY',
@@ -2840,7 +2830,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 XMR',
       minTrade: '10 XMR',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'XRPJPY',
@@ -2852,7 +2842,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 XRP',
       minTrade: '1000 XRP',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ZECJPY',
@@ -2864,10 +2854,10 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1 ZEC',
       minTrade: '10 ZEC',
       valuePerTick: '100 JPY',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
   ],
-  commodities: [
+  [MarketType.commodities]: [
     {
       instr: 'SPOT GOLD',
       fixed: '40',
@@ -2878,7 +2868,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100 OZS',
       minTrade: '1 OZS',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'SPOT SILVER',
@@ -2890,7 +2880,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '5,000 OZS',
       minTrade: '50 OZS',
       valuePerTick: '5.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'GOLD EURO',
@@ -2902,7 +2892,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100 OZS',
       minTrade: '1 OZS',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'SILVER EURO',
@@ -2914,7 +2904,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '5,000 OZS',
       minTrade: '50 OZS',
       valuePerTick: '5.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'COCOA CFD',
@@ -2926,7 +2916,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '20 TONNE',
       minTrade: '0.20 tonne',
       valuePerTick: '20.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'COFFEE  CFD',
@@ -2938,7 +2928,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '50,000 LBS',
       minTrade: '500 LBS',
       valuePerTick: '25.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'SUGAR CFD',
@@ -2950,7 +2940,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '112,000  LBS',
       minTrade: '1,120 LBS',
       valuePerTick: '11.20 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'COTTON CFD',
@@ -2962,7 +2952,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '50,000 LBS',
       minTrade: '500 LBS',
       valuePerTick: '5.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'GOLD CFD',
@@ -2974,7 +2964,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100 OZS',
       minTrade: '1 OZS',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'SILVER CFD',
@@ -2986,7 +2976,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '5,000 OZS',
       minTrade: '50 OZS',
       valuePerTick: '50.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'COPPER CFD',
@@ -2998,7 +2988,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '25,000 OZS',
       minTrade: '250 OZS',
       valuePerTick: '12.50 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'US OIL CFD',
@@ -3010,7 +3000,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1,000 BBL',
       minTrade: '10 BBL',
       valuePerTick: '10.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'BRENT CFD',
@@ -3022,7 +3012,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1,000 BBL',
       minTrade: '10 BBL',
       valuePerTick: '10.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'NATGAS CFD',
@@ -3034,7 +3024,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '10,000 MMBTU',
       minTrade: '100 MMBTU',
       valuePerTick: '10.00 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'US OIL SPOT',
@@ -3046,7 +3036,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '1,000 BBL',
       minTrade: '10 BBL',
       valuePerTick: '10 USD',
-      platform: EMarketTablePlatform.MT4MT5,
+      platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
     {
       instr: 'PLATINUM',
@@ -3058,7 +3048,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '50 OZS',
       minTrade: '0.5 OZS',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'PALLADIUM',
@@ -3070,10 +3060,10 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100 OZS',
       minTrade: '1 OZS',
       valuePerTick: '1.00 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
   ],
-  etfs: [
+  [MarketType.etfs]: [
     {
       instr: 'VelocityShares 3x Inverse Crude Oil ETN',
       fixed: '6',
@@ -3084,7 +3074,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'iShares MSCI Taiwan Index',
@@ -3096,7 +3086,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'iShares MSCI South Korea',
@@ -3108,7 +3098,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'iShares Russell 2000 Index',
@@ -3120,7 +3110,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'iShares Silver Trust',
@@ -3132,7 +3122,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'SPDR S&P 500',
@@ -3144,7 +3134,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ProShares UltraPro Short QQQ',
@@ -3156,7 +3146,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ProShares UltraShort 20+ Year Treasury',
@@ -3168,7 +3158,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'ProShares UltraPro QQQ',
@@ -3180,7 +3170,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'VelocityShares 3X Long Natural Gas ETN',
@@ -3192,7 +3182,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'United States Oil',
@@ -3204,7 +3194,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'VelocityShares 3x Long Crude Oil ETN',
@@ -3216,7 +3206,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Materials Select Sector SPDR',
@@ -3228,7 +3218,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Energy Select Sector SPDR',
@@ -3240,7 +3230,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Financial Select Sector SPDR',
@@ -3252,7 +3242,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Industrial Select Sector SPDR',
@@ -3264,7 +3254,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Technology Select Sector SPDR',
@@ -3276,7 +3266,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Consumer Staples Select Sector SPDR',
@@ -3288,7 +3278,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Utilities Select Sector SPDR',
@@ -3300,7 +3290,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
     {
       instr: 'Health Care Select Sector SPDR',
@@ -3312,7 +3302,7 @@ export const Content: { [key: string]: IMarketTableContent[] } = {
       lotSize: '100',
       minTrade: '0.01',
       valuePerTick: '1	 USD',
-      platform: EMarketTablePlatform.MT5,
+      platform: [ETradingPlatform.mt5],
     },
   ],
 };
