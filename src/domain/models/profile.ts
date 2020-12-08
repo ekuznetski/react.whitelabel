@@ -40,20 +40,7 @@ export class MClientProfile {
   is_withdrawal_allowed: boolean;
   edit_fake_account: boolean;
 
-  // Client Preferences
-  allow_additional_account: boolean;
-  allow_additional_live_account: boolean;
-  allow_additional_demo_account: boolean;
-  allow_deposit: boolean;
-  allowed_currencies: ECurrencyCode[];
-  allowed_leverages: EAccountLeverage[];
-  allowed_account_types: ETradingAccountType[];
-  allowed_platforms: ETradingPlatform[];
-  allow_internal_transfer: boolean;
-  enable_citioptions: boolean;
-  show_praxis_and_webmoney: boolean;
-
-  // clint Meta
+  // Client Meta
   affiliate_code: string;
   raf_id: string;
   ic_hash: string;
@@ -82,7 +69,8 @@ export class MClientProfile {
       countries
         .filter((country) => country.states)
         .find((country) => country.states?.find((state) => state.code === props.state))
-    )?.states //@ts-ignore
+    )//@ts-ignore
+    ?.states
       ?.filter((state: any) => state.code === props.state) || {
       name: '',
       code: '',
@@ -118,29 +106,6 @@ export class MClientProfile {
     this.trading_central = props.trading_central;
     this.is_withdrawal_allowed = props.is_withdrawal_allowed;
     this.edit_fake_account = props.edit_fake_account;
-
-    // Client Preferences
-    this.allow_additional_account = props.allow_additional_account;
-    this.allow_additional_live_account = props.allow_additional_live_account;
-    this.allow_additional_demo_account = props.allow_additional_demo_account;
-    this.allow_deposit = props.allow_deposit;
-    this.allowed_currencies = Array.from(
-      props.allowed_currencies.map((item) => ECurrencyCode[item.toLowerCase() as keyof typeof ECurrencyCode]),
-    );
-    this.allowed_leverages = Array.from(
-      props.allowed_leverages.map((item) => EAccountLeverage[('1_' + item) as keyof typeof EAccountLeverage]),
-    );
-    this.allowed_account_types = Array.from(
-      props.allowed_account_types.map(
-        (item) => ETradingAccountType[item.toLowerCase() as keyof typeof ETradingAccountType],
-      ),
-    );
-    this.allowed_platforms = Array.from(
-      props.allowed_platforms.map((item) => ETradingPlatform[item.toLowerCase() as keyof typeof ETradingPlatform]),
-    );
-    this.allow_internal_transfer = props.allow_internal_transfer;
-    this.show_praxis_and_webmoney = props.show_praxis_and_webmoney;
-    this.enable_citioptions = props.enable_citioptions;
 
     // clint Meta
     this.affiliate_code = props.affiliate_code || '';

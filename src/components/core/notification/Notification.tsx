@@ -3,7 +3,7 @@ import { INotificationState } from '@domain/interfaces';
 import { ac_hideNotification, IStore } from '@store';
 import { useInterval } from 'ahooks';
 import classNames from 'classnames';
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import './Notification.scss';
@@ -16,7 +16,7 @@ interface INotification {
   fixed: boolean;
 }
 
-export function Notification(props: INotification) {
+export const Notification = memo(function Notification(props: INotification) {
   const { notificationProps } = useSelector<IStore, INotificationStateProps>((state) => ({
     notificationProps: state.app.notification,
   }));
@@ -79,4 +79,4 @@ export function Notification(props: INotification) {
       />
     </div>
   );
-}
+});
