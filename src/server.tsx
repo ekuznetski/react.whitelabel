@@ -1,7 +1,8 @@
 import './i18n'; // Must be the imported before the App!
 import { Footer, Header, NotFound } from '@components/core';
-import { localesConfig, routesNavConfig } from '@domain';
+import { localesConfig, routesInitialApiData, routesNavConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
+import { IRouteNavConfig } from '@domain/interfaces';
 import { store } from '@store';
 import { routeFetchData } from '@utils/fn';
 import compression from 'compression';
@@ -17,14 +18,26 @@ import { document, window } from 'ssr-window';
 import './App.scss';
 
 let requestResolver: { (): void; (value?: unknown): void } | null = null;
+let route: IRouteNavConfig | null = null;
+
 const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
 const unsubscribeRequestResolver = store.subscribe(() => {
   const storeState = store.getState();
-  
-  if (storeState.app.requests.activeList.length == 0 && requestResolver) {
-    requestResolver();
+
+  if (route) {
+    const _routeStrictRequests = [
+      ...(route.apiData?.strict || []),
+      ...(routesInitialApiData[route.appSection]?.strict || []),
+    ].map((action) => action().type);
+    const hasUncompletedStrictRequest = _routeStrictRequests.length
+      ? storeState.app.requests.activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0
+      : false;
+
+    if (!hasUncompletedStrictRequest && requestResolver) {
+      requestResolver();
+    }
   }
 });
 
@@ -45,7 +58,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
   if (!lng) lng = ELanguage.en;
   page = !page ? '' : '/' + page;
 
-  const route = routesNavConfig.find((el) => el.path === page) || null;
+  route = routesNavConfig.find((el) => el.path === page) || null;
   if (!route) {
     console.error('Cant find content for route', req.url, '#', lng, '[', page, ']', 'redirect to 404');
   }
