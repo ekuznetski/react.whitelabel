@@ -1,0 +1,44 @@
+@import '~/variables';
+
+.leverage-wrapper {
+  &__ratios {
+    display: flex;
+    align-items: center;
+
+    .ratios {
+      &__title {
+        font-size: 36px;
+        font-weight: 600;
+        line-height: 50px;
+        text-align: center;
+      }
+      &__subTitle {
+        font-size: 18px;
+        line-height: 30px;
+        text-align: center;
+      }
+    }
+    .deposit {
+      &__cards {
+        .common-cards__item {
+          height: 200px;
+          text-align: center;
+
+          svg {
+            fill: $blue;
+          }
+
+          &-header,
+          &-content {
+            justify-content: center;
+            text-align: center;
+
+            small {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
