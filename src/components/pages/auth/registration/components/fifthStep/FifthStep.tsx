@@ -4,6 +4,7 @@ import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
+import { EActionTypes } from '@store';
 
 enum EFields {
   'declaration' = 'declaration',
@@ -41,7 +42,9 @@ export function FifthStep({ name, submitFn }: any) {
                   contractual agreement.
                 </Trans>
               </Checkbox>
-              <Button type="submit">{t('Submit')}</Button>
+              <Button type="submit" loadingOnAction={[EActionTypes.login, EActionTypes.register]}>
+                {t('Submit')}
+              </Button>
               <p className="mt-5 text-center auth-under-form">
                 {t('You are now opening an account with')} <span>XXXX</span>
               </p>
