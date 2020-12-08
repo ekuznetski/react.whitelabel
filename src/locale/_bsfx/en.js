@@ -44,4 +44,8 @@ export default {
   'Product Section ETFs Desc': 'Trade exchange-traded funds with Blue Square FX.',
   'Discover Trading Tools': 'Discover our trading tools and access our trading assets.',
   'Terms and Conditions': 'Terms and Conditions',
+  'Market Event Notification Desc': [
+    'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our ',
+    ' and you consent to receive newsletters, special offers and be contacted by Blue Square FX representatives via phone or e-mail. You can opt-out any time you wish to.',
+  ],
 };
