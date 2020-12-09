@@ -3,7 +3,7 @@ import { ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
 import { ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
 import { routeFetchData } from '@utils/fn';
-import { useLockScroll, usePathLocale } from '@utils/hooks';
+import { useLockScroll, usePathLocale, useMeta } from '@utils/hooks';
 import { useBoolean, useThrottleEffect } from 'ahooks';
 import React, { memo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -24,6 +24,7 @@ export const Router = memo(function Router() {
   }
 
   const _route = routesNavConfig.find((route) => route.path === _path);
+  // useMeta({ name: 'description', content: _route?.meta?.desc || '' });
   useEffect(() => {
     if (routeState.path != _path) {
       window.scrollTo(0, 0);

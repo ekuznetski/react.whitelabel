@@ -35,7 +35,7 @@
     "@hot-loader/react-dom": "^16.13.0",
     "@react-google-maps/api": "^1.13.0",
     "@svgr/webpack": "^5.4.0",
-    "ahooks": "^2.6.1",
+    "ahooks": "^2.9.2",
     "babel-loader": "^8.2.2",
     "bootstrap": "^4.5.2",
     "card-validator": "^8.1.0",

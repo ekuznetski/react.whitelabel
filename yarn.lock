@@ -2254,7 +2254,7 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-ahooks@^2.6.1:
+ahooks@^2.9.2:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/ahooks/-/ahooks-2.9.2.tgz#b8d9dc0f4d6e8ed64f425714f5e000fa4e9b14bc"
   integrity sha512-rylm2FTl3ud9lxi95EZU249fBECLXPC85KRbJiqx3MUR/FoCgf2QQjDfUEJjZQ3VVJmvb6fGL71Sqgk6hca1HA==
