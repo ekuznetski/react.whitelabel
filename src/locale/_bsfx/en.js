@@ -49,4 +49,6 @@ export default {
     ' and you consent to receive newsletters, special offers and be contacted by Blue Square FX representatives via phone or e-mail. You can opt-out any time you wish to.',
   ],
   exchange: 'Instruments:',
+  'Swap Long': 'Fixed Account Swap',
+  'Swap Short': 'Variable Account Swap',
 };

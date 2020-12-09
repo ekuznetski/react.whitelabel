@@ -13,3 +13,8 @@ const tableEntries = Object.entries(_marketTableContent).map(([key, value]) => [
 ]);
 
 export const marketTableContent = Object.fromEntries(tableEntries);
+
+export const marketFiles = {
+  financeFeesFixed: 'https://www.bluesquarefx.com/files/FINANCE_FEES_MT5_FIXED.pdf',
+  financeFeesVariable: 'https://www.bluesquarefx.com/files/FINANCE_FEES_MT5_VARIABLE.pdf',
+};

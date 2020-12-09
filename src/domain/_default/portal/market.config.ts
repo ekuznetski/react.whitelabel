@@ -3306,3 +3306,8 @@ export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
     },
   ],
 };
+
+export const marketFiles = {
+  financeFeesFixed: '',
+  financeFeesVariable: '',
+};
