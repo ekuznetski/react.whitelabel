@@ -11,3 +11,4 @@ export * from './useUrlParams';
 export * from './useDeviceDetect';
 export * from './useLockScroll';
 export * from './useLabelView';
+export * from './useMeta';
