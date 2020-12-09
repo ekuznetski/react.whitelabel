@@ -1,16 +1,22 @@
-import { Button, Img, LocaleLink, LocaleNavLink, Svg } from '@components/shared';
+import { Button, LocaleLink, LocaleNavLink, Svg } from '@components/shared';
 import { routesNavConfig } from '@domain';
 import { EAppSection, ELabels } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
+import { IDataStore, IStore } from '@store';
+import { useLockScroll } from '@utils/hooks';
 import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useLockScroll } from '@utils/hooks';
+import { useSelector } from 'react-redux';
+import { ProfileMenu } from './components';
 import './HeaderMain.scss';
 
 export function HeaderMain(props: IHeaderDefaultProps) {
+  const { clientProfile } = useSelector<IStore, { clientProfile: IDataStore['client']['profile'] }>((state) => ({
+    clientProfile: state.data.client.profile,
+  }));
   const _mainRoutesConfig = routesNavConfig.filter((route) => route.menuItem && route.appSection === EAppSection.main);
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const responsive = useResponsive();
@@ -28,11 +34,11 @@ export function HeaderMain(props: IHeaderDefaultProps) {
     <>
       <div className={classNames('panel-menu', (props.fixed || isBurgerMenuOpen) && 'fixed')}>
         <Container className="py-3 py-lg-0">
-          <div className="logo">
+          <LocaleLink to="" className="logo">
             <Svg href="logo" className="mr-xl-9" _label height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-9" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-1" _label={ELabels.bsfx} height={!responsive.md ? 48 : 60} />
-          </div>
+          </LocaleLink>
           <div className="menu">
             {_mainRoutesConfig.map((route) => (
               <div key={route.path} className="menu__item">
@@ -42,9 +48,18 @@ export function HeaderMain(props: IHeaderDefaultProps) {
               </div>
             ))}
           </div>
-          <Button className="ml-auto d-none d-md-block">
-            <LocaleLink to="/registration">{t('Open An Account')}</LocaleLink>
-          </Button>
+          {!clientProfile ? (
+            <>
+              <LocaleLink to="/login" className="sign-in-btn ml-auto">
+                {t('Sign In')}
+              </LocaleLink>
+              <Button className="ml-9 d-none d-md-block">
+                <LocaleLink to="/registration">{t('Open An Account')}</LocaleLink>
+              </Button>
+            </>
+          ) : (
+            <ProfileMenu className="ml-auto" />
+          )}
           <div className="ml-auto ml-md-0 burger-toggle">
             {!responsive.lg &&
               (isBurgerMenuOpen ? (
