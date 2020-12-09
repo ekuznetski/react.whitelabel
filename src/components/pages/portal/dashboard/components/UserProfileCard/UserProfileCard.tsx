@@ -1,5 +1,5 @@
 import { Button, DropDown, LocaleNavLink, Svg } from '@components/shared';
-import { profileMenuConfig } from '@domain';
+import { profileMenuPortalConfig } from '@domain';
 import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
 import React, { useState } from 'react';
@@ -55,7 +55,7 @@ export function UserProfileCard() {
           </Button>
           <DropDown
             parentRef={profileNavRef}
-            items={profileMenuConfig}
+            items={profileMenuPortalConfig}
             isOpen={isDropdownMenuOpen}
             isOpenDispatcher={setDropdownMenuOpen}
           />

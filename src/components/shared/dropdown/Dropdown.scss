@@ -4,40 +4,56 @@
 .common-dropdown {
   position: fixed;
   width: 200px;
-  background: #fff;
-  box-shadow: box-shadow(45, 0.15);
-  border-radius: $border-radius;
   transition: height 0.3s, opacity 0.3s;
   visibility: visible;
+  overflow: hidden;
   opacity: 0.4;
-  z-index: 99;
+  z-index: 999;
 
   &:not(.noArrow) {
-    &:before {
-      content: '';
-      display: table;
-      border: 8px solid transparent;
-      border-bottom-color: #fff;
-      position: absolute;
-      top: 0;
-      transition: top 0.15s;
-    }
-
     &.left {
-      &:before {
-        left: 38px;
+      .common-dropdown {
+        &-wrapper {
+          &:before {
+            left: 38px;
+          }
+        }
       }
     }
 
     &.center {
-      &:before {
-        left: calc(50% - 8px);
+      .common-dropdown {
+        &-wrapper {
+          &:before {
+            left: calc(50% - 8px);
+          }
+        }
       }
     }
 
     &.right {
-      &:before {
-        right: 38px;
+      .common-dropdown {
+        &-wrapper {
+          &:before {
+            right: 38px;
+          }
+        }
+      }
+    }
+
+    .common-dropdown {
+      &-wrapper {
+        margin-top: 16px;
+
+        &:before {
+          content: '';
+          display: table;
+          border: 8px solid transparent;
+          border-bottom-color: #fff;
+          position: absolute;
+          top: 0;
+          transition: top 0.15s;
+        }
       }
     }
   }
@@ -45,11 +61,15 @@
   &-wrapper {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    position: relative;
+    background: #fff;
+    box-shadow: box-shadow(45, 0.15);
+    border-radius: $border-radius;
   }
 
   &-context {
-    @include d-flex(start, center, column);
+    height: 100%;
+    position: relative;
     overflow: hidden;
 
     .item {
@@ -57,6 +77,7 @@
       height: 50px;
       display: flex;
       align-items: center;
+      overflow: hidden;
 
       a {
         color: $dark-text;
@@ -68,6 +89,7 @@
         text-decoration: none;
         transition: color 0.35s;
         position: relative;
+        overflow: hidden;
 
         &:hover {
           color: $blue;
@@ -81,10 +103,15 @@
   }
 
   &.open {
+    overflow: visible;
     opacity: 1;
 
-    &:before {
-      top: -15px;
+    .common-dropdown {
+      &-wrapper {
+        &:before {
+          top: -16px;
+        }
+      }
     }
   }
 }
