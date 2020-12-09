@@ -37,7 +37,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
             {_mainRoutesConfig.map((route) => (
               <div key={route.path} className="menu__item">
                 <LocaleNavLink exact to={route.path}>
-                  {route.meta?.title}
+                  {route.title}
                 </LocaleNavLink>
               </div>
             ))}
@@ -72,7 +72,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
               {_mainRoutesConfig.map((route) => (
                 <div key={route.path} className="menu__item">
                   <LocaleNavLink exact to={route.path} onClick={() => setOpenBurgerMenu(false)}>
-                    {route.meta?.title}
+                    {route.title}
                   </LocaleNavLink>
                 </div>
               ))}

@@ -150,15 +150,18 @@ module.exports = (_env, arguments) => {
         return filePath.match(/(.ts)/g);
       })
       .reduce((acc, filePath) => {
-        const { filename } = filePathDestructor(filePath);
+        const extensions = ['tsx', 'ts', 'js'];
+        const { filename, extension, basename } = filePathDestructor(filePath);
+        const file = extensions.includes(extension) ? filename : basename;
         const parentFolder = fileParentFolder(filePath);
+
         if (parentFolder === targetLabelFolder) {
           return Object.assign(acc, {
-            [`./_default/${filename}`]: `./${targetLabelFolder}/${filename}`,
+            [`./_default/${file}`]: `./${targetLabelFolder}/${file}`,
           });
         } else {
           return Object.assign(acc, {
-            [`./_default/${parentFolder}/${filename}`]: `./${targetLabelFolder}/${parentFolder}/${filename}`,
+            [`./_default/${parentFolder}/${file}`]: `./${targetLabelFolder}/${parentFolder}/${file}`,
           });
         }
       }, {});
