@@ -1,31 +1,12 @@
-import { Cards, ITabs, Table, Tabs } from '@components/shared';
 import { config } from '@pages/main/leverage';
 import { useResponsive } from 'ahooks';
+import { useTranslation } from 'react-i18next';
+import { Cards, Table } from '@components/shared';
 import React, { memo } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-// import { MobileDepositTable } from '..';
 import './LeverageRatiosSection.scss';
 
 export const LeverageRatiosSection = memo(function LeverageRatiosSection() {
-  const responsive = useResponsive();
   const { t } = useTranslation();
-
-  // const tabsData: ITabs = {
-  //   labels: [
-  //     { value: t('Deposit'), anchor: 'deposit' },
-  //     { value: t('Withdrawals'), anchor: 'withdrawals' },
-  //   ],
-  //   content: [
-  //     {
-  //       value: responsive.md ? <Table {...config.tableData} /> : <MobileDepositTable {...config.tableData} />,
-  //       anchor: 'deposit',
-  //     },
-  //     {
-  //       value: responsive.md ? <Table {...config.tableData} /> : <MobileDepositTable {...config.tableData} />,
-  //       anchor: 'withdrawals',
-  //     },
-  //   ],
-  // };
 
   return (
     <section className="leverage-wrapper__ratios">
@@ -37,14 +18,11 @@ export const LeverageRatiosSection = memo(function LeverageRatiosSection() {
             <Table {...config.tableData} />
             <Cards
               id="depositCards"
-              className="deposit__cards mt-16"
+              className="deposit__cards mt-12 mt-md-16"
               cards={config.depositCards}
               cardWrapperClass="card col-12 col-md-4 mb-9 mb-md-0"
             />
           </div>
-          {/* <div className="col-12 px-0 px-md-5">
-            <Tabs className="ratios__tabs" {...tabsData} />
-          </div> */}
         </div>
       </div>
     </section>

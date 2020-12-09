@@ -82,6 +82,15 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
+      title: 'Leverage',
+    },
+    path: '/leverage',
+    component: Page.Leverage,
+    appSection: EAppSection.main,
+    menuItem: false,
+  },
+  {
+    meta: {
       title: 'Login',
     },
     path: '/login',

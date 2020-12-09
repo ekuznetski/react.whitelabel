@@ -1,5 +1,4 @@
 import React from 'react';
-import './Leverage.scss';
 import { LeverageRatiosSection, LeverageTopSection } from './components';
 import { OpenLiveAccountBannerSection } from '@components/sections';
 import { Cards } from '@components/shared';

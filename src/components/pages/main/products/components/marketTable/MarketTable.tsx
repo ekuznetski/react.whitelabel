@@ -1,4 +1,4 @@
-import { Svg } from '@components/shared';
+import { LocaleNavLink, Svg } from '@components/shared';
 import { MarketType } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
@@ -49,7 +49,9 @@ export const MarketTable = memo((props: IMarketTable) => {
             <div className={fullViewParamClass}>{item.minTrade}</div>
             <div className={fullViewParamClass}>{item.valuePerTick}</div>
             <div className={fullViewParamClass}>
-              <Svg href="info" isIcon />
+              <LocaleNavLink exact to={'/leverage'}>
+                <Svg href="info" isIcon />
+              </LocaleNavLink>
             </div>
             <div className={tdClass}>{platforms[item.platform]}</div>
           </div>
