@@ -7,11 +7,11 @@ import { TradingAccountAddCard } from './AddCard/TradingAccountAddCard';
 import { ITradingAccountSingleCard, TradingAccountSingleCard } from './SingleCard/TradingAccountSingleCard';
 import './TradingAccountCards.scss';
 
-export function TradingAccountCards(props: { type: ETradingType }) {
+export function TradingAccountCards(props: { type: ETradingType[] }) {
   const { tradingAccountCards } = useSelector<IStore, { tradingAccountCards: ITradingAccountSingleCard[] }>(
     (state) => ({
       tradingAccountCards: state.data.tradingData.accounts
-        .filter((account) => account.type === props.type)
+        .filter((account) => props.type.includes(account.type))
         .map((account) => ({
           platform: account.platformName,
           type: account.accountType,

@@ -3,9 +3,9 @@ import { ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
 import { ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
 import { routeFetchData } from '@utils/fn';
-import { useLockScroll, usePathLocale, useMeta } from '@utils/hooks';
-import { useBoolean, useThrottleEffect } from 'ahooks';
-import React, { memo, useEffect } from 'react';
+import { useLockScroll, useMeta, usePathLocale } from '@utils/hooks';
+import { useBoolean, useThrottle, useThrottleEffect } from 'ahooks';
+import React, { memo, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { NotFound, PageLoader } from '..';
@@ -16,6 +16,7 @@ export const Router = memo(function Router() {
   }));
   const { localizePath, delocalizePath } = usePathLocale();
   const { pathname, state } = useLocation();
+  const _isLoading = useThrottle(!routeState || routeState.isLoading, { wait: 50 });
   const _path = delocalizePath(pathname);
   let _locale = pathname.split('/')[1] as ELanguage;
 
@@ -24,7 +25,7 @@ export const Router = memo(function Router() {
   }
 
   const _route = routesNavConfig.find((route) => route.path === _path);
-  // useMeta({ name: 'description', content: _route?.meta?.desc || '' });
+  useMeta({ name: 'description', content: _route?.meta?.desc || '' });
   useEffect(() => {
     if (routeState.path != _path) {
       window.scrollTo(0, 0);
@@ -40,28 +41,30 @@ export const Router = memo(function Router() {
     }
   }, [pathname]);
 
-  return (
-    <>
-      <PageLoader isLoading={routeState.isLoading} />
-      <Switch>
-        <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
-        {/* {_path.length > 1 && _route && <Redirect from={_path} to={localizePath(_path)} />} */}
-        {routeState.locale && <Redirect exact from="/" to={routeState.locale} />}
-        {routesRedirectConfig.map((route) => (
-          <Redirect key={route.path} exact from={route.path} to={route.redirectTo} />
-        ))}
-        {routesNavConfig.map((route, r) => (
-          <Route
-            key={r}
-            exact
-            path={localizePath(route.path)}
-            render={() => <RenderRoute route={route} routeState={routeState} />}
-          />
-        ))}
-        <Route component={NotFound} />
-      </Switch>
-    </>
-  );
+  return useMemo(() => {
+    return (
+      <>
+        <PageLoader isLoading={_isLoading} />
+        <Switch>
+          <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
+          {/* {_path.length > 1 && _route && <Redirect from={_path} to={localizePath(_path)} />} */}
+          {routeState.locale && <Redirect exact from="/" to={routeState.locale} />}
+          {routesRedirectConfig.map((route) => (
+            <Redirect key={route.path} exact from={route.path} to={route.redirectTo} />
+          ))}
+          {routesNavConfig.map((route, r) => (
+            <Route
+              key={r}
+              exact
+              path={localizePath(route.path)}
+              render={() => <RenderRoute route={route} routeState={routeState} />}
+            />
+          ))}
+          <Route component={NotFound} />
+        </Switch>
+      </>
+    );
+  }, [_isLoading, routeState.path == _route?.path]);
 });
 
 interface IRenderRoute {
@@ -73,7 +76,7 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
   const { openedRequests } = useSelector<IStore, { openedRequests: EActionTypes[] }>((state) => ({
     openedRequests: state.app.requests.activeList,
   }));
-  const [firstRender, { setFalse: setFirstRender }] = useBoolean(true);
+  const [firstRender, { setFalse: setFirstRenderFalse }] = useBoolean(true);
   // const [isLoading, { setFalse: setIsLoading }] = useBoolean(true);
   const { localizePath } = usePathLocale();
   const history = useHistory();
@@ -81,12 +84,12 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
   useEffect(() => {
     routeFetchData(route);
     useLockScroll(true);
-    setFirstRender();
+    setFirstRenderFalse();
 
     return () => {
       store.dispatch(ac_updateRouteParams({ isLoading: true }));
     };
-  }, [firstRender]);
+  }, [route]);
 
   useThrottleEffect(
     () => {
@@ -110,13 +113,13 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
           if (typeof _redirectParams === 'object') {
             history.push(localizePath(_redirectParams.path), _redirectParams?.state);
           } else if (_redirectParams === false) {
-            history.push(localizePath(routeState.path));
+            history.push(localizePath(route.path));
           }
         }
       }
     },
     [openedRequests],
-    { wait: 100 },
+    { wait: 25 }, // this value will effect the time the page loader displayed
   );
 
   return !firstRender && !routeState.isLoading && route.component ? <route.component /> : null;
