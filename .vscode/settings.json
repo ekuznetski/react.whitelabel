@@ -1,3 +1,9 @@
 {
-  "compile-hero.disable-compile-files-on-did-save-code": true
+  "eslint.validate": ["typescript", "typescriptreact"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.packageManager": "yarn",
+  "eslint.lintTask.enable": true,
+  "eslint.run": "onType"
 }
