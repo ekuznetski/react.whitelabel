@@ -64,7 +64,7 @@ export const Router = memo(function Router() {
         </Switch>
       </>
     );
-  }, [_isLoading]);
+  }, [_isLoading, routeState.path == _route?.path]);
 });
 
 interface IRenderRoute {
@@ -119,7 +119,7 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
       }
     },
     [openedRequests],
-    { wait: 100 },
+    { wait: 25 }, // this value will effect the time the page loader displayed
   );
 
   return !firstRender && !routeState.isLoading && route.component ? <route.component /> : null;
