@@ -1,3 +1,4 @@
+import { useUnmount } from 'ahooks';
 import { useEffect } from 'react';
 
 export interface Options {
@@ -29,9 +30,11 @@ export const useMeta =
             document.getElementsByTagName('head')[0].appendChild(link);
             links.push(link);
           });
+        }, [options]);
 
-          return () => links.forEach((linkNode) => linkNode?.parentNode?.removeChild(linkNode));
-        }, []);
+        useUnmount(() => {
+          links.forEach((linkNode) => linkNode?.parentNode?.removeChild(linkNode));
+        });
       }
     : () => {};
 
