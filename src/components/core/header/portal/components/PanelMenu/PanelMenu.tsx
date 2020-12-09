@@ -1,4 +1,4 @@
-import { Img, LocaleNavLink, Svg } from '@components/shared';
+import { LabelView, LocaleNavLink, Svg } from '@components/shared';
 import { ELabels } from '@domain/enums';
 import { IChildrenMenuConfig, IMenuConfig } from '@domain/interfaces';
 import { useDebounceEffect } from 'ahooks';
@@ -89,10 +89,17 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
           ))}
         </div>
         <div className="header-panel-menu__dropdown-footer px-7">
-          <Svg href="logo" _label height={12} />
-          <Svg href="logo" _label={ELabels.arofx} height={12} />
-          <Img src="logo.png" _label={ELabels.bsfx} height={16} />
-          <span>{t('Est since 1977')}</span>
+          <LabelView>
+            {{
+              '*': (
+                <>
+                  <Svg href="logo" height={12} />
+                  <span>{t('Est since 1977')}</span>
+                </>
+              ),
+              [ELabels.bsfx]: <Svg href="label_name_logo" _label={ELabels.bsfx} width={38} />,
+            }}
+          </LabelView>
         </div>
       </div>
     </div>
