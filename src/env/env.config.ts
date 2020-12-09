@@ -1,6 +1,7 @@
 const dev = {
   PRODUCTION: false,
   LABEL: 'default',
+  API_URL: 'https://api.hycm.com',
 };
 
 const prod = {

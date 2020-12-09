@@ -2,8 +2,13 @@
 
 .registration-third-step {
   .radio-wrapper.account_type {
-    .col {
-      max-width: 31%;
+    &.totalAccTypes {
+      &_2 .col {
+        max-width: calc(50% - 15px);
+      }
+      &_3 .col {
+        max-width: 31%;
+      }
     }
     @media (max-width: $viewport-lg-w) {
       .spread {
