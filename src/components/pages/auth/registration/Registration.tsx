@@ -1,7 +1,14 @@
 import { Button, Img, Modal, ModalContext, ModalNav, ModalTitle, PageTitle } from '@components/shared';
 import { ENotificationType, ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
-import { ac_fetchClientSettings, ac_login, ac_preRegister, ac_register, ac_showNotification } from '@store';
+import {
+  ac_fetchClientSettings,
+  ac_login,
+  ac_preRegister,
+  ac_register,
+  ac_showNotification,
+  EActionTypes,
+} from '@store';
 import { usePathLocale } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
@@ -60,8 +67,6 @@ export function Registration() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const regData = getLocalStorageRegData();
-  const history = useHistory();
-  const { localizePath } = usePathLocale();
 
   useEffect(() => {
     if (!!regData) {
@@ -72,17 +77,28 @@ export function Registration() {
   useEffect(() => {
     if (!!regData && !!continueReg) {
       setFormData(regData);
-      setName(`${regData[ERegSteps.step1]?.first_name} ${regData[ERegSteps.step1]?.surname}`);
-
-      if (!!regData[ERegSteps.step1]) {
-        setActiveStep(ERegSteps.step2);
-      }
-      if (!!regData[ERegSteps.step2]) {
-        setActiveStep(ERegSteps.step3);
-      }
-      if (!!regData[ERegSteps.step3]) {
-        setActiveStep(ERegSteps.step4);
-      }
+      dispatch(
+        ac_fetchClientSettings(
+          { username: regData[ERegSteps.step1]['email'] },
+          () => {
+            setName(`${regData[ERegSteps.step1]?.first_name} ${regData[ERegSteps.step1]?.surname}`);
+            if (!!regData[ERegSteps.step1]) {
+              setActiveStep(ERegSteps.step2);
+            }
+            if (!!regData[ERegSteps.step2]) {
+              setActiveStep(ERegSteps.step3);
+            }
+            if (!!regData[ERegSteps.step3]) {
+              setActiveStep(ERegSteps.step4);
+            }
+          },
+          () =>
+            ac_showNotification({
+              type: ENotificationType.failure,
+              context: 'Settings not loaded',
+            }),
+        ),
+      );
     }
 
     if (continueReg === false) {
@@ -97,19 +113,7 @@ export function Registration() {
         dispatch(
           ac_preRegister(
             data[ERegSteps.step1],
-            () => {
-              dispatch(
-                ac_fetchClientSettings(
-                  { username: data[ERegSteps.step1]['email'] },
-                  () => resolve(),
-                  () =>
-                    ac_showNotification({
-                      type: ENotificationType.failure,
-                      context: 'Registration unsuccessful',
-                    }),
-                ),
-              );
-            },
+            () => resolve(),
             () =>
               ac_showNotification({
                 type: ENotificationType.failure,
@@ -209,6 +213,7 @@ export function Registration() {
               setContinueReg(true);
               setModalOpen(false);
             }}
+            loadingOnAction={[EActionTypes.fetchClientSettings]}
           >
             {t('Yes continue')}
           </Button>

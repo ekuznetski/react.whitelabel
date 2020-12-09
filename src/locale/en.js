@@ -296,7 +296,7 @@ export default {
   'Risk Warnings': 'Risk Warnings',
   'Cookies Policy': 'Cookies Policy',
   Disclaimer: 'Disclaimer',
-  'High Risk Investment Warning': 'High Risk Investment Warning',
+  'High Risk Investment Warning': 'High Risk Investment Warning:',
   'High Risk Investment Warning Portal Desc':
     'CFDs are leveraged products and can result in the loss of all invested capital. Please consider our Risk Disclosure Notice. WHITE_LABEL Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number 25228 (IBC 2018). Other subsidiaries of Henyep Group are regulated by the CySEC, FCA and DFSA.',
   'High Risk Investment Warning Main Desc':

@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { config } from '@core/footer';
 import './FooterAuth.scss';
 
 export const FooterAuth = memo(function FooterAuth() {
@@ -11,23 +12,19 @@ export const FooterAuth = memo(function FooterAuth() {
       <Row className="mb-6">
         <Col xs={12} className="d-flex align-items-center">
           <div className="links d-flex flex-column flex-sm-row">
-            <a className="links-item">{t('Legal Forms and Documents')}</a>
-            <div className="links-divider" />
-            <a className="links-item">{t('Risk Warnings')}</a>
-            <div className="links-divider" />
-            <a className="links-item">{t('Cookies Policy')}</a>
+            {config?.documents?.map((documents, index) => (
+              <React.Fragment key={index}>
+                <a href={documents.link} className="links-item">
+                  {documents.name}
+                </a>
+                {index + 1 != config.documents.length && <div className="links-divider"></div>}
+              </React.Fragment>
+            ))}
           </div>
         </Col>
       </Row>
-      <Row className="mb-2">
-        <Col xs={12} className="context">
-          <b>{t('High Risk Investment Warning Portal Desc:0')}</b>
-          {t('High Risk Investment Warning Portal Desc:1')}
-        </Col>
-      </Row>
-      <Row className="copyright">
-        <Col xs={12}>{t('Copyright 2020 HYCM')}</Col>
-      </Row>
+      <Row className="mb-2">{config.context.auth}</Row>
+      <Row className="copyright">{config.copyright.auth}</Row>
     </Container>
   );
 });

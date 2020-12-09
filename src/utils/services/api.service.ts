@@ -1,8 +1,7 @@
 import { EHttpMethod, EResponseStatus } from '@domain/enums';
+import { env } from '@env';
 import axios from 'axios';
 import mockData from './api.mock.json';
-
-const apiUrl = 'https://api.hycm.com';
 
 export function request<T extends { [K: string]: any }>(method: EHttpMethod, path: string) {
   return async (data: T | null = null) => {
@@ -63,35 +62,38 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
 
 // export const getContentRequest = request(EHttpMethod.get, `https://baconipsum.com/api/?type=meat-and-filler`);
 export const getContentRequest = (d: any) => new Promise((resolve, reject) => resolve({}));
-export const getGeoIpRequest = request(EHttpMethod.get, `${apiUrl}/frontend/geoIp`);
-export const getProfileRequest = request(EHttpMethod.post, `${apiUrl}/clients/getProfile`);
-export const editProfileRequest = request(EHttpMethod.post, `${apiUrl}/clients/editProfile`);
-export const getClientDataRequest = request(EHttpMethod.get, `${apiUrl}/clients/getClientData`);
-export const loginRequest = request(EHttpMethod.post, `${apiUrl}/clients/login`);
-export const logoutRequest = request(EHttpMethod.post, `${apiUrl}/clients/logout`);
-export const clientSetProfileRequest = request(EHttpMethod.post, `${apiUrl}/clients/setProfile`);
-export const clientAddRequest = request(EHttpMethod.post, `${apiUrl}/clients/add`);
-export const forgotPasswordRequest = request(EHttpMethod.post, `${apiUrl}/clients/forgotPassword`);
-export const resetPasswordRequest = request(EHttpMethod.post, `${apiUrl}/clients/resetPassword`);
-export const userExistsRequest = request(EHttpMethod.post, `${apiUrl}/clients/exist`);
-export const withdrawalsHistoryRequest = request(EHttpMethod.get, `${apiUrl}/withdrawals/getHistory`);
-export const withdrawalsLimitRequest = request(EHttpMethod.post, `${apiUrl}/withdrawals/limit`);
-export const mt4WithdrawFundsRequest = request(EHttpMethod.post, `${apiUrl}/withdrawals/mt4`);
-export const mt5WithdrawFundsRequest = request(EHttpMethod.post, `${apiUrl}/withdrawals/mt5`);
-export const tradingAccountsRequest = request(EHttpMethod.get, `${apiUrl}/clients/getTradingAccounts`);
-export const financialProfileRequest = request(EHttpMethod.post, `${apiUrl}/clients/newKyc`);
-export const internalTransferRequest = request(EHttpMethod.post, `${apiUrl}/accounts/transfer`);
-export const getTransactionalStatementsRequest = request(EHttpMethod.post, `${apiUrl}/clients/bankingStatements`);
-export const getBankDetailsRequest = request(EHttpMethod.post, `${apiUrl}/bankaccounts/getbankdetails`);
-export const updateBankDetailsRequest = request(EHttpMethod.post, `${apiUrl}/bankaccounts/saveaccount`);
-export const createMT4LiveAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt4accounts/create`);
-export const createMT4DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt4accounts/demo/create`);
-export const createMT5LiveAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt5accounts/create`);
-export const createMT5DemoAccountRequest = request(EHttpMethod.post, `${apiUrl}/mt5accounts/demo/create`);
-export const addDepositRequest = request(EHttpMethod.post, `${apiUrl}/deposits/add`);
-export const uploadFileRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/upload`);
-export const getDocumentsRequest = request(EHttpMethod.post, `${apiUrl}/v2/documents/getDocuments`);
-export const partnershipRegistrationRequest = request(EHttpMethod.post, `${apiUrl}/frontend/extra/partnershipEmail`);
-export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${apiUrl}/ibs/add`);
+export const getGeoIpRequest = request(EHttpMethod.get, `${env.API_URL}/frontend/geoIp`);
+export const getProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/getProfile`);
+export const editProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/editProfile`);
+export const getClientDataRequest = request(EHttpMethod.get, `${env.API_URL}/clients/getClientData`);
+export const loginRequest = request(EHttpMethod.post, `${env.API_URL}/clients/login`);
+export const logoutRequest = request(EHttpMethod.post, `${env.API_URL}/clients/logout`);
+export const clientSetProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/setProfile`);
+export const clientAddRequest = request(EHttpMethod.post, `${env.API_URL}/clients/add`);
+export const forgotPasswordRequest = request(EHttpMethod.post, `${env.API_URL}/clients/forgotPassword`);
+export const resetPasswordRequest = request(EHttpMethod.post, `${env.API_URL}/clients/resetPassword`);
+export const userExistsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/exist`);
+export const withdrawalsHistoryRequest = request(EHttpMethod.get, `${env.API_URL}/withdrawals/getHistory`);
+export const withdrawalsLimitRequest = request(EHttpMethod.post, `${env.API_URL}/withdrawals/limit`);
+export const mt4WithdrawFundsRequest = request(EHttpMethod.post, `${env.API_URL}/withdrawals/mt4`);
+export const mt5WithdrawFundsRequest = request(EHttpMethod.post, `${env.API_URL}/withdrawals/mt5`);
+export const tradingAccountsRequest = request(EHttpMethod.get, `${env.API_URL}/clients/getTradingAccounts`);
+export const financialProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/newKyc`);
+export const internalTransferRequest = request(EHttpMethod.post, `${env.API_URL}/accounts/transfer`);
+export const getTransactionalStatementsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/bankingStatements`);
+export const getBankDetailsRequest = request(EHttpMethod.post, `${env.API_URL}/bankaccounts/getbankdetails`);
+export const updateBankDetailsRequest = request(EHttpMethod.post, `${env.API_URL}/bankaccounts/saveaccount`);
+export const createMT4LiveAccountRequest = request(EHttpMethod.post, `${env.API_URL}/mt4accounts/create`);
+export const createMT4DemoAccountRequest = request(EHttpMethod.post, `${env.API_URL}/mt4accounts/demo/create`);
+export const createMT5LiveAccountRequest = request(EHttpMethod.post, `${env.API_URL}/mt5accounts/create`);
+export const createMT5DemoAccountRequest = request(EHttpMethod.post, `${env.API_URL}/mt5accounts/demo/create`);
+export const addDepositRequest = request(EHttpMethod.post, `${env.API_URL}/deposits/add`);
+export const uploadFileRequest = request(EHttpMethod.post, `${env.API_URL}/v2/documents/upload`);
+export const getDocumentsRequest = request(EHttpMethod.post, `${env.API_URL}/v2/documents/getDocuments`);
+export const partnershipRegistrationRequest = request(
+  EHttpMethod.post,
+  `${env.API_URL}/frontend/extra/partnershipEmail`,
+);
+export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${env.API_URL}/ibs/add`);
 export const getStocksPricesRequest = request(EHttpMethod.post, `https://prices.hycm.com/graphs/prices2`);
-export const getClientSettingsRequest = request(EHttpMethod.post, `${apiUrl}/clients/settings`);
+export const getClientSettingsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/settings`);

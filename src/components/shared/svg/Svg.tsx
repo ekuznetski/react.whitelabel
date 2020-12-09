@@ -7,7 +7,9 @@ const path = require('path');
 export const Svg = memo((props: { isIcon?: boolean; _label?: ELabels | boolean } & SVGProps<SVGSVGElement>) => {
   if (!props.href || !useCheckLabel(props._label)) return null;
   const labelFolder =
-    props._label !== undefined && props._label !== null && useCheckLabel(props._label) ? useLabelFolder() : '';
+    props._label !== undefined && props._label !== null && useCheckLabel(props._label)
+      ? useLabelFolder()
+      : '';
 
   const innerProps = { ...props };
   if (innerProps.isIcon) {

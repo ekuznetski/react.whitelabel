@@ -1,5 +1,5 @@
 import { EAccountLeverage, EClientStatus, ECurrencyCode, ETradingAccountType, ETradingPlatform } from '@domain/enums';
-import { IClientSettings } from '@domain/interfaces';
+import { IClientProfile, IClientSettings } from '@domain/interfaces';
 
 export class MClientSettings {
   allow_additional_account: boolean;
@@ -18,7 +18,7 @@ export class MClientSettings {
   show_compliance_popup: boolean;
   switch_cayman: boolean;
 
-  constructor(props: IClientSettings) {
+  constructor(props: IClientSettings | IClientProfile) {
     this.allow_additional_account = props.allow_additional_account;
     this.allow_additional_live_account = props.allow_additional_live_account;
     this.allow_additional_demo_account = props.allow_additional_demo_account;
@@ -42,7 +42,7 @@ export class MClientSettings {
     this.enable_citioptions = props.enable_citioptions;
     this.show_promotions = props.show_promotions || true;
     this.phone_verification =
-      EClientStatus[props.phone_verification.toLowerCase() as keyof typeof EClientStatus] || EClientStatus.pending;
+      EClientStatus[props.phone_verification?.toLowerCase() as keyof typeof EClientStatus] || EClientStatus.pending;
     this.show_compliance_popup = props.show_compliance_popup || false;
     this.switch_cayman = props.switch_cayman || false;
   }

@@ -1,7 +1,7 @@
+import { ELanguage } from '@domain/enums';
+import { Nullable } from '@domain/interfaces';
 import { EActionTypes } from './store.enum';
 import { IAction, IAppStore } from './store.interface';
-import { Nullable } from '@domain/interfaces';
-import { ELanguage } from '@domain/enums';
 
 export const initAppStore: Nullable<IAppStore> = {
   route: {
