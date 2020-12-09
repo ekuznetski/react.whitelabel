@@ -18,8 +18,7 @@ export const useMeta =
         let links: HTMLMetaElement[] = [];
 
         useEffect(() => {
-          // @ts-ignore
-          options = Array.from([options]).flat();
+          options = [].concat.apply([], [options as []]);
 
           options.forEach((opt) => {
             var link = document.createElement('meta');
