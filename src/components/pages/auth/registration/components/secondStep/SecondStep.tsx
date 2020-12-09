@@ -92,14 +92,14 @@ export function SecondStep({ submitFn }: any) {
       <Formik
         initialValues={{
           tax_checkbox: false,
-          tax_country: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
-          country: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
-          dayOfBirth: '',
-          monthOfBirth: '',
-          yearOfBirth: '',
-          street: '',
-          city: '',
-          postcode: '',
+          tax_country: countries[0],
+          country: countries[0],
+          dayOfBirth: '01',
+          monthOfBirth: '02',
+          yearOfBirth: '1988',
+          street: 'test',
+          city: 'test',
+          postcode: '123',
         }}
         validationSchema={validationSchema}
         onSubmit={Submit}

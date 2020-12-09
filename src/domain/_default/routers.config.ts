@@ -1,29 +1,19 @@
 import * as Page from '@components/pages';
-import {
-  ac_fetchBankDetails,
-  ac_fetchClientData,
-  ac_fetchDocuments,
-  ac_fetchGeoIpData,
-  ac_fetchProfile,
-  ac_fetchTradingAccounts,
-  ac_fetchWithdrawHistory,
-  ac_logout,
-} from '@store';
+import * as Action from '@store';
 import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
 import { EAppSection, EResponseStatus, ETradingType } from '../enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
-import i18n from 'i18next';
 
 // Data to be loaded on EVERY page of app section
 export const routesInitialApiData: IRoutesInitialApiData = {
   [EAppSection.auth]: {
-    strict: [ac_fetchGeoIpData, ac_fetchProfile],
+    strict: [Action.ac_fetchGeoIpData, Action.ac_fetchProfile],
   },
   [EAppSection.main]: {
-    strict: [ac_fetchGeoIpData, ac_fetchProfile],
+    strict: [Action.ac_fetchGeoIpData, Action.ac_fetchProfile],
   },
   [EAppSection.portal]: {
-    strict: [ac_fetchGeoIpData, ac_fetchClientData, ac_fetchProfile],
+    strict: [Action.ac_fetchGeoIpData, Action.ac_fetchClientData, Action.ac_fetchProfile],
   },
 };
 
@@ -108,7 +98,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: null,
     activators: [logoutGuard],
     apiData: {
-      strict: [ac_logout],
+      strict: [Action.ac_logout],
     },
     appSection: EAppSection.auth,
     menuItem: false,
@@ -127,7 +117,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     meta: {
       title: 'Reset Password',
     },
-    path: '/forgot-password/reset',
+    path: '/reset-password',
     component: Page.ResetPassword,
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
@@ -142,7 +132,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
     apiData: {
-      lazy: [ac_fetchGeoIpData],
+      lazy: [Action.ac_fetchGeoIpData],
     },
     menuItem: false,
   },
@@ -155,7 +145,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     apiData: {
-      strict: [ac_fetchTradingAccounts],
+      strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: false,
   },
@@ -168,7 +158,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     apiData: {
-      strict: [ac_fetchTradingAccounts],
+      strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: {
       icon: 'coins',
@@ -185,7 +175,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     apiData: {
-      strict: [ac_fetchTradingAccounts],
+      strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: false,
   },
@@ -199,7 +189,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     apiData: {
-      strict: [ac_fetchTradingAccounts],
+      strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: false,
   },
@@ -212,8 +202,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     apiData: {
-      lazy: [ac_fetchWithdrawHistory],
-      strict: [ac_fetchTradingAccounts],
+      lazy: [Action.ac_fetchWithdrawHistory],
+      strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: {
       icon: 'coins',
@@ -229,7 +219,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     apiData: {
-      strict: [ac_fetchTradingAccounts],
+      strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: {
       icon: 'internal-transfer',
@@ -302,7 +292,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Profile,
     appSection: EAppSection.portal,
     apiData: {
-      strict: [ac_fetchBankDetails],
+      strict: [Action.ac_fetchBankDetails],
     },
     activators: [allowAuthorizedGuard],
     menuItem: false,
@@ -315,10 +305,10 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Verification,
     appSection: EAppSection.portal,
     apiData: {
-      strict: [ac_fetchDocuments],
+      strict: [Action.ac_fetchDocuments],
     },
     // apiData: {
-    //   strict: [ac_fetchBankDetails], // TINS, CCard Data
+    //   strict: [Action.ac_fetchBankDetails], // TINS, CCard Data
     // },
     activators: [allowAuthorizedGuard],
     menuItem: false,

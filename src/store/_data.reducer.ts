@@ -8,12 +8,7 @@ export const initDataStore: Nullable<IDataStore> = {
   client: {
     profile: null,
     statusData: null,
-    settings: {
-      show_promotions: true,
-      phone_verification: 'pending',
-      show_compliance_popup: false,
-      switch_cayman: false,
-    },
+    settings: null,
     statements: null,
     documents: null,
   },

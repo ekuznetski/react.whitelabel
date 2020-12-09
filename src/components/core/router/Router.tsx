@@ -16,21 +16,24 @@ export const Router = memo(function Router() {
   }));
   const { localizePath, delocalizePath } = usePathLocale();
   const { pathname, state } = useLocation();
+  const _path = delocalizePath(pathname);
+  let _locale = pathname.split('/')[1] as ELanguage;
 
+  if (!localesConfig.includes(_locale)) {
+    _locale = ELanguage.en;
+  }
+
+  const _route = routesNavConfig.find((route) => route.path === _path);
   useEffect(() => {
-    const _path = delocalizePath(pathname);
-    const _locale = pathname.split('/')[1] as ELanguage;
-
-    if (routeState.path != _path && localesConfig.includes(_locale)) {
-      const route = routesNavConfig.find((route) => route.path === _path);
+    if (routeState.path != _path) {
       window.scrollTo(0, 0);
       store.dispatch(
         ac_updateRouteParams({
-          path: route?.path,
-          appSection: route?.appSection,
-          meta: route?.meta,
-          state: Object.assign({}, state, route?.state),
-          isLoading: true,
+          path: _route?.path,
+          appSection: _route?.appSection,
+          meta: _route?.meta,
+          state: Object.assign({}, state, _route?.state),
+          isLoading: !!_route,
         }),
       );
     }
@@ -41,6 +44,7 @@ export const Router = memo(function Router() {
       <PageLoader isLoading={routeState.isLoading} />
       <Switch>
         <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
+        {/* {_path.length > 1 && _route && <Redirect from={_path} to={localizePath(_path)} />} */}
         {routeState.locale && <Redirect exact from="/" to={routeState.locale} />}
         {routesRedirectConfig.map((route) => (
           <Redirect key={route.path} exact from={route.path} to={route.redirectTo} />
