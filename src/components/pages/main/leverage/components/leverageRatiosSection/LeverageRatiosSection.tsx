@@ -1,5 +1,4 @@
 import { config } from '@pages/main/leverage';
-import { useResponsive } from 'ahooks';
 import { useTranslation } from 'react-i18next';
 import { Cards, Table } from '@components/shared';
 import React, { memo } from 'react';
