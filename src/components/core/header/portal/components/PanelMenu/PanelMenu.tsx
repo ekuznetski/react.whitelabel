@@ -53,12 +53,12 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
             {menuItem.path ? (
               <LocaleNavLink exact to={menuItem.path}>
                 {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
-                {menuItem.title}
+                {menuItem.label}
               </LocaleNavLink>
             ) : (
               <a>
                 {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
-                {menuItem.title}
+                {menuItem.label}
               </a>
             )}
           </div>
@@ -84,7 +84,7 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
               <div key={c} className="item">
                 <LocaleNavLink exact to={child.path} className="px-7">
                   {child.icon?.length && <Svg href={child.icon} width={24} className="mr-4" />}
-                  {child.title}
+                  {child.label}
                 </LocaleNavLink>
               </div>
             ))}

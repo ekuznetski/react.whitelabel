@@ -33,7 +33,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '',
     component: Page.Home,
     appSection: EAppSection.main,
-    menuItem: true,
+    menuItem: {
+      label: 'Home',
+    },
   },
   {
     meta: {
@@ -42,7 +44,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/about',
     component: Page.About,
     appSection: EAppSection.main,
-    menuItem: true,
+    menuItem: {
+      label: 'About',
+    },
   },
   {
     meta: {
@@ -51,7 +55,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/products',
     component: Page.Products,
     appSection: EAppSection.main,
-    menuItem: true,
+    menuItem: {
+      label: 'Products',
+    },
   },
   {
     meta: {
@@ -60,7 +66,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/platform',
     component: Page.Platform,
     appSection: EAppSection.main,
-    menuItem: true,
+    menuItem: {
+      label: 'Platform',
+    },
   },
   {
     meta: {
@@ -69,7 +77,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/contacts',
     component: Page.Contacts,
     appSection: EAppSection.main,
-    menuItem: true,
+    menuItem: {
+      label: 'Contacts',
+    },
   },
   {
     meta: {
@@ -78,7 +88,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/partnerships',
     component: Page.Partnerships,
     appSection: EAppSection.main,
-    menuItem: false,
   },
   {
     meta: {
@@ -88,7 +97,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Login,
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
-    menuItem: false,
   },
   {
     meta: {
@@ -101,7 +109,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [Action.ac_logout],
     },
     appSection: EAppSection.auth,
-    menuItem: false,
   },
   {
     meta: {
@@ -111,7 +118,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.ForgotPassword,
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
-    menuItem: false,
   },
   {
     meta: {
@@ -121,7 +127,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.ResetPassword,
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
-    menuItem: false,
   },
   {
     meta: {
@@ -134,7 +139,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     apiData: {
       lazy: [Action.ac_fetchGeoIpData],
     },
-    menuItem: false,
   },
   {
     meta: {
@@ -147,7 +151,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     apiData: {
       strict: [Action.ac_fetchTradingAccounts],
     },
-    menuItem: false,
   },
   {
     meta: {
@@ -161,8 +164,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: {
+      label: 'Deposit',
       icon: 'coins',
-      parent: { title: 'Funds Management', icon: 'money' },
+      parent: { label: 'Funds Management', icon: 'money' },
     },
   },
   {
@@ -177,7 +181,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     apiData: {
       strict: [Action.ac_fetchTradingAccounts],
     },
-    menuItem: false,
   },
   {
     meta: {
@@ -191,7 +194,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     apiData: {
       strict: [Action.ac_fetchTradingAccounts],
     },
-    menuItem: false,
   },
   {
     meta: {
@@ -206,6 +208,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: {
+      label: 'Withdrawal',
       icon: 'coins',
       parent: 'Funds Management',
     },
@@ -222,6 +225,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: {
+      label: 'Internal Transfers',
       icon: 'internal-transfer',
       parent: 'Funds Management',
     },
@@ -235,6 +239,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     menuItem: {
+      label: 'Transactional Statement',
       icon: 'coins',
       parent: 'Funds Management',
     },
@@ -251,8 +256,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
       accountType: ETradingType.live,
     },
     menuItem: {
+      label: 'Open Live Account',
       icon: 'filter',
-      parent: { title: 'Trading Accounts', icon: 'trading_graph' },
+      parent: { label: 'Trading Accounts', icon: 'trading_graph' },
     },
   },
   {
@@ -267,8 +273,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
       accountType: ETradingType.demo,
     },
     menuItem: {
+      label: 'Open Demo Account',
       icon: 'filter',
-      parent: { title: 'Trading Accounts', icon: 'trading_graph' },
+      parent: { label: 'Trading Accounts', icon: 'trading_graph' },
     },
   },
   {
@@ -280,8 +287,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     menuItem: {
+      label: 'Platform Download',
       icon: 'coins',
-      parent: { title: 'Tools', icon: 'documents' },
+      parent: { label: 'Tools', icon: 'documents' },
     },
   },
   {
@@ -295,7 +303,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [Action.ac_fetchBankDetails],
     },
     activators: [allowAuthorizedGuard],
-    menuItem: false,
   },
   {
     meta: {
@@ -305,13 +312,18 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Verification,
     appSection: EAppSection.portal,
     apiData: {
-      strict: [Action.ac_fetchDocuments],
+      strict: [Action.ac_fetchDocuments], // TINS, CCard Data
     },
-    // apiData: {
-    //   strict: [Action.ac_fetchBankDetails], // TINS, CCard Data
-    // },
     activators: [allowAuthorizedGuard],
-    menuItem: false,
+  },
+  {
+    meta: {
+      title: 'Invite Friends',
+    },
+    path: '/invite-friends',
+    component: Page.Verification,
+    appSection: EAppSection.portal,
+    activators: [allowAuthorizedGuard],
   },
 ];
 
