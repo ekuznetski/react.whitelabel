@@ -25,12 +25,12 @@ export function BurgerMenu({ menuConfig, closeBurgerMenu, className }: IBurgerMe
                 {menuItem.path ? (
                   <LocaleNavLink exact to={menuItem.path} onClick={closeBurgerMenu}>
                     {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
-                    {menuItem.title}
+                    {menuItem.label}
                   </LocaleNavLink>
                 ) : (
                   <a onClick={closeBurgerMenu}>
                     {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
-                    {menuItem.title}
+                    {menuItem.label}
                   </a>
                 )}
               </div>
