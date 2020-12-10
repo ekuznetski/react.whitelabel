@@ -4,7 +4,6 @@ import { IAction } from '@store';
 import { Path } from 'history';
 
 export interface IRouteNavConfig {
-  title?: string;
   meta: {
     title: string;
     desc?: string;

@@ -30,7 +30,6 @@ export const routesRedirectConfig: IRouteRedirectConfig[] = [
 
 export const routesNavConfig: IRouteNavConfig[] = [
   {
-    title: 'Home',
     meta: {
       title: t('Home:title'),
       desc: t('Home:desc'),
@@ -43,7 +42,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
   },
   {
-    title: 'About',
     meta: {
       title: t('About:title'),
       desc: t('About:desc'),
@@ -52,11 +50,10 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.About,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'About',
+      label: 'About Us',
     },
   },
   {
-    title: 'Products',
     meta: {
       title: t('Products:title'),
       desc: t('Products:desc'),
@@ -65,11 +62,10 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Products,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Products',
+      label: 'Range of Markets',
     },
   },
   {
-    title: 'Platform',
     meta: {
       title: t('Platform:title'),
       desc: t('Platform:desc'),
@@ -78,11 +74,10 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Platform,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Platform',
+      label: 'Platforms',
     },
   },
   {
-    title: 'Contacts',
     meta: {
       title: 'Contacts',
     },
@@ -90,7 +85,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Contacts,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Contacts',
+      label: 'Contact Us',
     },
   },
   {
