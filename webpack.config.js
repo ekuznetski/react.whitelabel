@@ -72,7 +72,7 @@ module.exports = (_env, arguments) => {
   if (targetLabel) {
     environmentFilenames = glob.sync(`./src/env/${targetLabelFolder}/*`);
     stylesFilenames = fs.readdirSync(`./src/scss/${targetLabelFolder}`);
-    domainFilenames = glob.sync(`./src/domain/${targetLabelFolder}/**`);
+    domainFilenames = glob.sync(`./src/domain/${targetLabelFolder}/**/*.*`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
@@ -145,26 +145,22 @@ module.exports = (_env, arguments) => {
     // console.log(componentsFilepaths, targetLabelComponentsAlias);
     // return;
 
-    targetLabelConfigsAlias = domainFilenames
-      .filter((filePath) => {
-        return filePath.match(/(.ts)/g);
-      })
-      .reduce((acc, filePath) => {
-        const extensions = ['tsx', 'ts', 'js'];
-        const { filename, extension, basename } = filePathDestructor(filePath);
-        const file = extensions.includes(extension) ? filename : basename;
-        const parentFolder = fileParentFolder(filePath);
+    targetLabelConfigsAlias = domainFilenames.reduce((acc, filePath) => {
+      const extensions = ['tsx', 'ts', 'js'];
+      const { filename, extension, basename } = filePathDestructor(filePath);
+      const file = extensions.includes(extension) ? filename : basename;
+      const parentFolder = fileParentFolder(filePath);
 
-        if (parentFolder === targetLabelFolder) {
-          return Object.assign(acc, {
-            [`./_default/${file}`]: `./${targetLabelFolder}/${file}`,
-          });
-        } else {
-          return Object.assign(acc, {
-            [`./_default/${parentFolder}/${file}`]: `./${targetLabelFolder}/${parentFolder}/${file}`,
-          });
-        }
-      }, {});
+      if (parentFolder === targetLabelFolder) {
+        return Object.assign(acc, {
+          [`./_default/${file}`]: `./${targetLabelFolder}/${file}`,
+        });
+      } else {
+        return Object.assign(acc, {
+          [`./_default/${parentFolder}/${file}`]: `./${targetLabelFolder}/${parentFolder}/${file}`,
+        });
+      }
+    }, {});
 
     targetLabelEnvAlias = environmentFilenames
       .map((filePath) => {
