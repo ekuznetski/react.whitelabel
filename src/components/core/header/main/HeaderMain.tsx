@@ -43,7 +43,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
             {_mainRoutesConfig.map((route) => (
               <div key={route.path} className="menu__item">
                 <LocaleNavLink exact to={route.path}>
-                  {route.meta?.title}
+                  {route.menuItem?.label}
                 </LocaleNavLink>
               </div>
             ))}
