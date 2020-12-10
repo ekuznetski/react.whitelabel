@@ -6,7 +6,7 @@ const t = i18n.getFixedT(i18n.language);
 
 export const config = {
   tableData: {
-    headers: [t('Asset Class'), t('HYCM LTD (St. Vincent)')],
+    headers: [t('Asset Class'), ''],
     rows: [
       ['Indices future (eu,jp and hk)', '1:500 (Dynamic)'],
       ['Forex (Major)', '1:100'],
@@ -27,7 +27,7 @@ export const config = {
     ],
     colsPctSize: [null, null],
   },
-  depositCards: [
+  leverageRatiosCards: [
     {
       wrapperClassName: 'card col-12 col-md-4 mb-9 mb-md-0',
       header: <Svg href="zero_pct" />,

@@ -1,7 +1,5 @@
-import { LocaleLink, SectionBg } from '@components/shared';
-import { locale } from '@pages/main/about';
 import React, { memo } from 'react';
-import { Button } from 'react-bootstrap';
+import { SectionBg } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import './LeverageTopSection.scss';
 

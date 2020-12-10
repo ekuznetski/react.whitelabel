@@ -440,7 +440,7 @@ export default {
   'Help Center': 'Help Center',
   'Leverage Information': 'LEVERAGE INFORMATION',
   'Leverage Page Top Desc':
-    'At our company our clients can trade using leverage, allowing them to control larger trade sizes',
+    'At WHITE_LABEL our clients can trade using leverage, allowing them to control larger trade sizes',
   'Leverage Ratios': 'LEVERAGE RATIOS',
-  'Leverage Ratios Desc': 'Our company uses a dynamic forex leverage model available on the MT5 platform.',
+  'Leverage Ratios Desc': 'WHITE_LABEL uses a dynamic forex leverage model available on the MT5 platform.',
 };

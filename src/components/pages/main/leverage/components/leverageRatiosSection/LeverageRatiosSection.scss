@@ -17,18 +17,6 @@
         line-height: 30px;
         text-align: center;
       }
-      @media (max-width: $viewport-lg-w) {
-        &__title {
-          font-size: 24px;
-          line-height: 34px;
-        }
-        &__subTitle {
-          font-size: 16px;
-          line-height: 26px;
-        }
-      }
-    }
-    .deposit {
       &__cards {
         .common-cards {
           &__container {
@@ -62,6 +50,14 @@
         }
       }
       @media (max-width: $viewport-lg-w) {
+        &__title {
+          font-size: 24px;
+          line-height: 34px;
+        }
+        &__subTitle {
+          font-size: 16px;
+          line-height: 26px;
+        }
         &__cards {
           .common-cards {
             &__item {

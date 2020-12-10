@@ -44,6 +44,5 @@ export default {
   'Leverage Page Top Desc':
     'At Blue Square FX our clients can trade using leverage, allowing them to control larger trade sizes',
   'Asset Class': 'ASSET CLASS',
-  'HYCM LTD (St. Vincent)': 'HYCM LTD (ST. VINCENT)',
   'Leverage Ratios Desc': 'Blue Square FX uses a dynamic forex leverage model available on the MT5 platform.',
 };

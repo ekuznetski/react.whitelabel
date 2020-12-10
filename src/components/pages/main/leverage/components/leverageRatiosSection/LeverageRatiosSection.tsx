@@ -16,10 +16,10 @@ export const LeverageRatiosSection = memo(function LeverageRatiosSection() {
             <div className="ratios__subTitle mb-12">{t('Leverage Ratios Desc')}</div>
             <Table {...config.tableData} />
             <Cards
-              id="depositCards"
-              className="deposit__cards mt-12 mt-md-16"
-              cards={config.depositCards}
+              id="leverageRatiosCards"
+              className="ratios__cards mt-12 mt-md-16"
               cardWrapperClass="card col-12 col-md-4 mb-9 mb-md-0"
+              cards={config.leverageRatiosCards}
             />
           </div>
         </div>
