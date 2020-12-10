@@ -15,11 +15,11 @@ export function getAppSectionMenu(section: EAppSection): IMenuConfig {
         if (typeof _p == 'object')
           return {
             ..._p,
-            title: _p?.title || route.meta.title,
+            label: _p?.label || route.menuItem?.label,
           };
         else
           return {
-            title: _p || route.meta.title,
+            label: _p || route.menuItem?.label,
           };
       }
       return;
@@ -28,15 +28,17 @@ export function getAppSectionMenu(section: EAppSection): IMenuConfig {
   // Generate Parent elements first to feed them with Menu Items later
   _menuParents.forEach((parent) => {
     if (typeof parent == 'object') {
-      _menu[parent?.title] = {
-        ...(_menu[parent?.title] || {}),
-        ...parent,
-        children: [...(_menu[parent?.title]?.children || [])],
-      };
+      if (parent?.label) {
+        _menu[parent?.label] = {
+          ...(_menu[parent?.label] || {}),
+          ...parent,
+          children: [...(_menu[parent?.label]?.children || [])],
+        };
+      }
     } else if (parent) {
       _menu[parent] = {
         ...(_menu[parent] || {}),
-        title: parent,
+        label: parent,
         children: [...(_menu[parent]?.children || [])],
       };
     }
@@ -44,17 +46,15 @@ export function getAppSectionMenu(section: EAppSection): IMenuConfig {
 
   // Generate Menu Item as Parent.children or Parent element
   _routesConfig.forEach((route) => {
-    if (typeof route.menuItem == 'object') {
+    if (route.menuItem) {
       const _item = { ...route.menuItem };
-      const _parent = (_item.parent as any)?.title || _item.parent || null;
-      const _itemKey = _item.title || route.meta.title;
-      _item.title = _itemKey;
+      const _parent = (_item.parent as any)?.label || _item.parent || null;
+      const _itemKey = _item.label || route.menuItem?.label;
+      _item.label = _itemKey;
       delete _item.parent;
 
       if (_parent) _menu[_parent].children.push({ ..._item, path: route.path });
       else _menu[_itemKey] = { ..._item, path: route.path, children: [] };
-    } else if (route.menuItem) {
-      _menu[route.meta.title] = { title: route.meta.title, path: route.path, children: [] };
     }
   });
 
