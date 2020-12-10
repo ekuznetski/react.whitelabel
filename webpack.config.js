@@ -403,7 +403,7 @@ module.exports = (_env, arguments) => {
     devServer: {
       contentBase: __dirname + '/dist',
       compress: true,
-      hot: false,
+      hot: true,
       historyApiFallback: true,
       port: 4200,
       watchContentBase: true,
