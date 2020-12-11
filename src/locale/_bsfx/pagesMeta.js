@@ -29,6 +29,11 @@ export default {
     desc:
       'Blue Square FX is a leading provider of online foreign exchange (FX) trading. Blue Square FX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure an excellent user experience.',
   },
+  Leverage: {
+    title: 'Leverage - Blue Square FX',
+    desc:
+      'Blue Square FX is a leading provider of online foreign exchange (FX) trading. Blue Square FX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure an excellent user experience.',
+  },
   Login: {
     title: 'Login - Blue Square FX',
     desc: '',

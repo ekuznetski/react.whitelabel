@@ -236,7 +236,7 @@ export default {
     'I understand that the nature of my transactions with WHITE_LABEL will be buying and selling only CFD products in various underlying assets.',
     'I am aware that by not submitting the KYC documents as requested by the Company may lead to the suspension of my trading rights',
     'I am aware that the products offered by WHITE_LABEL are leverage CFD products which carry a high level of risk, and it is possible to lose all my capital deposited with WHITE_LABEL.I further acknowledge that I have read the Risk Disclosure Notice as available online.',
-    'I have reviewed my answers and responded as accurately as possible.'
+    'I have reviewed my answers and responded as accurately as possible.',
   ],
   'Financial Profile Agree with Declaration': 'By clicking this tick box, I agree to each of the above declarations',
   Download: 'Download',
@@ -438,4 +438,9 @@ export default {
   IB: 'IB',
   'White Label': 'White Label',
   'Help Center': 'Help Center',
+  'Leverage Information': 'LEVERAGE INFORMATION',
+  'Leverage Page Top Desc':
+    'At WHITE_LABEL our clients can trade using leverage, allowing them to control larger trade sizes',
+  'Leverage Ratios': 'LEVERAGE RATIOS',
+  'Leverage Ratios Desc': 'WHITE_LABEL uses a dynamic forex leverage model available on the MT5 platform.',
 };
