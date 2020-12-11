@@ -27,6 +27,10 @@ export default {
     title: 'Partnership',
     desc: '',
   },
+  Leverage: {
+    title: 'Leverage',
+    desc: '',
+  },
   Login: {
     title: 'Login',
     desc: '',
