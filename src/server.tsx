@@ -3,7 +3,7 @@ import { Footer, Header, NotFound } from '@components/core';
 import { localesConfig, routesInitialApiData, routesNavConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
-import { store } from '@store';
+import { ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn';
 import compression from 'compression';
 import 'core-js/stable';
@@ -35,7 +35,7 @@ const unsubscribeRequestResolver = store.subscribe(() => {
       ? storeState.app.requests.activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0
       : false;
 
-    if (!hasUncompletedStrictRequest && requestResolver) {
+    if (!hasUncompletedStrictRequest && storeState.app.route.appSection && requestResolver) {
       requestResolver();
     }
   }
@@ -49,6 +49,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
   (global as any).window = window;
   (global as any).document = document;
   (global as any).location = window.location;
+  (global as any).localStorage = null;
 
   const fileExist = fs.existsSync(indexFile);
   let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
@@ -71,8 +72,27 @@ app.get('*', (req: express.Request, res: express.Response) => {
 
   return new Promise((resolve) => {
     requestResolver = resolve;
-    if (route) routeFetchData(route);
-    else requestResolver();
+    if (route) {
+      store.dispatch(
+        ac_updateRouteParams({
+          path: route?.path,
+          appSection: route?.appSection,
+          meta: route?.meta,
+          state: route?.state,
+          isLoading: false,
+        }),
+      );
+      routeFetchData(route);
+    } else {
+      store.dispatch(
+        ac_updateRouteParams({
+          path: '404',
+          appSection: EAppSection.main,
+          isLoading: false,
+        }),
+      );
+      requestResolver();
+    }
   }).then(() => {
     const app = renderToString(
       <StaticRouter location={page}>

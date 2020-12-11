@@ -441,4 +441,9 @@ export default {
   'Not Found': 'NOT FOUND',
   'Not Found Page desc': 'The page you requested does not exist.',
   'Go to Home Page': 'GO TO HOME PAGE',
+  'Leverage Information': 'LEVERAGE INFORMATION',
+  'Leverage Page Top Desc':
+    'At WHITE_LABEL our clients can trade using leverage, allowing them to control larger trade sizes',
+  'Leverage Ratios': 'LEVERAGE RATIOS',
+  'Leverage Ratios Desc': 'WHITE_LABEL uses a dynamic forex leverage model available on the MT5 platform.',
 };

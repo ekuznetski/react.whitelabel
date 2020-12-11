@@ -1,62 +1,72 @@
 @import '~/variables';
 @import '~/mixin';
 
-.header-profile-menu {
-  display: none;
-  align-items: center;
-  position: relative;
-
-  &__facepile {
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: box-shadow(15, 0.1);
-    width: 42px;
-    height: 42px;
-    display: flex;
+.header.main {
+  .header-profile-menu {
+    display: none;
     align-items: center;
-    justify-content: center;
     position: relative;
-    overflow: hidden;
-    cursor: pointer;
 
-    font-size: 16px;
-    line-height: 26px;
-    color: #6f6f6f;
-
-    &:before {
-      content: '';
-      width: 11px;
-      height: 11px;
+    &__facepile {
       border-radius: 50%;
-      border: 2px solid #ffffff;
-      position: absolute;
-      top: 1px;
-      right: 1px;
-      display: none;
+      background: #ffffff;
+      box-shadow: box-shadow(15, 0.1);
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+
+      font-size: 16px;
+      line-height: 26px;
+      color: #6f6f6f;
+
+      &:before {
+        content: '';
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        display: none;
+      }
+
+      &.alert {
+        &:before {
+          display: block;
+          background: $red;
+        }
+      }
     }
 
-    &.alert {
-      &:before {
-        display: block;
-        background: $red;
+    &__chevron {
+      transition: all 0.25s;
+      cursor: pointer;
+      fill: #ffffff;
+    }
+
+    &.open {
+      .header-profile-menu__chevron {
+        transform: rotate(180deg);
+      }
+
+      .header-profile-menu__dropdown {
+        visibility: visible;
+        opacity: 1;
       }
     }
   }
 
-  &__chevron {
-    transition: all 0.25s;
-    cursor: pointer;
-    fill: $text;
-  }
-
-  &.open {
-    .header-profile-menu__chevron {
-      transform: rotate(180deg);
-    }
-
-    .header-profile-menu__dropdown {
-      visibility: visible;
-      opacity: 1;
+  &.fixed {
+    .header-profile-menu {
+      &__chevron {
+        fill: $text;
+      }
     }
   }
 }
