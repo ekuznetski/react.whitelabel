@@ -1,8 +1,11 @@
-import * as Page from '@components/pages';
 import * as Action from '@store';
-import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
+import * as Page from '@components/pages';
+import i18n from 'i18next';
 import { EAppSection, EResponseStatus, ETradingType } from '../enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
+import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
+
+const t = i18n.getFixedT(i18n.language, 'meta');
 
 // Data to be loaded on EVERY page of app section
 export const routesInitialApiData: IRoutesInitialApiData = {
@@ -28,7 +31,8 @@ export const routesRedirectConfig: IRouteRedirectConfig[] = [
 export const routesNavConfig: IRouteNavConfig[] = [
   {
     meta: {
-      title: 'Home',
+      title: t('Home:title'),
+      desc: t('Home:desc'),
     },
     path: '',
     component: Page.Home,
@@ -39,35 +43,38 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'About',
+      title: t('About:title'),
+      desc: t('About:desc'),
     },
     path: '/about',
     component: Page.About,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'About',
+      label: 'About Us',
     },
   },
   {
     meta: {
-      title: 'Products',
+      title: t('Products:title'),
+      desc: t('Products:desc'),
     },
     path: '/products',
     component: Page.Products,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Products',
+      label: 'Range of Markets',
     },
   },
   {
     meta: {
-      title: 'Platform',
+      title: t('Platform:title'),
+      desc: t('Platform:desc'),
     },
     path: '/platform',
     component: Page.Platform,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Platform',
+      label: 'Platforms',
     },
   },
   {
@@ -78,7 +85,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Contacts,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Contacts',
+      label: 'Contact Us',
     },
   },
   {
@@ -130,7 +137,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Registration',
+      title: t('Registration:title'),
+      desc: t('Registration:desc'),
     },
     path: '/registration',
     component: Page.Registration,

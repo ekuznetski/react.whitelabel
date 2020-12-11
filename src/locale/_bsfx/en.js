@@ -41,4 +41,5 @@ export default {
   'Partnerships Page Desc': 'Become a BSFX partner and share in the success of one of the world leading brokers.',
   'Become a Partner': 'Become a BSFX Partner',
   'Label Copyright': 'Copyright © 2020 Blue Square FX Limited',
+  exchange: 'Instruments:',
 };
