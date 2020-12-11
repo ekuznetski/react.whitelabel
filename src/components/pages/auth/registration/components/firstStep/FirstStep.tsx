@@ -1,7 +1,7 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { countries, ERegSteps } from '@domain/enums';
-import { ac_userExists, EActionTypes, IStore } from '@store';
+import { ERegSteps, countries } from '@domain/enums';
+import { EActionTypes, IStore, ac_userExists } from '@store';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -58,11 +58,11 @@ export function FirstStep({ submitFn }: any) {
     <div className="registration-first-step">
       <Formik
         initialValues={{
-          first_name: 'test',
-          surname: 'test',
-          email: `test${Math.random()}@mail.com`,
-          phone_prefix: countries[0],
-          phone: '123123123',
+          first_name: '',
+          surname: '',
+          email: '',
+          phone_prefix: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
+          phone: '',
         }}
         validationSchema={validationSchema}
         onSubmit={Submit}
