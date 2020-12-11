@@ -7,19 +7,18 @@ import {
   ac_preRegister,
   ac_register,
   ac_showNotification,
-  EActionTypes,
+  EActionTypes
 } from '@store';
-import { usePathLocale } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
 import './Registration.scss';
 
 function getLocalStorageRegData() {
+  if (!localStorage) return null;
   const b64String = localStorage.getItem('regData');
   let b64StringDecoded = '';
   if (b64String) {

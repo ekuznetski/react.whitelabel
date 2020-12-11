@@ -12,7 +12,7 @@ import './Dropdown.scss';
 type IDropdown = {
   className?: string;
   items?: {
-    icon: string;
+    icon?: string;
     path?: LinkProps['to'];
     title: string;
     onclick?: (e?: any) => any;
