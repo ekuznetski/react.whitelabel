@@ -1,12 +1,18 @@
 import { PageTitle, Svg } from '@components/shared';
 import { ETradingPlatform } from '@domain/enums';
+import { MClientSettings } from '@domain/models';
+import { IStore } from '@store';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import './PlatformDownload.scss';
 
 export const PlatformDownload = memo(function PlatformDownload() {
+  const { clientSettings } = useSelector<IStore, { clientSettings: MClientSettings }>((state) => ({
+    clientSettings: state.data.client.settings,
+  }));
   const { t } = useTranslation();
 
   const download_links = {
@@ -77,7 +83,11 @@ export const PlatformDownload = memo(function PlatformDownload() {
               <div className="download__panel-instructions">
                 <Svg href="shrimp" height="18" className="mr-5" />
                 {t('Read instructions on')}
-                <a href="#" className="hovered-underlined ml-2">
+                <a
+                  href={`/files/DOWNLOAD_MT${platform === ETradingPlatform.mt4 ? 4 : 5}.pdf`}
+                  className="hovered-underlined ml-2"
+                  target="_blank"
+                >
                   {t('how to install MetaTrader')} {platform === ETradingPlatform.mt4 ? 4 : 5}
                 </a>
               </div>

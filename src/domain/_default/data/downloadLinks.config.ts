@@ -1,4 +1,9 @@
+import { ETradingPlatform } from '@domain/enums';
+
 export const downloadLinks = {
-  appStoreLink: '',
-  googlePlayLink: '',
+  [ETradingPlatform.mt5]: {
+    appStore: '',
+    googlePlay: '',
+    desktop: '',
+  },
 };

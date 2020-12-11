@@ -25,7 +25,7 @@ export default {
   'Prestigious Platform Technology Desc':
     '<0>Metatrader is the most popular electronic trading platforms and has long been considered the <1>forex industry standard</1> because of its innovative technology.</0><1>The platform is suitable for traders of all levels and expertise, offering flexible trading systems, a mobile app, Expert Advisors, and advanced technical analysis.</1><2>Compared to its predecessor, MT4 has <1>additional features</1> including 6 types of pending orders, 21 timeframes to choose from, and an integrated fundamental economic calendar.</2>',
   'Regulation Desc':
-    'Blue Square FX Limited Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number <1>25910 (BC2020)</1>. <3>www.bluesquarefx.com</3> is operated by Blue Square FX Limited Limited',
+    'Blue Square FX Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number <1>25910 (BC2020)</1>. <3>www.bluesquarefx.com</3> is operated by Blue Square FX Limited',
   'Main Mobile Trading Section Title': 'Trading <1>on the go</1>',
   'Main Mobile Trading Section Desc':
     '<0>Everything you need to trade in your pocket. Use your smartphone to open and close trading positions, and manage your accounts.</0><1>Download the Metatrader app for your smartphone or tablet and trade wherever you are. Available for Android and iOS.</1>',
@@ -44,6 +44,7 @@ export default {
   'Leverage Page Top Desc':
     'At Blue Square FX our clients can trade using leverage, allowing them to control larger trade sizes',
   'Asset Class': 'ASSET CLASS',
+  'Market Event Notification Desc': 'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by BSFX representatives via phone or e-mail. You can opt-out any time you wish to.',
   'Leverage Ratios Desc': 'Blue Square FX uses a dynamic forex leverage model available on the MT5 platform.',
   exchange: 'Instruments:',
 };

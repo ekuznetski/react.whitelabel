@@ -26,10 +26,11 @@ enum EFields {
 }
 
 export function ThirdStep({ submitFn }: any) {
-  const { t } = useTranslation();
   const { clientSettings } = useSelector<IStore, { clientSettings: MClientSettings }>((state) => ({
     clientSettings: state.data.client.settings,
   }));
+  const { t } = useTranslation();
+  
   const validationSchema = Yup.object().shape({
     firstdeposit_platform: FieldValidators.requiredString,
     account_type: FieldValidators.requiredString,
