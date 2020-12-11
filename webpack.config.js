@@ -104,6 +104,7 @@ module.exports = (_env, arguments) => {
           default:
             switch (fileType) {
               case 'config':
+              case 'locale':
                 return Object.assign(acc, {
                   [`./${filename}`]: `../../${targetLabelFolder}/components/${folderName}/${filename}`,
                 });
@@ -127,6 +128,7 @@ module.exports = (_env, arguments) => {
           default:
             switch (fileType) {
               case 'config':
+              case 'locale':
                 return Object.assign(acc, {
                   [`./${filename}`]: `./${targetLabelFolder}/${filename}`,
                 });
@@ -325,13 +327,13 @@ module.exports = (_env, arguments) => {
                     '@babel/preset-env',
                     !env.PRODUCTION
                       ? {
-                          modules: false,
-                        }
+                        modules: false,
+                      }
                       : {
-                          targets: {
-                            node: 'current',
-                          },
+                        targets: {
+                          node: 'current',
                         },
+                      },
                   ],
                   '@babel/preset-react',
                   '@babel/preset-typescript',

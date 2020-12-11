@@ -263,10 +263,7 @@ export default {
   'Payment Method': 'Payment Method',
   Amount: 'Amount',
   'Recent Withdrawals': 'Recent Withdrawals',
-  '90 inactive days warning': [
-    'You have been inactive for more than 90 days. Please contact us at',
-    'to help you re-activate your account',
-  ],
+  '90 inactive days warning': 'You have been inactive for more than 90 days. Please contact us at <1>accounts@mail.com</1> to help you re-activate your account',
   'You cannot transfer at the moment': 'You cannot transfer at the moment. Your client application is under review',
   'Withdrawal Policy Desc':
     'WHITE_LABEL prides itself in transparent and efficient withdrawal policies. These procedures can be completed online and are designed with your security in mind. Your funds will normally be transferred back to the original source you used to fund your account. Otherwise, we will transfer the funds to your identified bank account.',
