@@ -1,6 +1,6 @@
 import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { countries, ERegSteps } from '@domain/enums';
+import { ERegSteps, countries } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';

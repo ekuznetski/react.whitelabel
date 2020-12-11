@@ -1,7 +1,7 @@
 @import '~/variables';
 @import '~/mixin';
 
-.header.portal {
+.header.main {
   .header-profile-menu {
     display: none;
     align-items: center;
@@ -47,7 +47,7 @@
     &__chevron {
       transition: all 0.25s;
       cursor: pointer;
-      fill: $text;
+      fill: #ffffff;
     }
 
     &.open {
@@ -58,6 +58,14 @@
       .header-profile-menu__dropdown {
         visibility: visible;
         opacity: 1;
+      }
+    }
+  }
+
+  &.fixed {
+    .header-profile-menu {
+      &__chevron {
+        fill: $text;
       }
     }
   }

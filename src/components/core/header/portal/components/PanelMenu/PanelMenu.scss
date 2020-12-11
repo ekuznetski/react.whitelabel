@@ -81,6 +81,14 @@
       left: calc(50% - 8px);
     }
 
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height:100%;
+      width:100%;
+    }
+
     &-itemsList {
       overflow: hidden;
       height: 100%;

@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import { Footer, Header, Router } from '@components/core';
 import { IntercomChat } from '@components/shared';
 import { localesConfig } from '@domain';
@@ -6,10 +7,9 @@ import { env } from '@env';
 import { ac_updateRouteParams, IStore, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
 import classNames from 'classnames';
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useMemo } from 'react';
 import { browserName, osName } from 'react-device-detect';
 import TagManager from 'react-gtm-module';
-import { hot } from 'react-hot-loader/root';
 import { useTranslation } from 'react-i18next';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -62,28 +62,30 @@ export function Main() {
     }
   }, [section]);
 
-  return (
-    <>
-      <div
-        className={classNames(
-          'main-wrapper',
-          env.LABEL?.toLowerCase(),
-          osName.toLowerCase(),
-          browserName.toLowerCase().replace(/mobile|\s/g, ''),
-          device.isMobile && 'isMobile',
-          device.isTablet && 'isTablet',
-          device.isDesktop && 'isDesktop',
-        )}
-      >
-        <Header />
-        <main className="router-context">
-          <Router />
-        </main>
-      </div>
-      <Footer />
-      <div id="dynamic-portals" />
-    </>
-  );
+  return useMemo(() => {
+    return (
+      <>
+        <div
+          className={classNames(
+            'main-wrapper',
+            env.LABEL?.toLowerCase(),
+            osName.toLowerCase(),
+            browserName.toLowerCase().replace(/mobile|\s/g, ''),
+            device.isMobile && 'isMobile',
+            device.isTablet && 'isTablet',
+            device.isDesktop && 'isDesktop',
+          )}
+        >
+          <Header />
+          <main className="router-context">
+            <Router />
+          </main>
+        </div>
+        <Footer />
+        <div id="dynamic-portals" />
+      </>
+    );
+  }, [section]);
 }
 
 export default hot(App);

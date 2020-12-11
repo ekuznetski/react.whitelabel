@@ -20,7 +20,7 @@ export interface IRouteNavConfig {
     lazy?: ((args?: { force: true | null }) => IAction)[];
     strict?: ((args?: { force: true | null }) => IAction)[];
   };
-  menuItem: boolean | IMenuItemConfig;
+  menuItem?: IMenuItemConfig;
 }
 
 export interface IRouteRedirectConfig {
@@ -43,7 +43,7 @@ export interface IPageSectionsConfig {
 }
 
 export interface IMenuItemConfig {
-  title?: string;
+  label: string;
   description?: string;
   icon?: string;
   parent?: string | IMenuItemParentConfig;

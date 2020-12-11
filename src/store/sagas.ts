@@ -5,89 +5,30 @@ import {
   IBaseResponse,
   IClientAddResponse,
   IClientProfileResponse,
+  IClientSettingsResponse,
   IClientStatusDataResponse,
   ICreateTradingAccountRequest,
   IDocumentsInterfaceResponse,
   IEditProfileResponse,
   ILoginResponse,
+  IPartnershipIBRegistrationResponse,
+  IPartnershipRegistrationResponse,
   ISetProfileResponse,
   ITradingAccountsResponse,
   ITransactionalStatementsResponse,
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
   IWithdrawFundRequest,
-  IPartnershipRegistrationResponse,
-  IPartnershipIBRegistrationResponse,
-  IClientSettingsResponse,
 } from '@domain/interfaces';
-import {
-  MClientData,
-  MClientProfile,
-  MClientTradingData,
-  MDocument,
-  MTransactionalStatementData,
-  MWithdrawalHistoryItem,
-  MClientSettings
-} from '@domain/models';
-import {
-  addDepositRequest,
-  clientAddRequest,
-  clientSetProfileRequest,
-  createMT4DemoAccountRequest,
-  createMT4LiveAccountRequest,
-  createMT5DemoAccountRequest,
-  createMT5LiveAccountRequest,
-  editProfileRequest,
-  forgotPasswordRequest,
-  getBankDetailsRequest,
-  getClientDataRequest,
-  getContentRequest,
-  getDocumentsRequest,
-  getGeoIpRequest,
-  getProfileRequest,
-  getTransactionalStatementsRequest,
-  internalTransferRequest,
-  loginRequest,
-  logoutRequest,
-  mt4WithdrawFundsRequest,
-  mt5WithdrawFundsRequest,
-  resetPasswordRequest,
-  financialProfileRequest,
-  tradingAccountsRequest,
-  updateBankDetailsRequest,
-  uploadFileRequest,
-  userExistsRequest,
-  withdrawalsHistoryRequest,
-  withdrawalsLimitRequest,
-  partnershipRegistrationRequest,
-  partnershipIBRegistrationRequest,
-  getStocksPricesRequest,
-  getClientSettingsRequest,
-} from '@utils/services';
+import * as Model from '@domain/models';
+import * as Request from '@utils/services';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { store } from './';
-import {
-  ac_clearStore,
-  ac_fetchDocuments,
-  ac_fetchTradingAccounts,
-  ac_fetchWithdrawHistory,
-  ac_requestActionFailure,
-  ac_requestActionSuccess,
-  ac_saveBankDetails,
-  ac_saveClientData,
-  ac_saveContent,
-  ac_saveDocuments,
-  ac_saveGeoIpData,
-  ac_saveProfile,
-  ac_saveTradingAccounts,
-  ac_saveTransactionalStatements,
-  ac_saveWithdrawHistory,
-  ac_saveWithdrawLimit,
-  ac_saveClientSettings,
-} from './actions';
+import * as Action from './actions';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
 
+const failureResponseConsoleBlacklist = [81];
 /**
  * Get slice of the Store at the current moment.
  * @param path - Describes the path to the data in store
@@ -126,23 +67,30 @@ function* $$(
       try {
         let response = yield success_transform_response_fn(action);
         if (onSuccess) yield call(onSuccess, response);
-        yield put(ac_requestActionSuccess({ requestActionType: actionType }));
+        yield put(Action.ac_requestActionSuccess({ requestActionType: actionType }));
       } catch (e) {
+        if (
+          e &&
+          !e.toString().includes('status code 403') &&
+          !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)
+        ) {
+          console.error(e);
+        }
         if (failure_transform_response_fn) e = yield failure_transform_response_fn(action, e);
         else if (onFailure) yield call(onFailure, e);
-        yield put(ac_requestActionFailure({ requestActionType: actionType }));
+        yield put(Action.ac_requestActionFailure({ requestActionType: actionType }));
       }
     } else {
       // console.log('Data Exist: ' + actionType);
-      yield put(ac_requestActionSuccess({ requestActionType: actionType }));
+      yield put(Action.ac_requestActionSuccess({ requestActionType: actionType }));
     }
   });
 }
 
 export function* getContentSaga() {
   yield $$(EActionTypes.fetchContent, function* ({ payload }: IAction) {
-    const response = yield call(getContentRequest, payload?.page);
-    yield put(ac_saveContent({ [payload?.page]: response.data }));
+    const response = yield call(Request.getContentRequest, payload?.page);
+    yield put(Action.ac_saveContent({ [payload?.page]: response.data }));
     return response;
   });
 }
@@ -151,8 +99,8 @@ export function* getGeoIPSaga() {
   yield $$(
     EActionTypes.fetchGeoIpData,
     function* () {
-      const response = yield call(getGeoIpRequest);
-      yield put(ac_saveGeoIpData(response));
+      const response = yield call(Request.getGeoIpRequest);
+      yield put(Action.ac_saveGeoIpData(response));
       return response;
     },
     'data.geoIp',
@@ -163,9 +111,9 @@ export function* getProfileSaga() {
   yield $$(
     EActionTypes.fetchProfile,
     function* () {
-      const { response }: IClientProfileResponse = yield call(getProfileRequest);
-      yield put(ac_saveProfile(new MClientProfile(response.message)));
-      yield put(ac_saveClientSettings(new MClientSettings(response.message as any)));
+      const { response }: IClientProfileResponse = yield call(Request.getProfileRequest);
+      yield put(Action.ac_saveProfile(new Model.MClientProfile(response.message)));
+      yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response.message)));
       return response;
     },
     'data.client.profile',
@@ -174,91 +122,95 @@ export function* getProfileSaga() {
 
 export function* getClientSettingsSaga() {
   yield $$(EActionTypes.fetchClientSettings, function* ({ payload }: IAction) {
-    const { response }: IClientSettingsResponse = yield call(getClientSettingsRequest, payload);
-    yield put(ac_saveClientSettings(new MClientSettings(response.message)));
+    const { response }: IClientSettingsResponse = yield call(Request.getClientSettingsRequest, payload);
+    yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response.message)));
     return response;
   });
 }
 
 export function* editProfileSaga() {
   yield $$(EActionTypes.editProfile, function* ({ payload }: IAction) {
-    const { response }: IEditProfileResponse = yield call(editProfileRequest, payload);
-    yield put(ac_saveProfile(new MClientProfile(response.data)));
+    const { response }: IEditProfileResponse = yield call(Request.editProfileRequest, payload);
+    yield put(Action.ac_saveProfile(new Model.MClientProfile(response.data)));
+    yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response.data)));
     return response;
   });
 }
 
 export function* changeProfilePasswordSaga() {
   yield $$(EActionTypes.changePassword, function* ({ payload }: IAction) {
-    const { response }: any = yield call(editProfileRequest, payload);
-    yield put(ac_saveProfile(new MClientProfile(response.data)));
+    const { response }: any = yield call(Request.editProfileRequest, payload);
+    yield put(Action.ac_saveProfile(new Model.MClientProfile(response.data)));
+    yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response.data)));
     return response;
   });
 }
 
 export function* getBankDetailsSaga() {
   yield $$(EActionTypes.fetchBankDetails, function* () {
-    const { response }: IBankDetailsResponse = yield call(getBankDetailsRequest);
-    yield put(ac_saveBankDetails(response.message));
+    const { response }: IBankDetailsResponse = yield call(Request.getBankDetailsRequest);
+    yield put(Action.ac_saveBankDetails(response.message));
     return response;
   });
 }
 
 export function* updateBankDetailsSaga() {
   yield $$(EActionTypes.updateBankDetails, function* ({ payload }: IAction) {
-    const { response }: IBankDetailsResponse = yield call(updateBankDetailsRequest, payload);
-    yield put(ac_saveBankDetails(response.data));
+    const { response }: IBankDetailsResponse = yield call(Request.updateBankDetailsRequest, payload);
+    yield put(Action.ac_saveBankDetails(response.data));
     return response;
   });
 }
 
 export function* loginSaga() {
   yield $$(EActionTypes.login, function* ({ payload }: IAction) {
-    const { response }: ILoginResponse = yield call(loginRequest, payload);
-    yield put(ac_saveProfile(new MClientProfile(response.profile)));
+    const { response }: ILoginResponse = yield call(Request.loginRequest, payload);
+    yield put(Action.ac_saveProfile(new Model.MClientProfile(response.profile)));
+    yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response.profile)));
     return response;
   });
 }
 
 export function* logoutSaga() {
   yield $$(EActionTypes.logout, function* () {
-    const { response }: any = yield call(logoutRequest);
-    yield put(ac_clearStore());
+    const { response }: any = yield call(Request.logoutRequest);
+    yield put(Action.ac_clearStore());
     return response;
   });
 }
 
 export function* clientAddSaga() {
   yield $$(EActionTypes.preRegister, function* ({ payload }: IAction) {
-    const { response }: IClientAddResponse = yield call(clientAddRequest, payload);
+    const { response }: IClientAddResponse = yield call(Request.clientAddRequest, payload);
+    yield put(Action.ac_fetchClientSettings({ username: payload?.email }));
     return response;
   });
 }
 
 export function* userExistSaga() {
   yield $$(EActionTypes.userExists, function* ({ payload }: IAction) {
-    const { response }: IBaseResponse = yield call(userExistsRequest, payload);
+    const { response }: IBaseResponse = yield call(Request.userExistsRequest, payload);
     return response;
   });
 }
 
 export function* forgotPasswordSaga() {
   yield $$(EActionTypes.forgotPassword, function* ({ payload }: IAction) {
-    const { response } = yield call(forgotPasswordRequest, payload);
+    const { response } = yield call(Request.forgotPasswordRequest, payload);
     return response;
   });
 }
 
 export function* resetPasswordSaga() {
   yield $$(EActionTypes.resetPassword, function* ({ payload }: IAction) {
-    const { response } = yield call(resetPasswordRequest, payload);
+    const { response } = yield call(Request.resetPasswordRequest, payload);
     return response;
   });
 }
 
 export function* setProfileSaga() {
   yield $$(EActionTypes.register, function* ({ payload }: IAction) {
-    const { response }: ISetProfileResponse = yield call(clientSetProfileRequest, payload);
+    const { response }: ISetProfileResponse = yield call(Request.clientSetProfileRequest, payload);
     return response;
   });
 }
@@ -266,19 +218,21 @@ export function* setProfileSaga() {
 export function* withdrawFundsSaga() {
   yield $$(EActionTypes.withdrawFunds, function* ({ payload }: IAction<IWithdrawFundRequest>) {
     yield call(
-      payload?.trade_platform === ETradingPlatform.mt4 ? mt4WithdrawFundsRequest : mt5WithdrawFundsRequest,
+      payload?.trade_platform === ETradingPlatform.mt4
+        ? Request.mt4WithdrawFundsRequest
+        : Request.mt5WithdrawFundsRequest,
       payload,
     );
-    yield put(ac_fetchWithdrawHistory());
+    yield put(Action.ac_fetchWithdrawHistory());
     return;
   });
 }
 
 export function* getWithdrawHistorySaga() {
   yield $$(EActionTypes.fetchWithdrawHistory, function* () {
-    const { response }: IWithdrawalHistoryResponse = yield call(withdrawalsHistoryRequest);
-    const payload = response.message.map((item) => new MWithdrawalHistoryItem(item));
-    yield put(ac_saveWithdrawHistory(payload));
+    const { response }: IWithdrawalHistoryResponse = yield call(Request.withdrawalsHistoryRequest);
+    const payload = response.message.map((item) => new Model.MWithdrawalHistoryItem(item));
+    yield put(Action.ac_saveWithdrawHistory(payload));
     return response;
   });
 }
@@ -287,11 +241,11 @@ export function* getWithdrawLimitSaga() {
   yield $$(
     EActionTypes.fetchWithdrawLimit,
     function* ({ payload }: IAction) {
-      const { response }: IWithdrawalLimitResponse = yield call(withdrawalsLimitRequest, {
+      const { response }: IWithdrawalLimitResponse = yield call(Request.withdrawalsLimitRequest, {
         trade_account: payload?.accountId,
         trade_platform: payload?.platform,
       });
-      yield put(ac_saveWithdrawLimit({ limit: response.data }));
+      yield put(Action.ac_saveWithdrawLimit({ limit: response.data }));
       return response;
     },
     null,
@@ -299,7 +253,7 @@ export function* getWithdrawLimitSaga() {
       const limit =
         store.getState().data?.tradingData?.accounts.find((account) => account.accountId === payload?.accountId)
           ?.balance || 1000000000000;
-      yield put(ac_saveWithdrawLimit({ limit }));
+      yield put(Action.ac_saveWithdrawLimit({ limit }));
       return limit;
     },
   );
@@ -309,9 +263,9 @@ export function* getClientStatusDataSaga() {
   yield $$(
     EActionTypes.fetchClientData,
     function* () {
-      const { response }: IClientStatusDataResponse = yield call(getClientDataRequest);
-      const payload = new MClientData(response);
-      yield put(ac_saveClientData(payload));
+      const { response }: IClientStatusDataResponse = yield call(Request.getClientDataRequest);
+      const payload = new Model.MClientData(response);
+      yield put(Action.ac_saveClientData(payload));
       return response;
     },
     'data.client.statusData',
@@ -320,7 +274,7 @@ export function* getClientStatusDataSaga() {
 
 export function* financialProfileSage() {
   yield $$(EActionTypes.submitFinancialProfile, function* ({ payload }: IAction) {
-    const { response }: any = yield call(financialProfileRequest, payload);
+    const { response }: any = yield call(Request.financialProfileRequest, payload);
     return response;
   });
 }
@@ -329,8 +283,8 @@ export function* getTradingAccountsSage() {
   yield $$(
     EActionTypes.fetchTradingAccounts,
     function* () {
-      const { response }: ITradingAccountsResponse = yield call(tradingAccountsRequest);
-      yield put(ac_saveTradingAccounts(new MClientTradingData(response)));
+      const { response }: ITradingAccountsResponse = yield call(Request.tradingAccountsRequest);
+      yield put(Action.ac_saveTradingAccounts(new Model.MClientTradingData(response)));
       return response;
     },
     'data.tradingData',
@@ -340,14 +294,16 @@ export function* getTradingAccountsSage() {
 export function* createLiveTradingAccountsSage() {
   yield $$(EActionTypes.createLiveTradingAccount, function* ({ payload }: IAction<ICreateTradingAccountRequest>) {
     const { response } = yield call(
-      payload?.platform === ETradingPlatform.mt4 ? createMT4LiveAccountRequest : createMT5LiveAccountRequest,
+      payload?.platform === ETradingPlatform.mt4
+        ? Request.createMT4LiveAccountRequest
+        : Request.createMT5LiveAccountRequest,
       {
         account_type: payload?.account_type,
         currency: payload?.currency,
         leverage: payload?.leverage,
       },
     );
-    yield put(ac_fetchTradingAccounts());
+    yield put(Action.ac_fetchTradingAccounts());
     return response.data;
   });
 }
@@ -355,22 +311,24 @@ export function* createLiveTradingAccountsSage() {
 export function* createDemoTradingAccountsSage() {
   yield $$(EActionTypes.createDemoTradingAccount, function* ({ payload }: IAction<ICreateTradingAccountRequest>) {
     const { response } = yield call(
-      payload?.platform === ETradingPlatform.mt4 ? createMT4DemoAccountRequest : createMT5DemoAccountRequest,
+      payload?.platform === ETradingPlatform.mt4
+        ? Request.createMT4DemoAccountRequest
+        : Request.createMT5DemoAccountRequest,
       {
         account_type: payload?.account_type,
         currency: payload?.currency,
         leverage: payload?.leverage,
       },
     );
-    yield put(ac_fetchTradingAccounts());
+    yield put(Action.ac_fetchTradingAccounts());
     return response.data;
   });
 }
 
 export function* makeInternalTransferSage() {
   yield $$(EActionTypes.makeInternalTransfer, function* ({ payload }: IAction) {
-    const { response }: any = yield call(internalTransferRequest, payload);
-    yield put(ac_fetchTradingAccounts());
+    const { response }: any = yield call(Request.internalTransferRequest, payload);
+    yield put(Action.ac_fetchTradingAccounts());
     return response;
   });
 }
@@ -379,9 +337,9 @@ export function* fetchDocumentsSage() {
   yield $$(
     EActionTypes.fetchDocuments,
     function* () {
-      const { response }: IDocumentsInterfaceResponse = yield call(getDocumentsRequest);
-      const data = response.message.map((document) => new MDocument(document));
-      yield put(ac_saveDocuments(data));
+      const { response }: IDocumentsInterfaceResponse = yield call(Request.getDocumentsRequest);
+      const data = response.message.map((document) => new Model.MDocument(document));
+      yield put(Action.ac_saveDocuments(data));
       return response;
     },
     'data.client.documents',
@@ -390,45 +348,50 @@ export function* fetchDocumentsSage() {
 
 export function* uploadFileSage() {
   yield $$(EActionTypes.uploadDocuments, function* ({ payload }: IAction) {
-    const { response }: any = yield call(uploadFileRequest, payload);
-    yield put(ac_fetchDocuments({ force: true }));
+    const { response }: any = yield call(Request.uploadFileRequest, payload);
+    yield put(Action.ac_fetchDocuments({ force: true }));
     return response;
   });
 }
 
 export function* fetchTransactionalStatementsSage() {
   yield $$(EActionTypes.fetchTransactionalStatements, function* ({ payload }: IAction) {
-    const { response }: ITransactionalStatementsResponse = yield call(getTransactionalStatementsRequest, payload);
-    const data = new MTransactionalStatementData(response);
-    yield put(ac_saveTransactionalStatements(data));
+    const { response }: ITransactionalStatementsResponse = yield call(
+      Request.getTransactionalStatementsRequest,
+      payload,
+    );
+    const data = new Model.MTransactionalStatementData(response);
+    yield put(Action.ac_saveTransactionalStatements(data));
     return response;
   });
 }
 
 export function* addDepositSaga() {
   yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
-    const response: IAddDepositResponse = yield call(addDepositRequest, payload);
+    const response: IAddDepositResponse = yield call(Request.addDepositRequest, payload);
     return response;
   });
 }
 
 export function* fetchStocksPricesSaga() {
   yield $$(EActionTypes.fetchStocksPrices, function* () {
-    const data = yield call(getStocksPricesRequest);
-    return data;
+    return yield call(Request.getStocksPricesRequest);
   });
 }
 
 export function* partnershipRegistrationSaga() {
   yield $$(EActionTypes.partnershipRegister, function* ({ payload }: IAction) {
-    const { response }: IPartnershipRegistrationResponse = yield call(partnershipRegistrationRequest, payload);
+    const { response }: IPartnershipRegistrationResponse = yield call(Request.partnershipRegistrationRequest, payload);
     return response;
   });
 }
 
 export function* registerIBSaga() {
   yield $$(EActionTypes.partnershipRegisterIB, function* ({ payload }: IAction) {
-    const { response }: IPartnershipIBRegistrationResponse = yield call(partnershipIBRegistrationRequest, payload);
+    const { response }: IPartnershipIBRegistrationResponse = yield call(
+      Request.partnershipIBRegistrationRequest,
+      payload,
+    );
     return response;
   });
 }

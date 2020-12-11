@@ -1,5 +1,4 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
   parserOptions: {
     tsconfigRootDir: './',
     ecmaVersion: 2020,
@@ -19,9 +18,17 @@ module.exports = {
       },
     },
   },
+  parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'import'],
   extends: [],
   rules: {
     'func-style': ['error', 'declaration'],
+    "sort-imports": ["error", {
+      "ignoreCase": false,
+      "ignoreDeclarationSort": false,
+      "ignoreMemberSort": false,
+      "memberSyntaxSortOrder": ['all', 'multiple', 'single', 'none'],
+      "allowSeparatedGroups": true
+    }]
   },
 };

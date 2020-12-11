@@ -23,15 +23,8 @@ export const FooterPortal = memo(function FooterPortal() {
           </div>
         </Col>
       </Row>
-      <Row className="mb-2">
-        <Col xs={12} className="context">
-          <b>{t('High Risk Investment Warning')}</b>
-          {t('High Risk Investment Warning Portal Desc')}
-        </Col>
-      </Row>
-      <Row className="copyright">
-        <Col xs={12}>{t('Journey since 1977')}</Col>
-      </Row>
+      <Row className="mb-2">{config.context.portal}</Row>
+      <Row className="copyright">{config.copyright.portal}</Row>
     </Container>
   );
 });

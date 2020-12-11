@@ -12,7 +12,7 @@ import './Dropdown.scss';
 type IDropdown = {
   className?: string;
   items?: {
-    icon: string;
+    icon?: string;
     path?: LinkProps['to'];
     title: string;
     onclick?: (e?: any) => any;
@@ -53,10 +53,18 @@ export const DropDown = memo<IDropdown>(function DropDown({
   const TARGET_CONTAINER = document.getElementById('dynamic-portals') || document.body;
   const ARROW_HORIZONTAL_OFFSET = 38;
   const ARROW_VERTICAL_OFFSET = 14;
-  const _height = props.items ? (isOpen ? props.items.length * itemHeight + offsetY : 0) : isOpen ? height : 0;
+  const _height = props.items
+    ? isOpen
+      ? props.items.length * itemHeight + offsetY + (noArrow ? 0 : ARROW_VERTICAL_OFFSET)
+      : 0
+    : isOpen
+    ? height
+    : 0;
 
   useEffect(() => {
-    setInitialHeight(props.items ? props.items.length * itemHeight + offsetY : height);
+    setInitialHeight(
+      props.items ? props.items.length * itemHeight + offsetY + (noArrow ? 0 : ARROW_VERTICAL_OFFSET) : height,
+    );
   }, []);
 
   useEffect(() => {
@@ -94,12 +102,12 @@ export const DropDown = memo<IDropdown>(function DropDown({
               ? parentBCR.left + (alignToParentLeft ? 0 : parentBCR.width / 2 - width + 46)
               : -10000
             : -10000,
-          top: parentBCR ? parentBCR.top + parentBCR.height + (noArrow ? 2 : ARROW_VERTICAL_OFFSET) : 0,
+          top: parentBCR ? parentBCR.top + parentBCR.height + (noArrow ? 2 : 0) : 0,
         }}
         ref={dropdownRef}
       >
         <div className="common-dropdown-wrapper">
-          <div className="common-dropdown-context" style={{ height: initialHeight }}>
+          <div className="common-dropdown-context" style={{ top: offsetY - 1 }}>
             {props.items &&
               props.items.map((child, c) => (
                 <div key={c} className="item">

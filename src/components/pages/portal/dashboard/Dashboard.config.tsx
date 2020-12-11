@@ -92,8 +92,8 @@ export const config: IConfig = {
       },
     ],
     content: [
-      { value: <TradingAccountCards type={ETradingType.live} />, anchor: 'tradingAccounts' },
-      { value: <TradingAccountCards type={ETradingType.demo} />, anchor: 'demoAccounts' },
+      { value: <TradingAccountCards type={[ETradingType.live, ETradingType.fake]} />, anchor: 'tradingAccounts' },
+      { value: <TradingAccountCards type={[ETradingType.demo]} />, anchor: 'demoAccounts' },
     ],
   },
   accountNavItems: [

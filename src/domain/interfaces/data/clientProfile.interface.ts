@@ -1,6 +1,7 @@
 import { IBaseResponse } from '../general.interface';
+import { IClientSettings } from './clientSettings.interface';
 
-export interface IClientProfile {
+export type IClientProfile = {
   email: string;
   username: string;
   first_name: string;
@@ -30,20 +31,9 @@ export interface IClientProfile {
   manager: string;
   regDate: string;
   go_to_praxis: boolean;
-  // show_praxis_and_webmoney: boolean;
-  // enable_citioptions: boolean;
-  // allow_additional_account: boolean;
-  // allow_additional_live_account: boolean;
-  // allow_additional_demo_account: boolean;
-  // allow_deposit: boolean;
-  // allowed_currencies: string[];
-  // allowed_leverages: number[];
-  // allowed_account_types: string[];
-  // allowed_platforms: string[];
   is_withdrawal_allowed: boolean;
-  // allow_internal_transfer: boolean;
   edit_fake_account: boolean;
-}
+} & IClientSettings;
 
 export type IClientProfileResponse = {
   response: {

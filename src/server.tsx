@@ -1,30 +1,43 @@
 import './i18n'; // Must be the imported before the App!
-import { Footer, Header, Router } from '@components/core';
-import { routesNavConfig } from '@domain';
+import { Footer, Header, NotFound } from '@components/core';
+import { localesConfig, routesInitialApiData, routesNavConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
-import { store } from '@store';
+import { IRouteNavConfig } from '@domain/interfaces';
+import { ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn';
 import compression from 'compression';
 import 'core-js/stable';
 import express from 'express';
 import fs from 'fs';
+import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { document, window } from 'ssr-window';
-import path from 'path';
 import './App.scss';
 
 let requestResolver: { (): void; (value?: unknown): void } | null = null;
+let route: IRouteNavConfig | null = null;
+
 const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
 const unsubscribeRequestResolver = store.subscribe(() => {
   const storeState = store.getState();
 
-  if (storeState.app.requests.activeList.length == 0 && requestResolver) {
-    requestResolver();
+  if (route) {
+    const _routeStrictRequests = [
+      ...(route.apiData?.strict || []),
+      ...(routesInitialApiData[route.appSection]?.strict || []),
+    ].map((action) => action().type);
+    const hasUncompletedStrictRequest = _routeStrictRequests.length
+      ? storeState.app.requests.activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0
+      : false;
+
+    if (!hasUncompletedStrictRequest && storeState.app.route.appSection && requestResolver) {
+      requestResolver();
+    }
   }
 });
 
@@ -36,35 +49,64 @@ app.get('*', (req: express.Request, res: express.Response) => {
   (global as any).window = window;
   (global as any).document = document;
   (global as any).location = window.location;
+  (global as any).localStorage = null;
 
   const fileExist = fs.existsSync(indexFile);
-  let url = req.url;
+  let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
+    lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],
+    page = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? urlArr[1] : urlArr[2];
 
-  const urlArr = url.split('/');
-  if (urlArr.length >= 1 && Object.keys(ELanguage).includes(urlArr[1])) {
-    url = url.replace(`/${ELanguage[urlArr[1] as keyof typeof ELanguage]}`, '');
+  if (!lng) lng = ELanguage.en;
+  page = !page ? '' : '/' + page;
+
+  route = routesNavConfig.find((el) => el.path === page) || null;
+  if (!route) {
+    console.error('Cant find content for route', req.url, '#', lng, '[', page, ']', 'redirect to 404');
   }
 
-  const route = routesNavConfig.find((el) => el.path === url);
-  if (!route || !fileExist) {
-    if (!route) console.error('Cant find content for route', req.url, '[', url, ']');
-    if (!fileExist) console.error('Server.html not found');
-
+  if (!fileExist) {
+    console.error('Server.html not found');
     // unsubscribeRequestResolver();
     return res.status(500).send('Oops, better luck next time!');
   }
 
   return new Promise((resolve) => {
     requestResolver = resolve;
-    routeFetchData(route);
+    if (route) {
+      store.dispatch(
+        ac_updateRouteParams({
+          path: route?.path,
+          appSection: route?.appSection,
+          meta: route?.meta,
+          state: route?.state,
+          isLoading: false,
+        }),
+      );
+      routeFetchData(route);
+    } else {
+      store.dispatch(
+        ac_updateRouteParams({
+          path: '404',
+          appSection: EAppSection.main,
+          isLoading: false,
+        }),
+      );
+      requestResolver();
+    }
   }).then(() => {
     const app = renderToString(
-      <StaticRouter location={url}>
+      <StaticRouter location={page}>
         <Provider store={store}>
           <div className="main-wrapper">
             <Header />
             <main className="router-context">
-              {route.appSection === EAppSection.portal ? null : route.component && <route.component />}
+              {route ? (
+                route.appSection === EAppSection.portal ? null : (
+                  route.component && <route.component />
+                )
+              ) : (
+                <NotFound />
+              )}
             </main>
           </div>
           <Footer />
@@ -85,10 +127,9 @@ app.get('*', (req: express.Request, res: express.Response) => {
       return res.send(
         data.replace(
           '<div id="root"></div>',
-          `<div id="root">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(preloadedState).replace(
-            /</g,
-            '\\u003c',
-          )}</script>`,
+          `<div id="root" class="${route?.appSection}">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(
+            preloadedState,
+          ).replace(/</g, '\\u003c')}</script>`,
         ),
       );
     });

@@ -1,4 +1,4 @@
-import { Img, LocaleNavLink, Svg } from '@components/shared';
+import { LabelView, LocaleNavLink, Svg } from '@components/shared';
 import { ELabels } from '@domain/enums';
 import { IChildrenMenuConfig, IMenuConfig } from '@domain/interfaces';
 import { useDebounceEffect } from 'ahooks';
@@ -53,12 +53,12 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
             {menuItem.path ? (
               <LocaleNavLink exact to={menuItem.path}>
                 {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
-                {menuItem.title}
+                {menuItem.label}
               </LocaleNavLink>
             ) : (
               <a>
                 {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
-                {menuItem.title}
+                {menuItem.label}
               </a>
             )}
           </div>
@@ -78,21 +78,30 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
         onMouseLeave={tryCloseDropdownMenu}
         ref={dropdownRef}
       >
-        <div className="header-panel-menu__dropdown-itemsList pt-3 pb-1">
-          {menuDropdownOptions.items.map((child, c) => (
-            <div key={c} className="item">
-              <LocaleNavLink exact to={child.path} className="px-7">
-                {child.icon?.length && <Svg href={child.icon} width={24} className="mr-4" />}
-                {child.title}
-              </LocaleNavLink>
-            </div>
-          ))}
-        </div>
-        <div className="header-panel-menu__dropdown-footer px-7">
-          <Svg href="logo" _label height={12} />
-          <Svg href="logo" _label={ELabels.arofx} height={12} />
-          <Img src="logo.png" _label={ELabels.bsfx} height={16} />
-          <span>{t('Est since 1977')}</span>
+        <div className="header-panel-menu__dropdown-wrapper">
+          <div className="header-panel-menu__dropdown-itemsList pt-3 pb-1">
+            {menuDropdownOptions.items.map((child, c) => (
+              <div key={c} className="item">
+                <LocaleNavLink exact to={child.path} className="px-7">
+                  {child.icon?.length && <Svg href={child.icon} width={24} className="mr-4" />}
+                  {child.label}
+                </LocaleNavLink>
+              </div>
+            ))}
+          </div>
+          <div className="header-panel-menu__dropdown-footer px-7">
+            <LabelView>
+              {{
+                '*': (
+                  <>
+                    <Svg href="logo" height={12} />
+                    <span>{t('Est since 1977')}</span>
+                  </>
+                ),
+                [ELabels.bsfx]: <Svg href="label_name_logo" _label={ELabels.bsfx} width={38} />,
+              }}
+            </LabelView>
+          </div>
         </div>
       </div>
     </div>
