@@ -16,24 +16,37 @@ export interface Options {
 export const useMeta =
   typeof document !== 'undefined'
     ? function useMeta(options: Options | Options[]) {
-        let links: HTMLMetaElement[] = [];
+        let metas: HTMLMetaElement[] = [];
+
+        function getMeta(metaType: string) {
+          const metas = document.getElementsByTagName('meta');
+
+          for (let i = 0; i < metas.length; i++) {
+            if (metas[i].getAttribute('name') === metaType || metas[i].getAttribute('property') === 'og:' + metaType) {
+              return metas[i];
+            }
+          }
+
+          return null;
+        }
 
         useEffect(() => {
           options = [].concat.apply([], [options as []]);
 
           options.forEach((opt) => {
-            var link = document.createElement('meta');
-            if (opt.name) link.setAttribute('name', opt.name);
-            if (opt.ogTag) link.setAttribute('property', 'og:' + opt.ogTag);
-            link.content = opt.content;
+            const existingMeta = opt.name ? getMeta(opt.name) : opt.ogTag ? getMeta('og:' + opt.ogTag) : null;
+            const meta = existingMeta || document.createElement('meta');
+            if (!existingMeta && opt.name) meta.setAttribute('name', opt.name);
+            if (!existingMeta && opt.ogTag) meta.setAttribute('property', 'og:' + opt.ogTag);
+            meta.content = opt.content;
 
-            document.getElementsByTagName('head')[0].appendChild(link);
-            links.push(link);
+            document.getElementsByTagName('head')[0].appendChild(meta);
+            metas.push(meta);
           });
         }, [options]);
 
         useUnmount(() => {
-          links.forEach((linkNode) => linkNode?.parentNode?.removeChild(linkNode));
+          metas.forEach((linkNode) => linkNode?.parentNode?.removeChild(linkNode));
         });
       }
     : () => {};
