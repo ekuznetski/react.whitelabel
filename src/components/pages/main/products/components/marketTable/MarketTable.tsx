@@ -1,10 +1,11 @@
-import { Svg } from '@components/shared';
-import { MarketType, ETradingPlatform } from '@domain/enums';
+import { LocaleNavLink, Svg } from '@components/shared';
+import { ETradingPlatform, MarketType } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { HeaderTableTemplate } from './HeaderTemplate';
-import './MarketTable.scss';
 import { marketTableContent } from '@domain';
+import './MarketTable.scss';
+
 interface IMarketTable {
   type: MarketType;
   preview: boolean;
@@ -44,7 +45,9 @@ export const MarketTable = memo((props: IMarketTable) => {
             <div className={fullViewParamClass}>{item.minTrade}</div>
             <div className={fullViewParamClass}>{item.valuePerTick}</div>
             <div className={fullViewParamClass}>
-              <Svg href="info" isIcon />
+              <LocaleNavLink exact to={'/leverage'}>
+                <Svg href="info" isIcon />
+              </LocaleNavLink>
             </div>
             <div className={tdClass}>{item.platform.map((el: ETradingPlatform) => platforms[el])}</div>
           </div>

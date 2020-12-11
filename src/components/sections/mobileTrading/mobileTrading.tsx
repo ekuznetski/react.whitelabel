@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
-import { config } from './MobileTradingWithMT5.config';
+import { downloadLinks } from '@domain';
 import './mobileTrading.scss';
 
 interface MobileTradingSectionProps {
@@ -84,12 +84,12 @@ export const MobileTradingSection = memo(
               </div>
               <div className="store-links">
                 <Button className="mr-md-6 px-7 mb-7 mb-md-0">
-                  <a href={config.appStoreLink}>
+                  <a href={downloadLinks.appStoreLink}>
                     <Svg href="app_store_logo" />
                   </a>
                 </Button>
                 <Button className="mr-md-6 px-7">
-                  <a href={config.googlePlayLink}>
+                  <a href={downloadLinks.googlePlayLink}>
                     <Svg href="google_play_logo" />
                   </a>
                 </Button>
