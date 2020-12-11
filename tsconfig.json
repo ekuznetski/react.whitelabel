@@ -22,6 +22,7 @@
       "@components/pages": ["components/pages/index.ts"],
       "@components/sections": ["components/sections/index.ts"],
       "@components/shared": ["components/shared/index.ts"],
+      "@domain/data/*": ["domain/_default/data/*"],
       "@domain/enums": ["domain/enums/index.ts"],
       "@domain/interfaces": ["domain/interfaces/index.ts"],
       "@domain/models": ["domain/models/index.ts"],
