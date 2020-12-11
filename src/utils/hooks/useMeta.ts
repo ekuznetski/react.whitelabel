@@ -16,7 +16,7 @@ export interface Options {
 export const useMeta =
   typeof document !== 'undefined'
     ? function useMeta(options: Options | Options[]) {
-        let metas: HTMLMetaElement[] = [];
+        const metas: HTMLMetaElement[] = [];
 
         function getMeta(metaType: string) {
           const metas = document.getElementsByTagName('meta');
@@ -36,8 +36,11 @@ export const useMeta =
           options.forEach((opt) => {
             const existingMeta = opt.name ? getMeta(opt.name) : opt.ogTag ? getMeta('og:' + opt.ogTag) : null;
             const meta = existingMeta || document.createElement('meta');
-            if (!existingMeta && opt.name) meta.setAttribute('name', opt.name);
-            if (!existingMeta && opt.ogTag) meta.setAttribute('property', 'og:' + opt.ogTag);
+
+            if (!existingMeta) {
+              if (opt.name) meta.setAttribute('name', opt.name);
+              if (opt.ogTag) meta.setAttribute('property', 'og:' + opt.ogTag);
+            }
             meta.content = opt.content;
 
             document.getElementsByTagName('head')[0].appendChild(meta);
