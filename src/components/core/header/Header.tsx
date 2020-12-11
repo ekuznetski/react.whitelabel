@@ -16,7 +16,7 @@ export const Header = memo(function Header() {
   const fixHeader = _scroll.top > (section === EAppSection.portal ? 110 : 40);
 
   return useMemo(() => {
-    const header_class = classNames('header', section, fixHeader && 'fixed');
+    const header_class = classNames('header', section || 'notFound', fixHeader && 'fixed');
 
     return (
       <>
@@ -26,6 +26,7 @@ export const Header = memo(function Header() {
             {section === EAppSection.auth && <HeaderAuth fixed={fixHeader} />}
             {section === EAppSection.main && <HeaderMain fixed={fixHeader} />}
             {section === EAppSection.portal && <HeaderPortal fixed={fixHeader} />}
+            {!section && <HeaderAuth fixed={fixHeader} />}
           </div>
         </header>
         <Notification fixed={fixHeader} />

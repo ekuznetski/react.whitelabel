@@ -1,6 +1,7 @@
 @import '~/variables';
 
-.header.auth {
+.header.auth,
+.header.notFound {
   margin-bottom: 30px;
   .container {
     display: flex;

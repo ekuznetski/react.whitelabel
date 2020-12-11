@@ -1,11 +1,9 @@
 @import '~/variables';
 
 .notFoundPage {
-  height: 750px;
+  height: 700px;
   display: flex;
-  align-items: center;
-  background: rgb(92, 115, 131);
-  color: #fff;
+  align-self: center;
 
   &__header {
     text-align: center;
@@ -16,7 +14,7 @@
     &-title {
       font-weight: 300;
       font-size: 170px;
-      line-height: 228px;
+      line-height: 170px;
     }
 
     &-subTitle {
@@ -50,7 +48,6 @@
     &__title {
       font-size: 36px;
       line-height: 46px;
-      color: #ffffff;
     }
 
     &__description {

@@ -1,6 +1,7 @@
 @import '~/variables';
 
-.header.auth {
+.header.auth,
+.header.notFound {
   svg {
     fill: $bsfx-blue;
   }
