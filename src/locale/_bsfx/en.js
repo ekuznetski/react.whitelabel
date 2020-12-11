@@ -3,9 +3,9 @@ import _ from '../en';
 export default {
   ..._,
   'About Us Page Desc':
-    'We are a leading provider of online foreign exchange (FX) trading, CFD trading, spread betting and related financial services. BSFX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure excellent user experience.',
+    'We are a leading provider of online foreign exchange (FX) trading. BSFX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure excellent user experience.',
   'Trusted Section Desc':
-    'We believe in training first and trading second, so we have teamed up with an affordable FX trading training academy. Learn how to trade for less than $1 per day at <2>www.yulfx.com</2>. We have executives stationed globally to introduce clients to the BSFX platform and welcome them to a $6 trillion-a-day FX industry. We believe in giving back to the trading community, so we are involved in building training stations across the globe to provide an FX education.',
+    'We believe in training first and trading second, so we have teamed up with an affordable FX trading training academy. Learn how to trade for less than $1 per day at <1>www.yulfx.com</1>. We have executives stationed globally to introduce clients to the BSFX platform and welcome them to a $6 trillion-a-day FX industry. We believe in giving back to the trading community, so we are involved in building training stations across the globe to provide an FX education.',
   'Trusted Section Title': 'GLOBAL <1>TRAINING AND TRADING</1>',
   'Banner Section Title': '<0>FOR</0> FX TRADERS <2/><3>by</3> FX TRADERS',
   'Banner Section Desc':
