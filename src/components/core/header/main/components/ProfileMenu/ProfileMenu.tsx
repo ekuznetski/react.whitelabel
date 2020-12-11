@@ -35,6 +35,7 @@ export function ProfileMenu(props: { className?: string }) {
       </div>
       <Svg href="chevron" className="header-profile-menu__chevron" onClick={toggleDropdownMenu} />
       <DropDown
+        width={180}
         parentRef={facepileRef}
         items={profileMenuMainConfig}
         isOpen={isDropdownMenuOpen}

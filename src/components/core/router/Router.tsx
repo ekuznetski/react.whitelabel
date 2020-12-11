@@ -1,10 +1,10 @@
 import { localesConfig, routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@domain';
 import { ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
-import { ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
+import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn';
 import { useLockScroll, useMeta, usePathLocale } from '@utils/hooks';
-import { useBoolean, useThrottle, useThrottleEffect } from 'ahooks';
+import { useBoolean, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
 import React, { memo, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
@@ -26,6 +26,8 @@ export const Router = memo(function Router() {
 
   const _route = routesNavConfig.find((route) => route.path === _path);
   useMeta({ name: 'description', content: _route?.meta?.desc || '' });
+  useTitle(_route?.meta?.title || '');
+
   useEffect(() => {
     if (routeState.path != _path) {
       window.scrollTo(0, 0);

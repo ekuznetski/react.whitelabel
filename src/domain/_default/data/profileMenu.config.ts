@@ -26,12 +26,10 @@ export const profileMenuPortalConfig = [
 
 export const profileMenuMainConfig = [
   {
-    icon: 'coins',
     path: '/dashboard',
     title: t('Dashboard'),
   },
   {
-    icon: 'coins',
     path: '/logout',
     title: t('Log Out'),
   },
