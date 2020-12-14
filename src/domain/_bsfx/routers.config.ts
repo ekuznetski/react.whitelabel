@@ -38,7 +38,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Home,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Home',
+      label: 'Home 123',
     },
   },
   {

@@ -1,6 +1,7 @@
-import { localesConfig, routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@domain';
+import { localesConfig } from '@domain';
 import { ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
+import { routesNavConfig, routesRedirectConfig, routesInitialApiData } from '@routers';
 import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn';
 import { useLockScroll, useMeta, usePathLocale } from '@utils/hooks';

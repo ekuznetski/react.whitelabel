@@ -1,4 +1,5 @@
 import { Button, Img, Svg } from '@components/shared';
+import { downloadLinks } from '@domain';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -17,7 +18,7 @@ export const MobileTradingSection = memo(
     ref,
   ) {
     return (
-      <section className={classNames('mobile-trading', className)}>
+      <section className={classNames('mobile-trading', className)} ref={ref}>
         <Container>
           <Row>
             <Col xs={12} lg={5} className="mb-12 mb-lg-0 mt-12 mb-md-0">

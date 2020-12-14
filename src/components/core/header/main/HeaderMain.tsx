@@ -1,7 +1,7 @@
 import { Button, LocaleLink, LocaleNavLink, Svg } from '@components/shared';
-import { routesNavConfig } from '@domain';
 import { EAppSection, ELabels } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
+import { routesNavConfig } from '@routers';
 import { IDataStore, IStore } from '@store';
 import { useLockScroll } from '@utils/hooks';
 import { useResponsive } from 'ahooks';
