@@ -8,10 +8,16 @@ import React, { useMemo, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { BurgerMenu, PanelMenu, ProfileMenu } from './components';
+import { useSelector } from 'react-redux';
+import { IStore } from '@store';
+import { MClientSettings } from '@domain/models';
 import './HeaderPortal.scss';
 
 export function HeaderPortal(props: IHeaderDefaultProps) {
-  const _portalMenuConfig = useMemo(() => getAppSectionMenu(EAppSection.portal), []);
+  const { clientSettings } = useSelector<IStore, { clientSettings: MClientSettings }>((state) => ({
+    clientSettings: state.data.client.settings,
+  }));
+  const _portalMenuConfig = useMemo(() => getAppSectionMenu(EAppSection.portal, clientSettings), [clientSettings]);
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const responsive = useResponsive();
   const { t } = useTranslation();

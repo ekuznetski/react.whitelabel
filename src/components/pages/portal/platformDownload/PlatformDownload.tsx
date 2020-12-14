@@ -15,7 +15,6 @@ export const PlatformDownload = memo(function PlatformDownload() {
     clientSettings: state.data.client.settings,
   }));
   const { t } = useTranslation();
-  console.log(clientSettings.allowed_platforms, downloadLinks);
   return (
     <Container className="platform-download-page-wrapper">
       <Row>

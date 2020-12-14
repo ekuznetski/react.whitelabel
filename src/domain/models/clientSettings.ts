@@ -31,6 +31,10 @@ export class MClientSettings {
   phone_verification: EClientStatus;
   show_compliance_popup: boolean;
   switch_cayman: boolean;
+  is_withdrawal_allowed: boolean;
+  go_to_praxis: boolean;
+  edit_fake_account: boolean;
+  trading_central: false;
 
   constructor(props: IClientSettings | IClientProfile) {
     this.allow_additional_account = props.allow_additional_account;
@@ -59,6 +63,10 @@ export class MClientSettings {
       EClientStatus[props.phone_verification?.toLowerCase() as keyof typeof EClientStatus] || EClientStatus.pending;
     this.show_compliance_popup = props.show_compliance_popup || false;
     this.switch_cayman = props.switch_cayman || false;
+    this.is_withdrawal_allowed = props.is_withdrawal_allowed || false;
+    this.go_to_praxis = props.go_to_praxis || false;
+    this.edit_fake_account = props.edit_fake_account || false;
+    this.trading_central = props.trading_central || false;
   }
 
   getCurrenciesSelectList(): typeof Currencies {
