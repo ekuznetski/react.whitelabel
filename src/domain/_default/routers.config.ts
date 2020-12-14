@@ -1,8 +1,8 @@
 import * as Action from '@store';
 import * as Page from '@components/pages';
 import i18n from 'i18next';
-import { EAppSection, EResponseStatus, ETradingType } from '../enums';
-import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
+import { EAppSection, EResponseStatus, ETradingType } from '@domain/enums';
+import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '@domain/interfaces';
 import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
 
 const t = i18n.getFixedT(i18n.language, 'meta');

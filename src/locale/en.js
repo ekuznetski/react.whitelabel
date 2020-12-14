@@ -317,10 +317,7 @@ export default {
   Name: 'Name',
   Message: 'Message',
   Company: 'Company',
-  'Market Event Notification Desc': [
-    'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our ',
-    'and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. You can opt-out any time you wish to.',
-  ],
+  'Market Event Notification Desc': 'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. You can opt-out any time you wish to.',
   Bid: 'Bid',
   Ask: 'Ask',
   'Custom Amount': 'Custom Amount',

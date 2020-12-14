@@ -1,8 +1,9 @@
 import './i18n'; // Must be the imported before the App!
 import { Footer, Header, NotFound } from '@components/core';
-import { localesConfig, routesInitialApiData, routesNavConfig } from '@domain';
+import { localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
+import { routesInitialApiData, routesNavConfig } from '@routers';
 import { ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn';
 import compression from 'compression';

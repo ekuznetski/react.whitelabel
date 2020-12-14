@@ -148,12 +148,21 @@ module.exports = (_env, arguments) => {
     // return;
 
     targetLabelConfigsAlias = domainFilenames.reduce((acc, filePath) => {
+      const exceptions = ['routers.config.ts'];
       const extensions = ['tsx', 'ts', 'js'];
       const { filename, extension, basename } = filePathDestructor(filePath);
       const file = extensions.includes(extension) ? filename : basename;
       const parentFolder = fileParentFolder(filePath);
 
-      if (parentFolder === targetLabelFolder) {
+      if (exceptions.includes(basename)) {
+        switch (basename) {
+          case 'routers.config.ts':
+            return Object.assign(acc, {
+              [`@routers`]: path.join(__dirname, `/src/domain/${targetLabelFolder}/${basename}`),
+            });
+          default: return acc;
+        }
+      } else if (parentFolder === targetLabelFolder) {
         return Object.assign(acc, {
           [`./_default/${file}`]: `./${targetLabelFolder}/${file}`,
         });
