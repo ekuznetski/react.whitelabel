@@ -320,6 +320,8 @@ export default {
   'Market Event Notification Desc': 'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. You can opt-out any time you wish to.',
   Bid: 'Bid',
   Ask: 'Ask',
+  'Tax Identification Alert': 'To comply with the Common Reporting Standards, we require you to provide us with certain information about your tax residency.',
+  'Tax Resident List of Countries': 'Please list the countries where you are a Tax Resident and provide your Tax Identification Number for each.', 
   'Custom Amount': 'Custom Amount',
   'Wire Bank Transfer': 'Wire Bank Transfer',
   '1 3 days': '1 - 3 days',
