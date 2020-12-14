@@ -41,6 +41,7 @@ interface IUploadWrapperProps {
     | React.ReactElement<typeof UploadDocumentCard>
     | React.ReactElement<typeof UploadDocumentCard>[];
   documents: MDocument[];
+  className?: string;
   viewChanged?: (view: EUploadWrapperViewType) => void;
 }
 
@@ -369,7 +370,7 @@ export const UploadWrapper = memo(function UploadWrapper({ children, documents, 
           }
         }
 
-        return <div className="upload-wrapper">{renderView()}</div>;
+        return <div className={classNames('upload-wrapper', props.className)}>{renderView()}</div>;
       }}
     </UploadWrapperProvider>
   );

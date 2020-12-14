@@ -1,11 +1,11 @@
-import { MultipleUpload, Tab, Tabs, UploadDocumentCard, UploadFile, UploadWrapper } from '@components/shared';
-import { EClientStatusCode, EDocumentsType } from '@domain/enums';
-import { MClientData, MClientProfile, MDocument } from '@domain/models';
+import { Tab, Tabs } from '@components/shared';
+import { EClientStatusCode } from '@domain/enums';
+import { MClientData } from '@domain/models';
 import { IStore } from '@store';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { EddForm } from '..';
+import { CreditCardVerification, EddForm, TaxIdentification } from '..';
 import './AdditionalInformation.scss';
 
 enum EAddInfoTabs {
@@ -15,13 +15,8 @@ enum EAddInfoTabs {
 }
 
 export const AdditionalInformation = memo(function AdditionalInformation() {
-  const { statusData, profile, documents } = useSelector<
-    IStore,
-    { statusData: MClientData; profile: MClientProfile; documents: MDocument[] }
-  >((state) => ({
+  const { statusData } = useSelector<IStore, { statusData: MClientData }>((state) => ({
     statusData: state.data.client.statusData,
-    profile: state.data.client.profile,
-    documents: state.data.client.documents,
   }));
   const { t } = useTranslation();
 
@@ -38,38 +33,10 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
           <EddForm />
         </Tab>
         <Tab label={t('Tax Identification')} anchor={EAddInfoTabs.tins}>
-          asd
+          <TaxIdentification />
         </Tab>
         <Tab label={t('Debit/Credit Card Verification')} anchor={EAddInfoTabs.card}>
-          <UploadWrapper documents={documents}>
-            <UploadDocumentCard icon="upload_bank" label={t('Bank Statement')}>
-              <MultipleUpload>
-                <UploadFile
-                  fileType={EDocumentsType.CCFront}
-                  fieldName={t('Front Side')}
-                  description="Please cover the 6 middle digits as shown below"
-                  icon="shrimp"
-                  iconWidth={40}
-                />
-                <UploadFile
-                  fileType={EDocumentsType.CCBack}
-                  fieldName={t('Front Side')}
-                  description="Please cover the 6 middle digits as shown below"
-                  icon="shrimp"
-                  iconWidth={40}
-                />
-              </MultipleUpload>
-            </UploadDocumentCard>
-            <UploadDocumentCard icon="upload_bill" label={t('Utility Bill')}>
-              <UploadFile
-                fileType={EDocumentsType.CCFront}
-                fieldName={t('Front Side')}
-                description="Please cover the 6 middle digits as shown below"
-                icon="shrimp"
-                iconWidth={40}
-              />
-            </UploadDocumentCard>
-          </UploadWrapper>
+          <CreditCardVerification />
         </Tab>
       </Tabs>
     </div>
