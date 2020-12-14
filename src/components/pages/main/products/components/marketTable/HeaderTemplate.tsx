@@ -8,7 +8,6 @@ export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolea
   const { clientSettings } = useSelector<IStore, { clientSettings: IDataStore['client']['settings'] }>((state) => ({
     clientSettings: state.data.client.settings,
   }));
-  const tableSubHeaders = clientSettings.allowed_account_types;
   const tdClass = classNames('td', !preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
   const { t } = useTranslation();
@@ -21,12 +20,11 @@ export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolea
           {t('Account Types')} <br />
           {t('Min Spread')}
           <div className="sub-row">
-            {tableSubHeaders &&
-              tableSubHeaders.map((item, i) => (
-                <span key={item} className={`col${i}`}>
-                  {item}
-                </span>
-              ))}
+            {clientSettings?.allowed_account_types?.map((item, i) => (
+              <span key={item} className={`col${i}`}>
+                {item}
+              </span>
+            ))}
           </div>
         </div>
         <div className={fullViewParamClass}>{t('Swap Long')}</div>
