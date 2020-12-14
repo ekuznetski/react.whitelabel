@@ -1,6 +1,6 @@
-import { routesNavConfig } from '@domain';
 import { EAppSection } from '@domain/enums';
-import { IMenuItemConfig, IMenuItemParentConfig, IMenuConfig } from '@domain/interfaces';
+import { IMenuConfig, IMenuItemConfig, IMenuItemParentConfig } from '@domain/interfaces';
+import { routesNavConfig } from '@routers';
 
 export function getAppSectionMenu(section: EAppSection): IMenuConfig {
   const _menu: any = {};

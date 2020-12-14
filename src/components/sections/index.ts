@@ -1,5 +1,5 @@
 export * from './openLiveAccountBanner/OpenLiveAccountBanner';
-export * from './mobileTrading/mobileTrading';
+export * from './mobileTrading/MobileTrading';
 export * from './prestigiousPlatformTechnology/PrestigiousPlatformTechnology';
 export * from './takeControlOfTrades/TakeControlOfTrades';
 export * from './accountTypesForTradingStyles/AccountTypesForTradingStyles';

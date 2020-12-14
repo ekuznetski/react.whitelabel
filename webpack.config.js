@@ -104,6 +104,7 @@ module.exports = (_env, arguments) => {
           default:
             switch (fileType) {
               case 'config':
+              case 'locale':
                 return Object.assign(acc, {
                   [`./${filename}`]: `../../${targetLabelFolder}/components/${folderName}/${filename}`,
                 });
@@ -127,6 +128,7 @@ module.exports = (_env, arguments) => {
           default:
             switch (fileType) {
               case 'config':
+              case 'locale':
                 return Object.assign(acc, {
                   [`./${filename}`]: `./${targetLabelFolder}/${filename}`,
                 });
@@ -146,12 +148,21 @@ module.exports = (_env, arguments) => {
     // return;
 
     targetLabelConfigsAlias = domainFilenames.reduce((acc, filePath) => {
+      const exceptions = ['routers.config.ts'];
       const extensions = ['tsx', 'ts', 'js'];
       const { filename, extension, basename } = filePathDestructor(filePath);
       const file = extensions.includes(extension) ? filename : basename;
       const parentFolder = fileParentFolder(filePath);
 
-      if (parentFolder === targetLabelFolder) {
+      if (exceptions.includes(basename)) {
+        switch (basename) {
+          case 'routers.config.ts':
+            return Object.assign(acc, {
+              [`@routers`]: path.join(__dirname, `/src/domain/${targetLabelFolder}/${basename}`),
+            });
+          default: return acc;
+        }
+      } else if (parentFolder === targetLabelFolder) {
         return Object.assign(acc, {
           [`./_default/${file}`]: `./${targetLabelFolder}/${file}`,
         });
@@ -325,13 +336,13 @@ module.exports = (_env, arguments) => {
                     '@babel/preset-env',
                     !env.PRODUCTION
                       ? {
-                          modules: false,
-                        }
+                        modules: false,
+                      }
                       : {
-                          targets: {
-                            node: 'current',
-                          },
+                        targets: {
+                          node: 'current',
                         },
+                      },
                   ],
                   '@babel/preset-react',
                   '@babel/preset-typescript',

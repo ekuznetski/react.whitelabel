@@ -1,6 +1,8 @@
 ### Whitelabel.
 
-##### React/Redux
+##### React/Redux/Node
+
+Ensure that NodeJs version u have is **12.14.2** (otherwise the project will not work)!
 
 to run use:
 

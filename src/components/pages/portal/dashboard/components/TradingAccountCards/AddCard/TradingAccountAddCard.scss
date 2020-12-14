@@ -21,6 +21,10 @@
         background: #fff;
         box-shadow: box-shadow(10, 0.1);
         border-radius: 50%;
+
+        svg {
+          fill: $blue;
+        }
       }
 
       &__text {

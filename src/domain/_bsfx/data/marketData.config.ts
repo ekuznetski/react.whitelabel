@@ -1,6 +1,6 @@
 import { ETradingPlatform, MarketType } from '@domain/enums';
-import { marketLeverages as _marketLeverages } from '@domain/data/marketData.config';
-import { marketTableContent as _marketTableContent } from '@domain/data/marketData.config';
+import { marketLeverages as _marketLeverages } from '@domain/defaultData/marketData.config';
+import { marketTableContent as _marketTableContent } from '@domain/defaultData/marketData.config';
 
 export const marketLeverages = {
   ..._marketLeverages,
