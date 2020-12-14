@@ -26,7 +26,7 @@ export const Header = memo(function Header() {
             {section === EAppSection.auth && <HeaderAuth fixed={fixHeader} />}
             {section === EAppSection.main && <HeaderMain fixed={fixHeader} />}
             {section === EAppSection.portal && <HeaderPortal fixed={fixHeader} />}
-            {!section && <HeaderAuth fixed={fixHeader} />}
+            {section === EAppSection.notFound && <HeaderAuth fixed={fixHeader} />}
           </div>
         </header>
         <Notification fixed={fixHeader} />

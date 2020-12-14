@@ -28,6 +28,12 @@
     }
   }
 
+  &-btns {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   button {
     background: $dark-blue;
     border-radius: $border-radius;
@@ -37,7 +43,7 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    margin: 0 auto;
+    margin: 10px 20px;
   }
 
   @media (max-width: $viewport-lg-w) {
@@ -45,14 +51,22 @@
     padding: 70px 0;
     align-items: flex-end;
 
-    &__title {
-      font-size: 36px;
-      line-height: 46px;
-    }
+    &__text {
+      &-title {
+        font-weight: 300;
+        font-size: 110px;
+        line-height: 110px;
+      }
 
-    &__description {
-      font-size: 16px;
-      line-height: 24px;
+      &-subTitle {
+        font-size: 36px;
+        line-height: 46px;
+      }
+
+      &-description {
+        font-size: 16px;
+        line-height: 24px;
+      }
     }
 
     button {
@@ -62,13 +76,12 @@
 
   @media (max-width: $viewport-md-w) {
     height: 500px;
+    button {
+      width: 100%;
+    }
   }
 
   @media (max-width: $viewport-sm-w) {
     height: 550px;
-
-    button {
-      width: 100%;
-    }
   }
 }

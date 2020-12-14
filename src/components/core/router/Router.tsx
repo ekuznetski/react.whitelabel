@@ -1,7 +1,7 @@
 import { localesConfig } from '@domain';
-import { ELanguage } from '@domain/enums';
+import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@routers';
+import { EAppSection, ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
-import { routesNavConfig, routesRedirectConfig, routesInitialApiData } from '@routers';
 import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn';
 import { useLockScroll, useMeta, usePathLocale } from '@utils/hooks';
@@ -9,7 +9,7 @@ import { useBoolean, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
 import React, { memo, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import { NotFound, PageLoader } from '..';
+import { PageLoader } from '..';
 
 export const Router = memo(function Router() {
   const { routeState } = useSelector<IStore, { routeState: IAppStore['route'] }>((state) => ({
@@ -26,8 +26,9 @@ export const Router = memo(function Router() {
   }
 
   const _route = routesNavConfig.find((route) => route.path === _path);
+  const notFoundRoute = routesNavConfig.find((route) => route.appSection === EAppSection.notFound);
   useMeta({ name: 'description', content: _route?.meta?.desc || '' });
-  useTitle(_route?.meta?.title || '');
+  useTitle(_route?.meta?.title || notFoundRoute?.meta?.title || '');
 
   useEffect(() => {
     if (routeState.path != _path) {
@@ -39,6 +40,17 @@ export const Router = memo(function Router() {
           meta: _route?.meta,
           state: Object.assign({}, state, _route?.state),
           isLoading: !!_route,
+        }),
+      );
+    }
+    if (!_route) {
+      store.dispatch(
+        ac_updateRouteParams({
+          path: notFoundRoute?.path,
+          appSection: notFoundRoute?.appSection,
+          meta: notFoundRoute?.meta,
+          state: Object.assign({}, state, notFoundRoute?.state),
+          isLoading: !!notFoundRoute,
         }),
       );
     }
@@ -63,7 +75,12 @@ export const Router = memo(function Router() {
               render={() => <RenderRoute route={route} routeState={routeState} />}
             />
           ))}
-          <Route component={NotFound} />
+          {notFoundRoute && (
+            <Route
+              path={notFoundRoute.path}
+              render={() => <RenderRoute route={notFoundRoute} routeState={routeState} />}
+            />
+          )}
         </Switch>
       </>
     );

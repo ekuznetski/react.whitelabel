@@ -107,4 +107,8 @@ export default {
     title: 'Invite Friends - Blue Square FX',
     desc: '',
   },
+  'Not Found': {
+    title: 'Not Found - Blue Square FX',
+    desc: '',
+  },
 };

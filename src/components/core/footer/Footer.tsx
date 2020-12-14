@@ -20,7 +20,7 @@ export const Footer = memo(function Footer() {
         {section === EAppSection.auth && <FooterAuth />}
         {section === EAppSection.main && <FooterMain />}
         {section === EAppSection.portal && <FooterPortal />}
-        {!section && <FooterAuth hideLinks />}
+        {section === EAppSection.notFound && <FooterAuth hideLinks />}
       </footer>
     ) : null;
   }, [section, ready]);

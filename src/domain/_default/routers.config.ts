@@ -1,5 +1,6 @@
 import * as Action from '@store';
 import * as Page from '@components/pages';
+import { NotFound } from '@core/404/404';
 import i18n from 'i18next';
 import { EAppSection, EResponseStatus, ETradingType } from '@domain/enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '@domain/interfaces';
@@ -17,6 +18,9 @@ export const routesInitialApiData: IRoutesInitialApiData = {
   },
   [EAppSection.portal]: {
     strict: [Action.ac_fetchGeoIpData, Action.ac_fetchClientData, Action.ac_fetchProfile],
+  },
+  [EAppSection.notFound]: {
+    strict: [Action.ac_fetchGeoIpData, Action.ac_fetchProfile],
   },
 };
 
@@ -343,6 +347,14 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Verification,
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
+  },
+  {
+    meta: {
+      title: t('Not Found:title'),
+    },
+    path: '*',
+    component: NotFound,
+    appSection: EAppSection.notFound,
   },
 ];
 

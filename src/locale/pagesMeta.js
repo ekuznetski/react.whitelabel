@@ -103,4 +103,8 @@ export default {
     title: 'Invite Friends',
     desc: '',
   },
+  'Not Found': {
+    title: 'Not Found',
+    desc: '',
+  },
 };
