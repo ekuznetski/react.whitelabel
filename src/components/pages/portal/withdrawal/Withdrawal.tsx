@@ -9,6 +9,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
+import { locale } from './';
 import { WithdrawalHistorySection } from './components';
 import './Withdrawal.scss';
 
@@ -100,8 +101,8 @@ export const Withdrawal = memo(function Withdrawal() {
           <Col>
             <PageTitle
               sizes={{ xs: 12, md: 10, lg: 8, xl: 7 }}
-              title="Withdrawal"
-              description={t('Withdrawal Policy Desc')}
+              title={t('Withdrawal')}
+              description={locale.withdrawalPolicyDesc}
             />
           </Col>
         </Row>
@@ -111,13 +112,9 @@ export const Withdrawal = memo(function Withdrawal() {
               {t('You cannot transfer at the moment')}
             </Alert>
           )}
-          {store.clientData?.isDormant && (
+          {store.clientData?.isDormant && locale.isDormantAlert && (
             <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
-              {t('90 inactive days warning:0')}{' '}
-              <a className="a-link" href="mailto:accounts@hycm.com">
-                accounts@hycm.com
-              </a>{' '}
-              {t('90 inactive days warning:1')}
+              {locale.isDormantAlert}
             </Alert>
           )}
         </Row>
