@@ -38,12 +38,12 @@ export const MarketTable = memo((props: IMarketTable) => {
               )}
             </div>
             <div className={fullViewParamClass}>
-              <a href={marketFiles.financeFeesFixed}>
+              <a target="_blank" href={marketFiles.financeFeesFixed}>
                 <Svg href="info" isIcon />
               </a>
             </div>
             <div className={fullViewParamClass}>
-              <a href={marketFiles.financeFeesVariable}>
+              <a target="_blank" href={marketFiles.financeFeesVariable}>
                 <Svg href="info" isIcon />
               </a>
             </div>

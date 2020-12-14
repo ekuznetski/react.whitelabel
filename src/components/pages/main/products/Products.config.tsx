@@ -7,7 +7,6 @@ import { ITableSection } from './components';
 interface IConfig {
   headerNavigation: { label: string; anchor: MarketType }[];
   tableSections: ITableSection[];
-  tableSubHeaders: string[];
 }
 
 const t = i18n.getFixedT(i18n.language);
@@ -23,6 +22,7 @@ export const config: IConfig = {
   ],
   tableSections: [
     {
+      id: MarketType.forex,
       title: t('Forex'),
       desc: t('Product Section Forex Desc'),
       tableType: MarketType.forex,
@@ -39,6 +39,7 @@ export const config: IConfig = {
       ],
     },
     {
+      id: MarketType.stocks,
       title: t('Stocks'),
       desc: t('Product Section Stocks Desc'),
       tableType: MarketType.stocks,
@@ -53,6 +54,7 @@ export const config: IConfig = {
       ],
     },
     {
+      id: MarketType.indices,
       title: t('Indices'),
       desc: t('Product Section Indices Desc'),
       tableType: MarketType.indices,
@@ -66,6 +68,7 @@ export const config: IConfig = {
       ],
     },
     {
+      id: MarketType.crypto,
       title: t('Cryptocurrencies'),
       desc: t('Product Section Cryptocurrencies Desc'),
       tableType: MarketType.crypto,
@@ -80,6 +83,7 @@ export const config: IConfig = {
       ],
     },
     {
+      id: MarketType.commodities,
       title: t('Commodities'),
       desc: t('Product Section Commodities Desc'),
       tableType: MarketType.commodities,
@@ -90,6 +94,7 @@ export const config: IConfig = {
       ],
     },
     {
+      id: MarketType.etfs,
       title: t('ETFs'),
       desc: t('Product Section ETFs Desc'),
       tableType: MarketType.etfs,
@@ -101,5 +106,4 @@ export const config: IConfig = {
       ],
     },
   ],
-  tableSubHeaders: ['Fixed', 'Classic', 'Raw'],
 };

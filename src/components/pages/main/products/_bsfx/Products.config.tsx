@@ -2,13 +2,14 @@ import i18n from 'i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
 import { config as _config } from '../Products.config';
+import { MarketType } from '@domain/enums';
 
 const t = i18n.getFixedT(i18n.language);
 
 export const config = {
   ..._config,
   tableSections: _config.tableSections.map((section) => {
-    if (section.title === t('Cryptocurrencies')) {
+    if (section.id === MarketType.crypto) {
       return {
         ...section,
         points: [
@@ -24,5 +25,4 @@ export const config = {
       return section;
     }
   }),
-  tableSubHeaders: ['Fixed', 'Variable'],
 };

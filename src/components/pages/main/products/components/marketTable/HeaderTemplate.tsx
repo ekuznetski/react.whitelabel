@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { config } from '../../';
+import { store } from '@store';
 
 export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolean }) {
+  const tableSubHeaders = store.getState().data.client.settings.allowed_account_types;
   const tdClass = classNames('td', !preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
   const { t } = useTranslation();
@@ -16,11 +17,12 @@ export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolea
           {t('Account Types')} <br />
           {t('Min Spread')}
           <div className="sub-row">
-            {config.tableSubHeaders.map((item, i) => (
-              <span key={item} className={`col${i}`}>
-                {item}
-              </span>
-            ))}
+            {tableSubHeaders &&
+              tableSubHeaders.map((item, i) => (
+                <span key={item} className={`col${i}`}>
+                  {item}
+                </span>
+              ))}
           </div>
         </div>
         <div className={fullViewParamClass}>{t('Swap Long')}</div>
