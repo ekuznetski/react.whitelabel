@@ -17,6 +17,32 @@ export const config = {
       ],
     },
     {
+      title: t('Client Support'),
+      points: [
+        {
+          icon: 'clock',
+          label: t('Working hours 24 5'),
+        },
+        {
+          icon: 'envelope',
+          label: 'support@bluesquarefx.com',
+        },
+      ],
+    },
+    {
+      title: t('Complaints'),
+      points: [
+        {
+          icon: 'clock',
+          label: '9:00 - 18.00 (GMT +3)',
+        },
+        {
+          icon: 'envelope',
+          label: 'compliance@bluesquarefx.com',
+        },
+      ],
+    },
+    {
       title: t('Our Offices'),
       points: [
         {

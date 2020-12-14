@@ -57,7 +57,7 @@
           padding-bottom: 50px;
           border-bottom: 1px solid $grey;
         }
-        &:last-child {
+        &:not(:first-child) {
           padding-top: 50px;
         }
       }
@@ -80,7 +80,7 @@
           &:not(:last-child) {
             padding-bottom: 30px;
           }
-          &:last-child {
+          &:not(:first-child) {
             padding-top: 30px;
           }
         }
@@ -102,6 +102,8 @@
           }
         }
         &-header {
+          padding-left: 0;
+          padding-right: 0;
           &:last-child {
             padding-bottom: 0px !important;
           }
