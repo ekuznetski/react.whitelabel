@@ -13,7 +13,7 @@ export const Footer = memo(function Footer() {
   const { ready } = useTranslation();
 
   return useMemo(() => {
-    let footer_class = classNames('footer', section || 'notFound');
+    let footer_class = classNames('footer', section);
 
     return ready ? (
       <footer className={footer_class}>
