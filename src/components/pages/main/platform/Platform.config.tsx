@@ -2,9 +2,11 @@ import { MarketType } from '@domain/enums';
 import i18n from 'i18next';
 const t = i18n.getFixedT(i18n.language);
 
-export const config = {
-  tableData: {
-    [MarketType.forex]: {
+export const config = [
+  {
+    label: t('Forex'),
+    id: [MarketType.forex],
+    tableData: {
       headers: [t('Instrument'), t('Sell'), t('Buy'), t('Change percent')],
       rows: [
         ['EURUSD', '206.24', '206.46', '2.15'],
@@ -13,7 +15,11 @@ export const config = {
         ['USDCHF', '206.24', '206.46', '2.15'],
       ],
     },
-    [MarketType.indices]: {
+  },
+  {
+    label: t('Indices'),
+    id: [MarketType.indices],
+    tableData: {
       headers: [t('Instrument'), t('Sell'), t('Buy'), t('Change percent')],
       rows: [
         ['US 500 Undex CFD', '206.24', '206.46', '2.15'],
@@ -22,7 +28,11 @@ export const config = {
         ['UK 100 Undex CFD', '206.24', '206.46', '2.15'],
       ],
     },
-    [MarketType.stocks]: {
+  },
+  {
+    label: t('Stocks'),
+    id: [MarketType.stocks],
+    tableData: {
       headers: [t('Instrument'), t('Sell'), t('Buy'), t('Change percent')],
       rows: [
         ['Tesla Motors', '206.24', '206.46', '2.15'],
@@ -31,7 +41,11 @@ export const config = {
         ['Faceboook', '206.24', '206.46', '2.15'],
       ],
     },
-    [MarketType.commodities]: {
+  },
+  {
+    label: t('Commodities'),
+    id: [MarketType.commodities],
+    tableData: {
       headers: [t('Instrument'), t('Sell'), t('Buy'), t('Change percent')],
       rows: [
         ['SPOT GOLD', '206.24', '206.46', '2.15'],
@@ -40,7 +54,11 @@ export const config = {
         ['BRENT CFD', '206.24', '206.46', '2.15'],
       ],
     },
-    [MarketType.crypto]: {
+  },
+  {
+    label: t('Cryptocurrencies'),
+    id: [MarketType.crypto],
+    tableData: {
       headers: [t('Instrument'), t('Sell'), t('Buy'), t('Change percent')],
       rows: [
         ['BTCUSD', '206.24', '206.46', '2.15'],
@@ -50,9 +68,4 @@ export const config = {
       ],
     },
   },
-  downloadLinks: {
-    desktopLink: '',
-    appStoreLink: '',
-    googlePlayLink: '',
-  },
-};
+];

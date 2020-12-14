@@ -5,12 +5,12 @@ import {
   OurOfferBannerSection,
   PrestigiousPlatformTechnologySection,
 } from '@components/sections';
-import { MarketType } from '@domain/enums';
-import { Button, ITable, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
+import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { config } from './';
 import './Platform.scss';
+import { downloadLinks } from '@domain';
 
 export function Platform() {
   const { t } = useTranslation();
@@ -31,15 +31,15 @@ export function Platform() {
               </div>
               <div className="col-12 col-lg-9 col-xl-8 download-buttons row">
                 <Button className="mr-6 px-7 desktop_button">
-                  <a href={config.downloadLinks.desktopLink}>{t('Download Desktop Version')}</a>
+                  <a href={downloadLinks.mt5.desktop}>{t('Download Desktop Version')}</a>
                 </Button>
                 <Button className="mr-6 px-7 store-link">
-                  <a href={config.downloadLinks.appStoreLink}>
+                  <a href={downloadLinks.mt5.appStore}>
                     <Svg href="app_store_logo" />
                   </a>
                 </Button>
                 <Button className="px-7 store-link">
-                  <a href={config.downloadLinks.googlePlayLink}>
+                  <a href={downloadLinks.mt5.googlePlay}>
                     <Svg href="google_play_logo" />
                   </a>
                 </Button>
@@ -84,21 +84,11 @@ export function Platform() {
             </div>
             <div className="col-12 col-lg-9">
               <Tabs>
-                <Tab label="Forex" anchor="forex">
-                  <Table {...config.tableData[MarketType.forex]} />
-                </Tab>
-                <Tab label="Indices" anchor="indices">
-                  <Table {...config.tableData[MarketType.indices]} />
-                </Tab>
-                <Tab label="Stocks" anchor="stocks">
-                  <Table {...config.tableData[MarketType.stocks]} />
-                </Tab>
-                <Tab label="Commodities" anchor="commodities">
-                  <Table {...config.tableData[MarketType.commodities]} />
-                </Tab>
-                <Tab label="Cryptocurrencies" anchor="cryptocurrencies">
-                  <Table {...config.tableData[MarketType.crypto]} />
-                </Tab>
+                {config.map((item) => (
+                  <Tab key={item.id.toString()} label={item.label} anchor={item.id.toString()}>
+                    <Table {...item.tableData} />
+                  </Tab>
+                ))}
               </Tabs>
             </div>
           </div>
