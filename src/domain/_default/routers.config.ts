@@ -1,8 +1,11 @@
-import * as Page from '@components/pages';
 import * as Action from '@store';
+import * as Page from '@components/pages';
+import i18n from 'i18next';
+import { EAppSection, EResponseStatus, ETradingType } from '@domain/enums';
+import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '@domain/interfaces';
 import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
-import { EAppSection, EResponseStatus, ETradingType } from '../enums';
-import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '../interfaces';
+
+const t = i18n.getFixedT(i18n.language, 'meta');
 
 // Data to be loaded on EVERY page of app section
 export const routesInitialApiData: IRoutesInitialApiData = {
@@ -28,7 +31,8 @@ export const routesRedirectConfig: IRouteRedirectConfig[] = [
 export const routesNavConfig: IRouteNavConfig[] = [
   {
     meta: {
-      title: 'Home',
+      title: t('Home:title'),
+      desc: t('Home:desc'),
     },
     path: '',
     component: Page.Home,
@@ -39,51 +43,56 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'About',
+      title: t('About:title'),
+      desc: t('About:desc'),
     },
     path: '/about',
     component: Page.About,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'About',
+      label: 'About Us',
     },
   },
   {
     meta: {
-      title: 'Products',
+      title: t('Products:title'),
+      desc: t('Products:desc'),
     },
     path: '/products',
     component: Page.Products,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Products',
+      label: 'Range of Markets',
     },
   },
   {
     meta: {
-      title: 'Platform',
+      title: t('Platform:title'),
+      desc: t('Platform:desc'),
     },
     path: '/platform',
     component: Page.Platform,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Platform',
+      label: 'Platforms',
     },
   },
   {
     meta: {
-      title: 'Contacts',
+      title: t('Contacts:title'),
+      desc: t('Contacts:desc'),
     },
     path: '/contacts',
     component: Page.Contacts,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Contacts',
+      label: 'Contact Us',
     },
   },
   {
     meta: {
-      title: 'Partnership',
+      title: t('Partnerships:title'),
+      desc: t('Partnerships:desc'),
     },
     path: '/partnerships',
     component: Page.Partnerships,
@@ -91,7 +100,16 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Login',
+      title: t('Leverage:title'),
+      desc: t('Leverage:desc'),
+    },
+    path: '/leverage',
+    component: Page.Leverage,
+    appSection: EAppSection.main,
+  },
+  {
+    meta: {
+      title: t('Login:title'),
     },
     path: '/login',
     component: Page.Login,
@@ -112,7 +130,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Forgot Password',
+      title: t('Forgot Password:title'),
     },
     path: '/forgot-password',
     component: Page.ForgotPassword,
@@ -121,7 +139,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Reset Password',
+      title: t('Reset Password:title'),
     },
     path: '/reset-password',
     component: Page.ResetPassword,
@@ -130,7 +148,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Registration',
+      title: t('Registration:title'),
+      desc: t('Registration:desc'),
     },
     path: '/registration',
     component: Page.Registration,
@@ -142,7 +161,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Dashboard',
+      title: t('Dashboard:title'),
     },
     path: '/dashboard',
     component: Page.Dashboard,
@@ -154,7 +173,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Deposit',
+      title: t('Deposit:title'),
     },
     path: '/deposit',
     component: Page.Deposit,
@@ -171,7 +190,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Success Deposit',
+      title: t('Success Deposit:title'),
     },
     path: '/deposit/success',
     component: Page.Deposit,
@@ -184,7 +203,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Failure Deposit',
+      title: t('Failure Deposit:title'),
     },
     path: '/deposit/failure',
     component: Page.Deposit,
@@ -197,7 +216,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Withdrawal',
+      title: t('Withrawal:title'),
     },
     path: '/withdrawal',
     component: Page.Withdrawal,
@@ -215,7 +234,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Internal Transfers',
+      title: t('Internal Transfers:title'),
     },
     path: '/transfers',
     component: Page.InternalTransfer,
@@ -232,7 +251,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Transactional Statement',
+      title: t('Transactional Statement:title'),
     },
     path: '/statement',
     component: Page.TransactionStatement,
@@ -246,7 +265,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Open Live Account',
+      title: t('Open Live Account:title'),
     },
     path: '/open-account/live',
     component: Page.OpenAccount,
@@ -263,7 +282,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Open Demo Account',
+      title: t('Open Demo Account:title'),
     },
     path: '/open-account/demo',
     component: Page.OpenAccount,
@@ -280,7 +299,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Platform Download',
+      title: t('Platform Downloadt:title'),
     },
     path: '/download',
     component: Page.PlatformDownload,
@@ -294,7 +313,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Profile',
+      title: t('Profile:title'),
     },
     path: '/profile',
     component: Page.Profile,
@@ -306,7 +325,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Verification',
+      title: t('Verification:title'),
     },
     path: '/verification',
     component: Page.Verification,
@@ -318,7 +337,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Invite Friends',
+      title: t('Invite Friends:title'),
     },
     path: '/invite-friends',
     component: Page.Verification,

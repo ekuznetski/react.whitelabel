@@ -1,10 +1,10 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { ERegSteps, countries } from '@domain/enums';
-import { EActionTypes, IStore, ac_userExists } from '@store';
+import { countries, ERegSteps } from '@domain/enums';
+import { ac_userExists, EActionTypes, IStore } from '@store';
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import './FirstStep.scss';
@@ -78,9 +78,11 @@ export function FirstStep({ submitFn }: any) {
                 <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
               </div>
               <p className="my-7 fadeFromBottom-row__4">
-                {t('Market Event Notification Desc:0')}
-                <a href="#">{t('Privacy Policy')}</a>
-                {t('Market Event Notification Desc:1')}
+                <Trans i18nKey="Market Event Notification Desc">
+                  To improve your trading experience, we would like to notify you of market events and extreme price movements. 
+                  By signing up, you also declare you read, understood, and accept our <a href="#">{t('Privacy Policy')}</a> and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. 
+                  You can opt-out any time you wish to.
+                </Trans>
               </p>
               <Button
                 type="submit"

@@ -1,5 +1,5 @@
-import { routesInitialApiData } from '@domain';
 import { IRouteNavConfig } from '@domain/interfaces';
+import { routesInitialApiData } from '@routers';
 import { store } from '@store';
 import { batch } from 'react-redux';
 

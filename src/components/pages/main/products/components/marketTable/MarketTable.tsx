@@ -1,10 +1,10 @@
-import { Svg } from '@components/shared';
-import { MarketType } from '@domain/enums';
+import { LocaleNavLink, Svg } from '@components/shared';
+import { ETradingPlatform, MarketType } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { HeaderTableTemplate } from './HeaderTemplate';
+import { marketTableContent } from '@domain';
 import './MarketTable.scss';
-import { Content } from './table-contents';
 
 interface IMarketTable {
   type: MarketType;
@@ -16,14 +16,10 @@ export const MarketTable = memo((props: IMarketTable) => {
   const tdClass = classNames('td', !props.preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
   const platforms = useMemo(
-    () => [
-      <div className="platform">MT4</div>,
-      <div className="platform">MT5</div>,
-      <>
-        <div className="platform">MT4</div>
-        <div className="platform">MT5</div>
-      </>,
-    ],
+    () => ({
+      [ETradingPlatform.mt4]: <div className="platform">MT4</div>,
+      [ETradingPlatform.mt5]: <div className="platform">MT5</div>,
+    }),
     [],
   );
 
@@ -31,7 +27,7 @@ export const MarketTable = memo((props: IMarketTable) => {
     <div className={classNames('market-table', props.className)}>
       <HeaderTableTemplate preview={props.preview} />
       <div className="tbody">
-        {Content[props.type].slice(0, props.preview ? 4 : 1000).map((item, i) => (
+        {marketTableContent[props.type].slice(0, props.preview ? 4 : 1000).map((item, i) => (
           <div key={i} className="tr">
             <div className={tdClass}>{item.instr}</div>
             <div className="td grouped">
@@ -49,9 +45,11 @@ export const MarketTable = memo((props: IMarketTable) => {
             <div className={fullViewParamClass}>{item.minTrade}</div>
             <div className={fullViewParamClass}>{item.valuePerTick}</div>
             <div className={fullViewParamClass}>
-              <Svg href="info" isIcon />
+              <LocaleNavLink exact to={'/leverage'}>
+                <Svg href="info" isIcon />
+              </LocaleNavLink>
             </div>
-            <div className={tdClass}>{platforms[item.platform]}</div>
+            <div className={tdClass}>{item.platform.map((el: ETradingPlatform) => platforms[el])}</div>
           </div>
         ))}
       </div>

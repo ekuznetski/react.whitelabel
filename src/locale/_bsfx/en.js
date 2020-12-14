@@ -3,9 +3,9 @@ import _ from '../en';
 export default {
   ..._,
   'About Us Page Desc':
-    'We are a leading provider of online foreign exchange (FX) trading, CFD trading, spread betting and related financial services. BSFX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure excellent user experience.',
+    'We are a leading provider of online foreign exchange (FX) trading. BSFX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure excellent user experience.',
   'Trusted Section Desc':
-    'We believe in training first and trading second, so we have teamed up with an affordable FX trading training academy. Learn how to trade for less than $1 per day at <2>www.yulfx.com</2>. We have executives stationed globally to introduce clients to the BSFX platform and welcome them to a $6 trillion-a-day FX industry. We believe in giving back to the trading community, so we are involved in building training stations across the globe to provide an FX education.',
+    'We believe in training first and trading second, so we have teamed up with an affordable FX trading training academy. Learn how to trade for less than $1 per day at <1>www.yulfx.com</1>. We have executives stationed globally to introduce clients to the BSFX platform and welcome them to a $6 trillion-a-day FX industry. We believe in giving back to the trading community, so we are involved in building training stations across the globe to provide an FX education.',
   'Trusted Section Title': 'GLOBAL <1>TRAINING AND TRADING</1>',
   'Banner Section Title': '<0>FOR</0> FX TRADERS <2/><3>by</3> FX TRADERS',
   'Banner Section Desc':
@@ -25,7 +25,7 @@ export default {
   'Prestigious Platform Technology Desc':
     '<0>Metatrader is the most popular electronic trading platforms and has long been considered the <1>forex industry standard</1> because of its innovative technology.</0><1>The platform is suitable for traders of all levels and expertise, offering flexible trading systems, a mobile app, Expert Advisors, and advanced technical analysis.</1><2>Compared to its predecessor, MT4 has <1>additional features</1> including 6 types of pending orders, 21 timeframes to choose from, and an integrated fundamental economic calendar.</2>',
   'Regulation Desc':
-    'Blue Square FX Limited Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number <1>25910 (BC2020)</1>. <3>www.bluesquarefx.com</3> is operated by Blue Square FX Limited Limited',
+    'Blue Square FX Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number <1>25910 (BC2020)</1>. <3>www.bluesquarefx.com</3> is operated by Blue Square FX Limited',
   'Main Mobile Trading Section Title': 'Trading <1>on the go</1>',
   'Main Mobile Trading Section Desc':
     '<0>Everything you need to trade in your pocket. Use your smartphone to open and close trading positions, and manage your accounts.</0><1>Download the Metatrader app for your smartphone or tablet and trade wherever you are. Available for Android and iOS.</1>',
@@ -41,4 +41,10 @@ export default {
   'Partnerships Page Desc': 'Become a BSFX partner and share in the success of one of the world leading brokers.',
   'Become a Partner': 'Become a BSFX Partner',
   'Label Copyright': 'Copyright © 2020 Blue Square FX Limited',
+  'Leverage Page Top Desc':
+    'At Blue Square FX our clients can trade using leverage, allowing them to control larger trade sizes',
+  'Asset Class': 'ASSET CLASS',
+  'Market Event Notification Desc': 'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by BSFX representatives via phone or e-mail. You can opt-out any time you wish to.',
+  'Leverage Ratios Desc': 'Blue Square FX uses a dynamic forex leverage model available on the MT5 platform.',
+  exchange: 'Instruments:',
 };
