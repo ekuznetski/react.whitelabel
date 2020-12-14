@@ -12,14 +12,15 @@ import {
   Svg,
 } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { EModalType, ETradingAccountType, ETradingPlatform, ETradingType } from '@domain/enums';
+import { EModalType, ETradingType } from '@domain/enums';
 import { ICreateTradingAccountRequest, ICreateTradingAccountResponse } from '@domain/interfaces';
-import { ac_createTradingAccount, EActionTypes, IAppStore, IStore } from '@store';
+import { EActionTypes, IAppStore, IStore, ac_createTradingAccount } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { MClientSettings } from '@domain/models';
 import * as Yup from 'yup';
 import './OpenAccount.scss';
 
@@ -33,9 +34,13 @@ enum EFields {
 }
 
 export const OpenAccount = memo(function OpenAccount() {
-  const { route } = useSelector<IStore, Pick<IAppStore, 'route'>>((state) => ({
-    route: state.app.route,
-  }));
+  const { route, clientSettings } = useSelector<IStore, { route: IAppStore['route']; clientSettings: MClientSettings }>(
+    (state) => ({
+      route: state.app.route,
+      clientSettings: state.data.client.settings,
+    }),
+  );
+
   const [modalOptions, setModalOptions] = React.useState<modalOptionsProps>({
     type: null,
     isOpen: false,
@@ -48,35 +53,18 @@ export const OpenAccount = memo(function OpenAccount() {
     platform: FieldValidators.requiredString,
     account_type: FieldValidators.requiredString,
     currency: FieldValidators.requiredString,
-    leverage: Yup.string().when('platform', {
-      is: (val: string) => val === ETradingPlatform.mt4,
-      then: FieldValidators.requiredString,
-      otherwise: Yup.string().notRequired(),
-    }),
+    leverage: FieldValidators.requiredString,
   });
-  const leverageList = [
-    { label: '1:500', value: '500' },
-    { label: '1:400', value: '400' },
-    { label: '1:300', value: '300' },
-    { label: '1:200', value: '200' },
-    { label: '1:100', value: '100' },
-  ];
-  const tradingAccountTypesList = [
-    { label: 'Fixed', value: ETradingAccountType.raw },
-    { label: 'Classic', value: ETradingAccountType.classic },
-    { label: 'Raw', value: ETradingAccountType.raw },
-  ];
-  const tradingPlatformsList = [
-    { label: 'MetaTrader 4', value: ETradingPlatform.mt4 },
-    { label: 'MetaTrader 5', value: ETradingPlatform.mt5 },
-  ];
+  const leverages = clientSettings.getLeveragesSelectList();
+  const tradingAccounts = clientSettings.getTradingAccountTypesSelectList();
+  const tradingPlatforms = clientSettings.getPlatformsSelectList();
+  const currencies = clientSettings.getCurrenciesSelectList();
 
   function closeModal(type: EModalType) {
     return (isOpen: boolean) => setModalOptions({ type, isOpen, data: null });
   }
 
   function Submit(data: FormikValues) {
-    console.log(data);
     dispatch(
       ac_createTradingAccount(
         data as ICreateTradingAccountRequest,
@@ -112,10 +100,10 @@ export const OpenAccount = memo(function OpenAccount() {
               {() => {
                 return (
                   <Form className="open-account__form">
-                    <Radio className="mb-8" name={EFields.platform} options={tradingPlatformsList} />
-                    <Select placeholder="Account Type" options={tradingAccountTypesList} name={EFields.account_type} />
-                    <Select placeholder="Leverage" options={leverageList} name={EFields.leverage} />
-                    <CurrencySelect placeholder="Currency" name={EFields.currency} />
+                    <Radio className="mb-8" name={EFields.platform} options={tradingPlatforms} />
+                    <Select placeholder="Account Type" options={tradingAccounts} name={EFields.account_type} />
+                    <Select placeholder="Leverage" options={leverages} name={EFields.leverage} />
+                    <CurrencySelect placeholder="Currency" name={EFields.currency} options={currencies} />
                     <Button
                       type="submit"
                       loadingOnAction={[EActionTypes.createLiveTradingAccount, EActionTypes.createDemoTradingAccount]}
