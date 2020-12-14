@@ -37,7 +37,7 @@ export function ThirdStep({ submitFn }: any) {
     currency: FieldValidators.requiredString,
     leverage: FieldValidators.requiredString,
   });
-  const accountTypeOptions = [
+  const tradingAccounts = [
     {
       key: ETradingAccountType.fixed,
       label: (
@@ -85,19 +85,8 @@ export function ThirdStep({ submitFn }: any) {
     },
   ].filter((el) => clientSettings.allowed_account_types.includes(el.key));
 
-  const currencies = Object.keys(Currencies).reduce((acc, key) => {
-    if (clientSettings.allowed_currencies.includes(ECurrencyCode[key as keyof typeof ECurrencyCode])) {
-      Object.assign(acc, { [key]: Currencies[key] });
-    }
-    return acc;
-  }, {});
-  const leverageList = [
-    { label: EAccountLeverage['1_500'], value: '500' },
-    { label: EAccountLeverage['1_400'], value: '400' },
-    { label: EAccountLeverage['1_300'], value: '300' },
-    { label: EAccountLeverage['1_200'], value: '200' },
-    { label: EAccountLeverage['1_100'], value: '100' },
-  ].filter((e) => clientSettings?.allowed_leverages.includes(e.label));
+  const currencies = clientSettings.getCurrenciesSelectList();
+  const leverages = clientSettings.getLeveragesSelectList();
 
   function Submit(data: FormikValues) {
     data = Object.keys(data).reduce((acc, key) => {
@@ -116,7 +105,7 @@ export function ThirdStep({ submitFn }: any) {
           firstdeposit_platform: ETradingPlatform.mt4,
           account_type: ETradingAccountType.classic,
           currency: ECurrencyCode.usd,
-          leverage: leverageList[0].value,
+          leverage: leverages[0].value,
         }}
         validationSchema={validationSchema}
         onSubmit={Submit}
@@ -137,7 +126,7 @@ export function ThirdStep({ submitFn }: any) {
               <Radio
                 className={`mb-10 account_type justify-content-between no-gutters totalAccTypes_${clientSettings.allowed_account_types.length}`}
                 name={EFields.account_type}
-                options={accountTypeOptions}
+                options={tradingAccounts}
               />
               <Row>
                 <Col xs={12} sm={6}>
@@ -146,7 +135,7 @@ export function ThirdStep({ submitFn }: any) {
                 </Col>
                 <Col xs={12} sm={6} className="fadein-row">
                   <h5 className="select-title">{t('Leverage')}</h5>
-                  <Select options={leverageList} name={EFields.leverage} />
+                  <Select options={leverages} name={EFields.leverage} />
                 </Col>
               </Row>
               <Button type="submit">{t('Next')}</Button>

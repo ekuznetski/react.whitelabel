@@ -1,5 +1,19 @@
-import { EAccountLeverage, EClientStatus, ECurrencyCode, ETradingAccountType, ETradingPlatform } from '@domain/enums';
-import { IClientProfile, IClientSettings } from '@domain/interfaces';
+import {
+  Currencies,
+  EAccountLeverage,
+  EClientStatus,
+  ECurrencyCode,
+  ETradingAccountType,
+  ETradingPlatform,
+  ETradingPlatformName,
+} from '@domain/enums';
+import {
+  IClientProfile,
+  IClientSettings,
+  ILeveragesSelectList,
+  IPlatformsSelectList,
+  ITradingAccountTypesSelectList,
+} from '@domain/interfaces';
 
 export class MClientSettings {
   allow_additional_account: boolean;
@@ -45,5 +59,33 @@ export class MClientSettings {
       EClientStatus[props.phone_verification?.toLowerCase() as keyof typeof EClientStatus] || EClientStatus.pending;
     this.show_compliance_popup = props.show_compliance_popup || false;
     this.switch_cayman = props.switch_cayman || false;
+  }
+
+  getCurrenciesSelectList(): typeof Currencies {
+    return this.allowed_currencies.reduce((acc: typeof Currencies, el) => {
+      const key = el.toLowerCase();
+      return Object.assign(acc, { [key]: Currencies[key] });
+    }, {});
+  }
+
+  getTradingAccountTypesSelectList(): ITradingAccountTypesSelectList[] {
+    return this.allowed_account_types.map((el) => ({
+      label: el,
+      value: el,
+    }));
+  }
+
+  getLeveragesSelectList(): ILeveragesSelectList[] {
+    return this.allowed_leverages.map((el) => ({
+      label: el,
+      value: el.slice(2),
+    }));
+  }
+
+  getPlatformsSelectList(): IPlatformsSelectList[] {
+    return this.allowed_platforms.map((el) => ({
+      label: ETradingPlatformName[el],
+      value: el,
+    }));
   }
 }
