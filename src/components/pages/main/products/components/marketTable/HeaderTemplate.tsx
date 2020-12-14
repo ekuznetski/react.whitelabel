@@ -1,10 +1,14 @@
+import { IDataStore, IStore } from '@store';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { store } from '@store';
+import { useSelector } from 'react-redux';
 
 export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolean }) {
-  const tableSubHeaders = store.getState().data.client.settings.allowed_account_types;
+  const { clientSettings } = useSelector<IStore, { clientSettings: IDataStore['client']['settings'] }>((state) => ({
+    clientSettings: state.data.client.settings,
+  }));
+  const tableSubHeaders = clientSettings.allowed_account_types;
   const tdClass = classNames('td', !preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
   const { t } = useTranslation();
