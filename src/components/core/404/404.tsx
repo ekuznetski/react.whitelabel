@@ -10,15 +10,6 @@ export const NotFound = memo(function NotFoundPage() {
     clientProfile: state.data.client.profile,
   }));
   const { t } = useTranslation();
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch({ type: 'strict', ac_fetchProfile });
-
-  //   return () => {
-  //     dispatch(ac_updateRouteParams({ isLoading: true }));
-  //   };
-  // }, []);
 
   return (
     <section className="notFoundPage">
