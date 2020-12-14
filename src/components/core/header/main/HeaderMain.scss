@@ -75,6 +75,7 @@
 
     .sign-in-btn {
       color: #fff;
+      transition: color 0.35s;
 
       &:hover {
         color: #fff;
@@ -156,6 +157,14 @@
           &.burger-icon {
             stroke: $dark-text;
           }
+        }
+      }
+
+      .sign-in-btn {
+        color: $dark-text;
+  
+        &:hover {
+          color: $dark-text;
         }
       }
 
