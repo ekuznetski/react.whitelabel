@@ -1,4 +1,4 @@
-import { Button, Input, IRadioItem, Radio, Svg, TradingAccountsSelect } from '@components/shared';
+import { Button, IRadioItem, Input, Radio, Svg, TradingAccountsSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { AllowedCurrToMethodMap, ETradingType } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
@@ -64,11 +64,11 @@ export function TabContentChooseAmount() {
     const { values, setFieldValue, resetForm } = useFormikContext();
     return (
       <div onClick={() => ref.current?.focus()}>
-        <div className="title ml-13 mt-7 mb-10">{t('Custom Amount')}</div>
+        <div className="title mt-7 mb-8">{t('Custom Amount')}</div>
         <Input
           label={t('Amount')}
           name={EFields.customAmount}
-          className="custom-amount-input ml-8"
+          className="custom-amount-input"
           onChange={(e: { target: { value: string } }) => {
             const value = e.target.value;
             if (/^\d{0,9}$/gm.test(value) || value === '') {
@@ -99,7 +99,7 @@ export function TabContentChooseAmount() {
   options.push({
     label: <CustomAmountInput />,
     value: 'custom',
-    className: 'custom-amount-item',
+    className: 'custom-amount-item mt-8',
   });
 
   const preselectedAmount = isDesktop && amount ? (staticAmounts?.includes(parseInt(amount)) ? amount : 'custom') : '';

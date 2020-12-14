@@ -7,6 +7,7 @@ import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { downloadLinks } from '@domain';
 import './PlatformDownload.scss';
 
 export const PlatformDownload = memo(function PlatformDownload() {
@@ -14,21 +15,6 @@ export const PlatformDownload = memo(function PlatformDownload() {
     clientSettings: state.data.client.settings,
   }));
   const { t } = useTranslation();
-
-  const download_links = {
-    [ETradingPlatform.mt4]: {
-      windows: '',
-      ios: '',
-      android: '',
-      web_launch: '',
-    },
-    [ETradingPlatform.mt5]: {
-      windows: '',
-      ios: '',
-      android: '',
-      web_launch: '',
-    },
-  };
 
   return (
     <Container className="platform-download-page-wrapper">
@@ -38,8 +24,8 @@ export const PlatformDownload = memo(function PlatformDownload() {
         </Col>
       </Row>
       <Row className="download-panels">
-        {Object.keys(download_links).map((platform, p) => (
-          <Col key={p} lg={6} className="mb-3">
+        {clientSettings.allowed_platforms.map((platform) => (
+          <Col key={platform} lg={6} className="mb-3">
             <div className={classNames('download__panel', platform)}>
               <div className="download__panel-title">
                 MetaTrader<span className="ml-1">{platform === ETradingPlatform.mt4 ? 4 : 5}</span>
@@ -50,7 +36,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                     <Svg href="shrimp" height="24" />
                     {t('Desktop')}
                   </div>
-                  <a className="underlined" href="#">
+                  <a className="underlined" href={downloadLinks[platform].desktop}>
                     <Svg href="shrimp" height="18" />
                     <span>Windows</span>
                   </a>
@@ -60,11 +46,11 @@ export const PlatformDownload = memo(function PlatformDownload() {
                     <Svg href="shrimp" height="24" />
                     {t('Mobile')}
                   </div>
-                  <a className="underlined mr-10" href="#">
+                  <a className="underlined mr-10" href={downloadLinks[platform].appStore}>
                     <Svg href="shrimp" height="18" />
                     <span>IOS</span>
                   </a>
-                  <a className="underlined" href="#">
+                  <a className="underlined" href={downloadLinks[platform].googlePlay}>
                     <Svg href="shrimp" height="18" />
                     <span>Android</span>
                   </a>
@@ -74,7 +60,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                     <Svg href="shrimp" height="24" />
                     {t('Web')}
                   </div>
-                  <a className="underlined" href="#">
+                  <a className="underlined" href={downloadLinks[platform].web}>
                     <Svg href="shrimp" height="18" />
                     <span>{t('Launch')}</span>
                   </a>
