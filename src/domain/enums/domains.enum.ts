@@ -37,6 +37,11 @@ export enum ETradingPlatform {
   mt5 = 'mt5',
 }
 
+export enum ETradingPlatformName {
+  mt4 = 'MetaTrader 4',
+  mt5 = 'MetaTrader 5',
+}
+
 export enum ETradingAccountType {
   fixed = 'Fixed',
   classic = 'Classic',
