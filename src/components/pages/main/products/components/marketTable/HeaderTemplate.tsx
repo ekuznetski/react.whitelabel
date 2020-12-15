@@ -1,8 +1,13 @@
+import { IDataStore, IStore } from '@store';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
-export const HeaderTableTemplate = memo(function({ preview }: { preview: boolean }) {
+export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolean }) {
+  const { clientSettings } = useSelector<IStore, { clientSettings: IDataStore['client']['settings'] }>((state) => ({
+    clientSettings: state.data.client.settings,
+  }));
   const tdClass = classNames('td', !preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
   const { t } = useTranslation();
@@ -15,7 +20,7 @@ export const HeaderTableTemplate = memo(function({ preview }: { preview: boolean
           {t('Account Types')} <br />
           {t('Min Spread')}
           <div className="sub-row">
-            {['Fixed', 'Classic', 'Raw'].map((item, i) => (
+            {clientSettings.allowed_account_types.map((item, i) => (
               <span key={item} className={`col${i}`}>
                 {item}
               </span>

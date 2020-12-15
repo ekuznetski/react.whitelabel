@@ -3,7 +3,7 @@ import { ETradingPlatform, MarketType } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { HeaderTableTemplate } from './HeaderTemplate';
-import { marketTableContent } from '@domain';
+import { files, marketTableContent } from '@domain';
 import './MarketTable.scss';
 
 interface IMarketTable {
@@ -31,15 +31,21 @@ export const MarketTable = memo((props: IMarketTable) => {
           <div key={i} className="tr">
             <div className={tdClass}>{item.instr}</div>
             <div className="td grouped">
-              <div className={tdClass}>{item.fixed}</div>
-              <div className={tdClass}>{item.classic}</div>
-              <div className={tdClass}>{item.raw.toString() === 'N/A' ? item.raw : item.raw + ' per round'}</div>
+              {item.fixed && <div className={tdClass}>{item.fixed}</div>}
+              {item.classic && <div className={tdClass}>{item.classic}</div>}
+              {item.raw && (
+                <div className={tdClass}>{item.raw.toString() === 'N/A' ? item.raw : item.raw + ' per round'}</div>
+              )}
             </div>
             <div className={fullViewParamClass}>
-              <Svg href="info" isIcon />
+              <a target="_blank" href={files.financeFeesFixed}>
+                <Svg href="info" isIcon />
+              </a>
             </div>
             <div className={fullViewParamClass}>
-              <Svg href="info" isIcon />
+              <a target="_blank" href={files.financeFeesVariable}>
+                <Svg href="info" isIcon />
+              </a>
             </div>
             <div className={fullViewParamClass}>{item.lotSize}</div>
             <div className={fullViewParamClass}>{item.minTrade}</div>

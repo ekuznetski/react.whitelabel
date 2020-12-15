@@ -18,7 +18,7 @@ export default {
   'Disclaimer Desc':
     'The content of this page is for information purposes only and it is not intended as a recommendation or advice. Any indication of past performance or simulated past performance included in advertisements published by Blue Square FX Limited is not a reliable indicator of future results. The customer carries the sole responsibility for all the businesses or investments that are carried out at Blue Square FX Limited.',
   'Regional Restrictions Desc':
-    'We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong, Japan, the United States of America and some other regions. For more information please refer to our <1>Help Center</1>',
+    'We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong, Japan, the United States of America and some other regions. For more information please refer to our <1>Terms and Conditions</1>',
   'Powered by BSFX': 'Powered by BSFX',
   'Platform Page Top Subtitle': '$t(Powered by BSFX)',
   'Prestigious Platform Technology Title': '$t(Prestigious MT5)<1/><3>$t(Platform Technology)</3>',
@@ -41,10 +41,19 @@ export default {
   'Partnerships Page Desc': 'Become a BSFX partner and share in the success of one of the world leading brokers.',
   'Become a Partner': 'Become a BSFX Partner',
   'Label Copyright': 'Copyright © 2020 Blue Square FX Limited',
+  'Product Section ETFs Desc': 'Trade exchange-traded funds with Blue Square FX.',
+  'Discover Trading Tools': 'Discover our trading tools and access our trading assets.',
+  'Terms and Conditions': 'Terms and Conditions',
+  'Market Event Notification Desc': [
+    'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our ',
+    ' and you consent to receive newsletters, special offers and be contacted by Blue Square FX representatives via phone or e-mail. You can opt-out any time you wish to.',
+  ],
   'Leverage Page Top Desc':
     'At Blue Square FX our clients can trade using leverage, allowing them to control larger trade sizes',
   'Asset Class': 'ASSET CLASS',
   'Market Event Notification Desc': 'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by BSFX representatives via phone or e-mail. You can opt-out any time you wish to.',
   'Leverage Ratios Desc': 'Blue Square FX uses a dynamic forex leverage model available on the MT5 platform.',
   exchange: 'Instruments:',
+  'Swap Long': 'Fixed Account Swap',
+  'Swap Short': 'Variable Account Swap',
 };
