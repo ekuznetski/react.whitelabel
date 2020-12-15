@@ -61,7 +61,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                         <Svg href="shrimp" height="24" />
                         {t('Web')}
                       </div>
-                      <a className="underlined" href={downloadLinks[platform].web}>
+                      <a className="underlined" target="_blank" href={downloadLinks[platform].web}>
                         <Svg href="shrimp" height="18" />
                         <span>{t('Launch')}</span>
                       </a>
