@@ -1,7 +1,7 @@
 import { PageTitle, Svg } from '@components/shared';
 import { ETradingPlatform } from '@domain/enums';
 import { MClientSettings } from '@domain/models';
-import { platformFiles } from '@domain';
+import { files } from '@domain';
 import { IStore } from '@store';
 import classNames from 'classnames';
 import React, { memo } from 'react';
@@ -73,7 +73,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                     <Svg href="shrimp" height="18" className="mr-5" />
                     {t('Read instructions on')}
                     <a
-                      href={platformFiles[`downloadMT${platform === ETradingPlatform.mt4 ? 4 : 5}.pdf`]}
+                      href={files[`downloadMT${platform === ETradingPlatform.mt4 ? 4 : 5}.pdf`]}
                       className="hovered-underlined ml-2"
                       target="_blank"
                     >

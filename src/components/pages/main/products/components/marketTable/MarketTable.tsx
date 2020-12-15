@@ -3,7 +3,7 @@ import { ETradingPlatform, MarketType } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { HeaderTableTemplate } from './HeaderTemplate';
-import { marketFiles, marketTableContent } from '@domain';
+import { files, marketTableContent } from '@domain';
 import './MarketTable.scss';
 
 interface IMarketTable {
@@ -38,12 +38,12 @@ export const MarketTable = memo((props: IMarketTable) => {
               )}
             </div>
             <div className={fullViewParamClass}>
-              <a target="_blank" href={marketFiles.financeFeesFixed}>
+              <a target="_blank" href={files.financeFeesFixed}>
                 <Svg href="info" isIcon />
               </a>
             </div>
             <div className={fullViewParamClass}>
-              <a target="_blank" href={marketFiles.financeFeesVariable}>
+              <a target="_blank" href={files.financeFeesVariable}>
                 <Svg href="info" isIcon />
               </a>
             </div>

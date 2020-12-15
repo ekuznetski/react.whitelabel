@@ -1,9 +1,6 @@
-export const marketFiles = {
+export const files = {
   financeFeesFixed: '',
   financeFeesVariable: '',
-};
-
-export const platformFiles = {
   downloadMT4: '',
   downloadMT5: '',
 };
