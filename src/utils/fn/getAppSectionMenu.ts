@@ -1,9 +1,8 @@
 import { EAppSection } from '@domain/enums';
 import { IMenuConfig, IMenuItemConfig, IMenuItemParentConfig } from '@domain/interfaces';
 import { routesNavConfig } from '@routers';
-import { MClientSettings } from '@domain/models';
 
-export function getAppSectionMenu(section: EAppSection, clientSettings: MClientSettings): IMenuConfig {
+export function getAppSectionMenu(section: EAppSection): IMenuConfig {
   const _menu: any = {};
   // Select all routes config that belong to mention App Section
   const _routesConfig = routesNavConfig.filter((route) => route.menuItem && route.appSection === section);
@@ -54,7 +53,7 @@ export function getAppSectionMenu(section: EAppSection, clientSettings: MClientS
       _item.label = _itemKey;
       delete _item.parent;
 
-      if (route.activators?.every((e) => e())) {
+      if (!route.activators?.length || route.activators?.every((e) => e())) {
         if (_parent) _menu[_parent].children.push({ ..._item, path: route.path });
         else _menu[_itemKey] = { ..._item, path: route.path, children: [] };
       }

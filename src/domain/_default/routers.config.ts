@@ -3,11 +3,15 @@ import * as Page from '@components/pages';
 import i18n from 'i18next';
 import { EAppSection, EResponseStatus, ETradingType } from '@domain/enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '@domain/interfaces';
-import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
-import { openLiveAccountGuard } from '../../utils/guards/openLiveAccount.guard';
-import { openDemoAccountGuard } from '../../utils/guards/openDemoAccount.guard';
-import { internalTransfersGuard } from '../../utils/guards/internalTransfers.guard';
-import { withdrawGuard } from '../../utils/guards/withdraw.guard';
+import {
+  allowAuthorizedGuard,
+  disallowAuthorizedGuard,
+  internalTransfersGuard,
+  logoutGuard,
+  openDemoAccountGuard,
+  openLiveAccountGuard,
+  withdrawGuard,
+} from '@utils/guards';
 
 const t = i18n.getFixedT(i18n.language, 'meta');
 
