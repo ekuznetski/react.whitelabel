@@ -4,28 +4,28 @@ const t = i18n.getFixedT(i18n.language);
 export const config = {
   contactsList: [
     {
-      title: t('Account Opening'),
+      title: t('Client Support'),
       points: [
+        {
+          icon: 'envelope',
+          label: 'support@bluesquarefx.com',
+        },
         {
           icon: 'clock',
           label: t('Working hours 24 5'),
-        },
-        {
-          icon: 'envelope',
-          label: 'support@BSFX.com',
         },
       ],
     },
     {
-      title: t('Client Support'),
+      title: t('Account Opening'),
       points: [
+        {
+          icon: 'envelope',
+          label: 'support@BSFX.com',
+        },
         {
           icon: 'clock',
           label: t('Working hours 24 5'),
-        },
-        {
-          icon: 'envelope',
-          label: 'support@bluesquarefx.com',
         },
       ],
     },
@@ -33,12 +33,12 @@ export const config = {
       title: t('Complaints'),
       points: [
         {
-          icon: 'clock',
-          label: '9:00 - 18.00 (GMT +3)',
-        },
-        {
           icon: 'envelope',
           label: 'compliance@bluesquarefx.com',
+        },
+        {
+          icon: 'clock',
+          label: '9:00 - 18.00 (GMT +3)',
         },
       ],
     },
@@ -46,12 +46,12 @@ export const config = {
       title: t('Our Offices'),
       points: [
         {
-          icon: 'marker',
-          label: 'United Kingdom Canary Wharf, London, E14 5AA',
-        },
-        {
           icon: 'envelope',
           label: 'info@bluesquarefx.com',
+        },
+        {
+          icon: 'marker',
+          label: 'United Kingdom Canary Wharf, London, E14 5AA',
         },
       ],
     },
