@@ -25,7 +25,7 @@ export interface IClientSettings {
   is_withdrawal_allowed: boolean;
   go_to_praxis: boolean;
   edit_fake_account: boolean;
-  trading_central: false;
+  trading_central: boolean;
 }
 
 export type IClientSettingsResponse = {
