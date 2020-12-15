@@ -3,10 +3,8 @@ import {
   CCountryStateName,
   countries,
   Country,
-  EAccountLeverage,
   ECurrencyCode,
   ETradingAccountType,
-  ETradingPlatform,
 } from '@domain/enums';
 import { IClientProfile } from '@domain/interfaces';
 import moment, { Moment } from 'moment';
@@ -69,8 +67,7 @@ export class MClientProfile {
       countries
         .filter((country) => country.states)
         .find((country) => country.states?.find((state) => state.code === props.state))
-    )//@ts-ignore
-    ?.states
+    )?.states //@ts-ignore
       ?.filter((state: any) => state.code === props.state) || {
       name: '',
       code: '',

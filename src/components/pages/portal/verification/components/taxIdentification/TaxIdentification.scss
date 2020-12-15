@@ -1,4 +1,17 @@
 @import '~/variables';
+@import '~/mixin';
 
 .tax-identification {
+  &__row {
+    @include d-flex();
+    width: 100%;
+
+    .row {
+      width: calc(100% - 50px);
+    }
+
+    .common-button {
+      width: 50px;
+    }
+  }
 }
