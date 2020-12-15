@@ -23,9 +23,6 @@ export default {
   Leverage: {
     title: 'Leverage',
   },
-  Login: {
-    title: 'Login',
-  },
   Registration: {
     title: 'Registration',
   },
@@ -46,9 +43,6 @@ export default {
   },
   'Failure Deposit': {
     title: 'Failure Deposit',
-  },
-  Withdrawal: {
-    title: 'Withdrawal',
   },
   Withdrawal: {
     title: 'Withdrawal',

@@ -8,6 +8,7 @@ import { MarketTable } from '..';
 import './TableSection.scss';
 
 export interface ITableSection {
+  id: string;
   title: string | React.ReactFragment;
   desc: string | React.ReactFragment;
   points: (string | React.ReactFragment)[];

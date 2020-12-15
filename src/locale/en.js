@@ -443,6 +443,7 @@ export default {
   'Leverage Information': 'LEVERAGE INFORMATION',
   'Leverage Page Top Desc':
     'At WHITE_LABEL our clients can trade using leverage, allowing them to control larger trade sizes',
-  'Leverage Ratios': 'LEVERAGE RATIOS',
+  'Leverage Ratios': 'Leverage Ratios',
   'Leverage Ratios Desc': 'WHITE_LABEL uses a dynamic forex leverage model available on the MT5 platform.',
+  Complaints: 'Complaints',
 };

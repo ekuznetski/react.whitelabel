@@ -4,3 +4,4 @@ export * from './_default/data/marketData.config';
 export * from './_default/data/downloadLinks.config';
 export * from './_default/data/profileMenu.config';
 export * from './_default/data/questions.config';
+export * from './_default/data/fileLinks.config';

@@ -16,9 +16,9 @@ import {
   ISetProfileResponse,
   ITradingAccountsResponse,
   ITransactionalStatementsResponse,
+  IWithdrawFundRequest,
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
-  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import * as Model from '@domain/models';
 import * as Request from '@utils/services';
@@ -101,6 +101,7 @@ export function* getGeoIPSaga() {
     function* () {
       const response = yield call(Request.getGeoIpRequest);
       yield put(Action.ac_saveGeoIpData(response));
+      yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response)));
       return response;
     },
     'data.geoIp',
