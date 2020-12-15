@@ -36,7 +36,6 @@ export default {
   },
   Login: {
     title: 'Login - Blue Square FX',
-    desc: '',
   },
   Registration: {
     title: 'Registration - Blue Square FX',
@@ -45,70 +44,53 @@ export default {
   },
   'Forgot Password': {
     title: 'Forgot Password - Blue Square FX',
-    desc: '',
   },
   'Reset Password': {
     title: 'Reset Password - Blue Square FX',
-    desc: '',
   },
   Dashboard: {
     title: 'Dashboard - Blue Square FX',
-    desc: '',
   },
   Deposit: {
     title: 'Deposit - Blue Square FX',
-    desc: '',
   },
   'Success Deposit': {
     title: 'Success Deposit - Blue Square FX',
-    desc: '',
   },
   'Failure Deposit': {
     title: 'Failure Deposit - Blue Square FX',
-    desc: '',
   },
   Withdrawal: {
     title: 'Withdrawal - Blue Square FX',
-    desc: '',
   },
   Withdrawal: {
     title: 'Withdrawal - Blue Square FX',
-    desc: '',
   },
   'Internal Transfers': {
     title: 'Internal Transfers - Blue Square FX',
-    desc: '',
   },
   'Transactional Statement': {
     title: 'Transactional Statement - Blue Square FX',
-    desc: '',
   },
   'Open Live Account': {
     title: 'Open Live Account - Blue Square FX',
-    desc: '',
   },
   'Open Demo Account': {
     title: 'Open Demo Account - Blue Square FX',
-    desc: '',
   },
   'Platform Download': {
     title: 'Platform Download - Blue Square FX',
-    desc: '',
   },
   Profile: {
     title: 'Profile - Blue Square FX',
-    desc: '',
   },
   Verification: {
     title: 'Verification - Blue Square FX',
-    desc: '',
   },
   'Invite Friends': {
     title: 'Invite Friends - Blue Square FX',
-    desc: '',
   },
   'Not Found': {
     title: 'Not Found - Blue Square FX',
-    desc: '',
   },
 };
