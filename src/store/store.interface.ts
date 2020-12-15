@@ -55,7 +55,7 @@ export interface IStore {
 }
 
 export interface IAction<T = { [k: string]: any }> {
-  type: EActionTypes;
+  type: EActionTypes | null;
   payload?: T;
   force?: true | null;
   onSuccess?: AnyFunction;
