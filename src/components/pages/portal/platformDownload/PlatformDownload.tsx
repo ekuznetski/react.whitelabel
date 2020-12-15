@@ -15,7 +15,6 @@ export const PlatformDownload = memo(function PlatformDownload() {
     clientSettings: state.data.client.settings,
   }));
   const { t } = useTranslation();
-  console.log(clientSettings.allowed_platforms, downloadLinks);
   return (
     <Container className="platform-download-page-wrapper">
       <Row>
@@ -62,7 +61,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                         <Svg href="shrimp" height="24" />
                         {t('Web')}
                       </div>
-                      <a className="underlined" href={downloadLinks[platform].web}>
+                      <a className="underlined" target="_blank" href={downloadLinks[platform].web}>
                         <Svg href="shrimp" height="18" />
                         <span>{t('Launch')}</span>
                       </a>
