@@ -51,6 +51,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
   (global as any).document = document;
   (global as any).location = window.location;
   (global as any).localStorage = null;
+  (global as any).window['isSSR'] = true;
 
   const fileExist = fs.existsSync(indexFile);
   let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
