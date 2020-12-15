@@ -16,6 +16,7 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { document, window } from 'ssr-window';
+import { env } from '@env';
 import './App.scss';
 
 let requestResolver: { (): void; (value?: unknown): void } | null = null;
@@ -139,7 +140,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
           )
           .replace(
             '<title>WhiteLabel</title>',
-            `<title>${route?.meta.title}</title><meta name="description" content=${route?.meta.desc}><meta property="og:title" content=${route?.meta.title}><meta property="og:description" content=${route?.meta.desc}>`,
+            `<title>${route?.meta.title}</title><meta name="description" content="${route?.meta.desc}"><meta property="og:title" content="${route?.meta.title}"><meta property="og:description" content="${route?.meta.desc}"><meta property="og:url" content="${env.SITE_URL}">`,
           ),
       );
     });

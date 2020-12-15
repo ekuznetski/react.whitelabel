@@ -3,6 +3,7 @@ const dev = {
   LABEL: 'bsfx',
   GTM_ID: 'GTM-KWJHRK9',
   INTERCOM_ID: 'p31288aj',
+  SITE_URL: 'https://www.bluesquarefx.com',
   API_URL: 'https://api.bluesquarefx.com',
 };
 
