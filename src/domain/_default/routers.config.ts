@@ -20,7 +20,7 @@ export const routesInitialApiData: IRoutesInitialApiData = {
     strict: [Action.ac_fetchGeoIpData, Action.ac_fetchClientData, Action.ac_fetchProfile],
   },
   [EAppSection.general]: {
-    strict: [Action.ac_fetchGeoIpData, Action.ac_fetchProfile],
+    strict: [Action.ac_fetchProfile],
   },
 };
 
@@ -352,7 +352,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     meta: {
       title: t('Not Found:title'),
     },
-    path: '*',
+    path: '/404',
     component: NotFound,
     appSection: EAppSection.general,
   },

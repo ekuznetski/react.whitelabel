@@ -26,14 +26,11 @@ export const Router = memo(function Router() {
   }
 
   let _route = routesNavConfig.find((route) => route.path === _path);
-  if (!_route) {
-    _route = routesNavConfig.find((route) => route.appSection === EAppSection.general);
-  }
   useMeta({ name: 'description', content: _route?.meta?.desc || '' });
   useTitle(_route?.meta?.title || '');
 
   useEffect(() => {
-    if (routeState.path != _path) {
+    if (routeState.path != _path || (!routeState.path && !_path)) {
       window.scrollTo(0, 0);
       store.dispatch(
         ac_updateRouteParams({
@@ -62,10 +59,15 @@ export const Router = memo(function Router() {
             <Route
               key={r}
               exact
-              path={localizePath(route.path)}
+              path={
+                _route?.appSection === EAppSection.general
+                  ? [localizePath(route.path), route.path]
+                  : localizePath(route.path)
+              }
               render={() => <RenderRoute route={route} routeState={routeState} />}
             />
-          ))}
+          ))}{' '}
+          <Redirect to="404" />
         </Switch>
       </>
     );

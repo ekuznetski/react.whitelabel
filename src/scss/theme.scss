@@ -76,7 +76,8 @@ body {
     }
 
     &.main,
-    &.auth {
+    &.auth,
+    &.general {
       section {
         position: relative;
         padding: 120px 0;
