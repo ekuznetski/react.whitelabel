@@ -24,7 +24,7 @@ export function Contacts() {
         <Container>
           <Row className="flex-column">
             {config.contactsList.map((contact, c) => (
-              <Col key={c} className="col-12 contacts__list-header">
+              <Col key={c} className="col-12 contacts__list-header px-0">
                 <div className="contacts__title col-12 col-xl-3 mb-9 mb-xl-0">{contact.title}</div>
                 <div className="contacts__list">
                   {contact.points.map((point, p) => (
