@@ -84,7 +84,7 @@ export function Platform() {
             </div>
             <div className="col-12 col-lg-9">
               <Tabs>
-                {config.marketTabsData.map((item) => (
+                {config.marketTabs.map((item) => (
                   <Tab key={item.id} label={item.label} anchor={item.id}>
                     <Table {...item.tableData} />
                   </Tab>

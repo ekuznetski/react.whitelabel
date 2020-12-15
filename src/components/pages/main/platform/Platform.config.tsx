@@ -3,7 +3,7 @@ import i18n from 'i18next';
 const t = i18n.getFixedT(i18n.language);
 
 export const config = {
-  marketTabsData: [
+  marketTabs: [
     {
       label: t('Forex'),
       id: 'forex',
