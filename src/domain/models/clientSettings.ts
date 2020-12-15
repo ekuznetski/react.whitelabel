@@ -37,6 +37,8 @@ export class MClientSettings {
   trading_central: boolean;
 
   constructor(props: IClientSettings | IClientProfile) {
+    props = { ...this as any, ...props };
+
     this.allow_additional_account = props.allow_additional_account;
     this.allow_additional_live_account = props.allow_additional_live_account;
     this.allow_additional_demo_account = props.allow_additional_demo_account;
