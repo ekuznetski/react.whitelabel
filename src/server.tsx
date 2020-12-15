@@ -125,13 +125,22 @@ app.get('*', (req: express.Request, res: express.Response) => {
       }
       const preloadedState = store.getState();
       preloadedState.app.route.isLoading = false;
+
       return res.send(
-        data.replace(
-          '<div id="root"></div>',
-          `<div id="root" class="${route?.appSection}">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(
-            preloadedState,
-          ).replace(/</g, '\\u003c')}</script>`,
-        ),
+        data
+          .replace(
+            '<div id="root"></div>',
+            `<div id="root" class="${
+              route?.appSection
+            }">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(preloadedState).replace(
+              /</g,
+              '\\u003c',
+            )}</script>`,
+          )
+          .replace(
+            '<title>WhiteLabel</title>',
+            `<title>${route?.meta.title}</title><meta name="description" content=${route?.meta.desc}><meta property="og:title" content=${route?.meta.title}><meta property="og:description" content=${route?.meta.desc}>`,
+          ),
       );
     });
   });
