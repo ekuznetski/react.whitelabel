@@ -1,54 +1,51 @@
 @import '~/variables';
+@import '~/mixin';
 
-.notFoundPage {
-  height: 700px;
-  display: flex;
-  align-self: center;
+.not-found {
+  @include d-flex(center);
+  padding: 120px 0;
 
   &__header {
     text-align: center;
     justify-content: center;
   }
 
-  &__text {
-    &-title {
-      font-weight: 300;
-      font-size: 170px;
-      line-height: 170px;
-    }
-
-    &-subTitle {
-      font-size: 40px;
-      line-height: 50px;
-    }
-
-    &-description {
-      font-size: 18px;
-      line-height: 30px;
-    }
+  &__title {
+    font-weight: 300;
+    font-size: 170px;
+    line-height: 170px;
   }
 
-  &-btns {
+  &__subTitle {
+    font-size: 40px;
+    line-height: 50px;
+    text-transform: uppercase;
+  }
+
+  &__description {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  &__btns {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-  }
 
-  button {
-    background: $dark-blue;
-    border-radius: $border-radius;
-    width: 225px;
-    height: $btn-size-lg;
-    color: #fff;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    margin: 10px 20px;
+    .common-button {
+      border-radius: $border-radius;
+      height: $btn-size-lg;
+      width: 225px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      text-transform: uppercase;
+    }
   }
 
   @media (max-width: $viewport-lg-w) {
-    height: 500px;
-    padding: 70px 0;
+    padding: 100px 0;
     align-items: flex-end;
 
     &__text {
@@ -69,19 +66,16 @@
       }
     }
 
-    button {
-      height: 50px;
+    .common-button {
+      height: $btn-size-md;
     }
   }
 
   @media (max-width: $viewport-md-w) {
-    height: 500px;
-    button {
+    padding: 70px 0;
+
+    .common-button {
       width: 100%;
     }
-  }
-
-  @media (max-width: $viewport-sm-w) {
-    height: 550px;
   }
 }

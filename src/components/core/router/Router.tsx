@@ -25,10 +25,12 @@ export const Router = memo(function Router() {
     _locale = ELanguage.en;
   }
 
-  const _route = routesNavConfig.find((route) => route.path === _path);
-  const notFoundRoute = routesNavConfig.find((route) => route.appSection === EAppSection.notFound);
+  let _route = routesNavConfig.find((route) => route.path === _path);
+  if (!_route) {
+    _route = routesNavConfig.find((route) => route.appSection === EAppSection.general);
+  }
   useMeta({ name: 'description', content: _route?.meta?.desc || '' });
-  useTitle(_route?.meta?.title || notFoundRoute?.meta?.title || '');
+  useTitle(_route?.meta?.title || '');
 
   useEffect(() => {
     if (routeState.path != _path) {
@@ -40,17 +42,6 @@ export const Router = memo(function Router() {
           meta: _route?.meta,
           state: Object.assign({}, state, _route?.state),
           isLoading: !!_route,
-        }),
-      );
-    }
-    if (!_route) {
-      store.dispatch(
-        ac_updateRouteParams({
-          path: notFoundRoute?.path,
-          appSection: notFoundRoute?.appSection,
-          meta: notFoundRoute?.meta,
-          state: Object.assign({}, state, notFoundRoute?.state),
-          isLoading: !!notFoundRoute,
         }),
       );
     }
@@ -75,12 +66,6 @@ export const Router = memo(function Router() {
               render={() => <RenderRoute route={route} routeState={routeState} />}
             />
           ))}
-          {notFoundRoute && (
-            <Route
-              path={notFoundRoute.path}
-              render={() => <RenderRoute route={notFoundRoute} routeState={routeState} />}
-            />
-          )}
         </Switch>
       </>
     );

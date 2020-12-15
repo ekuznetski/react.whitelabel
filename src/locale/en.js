@@ -434,10 +434,10 @@ export default {
   IB: 'IB',
   'White Label': 'White Label',
   'Help Center': 'Help Center',
-  'Not Found': 'NOT FOUND',
+  'Not Found': 'Not Found',
   'Not Found Page desc': 'The page you requested does not exist.',
-  'Go to Home Page': 'GO TO HOME PAGE',
-  'Go to Dashboard': 'GO TO DASHBOARD',
+  'Go to Home Page': 'Go To Home Page',
+  'Go to Dashboard': 'Go To Dashboard',
   'Leverage Information': 'LEVERAGE INFORMATION',
   'Leverage Page Top Desc':
     'At WHITE_LABEL our clients can trade using leverage, allowing them to control larger trade sizes',

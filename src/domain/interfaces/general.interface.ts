@@ -3,10 +3,6 @@ import { EResponseStatus } from '@domain/enums';
 export interface IHeaderDefaultProps {
   fixed: boolean;
 }
-
-export interface IFooterAuthProps {
-  hideLinks?: boolean;
-}
 export interface IBaseResponse {
   response?: {
     [key: string]: any;
