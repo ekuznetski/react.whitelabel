@@ -22,13 +22,16 @@ export function Contacts() {
       </section>
       <section className="contacts">
         <Container>
-          <Row className="flex-column">
+          <Row>
             {config.contactsList.map((contact, c) => (
-              <Col key={c} className="col-12 contacts__list-header">
-                <div className="contacts__title col-12 col-xl-3 mb-9 mb-xl-0">{contact.title}</div>
+              <Col key={c} xs={12} md={6} lg={3} className="mb-8 mb-md-5 mb-lg-0">
+                <div className="contacts__title mb-6">
+                  {contact.title}
+                  <div className="contacts__title-line mt-6"></div>
+                </div>
                 <div className="contacts__list">
                   {contact.points.map((point, p) => (
-                    <div key={p} className="contacts__list-item mx-6">
+                    <div key={p} className="contacts__list-item mb-5">
                       <Svg href={point.icon} width={16} className="mr-3" />
                       {point.label}
                     </div>
@@ -39,7 +42,7 @@ export function Contacts() {
           </Row>
         </Container>
       </section>
-      <section className="map">
+      <section className="p-0">
         <Map
           defaultCenter={config.officeCoords}
           markers={[
