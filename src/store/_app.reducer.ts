@@ -1,7 +1,7 @@
+import { IAction, IAppStore } from './store.interface';
 import { ELanguage } from '@domain/enums';
 import { Nullable } from '@domain/interfaces';
 import { EActionTypes } from './store.enum';
-import { IAction, IAppStore } from './store.interface';
 
 export const initAppStore: Nullable<IAppStore> = {
   route: {
@@ -46,6 +46,7 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.createLiveTradingAccount:
     case EActionTypes.createDemoTradingAccount:
     case EActionTypes.fetchStocksPrices:
+    case EActionTypes.logout:
       return {
         ...state,
         requests: {
