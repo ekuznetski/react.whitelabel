@@ -9,7 +9,7 @@ import { useBoolean, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
 import React, { memo, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import { NotFound, PageLoader } from '..';
+import { Header, NotFound, PageLoader } from '..';
 
 export const Router = memo(function Router() {
   const { routeState } = useSelector<IStore, { routeState: IAppStore['route'] }>((state) => ({
@@ -125,5 +125,13 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
     { wait: 25 }, // this value will effect the time the page loader displayed
   );
 
-  return !firstRender && !routeState.isLoading && route.component ? <route.component /> : null;
+  return !firstRender && !routeState.isLoading && route.component ? (
+    <>
+      <Header />
+      <main className="router-context">
+        {' '}
+        <route.component />
+      </main>
+    </>
+  ) : null;
 }
