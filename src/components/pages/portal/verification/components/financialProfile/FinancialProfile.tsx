@@ -2,7 +2,7 @@ import { Svg } from '@components/shared';
 import { FPQuestions } from '@domain';
 import { EClientStatusCode, EFPSteps } from '@domain/enums';
 import { IFPState, ISubmitFPRequest, ISubmitFPRequestItem } from '@domain/interfaces';
-import { MClientData } from '@domain/models';
+import { MClientStatus } from '@domain/models';
 import { ac_submitFinancialProfile, IStore } from '@store';
 import classNames from 'classnames';
 import React, { memo, useState } from 'react';
@@ -12,7 +12,7 @@ import { FinancialProfileLastStep, FinancialProfileStepGenerator } from './compo
 import './FinancialProfile.scss';
 
 export const FinancialProfile = memo(function FinancialProfile() {
-  const { statusData } = useSelector<IStore, { statusData: MClientData }>((state) => ({
+  const { statusData } = useSelector<IStore, { statusData: MClientStatus }>((state) => ({
     statusData: state.data.client.statusData,
   }));
   const [state, setState] = useState<IFPState>({

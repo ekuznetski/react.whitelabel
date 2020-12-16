@@ -8,7 +8,7 @@ export interface IDataStore {
   geoIp: IGeoIp;
   client: {
     profile: Model.MClientProfile;
-    statusData: Model.MClientData;
+    statusData: Model.MClientStatus;
     settings: Model.MClientSettings;
     statements: Model.MTransactionalStatementData;
     documents: Model.MDocument[];

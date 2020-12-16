@@ -14,11 +14,12 @@ import {
   IPartnershipIBRegistrationResponse,
   IPartnershipRegistrationResponse,
   ISetProfileResponse,
+  ITinsResponse,
   ITradingAccountsResponse,
   ITransactionalStatementsResponse,
-  IWithdrawFundRequest,
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
+  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import * as Model from '@domain/models';
 import * as Request from '@utils/services';
@@ -265,22 +266,30 @@ export function* getClientStatusDataSaga() {
     EActionTypes.fetchClientData,
     function* () {
       const { response }: IClientStatusDataResponse = yield call(Request.getClientDataRequest);
-      const payload = new Model.MClientData(response);
-      yield put(Action.ac_saveClientData(payload));
+      yield put(Action.ac_saveClientData(new Model.MClientStatus(response)));
+      yield put(Action.ac_saveTins(new Model.MTins(response.tins_data)));
       return response;
     },
     'data.client.statusData',
   );
 }
 
-export function* financialProfileSage() {
+export function* updateTinsSaga() {
+  yield $$(EActionTypes.register, function* ({ payload }: IAction) {
+    const { response }: ITinsResponse = yield call(Request.updateTins, payload);
+    yield put(Action.ac_saveTins(new Model.MTins(response.message)));
+    return response;
+  });
+}
+
+export function* financialProfileSaga() {
   yield $$(EActionTypes.submitFinancialProfile, function* ({ payload }: IAction) {
     const { response }: any = yield call(Request.financialProfileRequest, payload);
     return response;
   });
 }
 
-export function* getTradingAccountsSage() {
+export function* getTradingAccountsSaga() {
   yield $$(
     EActionTypes.fetchTradingAccounts,
     function* () {
@@ -292,7 +301,7 @@ export function* getTradingAccountsSage() {
   );
 }
 
-export function* createLiveTradingAccountsSage() {
+export function* createLiveTradingAccountsSaga() {
   yield $$(EActionTypes.createLiveTradingAccount, function* ({ payload }: IAction<ICreateTradingAccountRequest>) {
     const { response } = yield call(
       payload?.platform === ETradingPlatform.mt4
@@ -309,7 +318,7 @@ export function* createLiveTradingAccountsSage() {
   });
 }
 
-export function* createDemoTradingAccountsSage() {
+export function* createDemoTradingAccountsSaga() {
   yield $$(EActionTypes.createDemoTradingAccount, function* ({ payload }: IAction<ICreateTradingAccountRequest>) {
     const { response } = yield call(
       payload?.platform === ETradingPlatform.mt4
@@ -326,7 +335,7 @@ export function* createDemoTradingAccountsSage() {
   });
 }
 
-export function* makeInternalTransferSage() {
+export function* makeInternalTransferSaga() {
   yield $$(EActionTypes.makeInternalTransfer, function* ({ payload }: IAction) {
     const { response }: any = yield call(Request.internalTransferRequest, payload);
     yield put(Action.ac_fetchTradingAccounts());
@@ -334,7 +343,7 @@ export function* makeInternalTransferSage() {
   });
 }
 
-export function* fetchDocumentsSage() {
+export function* fetchDocumentsSaga() {
   yield $$(
     EActionTypes.fetchDocuments,
     function* () {
@@ -347,7 +356,7 @@ export function* fetchDocumentsSage() {
   );
 }
 
-export function* uploadFileSage() {
+export function* uploadFileSaga() {
   yield $$(EActionTypes.uploadDocuments, function* ({ payload }: IAction) {
     const { response }: any = yield call(Request.uploadFileRequest, payload);
     yield put(Action.ac_fetchDocuments({ force: true }));
@@ -355,7 +364,7 @@ export function* uploadFileSage() {
   });
 }
 
-export function* fetchTransactionalStatementsSage() {
+export function* fetchTransactionalStatementsSaga() {
   yield $$(EActionTypes.fetchTransactionalStatements, function* ({ payload }: IAction) {
     const { response }: ITransactionalStatementsResponse = yield call(
       Request.getTransactionalStatementsRequest,

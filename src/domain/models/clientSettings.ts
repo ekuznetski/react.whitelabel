@@ -40,6 +40,7 @@ export class MClientSettings {
   constructor(props: IClientSettings | IClientProfile) {
     const storeSettings = store.getState().data.client.settings;
     props = { ...storeSettings, ...props };
+
     this.allow_additional_account = props.allow_additional_account;
     this.allow_additional_live_account = props.allow_additional_live_account;
     this.allow_additional_demo_account = props.allow_additional_demo_account;

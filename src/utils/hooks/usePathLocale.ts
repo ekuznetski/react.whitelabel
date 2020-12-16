@@ -9,6 +9,9 @@ export function usePathLocale() {
 
   return {
     localizePath: (path: string) => {
+      if (path === '*') {
+        return path;
+      }
       return `${locale && locale.length ? '/' + locale : ''}${path.replace(/^\\?(S+)/, '/$1')}`;
     },
     delocalizePath: (_pathname?: string) => {
