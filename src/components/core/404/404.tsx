@@ -16,7 +16,7 @@ export const NotFound = memo(function NotFound() {
     <section className="not-found">
       <Container className="align-self-center">
         <Row>
-          <Col className=" m-auto col-12 not-found__header mt-n2">
+          <Col className=" m-auto not-found__header mt-n2">
             <div className="not-found__title mb-12">404</div>
             <div className="not-found__subTitle mb-7">{t('Not Found')}</div>
             <div className="not-found__description mb-13">{t('Not Found Page desc')}</div>
