@@ -1,6 +1,6 @@
 import { Alert, Button, CountrySelect, Input } from '@components/shared';
 import { MTins } from '@domain/models';
-import { IStore } from '@store';
+import { EActionTypes, IStore } from '@store';
 import { Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
@@ -14,7 +14,7 @@ export const TaxIdentification = memo(function TaxIdentification() {
     tins: state.data.client.tins,
   }));
   const { t } = useTranslation();
-
+  
   const validationSchema = Yup.object().shape({});
 
   function Submit(data: FormikValues) {}
@@ -38,8 +38,10 @@ export const TaxIdentification = memo(function TaxIdentification() {
                     <Input label={t('Tax Identification Number')} name="taxNo" />
                   </Col>
                 </Row>
-                <Button className="ml-auto">+</Button>
               </div>
+              <Button type="button" loadingOnAction={EActionTypes.addDeposit}>
+                Submit
+              </Button>
             </Form>
           );
         }}
