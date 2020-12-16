@@ -17,8 +17,6 @@ import {
 import { store } from '@store';
 
 export class MClientSettings {
-  private storeSettings = store.getState().data.client.settings;
-
   allow_additional_account: boolean;
   allow_additional_live_account: boolean;
   allow_additional_demo_account: boolean;
@@ -40,30 +38,35 @@ export class MClientSettings {
   trading_central: boolean;
 
   constructor(props: IClientSettings | IClientProfile) {
-    props = { ...this.storeSettings, ...props };
-
+    const storeSettings = store.getState().data.client.settings;
+    props = { ...storeSettings, ...props };
     this.allow_additional_account = props.allow_additional_account;
     this.allow_additional_live_account = props.allow_additional_live_account;
     this.allow_additional_demo_account = props.allow_additional_demo_account;
     this.allow_deposit = props.allow_deposit;
-    this.allowed_currencies =
-      this.storeSettings.allowed_currencies ||
-      Array.from(
-        props.allowed_currencies.map((item) => ECurrencyCode[item.toLowerCase() as keyof typeof ECurrencyCode]),
-      );
-    this.allowed_leverages =
-      this.storeSettings.allowed_leverages ||
-      Array.from(
-        props.allowed_leverages.map((item) => EAccountLeverage[('1_' + item) as keyof typeof EAccountLeverage]),
-      );
+
+    this.allowed_currencies = Array.from(
+      (props.allowed_currencies || []).map((item) => ECurrencyCode[item.toLowerCase() as keyof typeof ECurrencyCode]),
+    );
+
+    this.allowed_leverages = Array.from(
+      (props.allowed_leverages || []).map(
+        (item) => EAccountLeverage[item.toString().replace(/(1[_:])?(.*)/, '1_$2') as keyof typeof EAccountLeverage],
+      ),
+    );
+
     this.allowed_account_types = Array.from(
-      props.allowed_account_types.map(
+      (props.allowed_account_types || []).map(
         (item) => ETradingAccountType[item.toLowerCase() as keyof typeof ETradingAccountType],
       ),
     );
+
     this.allowed_platforms = Array.from(
-      props.allowed_platforms.map((item) => ETradingPlatform[item.toLowerCase() as keyof typeof ETradingPlatform]),
+      (props.allowed_platforms || []).map(
+        (item) => ETradingPlatform[item.toLowerCase() as keyof typeof ETradingPlatform],
+      ),
     );
+
     this.allow_internal_transfer = props.allow_internal_transfer;
     this.show_praxis_and_webmoney = props.show_praxis_and_webmoney;
     this.enable_citioptions = props.enable_citioptions;
@@ -78,31 +81,31 @@ export class MClientSettings {
     this.trading_central = props.trading_central || false;
   }
 
-  getCurrenciesSelectList(): typeof Currencies {
+  getCurrenciesSelectList = (): typeof Currencies => {
     return this.allowed_currencies.reduce((acc: typeof Currencies, el) => {
       const key = el.toLowerCase();
       return Object.assign(acc, { [key]: Currencies[key] });
     }, {});
-  }
+  };
 
-  getTradingAccountTypesSelectList(): ITradingAccountTypesSelectList[] {
+  getTradingAccountTypesSelectList = (): ITradingAccountTypesSelectList[] => {
     return this.allowed_account_types.map((el) => ({
       label: el,
       value: el,
     }));
-  }
+  };
 
-  getLeveragesSelectList(): ILeveragesSelectList[] {
+  getLeveragesSelectList = (): ILeveragesSelectList[] => {
     return this.allowed_leverages.map((el) => ({
       label: el,
       value: el.slice(2),
     }));
-  }
+  };
 
-  getPlatformsSelectList(): IPlatformsSelectList[] {
+  getPlatformsSelectList = (): IPlatformsSelectList[] => {
     return this.allowed_platforms.map((el) => ({
       label: ETradingPlatformName[el],
       value: el,
     }));
-  }
+  };
 }
