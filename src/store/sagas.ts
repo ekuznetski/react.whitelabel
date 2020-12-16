@@ -265,8 +265,8 @@ export function* getClientStatusDataSaga() {
     EActionTypes.fetchClientData,
     function* () {
       const { response }: IClientStatusDataResponse = yield call(Request.getClientDataRequest);
-      const payload = new Model.MClientData(response);
-      yield put(Action.ac_saveClientData(payload));
+      yield put(Action.ac_saveClientData(new Model.MClientStatus(response)));
+      yield put(Action.ac_saveTins(new Model.MTins(response.tins_data)));
       return response;
     },
     'data.client.statusData',

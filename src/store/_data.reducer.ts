@@ -20,7 +20,7 @@ export const initDataStore: Nullable<IDataStore> = {
     }),
     statements: null,
     documents: null,
-    tins: null
+    tins: null,
   },
   tradingData: null,
   withdrawals: {
@@ -56,6 +56,9 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
 
     case EActionTypes.saveDocuments:
       return { ...state, client: { ...state.client, documents: action.payload } };
+
+    case EActionTypes.saveTins:
+      return { ...state, client: { ...state.client, tins: action.payload } };
 
     case EActionTypes.saveTradingAccounts:
       return { ...state, tradingData: action.payload };

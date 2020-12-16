@@ -17,14 +17,12 @@ export interface IClientStatus {
     | _statusPair<'clientEddRequired'>
     | _statusPair<'clientLiquidOnly'>
     | _statusPair<'liquidOnlyEdd'>
-    | _statusPair<'liquidOnlyMifir'>
     | _statusPair<'onReview'>
     | _statusPair<'dormant'>;
   cayman_status:
     | _statusPair<'onReview'>
     | _statusPair<'clientLiquidOnly'>
     | _statusPair<'liquidOnlyEdd'>
-    | _statusPair<'liquidOnlyMifir'>;
   edd_status: AddInfoFormStatus;
   mifid_status: AddInfoFormStatus;
   tins_status: AddInfoFormStatus;

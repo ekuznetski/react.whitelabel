@@ -1,5 +1,10 @@
 export interface ITins {
-  choice: boolean;
+  choice: boolean | null;
   reason: string | null;
-  tins: { country: string; tax_number: string }[];
+  tins: ITinsList[];
+}
+
+export interface ITinsList {
+  country: string;
+  tax_number: string;
 }

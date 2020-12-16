@@ -21,11 +21,12 @@ import {
 } from '@domain/interfaces';
 import {
   MBankDetails,
-  MClientData,
+  MClientStatus,
   MClientProfile,
   MClientSettings,
   MClientTradingData,
   MDocument,
+  MTins,
   MTransactionalStatementData,
   MWithdrawalHistoryItem,
 } from '@domain/models';
@@ -332,7 +333,7 @@ export function ac_fetchClientData(): IAction {
   };
 }
 
-export function ac_saveClientData(payload: MClientData): IAction {
+export function ac_saveClientData(payload: MClientStatus): IAction {
   return {
     type: EActionTypes.saveClientData,
     payload,
@@ -409,6 +410,13 @@ export function ac_uploadDocuments(
     payload,
     onSuccess,
     onFailure,
+  };
+}
+
+export function ac_saveTins(payload: MTins): IAction {
+  return {
+    type: EActionTypes.saveTins,
+    payload,
   };
 }
 
