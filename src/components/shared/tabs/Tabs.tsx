@@ -109,7 +109,7 @@ export function Tabs({
         function switchMobileDisplay(setDisplay: EMobileDisplay) {
           dispatch({ type: 'setMobileDisplay', mobileDisplay: setDisplay });
         }
-        console.log(state);
+
         return useMemo(
           () => (
             <div
