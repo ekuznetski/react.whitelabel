@@ -53,7 +53,7 @@ export default {
   'Asset Class': 'ASSET CLASS',
   'Market Event Notification Desc': 'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by BSFX representatives via phone or e-mail. You can opt-out any time you wish to.',
   'Leverage Ratios Desc': 'Blue Square FX uses a dynamic forex leverage model available on the MT5 platform.',
-  exchange: 'Instruments:',
+  'Instruments:': 'Instruments:',
   'Swap Long': 'Fixed Account Swap',
   'Swap Short': 'Variable Account Swap',
 };

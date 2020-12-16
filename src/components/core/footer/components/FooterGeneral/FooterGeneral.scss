@@ -1,0 +1,52 @@
+@import '~/variables';
+
+.footer.general {
+  // border-top: 1px solid $grey;
+  text-align: center;
+  font-size: 10px;
+  line-height: 18px;
+  color: $text;
+  margin-top: auto;
+
+  a {
+    color: #fff;
+    position: relative;
+    text-decoration: none !important;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: rgba(51, 126, 255, 0.6);
+      bottom: 0px;
+      left: 0;
+    }
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+
+    &-item {
+      font-size: 12px;
+      line-height: 20px;
+      color: $text;
+    }
+
+    &-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 0 16px;
+    }
+  }
+
+  .context {
+    b {
+      color: $dark-text;
+      font-weight: 500;
+    }
+  }
+}

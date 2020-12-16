@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Notification } from '..';
-import { HeaderAuth, HeaderMain, HeaderPortal } from './';
+import { HeaderAuth, HeaderGeneral, HeaderMain, HeaderPortal } from './';
 import { TopBar } from './main/components';
 
 export const Header = memo(function Header() {
@@ -26,6 +26,7 @@ export const Header = memo(function Header() {
             {section === EAppSection.auth && <HeaderAuth fixed={fixHeader} />}
             {section === EAppSection.main && <HeaderMain fixed={fixHeader} />}
             {section === EAppSection.portal && <HeaderPortal fixed={fixHeader} />}
+            {section === EAppSection.general && <HeaderGeneral fixed={fixHeader} />}
           </div>
         </header>
         <Notification fixed={fixHeader} />

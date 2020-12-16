@@ -1,7 +1,7 @@
 import { localesConfig } from '@domain';
-import { ELanguage } from '@domain/enums';
+import { EAppSection, ELanguage } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
-import { routesNavConfig, routesRedirectConfig, routesInitialApiData } from '@routers';
+import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@routers';
 import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn';
 import { useLockScroll, useMeta, usePathLocale } from '@utils/hooks';
@@ -25,12 +25,12 @@ export const Router = memo(function Router() {
     _locale = ELanguage.en;
   }
 
-  const _route = routesNavConfig.find((route) => route.path === _path);
+  let _route = routesNavConfig.find((route) => route.path === _path);
   useMeta({ name: 'description', content: _route?.meta?.desc || '' });
   useTitle(_route?.meta?.title || '');
 
   useEffect(() => {
-    if (routeState.path != _path) {
+    if (routeState.path != _path || (!routeState.path && !_path)) {
       window.scrollTo(0, 0);
       store.dispatch(
         ac_updateRouteParams({
@@ -59,11 +59,15 @@ export const Router = memo(function Router() {
             <Route
               key={r}
               exact
-              path={localizePath(route.path)}
+              path={
+                _route?.appSection === EAppSection.general
+                  ? [localizePath(route.path), route.path]
+                  : localizePath(route.path)
+              }
               render={() => <RenderRoute route={route} routeState={routeState} />}
             />
           ))}
-          <Route component={NotFound} />
+          <Redirect to="404" />
         </Switch>
       </>
     );
@@ -129,7 +133,6 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
     <>
       <Header />
       <main className="router-context">
-        {' '}
         <route.component />
       </main>
     </>
