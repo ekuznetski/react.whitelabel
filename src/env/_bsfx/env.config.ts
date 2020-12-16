@@ -3,12 +3,13 @@ const dev = {
   LABEL: 'bsfx',
   GTM_ID: 'GTM-KWJHRK9',
   INTERCOM_ID: 'p31288aj',
-  SITE_URL: 'https://www.bluesquarefx.com',
+  SITE_URL: 'http://localhost:4200',
   API_URL: 'https://api.bluesquarefx.com',
 };
 
 const prod = {
-  PRODUCTION: false,
+  PRODUCTION: true,
+  SITE_URL: 'https://www.bluesquarefx.com',
 };
 
 export const env: { [k: string]: any } = Object.assign({}, dev, process.env.PRODUCTION ? prod : {});

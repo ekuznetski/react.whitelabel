@@ -1,30 +1,38 @@
 export default {
   Home: {
     title: 'Home',
+    desc: '',
   },
   About: {
     title: 'About',
+    desc: '',
   },
   Products: {
     title: 'Products',
+    desc: '',
   },
   Platform: {
     title: 'Platform',
+    desc: '',
   },
   Login: {
     title: 'Login',
   },
   Contacts: {
     title: 'Contacts',
+    desc: '',
   },
   Partnership: {
     title: 'Partnership',
+    desc: '',
   },
   Leverage: {
     title: 'Leverage',
+    desc: '',
   },
   Registration: {
     title: 'Registration',
+    desc: '',
   },
   'Forgot Password': {
     title: 'Forgot Password',

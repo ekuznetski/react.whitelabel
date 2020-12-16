@@ -89,8 +89,8 @@ app.get('*', (req: express.Request, res: express.Response) => {
     } else {
       store.dispatch(
         ac_updateRouteParams({
-          path: '404',
-          appSection: EAppSection.main,
+          path: '/404',
+          appSection: EAppSection.general,
           isLoading: false,
         }),
       );
@@ -141,7 +141,14 @@ app.get('*', (req: express.Request, res: express.Response) => {
           )
           .replace(
             '<title>WhiteLabel</title>',
-            `<title>${route?.meta.title}</title><meta name="description" content="${route?.meta.desc}"><meta property="og:type" content="website"><meta property="og:title" content="${route?.meta.title}"><meta property="og:description" content="${route?.meta.desc}"><meta property="og:image" content="${env.SITE_URL}/assets/og-img.png"><meta property="og:url" content="${env.SITE_URL}"><meta name="twitter:card" content="summary_large_image">`,
+            `<title>${route?.meta.title}</title>
+            <meta name="description" content="${route?.meta.desc}">
+            <meta property="og:type" content="website">
+            <meta property="og:title" content="${route?.meta.title}">
+            <meta property="og:description" content="${route?.meta.desc}">
+            <meta property="og:image" content="${env.SITE_URL}/assets/og-img.png">
+            <meta property="og:url" content="${env.SITE_URL}">
+            <meta name="twitter:card" content="summary_large_image">`,
           ),
       );
     });
