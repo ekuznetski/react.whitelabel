@@ -97,3 +97,4 @@ export const partnershipRegistrationRequest = request(
 export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${env.API_URL}/ibs/add`);
 export const getStocksPricesRequest = request(EHttpMethod.post, `https://prices.hycm.com/graphs/prices2`);
 export const getClientSettingsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/settings`);
+export const updateTins = request(EHttpMethod.post, `${env.API_URL}/clients/updateTins`);

@@ -145,6 +145,7 @@ export const config: IConfig = {
     },
     {
       type: 'blue',
+      disabled: true,
       bg_img: 'client_banner_1.jpg',
       bg_color: 'white',
       link: { path: 'share', text: t('Invite Now') },

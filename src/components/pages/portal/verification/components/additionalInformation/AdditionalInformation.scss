@@ -1,4 +1,9 @@
 @import '~/variables';
 
 .additional-information {
+  .common-tabs.vertical {
+    .common-tabs__container {
+      overflow: hidden;
+    }
+  }
 }

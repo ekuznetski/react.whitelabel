@@ -130,7 +130,7 @@ export default {
   'The Forex Industry Standard': 'The forex industry standard',
   MobileFirst: 'Mobile first',
   'Get Trading Apps': 'Get trading apps for Android or iOS and trade on the go, anywhere, anytime',
-  'Don’t miss a thing': 'Don’t miss a thing',
+  "Don't miss a thing": 'Don’t miss a thing',
   'Never miss an opportunity':
     'Never miss an opportunity with our price alerts, push notifications, economic calendar, and market analyses',
   'Free upcoming webinar workshop': 'Free upcoming webinar/workshop',
@@ -192,7 +192,7 @@ export default {
   'Verify your profile': 'Verify your profile',
   'Add Deposit': 'Add Deposit',
   Declaration: 'Declaration',
-  'You are now opening an account with': 'You are now opening an account with',
+  'You opening account with': 'You are now opening an account with <1>WHITE_LABEL</1>',
   'Privacy Policy': 'Privacy Policy',
   Next: 'Next',
   'Already Registered': 'Already Registered?',
@@ -323,8 +323,10 @@ export default {
   Bid: 'Bid',
   'Do you have Tax Identification Number?': 'Do you have Tax Identification Number?',
   Ask: 'Ask',
-  'Tax Identification Alert': 'To comply with the Common Reporting Standards, we require you to provide us with certain information about your tax residency.',
-  'Tax Resident List of Countries': 'Please list the countries where you are a Tax Resident and provide your Tax Identification Number for each.',
+  'Tax Identification Alert':
+    'To comply with the Common Reporting Standards, we require you to provide us with certain information about your tax residency.',
+  'Tax Resident List of Countries':
+    'Please list the countries where you are a Tax Resident and provide your Tax Identification Number for each.',
   'Custom Amount': 'Custom Amount',
   'Wire Bank Transfer': 'Wire Bank Transfer',
   '1 3 days': '1 - 3 days',

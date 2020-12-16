@@ -1,6 +1,6 @@
 import { Button, IRadioItem, Input, Radio, Svg, TradingAccountsSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { AllowedCurrToMethodMap, ETradingType } from '@domain/enums';
+import { AllowedCurrToMethodMap, EFormStatus, ETradingType } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import { IStore } from '@store';
 import { useDeviceDetect } from '@utils/hooks';

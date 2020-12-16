@@ -304,6 +304,17 @@
         "message": "The password has been updated successfully",
         "messageCode": 14
       }
+    },
+    "updateTins": {
+      "response": {
+        "status": "success",
+        "message": {
+          "choice": true,
+          "reason": null,
+          "tins": "[{\"country\":\"Aland Islands\",\"tax_number\":\"123456\"}]"
+        },
+        "messageCode": 54
+      }
     }
   },
   "documents": {

@@ -46,7 +46,9 @@ export function FifthStep({ name, submitFn }: any) {
                 {t('Submit')}
               </Button>
               <p className="mt-5 text-center auth-under-form">
-                {t('You are now opening an account with')} <span>XXXX</span>
+                <Trans i18nKey="You opening account with">
+                  You are now opening an account with <span>label_name</span>
+                </Trans>
               </p>
             </Form>
           );

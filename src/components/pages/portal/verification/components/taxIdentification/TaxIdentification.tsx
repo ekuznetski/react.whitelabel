@@ -38,7 +38,9 @@ export const TaxIdentification = memo(function TaxIdentification() {
     taxNumber: Yup.object().required(),
   });
 
-  function Submit(data: FormikValues) {}
+  function Submit(data: FormikValues) {
+
+  }
 
   return (
     <div className="tax-identification">
@@ -68,7 +70,7 @@ export const TaxIdentification = memo(function TaxIdentification() {
                   tinsList.map((item, idx) => (
                     <React.Fragment key={idx}>
                       <Col xs={6}>
-                        <CountrySelect label={t('Country')} name={EFields.taxCountry} value={item.country} />
+                        <CountrySelect label={t('Country')} name={EFields.taxCountry} />
                       </Col>
                       <Col xs={6}>
                         <Input
