@@ -13,6 +13,7 @@ export interface ITabs {
   content?: { value: TabData; anchor: string }[];
   children?: React.ReactNode;
   activeTab?: string; // anchor
+  disabledAll?: boolean;
   className?: string;
   isVertical?: boolean;
   alignNavigation?: 'left' | 'center' | 'right';
@@ -41,6 +42,7 @@ export function Tabs({
   content,
   activeTab,
   className,
+  disabledAll = false,
   isVertical = false,
   alignNavigation = 'center',
   onChange = undefined,
@@ -82,6 +84,9 @@ export function Tabs({
           if (activeTab) {
             switchTab(activeTab);
           }
+          if (disabledAll) {
+            dispatch({ type: 'disabledAll', disabledAll });
+          }
         }, []);
 
         useEffect(() => {
@@ -104,7 +109,7 @@ export function Tabs({
         function switchMobileDisplay(setDisplay: EMobileDisplay) {
           dispatch({ type: 'setMobileDisplay', mobileDisplay: setDisplay });
         }
-
+        console.log(state);
         return useMemo(
           () => (
             <div
@@ -119,7 +124,7 @@ export function Tabs({
                     className={classNames(
                       'tab__link',
                       label.disabled && 'disabled',
-                      activeTabProps?.anchor === label.anchor && 'active',
+                      !disabledAll && activeTabProps?.anchor === label.anchor && 'active',
                       !isVertical && 'mr-7',
                     )}
                     onClick={() => !label.disabled && switchTab(label.anchor)}
@@ -175,7 +180,13 @@ export const Tab = memo(
     const dispatch = useTabsDispatch();
     const tabsState = useTabsState();
     const isActive = tabsState.active === props.anchor;
-    const _content = !props.children && props.content ? <TabContent content={props.content} /> : props.children;
+    const _content = tabsState.disabledAll ? (
+      'temporary disabled'
+    ) : !props.children && props.content ? (
+      <TabContent content={props.content} />
+    ) : (
+      props.children
+    );
 
     if (!props.children && !props.content) {
       throw new Error('Tab must have (props.children) or (props.content)!');
