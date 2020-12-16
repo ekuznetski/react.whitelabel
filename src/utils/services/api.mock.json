@@ -496,5 +496,23 @@
         "messageCode": 4
       }
     }
+  },
+  "!frontend": {
+    "geo": {
+      "country": "Cyprus",
+      "countryCode": "CY",
+      "phonePrefix": "357",
+      "dynamicLeverage": false,
+      "leverages": ["100", "200", "300", "400", "500"],
+      "currencies": ["USD", "EUR"],
+      "jurisdiction": "CySec",
+      "companyName": "HYCM (Europe) Ltd",
+      "domain": "eu",
+      "redirect_popup": false,
+      "redirect_url": null,
+      "redirect_url_full": "https:///en",
+      "passive_consent": false,
+      "allowed_account_types": ["fixed", "classic", "raw"]
+    }
   }
 }

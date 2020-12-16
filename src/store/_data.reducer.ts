@@ -1,6 +1,8 @@
 import { EActionTypes } from './store.enum';
 import { IAction, IDataStore } from './store.interface';
 import { Nullable } from '@domain/interfaces';
+import { useLabelView } from '@utils/hooks';
+import { ELabels } from '@domain/enums';
 
 export const initDataStore: Nullable<IDataStore> = {
   content: null,
@@ -8,9 +10,17 @@ export const initDataStore: Nullable<IDataStore> = {
   client: {
     profile: null,
     statusData: null,
-    settings: null,
+    settings: useLabelView({
+      '*': {
+        allowed_account_types: ['fixed', 'classic', 'raw'],
+      },
+      [ELabels.bsfx]: {
+        allowed_account_types: ['fixed', 'variable'],
+      },
+    }),
     statements: null,
     documents: null,
+    tins: null
   },
   tradingData: null,
   withdrawals: {
@@ -35,7 +45,8 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
       return { ...state, client: { ...state.client, profile: action.payload } };
 
     case EActionTypes.saveClientSettings:
-      return { ...state, client: { ...state.client, settings: action.payload } };
+      // console.log(action, state.client.settings);
+      return { ...state, client: { ...state.client, settings: { ...state.client.settings, ...action.payload } } };
 
     case EActionTypes.saveClientData:
       return { ...state, client: { ...state.client, statusData: action.payload } };

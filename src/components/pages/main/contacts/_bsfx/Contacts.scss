@@ -35,7 +35,6 @@
   }
 
   .contacts {
-    padding: 110px 0 60px 0 !important;
     &__title {
       font-size: 24px;
       line-height: 34px;
@@ -49,22 +48,11 @@
     }
 
     &__list {
-      display: flex;
-      &-header {
-        display: flex;
-        flex-direction: row;
-        &:not(:last-child) {
-          padding-bottom: 50px;
-          border-bottom: 1px solid $grey;
-        }
-        &:last-child {
-          padding-top: 50px;
-        }
-      }
       &-item {
         font-size: 16px;
         line-height: 26px;
         color: $text;
+        white-space: nowrap;
 
         svg {
           fill: $dark-blue;
@@ -72,45 +60,20 @@
       }
     }
 
-    @media (max-width: $viewport-xl-w) {
-      padding: 90px 0 !important;
+    @media (max-width: $viewport-md-w) {
+      text-align: center;
+
       &__list {
-        &-header {
-          flex-direction: column;
-          &:not(:last-child) {
-            padding-bottom: 30px;
-          }
-          &:last-child {
-            padding-top: 30px;
-          }
+        &-item {
+          white-space: normal;
         }
       }
-    }
 
-    @media (max-width: $viewport-md-w) {
-      padding: 60px 0 !important;
       &__title {
         &-line {
           margin: 0 auto;
         }
       }
-      &__list {
-        flex-direction: column;
-        &-item {
-          &:not(:last-child) {
-            padding-bottom: 15px;
-          }
-        }
-        &-header {
-          &:last-child {
-            padding-bottom: 0px !important;
-          }
-        }
-      }
     }
-  }
-
-  .map {
-    padding: 0 !important;
   }
 }

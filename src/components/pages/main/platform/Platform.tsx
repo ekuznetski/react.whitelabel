@@ -5,11 +5,12 @@ import {
   OurOfferBannerSection,
   PrestigiousPlatformTechnologySection,
 } from '@components/sections';
-import { Button, ITable, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
+import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { config } from './';
 import './Platform.scss';
+import { downloadLinks } from '@domain';
 
 export function Platform() {
   const { t } = useTranslation();
@@ -29,12 +30,18 @@ export function Platform() {
                 </div>
               </div>
               <div className="col-12 col-lg-9 col-xl-8 download-buttons row">
-                <Button className="mr-6 px-7 desktop_button">{t('Download Desktop Version')}</Button>
+                <Button className="mr-6 px-7 desktop_button">
+                  <a href={downloadLinks.mt5.desktop}>{t('Download Desktop Version')}</a>
+                </Button>
                 <Button className="mr-6 px-7 store-link">
-                  <Svg href="app_store_logo" />
+                  <a href={downloadLinks.mt5.appStore}>
+                    <Svg href="app_store_logo" />
+                  </a>
                 </Button>
                 <Button className="px-7 store-link">
-                  <Svg href="google_play_logo" />
+                  <a href={downloadLinks.mt5.googlePlay}>
+                    <Svg href="google_play_logo" />
+                  </a>
                 </Button>
               </div>
             </div>
@@ -68,7 +75,6 @@ export function Platform() {
                   <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'commodities' } }}>
                     Commodities
                   </LocaleLink>{' '}
-                  and
                   <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'crypto' } }}>
                     Cryptocurrencies
                   </LocaleLink>{' '}
@@ -78,21 +84,11 @@ export function Platform() {
             </div>
             <div className="col-12 col-lg-9">
               <Tabs>
-                <Tab label="Forex" anchor="forex">
-                  <Table {...config.tableData} />
-                </Tab>
-                <Tab label="Indices" anchor="indices">
-                  <Table {...config.tableData} />
-                </Tab>
-                <Tab label="Stocks" anchor="stocks">
-                  <Table {...config.tableData} />
-                </Tab>
-                <Tab label="Commodities" anchor="commodities">
-                  <Table {...config.tableData} />
-                </Tab>
-                <Tab label="Cryptocurrencies" anchor="cryptocurrencies">
-                  <Table {...config.tableData} />
-                </Tab>
+                {config.marketTabs.map((item) => (
+                  <Tab key={item.id} label={item.label} anchor={item.id}>
+                    <Table {...item.tableData} />
+                  </Tab>
+                ))}
               </Tabs>
             </div>
           </div>
