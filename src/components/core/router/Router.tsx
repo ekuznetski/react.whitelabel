@@ -66,7 +66,7 @@ export const Router = memo(function Router() {
               }
               render={() => <RenderRoute route={route} routeState={routeState} />}
             />
-          ))}{' '}
+          ))}
           <Redirect to="404" />
         </Switch>
       </>

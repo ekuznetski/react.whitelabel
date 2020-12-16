@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { IDataStore, IStore } from '@store';
 import './404.scss';
 import { useSelector } from 'react-redux';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 export const NotFound = memo(function NotFound() {
   const { clientProfile } = useSelector<IStore, { clientProfile: IDataStore['client']['profile'] }>((state) => ({
@@ -15,8 +15,8 @@ export const NotFound = memo(function NotFound() {
   return (
     <section className="not-found">
       <Container className="align-self-center">
-        <div className="row">
-          <div className=" m-auto col-12 not-found__header mt-n2">
+        <Row>
+          <Col className=" m-auto col-12 not-found__header mt-n2">
             <div className="not-found__title mb-12">404</div>
             <div className="not-found__subTitle mb-7">{t('Not Found')}</div>
             <div className="not-found__description mb-13">{t('Not Found Page desc')}</div>
@@ -30,8 +30,8 @@ export const NotFound = memo(function NotFound() {
                 </Button>
               )}
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </Container>
     </section>
   );
