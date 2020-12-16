@@ -17,8 +17,6 @@ import {
 import { store } from '@store';
 
 export class MClientSettings {
-  private storeSettings = store.getState().data.client.settings;
-
   allow_additional_account: boolean;
   allow_additional_live_account: boolean;
   allow_additional_demo_account: boolean;
@@ -40,29 +38,32 @@ export class MClientSettings {
   trading_central: boolean;
 
   constructor(props: IClientSettings | IClientProfile) {
-    props = { ...this.storeSettings, ...props };
+    const storeSettings = store.getState().data.client.settings;
+    props = { ...storeSettings, ...props };
 
     this.allow_additional_account = props.allow_additional_account;
     this.allow_additional_live_account = props.allow_additional_live_account;
     this.allow_additional_demo_account = props.allow_additional_demo_account;
     this.allow_deposit = props.allow_deposit;
     this.allowed_currencies =
-      this.storeSettings.allowed_currencies ||
+      storeSettings.allowed_currencies ||
       Array.from(
-        props.allowed_currencies.map((item) => ECurrencyCode[item.toLowerCase() as keyof typeof ECurrencyCode]),
+        (props.allowed_currencies || []).map((item) => ECurrencyCode[item.toLowerCase() as keyof typeof ECurrencyCode]),
       );
     this.allowed_leverages =
-      this.storeSettings.allowed_leverages ||
+      storeSettings.allowed_leverages ||
       Array.from(
-        props.allowed_leverages.map((item) => EAccountLeverage[('1_' + item) as keyof typeof EAccountLeverage]),
+        (props.allowed_leverages || []).map((item) => EAccountLeverage[('1_' + item) as keyof typeof EAccountLeverage]),
       );
     this.allowed_account_types = Array.from(
-      props.allowed_account_types.map(
+      (props.allowed_account_types || []).map(
         (item) => ETradingAccountType[item.toLowerCase() as keyof typeof ETradingAccountType],
       ),
     );
     this.allowed_platforms = Array.from(
-      props.allowed_platforms.map((item) => ETradingPlatform[item.toLowerCase() as keyof typeof ETradingPlatform]),
+      (props.allowed_platforms || []).map(
+        (item) => ETradingPlatform[item.toLowerCase() as keyof typeof ETradingPlatform],
+      ),
     );
     this.allow_internal_transfer = props.allow_internal_transfer;
     this.show_praxis_and_webmoney = props.show_praxis_and_webmoney;
