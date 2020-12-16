@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { FooterAuth, FooterMain, FooterPortal } from './components';
+import { FooterAuth, FooterGeneral, FooterMain, FooterPortal } from './components';
 
 export const Footer = memo(function Footer() {
   const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({
@@ -20,6 +20,7 @@ export const Footer = memo(function Footer() {
         {section === EAppSection.auth && <FooterAuth />}
         {section === EAppSection.main && <FooterMain />}
         {section === EAppSection.portal && <FooterPortal />}
+        {section === EAppSection.general && <FooterGeneral hideLinks />}
       </footer>
     ) : null;
   }, [section, ready]);

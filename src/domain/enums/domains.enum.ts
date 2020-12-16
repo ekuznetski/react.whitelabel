@@ -14,6 +14,7 @@ export enum EAppSection {
   main = 'main',
   portal = 'portal',
   auth = 'auth',
+  general = 'general',
 }
 
 export enum MarketType {
