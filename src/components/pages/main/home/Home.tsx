@@ -168,7 +168,7 @@ export function Home() {
 
                     <CardContent className="text-left">
                       <div className="mb-1">
-                        <b>{t('exchange')}</b>
+                        <b>{t('Instruments')}</b>
                       </div>
                       <span className="greyText">{card.exchange}</span>
                     </CardContent>

@@ -13,7 +13,7 @@ export const config = {
       img: 'phone.png',
     },
     {
-      title: 'Don’t miss a thing',
+      title: "Don't miss a thing",
       desc: 'Never miss an opportunity',
       img: 'trade_info.png',
     },

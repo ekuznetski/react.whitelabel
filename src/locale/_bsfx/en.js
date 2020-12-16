@@ -1,4 +1,6 @@
 import _ from '../en';
+import { Trans } from 'react-i18next';
+import React from 'react';
 
 export default {
   ..._,
@@ -18,14 +20,14 @@ export default {
   'Disclaimer Desc':
     'The content of this page is for information purposes only and it is not intended as a recommendation or advice. Any indication of past performance or simulated past performance included in advertisements published by Blue Square FX Limited is not a reliable indicator of future results. The customer carries the sole responsibility for all the businesses or investments that are carried out at Blue Square FX Limited.',
   'Regional Restrictions Desc':
-    'We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong, Japan, the United States of America and some other regions. For more information please refer to our <1>Terms and Conditions</1>',
+    'We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong, Japan, the United States of America and some other regions. For more information please refer to our <1>Terms and Conditions</1>',
   'Powered by BSFX': 'Powered by BSFX',
   'Platform Page Top Subtitle': '$t(Powered by BSFX)',
   'Prestigious Platform Technology Title': '$t(Prestigious MT5)<1/><3>$t(Platform Technology)</3>',
   'Prestigious Platform Technology Desc':
     '<0>Metatrader is the most popular electronic trading platforms and has long been considered the <1>forex industry standard</1> because of its innovative technology.</0><1>The platform is suitable for traders of all levels and expertise, offering flexible trading systems, a mobile app, Expert Advisors, and advanced technical analysis.</1><2>Compared to its predecessor, MT5 has <1>additional features</1> including 6 types of pending orders, 21 timeframes to choose from, and an integrated fundamental economic calendar.</2>',
   'Regulation Desc':
-    'Blue Square FX Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number <1>25910 (BC2020)</1>. <3>www.bluesquarefx.com</3> is operated by Blue Square FX Limited',
+    'Blue Square FX Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number <1>25910 (BC2020)</1>. <3>www.bluesquarefx.com</3> is operated by Blue Square FX Limited',
   'Main Mobile Trading Section Title': 'Trading <1>on the go</1>',
   'Main Mobile Trading Section Desc':
     '<0>Everything you need to trade in your pocket. Use your smartphone to open and close trading positions, and manage your accounts.</0><1>Download the Metatrader app for your smartphone or tablet and trade wherever you are. Available for Android and iOS.</1>',
@@ -44,16 +46,19 @@ export default {
   'Product Section ETFs Desc': 'Trade exchange-traded funds with Blue Square FX.',
   'Discover Trading Tools': 'Discover our trading tools and access our trading assets.',
   'Terms and Conditions': 'Terms and Conditions',
-  'Market Event Notification Desc': [
-    'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our ',
-    ' and you consent to receive newsletters, special offers and be contacted by Blue Square FX representatives via phone or e-mail. You can opt-out any time you wish to.',
-  ],
   'Leverage Page Top Desc':
     'At Blue Square FX our clients can trade using leverage, allowing them to control larger trade sizes',
   'Asset Class': 'ASSET CLASS',
-  'Market Event Notification Desc': 'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by BSFX representatives via phone or e-mail. You can opt-out any time you wish to.',
+  'Market Event Notification Desc':
+    'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by BSFX representatives via phone or e-mail. You can opt-out any time you wish to.',
   'Leverage Ratios Desc': 'Blue Square FX uses a dynamic forex leverage model available on the MT5 platform.',
-  exchange: 'Instruments:',
   'Swap Long': 'Fixed Account Swap',
   'Swap Short': 'Variable Account Swap',
+  'Financial Profile Last Stem Declaration Terms': [
+    'I understand that the nature of my transactions with BSFX will be buying and selling only CFD products in various underlying assets.',
+    'I am aware that by not submitting the KYC documents as requested by the Company may lead to the suspension of my trading rights',
+    'I am aware that the products offered by BSFX are leverage CFD products which carry a high level of risk, and it is possible to lose all my capital deposited with BSFX.I further acknowledge that I have read the Risk Disclosure Notice as available online.',
+    'I have reviewed my answers and responded as accurately as possible.',
+  ],
+  'You opening account with': 'You are now opening an account with <1>Blue Square FX Limited</1>',
 };
