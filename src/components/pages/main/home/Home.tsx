@@ -165,10 +165,16 @@ export function Home() {
                       <Svg href={card.icon} className="mr-5" />
                       {card.title}
                     </CardHeader>
-
                     <CardContent className="text-left">
                       <div className="mb-1">
-                        <b>{t('exchange')}</b>
+                        <b>
+                          <LabelView>
+                            {{
+                              '*': t('exchange'),
+                              [ELabels.bsfx]: t('Instruments:'),
+                            }}
+                          </LabelView>
+                        </b>
                       </div>
                       <span className="greyText">{card.exchange}</span>
                     </CardContent>
