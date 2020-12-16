@@ -61,14 +61,16 @@ export function BannerCard() {
             )}
           </Button>
         </div>
-        <div className="banner-options__nav ml-auto">
-          <Button onClick={() => setActiveCardIdx((activeCardIdx + 1) % cards.length)} className="mr-4">
-            <Svg href="chevron_left" height={24} />
-          </Button>
-          <Button onClick={() => setActiveCardIdx((activeCardIdx - 1 < 0 ? cards.length : activeCardIdx) - 1)}>
-            <Svg href="chevron_right" height={24} />
-          </Button>
-        </div>
+        {cards.length > 1 && (
+          <div className="banner-options__nav ml-auto">
+            <Button onClick={() => setActiveCardIdx((activeCardIdx + 1) % cards.length)} className="mr-4">
+              <Svg href="chevron_left" height={24} />
+            </Button>
+            <Button onClick={() => setActiveCardIdx((activeCardIdx - 1 < 0 ? cards.length : activeCardIdx) - 1)}>
+              <Svg href="chevron_right" height={24} />
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

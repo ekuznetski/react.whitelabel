@@ -6,7 +6,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
-import { depositActionCreators, DepositProvider, IDepositAction, IDepositState } from './deposit.context';
+import { DepositProvider, IDepositAction, IDepositState, depositActionCreators } from './deposit.context';
 import './Deposit.scss';
 import { DepositSuccessFailure } from './depositSuccessFailure/DepositSuccessFailure';
 
@@ -24,6 +24,7 @@ export const Deposit = memo(function Deposit() {
     ),
   }));
   const { t } = useTranslation();
+  const isDisabled = true;
 
   return (
     <DepositProvider>
@@ -36,8 +37,7 @@ export const Deposit = memo(function Deposit() {
           <Container className="deposit-page-wrapper">
             <Row>
               <Col xs={12}>
-                <PageTitle title={t('Deposit')} />
-
+                <PageTitle title={`${t('Deposit')}`} />
                 {route.state.depositResult ? (
                   <DepositSuccessFailure result={route.state.depositResult} />
                 ) : (
@@ -46,6 +46,7 @@ export const Deposit = memo(function Deposit() {
                       <Tabs
                         activeTab={state.method ?? EDepositMethods.creditCard}
                         isVertical={true}
+                        disabledAll={isDisabled}
                         onChange={(e) => {
                           if (dispatch && e.anchor) {
                             dispatch?.(depositActionCreators.setMethod(e.anchor as any));

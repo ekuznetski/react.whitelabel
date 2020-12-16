@@ -13,6 +13,7 @@ type Action = {
     | 'addTempLabel'
     | 'addTempSubLabel'
     | 'addTempContent'
+    | 'disabledAll'
     | 'setActive'
     | 'setCustomMobileBackBtn'
     | 'setMobileDisplay';
@@ -20,6 +21,7 @@ type Action = {
   content?: TabData;
   anchor?: TabAnchor;
   disabled?: boolean;
+  disabledAll?: boolean;
   labels?: { value: TabData; desc?: TabData; icon?: string; anchor: number | string; disabled?: boolean }[];
   contents?: { value: TabData; anchor: number | string }[];
   mobileDisplay?: EMobileDisplay;
@@ -31,6 +33,7 @@ type State = {
   contents: { value: TabData; anchor: number | string }[];
   anchors: TabAnchor[];
   active: TabAnchor;
+  disabledAll: boolean;
   tempLabel: { value: TabData; icon?: string } | undefined;
   tempSubLabel: TabData;
   tempContent: TabData;
@@ -87,6 +90,13 @@ function TabsReducer(state: State, action: Action) {
     case 'setCustomMobileBackBtn': {
       return { ...state, customMobileBackBtn: action.customMobileBackBtn || false };
     }
+    case 'disabledAll': {
+      return {
+        ...state,
+        disabledAll: !!action.disabledAll,
+        labels: state.labels.map((label) => ({ ...label, disabled: action.disabledAll || label.disabled })),
+      };
+    }
     case 'add': {
       if (state.initial) return state;
 
@@ -110,7 +120,7 @@ function TabsReducer(state: State, action: Action) {
               : {}),
           },
           anchor: action.anchor,
-          disabled: action.disabled,
+          disabled: state.disabledAll || action.disabled,
         });
 
       const _content = state.contents || [];
@@ -119,7 +129,6 @@ function TabsReducer(state: State, action: Action) {
           value: action.content || state.tempContent,
           anchor: action.anchor,
         });
-
       return {
         ...state,
         labels: _labels,
@@ -145,6 +154,7 @@ function TabsProvider({ children }: TabsProviderProps) {
     tempLabel: undefined,
     tempSubLabel: undefined,
     tempContent: undefined,
+    disabledAll: false,
     initial: false,
     mobileDisplay: EMobileDisplay.labels,
     customMobileBackBtn: false,
