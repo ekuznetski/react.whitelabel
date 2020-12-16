@@ -51,12 +51,12 @@ export const Radio = memo(function Radio({
     >
       {options.map((el: IRadioItem, idx) => (
         <div
+          key={idx}
           className={classNames(
             (options.length % 2 == 0 ? idx < options.length - 2 : idx < options.length - 1) && 'mb-8',
             optionClassName,
             el.className,
           )}
-          key={el.value}
         >
           <label
             className={classNames(

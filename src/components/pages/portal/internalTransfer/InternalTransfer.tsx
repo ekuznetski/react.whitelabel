@@ -2,7 +2,7 @@ import { Alert, Button, Input, PageTitle, TradingAccountsSelect } from '@compone
 import { FieldValidators } from '@domain';
 import { EFormStatus, ENotificationType, ETradingType } from '@domain/enums';
 import { IInternalTransferRequestData } from '@domain/interfaces';
-import { MClientData, MTradingAccount } from '@domain/models';
+import { MClientStatus, MTradingAccount } from '@domain/models';
 import { ac_makeInternalTransfer, ac_showNotification, IStore } from '@store';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
@@ -20,7 +20,7 @@ enum EFields {
 
 interface InternalTransferStoreProps {
   tradingAccounts: MTradingAccount[];
-  clientData: MClientData;
+  clientData: MClientStatus;
 }
 
 export const InternalTransfer = memo(function InternalTransfer() {

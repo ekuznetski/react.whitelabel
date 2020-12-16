@@ -321,9 +321,10 @@ export default {
   'Market Event Notification Desc':
     'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. You can opt-out any time you wish to.',
   Bid: 'Bid',
+  'Do you have Tax Identification Number?': 'Do you have Tax Identification Number?',
   Ask: 'Ask',
   'Tax Identification Alert': 'To comply with the Common Reporting Standards, we require you to provide us with certain information about your tax residency.',
-  'Tax Resident List of Countries': 'Please list the countries where you are a Tax Resident and provide your Tax Identification Number for each.', 
+  'Tax Resident List of Countries': 'Please list the countries where you are a Tax Resident and provide your Tax Identification Number for each.',
   'Custom Amount': 'Custom Amount',
   'Wire Bank Transfer': 'Wire Bank Transfer',
   '1 3 days': '1 - 3 days',
@@ -384,7 +385,7 @@ export default {
   'Every Monday': 'Every Monday',
   'Every Wednesday': 'Every Wednesday',
   'Get ready for trading':
-    'Get ready for the trading week ahead with our weekly webinar session, where we will be looking at the upcoming FX Week while analysing market movements.',
+    'Get ready for the trading week ahead with our weekly webinar session, where we will be looking at the upcoming FX Week while analyzing market movements.',
   'Our workshops desc':
     'Our workshops give you the opportunity to learn directly from an industry expert, Mike Hamilton, as he teaches you the ins and outs of trading in real time.',
   'Trade liquid asset':
@@ -421,12 +422,12 @@ export default {
   'Choose From Our Programs': 'Choose from our 3 partnership programs designed to suit your individual requirements.',
   'Affiliate Program': 'Affiliate Program',
   'Introducing Brokers': 'Introducing Brokers',
-  'Mobile optimised marketing tools': 'Mobile optimised marketing tools',
+  'Mobile optimized marketing tools': 'Mobile optimized marketing tools',
   'Dedicated affiliate manager': 'Dedicated affiliate manager',
   'Round-the-clock access to all your analytics': 'Round-the-clock access to all your analytics',
   'Multi-level marketing rebate tiers': 'Multi-level marketing rebate tiers',
   'Free market reviews for clients': 'Free market reviews for clients',
-  'Customisable marketing and advertising tools': 'Customisable marketing and advertising tools',
+  'Customizable marketing and advertising tools': 'Customizable marketing and advertising tools',
   'Local office and events support': 'Local office and events support',
   'Maximize Your Earning Potential': 'Maximize Your Earning Potential',
   'Join Our Partnership Program Today':
@@ -441,5 +442,4 @@ export default {
     'At WHITE_LABEL our clients can trade using leverage, allowing them to control larger trade sizes',
   'Leverage Ratios': 'Leverage Ratios',
   'Leverage Ratios Desc': 'WHITE_LABEL uses a dynamic forex leverage model available on the MT5 platform.',
-  Complaints: 'Complaints',
 };
