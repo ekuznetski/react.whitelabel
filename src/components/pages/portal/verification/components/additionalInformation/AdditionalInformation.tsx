@@ -1,6 +1,6 @@
 import { Tab, Tabs } from '@components/shared';
 import { EClientStatusCode } from '@domain/enums';
-import { MClientData } from '@domain/models';
+import { MClientStatus } from '@domain/models';
 import { IStore } from '@store';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +15,7 @@ enum EAddInfoTabs {
 }
 
 export const AdditionalInformation = memo(function AdditionalInformation() {
-  const { statusData } = useSelector<IStore, { statusData: MClientData }>((state) => ({
+  const { statusData } = useSelector<IStore, { statusData: MClientStatus }>((state) => ({
     statusData: state.data.client.statusData,
   }));
   const { t } = useTranslation();

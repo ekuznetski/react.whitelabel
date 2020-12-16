@@ -1,7 +1,6 @@
 import { Alert, Button, CountrySelect, Input, Radio, Select, TabMobileBackButton } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { MClientProfile } from '@domain/models';
-import { config } from '@pages/portal/verification';
 import { EActionTypes, IStore } from '@store';
 import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
@@ -10,6 +9,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
+import { config } from './';
 import './EddForm.scss';
 
 export const EddForm = memo(function EddForm() {

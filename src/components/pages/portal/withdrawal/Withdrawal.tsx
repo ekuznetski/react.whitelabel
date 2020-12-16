@@ -1,7 +1,7 @@
 import { Alert, Button, Input, PageTitle, TradingAccountsSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { EFormStatus, ENotificationType } from '@domain/enums';
-import { MClientData, MTradingAccount, MWithdrawalHistoryItem } from '@domain/models';
+import { MClientStatus, MTradingAccount, MWithdrawalHistoryItem } from '@domain/models';
 import { ac_fetchWithdrawLimit, ac_showNotification, ac_withdrawFunds, EActionTypes, IStore } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
@@ -23,7 +23,7 @@ interface WithdrawalStoreProps {
   withdrawalHistoryItems: MWithdrawalHistoryItem[];
   withdrawalLimit: number;
   withdrawalLimitIsLoading: boolean;
-  clientData: MClientData;
+  clientData: MClientStatus;
 }
 
 export const Withdrawal = memo(function Withdrawal() {
