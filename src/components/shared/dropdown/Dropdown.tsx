@@ -8,12 +8,14 @@ import { LinkProps } from 'react-router-dom';
 import { LocaleNavLink } from '../localeNavLink/LocaleNavLink';
 import { Svg } from '../svg/Svg';
 import './Dropdown.scss';
+import { Pathname } from 'history';
 
 type IDropdown = {
   className?: string;
   items?: {
     icon?: string;
     path?: LinkProps['to'];
+    state?: any;
     title: string;
     onclick?: (e?: any) => any;
   }[];
@@ -111,8 +113,13 @@ export const DropDown = memo<IDropdown>(function DropDown({
             {props.items &&
               props.items.map((child, c) => (
                 <div key={c} className="item">
-                  {child.onclick ? (
-                    <a
+                  {child.path ? (
+                    <LocaleNavLink
+                      exact
+                      to={{
+                        pathname: child.path as Pathname,
+                        state: child.state,
+                      }}
                       className="px-7"
                       onClick={(e) => {
                         props.isOpenDispatcher(false);
@@ -121,14 +128,15 @@ export const DropDown = memo<IDropdown>(function DropDown({
                     >
                       {child.icon?.length && <Svg href={child.icon} className="mr-4" />}
                       {child.title}
-                    </a>
-                  ) : child.path ? (
-                    <LocaleNavLink exact to={child.path} className="px-7">
-                      {child.icon?.length && <Svg href={child.icon} className="mr-4" />}
-                      {child.title}
                     </LocaleNavLink>
                   ) : (
-                    <div className="px-7">
+                    <div
+                      className="px-7"
+                      onClick={(e) => {
+                        props.isOpenDispatcher(false);
+                        child.onclick?.(e);
+                      }}
+                    >
                       {child.icon?.length && <Svg href={child.icon} className="mr-4" />}
                       {child.title}
                     </div>
