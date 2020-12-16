@@ -1,10 +1,10 @@
 import {
   CCountryStateCode,
   CCountryStateName,
-  countries,
   Country,
   ECurrencyCode,
   ETradingAccountType,
+  countries,
 } from '@domain/enums';
 import { IClientProfile } from '@domain/interfaces';
 import moment, { Moment } from 'moment';
@@ -34,9 +34,6 @@ export class MClientProfile {
 
   // Client Account
   account_type: ETradingAccountType;
-  trading_central: boolean;
-  is_withdrawal_allowed: boolean;
-  edit_fake_account: boolean;
 
   // Client Meta
   affiliate_code: string;
@@ -49,7 +46,6 @@ export class MClientProfile {
   brand: string;
   manager: string;
   regDate: Moment;
-  go_to_praxis: boolean;
 
   constructor(props: IClientProfile) {
     // Client Data
@@ -100,9 +96,6 @@ export class MClientProfile {
     this.account_type =
       ETradingAccountType[props.account_type.toLowerCase() as keyof typeof ETradingAccountType] ||
       ETradingAccountType.fixed;
-    this.trading_central = props.trading_central;
-    this.is_withdrawal_allowed = props.is_withdrawal_allowed;
-    this.edit_fake_account = props.edit_fake_account;
 
     // clint Meta
     this.affiliate_code = props.affiliate_code || '';
@@ -115,6 +108,5 @@ export class MClientProfile {
     this.brand = props.brand;
     this.manager = props.manager;
     this.regDate = moment(props.regDate);
-    this.go_to_praxis = props.go_to_praxis;
   }
 }

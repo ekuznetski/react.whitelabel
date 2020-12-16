@@ -4,7 +4,7 @@ import { IntercomChat } from '@components/shared';
 import { localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
 import { env } from '@env';
-import { ac_updateRouteParams, IStore, store } from '@store';
+import { IStore, ac_updateRouteParams, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { Suspense, useEffect, useMemo } from 'react';
@@ -76,10 +76,7 @@ export function Main() {
             device.isDesktop && 'isDesktop',
           )}
         >
-          <Header />
-          <main className="router-context">
-            <Router />
-          </main>
+          <Router />
         </div>
         <Footer />
         <div id="dynamic-portals" />
