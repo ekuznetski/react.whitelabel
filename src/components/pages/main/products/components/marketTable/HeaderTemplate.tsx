@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { locale } from './HeaderTemplate.locale';
+import { locale } from './';
 
 export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolean }) {
   const { clientSettings } = useSelector<IStore, { clientSettings: IDataStore['client']['settings'] }>((state) => ({
