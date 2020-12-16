@@ -22,6 +22,10 @@ export interface IClientSettings {
   show_promotions: boolean;
   show_compliance_popup: boolean;
   switch_cayman: boolean;
+  is_withdrawal_allowed: boolean;
+  go_to_praxis: boolean;
+  edit_fake_account: boolean;
+  trading_central: boolean;
 }
 
 export type IClientSettingsResponse = {

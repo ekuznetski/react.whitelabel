@@ -14,8 +14,11 @@ import {
   IPlatformsSelectList,
   ITradingAccountTypesSelectList,
 } from '@domain/interfaces';
+import { store } from '@store';
 
 export class MClientSettings {
+  private storeSettings = store.getState().data.client.settings;
+
   allow_additional_account: boolean;
   allow_additional_live_account: boolean;
   allow_additional_demo_account: boolean;
@@ -31,18 +34,28 @@ export class MClientSettings {
   phone_verification: EClientStatus;
   show_compliance_popup: boolean;
   switch_cayman: boolean;
+  is_withdrawal_allowed: boolean;
+  go_to_praxis: boolean;
+  edit_fake_account: boolean;
+  trading_central: boolean;
 
   constructor(props: IClientSettings | IClientProfile) {
+    props = { ...this.storeSettings, ...props };
+
     this.allow_additional_account = props.allow_additional_account;
     this.allow_additional_live_account = props.allow_additional_live_account;
     this.allow_additional_demo_account = props.allow_additional_demo_account;
     this.allow_deposit = props.allow_deposit;
-    this.allowed_currencies = Array.from(
-      props.allowed_currencies.map((item) => ECurrencyCode[item.toLowerCase() as keyof typeof ECurrencyCode]),
-    );
-    this.allowed_leverages = Array.from(
-      props.allowed_leverages.map((item) => EAccountLeverage[('1_' + item) as keyof typeof EAccountLeverage]),
-    );
+    this.allowed_currencies =
+      this.storeSettings.allowed_currencies ||
+      Array.from(
+        props.allowed_currencies.map((item) => ECurrencyCode[item.toLowerCase() as keyof typeof ECurrencyCode]),
+      );
+    this.allowed_leverages =
+      this.storeSettings.allowed_leverages ||
+      Array.from(
+        props.allowed_leverages.map((item) => EAccountLeverage[('1_' + item) as keyof typeof EAccountLeverage]),
+      );
     this.allowed_account_types = Array.from(
       props.allowed_account_types.map(
         (item) => ETradingAccountType[item.toLowerCase() as keyof typeof ETradingAccountType],
@@ -59,6 +72,10 @@ export class MClientSettings {
       EClientStatus[props.phone_verification?.toLowerCase() as keyof typeof EClientStatus] || EClientStatus.pending;
     this.show_compliance_popup = props.show_compliance_popup || false;
     this.switch_cayman = props.switch_cayman || false;
+    this.is_withdrawal_allowed = props.is_withdrawal_allowed || false;
+    this.go_to_praxis = props.go_to_praxis || false;
+    this.edit_fake_account = props.edit_fake_account || false;
+    this.trading_central = props.trading_central || false;
   }
 
   getCurrenciesSelectList(): typeof Currencies {

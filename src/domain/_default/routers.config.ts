@@ -3,7 +3,15 @@ import * as Page from '@components/pages';
 import i18n from 'i18next';
 import { EAppSection, EResponseStatus, ETradingType } from '@domain/enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '@domain/interfaces';
-import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
+import {
+  allowAuthorizedGuard,
+  disallowAuthorizedGuard,
+  internalTransfersGuard,
+  logoutGuard,
+  openDemoAccountGuard,
+  openLiveAccountGuard,
+  withdrawGuard,
+} from '@utils/guards';
 
 const t = i18n.getFixedT(i18n.language, 'meta');
 
@@ -216,12 +224,12 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: t('Withrawal:title'),
+      title: t('Withdrawal:title'),
     },
     path: '/withdrawal',
     component: Page.Withdrawal,
     appSection: EAppSection.portal,
-    activators: [allowAuthorizedGuard],
+    activators: [allowAuthorizedGuard, withdrawGuard],
     apiData: {
       lazy: [Action.ac_fetchWithdrawHistory],
       strict: [Action.ac_fetchTradingAccounts],
@@ -239,7 +247,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/transfers',
     component: Page.InternalTransfer,
     appSection: EAppSection.portal,
-    activators: [allowAuthorizedGuard],
+    activators: [allowAuthorizedGuard, internalTransfersGuard],
     apiData: {
       strict: [Action.ac_fetchTradingAccounts],
     },
@@ -270,7 +278,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/open-account/live',
     component: Page.OpenAccount,
     appSection: EAppSection.portal,
-    activators: [allowAuthorizedGuard],
+    activators: [allowAuthorizedGuard, openLiveAccountGuard],
     state: {
       accountType: ETradingType.live,
     },
@@ -287,7 +295,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: '/open-account/demo',
     component: Page.OpenAccount,
     appSection: EAppSection.portal,
-    activators: [allowAuthorizedGuard],
+    activators: [allowAuthorizedGuard, openDemoAccountGuard],
     state: {
       accountType: ETradingType.demo,
     },
@@ -299,7 +307,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: t('Platform Downloadt:title'),
+      title: t('Platform Download:title'),
     },
     path: '/download',
     component: Page.PlatformDownload,

@@ -263,7 +263,8 @@ export default {
   'Payment Method': 'Payment Method',
   Amount: 'Amount',
   'Recent Withdrawals': 'Recent Withdrawals',
-  '90 inactive days warning': 'You have been inactive for more than 90 days. Please contact us at <1>accounts@mail.com</1> to help you re-activate your account',
+  '90 inactive days warning':
+    'You have been inactive for more than 90 days. Please contact us at <1>accounts@mail.com</1> to help you re-activate your account',
   'You cannot transfer at the moment': 'You cannot transfer at the moment. Your client application is under review',
   'Withdrawal Policy Desc':
     'WHITE_LABEL prides itself in transparent and efficient withdrawal policies. These procedures can be completed online and are designed with your security in mind. Your funds will normally be transferred back to the original source you used to fund your account. Otherwise, we will transfer the funds to your identified bank account.',
@@ -317,9 +318,12 @@ export default {
   Name: 'Name',
   Message: 'Message',
   Company: 'Company',
-  'Market Event Notification Desc': 'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. You can opt-out any time you wish to.',
+  'Market Event Notification Desc':
+    'To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <1>Privacy Policy</1> and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. You can opt-out any time you wish to.',
   Bid: 'Bid',
   Ask: 'Ask',
+  'Tax Identification Alert': 'To comply with the Common Reporting Standards, we require you to provide us with certain information about your tax residency.',
+  'Tax Resident List of Countries': 'Please list the countries where you are a Tax Resident and provide your Tax Identification Number for each.', 
   'Custom Amount': 'Custom Amount',
   'Wire Bank Transfer': 'Wire Bank Transfer',
   '1 3 days': '1 - 3 days',
@@ -435,6 +439,7 @@ export default {
   'Leverage Information': 'LEVERAGE INFORMATION',
   'Leverage Page Top Desc':
     'At WHITE_LABEL our clients can trade using leverage, allowing them to control larger trade sizes',
-  'Leverage Ratios': 'LEVERAGE RATIOS',
+  'Leverage Ratios': 'Leverage Ratios',
   'Leverage Ratios Desc': 'WHITE_LABEL uses a dynamic forex leverage model available on the MT5 platform.',
+  Complaints: 'Complaints',
 };

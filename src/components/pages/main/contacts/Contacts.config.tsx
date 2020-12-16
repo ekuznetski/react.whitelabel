@@ -53,7 +53,7 @@ export const config = {
       ],
     },
     {
-      title: 'Complaints',
+      title: t('Complaints'),
       points: [
         {
           icon: 'envelope',

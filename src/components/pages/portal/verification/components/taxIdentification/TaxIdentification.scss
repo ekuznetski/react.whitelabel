@@ -1,4 +1,9 @@
 @import '~/variables';
+@import '~/mixin';
 
 .tax-identification {
+  &__row {
+    @include d-flex();
+    width: 100%;
+  }
 }

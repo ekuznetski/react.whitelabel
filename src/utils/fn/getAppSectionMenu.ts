@@ -53,10 +53,12 @@ export function getAppSectionMenu(section: EAppSection): IMenuConfig {
       _item.label = _itemKey;
       delete _item.parent;
 
-      if (_parent) _menu[_parent].children.push({ ..._item, path: route.path });
-      else _menu[_itemKey] = { ..._item, path: route.path, children: [] };
+      if (!route.activators?.length || route.activators?.every((e) => e())) {
+        if (_parent) _menu[_parent].children.push({ ..._item, path: route.path });
+        else _menu[_itemKey] = { ..._item, path: route.path, children: [] };
+      }
     }
   });
 
-  return Object.values(_menu);
+  return Object.values(_menu).filter((e: any) => e.children?.length) as IMenuConfig;
 }

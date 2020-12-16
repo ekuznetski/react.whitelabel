@@ -31,10 +31,6 @@ export default {
     title: 'Leverage',
     desc: '',
   },
-  Login: {
-    title: 'Login',
-    desc: '',
-  },
   Registration: {
     title: 'Registration',
     desc: '',
@@ -61,10 +57,6 @@ export default {
   },
   'Failure Deposit': {
     title: 'Failure Deposit',
-    desc: '',
-  },
-  Withdrawal: {
-    title: 'Withdrawal',
     desc: '',
   },
   Withdrawal: {

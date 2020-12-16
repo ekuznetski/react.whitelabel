@@ -71,10 +71,6 @@ export default {
     title: 'Withdrawal - Blue Square FX',
     desc: '',
   },
-  Withdrawal: {
-    title: 'Withdrawal - Blue Square FX',
-    desc: '',
-  },
   'Internal Transfers': {
     title: 'Internal Transfers - Blue Square FX',
     desc: '',

@@ -1,33 +1,25 @@
 import { EAppSection, ELanguage } from '@domain/enums';
 import { AnyFunction, IContent, IGeoIp, INotificationState } from '@domain/interfaces';
-import {
-  MBankDetails,
-  MClientData,
-  MClientProfile,
-  MClientSettings,
-  MClientTradingData,
-  MDocument,
-  MTransactionalStatementData,
-  MWithdrawalHistoryItem,
-} from '@domain/models';
+import * as Model from '@domain/models';
 import { EActionTypes } from './store.enum';
 
 export interface IDataStore {
   content: IContent;
   geoIp: IGeoIp;
   client: {
-    profile: MClientProfile;
-    statusData: MClientData;
-    settings: MClientSettings;
-    statements: MTransactionalStatementData;
-    documents: MDocument[];
+    profile: Model.MClientProfile;
+    statusData: Model.MClientData;
+    settings: Model.MClientSettings;
+    statements: Model.MTransactionalStatementData;
+    documents: Model.MDocument[];
+    tins: Model.MTins;
   };
-  tradingData: MClientTradingData;
+  tradingData: Model.MClientTradingData;
   withdrawals: {
-    history: MWithdrawalHistoryItem[];
+    history: Model.MWithdrawalHistoryItem[];
     limit: number;
   };
-  bankDetails: MBankDetails;
+  bankDetails: Model.MBankDetails;
 }
 
 export interface IAppStore {
@@ -55,7 +47,7 @@ export interface IStore {
 }
 
 export interface IAction<T = { [k: string]: any }> {
-  type: EActionTypes;
+  type: EActionTypes | null;
   payload?: T;
   force?: true | null;
   onSuccess?: AnyFunction;

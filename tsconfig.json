@@ -30,6 +30,7 @@
       "@utils/services": ["utils/services/index.ts"],
       "@utils/hooks": ["utils/hooks/index.ts"],
       "@utils/fn": ["utils/fn/index.ts"],
+      "@utils/fn/*": ["utils/fn/*"],
       "@domain": ["domain/index.ts"],
       "@store": ["store/index.ts"],
       "@env": ["env/index.ts"],

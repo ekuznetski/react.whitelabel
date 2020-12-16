@@ -1,6 +1,7 @@
 import { PageTitle, Svg } from '@components/shared';
 import { ETradingPlatform } from '@domain/enums';
 import { MClientSettings } from '@domain/models';
+import { files } from '@domain';
 import { IStore } from '@store';
 import classNames from 'classnames';
 import React, { memo } from 'react';
@@ -15,7 +16,6 @@ export const PlatformDownload = memo(function PlatformDownload() {
     clientSettings: state.data.client.settings,
   }));
   const { t } = useTranslation();
-  console.log(clientSettings.allowed_platforms, downloadLinks);
   return (
     <Container className="platform-download-page-wrapper">
       <Row>
@@ -62,7 +62,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                         <Svg href="shrimp" height="24" />
                         {t('Web')}
                       </div>
-                      <a className="underlined" href={downloadLinks[platform].web}>
+                      <a className="underlined" target="_blank" href={downloadLinks[platform].web}>
                         <Svg href="shrimp" height="18" />
                         <span>{t('Launch')}</span>
                       </a>
@@ -72,7 +72,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                     <Svg href="shrimp" height="18" className="mr-5" />
                     {t('Read instructions on')}
                     <a
-                      href={`/files/DOWNLOAD_MT${platform === ETradingPlatform.mt4 ? 4 : 5}.pdf`}
+                      href={files[`downloadMT${platform === ETradingPlatform.mt4 ? 4 : 5}.pdf`]}
                       className="hovered-underlined ml-2"
                       target="_blank"
                     >
