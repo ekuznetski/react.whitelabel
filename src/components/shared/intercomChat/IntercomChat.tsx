@@ -16,22 +16,20 @@ export const IntercomChat = memo(function IntercomChat(props: { children: React.
     locale: state.app.route.locale,
   }));
 
-  const userInfo = clientProfile
-    ? {
-        email: clientProfile.email,
-        name: `${clientProfile.first_name}  ${clientProfile.last_name}`,
-        phone: `${clientProfile.phone_prefix} ${clientProfile.phone}`,
-        country: clientProfile.country,
-        currency: clientProfile.curr,
-        accountType: clientProfile.account_type,
-        manager: clientProfile.manager,
-        userHash: clientProfile.ic_hash,
-        userId: clientProfile.userId,
-        salesforce: 'https://eu1.salesforce.com/' + clientProfile.sfid,
-        deposit: clientProfile.ftd.toString(),
-        approved: clientProfile.aprv.toString(),
-      }
-    : undefined;
+  const userInfo = clientProfile && {
+    email: clientProfile.email,
+    name: `${clientProfile.first_name}  ${clientProfile.last_name}`,
+    phone: `${clientProfile.phone_prefix} ${clientProfile.phone}`,
+    country: clientProfile.country,
+    currency: clientProfile.curr,
+    accountType: clientProfile.account_type,
+    manager: clientProfile.manager,
+    userHash: clientProfile.ic_hash,
+    userId: clientProfile.userId,
+    salesforce: 'https://eu1.salesforce.com/' + clientProfile.sfid,
+    deposit: clientProfile.ftd.toString(),
+    approved: clientProfile.aprv.toString(),
+  };
 
   return (
     <IntercomProvider appId={env.INTERCOM_ID}>
