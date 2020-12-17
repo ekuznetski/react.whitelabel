@@ -5,18 +5,7 @@ import { Trans } from 'react-i18next';
 const t = i18n.getFixedT(i18n.language);
 
 export const config = {
-  socialMediaLinks: [
-    {
-      name: 'Facebook',
-      icon: 'facebook',
-      link: '',
-    },
-    {
-      name: 'Tweeter',
-      icon: 'tweeter',
-      link: '',
-    },
-  ],
+  socialMediaLinks: [],
   documents: [
     {
       name: t('Legal Forms and Documents'),

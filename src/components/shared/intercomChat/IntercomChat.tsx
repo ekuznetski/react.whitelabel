@@ -16,41 +16,43 @@ export const IntercomChat = memo(function IntercomChat(props: { children: React.
     locale: state.app.route.locale,
   }));
 
-  const userInfo = clientProfile && {
-    email: clientProfile.email,
-    name: `${clientProfile.first_name}  ${clientProfile.last_name}`,
-    phone: `${clientProfile.phone_prefix} ${clientProfile.phone}`,
-    country: clientProfile.country,
-    currency: clientProfile.curr,
-    accountType: clientProfile.account_type,
-    manager: clientProfile.manager,
-    userHash: clientProfile.ic_hash,
-    userId: clientProfile.userId,
-    salesforce: 'https://eu1.salesforce.com/' + clientProfile.sfid,
-    deposit: clientProfile.ftd.toString(),
-    approved: clientProfile.aprv.toString(),
-  };
+  const userInfo = clientProfile
+    ? {
+        email: clientProfile.email,
+        name: `${clientProfile.first_name}  ${clientProfile.last_name}`,
+        phone: `${clientProfile.phone_prefix} ${clientProfile.phone}`,
+        country: clientProfile.country,
+        currency: clientProfile.curr,
+        accountType: clientProfile.account_type,
+        manager: clientProfile.manager,
+        userHash: clientProfile.ic_hash,
+        userId: clientProfile.userId,
+        salesforce: 'https://eu1.salesforce.com/' + clientProfile.sfid,
+        deposit: clientProfile.ftd.toString(),
+        approved: clientProfile.aprv.toString(),
+        language: locale,
+      }
+    : { language: locale };
 
   return (
     <IntercomProvider appId={env.INTERCOM_ID}>
-      <Chat userInfo={userInfo} languageOverride={locale} children={props.children} />
+      {props.children}
+      <Chat userInfo={userInfo} />
     </IntercomProvider>
   );
 });
 
-export const Chat = memo(function Chat({ userInfo, languageOverride, children }: IIntercomChatParams) {
+export const Chat = memo(function Chat({ userInfo }: IIntercomChatParams) {
   const { boot, update, hardShutdown } = useIntercom();
 
   useEffect(() => {
-    if (env.PRODUCTION) {
-      if (userInfo) {
-        update({ ...userInfo, languageOverride });
-      } else {
-        hardShutdown();
-        boot();
-      }
+    if (userInfo?.email) {
+      update(userInfo);
+    } else {
+      hardShutdown();
+      boot();
     }
   }, [userInfo?.email]);
 
-  return children;
+  return null;
 });

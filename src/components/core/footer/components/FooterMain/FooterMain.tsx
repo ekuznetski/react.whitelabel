@@ -30,6 +30,16 @@ export const FooterMain = memo(function FooterMain() {
               </React.Fragment>
             ))}
           </div>
+          <div className="social-links ml-auto">
+            {config?.socialMediaLinks?.map((socialLink, index) => (
+              <a key={index} href={socialLink.link} className="noUnderLine">
+                <Svg
+                  href={socialLink.icon}
+                  className={classNames(index + 1 != config.socialMediaLinks.length && 'mr-5')}
+                />
+              </a>
+            ))}
+          </div>
         </Col>
       </Row>
       <Row className="mb-4">{config.context.main}</Row>
