@@ -1,11 +1,21 @@
 import * as Action from '@store';
 import * as Page from '@components/pages';
+import { NotFound } from '@core/404/404';
 import i18n from 'i18next';
-import { EAppSection, EResponseStatus, ETradingType } from '@domain/enums';
+import { EAppSection, EPagePath, EResponseStatus, ETradingType } from '@domain/enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '@domain/interfaces';
-import { allowAuthorizedGuard, disallowAuthorizedGuard, logoutGuard } from '@utils/guards';
+import {
+  allowAuthorizedGuard,
+  disallowAuthorizedGuard,
+  internalTransfersGuard,
+  logoutGuard,
+  openDemoAccountGuard,
+  openLiveAccountGuard,
+  withdrawGuard,
+} from '@utils/guards';
 
-const t = i18n.getFixedT(i18n.language, 'meta');
+const t = i18n.getFixedT(i18n.language);
+const meta_t = i18n.getFixedT(i18n.language, 'meta');
 
 // Data to be loaded on EVERY page of app section
 export const routesInitialApiData: IRoutesInitialApiData = {
@@ -17,6 +27,9 @@ export const routesInitialApiData: IRoutesInitialApiData = {
   },
   [EAppSection.portal]: {
     strict: [Action.ac_fetchGeoIpData, Action.ac_fetchClientData, Action.ac_fetchProfile],
+  },
+  [EAppSection.general]: {
+    strict: [Action.ac_fetchProfile],
   },
 };
 
@@ -31,87 +44,87 @@ export const routesRedirectConfig: IRouteRedirectConfig[] = [
 export const routesNavConfig: IRouteNavConfig[] = [
   {
     meta: {
-      title: t('Home:title'),
-      desc: t('Home:desc'),
+      title: meta_t('Home:title'),
+      desc: meta_t('Home:desc'),
     },
-    path: '',
+    path: EPagePath.Home,
     component: Page.Home,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Home',
+      label: t('Home'),
     },
   },
   {
     meta: {
-      title: t('About:title'),
-      desc: t('About:desc'),
+      title: meta_t('About:title'),
+      desc: meta_t('About:desc'),
     },
-    path: '/about',
+    path: EPagePath.About,
     component: Page.About,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'About Us',
+      label: t('About Us'),
     },
   },
   {
     meta: {
-      title: t('Products:title'),
-      desc: t('Products:desc'),
+      title: meta_t('Products:title'),
+      desc: meta_t('Products:desc'),
     },
-    path: '/products',
+    path: EPagePath.Products,
     component: Page.Products,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Range of Markets',
+      label: t('Range of Markets'),
     },
   },
   {
     meta: {
-      title: t('Platform:title'),
-      desc: t('Platform:desc'),
+      title: meta_t('Platform:title'),
+      desc: meta_t('Platform:desc'),
     },
-    path: '/platform',
+    path: EPagePath.Platform,
     component: Page.Platform,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Platform',
+      label: t('Platform'),
     },
   },
   {
     meta: {
-      title: t('Contacts:title'),
-      desc: t('Contacts:desc'),
+      title: meta_t('Contacts:title'),
+      desc: meta_t('Contacts:desc'),
     },
-    path: '/contacts',
+    path: EPagePath.Contacts,
     component: Page.Contacts,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Contact Us',
+      label: t('Contact Us'),
     },
   },
   {
     meta: {
-      title: t('Partnerships:title'),
-      desc: t('Partnerships:desc'),
+      title: meta_t('Partnerships:title'),
+      desc: meta_t('Partnerships:desc'),
     },
-    path: '/partnerships',
+    path: EPagePath.Partnerships,
     component: Page.Partnerships,
     appSection: EAppSection.main,
   },
   {
     meta: {
-      title: t('Leverage:title'),
-      desc: t('Leverage:desc'),
+      title: meta_t('Leverage:title'),
+      desc: meta_t('Leverage:desc'),
     },
-    path: '/leverage',
+    path: EPagePath.Leverage,
     component: Page.Leverage,
     appSection: EAppSection.main,
   },
   {
     meta: {
-      title: t('Login:title'),
+      title: meta_t('Login:title'),
     },
-    path: '/login',
+    path: EPagePath.Login,
     component: Page.Login,
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
@@ -120,7 +133,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     meta: {
       title: 'Logout',
     },
-    path: '/logout',
+    path: EPagePath.Logout,
     component: null,
     activators: [logoutGuard],
     apiData: {
@@ -130,28 +143,28 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: t('Forgot Password:title'),
+      title: meta_t('Forgot Password:title'),
     },
-    path: '/forgot-password',
+    path: EPagePath.ForgotPassword,
     component: Page.ForgotPassword,
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
   },
   {
     meta: {
-      title: t('Reset Password:title'),
+      title: meta_t('Reset Password:title'),
     },
-    path: '/reset-password',
+    path: EPagePath.ResetPassword,
     component: Page.ResetPassword,
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
   },
   {
     meta: {
-      title: t('Registration:title'),
-      desc: t('Registration:desc'),
+      title: meta_t('Registration:title'),
+      desc: meta_t('Registration:desc'),
     },
-    path: '/registration',
+    path: EPagePath.Registration,
     component: Page.Registration,
     activators: [disallowAuthorizedGuard],
     appSection: EAppSection.auth,
@@ -161,9 +174,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: t('Dashboard:title'),
+      title: meta_t('Dashboard:title'),
     },
-    path: '/dashboard',
+    path: EPagePath.Dashboard,
     component: Page.Dashboard,
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
@@ -173,9 +186,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: t('Deposit:title'),
+      title: meta_t('Deposit:title'),
     },
-    path: '/deposit',
+    path: EPagePath.Deposit,
     component: Page.Deposit,
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
@@ -183,16 +196,16 @@ export const routesNavConfig: IRouteNavConfig[] = [
       strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: {
-      label: 'Deposit',
+      label: t('Deposit'),
       icon: 'coins',
-      parent: { label: 'Funds Management', icon: 'money' },
+      parent: { label: t('Funds Management'), icon: 'money' },
     },
   },
   {
     meta: {
-      title: t('Success Deposit:title'),
+      title: meta_t('Success Deposit:title'),
     },
-    path: '/deposit/success',
+    path: EPagePath.DepositSuccess,
     component: Page.Deposit,
     state: { depositResult: EResponseStatus.success },
     appSection: EAppSection.portal,
@@ -203,9 +216,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: t('Failure Deposit:title'),
+      title: meta_t('Failure Deposit:title'),
     },
-    path: '/deposit/failure',
+    path: EPagePath.DepositFailure,
     component: Page.Deposit,
     state: { depositResult: EResponseStatus.failure },
     appSection: EAppSection.portal,
@@ -216,106 +229,106 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: t('Withrawal:title'),
+      title: meta_t('Withdrawal:title'),
     },
-    path: '/withdrawal',
+    path: EPagePath.Withdrawal,
     component: Page.Withdrawal,
     appSection: EAppSection.portal,
-    activators: [allowAuthorizedGuard],
+    activators: [allowAuthorizedGuard, withdrawGuard],
     apiData: {
       lazy: [Action.ac_fetchWithdrawHistory],
       strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: {
-      label: 'Withdrawal',
+      label: t('Withdrawal'),
       icon: 'coins',
       parent: 'Funds Management',
     },
   },
   {
     meta: {
-      title: t('Internal Transfers:title'),
+      title: meta_t('Internal Transfers:title'),
     },
-    path: '/transfers',
+    path: EPagePath.InternalTransfer,
     component: Page.InternalTransfer,
     appSection: EAppSection.portal,
-    activators: [allowAuthorizedGuard],
+    activators: [allowAuthorizedGuard, internalTransfersGuard],
     apiData: {
       strict: [Action.ac_fetchTradingAccounts],
     },
     menuItem: {
-      label: 'Internal Transfers',
+      label: t('Internal Transfers'),
       icon: 'internal-transfer',
       parent: 'Funds Management',
     },
   },
   {
     meta: {
-      title: t('Transactional Statement:title'),
+      title: meta_t('Transactional Statement:title'),
     },
-    path: '/statement',
+    path: EPagePath.TransactionStatement,
     component: Page.TransactionStatement,
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     menuItem: {
-      label: 'Transactional Statement',
+      label: t('Transactional Statement'),
       icon: 'coins',
       parent: 'Funds Management',
     },
   },
   {
     meta: {
-      title: t('Open Live Account:title'),
+      title: meta_t('Open Live Account:title'),
     },
-    path: '/open-account/live',
+    path: EPagePath.OpenLiveAccount,
     component: Page.OpenAccount,
     appSection: EAppSection.portal,
-    activators: [allowAuthorizedGuard],
+    activators: [allowAuthorizedGuard, openLiveAccountGuard],
     state: {
       accountType: ETradingType.live,
     },
     menuItem: {
-      label: 'Open Live Account',
+      label: t('Open Live Account'),
       icon: 'filter',
-      parent: { label: 'Trading Accounts', icon: 'trading_graph' },
+      parent: { label: t('Trading Accounts'), icon: 'trading_graph' },
     },
   },
   {
     meta: {
-      title: t('Open Demo Account:title'),
+      title: meta_t('Open Demo Account:title'),
     },
-    path: '/open-account/demo',
+    path: EPagePath.OpenDemoAccount,
     component: Page.OpenAccount,
     appSection: EAppSection.portal,
-    activators: [allowAuthorizedGuard],
+    activators: [allowAuthorizedGuard, openDemoAccountGuard],
     state: {
       accountType: ETradingType.demo,
     },
     menuItem: {
-      label: 'Open Demo Account',
+      label: t('Open Demo Account'),
       icon: 'filter',
-      parent: { label: 'Trading Accounts', icon: 'trading_graph' },
+      parent: { label: t('Trading Accounts'), icon: 'trading_graph' },
     },
   },
   {
     meta: {
-      title: t('Platform Downloadt:title'),
+      title: meta_t('Platform Download:title'),
     },
-    path: '/download',
+    path: EPagePath.PlatformDownload,
     component: Page.PlatformDownload,
     appSection: EAppSection.portal,
     activators: [allowAuthorizedGuard],
     menuItem: {
-      label: 'Platform Download',
+      label: t('Platform Download'),
       icon: 'coins',
-      parent: { label: 'Tools', icon: 'documents' },
+      parent: { label: t('Tools'), icon: 'documents' },
     },
   },
   {
     meta: {
-      title: t('Profile:title'),
+      title: meta_t('Profile:title'),
     },
-    path: '/profile',
+    path: EPagePath.Profile,
     component: Page.Profile,
     appSection: EAppSection.portal,
     apiData: {
@@ -325,9 +338,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: t('Verification:title'),
+      title: meta_t('Verification:title'),
     },
-    path: '/verification',
+    path: EPagePath.Verification,
     component: Page.Verification,
     appSection: EAppSection.portal,
     apiData: {
@@ -337,13 +350,21 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   // {
   //   meta: {
-  //     title: t('Invite Friends:title'),
+  //     title: meta_t('Invite Friends:title'),
   //   },
-  //   path: '/invite-friends',
+  //   path: EPagePath.Verification,
   //   component: Page.Verification,
   //   appSection: EAppSection.portal,
   //   activators: [allowAuthorizedGuard],
   // },
+  {
+    meta: {
+      title: meta_t('Not Found:title'),
+    },
+    path: EPagePath.NotFound,
+    component: NotFound,
+    appSection: EAppSection.general,
+  },
 ];
 
 export const routesConfig = [...routesRedirectConfig, ...routesNavConfig];
