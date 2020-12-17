@@ -125,7 +125,7 @@ export function Tabs({
                       'tab__link',
                       label.disabled && 'disabled',
                       !disabledAll && activeTabProps?.anchor === label.anchor && 'active',
-                      !isVertical && 'mr-7',
+                      !isVertical && state.labels.length - 1 != l && 'mr-7',
                     )}
                     onClick={() => !label.disabled && switchTab(label.anchor)}
                     ref={(ref) => activeTabProps?.anchor === label.anchor && (activeNavTabLink = ref)}
