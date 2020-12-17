@@ -9,16 +9,21 @@ import { LocaleNavLink } from '../localeNavLink/LocaleNavLink';
 import { Svg } from '../svg/Svg';
 import './Dropdown.scss';
 import { Pathname } from 'history';
+import { AnyFunction } from '@domain/interfaces';
 
+export interface IDropdownItem {
+  id?: string;
+  icon?: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+  path?: LinkProps['to'];
+  externalLink?: string;
+  state?: any;
+  title: string;
+  onclick?: AnyFunction;
+}
 type IDropdown = {
   className?: string;
-  items?: {
-    icon?: string;
-    path?: LinkProps['to'];
-    state?: any;
-    title: string;
-    onclick?: (e?: any) => any;
-  }[];
+  items?: IDropdownItem[];
   children?: React.ReactNode;
   isOpen?: boolean;
   noArrow?: boolean;
@@ -111,38 +116,47 @@ export const DropDown = memo<IDropdown>(function DropDown({
         <div className="common-dropdown-wrapper">
           <div className="common-dropdown-context" style={{ top: offsetY - 1 }}>
             {props.items &&
-              props.items.map((child, c) => (
-                <div key={c} className="item">
-                  {child.path ? (
-                    <LocaleNavLink
-                      exact
-                      to={{
-                        pathname: child.path as Pathname,
-                        state: child.state,
-                      }}
-                      className="px-7"
-                      onClick={(e) => {
-                        props.isOpenDispatcher(false);
-                        child.onclick?.(e);
-                      }}
-                    >
+              props.items.map((child, c) => {
+                const attrs = {
+                  onClick: (e: any) => {
+                    props.isOpenDispatcher(false);
+                    child.onclick?.(e);
+                  },
+                  className: 'px-7',
+                };
+                function Children() {
+                  return (
+                    <>
                       {child.icon?.length && <Svg href={child.icon} className="mr-4" />}
                       {child.title}
-                    </LocaleNavLink>
-                  ) : (
-                    <div
-                      className="px-7"
-                      onClick={(e) => {
-                        props.isOpenDispatcher(false);
-                        child.onclick?.(e);
-                      }}
-                    >
-                      {child.icon?.length && <Svg href={child.icon} className="mr-4" />}
-                      {child.title}
-                    </div>
-                  )}
-                </div>
-              ))}
+                    </>
+                  );
+                }
+                return (
+                  <div key={child.id || c} className="item">
+                    {child.path ? (
+                      <LocaleNavLink
+                        {...attrs}
+                        exact
+                        to={{
+                          pathname: child.path as Pathname,
+                          state: child.state,
+                        }}
+                      >
+                        <Children />
+                      </LocaleNavLink>
+                    ) : child.externalLink ? (
+                      <a href={child.externalLink} target={child.target} {...attrs}>
+                        <Children />
+                      </a>
+                    ) : (
+                      <div {...attrs}>
+                        <Children />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             {props.children}
           </div>
         </div>
