@@ -2,12 +2,12 @@ import { Button, Img, Modal, ModalContext, ModalNav, ModalTitle, PageTitle } fro
 import { ENotificationType, ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
 import {
+  EActionTypes,
   ac_fetchClientSettings,
   ac_login,
   ac_preRegister,
   ac_register,
   ac_showNotification,
-  EActionTypes
 } from '@store';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
@@ -171,7 +171,7 @@ export function Registration() {
   }
 
   return (
-    <div className="registration">
+    <div className="registration mb-7">
       <Container>
         <Row>
           <Col sm={12} md={7} lg={6} xl={5} className="m-auto">
