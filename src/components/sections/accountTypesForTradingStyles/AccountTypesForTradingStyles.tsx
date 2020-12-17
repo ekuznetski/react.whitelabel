@@ -1,4 +1,5 @@
-import { Card, CardContent, CardHeader, Cards, Svg } from '@components/shared';
+import { Card, CardContent, CardHeader, Cards, LabelView, Svg } from '@components/shared';
+import { ELabels } from '@domain/enums';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,7 +48,20 @@ export const AccountTypesForTradingStylesSection = memo(
                       {t('Variable')}
                     </div>
                     <span>
-                      1.2<small>{t('pips')}</small>
+                      <LabelView>
+                        {{
+                          '*': (
+                            <>
+                              1.2<small>{t('pips')}</small>
+                            </>
+                          ),
+                          [ELabels.bsfx]: (
+                            <>
+                              1.4<small>{t('pips')}</small>
+                            </>
+                          ),
+                        }}
+                      </LabelView>
                     </span>
                   </CardHeader>
                   <CardContent className="text-left">

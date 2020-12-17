@@ -17,8 +17,16 @@ export const MarketTable = memo((props: IMarketTable) => {
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
   const platforms = useMemo(
     () => ({
-      [ETradingPlatform.mt4]: <div className="platform">MT4</div>,
-      [ETradingPlatform.mt5]: <div className="platform">MT5</div>,
+      [ETradingPlatform.mt4]: (
+        <div key={ETradingPlatform.mt4} className="platform">
+          MT4
+        </div>
+      ),
+      [ETradingPlatform.mt5]: (
+        <div key={ETradingPlatform.mt5} className="platform">
+          MT5
+        </div>
+      ),
     }),
     [],
   );
