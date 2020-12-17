@@ -1,12 +1,13 @@
 import { PageTitle, Tab, Tabs } from '@components/shared';
 import { AllowedCurrToMethodMap, ECurrencyCode, EDepositMethods } from '@domain/enums';
+import { env } from '@env';
 import { IAppStore, IStore } from '@store';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
-import { DepositProvider, IDepositAction, IDepositState, depositActionCreators } from './deposit.context';
+import { depositActionCreators, DepositProvider, IDepositAction, IDepositState } from './deposit.context';
 import './Deposit.scss';
 import { DepositSuccessFailure } from './depositSuccessFailure/DepositSuccessFailure';
 
@@ -125,7 +126,7 @@ export const Deposit = memo(function Deposit() {
                 )}
               </Col>
             </Row>
-            <pre>{JSON.stringify(state, null, '\t')}</pre>
+            {!env.PRODUCTION && <pre>{JSON.stringify(state, null, '\t')}</pre>}
           </Container>
         );
       }}

@@ -1,6 +1,6 @@
 import { ITabs, Svg } from '@components/shared';
 import { ETradingType, EWorkshopType } from '@domain/enums';
-import { AnyFunction, IClientBannerCard } from '@domain/interfaces';
+import { IClientBannerCard } from '@domain/interfaces';
 import i18n from 'i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
@@ -26,13 +26,6 @@ interface IConfig {
   tabsData: ITabs;
   promotion_cards: IClientBannerCard[];
   bonus_cards: IClientBannerCard[];
-  accountNavItems: {
-    id: string;
-    icon: string;
-    path?: string;
-    title: string;
-    onClick?: AnyFunction;
-  }[];
 }
 
 const t = i18n.getFixedT(i18n.language);
@@ -96,31 +89,6 @@ export const config: IConfig = {
       { value: <TradingAccountCards type={[ETradingType.demo]} />, anchor: 'demoAccounts' },
     ],
   },
-  accountNavItems: [
-    {
-      id: 'launch',
-      icon: 'coins',
-      path: '/deposit',
-      title: t('Launch MT4 Web'),
-    },
-    {
-      id: 'download',
-      icon: 'coins',
-      path: '/deposit',
-      title: t('Download MT4 Platform'),
-    },
-    {
-      id: 'statement',
-      icon: 'coins',
-      path: '/deposit',
-      title: t('Get Trading Statement'),
-    },
-    {
-      id: 'password',
-      icon: 'coins',
-      title: t('Change Password'),
-    },
-  ],
   promotion_cards: [
     {
       type: 'blue',

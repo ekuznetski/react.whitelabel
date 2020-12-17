@@ -2,7 +2,7 @@ import { useInViewport, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect } from 'react';
 import isEqual from 'react-fast-compare';
-import { CardsProvider, useCardsDispatch, useCardsState } from './cards-context';
+import { CardsProvider, useCardsDispatch, useCardsState } from './cards.context';
 import './Cards.scss';
 
 export interface ISingleCard {

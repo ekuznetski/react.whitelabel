@@ -1,7 +1,7 @@
 import { env } from '@env';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import React, { memo, useState } from 'react';
-import { IMap, mapStyles } from './map-context';
+import { IMap, mapStyles } from './map.config';
 
 export const Map = memo(({ defaultZoom = 15, defaultCenter, height = '500px', width = '100%', markers }: IMap) => {
   const [map, setMap] = useState({});
