@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux';
 import { IntercomProvider, useIntercom } from 'react-use-intercom';
 import { IIntercomChatParams } from './intercomChat.interface';
 
-export const IntercomChat = memo(function IntercomChat() {
-  if (!env.INTERCOM_ID) {
-    return null;
+export const IntercomChat = memo(function IntercomChat(props: { children: React.ReactElement }) {
+  if (!env.PRODUCTION || !env.INTERCOM_ID) {
+    return props.children;
   }
 
   const { clientProfile, locale } = useSelector<IStore, { clientProfile: MClientProfile; locale: string }>((state) => ({
@@ -30,28 +30,29 @@ export const IntercomChat = memo(function IntercomChat() {
         salesforce: 'https://eu1.salesforce.com/' + clientProfile.sfid,
         deposit: clientProfile.ftd.toString(),
         approved: clientProfile.aprv.toString(),
-        language: locale,
       }
-    : {language: locale}
+    : undefined;
 
   return (
     <IntercomProvider appId={env.INTERCOM_ID}>
-      <Chat userInfo={userInfo} />
+      <Chat userInfo={userInfo} languageOverride={locale} children={props.children} />
     </IntercomProvider>
   );
 });
 
-export const Chat = memo(function Chat({ userInfo }: IIntercomChatParams) {
-  const { boot, update, shutdown } = useIntercom();
+export const Chat = memo(function Chat({ userInfo, languageOverride, children }: IIntercomChatParams) {
+  const { boot, update, hardShutdown } = useIntercom();
 
   useEffect(() => {
-    if (userInfo) {
-      update(userInfo);
-    } else {
-      shutdown();
-      boot();
+    if (env.PRODUCTION) {
+      if (userInfo) {
+        update({ ...userInfo, languageOverride });
+      } else {
+        hardShutdown();
+        boot();
+      }
     }
   }, [userInfo?.email]);
 
-  return null;
+  return children;
 });

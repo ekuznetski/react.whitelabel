@@ -15,4 +15,6 @@ export interface IIntercomChatParams {
     approved: string;
     userId: string;
   };
+  languageOverride: string;
+  children: React.ReactElement;
 }
