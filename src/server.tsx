@@ -146,8 +146,8 @@ app.get('*', (req: express.Request, res: express.Response) => {
             <meta property="og:type" content="website">
             <meta property="og:title" content="${route?.meta.title}">
             <meta property="og:description" content="${route?.meta.desc}">
-            <meta property="og:image" content="${env.SITE_URL}/assets/og-img.png">
-            <meta property="og:url" content="${env.SITE_URL}">
+            <meta property="og:image" content="${req.headers.host}/assets/og-img.png">
+            <meta property="og:url" content="${req.headers.host}">
             <meta name="twitter:card" content="summary_large_image">`,
           ),
       );
