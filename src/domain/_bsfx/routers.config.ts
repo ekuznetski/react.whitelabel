@@ -74,7 +74,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Platform,
     appSection: EAppSection.main,
     menuItem: {
-      label: 'Platforms',
+      label: 'Platform',
     },
   },
   {
