@@ -1,10 +1,13 @@
 import { Button, DropDown, IconFlag, LocaleNavLink, Modal, Svg } from '@components/shared';
-import { Currencies, EAccountLeverage, ECurrencyCode, ETradingAccountType } from '@domain/enums';
-import { config } from '@pages/portal/dashboard';
+import { Currencies, EAccountLeverage, ECurrencyCode, ETradingAccountType, ETradingPlatform } from '@domain/enums';
 import classNames from 'classnames';
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import './TradingAccountSingleCard.scss';
+import { useSelector } from 'react-redux';
+import { IStore } from '@store';
+import { MClientSettings } from '@domain/models';
+import { getMetaTraderWebTerminalLink } from '@utils/fn';
 
 export interface ITradingAccountSingleCard {
   platform: string;
@@ -21,11 +24,55 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
   const [isChangePasswordOpen, setChangePasswordOpen] = React.useState(false);
   const { t } = useTranslation();
   const navRef = React.createRef<HTMLButtonElement>();
-
-  useEffect(() => {
-    const changePassNavItem = config.accountNavItems.find((item) => item.id == 'password');
-    if (changePassNavItem) changePassNavItem.onClick = () => setDropdownMenuOpen(true);
-  }, []);
+  const { clientSettings } = useSelector<IStore, { clientSettings: MClientSettings }>((state) => ({
+    clientSettings: state.data.client.settings,
+  }));
+  const accountNavItems: any[] = [
+    {
+      id: 'launch',
+      icon: 'coins',
+      target: '_blank',
+      path: getMetaTraderWebTerminalLink({
+        version: card.platform == ETradingPlatform.mt4 ? 4 : 5,
+        servers: ['BlueSquare-Live'],
+        server: 'BlueSquare-Live',
+        demoAllServers: true,
+        utmSource: 'www.bluesquarefx.com',
+        startMode: 'create_demo',
+        language: 'en',
+        colorScheme: 'black_on_white',
+      }),
+      title: t(`Launch MetaTrader Web`, { platform: card.platform.toUpperCase() }),
+    },
+    {
+      id: 'download',
+      icon: 'coins',
+      path: '/download',
+      title: t('Download MetaTrader Platform', { platform: card.platform.toUpperCase() }),
+    },
+  ];
+  if (card.accountId != '') {
+    accountNavItems.push(
+      {
+        id: 'password',
+        icon: 'coins',
+        title: t('Change Password'),
+      },
+      {
+        id: 'statement',
+        icon: 'coins',
+        path: '/statement',
+        title: t('Get Trading Statement'),
+      },
+    );
+  }
+  if (clientSettings.edit_fake_account) {
+    accountNavItems.push({
+      id: 'settings',
+      icon: 'coins',
+      title: t('Settings'),
+    });
+  }
 
   function toggleDropdownMenu() {
     setDropdownMenuOpen(!isDropdownMenuOpen);
@@ -73,7 +120,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
           <DropDown
             width={270}
             parentRef={navRef}
-            items={config.accountNavItems}
+            items={accountNavItems}
             isOpen={isDropdownMenuOpen}
             isOpenDispatcher={setDropdownMenuOpen}
             position="right"

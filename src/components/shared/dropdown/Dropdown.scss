@@ -79,7 +79,8 @@
       align-items: center;
       overflow: hidden;
 
-      a {
+      a,
+      > div {
         color: $dark-text;
         font-size: 16px;
         width: 100%;
@@ -90,6 +91,7 @@
         transition: color 0.35s;
         position: relative;
         overflow: hidden;
+        cursor: pointer;
 
         &:hover {
           color: $blue;
