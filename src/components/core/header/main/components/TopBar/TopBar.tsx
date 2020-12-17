@@ -12,7 +12,7 @@ export const TopBar = memo(function TopBar() {
     <Container className="top-header">
       <Row>
         <Col className="top-header__links ml-auto">
-          {config.links.map(({ url, label, icon }) => (
+          {config.topBarLinks.map(({ url, label, icon }) => (
             <div className="top-header__item ml-5" key={url}>
               <Svg href={icon} height={14} className="mr-1" />
               <LocaleLink to={url}>{t(label)}</LocaleLink>

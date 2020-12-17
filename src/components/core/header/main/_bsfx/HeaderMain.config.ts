@@ -1,5 +1,5 @@
 export const config = {
-  links: [
+  topBarLinks: [
     {
       url: '/partnerships',
       icon: 'affiliate',
