@@ -60,19 +60,23 @@ module.exports = (_env, arguments) => {
   let targetLabelConfigsAlias = {};
   let targetLabelComponentsAlias = {};
   let targetLabelComponentsKeys = [];
+  let targetLabelPrototypesAlias = []; // enums , interfaces, models
   let targetLabelScssAlias = [];
   let targetLabelEnvAlias = [];
   let componentsFilepaths = [];
 
   let stylesFilenames = [];
-  let domainFilenames = [];
+  let labelFilenames = [];
+  let prototypesFilenames = [];
   let environmentFilenames = [];
   let localeFilenames = [];
+  
   // Generate map to replace files for different domain
   if (targetLabel) {
     environmentFilenames = glob.sync(`./src/env/${targetLabelFolder}/*`);
     stylesFilenames = fs.readdirSync(`./src/scss/${targetLabelFolder}`);
-    domainFilenames = glob.sync(`./src/domain/${targetLabelFolder}/**/*.*`);
+    labelFilenames = glob.sync(`./src/domain/${targetLabelFolder}/**/*.*`);
+    prototypesFilenames = glob.sync(`./src/domain/${targetLabelFolder}/!(data)/**/*.*`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
@@ -147,7 +151,7 @@ module.exports = (_env, arguments) => {
     // console.log(componentsFilepaths, targetLabelComponentsAlias);
     // return;
 
-    targetLabelConfigsAlias = domainFilenames.reduce((acc, filePath) => {
+    targetLabelConfigsAlias = labelFilenames.reduce((acc, filePath) => {
       const exceptions = ['routers.config.ts'];
       const extensions = ['tsx', 'ts', 'js'];
       const { filename, extension, basename } = filePathDestructor(filePath);
@@ -171,6 +175,17 @@ module.exports = (_env, arguments) => {
           [`./_default/${parentFolder}/${file}`]: `./${targetLabelFolder}/${parentFolder}/${file}`,
         });
       }
+    }, {});
+
+    targetLabelPrototypesAlias = prototypesFilenames.reduce((acc, filePath) => {
+      const extensions = ['tsx', 'ts', 'js'];
+      const { filename, extension, basename } = filePathDestructor(filePath);
+      const file = extensions.includes(extension) ? filename : basename;
+      const _path = filePath.replace(new RegExp(`.*${targetLabelFolder}\/(.+)\/([^\/]+)\/?$`), '$1');
+
+      return Object.assign(acc, {
+        [`./${file}`]: path.join(__dirname, `src/domain/${targetLabelFolder}/${_path}/${file}`),
+      });
     }, {});
 
     targetLabelEnvAlias = environmentFilenames
@@ -241,6 +256,7 @@ module.exports = (_env, arguments) => {
         ...targetLabelLocaleAlias,
         ...targetLabelConfigsAlias,
         ...targetLabelComponentsAlias,
+        ...targetLabelPrototypesAlias,
       },
     },
     devtool: 'inline-source-map',
