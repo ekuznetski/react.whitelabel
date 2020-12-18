@@ -1,5 +1,6 @@
 import { Button, Card, CardContent, CardHeader, Cards, Svg } from '@components/shared';
 import { AnyFunction } from '@domain/interfaces';
+import { navigateToForm, useFormsDispatch, useFormsState } from '@pages/main/partnerships';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -14,9 +15,12 @@ export interface ISelect {
 export const PartnershipPrograms = memo(
   forwardRef<HTMLDivElement, ISelect & React.HTMLAttributes<HTMLDivElement>>(function PartnershipPrograms(props, ref) {
     const { t } = useTranslation();
+    const { formRef } = useFormsState();
+    const dispatch = useFormsDispatch();
 
     function onProgramSelect(program: string) {
-      props.onNavigate?.(program);
+      dispatch({ type: 'changeTab', payload: { activeTab: program } });
+      navigateToForm(formRef);
     }
 
     return (

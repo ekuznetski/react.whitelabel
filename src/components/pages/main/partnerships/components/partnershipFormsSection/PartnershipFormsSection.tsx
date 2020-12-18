@@ -1,27 +1,28 @@
 import { LabelView } from '@components/shared';
 import { ELabels } from '@domain/enums';
-import React, { memo } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Tabs } from '@components/shared';
 import { Trans } from 'react-i18next';
-import { AffiliateForm } from '../';
-import { config } from '../../';
+import { AffiliateForm } from '..';
+import { config } from '@pages/main/partnerships';
 import './PartnershipFormsSection.scss';
+import { useFormsDispatch, useFormsState } from '../../Partnerships.context';
 
-interface IPartnershipFormSectionProps {
-  formRef: React.RefObject<HTMLDivElement>;
-  activeTab: string;
-}
+export const PartnershipFormSection = memo(function PartnershipFormSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { activeTab } = useFormsState();
+  const dispatch = useFormsDispatch();
 
-export const PartnershipFormSection = memo(function PartnershipFormSection({
-  formRef,
-  activeTab,
-}: IPartnershipFormSectionProps) {
+  useEffect(() => {
+    dispatch({ type: 'registerRef', payload: { formRef: ref } });
+  }, [ref]);
+
   return (
     <LabelView>
       {{
         '*': (
-          <section className="partnership__forms" ref={formRef}>
+          <section className="partnership__forms" ref={ref}>
             <Container>
               <Row className="justify-content-center">
                 <Col xs={12} xl={7} className="partnership__forms-title">
@@ -37,7 +38,7 @@ export const PartnershipFormSection = memo(function PartnershipFormSection({
           </section>
         ),
         [ELabels.bsfx]: (
-          <section className="partnership__forms" ref={formRef}>
+          <section className="partnership__forms" ref={ref}>
             <Container>
               <Row className="justify-content-center">
                 <Col xs={12} xl={7} className="partnership__forms-title">
