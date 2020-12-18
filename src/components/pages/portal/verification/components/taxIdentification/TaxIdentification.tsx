@@ -2,7 +2,7 @@ import { Alert, Button, CountrySelect, Input, Radio } from '@components/shared';
 import { MTins } from '@domain/models';
 import { EActionTypes, IStore } from '@store';
 import { Formik, FormikProps, FormikValues } from 'formik';
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -23,13 +23,17 @@ export const TaxIdentification = memo(function TaxIdentification() {
   }));
   const { t } = useTranslation();
 
-  const tinsList = Array.from(
-    { length: config.maxTaxCountries },
-    (_, i) =>
-      tins.tins[i] || {
-        country: null,
-        tax_number: '',
-      },
+  const tinsList = useMemo(
+    () =>
+      Array.from(
+        { length: config.maxTaxCountries },
+        (_, i) =>
+          tins.tins[i] || {
+            country: null,
+            tax_number: '',
+          },
+      ),
+    [tins],
   );
   const validationSchema = Yup.object().shape({
     choice: Yup.bool().required(),
@@ -38,9 +42,7 @@ export const TaxIdentification = memo(function TaxIdentification() {
     taxNumber: Yup.object().required(),
   });
 
-  function Submit(data: FormikValues) {
-
-  }
+  function Submit(data: FormikValues) {}
 
   return (
     <div className="tax-identification">
@@ -50,12 +52,14 @@ export const TaxIdentification = memo(function TaxIdentification() {
       {t('Tax Resident List of Countries')}
       <Formik
         initialValues={{
+          [EFields.taxCountry]: [],
           [EFields.choice]: 'yes',
         }}
         validationSchema={validationSchema}
         onSubmit={Submit}
       >
         {({ values }: FormikProps<any>) => {
+          console.log(values);
           return (
             <Form className="tax-identification__form mt-10">
               <Row>
@@ -70,14 +74,10 @@ export const TaxIdentification = memo(function TaxIdentification() {
                   tinsList.map((item, idx) => (
                     <React.Fragment key={idx}>
                       <Col xs={6}>
-                        <CountrySelect label={t('Country')} name={EFields.taxCountry} />
+                        <CountrySelect label={t('Country')} name={`${EFields.taxCountry}[${idx}]`} />
                       </Col>
                       <Col xs={6}>
-                        <Input
-                          label={t('Tax Identification Number')}
-                          name={EFields.taxNumber}
-                          value={item.tax_number}
-                        />
+                        <Input label={t('Tax Identification Number')} name={`${EFields.taxNumber}[${idx}]`} />
                       </Col>
                     </React.Fragment>
                   ))}
