@@ -31,7 +31,7 @@ export const FooterMain = memo(function FooterMain() {
             ))}
           </div>
           <div className="social-links ml-auto">
-            {config?.socialMediaLinks?.map((socialLink, index) => (
+            {config.socialMediaLinks?.map((socialLink, index) => (
               <a key={index} href={socialLink.link} className="noUnderLine">
                 <Svg
                   href={socialLink.icon}
