@@ -46,6 +46,7 @@ export enum ETradingAccountType {
   fixed = 'Fixed',
   classic = 'Classic',
   raw = 'Raw',
+  variable = 'Variable',
 }
 
 export enum ETradingType {

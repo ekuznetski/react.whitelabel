@@ -1,12 +1,33 @@
 import { ETradingPlatform, MarketType } from '@domain/enums';
 import { IMarketTableContent } from '@domain/interfaces';
 
-export const marketLeverages = {
-  [MarketType.forex]: '1:200',
-  [MarketType.stocks]: '1:20',
-  [MarketType.indices]: '1:200',
-  [MarketType.commodities]: '1:133',
-  [MarketType.crypto]: '1:20',
+export const assetsCharacteristics = {
+  [MarketType.forex]: {
+    leverage: '1:200',
+    spread: '0.2',
+    margins: '0.50%',
+  },
+  [MarketType.stocks]: {
+    leverage: '1:20',
+    margins: '5%',
+  },
+  [MarketType.indices]: {
+    leverage: '1:200',
+  },
+  [MarketType.commodities]: {
+    leverage: '1:133',
+  },
+  [MarketType.crypto]: {
+    leverage: '1:20',
+  },
+  [MarketType.etfs]: {
+    leverage: '1:20',
+  },
+};
+
+export const accountTypePip = {
+  fixed: 1.8,
+  variable: 1.2,
 };
 
 export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
