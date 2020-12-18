@@ -16,6 +16,7 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { document, window } from 'ssr-window';
+import { env } from '@env';
 import './App.scss';
 
 let requestResolver: { (): void; (value?: unknown): void } | null = null;
@@ -88,8 +89,8 @@ app.get('*', (req: express.Request, res: express.Response) => {
     } else {
       store.dispatch(
         ac_updateRouteParams({
-          path: '404',
-          appSection: EAppSection.main,
+          path: '/404',
+          appSection: EAppSection.general,
           isLoading: false,
         }),
       );
@@ -126,13 +127,29 @@ app.get('*', (req: express.Request, res: express.Response) => {
       }
       const preloadedState = store.getState();
       preloadedState.app.route.isLoading = false;
+
       return res.send(
-        data.replace(
-          '<div id="root"></div>',
-          `<div id="root" class="${route?.appSection}">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(
-            preloadedState,
-          ).replace(/</g, '\\u003c')}</script>`,
-        ),
+        data
+          .replace(
+            '<div id="root"></div>',
+            `<div id="root" class="${
+              route?.appSection
+            }">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(preloadedState).replace(
+              /</g,
+              '\\u003c',
+            )}</script>`,
+          )
+          .replace(
+            '<title>WhiteLabel</title>',
+            `<title>${route?.meta.title}</title>
+            <meta name="description" content="${route?.meta.desc}">
+            <meta property="og:type" content="website">
+            <meta property="og:title" content="${route?.meta.title}">
+            <meta property="og:description" content="${route?.meta.desc}">
+            <meta property="og:image" content="https://${req.headers.host}/assets/og-img.jpg">
+            <meta property="og:url" content="https://${req.headers.host}">
+            <meta name="twitter:card" content="summary_large_image">`,
+          ),
       );
     });
   });
