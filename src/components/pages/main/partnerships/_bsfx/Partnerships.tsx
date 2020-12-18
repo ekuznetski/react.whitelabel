@@ -1,10 +1,9 @@
-import { PartnershipPrograms } from '@components/sections';
-import { Button, SectionBg, Tabs } from '@components/shared';
+import { Button, SectionBg } from '@components/shared';
 import React, { memo, useRef, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
-import { config } from './';
-import './Partnerships.scss';
+import { AffiliateForm } from '../components';
+import '../Partnerships.scss';
 
 export const Partnerships = memo(function Partnerships() {
   const [activeTab, setTab] = useState('affiliate');
@@ -30,7 +29,20 @@ export const Partnerships = memo(function Partnerships() {
           </Row>
         </Container>
       </section>
-      <PartnershipPrograms onNavigate={navigateToForm} />
+      <section className="partnership__forms" ref={formRef}>
+        <Container>
+          <Row className="justify-content-center">
+            <Col xs={12} xl={7} className="partnership__forms-title">
+              <Trans i18nKey="Request Partnership">
+                Request <strong>Partnership</strong>
+              </Trans>
+            </Col>
+            <Col xs={12}>
+              <AffiliateForm />
+            </Col>
+          </Row>
+        </Container>
+      </section>
       <section className="partnership__potential">
         <SectionBg img="potential-bg.jpg" />
         <Container>
@@ -48,20 +60,6 @@ export const Partnerships = memo(function Partnerships() {
                   </div>
                 </Trans>
               </div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-      <section className="partnership__forms" ref={formRef}>
-        <Container>
-          <Row className="justify-content-center">
-            <Col xs={12} xl={7} className="partnership__forms-title">
-              <Trans i18nKey="Choose Your Program">
-                CHOOSE YOUR <strong>PROGRAM</strong>
-              </Trans>
-            </Col>
-            <Col xs={12}>
-              <Tabs activeTab={activeTab} className="partnership__forms-tabs" {...config.tabsData} />
             </Col>
           </Row>
         </Container>
