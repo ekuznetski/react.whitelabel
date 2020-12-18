@@ -1,12 +1,12 @@
 import { ETradingPlatform, MarketType } from '@domain/enums';
 import {
-  accountTypesPips as _accountTypesPips,
-  marketDescData as _marketDescData,
+  accountTypePip as _accountTypePip,
+  assetsCharacteristics as _assetsCharacteristics,
   marketTableContent as _marketTableContent,
 } from '@domain/defaultData/marketData.config';
 
-export const marketDescData = {
-  ..._marketDescData,
+export const assetsCharacteristics = {
+  ..._assetsCharacteristics,
   [MarketType.forex]: {
     leverage: '1:500',
     spread: '1.4',
@@ -20,8 +20,8 @@ export const marketDescData = {
   },
 };
 
-export const accountTypesPips = {
-  ..._accountTypesPips,
+export const accountTypePip = {
+  ..._accountTypePip,
   variable: 1.4,
 };
 

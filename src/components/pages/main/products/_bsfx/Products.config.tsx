@@ -3,7 +3,7 @@ import React from 'react';
 import { Trans } from 'react-i18next';
 import { config as _config } from '../Products.config';
 import { MarketType } from '@domain/enums';
-import { marketDescData } from '@domain';
+import { assetsCharacteristics } from '@domain';
 
 const t = i18n.getFixedT(i18n.language);
 
@@ -14,8 +14,8 @@ export const config = {
       return {
         ...section,
         points: [
-          <Trans i18nKey="Spreads from # pips" values={{ val: marketDescData[MarketType.forex].spread }}>
-            Spreads from <b>{marketDescData[MarketType.forex].spread}</b>
+          <Trans i18nKey="Spreads from # pips" values={{ val: assetsCharacteristics[MarketType.forex].spread }}>
+            Spreads from <b>0.1</b>
           </Trans>,
           ...section.points.slice(1),
         ],

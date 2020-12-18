@@ -1,5 +1,5 @@
 import { LabelView, Svg } from '@components/shared';
-import { marketDescData } from '@domain';
+import { assetsCharacteristics } from '@domain';
 import { ELabels, MarketType } from '@domain/enums';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
@@ -24,11 +24,11 @@ export const OurOfferBannerSection = memo(
               <LabelView>
                 {{
                   '*': (
-                    <Trans i18nKey="Max Leverage #" values={{ val: marketDescData[MarketType.forex].leverage }}>
-                      Max. Leverage <b>{marketDescData[MarketType.forex].leverage}</b>
+                    <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.forex].leverage }}>
+                      Max. Leverage <b>1:200</b>
                     </Trans>
                   ),
-                  [ELabels.bsfx]: t('# Max Leverage', { val: marketDescData[MarketType.forex].leverage }),
+                  [ELabels.bsfx]: t('# Max Leverage', { val: assetsCharacteristics[MarketType.forex].leverage }),
                 }}
               </LabelView>
             </Col>

@@ -49,9 +49,9 @@ export const MarketTable = memo((props: IMarketTable) => {
               </LocaleNavLink>
             </div>
             <div className={tdClass}>
-              {item.platform.map((el: ETradingPlatform) => (
-                <div key={el} className="platform">
-                  {el}
+              {item.platform.map((platform: ETradingPlatform) => (
+                <div key={platform} className="platform">
+                  {platform}
                 </div>
               ))}
             </div>
