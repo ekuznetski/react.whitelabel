@@ -171,7 +171,7 @@ export function Registration() {
   }
 
   return (
-    <div className="registration mb-7">
+    <div className="registration mb-15">
       <Container>
         <Row>
           <Col sm={12} md={7} lg={6} xl={5} className="m-auto">
