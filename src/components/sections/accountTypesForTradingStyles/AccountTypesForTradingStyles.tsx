@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, Cards, LabelView, Svg } from '@components/shared';
-import { ELabels } from '@domain/enums';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import './AccountTypesForTradingStyles.scss';
+import { config } from './';
 
 export const AccountTypesForTradingStylesSection = memo(
   forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function AccountTypesForTradingStylesSection(
@@ -33,7 +33,8 @@ export const AccountTypesForTradingStylesSection = memo(
                       {t('Fixed')}
                     </div>
                     <span>
-                      1.8<small>{t('pips')}</small>
+                      {config.accountTypesCardsData.fixed}
+                      <small>{t('pips')}</small>
                     </span>
                   </CardHeader>
                   <CardContent className="text-left">
@@ -48,20 +49,8 @@ export const AccountTypesForTradingStylesSection = memo(
                       {t('Variable')}
                     </div>
                     <span>
-                      <LabelView>
-                        {{
-                          '*': (
-                            <>
-                              1.2<small>{t('pips')}</small>
-                            </>
-                          ),
-                          [ELabels.bsfx]: (
-                            <>
-                              1.4<small>{t('pips')}</small>
-                            </>
-                          ),
-                        }}
-                      </LabelView>
+                      {config.accountTypesCardsData.variable}
+                      <small>{t('pips')}</small>
                     </span>
                   </CardHeader>
                   <CardContent className="text-left">
