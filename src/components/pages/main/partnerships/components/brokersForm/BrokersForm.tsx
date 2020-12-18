@@ -1,8 +1,8 @@
 import { Button, Checkbox, CountrySelect, Input, PhoneCodeSelect } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { countries, ENotificationType } from '@domain/enums';
+import { ENotificationType, countries } from '@domain/enums';
 import { IPartnershipIBRegistrationRequest } from '@domain/interfaces';
-import { ac_partnershipRegisterIB, ac_showNotification, IStore } from '@store';
+import { IStore, ac_partnershipRegisterIB, ac_showNotification } from '@store';
 import { useLabelName } from '@utils/hooks';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
@@ -99,9 +99,7 @@ export const BrokersForm = memo(function BrokersForm() {
                 <CountrySelect label={t('Country')} name={EFields.country} />
                 <Input label={t('Address')} name={EFields.address} />
                 <Checkbox name={EFields.acceptPolicy} className="mb-10">
-                  <Trans i18nKey="Accept Policy" values={{ name: labelName }}>
-                    I have read and accept the Privacy Policy of {name}
-                  </Trans>
+                  {t('Accept Policy')}
                 </Checkbox>
                 <Button type="submit">{t('Submit')}</Button>
               </Form>

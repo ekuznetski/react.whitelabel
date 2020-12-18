@@ -1,9 +1,11 @@
 import { PartnershipPrograms } from '@components/sections';
-import { Button, SectionBg, Tabs } from '@components/shared';
+import { Button, LabelView, SectionBg, Tabs } from '@components/shared';
+import { ELabels } from '@domain/enums';
 import React, { memo, useRef, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
 import { config } from './';
+import { AffiliateForm } from './components';
 import './Partnerships.scss';
 
 export const Partnerships = memo(function Partnerships() {
@@ -30,7 +32,12 @@ export const Partnerships = memo(function Partnerships() {
           </Row>
         </Container>
       </section>
-      <PartnershipPrograms onNavigate={navigateToForm} />
+      <LabelView>
+        {{
+          '*': <PartnershipPrograms onNavigate={navigateToForm} />,
+          [ELabels.bsfx]: null,
+        }}
+      </LabelView>
       <section className="partnership__potential">
         <SectionBg img="potential-bg.jpg" />
         <Container>
@@ -56,12 +63,28 @@ export const Partnerships = memo(function Partnerships() {
         <Container>
           <Row className="justify-content-center">
             <Col xs={12} xl={7} className="partnership__forms-title">
-              <Trans i18nKey="Choose Your Program">
-                CHOOSE YOUR <strong>PROGRAM</strong>
-              </Trans>
+              <LabelView>
+                {{
+                  '*': (
+                    <Trans i18nKey="Choose Your Program">
+                      Choose Your <strong>Program</strong>
+                    </Trans>
+                  ),
+                  [ELabels.bsfx]: (
+                    <Trans i18nKey="Request Partnership">
+                      Request <strong>Partnership</strong>
+                    </Trans>
+                  ),
+                }}
+              </LabelView>
             </Col>
             <Col xs={12}>
-              <Tabs activeTab={activeTab} className="partnership__forms-tabs" {...config.tabsData} />
+              <LabelView>
+                {{
+                  '*': <Tabs activeTab={activeTab} className="partnership__forms-tabs" {...config.tabsData} />,
+                  [ELabels.bsfx]: <AffiliateForm />,
+                }}
+              </LabelView>
             </Col>
           </Row>
         </Container>

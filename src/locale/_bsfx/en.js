@@ -60,4 +60,6 @@ export default {
     'I have reviewed my answers and responded as accurately as possible.',
   ],
   'You opening account with': 'You are now opening an account with <1>Blue Square FX Limited</1>',
+  'Request Partnership': 'Request <1>Partnership<1>',
+  'Accept Policy': 'I have read and accept the Privacy Policy of Blue Square FX',
 };
