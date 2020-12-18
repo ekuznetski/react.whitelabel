@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import './AccountTypesForTradingStyles.scss';
-import { config } from './';
+import { accountTypesPips } from '@domain';
 
 export const AccountTypesForTradingStylesSection = memo(
   forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function AccountTypesForTradingStylesSection(
@@ -33,7 +33,7 @@ export const AccountTypesForTradingStylesSection = memo(
                       {t('Fixed')}
                     </div>
                     <span>
-                      {config.accountTypesCardsData.fixed}
+                      {accountTypesPips.fixed}
                       <small>{t('pips')}</small>
                     </span>
                   </CardHeader>
@@ -49,7 +49,7 @@ export const AccountTypesForTradingStylesSection = memo(
                       {t('Variable')}
                     </div>
                     <span>
-                      {config.accountTypesCardsData.variable}
+                      {accountTypesPips.variable}
                       <small>{t('pips')}</small>
                     </span>
                   </CardHeader>

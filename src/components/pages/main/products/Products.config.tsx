@@ -29,13 +29,13 @@ export const config: IConfig = {
       tableType: MarketType.forex,
       points: [
         <Trans i18nKey="Spreads from #" values={{ val: marketDescData[MarketType.forex].spread }}>
-          Spreads from <b>{marketDescData[MarketType.forex].spread}</b>
+          Spreads from <b>0.2</b>
         </Trans>,
         <Trans i18nKey="Max Leverage #" values={{ val: marketDescData[MarketType.forex].leverage }}>
-          Max. Leverage <b>{marketDescData[MarketType.forex].leverage}</b>
+          Max. Leverage <b>1:200</b>
         </Trans>,
         <Trans i18nKey="Margins from just #" values={{ val: marketDescData[MarketType.forex].margins }}>
-          Margins from just <b>{marketDescData[MarketType.forex].margins}</b>
+          Margins from just <b>0.50%</b>
         </Trans>,
       ],
     },
@@ -47,10 +47,10 @@ export const config: IConfig = {
       reversed: true,
       points: [
         <Trans i18nKey="Max Leverage #" values={{ val: marketDescData[MarketType.stocks].leverage }}>
-          Max. Leverage <b>{marketDescData[MarketType.stocks].leverage}</b>
+          Max. Leverage <b>1:20</b>
         </Trans>,
         <Trans i18nKey="Margins from just #" values={{ val: marketDescData[MarketType.stocks].margins }}>
-          Margins from just <b>{marketDescData[MarketType.stocks].margins}</b>
+          Margins from just <b>5%</b>
         </Trans>,
       ],
     },
@@ -64,7 +64,7 @@ export const config: IConfig = {
           <b>15+</b> {t('Most Popular Indices Worldwide')}
         </>,
         <Trans i18nKey="Max Leverage #" values={{ val: marketDescData[MarketType.indices].leverage }}>
-          Max. Leverage <b>{marketDescData[MarketType.indices].leverage}</b>
+          Max. Leverage <b>1:200</b>
         </Trans>,
       ],
     },
@@ -76,7 +76,7 @@ export const config: IConfig = {
       reversed: true,
       points: [
         <Trans i18nKey="Max Leverage #" values={{ val: marketDescData[MarketType.crypto].leverage }}>
-          Max. Leverage <b>{marketDescData[MarketType.crypto].leverage}</b>
+          Max. Leverage <b>1:20</b>
         </Trans>,
         <>
           <b>5</b> {t('Main Cryptocurrencies')}
@@ -90,7 +90,7 @@ export const config: IConfig = {
       tableType: MarketType.commodities,
       points: [
         <Trans i18nKey="Max Leverage #" values={{ val: marketDescData[MarketType.commodities].leverage }}>
-          Max. Leverage <b>{marketDescData[MarketType.commodities].leverage}</b>
+          Max. Leverage <b>1:133</b>
         </Trans>,
       ],
     },
@@ -102,7 +102,7 @@ export const config: IConfig = {
       reversed: true,
       points: [
         <Trans i18nKey="Max Leverage #" values={{ val: marketDescData[MarketType.etfs].leverage }}>
-          Max. Leverage <b>{marketDescData[MarketType.etfs].leverage}</b>
+          Max. Leverage <b>1:20</b>
         </Trans>,
       ],
     },

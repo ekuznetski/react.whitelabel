@@ -25,6 +25,11 @@ export const marketDescData = {
   },
 };
 
+export const accountTypesPips = {
+  fixed: 1.8,
+  variable: 1.2,
+};
+
 export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
   [MarketType.forex]: [
     {

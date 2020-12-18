@@ -1,6 +1,9 @@
 import { ETradingPlatform, MarketType } from '@domain/enums';
-import { marketDescData as _marketDescData } from '@domain/defaultData/marketData.config';
-import { marketTableContent as _marketTableContent } from '@domain/defaultData/marketData.config';
+import {
+  accountTypesPips as _accountTypesPips,
+  marketDescData as _marketDescData,
+  marketTableContent as _marketTableContent,
+} from '@domain/defaultData/marketData.config';
 
 export const marketDescData = {
   ..._marketDescData,
@@ -15,6 +18,11 @@ export const marketDescData = {
   [MarketType.commodities]: {
     leverage: '1:67',
   },
+};
+
+export const accountTypesPips = {
+  ..._accountTypesPips,
+  variable: 1.4,
 };
 
 const tableEntries = Object.entries(_marketTableContent).map(([key, value]) => [
