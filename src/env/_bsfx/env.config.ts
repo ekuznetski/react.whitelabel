@@ -7,7 +7,7 @@ const dev = {
 };
 
 const prod = {
-  PRODUCTION: false,
+  PRODUCTION: true,
 };
 
 export const env: { [k: string]: any } = Object.assign({}, dev, process.env.PRODUCTION ? prod : {});
