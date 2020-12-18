@@ -1,0 +1,35 @@
+@import '~/variables';
+
+.partnership-wrapper {
+  .partnership {
+    &__page-top {
+      background: rgb(92, 115, 131);
+      color: #fff;
+
+      .common-button {
+        width: 255px;
+        text-transform: uppercase;
+      }
+
+      .page-top {
+        &__title {
+          font-size: 40px;
+          line-height: 50px;
+          text-transform: uppercase;
+        }
+
+        &__description {
+          font-size: 18px;
+          line-height: 30px;
+        }
+
+        @media (max-width: $viewport-md-w) {
+          &__title {
+            font-size: 30px;
+            line-height: 40px;
+          }
+        }
+      }
+    }
+  }
+}

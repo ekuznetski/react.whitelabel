@@ -1,0 +1,52 @@
+@import '~/variables';
+@import '~/mixin';
+
+.partnership-wrapper {
+  .partnership {
+    &__forms {
+      background-color: $grey-bg-light;
+
+      &-title {
+        font-size: 36px;
+        line-height: 50px;
+        color: $dark-text;
+        text-align: center;
+        margin-bottom: 34px;
+        text-transform: uppercase;
+      }
+
+      &-tabs {
+        .tab__link__label-title {
+          text-transform: uppercase;
+        }
+      }
+    }
+    &__form {
+      .field.input,
+      .field textarea,
+      .field.select-wrapper {
+        border-color: transparent;
+        box-shadow: box-shadow(10, 0.05);
+        border-radius: 0 !important;
+
+        &.focused {
+          border-color: $blue;
+          box-shadow: box-shadow(10, 0.1);
+        }
+      }
+
+      .field.textarea {
+        border-color: transparent;
+        box-shadow: none;
+
+        &.focused {
+          textarea {
+            border: 1px solid #cacfd5;
+            border-color: $blue;
+            box-shadow: box-shadow(10, 0.1);
+          }
+        }
+      }
+    }
+  }
+}
