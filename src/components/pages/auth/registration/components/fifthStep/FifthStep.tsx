@@ -32,7 +32,7 @@ export function FifthStep({ name, submitFn }: any) {
       >
         {() => {
           return (
-            <Form className="m-auto form fadein-row">
+            <Form className="m-auto form">
               <h4 className="section-title mb-5">{t('Declaration')}</h4>
               <Checkbox name={EFields.declaration} className="mb-10">
                 <Trans i18nKey="Customer introduction agreement" values={{ name }}>

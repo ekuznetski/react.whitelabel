@@ -49,7 +49,7 @@ export function FourthStep({ submitFn }: any) {
         {(props: any) => {
           const { values, setFieldValue } = props;
           return (
-            <Form className="m-auto form fadein-row">
+            <Form className="m-auto form">
               <h4 className="section-title mb-5">{t('Are You a US Reportable Person')}</h4>
               <Radio
                 className="mb-10"

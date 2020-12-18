@@ -30,7 +30,7 @@ export function ThirdStep({ submitFn }: any) {
     clientSettings: state.data.client.settings,
   }));
   const { t } = useTranslation();
-  
+
   const validationSchema = Yup.object().shape({
     firstdeposit_platform: FieldValidators.requiredString,
     account_type: FieldValidators.requiredString,
@@ -87,6 +87,7 @@ export function ThirdStep({ submitFn }: any) {
 
   const currencies = clientSettings.getCurrenciesSelectList();
   const leverages = clientSettings.getLeveragesSelectList();
+  const platforms = clientSettings.getPlatformsSelectList();
 
   function Submit(data: FormikValues) {
     data = Object.keys(data).reduce((acc, key) => {
@@ -114,14 +115,7 @@ export function ThirdStep({ submitFn }: any) {
           return (
             <Form className="m-auto form fadein-row">
               <h4 className="section-title mb-5">{t('Choose Trading Platform')}</h4>
-              <Radio
-                className="mb-10"
-                name={EFields.firstdeposit_platform}
-                options={[
-                  { label: 'MetaTrader 4', value: ETradingPlatform.mt4 },
-                  { label: 'MetaTrader 5', value: ETradingPlatform.mt5 },
-                ].filter((e) => clientSettings?.allowed_platforms.includes(e.value))}
-              />
+              <Radio className="mb-10" name={EFields.firstdeposit_platform} options={platforms} />
               <h4 className="section-title mb-5">{t('Choose Account Type')}</h4>
               <Radio
                 className={`mb-10 account_type justify-content-between no-gutters totalAccTypes_${clientSettings.allowed_account_types.length}`}
