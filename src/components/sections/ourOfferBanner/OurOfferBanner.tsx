@@ -27,7 +27,7 @@ export const OurOfferBannerSection = memo(
                       Max. Leverage <b>1:200</b>
                     </Trans>
                   ),
-                  [ELabels.bsfx]: t('# Max Leverage', { val: '1:200' }),
+                  [ELabels.bsfx]: t('# Max Leverage', { val: '1:500' }),
                 }}
               </LabelView>
             </Col>
