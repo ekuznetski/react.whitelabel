@@ -1,5 +1,4 @@
 import { Button, Card, CardContent, CardHeader, Cards, Svg } from '@components/shared';
-import { AnyFunction } from '@domain/interfaces';
 import { navigateToForm, useFormsDispatch, useFormsState } from '@pages/main/partnerships';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
@@ -8,12 +7,8 @@ import { Trans, useTranslation } from 'react-i18next';
 import { config } from './PartnershipPrograms.config';
 import './PartnershipPrograms.scss';
 
-export interface ISelect {
-  onNavigate: AnyFunction;
-}
-
 export const PartnershipPrograms = memo(
-  forwardRef<HTMLDivElement, ISelect & React.HTMLAttributes<HTMLDivElement>>(function PartnershipPrograms(props, ref) {
+  forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function PartnershipPrograms(props, ref) {
     const { t } = useTranslation();
     const { formRef } = useFormsState();
     const dispatch = useFormsDispatch();

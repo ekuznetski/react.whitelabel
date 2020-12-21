@@ -16,7 +16,7 @@ export const PartnershipFormSection = memo(function PartnershipFormSection() {
 
   useEffect(() => {
     dispatch({ type: 'registerRef', payload: { formRef: ref } });
-  }, [ref]);
+  }, []);
 
   return (
     <LabelView>
