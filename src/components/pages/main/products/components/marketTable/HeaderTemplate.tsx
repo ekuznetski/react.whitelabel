@@ -22,7 +22,7 @@ export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolea
           {t('Min Spread')}
           <div className="sub-row">
             {clientSettings.allowed_account_types.map((item, i) => (
-              <span key={item} className={`col${i}`}>
+              <span key={i} className={`col${i}`}>
                 {item}
               </span>
             ))}

@@ -47,7 +47,7 @@ export function Products() {
           </div>
           <div className="row mx-n1">
             {config.headerNavigation.map((navBtn, n) => (
-              <div key={n} className="col-6 col-md-4 col-lg-2 px-1 mb-5 mb-lg-0">
+              <div key={n} className="col-6 col-md-4 col-xl-2 px-1 mb-5 mb-xl-0">
                 <Button
                   className={navBtn.anchor === activeSection ? 'active' : ''}
                   onClick={navigateToSection(navBtn.anchor)}

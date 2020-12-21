@@ -21,7 +21,7 @@ export const config = {
       points: [
         {
           icon: 'envelope',
-          label: 'support@BSFX.com',
+          label: 'sales@bluesquarefx.com',
         },
         {
           icon: 'clock',

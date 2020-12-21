@@ -15,13 +15,6 @@ interface IMarketTable {
 export const MarketTable = memo((props: IMarketTable) => {
   const tdClass = classNames('td', !props.preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
-  const platforms = useMemo(
-    () => ({
-      [ETradingPlatform.mt4]: <div className="platform">MT4</div>,
-      [ETradingPlatform.mt5]: <div className="platform">MT5</div>,
-    }),
-    [],
-  );
 
   return (
     <div className={classNames('market-table', props.className)}>
@@ -55,7 +48,13 @@ export const MarketTable = memo((props: IMarketTable) => {
                 <Svg href="info" isIcon />
               </LocaleNavLink>
             </div>
-            <div className={tdClass}>{item.platform.map((el: ETradingPlatform) => platforms[el])}</div>
+            <div className={tdClass}>
+              {item.platform.map((platform: ETradingPlatform) => (
+                <div key={platform} className="platform">
+                  {platform}
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
