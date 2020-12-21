@@ -1,5 +1,10 @@
 import { Button, Card, CardContent, CardHeader, Cards, Svg } from '@components/shared';
-import { navigateToForm, usePartnershipDispatch, usePartnershipState } from '@pages/main/partnerships';
+import {
+  EPartnershipTabs,
+  navigateToForm,
+  usePartnershipDispatch,
+  usePartnershipState,
+} from '@pages/main/partnerships';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -13,7 +18,7 @@ export const PartnershipPrograms = memo(
     const { formRef } = usePartnershipState();
     const dispatch = usePartnershipDispatch();
 
-    function onProgramSelect(program: string) {
+    function onProgramSelect(program: EPartnershipTabs) {
       dispatch({ type: 'changeTab', activeTab: program });
       navigateToForm(formRef);
     }

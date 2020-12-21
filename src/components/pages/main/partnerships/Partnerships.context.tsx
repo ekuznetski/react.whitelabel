@@ -1,13 +1,19 @@
 import React from 'react';
 
+export enum EPartnershipTabs {
+  'affiliate' = 'affiliate',
+  'ib' = 'ib',
+  'whiteLabel' = 'whiteLabel',
+}
+
 type Action = {
   type: 'changeTab' | 'registerRef';
-  activeTab?: string;
+  activeTab?: EPartnershipTabs;
   formRef?: React.RefObject<HTMLDivElement> | null;
 };
 export type Dispatch = (action: Action) => void;
 type State = {
-  activeTab?: string;
+  activeTab?: EPartnershipTabs;
   formRef?: React.RefObject<HTMLDivElement> | null;
 };
 type PartnershipProviderProps = { children: (state: State, action: Dispatch) => React.ReactNode };
@@ -15,23 +21,23 @@ type PartnershipProviderProps = { children: (state: State, action: Dispatch) => 
 const PartnershipStateContext = React.createContext<State | undefined>(undefined);
 const PartnershipDispatchContext = React.createContext<Dispatch | undefined>(undefined);
 
-function partnershipReducer(state: State, { type, activeTab, formRef }: Action) {
-  switch (type) {
+function partnershipReducer(state: State, action: Action) {
+  switch (action.type) {
     case 'changeTab': {
-      return { ...state, activeTab };
+      return { ...state, activeTab: action.activeTab };
     }
     case 'registerRef': {
-      return { ...state, formRef };
+      return { ...state, formRef: action.formRef };
     }
     default: {
-      throw new Error(`Unhandled Partnership action type: ${type}`);
+      throw new Error(`Unhandled Partnership action type: ${action.type}`);
     }
   }
 }
 
 function PartnershipProvider({ children }: PartnershipProviderProps) {
   const [state, dispatch] = React.useReducer<React.Reducer<State, Action>>(partnershipReducer, {
-    activeTab: 'affiliate',
+    activeTab: EPartnershipTabs.affiliate,
     formRef: null,
   });
 
