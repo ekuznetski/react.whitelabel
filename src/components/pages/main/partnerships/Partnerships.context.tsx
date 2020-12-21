@@ -2,63 +2,67 @@ import React from 'react';
 
 type Action = {
   type: 'changeTab' | 'registerRef';
-  payload: { activeTab?: string; formRef?: React.RefObject<HTMLDivElement> | null };
+  activeTab?: string;
+  formRef?: React.RefObject<HTMLDivElement> | null;
 };
 export type Dispatch = (action: Action) => void;
 type State = {
   activeTab?: string;
   formRef?: React.RefObject<HTMLDivElement> | null;
 };
-type FormsProviderProps = { children: (state: State, action: Dispatch) => React.ReactNode };
+type PartnershipProviderProps = { children: (state: State, action: Dispatch) => React.ReactNode };
 
-const FormsStateContext = React.createContext<State | undefined>(undefined);
-const FormsDispatchContext = React.createContext<Dispatch | undefined>(undefined);
+const PartnershipStateContext = React.createContext<State | undefined>(undefined);
+const PartnershipDispatchContext = React.createContext<Dispatch | undefined>(undefined);
 
-function formsReducer(state: State, { type, payload }: Action) {
+function partnershipReducer(state: State, { type, activeTab, formRef }: Action) {
   switch (type) {
     case 'changeTab': {
-      return { ...state, activeTab: payload.activeTab };
+      return { ...state, activeTab };
     }
     case 'registerRef': {
-      return { ...state, formRef: payload.formRef };
+      return { ...state, formRef };
     }
     default: {
-      throw new Error(`Unhandled Forms action type: ${type}`);
+      throw new Error(`Unhandled Partnership action type: ${type}`);
     }
   }
 }
 
-function FormsProvider({ children }: FormsProviderProps) {
-  const [state, dispatch] = React.useReducer<React.Reducer<State, Action>>(formsReducer, {
+function PartnershipProvider({ children }: PartnershipProviderProps) {
+  const [state, dispatch] = React.useReducer<React.Reducer<State, Action>>(partnershipReducer, {
     activeTab: 'affiliate',
     formRef: null,
   });
 
   return (
-    <FormsStateContext.Provider value={state}>
-      <FormsDispatchContext.Provider value={dispatch}>{children(state, dispatch)}</FormsDispatchContext.Provider>
-    </FormsStateContext.Provider>
+    <PartnershipStateContext.Provider value={state}>
+      <PartnershipDispatchContext.Provider value={dispatch}>
+        {children(state, dispatch)}
+      </PartnershipDispatchContext.Provider>
+    </PartnershipStateContext.Provider>
   );
 }
 
-function useFormsState() {
-  const context = React.useContext(FormsStateContext);
+function usePartnershipState() {
+  const context = React.useContext(PartnershipStateContext);
   if (context === undefined) {
-    throw new Error('useFormsState must be used within a FormsProvider');
+    throw new Error('usePartnershipState must be used within a PartnershipProvider');
   }
   return context;
 }
 
-function useFormsDispatch() {
-  const context = React.useContext(FormsDispatchContext);
+function usePartnershipDispatch() {
+  const context = React.useContext(PartnershipDispatchContext);
   if (context === undefined) {
-    throw new Error('useFormsDispatch must be used within a FormsProvider');
+    throw new Error('usePartnershipDispatch must be used within a PartnershipProvider');
   }
   return context;
 }
 
-function navigateToForm(formRef?: React.RefObject<HTMLDivElement> | null) {
-  formRef?.current && formRef.current.scrollIntoView({ behavior: 'smooth' });
+function navigateToForm() {
+  const state = usePartnershipState();
+  state.formRef?.current?.scrollIntoView({ behavior: 'smooth' });
 }
 
-export { FormsProvider, useFormsState, useFormsDispatch, navigateToForm };
+export { PartnershipProvider, usePartnershipState, usePartnershipDispatch, navigateToForm };
