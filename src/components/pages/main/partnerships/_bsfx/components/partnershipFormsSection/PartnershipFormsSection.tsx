@@ -2,12 +2,12 @@ import React, { memo, useEffect, useRef } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans } from 'react-i18next';
 import { AffiliateForm } from '@pages/main/partnerships/components';
-import { useFormsDispatch } from '@pages/main/partnerships';
+import { usePartnershipDispatch } from '@pages/main/partnerships';
 import './PartnershipFormsSection.scss';
 
 export const PartnershipFormSection = memo(function PartnershipFormSection() {
   const ref = useRef<HTMLDivElement>(null);
-  const dispatch = useFormsDispatch();
+  const dispatch = usePartnershipDispatch();
 
   useEffect(() => {
     dispatch({ type: 'registerRef', payload: { formRef: ref } });

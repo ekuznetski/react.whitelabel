@@ -1,11 +1,11 @@
 import React, { memo, useRef, useState } from 'react';
-import { FormsProvider } from '..';
+import { PartnershipProvider } from '..';
 import { PartnershipFormSection, PartnershipPotentialSection, PartnershipTopSection } from '../components';
 import '../Partnerships.scss';
 
 export const Partnerships = memo(function Partnerships() {
   return (
-    <FormsProvider>
+    <PartnershipProvider>
       {(state, dispatch) => {
         return (
           <div className="partnership-wrapper">
@@ -15,6 +15,6 @@ export const Partnerships = memo(function Partnerships() {
           </div>
         );
       }}
-    </FormsProvider>
+    </PartnershipProvider>
   );
 });

@@ -1,5 +1,5 @@
 import { Button, SectionBg } from '@components/shared';
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { navigateToForm } from '@pages/main/partnerships';
