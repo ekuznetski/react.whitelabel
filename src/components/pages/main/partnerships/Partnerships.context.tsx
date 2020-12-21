@@ -66,8 +66,4 @@ function usePartnershipDispatch() {
   return context;
 }
 
-function navigateToForm(formRef?: React.RefObject<HTMLDivElement> | null) {
-  formRef?.current && formRef.current.scrollIntoView({ behavior: 'smooth' });
-}
-
-export { PartnershipProvider, usePartnershipState, usePartnershipDispatch, navigateToForm };
+export { PartnershipProvider, usePartnershipState, usePartnershipDispatch };
