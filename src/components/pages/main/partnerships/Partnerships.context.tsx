@@ -23,7 +23,7 @@ function formsReducer(state: State, { type, payload }: Action) {
       return { ...state, formRef: payload.formRef };
     }
     default: {
-      throw new Error(`Unhandled Tabs action type: ${type}`);
+      throw new Error(`Unhandled Forms action type: ${type}`);
     }
   }
 }

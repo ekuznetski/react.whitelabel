@@ -4,7 +4,7 @@ import { Tabs } from '@components/shared';
 import { Trans } from 'react-i18next';
 import { config } from '@pages/main/partnerships';
 import './PartnershipFormsSection.scss';
-import { useFormsDispatch, useFormsState } from '../../Partnerships.context';
+import { useFormsDispatch, useFormsState } from '@pages/main/partnerships';
 
 export const PartnershipFormSection = memo(function PartnershipFormSection() {
   const ref = useRef<HTMLDivElement>(null);

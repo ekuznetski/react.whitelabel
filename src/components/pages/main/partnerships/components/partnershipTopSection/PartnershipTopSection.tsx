@@ -2,8 +2,7 @@ import { Button, SectionBg } from '@components/shared';
 import React, { memo, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { navigateToForm } from '../..';
-import { useFormsState } from '../../Partnerships.context';
+import { navigateToForm, useFormsState } from '@pages/main/partnerships';
 import './PartnershipTopSection.scss';
 
 export const PartnershipTopSection = memo(function PartnershipTopSection() {
