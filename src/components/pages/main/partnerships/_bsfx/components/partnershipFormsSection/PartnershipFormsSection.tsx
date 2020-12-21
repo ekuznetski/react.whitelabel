@@ -10,7 +10,7 @@ export const PartnershipFormSection = memo(function PartnershipFormSection() {
   const dispatch = usePartnershipDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'registerRef', payload: { formRef: ref } });
+    dispatch({ type: 'registerRef', formRef: ref });
   }, []);
 
   return (

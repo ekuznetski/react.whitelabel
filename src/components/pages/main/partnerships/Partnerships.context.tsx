@@ -60,9 +60,8 @@ function usePartnershipDispatch() {
   return context;
 }
 
-function navigateToForm() {
-  const state = usePartnershipState();
-  state.formRef?.current?.scrollIntoView({ behavior: 'smooth' });
+function navigateToForm(formRef?: React.RefObject<HTMLDivElement> | null) {
+  formRef?.current && formRef.current.scrollIntoView({ behavior: 'smooth' });
 }
 
 export { PartnershipProvider, usePartnershipState, usePartnershipDispatch, navigateToForm };

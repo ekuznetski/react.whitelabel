@@ -15,7 +15,7 @@ export const PartnershipPrograms = memo(
 
     function onProgramSelect(program: string) {
       dispatch({ type: 'changeTab', activeTab: program });
-      navigateToForm();
+      navigateToForm(formRef);
     }
 
     return (
