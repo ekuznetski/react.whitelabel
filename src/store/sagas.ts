@@ -9,6 +9,7 @@ import {
   IClientStatusDataResponse,
   ICreateTradingAccountRequest,
   IDocumentsInterfaceResponse,
+  IEddResponse,
   IEditProfileResponse,
   ILoginResponse,
   IPartnershipIBRegistrationResponse,
@@ -278,6 +279,14 @@ export function* updateTinsSaga() {
   yield $$(EActionTypes.register, function* ({ payload }: IAction) {
     const { response }: ITinsResponse = yield call(Request.updateTins, payload);
     yield put(Action.ac_saveTins(new Model.MTins(response.message)));
+    return response;
+  });
+}
+
+export function* submitEddSaga() {
+  yield $$(EActionTypes.register, function* ({ payload }: IAction) {
+    const { response }: IEddResponse = yield call(Request.submitEdd, payload);
+    yield put(Action.ac_saveEdd(new Model.MEdd(response.message)));
     return response;
   });
 }

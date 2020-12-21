@@ -23,8 +23,10 @@ export enum EActionTypes {
   saveTradingAccounts = '[DATA - Client] Save Trading Accounts',
   fetchTransactionalStatements = '[DATA - Client] Fetch Transactional Statements',
   saveTransactionalStatements = '[DATA - Client] Save Transactional Statements',
-  saveTins = '[DATA - Client] Save Tax Identification',
-  updateTins = '[DATA - Client] Update Tax Identification',
+  saveTins = '[DATA - Client] Save Tins',
+  updateTins = '[DATA - Client] Update Tins',
+  saveEdd = '[DATA - Client] Save Edd',
+  submitEdd = '[DATA - Client] Submit Edd',
 
   // DATA - Financial Profile
   submitFinancialProfile = '[DATA - Financial Profile] Submit',

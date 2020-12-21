@@ -21,6 +21,7 @@ export const initDataStore: Nullable<IDataStore> = {
     statements: null,
     documents: null,
     tins: null,
+    edd: null,
   },
   tradingData: null,
   withdrawals: {

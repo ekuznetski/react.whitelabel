@@ -445,6 +445,45 @@
       }
     }
   },
+  "edd": {
+    "submit": {
+      "response": {
+        "status": "success",
+        "message": {
+          "address": "asd",
+          "own_property": "1",
+          "previous_address": "asd",
+          "nature_of_business": "asd",
+          "years_employment": "1",
+          "working_financial": "1",
+          "annual_income": null,
+          "estimated_amount": null,
+          "net_worth": null,
+          "income_currency": null,
+          "appr_annual_income": "Below 50,000",
+          "appr_net_worth": "Below 250,000",
+          "years_address": "1",
+          "employer_name": "asd",
+          "position": "asd",
+          "employer_address": "asd",
+          "appr_income_before_tax": null,
+          "appr_savings": null,
+          "funds_available": "Below 25,000",
+          "other_income": "asd",
+          "employment_status": "Travel Agency",
+          "phone": "1123123123",
+          "pr_employer_name": "asd",
+          "pr_nature_of_business": "asd",
+          "pr_position": "asd",
+          "pr_appr_annual_income": "Below 50,000",
+          "pr_location_employment": "asd",
+          "pr_years_employment": "123",
+          "nationality": "United Arab Emirates"
+        },
+        "messageCode": 54
+      }
+    }
+  },
   "bankaccounts": {
     "getbankdetails": {
       "response": {

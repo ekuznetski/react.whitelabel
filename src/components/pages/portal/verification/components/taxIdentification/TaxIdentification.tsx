@@ -59,7 +59,6 @@ export const TaxIdentification = memo(function TaxIdentification() {
         onSubmit={Submit}
       >
         {({ values }: FormikProps<any>) => {
-          console.log(values);
           return (
             <Form className="tax-identification__form mt-10">
               <Row>
