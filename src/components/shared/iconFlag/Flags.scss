@@ -3,7 +3,7 @@
   position: relative;
   width: 21px;
   height: 15px;
-  background: url('../../../assets/img/flags.png') no-repeat;
+  background: resolve('flags.png') no-repeat;
 }
 
 .flag.flag-AL {
