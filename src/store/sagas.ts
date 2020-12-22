@@ -284,7 +284,7 @@ export function* updateTinsSaga() {
 }
 
 export function* submitEddSaga() {
-  yield $$(EActionTypes.register, function* ({ payload }: IAction) {
+  yield $$(EActionTypes.submitEdd, function* ({ payload }: IAction) {
     const { response }: IEddResponse = yield call(Request.submitEdd, payload);
     yield put(Action.ac_saveEdd(new Model.MEdd(response.message)));
     return response;

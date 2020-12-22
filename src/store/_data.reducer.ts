@@ -61,6 +61,9 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
     case EActionTypes.saveTins:
       return { ...state, client: { ...state.client, tins: action.payload } };
 
+    case EActionTypes.saveEdd:
+      return { ...state, client: { ...state.client, edd: action.payload } };
+
     case EActionTypes.saveTradingAccounts:
       return { ...state, tradingData: action.payload };
 
