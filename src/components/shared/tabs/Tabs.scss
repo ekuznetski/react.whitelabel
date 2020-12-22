@@ -178,6 +178,7 @@
           &.active {
             background: #fff;
             box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+            
 
             &:after {
               background-color: $blue;
@@ -224,7 +225,7 @@
         border-radius: $border-radius 0 0 $border-radius;
 
         &.active {
-          box-shadow: -4px 0 10px 0 rgba(0, 0, 0, 0.05), 5px 0 0 0 #fff;
+          box-shadow: 5px 0 0 0 #fff, -4px 0 10px 0 rgba(0, 0, 0, 0.08);
         }
       }
     }

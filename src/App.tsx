@@ -25,8 +25,9 @@ function App() {
   return (
     <Provider store={store}>
       <Suspense fallback={null}>
-        <Main />
-        {env.PRODUCTION && <IntercomChat />}
+        <IntercomChat>
+          <Main />
+        </IntercomChat>
       </Suspense>
     </Provider>
   );

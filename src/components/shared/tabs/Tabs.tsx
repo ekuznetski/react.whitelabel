@@ -242,7 +242,7 @@ export const TabSubLabel = memo(function TabSubLabel(props: { children: TabData 
 
 export const TabMobileBackButton = memo(function TabSubLabel(props: {
   children: React.ReactElement;
-  onClick: Function;
+  onClick?: Function;
 }) {
   const dispatch = useTabsDispatch();
   const viewportSize = useResponsive();
@@ -259,7 +259,7 @@ export const TabMobileBackButton = memo(function TabSubLabel(props: {
 
   return React.cloneElement(props.children, {
     onClick: () => {
-      props.onClick();
+      props.onClick?.();
       dispatch({ type: 'setMobileDisplay', mobileDisplay: EMobileDisplay.labels });
     },
   });

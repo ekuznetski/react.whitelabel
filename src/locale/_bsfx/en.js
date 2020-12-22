@@ -29,9 +29,9 @@ export default {
   'Main Mobile Trading Section Title': 'Trading <1>on the go</1>',
   'Main Mobile Trading Section Desc':
     '<0>Everything you need to trade in your pocket. Use your smartphone to open and close trading positions, and manage your accounts.</0><1>Download the Metatrader app for your smartphone or tablet and trade wherever you are. Available for Android and iOS.</1>',
-  'Mobile Trading Section Title': '<0>$t(Mobile Trading)</0><1/> $t(With MT4)',
+  'Mobile Trading Section Title': '<0>$t(Mobile Trading)</0><1/> $t(With MT5)',
   'Mobile Trading Section Desc':
-    '<0>Have complete control over your account with our native mobile app; open, close, and manage trading positions from your mobile phone.</0><1>Download MetaTrader 4 for Android/iOS on your smartphone or tablet and trade Forex anytime and anywhere in the world!</1>',
+    '<0>Have complete control over your account with our native mobile app; open, close, and manage trading positions from your mobile phone.</0><1>Download MetaTrader 5 for Android/iOS on your smartphone or tablet and trade Forex anytime and anywhere in the world!</1>',
   'Home Page Top Title': 'Train and trade with BSFX.',
   'Home Page Top Section Desc': 'An online trading experience by FX traders, for FX traders.',
   'With MT4': 'With MT4',
@@ -60,4 +60,7 @@ export default {
     'I have reviewed my answers and responded as accurately as possible.',
   ],
   'You opening account with': 'You are now opening an account with <1>Blue Square FX Limited</1>',
+  'Request Partnership': 'Request <1>Partnership<1>',
+  'Accept Policy': 'I have read and accept the Privacy Policy of Blue Square FX',
+  'Spreads from # pips': 'Spreads from <1>{{val}} pips</1>',
 };

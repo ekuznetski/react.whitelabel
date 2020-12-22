@@ -72,7 +72,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                     <Svg href="shrimp" height="18" className="mr-5" />
                     {t('Read instructions on')}
                     <a
-                      href={files[`downloadMT${platform === ETradingPlatform.mt4 ? 4 : 5}.pdf`]}
+                      href={files[`installInstructions${platform.toUpperCase()}` as keyof typeof files]}
                       className="hovered-underlined ml-2"
                       target="_blank"
                     >

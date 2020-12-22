@@ -417,7 +417,7 @@ export default {
     'Deposit now and <1>receive a 10% bonus</1> up to $5K instantly added to your account',
     'Fund Your Account with <1>$0 Fees</1>',
   ],
-  'Accept Policy': 'I have read and accept the Privacy Policy of {{name}}',
+  'Accept Policy': 'I have read and accept the Privacy Policy of WHITE_LABEL',
   Partnership: 'Partnership',
   Partnerships: 'Partnerships',
   'Custom Made For You': '<0>CUSTOM-MADE</0> FOR YOU',
@@ -434,7 +434,7 @@ export default {
   'Maximize Your Earning Potential': 'Maximize Your Earning Potential',
   'Join Our Partnership Program Today':
     '<0>All our programs are geared up to help you grow your business and maximize your earning potential.</0><1>Join our partnership program today. Let us design your bespoke partnership program so that you can start earning right away.</1>',
-  'Choose Your Program': 'CHOOSE YOUR <1>PROGRAM</1>',
+  'Choose Your Program': 'Choose Your <1>Program</1>',
   Affiliate: 'Affiliate',
   IB: 'IB',
   'White Label': 'White Label',

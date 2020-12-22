@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux';
 import { IntercomProvider, useIntercom } from 'react-use-intercom';
 import { IIntercomChatParams } from './intercomChat.interface';
 
-export const IntercomChat = memo(function IntercomChat() {
-  if (!env.INTERCOM_ID) {
-    return null;
+export const IntercomChat = memo(function IntercomChat(props: { children: React.ReactElement }) {
+  if (!env.PRODUCTION || !env.INTERCOM_ID) {
+    return props.children;
   }
 
   const { clientProfile, locale } = useSelector<IStore, { clientProfile: MClientProfile; locale: string }>((state) => ({
@@ -32,23 +32,24 @@ export const IntercomChat = memo(function IntercomChat() {
         approved: clientProfile.aprv.toString(),
         language: locale,
       }
-    : {language: locale}
+    : { language: locale };
 
   return (
     <IntercomProvider appId={env.INTERCOM_ID}>
+      {props.children}
       <Chat userInfo={userInfo} />
     </IntercomProvider>
   );
 });
 
 export const Chat = memo(function Chat({ userInfo }: IIntercomChatParams) {
-  const { boot, update, shutdown } = useIntercom();
+  const { boot, update, hardShutdown } = useIntercom();
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo?.email) {
       update(userInfo);
     } else {
-      shutdown();
+      hardShutdown();
       boot();
     }
   }, [userInfo?.email]);

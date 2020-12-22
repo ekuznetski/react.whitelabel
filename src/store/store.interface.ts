@@ -13,6 +13,7 @@ export interface IDataStore {
     statements: Model.MTransactionalStatementData;
     documents: Model.MDocument[];
     tins: Model.MTins;
+    edd: Model.MEdd;
   };
   tradingData: Model.MClientTradingData;
   withdrawals: {

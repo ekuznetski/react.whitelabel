@@ -1,7 +1,9 @@
 import { Alert, Button, CountrySelect, Input, Radio, Select, TabMobileBackButton } from '@components/shared';
 import { FieldValidators } from '@domain';
+import { ENotificationType } from '@domain/enums';
+import { IEdd } from '@domain/interfaces';
 import { MClientProfile } from '@domain/models';
-import { EActionTypes, IStore } from '@store';
+import { ac_showNotification, ac_submitEDD, EActionTypes, IStore } from '@store';
 import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo, useEffect } from 'react';
@@ -42,7 +44,7 @@ export const EddForm = memo(function EddForm() {
     nature_of_business: Yup.string().required(),
     position: Yup.string().required(),
     years_employment: Yup.number().required(),
-    working_financial: Yup.boolean().required(),
+    working_financial: Yup.string().required(),
     employer_address: Yup.string().required(),
     phone: Yup.string().required(),
     other_income: Yup.string().required(),
@@ -58,25 +60,38 @@ export const EddForm = memo(function EddForm() {
   });
 
   function Submit(data: FormikValues) {
-    // dispatch(
-    //   ac_editProfile(
-    //     data as IEditProfileRequest,
-    //     () =>
-    //       dispatch(
-    //         ac_showNotification({
-    //           type: ENotificationType.success,
-    //           context: t('The Profile Has Been Updated'),
-    //         }),
-    //       ),
-    //     () =>
-    //       dispatch(
-    //         ac_showNotification({
-    //           type: ENotificationType.failure,
-    //           context: t('Failed To Update Client Profile'),
-    //         }),
-    //       ),
-    //   ),
-    // );
+    const values = { ...data };
+
+    // Convert and prepare data to submit
+    values.nationality = values.nationality.name;
+    if (values.employment_status_ext) {
+      values.employment_status = values.employment_status_ext;
+    }
+
+    // Delete empty fields
+    Object.keys(values).forEach((key) => {
+      if (!values[key]) delete values[key];
+    });
+
+    dispatch(
+      ac_submitEDD(
+        values as IEdd,
+        () =>
+          dispatch(
+            ac_showNotification({
+              type: ENotificationType.success,
+              context: t('The Edd Form Has Been Submitted'),
+            }),
+          ),
+        () =>
+          dispatch(
+            ac_showNotification({
+              type: ENotificationType.failure,
+              context: t('Failed To Submit Edd Form'),
+            }),
+          ),
+      ),
+    );
   }
 
   return (
@@ -88,12 +103,29 @@ export const EddForm = memo(function EddForm() {
       <Formik
         initialValues={Object.assign(
           Object.keys(validationSchema.fields || {}).reduce((acc, key) => Object.assign(acc, { [key]: '' }), {}),
-          { nationality: profile.country },
+          {
+            nationality: profile.country,
+            address: 'asd',
+            appr_annual_income: 'Below 50,000',
+            appr_net_worth: 'Below 250,000',
+            employer_address: 'asd',
+            employer_name: 'ads',
+            employment_status: 'retired',
+            funds_available: 'Below 25,000',
+            nature_of_business: 'asd',
+            other_income: 'asd',
+            own_property: '1',
+            phone: 'asd',
+            position: 'asd',
+            working_financial: '0',
+            years_address: '12',
+            years_employment: '12',
+          },
         )}
         validationSchema={validationSchema}
         onSubmit={Submit}
       >
-        {({ values, submitCount, setFieldValue }: FormikProps<any>) => {
+        {({ values, submitCount, setFieldValue, errors }: FormikProps<any>) => {
           useEffect(() => {
             setFieldValue('employment_status_ext', '');
           }, [values.employment_status]);
@@ -194,7 +226,7 @@ export const EddForm = memo(function EddForm() {
                 <Col xs={12} />
                 <Col xs={12} lg={6}>
                   <Input label={t('Employer’s Address')} name="employer_address" />
-                  <Input label={t('Employer’s Contact No:')} name="employer_contact_no" />
+                  <Input label={t('Employer’s Contact No:')} name="phone" />
                 </Col>
                 <Col xs={12} lg={6}>
                   <Input label={t('Other Income Generating Activities')} name="other_income" />
@@ -261,14 +293,14 @@ export const EddForm = memo(function EddForm() {
                     </Col>
                   </>
                 )}
-                <Col xs={12} className="form-breakline wide mb-8" />
                 <Col xs={12} md={viewportSize.lg ? 12 : 6}>
-                  <Button type="submit" loadingOnAction={EActionTypes.editProfile} checkFormValidity={submitCount > 0}>
+                  <Button type="submit">
+                    {/*   loadingOnAction={EActionTypes.editProfile} checkFormValidity={submitCount > 0}> */}
                     {t('Save')}
                   </Button>
                 </Col>
                 <Col xs={12} md={6} className="d-lg-none">
-                  <TabMobileBackButton onClick={() => console.log(1)}>
+                  <TabMobileBackButton>
                     <Button type="button" isLoading={true} noBg>
                       {t('Back')}
                     </Button>

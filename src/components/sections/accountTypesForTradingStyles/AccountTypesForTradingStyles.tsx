@@ -1,8 +1,9 @@
-import { Card, CardContent, CardHeader, Cards, Svg } from '@components/shared';
+import { Card, CardContent, CardHeader, Cards, LabelView, Svg } from '@components/shared';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import './AccountTypesForTradingStyles.scss';
+import { accountTypePip } from '@domain';
 
 export const AccountTypesForTradingStylesSection = memo(
   forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function AccountTypesForTradingStylesSection(
@@ -32,7 +33,8 @@ export const AccountTypesForTradingStylesSection = memo(
                       {t('Fixed')}
                     </div>
                     <span>
-                      1.8<small>{t('pips')}</small>
+                      {accountTypePip.fixed}
+                      <small>{t('pips')}</small>
                     </span>
                   </CardHeader>
                   <CardContent className="text-left">
@@ -47,7 +49,8 @@ export const AccountTypesForTradingStylesSection = memo(
                       {t('Variable')}
                     </div>
                     <span>
-                      1.2<small>{t('pips')}</small>
+                      {accountTypePip.variable}
+                      <small>{t('pips')}</small>
                     </span>
                   </CardHeader>
                   <CardContent className="text-left">

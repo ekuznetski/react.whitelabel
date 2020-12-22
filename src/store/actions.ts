@@ -5,6 +5,7 @@ import {
   IClientSettingsRequest,
   IContent,
   ICreateTradingAccountRequest,
+  IEdd,
   IEditProfileRequest,
   IGeoIp,
   IInternalTransferRequestData,
@@ -29,6 +30,7 @@ import {
   MTins,
   MTransactionalStatementData,
   MWithdrawalHistoryItem,
+  MEdd,
 } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
@@ -449,6 +451,23 @@ export function ac_partnershipRegisterIB(
 export function ac_fetchStocksPrices(onSuccess: AnyFunction = null, onFailure: AnyFunction = null): IAction {
   return {
     type: EActionTypes.fetchStocksPrices,
+    onSuccess,
+    onFailure,
+  };
+}
+
+
+export function ac_saveEdd(payload: MEdd): IAction {
+  return {
+    type: EActionTypes.saveEdd,
+    payload,
+  };
+}
+
+export function ac_submitEDD(payload: IEdd, onSuccess: AnyFunction = null, onFailure: AnyFunction = null): IAction {
+  return {
+    type: EActionTypes.submitEdd,
+    payload,
     onSuccess,
     onFailure,
   };
