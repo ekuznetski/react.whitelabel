@@ -15,6 +15,7 @@ to run use:
 ## Rules
 
 1. Do never import @domain to any pages
+2. To load media (images) from assets folder in SCSS use resolve('FILE_NAME.ext') instead of url('ASSETS_PATH/FILE_NAME.ext)
 
 ---
 
