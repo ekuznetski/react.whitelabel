@@ -1,4 +1,6 @@
-export const mapStyles = [
+import { MarkerProps } from '@react-google-maps/api';
+
+export const mapStyles: google.maps.MapTypeStyle[] = [
   {
     elementType: 'geometry',
     stylers: [
@@ -163,20 +165,9 @@ export type Coordinates = {
   lat: number;
   lng: number;
 };
-
-export interface IMarker {
-  position: Coordinates;
-  icon?: string;
-  label?: string;
-  zIndex?: number;
-  draggable?: boolean;
-  onDragEnd?: (e: google.maps.MouseEvent) => void;
-  animation?: 1 | 2;
-}
-
 export interface IMap {
   defaultCenter: Coordinates;
-  markers: [IMarker?];
+  markers: [MarkerProps];
   defaultZoom?: number;
   height?: string;
   width?: string;

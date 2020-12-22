@@ -1,3 +1,4 @@
+import { EPartnershipTabs } from '@pages/main/partnerships';
 import i18n from 'i18next';
 
 const t = i18n.getFixedT(i18n.language);
@@ -5,7 +6,7 @@ const t = i18n.getFixedT(i18n.language);
 export const config = {
   programsCards: [
     {
-      id: 'affiliate',
+      id: EPartnershipTabs.affiliate,
       icon: 'affiliate',
       label: t('Affiliate Program'),
       points: [
@@ -16,7 +17,7 @@ export const config = {
       btnText: t('Sign Up'),
     },
     {
-      id: 'ib',
+      id: EPartnershipTabs.ib,
       icon: 'brokers',
       label: t('Introducing Brokers'),
       points: [

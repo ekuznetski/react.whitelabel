@@ -1,8 +1,8 @@
 import { Button, Checkbox, Input, PhoneCodeSelect, TextArea } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { countries, ENotificationType } from '@domain/enums';
+import { ENotificationType, countries } from '@domain/enums';
 import { IPartnershipRegistrationRequest } from '@domain/interfaces';
-import { ac_partnershipRegisterStandard, ac_showNotification, IStore } from '@store';
+import { IStore, ac_partnershipRegisterStandard, ac_showNotification } from '@store';
 import { useLabelName } from '@utils/hooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
@@ -86,9 +86,7 @@ export const AffiliateForm = memo(() => {
                 </div>
                 <TextArea label={t('Message')} name={EFields.message} rows={4} />
                 <Checkbox name={EFields.acceptPolicy} className="mb-10">
-                  <Trans i18nKey="Accept Policy" values={{ name: labelName }}>
-                    I have read and accept the Privacy Policy of {name}
-                  </Trans>
+                  {t('Accept Policy')}
                 </Checkbox>
                 <Button type="submit">{t('Submit')}</Button>
               </Form>
