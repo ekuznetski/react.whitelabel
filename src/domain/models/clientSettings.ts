@@ -58,7 +58,7 @@ export class MClientSettings {
 
     this.allowed_account_types = Array.from(
       (props.allowed_account_types || []).map(
-        (item) => ETradingAccountType[item.toLowerCase() as keyof typeof ETradingAccountType],
+        (item) => ETradingAccountType[item?.toLowerCase() as keyof typeof ETradingAccountType],
       ),
     );
 

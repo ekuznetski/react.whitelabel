@@ -1,4 +1,4 @@
-import { Button, DropDown, IconFlag, LocaleNavLink, Modal, Svg } from '@components/shared';
+import { Button, DropDown, IDropdownItem, IconFlag, LocaleNavLink, Svg } from '@components/shared';
 import { Currencies, EAccountLeverage, ECurrencyCode, ETradingAccountType, ETradingPlatform } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo } from 'react';
@@ -8,10 +8,15 @@ import { useSelector } from 'react-redux';
 import { IStore } from '@store';
 import { MClientSettings } from '@domain/models';
 import { getMetaTraderWebTerminalLink } from '@utils/fn';
+import { AccountSettingsModal } from '@pages/portal/dashboard/components/TradingAccountCards/AccountSettingsModal/AccountSettingsModal';
+import {
+  ETradingAccContextActionTypes,
+  useTradingAccountsDispatch,
+} from '@pages/portal/dashboard/components/TradingAccountCards/trading-accounts.context';
 
 export interface ITradingAccountSingleCard {
   platform: string;
-  type: ETradingAccountType;
+  tradingAccountType: ETradingAccountType;
   balance: number;
   accountId: string;
   leverage: EAccountLeverage;
@@ -20,19 +25,20 @@ export interface ITradingAccountSingleCard {
 }
 
 export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(card: ITradingAccountSingleCard) {
-  const [isDropdownMenuOpen, setDropdownMenuOpen] = React.useState(false);
-  const [isChangePasswordOpen, setChangePasswordOpen] = React.useState(false);
-  const { t } = useTranslation();
-  const navRef = React.createRef<HTMLButtonElement>();
   const { clientSettings } = useSelector<IStore, { clientSettings: MClientSettings }>((state) => ({
     clientSettings: state.data.client.settings,
   }));
-  const accountNavItems: any[] = [
+  const tradingAccountsDispatch = useTradingAccountsDispatch();
+  const [isDropdownMenuOpen, setDropdownMenuOpen] = React.useState(false);
+  const [isOpenAccountSettingsModal, setOpenAccountSettingsModal] = React.useState(false);
+  const navRef = React.createRef<HTMLButtonElement>();
+  const { t } = useTranslation();
+  const accountNavItems: IDropdownItem[] = [
     {
       id: 'launch',
       icon: 'coins',
       target: '_blank',
-      path: getMetaTraderWebTerminalLink({
+      externalLink: getMetaTraderWebTerminalLink({
         version: card.platform == ETradingPlatform.mt4 ? 4 : 5,
         servers: ['BlueSquare-Live'],
         server: 'BlueSquare-Live',
@@ -71,20 +77,27 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
       id: 'settings',
       icon: 'coins',
       title: t('Settings'),
+      onclick: () => setOpenAccountSettingsModal(true),
     });
   }
 
   function toggleDropdownMenu() {
     setDropdownMenuOpen(!isDropdownMenuOpen);
+    tradingAccountsDispatch({ type: ETradingAccContextActionTypes.setCardUnderDropdown, payload: card });
   }
 
   return (
-    <div className={classNames('trading-account-single-card', card.inline ? 'col-12 mb-7 inline' : 'col-4')}>
+    <div
+      className={classNames(
+        'trading-account-single-card',
+        card.inline ? 'col-12 mb-7 inline' : 'col-12 col-lg-4 col-md-6 mb-lg-0 mb-9',
+      )}
+    >
       <div className="trading-account-card-wrapper">
         <div className="account-card__details px-7">
           <div className="account__logo mr-7">{card.platform}</div>
           <div className="account__info">
-            <div className="info-type">{card.type}</div>
+            <div className="info-type">{card.tradingAccountType}</div>
             <div className="info-number">{card.accountId}</div>
           </div>
           <div className="account__currency ml-auto">
@@ -127,9 +140,11 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
           />
         </div>
       </div>
-      <Modal isOpen={isChangePasswordOpen} isOpenDispatcher={setChangePasswordOpen}>
-        test
-      </Modal>
+      <AccountSettingsModal
+        isModalOpen={isOpenAccountSettingsModal}
+        setModalOpen={setOpenAccountSettingsModal}
+        card={card}
+      />
     </div>
   );
 });

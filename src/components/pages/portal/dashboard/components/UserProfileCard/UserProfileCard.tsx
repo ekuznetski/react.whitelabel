@@ -55,6 +55,7 @@ export function UserProfileCard() {
           </Button>
           <DropDown
             parentRef={profileNavRef}
+            position="right"
             items={profileMenuPortalConfig}
             isOpen={isDropdownMenuOpen}
             isOpenDispatcher={setDropdownMenuOpen}

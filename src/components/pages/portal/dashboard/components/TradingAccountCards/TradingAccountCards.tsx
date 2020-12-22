@@ -1,10 +1,12 @@
+import React from 'react';
 import { ETradingType } from '@domain/enums';
 import { IStore } from '@store';
-import React from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useDeviceDetect } from '@utils/hooks';
 import { TradingAccountAddCard } from './AddCard/TradingAccountAddCard';
 import { ITradingAccountSingleCard, TradingAccountSingleCard } from './SingleCard/TradingAccountSingleCard';
+import { TradingAccountsProvider } from './trading-accounts.context';
 import './TradingAccountCards.scss';
 
 export function TradingAccountCards(props: { type: ETradingType[] }) {
@@ -14,7 +16,7 @@ export function TradingAccountCards(props: { type: ETradingType[] }) {
         .filter((account) => props.type.includes(account.type))
         .map((account) => ({
           platform: account.platformName,
-          type: account.accountType,
+          tradingAccountType: account.accountType,
           balance: account.balance,
           accountId: account.accountId,
           leverage: account.leverage,
@@ -22,16 +24,21 @@ export function TradingAccountCards(props: { type: ETradingType[] }) {
         })),
     }),
   );
-  const inlineView = tradingAccountCards.length >= 3;
+  const { isMobile } = useDeviceDetect();
+  const inlineView = tradingAccountCards.length >= 3 && !isMobile;
 
   return (
-    <div className="trading-account-cards">
-      <Row>
-        {tradingAccountCards.map((cardContext, cc) => (
-          <TradingAccountSingleCard key={cc} {...cardContext} inline={inlineView} />
-        ))}
-        {tradingAccountCards.length < 10 && <TradingAccountAddCard type={props.type} inline={inlineView} />}
-      </Row>
-    </div>
+    <TradingAccountsProvider>
+      {() => (
+        <div className="trading-account-cards">
+          <Row>
+            {tradingAccountCards.map((cardContext, cc) => (
+              <TradingAccountSingleCard key={cc} {...cardContext} inline={inlineView} />
+            ))}
+            {tradingAccountCards.length < 10 && <TradingAccountAddCard type={props.type} inline={inlineView} />}
+          </Row>
+        </div>
+      )}
+    </TradingAccountsProvider>
   );
 }
