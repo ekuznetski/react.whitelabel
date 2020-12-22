@@ -329,9 +329,10 @@ export function ac_withdrawFunds(payload: IWithdrawFundRequest, onSuccess: AnyFu
   };
 }
 
-export function ac_fetchClientData(): IAction {
+export function ac_fetchClientData(payload?: { force: true | null }): IAction {
   return {
     type: EActionTypes.fetchClientData,
+    force: payload?.force || null,
   };
 }
 
@@ -455,7 +456,6 @@ export function ac_fetchStocksPrices(onSuccess: AnyFunction = null, onFailure: A
     onFailure,
   };
 }
-
 
 export function ac_saveEdd(payload: MEdd): IAction {
   return {
