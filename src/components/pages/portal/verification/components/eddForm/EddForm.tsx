@@ -93,7 +93,7 @@ export const EddForm = memo(function EddForm() {
         () =>
           dispatch(
             ac_showNotification({
-              type: ENotificationType.failure,
+              type: ENotificationType.danger,
               context: t('Failed To Submit Edd Form'),
             }),
           ),
@@ -130,10 +130,10 @@ export const EddForm = memo(function EddForm() {
           },
         )}
         validationSchema={validationSchema}
-        disabled={clientStatus.fp_status.code === EClientStatusCode.submitted}
+        initialStatus={clientStatus.edd_status.code === EClientStatusCode.submitted && 'disabled'}
         onSubmit={Submit}
       >
-        {({ values, submitCount, setFieldValue, errors }: FormikProps<any>) => {
+        {({ values, setFieldValue }: FormikProps<any>) => {
           useEffect(() => {
             setFieldValue('employment_status_ext', '');
           }, [values.employment_status]);

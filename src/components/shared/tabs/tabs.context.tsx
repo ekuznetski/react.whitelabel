@@ -1,3 +1,4 @@
+import { ENotificationType } from '@domain/enums';
 import React from 'react';
 
 export enum EMobileDisplay {
@@ -17,19 +18,33 @@ type Action = {
     | 'setActive'
     | 'setCustomMobileBackBtn'
     | 'setMobileDisplay';
-  label?: { value: TabData; desc?: TabData; icon?: string };
+  label?: { value: TabData; desc?: TabData; icon?: string; status?: ENotificationType };
   content?: TabData;
   anchor?: TabAnchor;
   disabled?: boolean;
   disabledAll?: boolean;
-  labels?: { value: TabData; desc?: TabData; icon?: string; anchor: number | string; disabled?: boolean }[];
+  labels?: {
+    value: TabData;
+    desc?: TabData;
+    icon?: string;
+    anchor: number | string;
+    disabled?: boolean;
+    status?: ENotificationType;
+  }[];
   contents?: { value: TabData; anchor: number | string }[];
   mobileDisplay?: EMobileDisplay;
   customMobileBackBtn?: boolean;
 };
 type Dispatch = (action: Action) => void;
 type State = {
-  labels: { value: TabData; desc?: TabData; icon?: string; anchor: number | string; disabled?: boolean }[];
+  labels: {
+    value: TabData;
+    desc?: TabData;
+    icon?: string;
+    anchor: number | string;
+    disabled?: boolean;
+    status?: ENotificationType;
+  }[];
   contents: { value: TabData; anchor: number | string }[];
   anchors: TabAnchor[];
   active: TabAnchor;
@@ -42,7 +57,7 @@ type State = {
   customMobileBackBtn: boolean;
 };
 type ActiveTab = {
-  label?: { value: TabData; anchor: number | string; disabled?: boolean };
+  label?: { value: TabData; anchor: number | string; disabled?: boolean; status?: ENotificationType };
   content?: { value: TabData; anchor: number | string };
   anchor: TabAnchor;
 };
@@ -116,7 +131,12 @@ function TabsReducer(state: State, action: Action) {
             value: undefined,
             ...(action.label ? action.label : {}),
             ...(state.tempLabel
-              ? { value: state.tempLabel.value, desc: state.tempSubLabel, icon: state.tempLabel.icon }
+              ? {
+                  value: state.tempLabel.value,
+                  desc: state.tempSubLabel,
+                  icon: state.tempLabel.icon,
+                  status: state.tempLabel.status,
+                }
               : {}),
           },
           anchor: action.anchor,

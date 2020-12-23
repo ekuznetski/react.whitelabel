@@ -1,3 +1,4 @@
+import { ENotificationType } from '@domain/enums';
 import { useDeviceDetect } from '@utils/hooks';
 import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
@@ -29,6 +30,7 @@ export interface ITab {
   children?: React.ReactNode;
   anchor: string | number; // anchor
   className?: string;
+  status?: ENotificationType;
 }
 
 interface TabsState {
@@ -123,6 +125,7 @@ export function Tabs({
                     key={l}
                     className={classNames(
                       'tab__link',
+                      label.status,
                       label.disabled && 'disabled',
                       !disabledAll && activeTabProps?.anchor === label.anchor && 'active',
                       !isVertical && state.labels.length - 1 != l && 'mr-7',
@@ -201,7 +204,7 @@ export const Tab = memo(
         dispatch({
           type: 'add',
           anchor: props.anchor,
-          label: { value: props.label, desc: props.subLabel, icon: props.labelIcon },
+          label: { value: props.label, desc: props.subLabel, icon: props.labelIcon, status: props.status },
           content: props.content,
           disabled: props.disabled,
         });
@@ -225,10 +228,15 @@ export const Tab = memo(
   }),
 );
 
-export const TabLabel = memo(function TabLabel(props: { children: TabData; subTitle?: TabData; icon?: string }) {
+export const TabLabel = memo(function TabLabel(props: {
+  children: TabData;
+  subTitle?: TabData;
+  icon?: string;
+  status?: ENotificationType;
+}) {
   const dispatch = useTabsDispatch();
   useEffect(() => {
-    dispatch({ type: 'addTempLabel', label: { value: props.children, icon: props?.icon } });
+    dispatch({ type: 'addTempLabel', label: { value: props.children, icon: props?.icon, status: props?.status } });
     if (props.subTitle) dispatch({ type: 'addTempSubLabel', label: { value: props.subTitle } });
   }, []);
   return null;

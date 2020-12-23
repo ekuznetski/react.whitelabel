@@ -59,7 +59,7 @@ export const PersonalInfo = memo(
           () =>
             dispatch(
               ac_showNotification({
-                type: ENotificationType.failure,
+                type: ENotificationType.danger,
                 context: t('Failed To Update Client Profile'),
               }),
             ),

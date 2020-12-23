@@ -29,7 +29,7 @@ export function ResetPassword() {
   useEffect(() => {
     if (!token || !username) {
       dispatch(
-        ac_showNotification({ type: ENotificationType.failure, context: 'Token or Username is missed', timeout: null }),
+        ac_showNotification({ type: ENotificationType.danger, context: 'Token or Username is missed', timeout: null }),
       );
     }
   }, []);
@@ -55,7 +55,7 @@ export function ResetPassword() {
         (e) => {
           dispatch(
             ac_showNotification({
-              type: ENotificationType.failure,
+              type: ENotificationType.danger,
               context: `Reset password failure: ${e.data.response.message}`,
               timeout: null,
             }),

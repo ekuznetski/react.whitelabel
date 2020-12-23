@@ -74,7 +74,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
           dispatch(ac_showNotification({ type: ENotificationType.success, context: 'Success' }));
           formikHelpers.resetForm();
         },
-        () => dispatch(ac_showNotification({ type: ENotificationType.failure, context: 'Error' })),
+        () => dispatch(ac_showNotification({ type: ENotificationType.danger, context: 'Error' })),
       ),
     );
   }

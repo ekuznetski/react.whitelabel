@@ -26,7 +26,7 @@ import {
   MClientProfile,
   MClientSettings,
   MClientTradingData,
-  MDocument,
+  MDocuments,
   MTins,
   MTransactionalStatementData,
   MWithdrawalHistoryItem,
@@ -396,7 +396,7 @@ export function ac_fetchDocuments(payload?: { force: true | null }): IAction {
   };
 }
 
-export function ac_saveDocuments(payload: MDocument[]): IAction {
+export function ac_saveDocuments(payload: MDocuments): IAction {
   return {
     type: EActionTypes.saveDocuments,
     payload,

@@ -360,8 +360,7 @@ export function* fetchDocumentsSaga() {
     EActionTypes.fetchDocuments,
     function* () {
       const { response }: IDocumentsInterfaceResponse = yield call(Request.getDocumentsRequest);
-      const data = response.message.map((document) => new Model.MDocument(document));
-      yield put(Action.ac_saveDocuments(data));
+      yield put(Action.ac_saveDocuments(new Model.MDocuments(response.message)));
       return response;
     },
     'data.client.documents',

@@ -43,21 +43,22 @@ export enum ETaskStatusCode {
 
 export enum ENotificationType {
   info = 'info',
+  warning = 'warning',
   success = 'success',
-  failure = 'failure',
+  danger = 'danger',
 }
 
 export enum EClientStatus {
   notSubmitted = 'Not submitted',
   submitted = 'Submitted',
-  notRequested = 'Not requested',
+  notRequested = 'Not Requested',
   required = 'Required',
-  notApplicable = 'Not applicable',
+  notApplicable = 'Not Applicable',
   clientApproved = 'The Client is Approved',
   clientEddRequired = 'The Client is EDD Required',
   clientLiquidOnly = 'The Client is Liquidation Only',
   liquidOnlyEdd = 'Liquidation Only - EDD',
-  onReview = 'Under review',
+  onReview = 'Under Review',
   approved = 'Approved',
   rejected = 'Rejected',
   notRequired = 'Not Required',
@@ -82,3 +83,21 @@ export enum EClientStatusCode {
   pending = 14,
   dormant = 15,
 }
+
+export const ClientStatusCodeNotificationType = Object.freeze({
+  [EClientStatusCode.notSubmitted]: ENotificationType.danger,
+  [EClientStatusCode.submitted]: ENotificationType.success,
+  [EClientStatusCode.notRequested]: ENotificationType.info,
+  [EClientStatusCode.required]: ENotificationType.danger,
+  [EClientStatusCode.notApplicable]: ENotificationType.warning,
+  [EClientStatusCode.clientApproved]: ENotificationType.success,
+  [EClientStatusCode.clientEddRequired]: ENotificationType.danger,
+  [EClientStatusCode.clientLiquidOnly]: ENotificationType.warning,
+  [EClientStatusCode.liquidOnlyEdd]: ENotificationType.warning,
+  [EClientStatusCode.onReview]: ENotificationType.warning,
+  [EClientStatusCode.approved]: ENotificationType.success,
+  [EClientStatusCode.rejected]: ENotificationType.danger,
+  [EClientStatusCode.notRequired]: ENotificationType.info,
+  [EClientStatusCode.pending]: ENotificationType.warning,
+  [EClientStatusCode.dormant]: ENotificationType.warning,
+});

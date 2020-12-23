@@ -11,7 +11,7 @@ export interface IDataStore {
     status: Model.MClientStatus;
     settings: Model.MClientSettings;
     statements: Model.MTransactionalStatementData;
-    documents: Model.MDocument[];
+    documents: Model.MDocuments;
     tins: Model.MTins;
     edd: Model.MEdd;
   };

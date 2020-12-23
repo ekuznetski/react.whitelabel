@@ -1,6 +1,6 @@
 import { MultipleUpload, UploadDocumentCard, UploadFile, UploadWrapper } from '@components/shared';
 import { EDocumentsType } from '@domain/enums';
-import { MDocument } from '@domain/models';
+import { MDocuments } from '@domain/models';
 import { IStore } from '@store';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import './CreditCardVerification.scss';
 
 export const CreditCardVerification = memo(function CreditCardVerification() {
-  const { documents } = useSelector<IStore, { documents: MDocument[] }>((state) => ({
+  const { documents } = useSelector<IStore, { documents: MDocuments[] }>((state) => ({
     documents: state.data.client.documents,
   }));
   const { t } = useTranslation();

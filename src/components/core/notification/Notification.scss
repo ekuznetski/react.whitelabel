@@ -36,7 +36,7 @@
     }
   }
 
-  &.failure {
+  &.danger {
     background: linear-gradient(0, rgba($red, 0.4), rgba($red, 0.4)), linear-gradient(0, #fff, #fff);
     color: $red;
 
