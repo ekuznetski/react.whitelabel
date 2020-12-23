@@ -15,10 +15,12 @@ import { config } from './';
 import './EddForm.scss';
 
 export const EddForm = memo(function EddForm() {
-  const { profile, clientStatus } = useSelector<IStore, { profile: MClientProfile }>((state) => ({
-    profile: state.data.client.profile,
-    clientStatus: state.data.client.status,
-  }));
+  const { profile, clientStatus } = useSelector<IStore, { profile: MClientProfile; clientStatus: MClientStatus }>(
+    (state) => ({
+      profile: state.data.client.profile,
+      clientStatus: state.data.client.status,
+    }),
+  );
   const viewportSize = useResponsive();
   const dispatch = useDispatch();
   const { t } = useTranslation();
