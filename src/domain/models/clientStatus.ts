@@ -16,7 +16,6 @@ export class MClientStatus {
     | _statusPair<'clientLiquidOnly'>
     | _statusPair<'liquidOnlyEdd'>
   edd_status: AddInfoFormStatus;
-  mifid_status: AddInfoFormStatus;
   tins_status: AddInfoFormStatus;
   dual_status: AddInfoFormStatus;
 
@@ -26,7 +25,6 @@ export class MClientStatus {
     this.client_status = props.client_status;
     this.cayman_status = props.cayman_status;
     this.edd_status = props.edd_status;
-    this.mifid_status = props.mifid_status;
     this.tins_status = props.tins_status;
     this.dual_status = props.dual_status;
   }

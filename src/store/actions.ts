@@ -154,7 +154,7 @@ export function ac_register(
 }
 
 export function ac_preRegister(
-  payload: { clientData: IClientAddRequest },
+  payload: { clientStatus: IClientAddRequest },
   onSuccess: AnyFunction,
   onFailure: AnyFunction,
 ): IAction {

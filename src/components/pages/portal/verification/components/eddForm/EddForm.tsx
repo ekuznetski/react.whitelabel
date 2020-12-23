@@ -15,8 +15,9 @@ import { config } from './';
 import './EddForm.scss';
 
 export const EddForm = memo(function EddForm() {
-  const { profile } = useSelector<IStore, { profile: MClientProfile }>((state) => ({
+  const { profile, clientStatus } = useSelector<IStore, { profile: MClientProfile }>((state) => ({
     profile: state.data.client.profile,
+    clientStatus: state.data.client.status,
   }));
   const viewportSize = useResponsive();
   const dispatch = useDispatch();
@@ -62,6 +63,8 @@ export const EddForm = memo(function EddForm() {
   function Submit(data: FormikValues) {
     const values = { ...data };
 
+    // TODO: Move the data conversion to RouterAdapter
+
     // Convert and prepare data to submit
     values.nationality = values.nationality.name;
     if (values.employment_status_ext) {
@@ -72,6 +75,8 @@ export const EddForm = memo(function EddForm() {
     Object.keys(values).forEach((key) => {
       if (!values[key]) delete values[key];
     });
+
+    // TODO end
 
     dispatch(
       ac_submitEDD(
@@ -123,6 +128,7 @@ export const EddForm = memo(function EddForm() {
           },
         )}
         validationSchema={validationSchema}
+        disabled={clientStatus.fp_status.code === EClientStatusCode.submitted}
         onSubmit={Submit}
       >
         {({ values, submitCount, setFieldValue, errors }: FormikProps<any>) => {

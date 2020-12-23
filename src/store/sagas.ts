@@ -272,7 +272,7 @@ export function* getClientStatusDataSaga() {
       yield put(Action.ac_saveEdd(new Model.MEdd(response.edd_data))); // remove when API clients/edd will been added 
       return response;
     },
-    'data.client.statusData',
+    'data.client.status',
   );
 }
 

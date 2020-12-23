@@ -1,5 +1,5 @@
 export * from './accounts';
-export * from './clientData';
+export * from './clientStatus';
 export * from './clientSettings';
 export * from './withdrawals';
 export * from './statements';

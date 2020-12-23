@@ -1,6 +1,6 @@
-import { IBaseResponse } from '../general.interface';
-import { _statusPair, ITins, IDocument, IMifidData, IEdd } from '..';
 import { EResponseStatus } from '@domain/enums';
+import { IDocument, IEdd, ITins, _statusPair } from '..';
+import { IBaseResponse } from '../general.interface';
 
 export type AddInfoFormStatus =
   | _statusPair<'notApplicable'>
@@ -32,21 +32,6 @@ export interface IClientData {
   document_data?: IDocument[] & _updatedData<IDocument[]>;
   edd_data: IEdd & _updatedData<IEdd>;
   tins_data: ITins & _updatedData<ITins>;
-  dual_data: IDualNationalityData;
-}
-
-export type ITinsDataSubmit = { tins: { country: string; tax_number: string }[]; reason: string };
-export type IDocumentsSubmit = { blob: File; type: string }[];
-
-export type IDualNationalityData = {
-  choice?: string;
-  nationality?: string;
-  dual_nationality?: string;
-};
-
-export interface IClientDataSubmit {
-  document_data?: IDocumentsSubmit;
-  tins_data: ITinsDataSubmit;
 }
 
 export type IClientStatusDataResponse = {

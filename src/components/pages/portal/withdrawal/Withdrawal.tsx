@@ -23,16 +23,22 @@ interface WithdrawalStoreProps {
   withdrawalHistoryItems: MWithdrawalHistoryItem[];
   withdrawalLimit: number;
   withdrawalLimitIsLoading: boolean;
-  clientData: MClientStatus;
+  clientStatus: MClientStatus;
 }
 
 export const Withdrawal = memo(function Withdrawal() {
-  const store = useSelector<IStore, WithdrawalStoreProps>((state) => ({
+  const {
+    tradingAccounts,
+    withdrawalHistoryItems,
+    withdrawalLimit,
+    withdrawalLimitIsLoading,
+    clientStatus,
+  } = useSelector<IStore, WithdrawalStoreProps>((state) => ({
     tradingAccounts: state.data.tradingData?.accounts || [],
     withdrawalHistoryItems: state.data.withdrawals.history || [],
     withdrawalLimit: state.data.withdrawals.limit,
     withdrawalLimitIsLoading: state.app.requests.activeList.includes(EActionTypes.fetchWithdrawLimit),
-    clientData: state.data.client.statusData,
+    clientStatus: state.data.client.status,
   }));
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -59,7 +65,7 @@ export const Withdrawal = memo(function Withdrawal() {
         .test('max', '', function (value) {
           const { path, parent, createError } = this;
           const { account }: { account: MTradingAccount } = parent;
-          const limit = Math.min(store.withdrawalLimit, account.balance);
+          const limit = Math.min(withdrawalLimit, account.balance);
           if (value && value > limit) {
             return createError({
               path,
@@ -107,12 +113,12 @@ export const Withdrawal = memo(function Withdrawal() {
           </Col>
         </Row>
         <Row className="justify-content-center">
-          {store.clientData?.isNotApprovedAndNotDormant && (
+          {clientStatus?.isNotApprovedAndNotDormant && (
             <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
               {t('You cannot transfer at the moment')}
             </Alert>
           )}
-          {store.clientData?.isDormant && locale.isDormantAlert && (
+          {clientStatus?.isDormant && locale.isDormantAlert && (
             <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
               {locale.isDormantAlert}
             </Alert>
@@ -122,7 +128,7 @@ export const Withdrawal = memo(function Withdrawal() {
           <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
             <Formik
               initialStatus={
-                store.tradingAccounts?.length === 0 || !store.clientData.isApproved || store.clientData.isDormant
+                tradingAccounts?.length === 0 || !clientStatus.isApproved || clientStatus.isDormant
                   ? EFormStatus.disabled
                   : null
               }
@@ -139,7 +145,7 @@ export const Withdrawal = memo(function Withdrawal() {
                   <Form className="withdrawal__form">
                     <TradingAccountsSelect
                       placeholder={t('Trading Account')}
-                      options={store.tradingAccounts}
+                      options={tradingAccounts}
                       name={EFields.account}
                       onChange={(account: MTradingAccount) => {
                         setFieldValue(EFields.amount, '');
@@ -151,8 +157,8 @@ export const Withdrawal = memo(function Withdrawal() {
                     <Input
                       label={t('Trading Amount')}
                       name={EFields.amount}
-                      disabled={!values.account || store.withdrawalLimitIsLoading}
-                      isLoading={store.withdrawalLimitIsLoading}
+                      disabled={!values.account || withdrawalLimitIsLoading}
+                      isLoading={withdrawalLimitIsLoading}
                       forceShowError={values.amount > 0}
                     />
                     <Button type="submit" loadingOnAction={EActionTypes.withdrawFunds}>
@@ -164,8 +170,8 @@ export const Withdrawal = memo(function Withdrawal() {
             </Formik>
           </Col>
         </Row>
-        {store.withdrawalHistoryItems?.length ? (
-          <WithdrawalHistorySection items={store.withdrawalHistoryItems} />
+        {withdrawalHistoryItems?.length ? (
+          <WithdrawalHistorySection items={withdrawalHistoryItems} />
         ) : null}
       </Container>
     </div>

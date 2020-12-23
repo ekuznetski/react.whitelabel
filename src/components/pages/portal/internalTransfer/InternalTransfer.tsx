@@ -20,13 +20,13 @@ enum EFields {
 
 interface InternalTransferStoreProps {
   tradingAccounts: MTradingAccount[];
-  clientData: MClientStatus;
+  clientStatus: MClientStatus;
 }
 
 export const InternalTransfer = memo(function InternalTransfer() {
-  const store = useSelector<IStore, InternalTransferStoreProps>((state) => ({
+  const { tradingAccounts, clientStatus } = useSelector<IStore, InternalTransferStoreProps>((state) => ({
     tradingAccounts: state.data.tradingData.accounts.filter((account) => account.type === ETradingType.live),
-    clientData: state.data.client.statusData,
+    clientStatus: state.data.client.status,
   }));
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -87,7 +87,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        {store.tradingAccounts?.length <= 1 && (
+        {tradingAccounts?.length <= 1 && (
           <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
             {t('Two live accounts required')}
           </Alert>
@@ -97,7 +97,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
         <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
           <Formik
             initialStatus={
-              store.tradingAccounts?.length <= 1 || !store.clientData.isApproved // Client should have a least two trading accounts
+              tradingAccounts?.length <= 1 || !clientStatus.isApproved // Client should have a least two trading accounts
                 ? EFormStatus.disabled
                 : null
             }
@@ -115,12 +115,12 @@ export const InternalTransfer = memo(function InternalTransfer() {
                 <Form className="internal-transfer__form">
                   <TradingAccountsSelect
                     placeholder={t('Account From')}
-                    options={store.tradingAccounts}
+                    options={tradingAccounts}
                     name={EFields.accountFrom}
                   />
                   <TradingAccountsSelect
                     placeholder={t('Account To')}
-                    options={store.tradingAccounts.filter(
+                    options={tradingAccounts.filter(
                       (account) =>
                         account.currency === values?.accountFrom?.currency &&
                         account.accountId !== values?.accountFrom?.accountId,

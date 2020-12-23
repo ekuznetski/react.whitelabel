@@ -15,15 +15,15 @@ enum EAddInfoTabs {
 }
 
 export const AdditionalInformation = memo(function AdditionalInformation() {
-  const { statusData } = useSelector<IStore, { statusData: MClientStatus }>((state) => ({
-    statusData: state.data.client.statusData,
+  const { clientStatus } = useSelector<IStore, { clientStatus: MClientStatus }>((state) => ({
+    clientStatus: state.data.client.status,
   }));
   const { t } = useTranslation();
 
   const initialActiveTab =
-    (EClientStatusCode.required === statusData.edd_status.code && EAddInfoTabs.edd) ||
-    (EClientStatusCode.required === statusData.tins_status.code && EAddInfoTabs.tins) ||
-    // EClientStatusCode.required === statusData.card.code && EAddInfoTabs.eddForm ||
+    (EClientStatusCode.required === clientStatus.edd_status.code && EAddInfoTabs.edd) ||
+    (EClientStatusCode.required === clientStatus.tins_status.code && EAddInfoTabs.tins) ||
+    // EClientStatusCode.required === clientStatus.card.code && EAddInfoTabs.eddForm ||
     EAddInfoTabs.edd;
 
   return (
