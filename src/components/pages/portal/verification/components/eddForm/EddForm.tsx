@@ -1,9 +1,9 @@
 import { Alert, Button, CountrySelect, Input, Radio, Select, TabMobileBackButton } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ENotificationType } from '@domain/enums';
+import { EClientStatusCode, ENotificationType } from '@domain/enums';
 import { IEdd } from '@domain/interfaces';
-import { MClientProfile } from '@domain/models';
-import { ac_showNotification, ac_submitEDD, EActionTypes, IStore } from '@store';
+import { MClientProfile, MClientStatus } from '@domain/models';
+import { ac_showNotification, ac_submitEDD, IStore } from '@store';
 import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo, useEffect } from 'react';
