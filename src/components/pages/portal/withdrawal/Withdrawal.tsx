@@ -2,7 +2,7 @@ import { Alert, Button, Input, PageTitle, TradingAccountsSelect } from '@compone
 import { FieldValidators } from '@domain';
 import { EFormStatus, ENotificationType } from '@domain/enums';
 import { MClientStatus, MTradingAccount, MWithdrawalHistoryItem } from '@domain/models';
-import { ac_fetchWithdrawLimit, ac_showNotification, ac_withdrawFunds, EActionTypes, IStore } from '@store';
+import { EActionTypes, IStore, ac_fetchWithdrawLimit, ac_showNotification, ac_withdrawFunds } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -87,7 +87,7 @@ export const Withdrawal = memo(function Withdrawal() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: t('Your Withdraw Request Added Successfully'),
+              innerText: t('Your Withdraw Request Added Successfully'),
             }),
           ),
       ),

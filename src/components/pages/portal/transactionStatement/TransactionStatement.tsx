@@ -1,6 +1,6 @@
 import { Button, DatePicker, MultiSelect, PageTitle, Select, Svg, Tab, Tabs } from '@components/shared';
 import { ENotificationType } from '@domain/enums';
-import { ac_fetchTransactionalStatements, ac_showNotification, IDataStore, IStore } from '@store';
+import { IDataStore, IStore, ac_fetchTransactionalStatements, ac_showNotification } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
 import React, { memo } from 'react';
@@ -67,11 +67,11 @@ export const TransactionStatement = memo(function TransactionStatement() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: t('Requested statements are successfully loaded'),
+              innerText: t('Requested statements are successfully loaded'),
             }),
           );
         },
-        () => dispatch(ac_showNotification({ type: ENotificationType.failure, context: 'Error' })),
+        () => dispatch(ac_showNotification({ type: ENotificationType.failure, innerText: 'Error' })),
       ),
     );
   }

@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { ENotificationType } from '@domain/enums';
 import { IEdd } from '@domain/interfaces';
 import { MClientProfile } from '@domain/models';
-import { ac_showNotification, ac_submitEDD, EActionTypes, IStore } from '@store';
+import { EActionTypes, IStore, ac_showNotification, ac_submitEdd } from '@store';
 import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo, useEffect } from 'react';
@@ -74,20 +74,20 @@ export const EddForm = memo(function EddForm() {
     });
 
     dispatch(
-      ac_submitEDD(
+      ac_submitEdd(
         values as IEdd,
         () =>
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: t('The Edd Form Has Been Submitted'),
+              innerText: t('The Edd Form Has Been Submitted'),
             }),
           ),
         () =>
           dispatch(
             ac_showNotification({
               type: ENotificationType.failure,
-              context: t('Failed To Submit Edd Form'),
+              innerText: t('Failed To Submit Edd Form'),
             }),
           ),
       ),

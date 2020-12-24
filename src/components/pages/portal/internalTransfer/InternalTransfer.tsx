@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { EFormStatus, ENotificationType, ETradingType } from '@domain/enums';
 import { IInternalTransferRequestData } from '@domain/interfaces';
 import { MClientStatus, MTradingAccount } from '@domain/models';
-import { ac_makeInternalTransfer, ac_showNotification, IStore } from '@store';
+import { IStore, ac_makeInternalTransfer, ac_showNotification } from '@store';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -71,10 +71,10 @@ export const InternalTransfer = memo(function InternalTransfer() {
       ac_makeInternalTransfer(
         _data,
         () => {
-          dispatch(ac_showNotification({ type: ENotificationType.success, context: 'Success' }));
+          dispatch(ac_showNotification({ type: ENotificationType.success, innerText: 'Success' }));
           formikHelpers.resetForm();
         },
-        () => dispatch(ac_showNotification({ type: ENotificationType.failure, context: 'Error' })),
+        () => dispatch(ac_showNotification({ type: ENotificationType.failure, innerText: 'Error' })),
       ),
     );
   }
