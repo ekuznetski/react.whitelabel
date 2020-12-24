@@ -1,7 +1,7 @@
 import { Button, LocaleLink, Svg } from '@components/shared';
 import { EAppSection, ELabels } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
-import { getAppSectionMenu } from '@utils/fn';
+import { getAppSectionMenu } from '@utils/fn/getAppSectionMenu';
 import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';

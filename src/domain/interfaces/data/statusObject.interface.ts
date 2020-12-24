@@ -1,10 +1,10 @@
-import { ClientStatusCodeNotificationType, EClientStatus, EClientStatusCode, ENotificationType } from '@domain/enums';
+import { EClientStatus, EClientStatusCode, ENotificationType } from '@domain/enums';
 
-export const ClientStatusPair = (status: keyof typeof EClientStatus) => ({
-  code: EClientStatusCode[status],
-  message: EClientStatus[status],
-  notificationType: ClientStatusCodeNotificationType[EClientStatusCode[status]],
-});
+export type TClientStatus = {
+  code: EClientStatusCode | null;
+  message: string | null;
+  notificationType: ENotificationType | null;
+};
 
 export type _statusPair<T extends keyof typeof EClientStatus> = {
   code: typeof EClientStatusCode[T];

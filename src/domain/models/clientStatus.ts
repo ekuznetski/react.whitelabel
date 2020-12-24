@@ -1,50 +1,24 @@
-import { EClientStatusCode, ClientStatusCodeNotificationType } from '@domain/enums';
-import { AddInfoFormStatus, IClientStatusData, _statusPair } from '@domain/interfaces';
+import { EClientStatusCode } from '@domain/enums';
+import { IClientStatus, TClientStatus } from '@domain/interfaces';
+import { generateStatus } from '@utils/fn/generateStatus';
 
 export class MClientStatus {
-  fp_status: _statusPair<'submitted'> | _statusPair<'required'>;
-  document_status: _statusPair<'submitted'> | _statusPair<'required'>;
-  client_status:
-    | _statusPair<'clientApproved'>
-    | _statusPair<'clientEddRequired'>
-    | _statusPair<'clientLiquidOnly'>
-    | _statusPair<'liquidOnlyEdd'>
-    | _statusPair<'onReview'>
-    | _statusPair<'dormant'>;
-  cayman_status: _statusPair<'onReview'> | _statusPair<'clientLiquidOnly'> | _statusPair<'liquidOnlyEdd'>;
-  edd_status: AddInfoFormStatus;
-  tins_status: AddInfoFormStatus;
-  dual_status: AddInfoFormStatus;
+  fp_status: TClientStatus;
+  document_status: TClientStatus;
+  client_status: TClientStatus;
+  cayman_status: TClientStatus;
+  edd_status: TClientStatus;
+  tins_status: TClientStatus;
+  dual_status: TClientStatus;
 
-  constructor(props: IClientStatusData) {
-    this.fp_status = {
-      ...props.fp_status,
-      notificationType: ClientStatusCodeNotificationType[props.fp_status.code],
-    };
-    this.document_status = {
-      ...props.document_status,
-      notificationType: ClientStatusCodeNotificationType[props.document_status.code],
-    };
-    this.client_status = {
-      ...props.client_status,
-      notificationType: ClientStatusCodeNotificationType[props.client_status.code],
-    };
-    this.cayman_status = {
-      ...props.cayman_status,
-      notificationType: ClientStatusCodeNotificationType[props.cayman_status.code],
-    };
-    this.edd_status = {
-      ...props.edd_status,
-      notificationType: ClientStatusCodeNotificationType[props.edd_status.code],
-    };
-    this.tins_status = {
-      ...props.tins_status,
-      notificationType: ClientStatusCodeNotificationType[props.tins_status.code],
-    };
-    this.dual_status = {
-      ...props.dual_status,
-      notificationType: ClientStatusCodeNotificationType[props.dual_status.code],
-    };
+  constructor(props: IClientStatus) {
+    this.fp_status = generateStatus(props.fp_status.message);
+    this.document_status = generateStatus(props.document_status.message);
+    this.client_status = generateStatus(props.client_status.message);
+    this.cayman_status = generateStatus(props.cayman_status.message);
+    this.edd_status = generateStatus(props.edd_status.message);
+    this.tins_status = generateStatus(props.tins_status.message);
+    this.dual_status = generateStatus(props.dual_status.message);
   }
 
   get isApproved(): boolean {

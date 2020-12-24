@@ -49,21 +49,21 @@ export enum ENotificationType {
 }
 
 export enum EClientStatus {
-  notSubmitted = 'Not submitted',
-  submitted = 'Submitted',
-  notRequested = 'Not Requested',
-  required = 'Required',
-  notApplicable = 'Not Applicable',
-  clientApproved = 'The Client is Approved',
-  clientEddRequired = 'The Client is EDD Required',
-  clientLiquidOnly = 'The Client is Liquidation Only',
-  liquidOnlyEdd = 'Liquidation Only - EDD',
-  onReview = 'Under Review',
-  approved = 'Approved',
-  rejected = 'Rejected',
-  notRequired = 'Not Required',
-  pending = 'Pending',
-  dormant = 'The Client is Dormant',
+  notSubmitted = 'notSubmitted',
+  submitted = 'submitted',
+  notRequested = 'notRequested',
+  required = 'required',
+  notApplicable = 'notApplicable',
+  clientApproved = 'clientApproved',
+  clientEddRequired = 'clientEddRequired',
+  clientLiquidOnly = 'clientLiquidOnly',
+  liquidOnlyEdd = 'liquidOnlyEdd',
+  onReview = 'onReview',
+  approved = 'approved',
+  rejected = 'rejected',
+  notRequired = 'notRequired',
+  pending = 'pending',
+  dormant = 'dormant',
 }
 
 export enum EClientStatusCode {

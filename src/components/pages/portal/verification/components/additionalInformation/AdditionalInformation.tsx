@@ -2,7 +2,6 @@ import { Tab, Tabs } from '@components/shared';
 import { EClientStatusCode, EDocumentsType } from '@domain/enums';
 import { MClientStatus, MDocuments } from '@domain/models';
 import { IStore } from '@store';
-import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -29,7 +28,7 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
     (EClientStatusCode.required === clientStatus.tins_status.code && EAddInfoTabs.tins) ||
     // EClientStatusCode.required === clientStatus.card.code && EAddInfoTabs.card ||
     EAddInfoTabs.edd;
-  console.log(clientStatus.edd_status);
+
   return (
     <div className="additional-information">
       <Tabs className="client-additional-information__tabs" isVertical={true} activeTab={initialActiveTab}>

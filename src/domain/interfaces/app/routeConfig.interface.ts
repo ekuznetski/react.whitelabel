@@ -1,7 +1,7 @@
 import { EAppSection } from '@domain/enums';
-import { RedirectProps, RouteProps } from 'react-router-dom';
 import { IAction } from '@store';
 import { Path } from 'history';
+import { RouteProps } from 'react-router-dom';
 
 export interface IRouteNavConfig {
   meta: {
