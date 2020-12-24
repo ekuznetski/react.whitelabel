@@ -74,7 +74,12 @@
   .start-new {
     color: $text;
   }
-  .modal-content__nav {
+  img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+  }
+  .modal-content__footer {
     flex-direction: column;
     max-width: 280px;
   }

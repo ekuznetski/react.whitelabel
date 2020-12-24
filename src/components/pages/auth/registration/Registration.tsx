@@ -1,12 +1,14 @@
-import { Button, Img, Modal, ModalContext, ModalNav, ModalTitle, PageTitle } from '@components/shared';
+import { Button, Img, PageTitle } from '@components/shared';
 import { ENotificationType, ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
 import {
   EActionTypes,
   ac_fetchClientSettings,
+  ac_hideModal,
   ac_login,
   ac_preRegister,
   ac_register,
+  ac_showModal,
   ac_showNotification,
 } from '@store';
 import classNames from 'classnames';
@@ -16,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
 import './Registration.scss';
+import { ModalBody, ModalFooter, ModalTitle } from '@components/core';
 
 function getLocalStorageRegData() {
   if (!localStorage) return null;
@@ -61,7 +64,6 @@ export function Registration() {
   const [name, setName] = useState<string>('XXXX');
   const [formData, setFormData] = useState<IRegData>();
   const [activeStep, setActiveStep] = useState<ERegSteps>(ERegSteps.step1);
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [continueReg, setContinueReg] = useState<boolean | null>(null);
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -69,7 +71,7 @@ export function Registration() {
 
   useEffect(() => {
     if (!!regData) {
-      setModalOpen(true);
+      dispatch(ac_showModal(<Modal />, 'continue-registration-modal'));
     }
   }, []);
 
@@ -94,7 +96,7 @@ export function Registration() {
           () =>
             ac_showNotification({
               type: ENotificationType.failure,
-              context: 'Settings not loaded',
+              innerText: 'Settings not loaded',
             }),
         ),
       );
@@ -104,6 +106,42 @@ export function Registration() {
       localStorage.removeItem('regData');
     }
   }, [continueReg]);
+
+  function Modal() {
+    return (
+      <>
+        <ModalTitle title={t('Do you want to continue registration')} />
+        <ModalBody className="my-10">
+          <Img src="live-account-bg.png" />
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setContinueReg(true);
+              dispatch(ac_hideModal);
+            }}
+            loadingOnAction={[EActionTypes.fetchClientSettings]}
+          >
+            {t('Yes continue')}
+          </Button>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setContinueReg(false);
+              dispatch(ac_hideModal());
+            }}
+            className="mt-4 start-new"
+          >
+            {t('No start new')}
+          </a>
+        </ModalFooter>
+      </>
+    );
+  }
 
   async function onSubmitFn(data: any) {
     setFormData({ ...formData, ...data });
@@ -116,7 +154,7 @@ export function Registration() {
             () =>
               ac_showNotification({
                 type: ENotificationType.failure,
-                context: 'Registration unsuccessful',
+                innerText: 'Registration unsuccessful',
               }),
           ),
         );
@@ -153,7 +191,7 @@ export function Registration() {
               dispatch(
                 ac_showNotification({
                   type: ENotificationType.failure,
-                  context: 'Registration unsuccessful',
+                  innerText: 'Registration unsuccessful',
                 }),
               );
             },
@@ -169,7 +207,6 @@ export function Registration() {
       setActiveStep(activeStep + 1);
     }
   }
-
   return (
     <div className="registration mb-15">
       <Container>
@@ -199,37 +236,6 @@ export function Registration() {
           </Col>
         </Row>
       </Container>
-
-      <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen} className="continue-registration-modal">
-        <ModalTitle title={t('Do you want to continue registration')} />
-        <ModalContext className="my-10">
-          <Img src="live-account-bg.png" height="200" />
-        </ModalContext>
-        <ModalNav>
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              setContinueReg(true);
-              setModalOpen(false);
-            }}
-            loadingOnAction={[EActionTypes.fetchClientSettings]}
-          >
-            {t('Yes continue')}
-          </Button>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setContinueReg(false);
-              setModalOpen(false);
-            }}
-            className="mt-4 start-new"
-          >
-            {t('No start new')}
-          </a>
-        </ModalNav>
-      </Modal>
     </div>
   );
 }

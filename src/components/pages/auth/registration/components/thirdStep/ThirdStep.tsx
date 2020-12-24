@@ -1,13 +1,6 @@
 import { Button, CurrencySelect, Radio, Select } from '@components/shared';
-import { FieldValidators } from '@domain';
-import {
-  Currencies,
-  EAccountLeverage,
-  ECurrencyCode,
-  ERegSteps,
-  ETradingAccountType,
-  ETradingPlatform,
-} from '@domain/enums';
+import { FieldValidators, accountTypePip } from '@domain';
+import { ECurrencyCode, ERegSteps, ETradingAccountType } from '@domain/enums';
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
@@ -17,6 +10,7 @@ import './ThirdStep.scss';
 import { useSelector } from 'react-redux';
 import { IStore } from '@store';
 import { MClientSettings } from '@domain/models';
+import classNames from 'classnames';
 
 enum EFields {
   'firstdeposit_platform' = 'firstdeposit_platform',
@@ -39,51 +33,34 @@ export function ThirdStep({ submitFn }: any) {
   });
   const tradingAccounts = [
     {
-      key: ETradingAccountType.fixed,
       label: (
         <>
           <div className="name">{t('Fixed')}</div>
           <div className="spread">
             {t('Fixed Spreads')}
             <br />
-            {t('From #', { val: '1.8' })}
+            {t('From #', { val: accountTypePip.fixed })}
           </div>
           <div className="commission">{t('No commission')}</div>
         </>
       ),
-      value: t('Fixed'),
+      value: ETradingAccountType.fixed,
     },
     {
-      key: ETradingAccountType.classic,
       label: (
         <>
-          <div className="name">{t('Classic')}</div>
+          <div className="name">{t('Variable')}</div>
           <div className="spread">
             {t('Floating Spreads')}
             <br />
-            {t('From #', { val: '1.2' })}
+            {t('From #', { val: accountTypePip.variable })}
           </div>
           <div className="commission">{t('No commission')}</div>
         </>
       ),
-      value: t('Classic'),
+      value: ETradingAccountType.variable,
     },
-    {
-      key: ETradingAccountType.raw,
-      label: (
-        <>
-          <div className="name">{t('Raw')}</div>
-          <div className="spread">
-            {t('Fixed Spreads')}
-            <br />
-            {t('From #', { val: '0.2' })}
-          </div>
-          <div className="commission">{t('Plus # per round', { val: '4' })}</div>
-        </>
-      ),
-      value: 'Raw',
-    },
-  ].filter((el) => clientSettings.allowed_account_types.includes(el.key));
+  ].filter((el) => clientSettings.allowed_account_types.includes(el.value));
 
   const currencies = clientSettings.getCurrenciesSelectList();
   const leverages = clientSettings.getLeveragesSelectList();
@@ -103,9 +80,9 @@ export function ThirdStep({ submitFn }: any) {
     <div className="registration-third-step">
       <Formik
         initialValues={{
-          firstdeposit_platform: ETradingPlatform.mt4,
-          account_type: ETradingAccountType.classic,
-          currency: ECurrencyCode.usd,
+          firstdeposit_platform: platforms[0].value,
+          account_type: tradingAccounts[0].value,
+          currency: ECurrencyCode[Object.keys(currencies)[0] as keyof typeof ECurrencyCode],
           leverage: leverages[0].value,
         }}
         validationSchema={validationSchema}
@@ -114,8 +91,13 @@ export function ThirdStep({ submitFn }: any) {
         {(props: any) => {
           return (
             <Form className="m-auto form fadein-row">
-              <h4 className="section-title mb-5">{t('Choose Trading Platform')}</h4>
-              <Radio className="mb-10" name={EFields.firstdeposit_platform} options={platforms} />
+              {platforms.length > 1 && <h4 className="section-title mb-5">{t('Choose Trading Platform')}</h4>}
+              <Radio
+                optionClassName="col-6"
+                className={classNames('mb-10', platforms.length === 1 && 'justify-content-center')}
+                name={EFields.firstdeposit_platform}
+                options={platforms}
+              />
               <h4 className="section-title mb-5">{t('Choose Account Type')}</h4>
               <Radio
                 className={`mb-10 account_type justify-content-between no-gutters totalAccTypes_${clientSettings.allowed_account_types.length}`}
