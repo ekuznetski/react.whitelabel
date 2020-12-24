@@ -1,10 +1,10 @@
-import { countries, Currencies, EFormStatus } from '@domain/enums';
+import { Currencies, EFormStatus, countries } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import { useCounter, useSetState } from 'ahooks';
 import classNames from 'classnames';
 import { FieldAttributes, useField, useFormikContext } from 'formik';
 import React, { memo, useEffect } from 'react';
-import ReactSelect, { components, MenuProps } from 'react-select';
+import ReactSelect, { MenuProps, components } from 'react-select';
 import { FixedSizeList as List } from 'react-window';
 import { IconFlag } from '../../iconFlag/IconFlag';
 import { Svg } from '../../svg/Svg';
@@ -44,7 +44,7 @@ const MenuList = memo(function MenuList(props: any) {
   );
 });
 
-const Menu = memo(function Menu(props: MenuProps<any>) {
+const Menu = memo(function Menu(props: MenuProps<any, any>) {
   const [current, { inc }] = useCounter(0, { min: 0, max: 1 });
   const { options, children, maxMenuHeight, isMulti, getValue } = props;
   const _styles = {
