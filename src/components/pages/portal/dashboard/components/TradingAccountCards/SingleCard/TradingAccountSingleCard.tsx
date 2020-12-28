@@ -32,7 +32,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
       id: 'launch',
       icon: 'coins',
       target: '_blank',
-      path: getMetaTraderWebTerminalLink({
+      externalLink: getMetaTraderWebTerminalLink({
         version: card.platform == ETradingPlatform.mt4 ? 4 : 5,
         servers: ['BlueSquare-Live'],
         server: 'BlueSquare-Live',
@@ -82,7 +82,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(c
     <div className={classNames('trading-account-single-card', card.inline ? 'col-12 mb-7 inline' : 'col-4')}>
       <div className="trading-account-card-wrapper">
         <div className="account-card__details px-7">
-          <div className="account__logo mr-7">{card.platform}</div>
+          <div className="account__logo mr-7">{card.platform.toUpperCase()}</div>
           <div className="account__info">
             <div className="info-type">{card.type}</div>
             <div className="info-number">{card.accountId}</div>

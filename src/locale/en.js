@@ -242,7 +242,7 @@ export default {
   Download: 'Download',
   Print: 'Print',
   'Proceed to Payment': 'Proceed to Payment',
-  'Two live accounts required': 'You should have a least two Live trading accounts',
+  'Two live accounts required': 'You should have at least two Live trading accounts',
   'Demo Live trade account with ID': 'Demo Live trade account with ID:',
   'added successfully': 'added successfully.',
   Continue: 'Continue',

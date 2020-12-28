@@ -116,7 +116,7 @@ export const config: IConfig = {
       disabled: true,
       bg_img: 'client_banner_1.jpg',
       bg_color: 'white',
-      link: { path: 'share', text: t('Invite Now') },
+      link: { path: '/share', text: t('Invite Now') },
       text: (
         <Trans i18nKey="Promotional Cards Texts:2">
           Invite a friend and get <br /> up to <span>$200 Cash Bonus</span>
@@ -128,7 +128,7 @@ export const config: IConfig = {
       type: 'blue',
       bg_img: 'client_banner_2.jpg',
       bg_color: '#eff1f3',
-      link: { path: 'deposit', text: t('Deposit Now') },
+      link: { path: '/deposit', text: t('Deposit Now') },
       text: (
         <Trans i18nKey="Promotional Cards Texts:3">
           Deposit now and <span>receive a 10% bonus</span> up to $5K instantly added to your account
@@ -141,7 +141,7 @@ export const config: IConfig = {
     {
       type: 'blue',
       bg_img: 'fca_logos',
-      link: { path: 'deposit', text: t('Deposit Now') },
+      link: { path: '/deposit', text: t('Deposit Now') },
       text: (
         <Trans i18nKey="Promotional Cards Texts:4">
           Fund Your Account with <span>$0 Fees</span>
