@@ -4,6 +4,7 @@ import React, { forwardRef, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import './AccountTypesForTradingStyles.scss';
 import { accountTypePip } from '@domain';
+import { ELabels } from '@domain/enums';
 
 export const AccountTypesForTradingStylesSection = memo(
   forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function AccountTypesForTradingStylesSection(
@@ -29,7 +30,8 @@ export const AccountTypesForTradingStylesSection = memo(
                 <Card wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={1}>
                   <CardHeader className="mb-7 header">
                     <div>
-                      <Svg href="empty_star" className="mr-5" />
+                      <Svg href="empty_star" className="mr-5" _label />
+                      <Svg href="blue_star" className="mr-5" _label={ELabels.bsfx} />
                       {t('Fixed')}
                     </div>
                     <span>
@@ -45,7 +47,8 @@ export const AccountTypesForTradingStylesSection = memo(
                 <Card wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={2}>
                   <CardHeader className="mb-7 header">
                     <div>
-                      <Svg href="empty_light" className="mr-5" />
+                      <Svg href="empty_light" className="mr-5" _label />
+                      <Svg href="blue_light" className="mr-5" _label={ELabels.bsfx} />
                       {t('Variable')}
                     </div>
                     <span>
