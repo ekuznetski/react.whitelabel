@@ -1,10 +1,12 @@
 import { LocaleNavLink, Svg } from '@components/shared';
-import { ETradingPlatform, MarketType } from '@domain/enums';
+import { ETradingAccountType, ETradingPlatform, MarketType } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { HeaderTableTemplate } from './HeaderTemplate';
 import { files, marketTableContent } from '@domain';
 import './MarketTable.scss';
+import { useSelector } from 'react-redux';
+import { IDataStore, IStore } from '@store';
 
 interface IMarketTable {
   type: MarketType;
@@ -13,6 +15,9 @@ interface IMarketTable {
 }
 
 export const MarketTable = memo((props: IMarketTable) => {
+  const { clientSettings } = useSelector<IStore, { clientSettings: IDataStore['client']['settings'] }>((state) => ({
+    clientSettings: state.data.client.settings,
+  }));
   const tdClass = classNames('td', !props.preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
 
@@ -24,11 +29,14 @@ export const MarketTable = memo((props: IMarketTable) => {
           <div key={i} className="tr">
             <div className={tdClass}>{item.instr}</div>
             <div className="td grouped">
-              {item.fixed && <div className={tdClass}>{item.fixed}</div>}
-              {item.classic && <div className={tdClass}>{item.classic}</div>}
-              {item.raw && (
-                <div className={tdClass}>{item.raw.toString() === 'N/A' ? item.raw : item.raw + ' per round'}</div>
-              )}
+              {clientSettings.allowed_account_types.map((type: ETradingAccountType) => {
+                if (type === ETradingAccountType.raw) {
+                  return (
+                    <div className={tdClass}>{item.raw.toString() === 'N/A' ? item.raw : item.raw + ' per round'}</div>
+                  );
+                }
+                return <div className={tdClass}>{item[type]}</div>;
+              })}
             </div>
             <div className={fullViewParamClass}>
               <a target="_blank" href={files.financeFeesFixed}>

@@ -27,7 +27,7 @@ export const accountTypePip = {
 
 const tableEntries = Object.entries(_marketTableContent).map(([key, value]) => [
   key,
-  value.map((item) => ({ ...item, raw: null, platform: [ETradingPlatform.mt5] })),
+  value.map((item) => ({ ...item, raw: null, variable: item.classic, platform: [ETradingPlatform.mt5] })),
 ]);
 
 export const marketTableContent = Object.fromEntries(tableEntries);

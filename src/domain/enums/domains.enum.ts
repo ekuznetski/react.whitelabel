@@ -43,10 +43,10 @@ export enum ETradingPlatformName {
 }
 
 export enum ETradingAccountType {
-  fixed = 'Fixed',
-  classic = 'Classic',
-  raw = 'Raw',
-  variable = 'Variable',
+  fixed = 'fixed',
+  classic = 'classic',
+  raw = 'raw',
+  variable = 'variable',
 }
 
 export enum ETradingType {

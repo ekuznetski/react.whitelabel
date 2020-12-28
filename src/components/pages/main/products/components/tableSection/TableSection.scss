@@ -14,6 +14,14 @@
     top: 10px;
   }
 
+  .market-table {
+    .thead {
+      .tr {
+        text-transform: capitalize;
+      }
+    }
+  }
+
   &__title {
     font-weight: 600;
     font-size: 36px;
