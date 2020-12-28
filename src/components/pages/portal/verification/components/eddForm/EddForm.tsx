@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { EClientStatusCode, ENotificationType } from '@domain/enums';
 import { IEdd } from '@domain/interfaces';
 import { MClientProfile, MClientStatus } from '@domain/models';
-import { ac_showNotification, ac_submitEDD, IStore } from '@store';
+import { ac_showNotification, ac_submitEDD, EActionTypes, IStore } from '@store';
 import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo, useEffect } from 'react';
@@ -302,8 +302,7 @@ export const EddForm = memo(function EddForm() {
                   </>
                 )}
                 <Col xs={12} md={viewportSize.lg ? 12 : 6}>
-                  <Button type="submit">
-                    {/*   loadingOnAction={EActionTypes.editProfile} checkFormValidity={submitCount > 0}> */}
+                  <Button type="submit" checkFormValidity loadingOnAction={EActionTypes.submitEdd}>
                     {t('Save')}
                   </Button>
                 </Col>
