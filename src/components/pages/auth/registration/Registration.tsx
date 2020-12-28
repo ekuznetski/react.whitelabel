@@ -1,10 +1,8 @@
-import { Button, Img, PageTitle } from '@components/shared';
+import { PageTitle } from '@components/shared';
 import { ENotificationType, ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
 import {
-  EActionTypes,
   ac_fetchClientSettings,
-  ac_hideModal,
   ac_login,
   ac_preRegister,
   ac_register,
@@ -18,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
 import './Registration.scss';
-import { ModalBody, ModalFooter, ModalTitle } from '@components/core';
+import { ContinueRegistrationModal } from '@pages/auth/registration/components/continueRegistrationModal/ContinueRegistrationModal';
 
 function getLocalStorageRegData() {
   if (!localStorage) return null;
@@ -71,7 +69,9 @@ export function Registration() {
 
   useEffect(() => {
     if (!!regData) {
-      dispatch(ac_showModal(<Modal />, 'continue-registration-modal'));
+      dispatch(
+        ac_showModal(ContinueRegistrationModal, { setContinueReg: setContinueReg }, 'continue-registration-modal'),
+      );
     }
   }, []);
 
@@ -106,42 +106,6 @@ export function Registration() {
       localStorage.removeItem('regData');
     }
   }, [continueReg]);
-
-  function Modal() {
-    return (
-      <>
-        <ModalTitle title={t('Do you want to continue registration')} />
-        <ModalBody className="my-10">
-          <Img src="live-account-bg.png" />
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setContinueReg(true);
-              dispatch(ac_hideModal);
-            }}
-            loadingOnAction={[EActionTypes.fetchClientSettings]}
-          >
-            {t('Yes continue')}
-          </Button>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setContinueReg(false);
-              dispatch(ac_hideModal());
-            }}
-            className="mt-4 start-new"
-          >
-            {t('No start new')}
-          </a>
-        </ModalFooter>
-      </>
-    );
-  }
 
   async function onSubmitFn(data: any) {
     setFormData({ ...formData, ...data });
