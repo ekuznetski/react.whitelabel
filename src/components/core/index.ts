@@ -3,4 +3,5 @@ export * from './header/Header';
 export * from './router/Router';
 export * from './pageLoader/PageLoader';
 export * from './notification/Notification';
+export * from './modal/ModalNew';
 export * from './404/404';
