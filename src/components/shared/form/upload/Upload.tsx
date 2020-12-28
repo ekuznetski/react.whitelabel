@@ -1,5 +1,5 @@
 import { Svg } from '@components/shared';
-import { MDocument } from '@domain/models';
+import { MDocuments } from '@domain/models';
 import { ac_uploadDocuments } from '@store';
 import { useCombinedRef } from '@utils/hooks';
 import { useSetState } from 'ahooks';
@@ -40,7 +40,7 @@ interface IUploadWrapperProps {
     | React.ReactElement<typeof MultipleUpload>
     | React.ReactElement<typeof UploadDocumentCard>
     | React.ReactElement<typeof UploadDocumentCard>[];
-  documents: MDocument[];
+  documents: MDocuments[];
   className?: string;
   viewChanged?: (view: EUploadWrapperViewType) => void;
 }

@@ -61,6 +61,13 @@
     .radio-label {
       border-color: $dark-grey;
       background: $grey;
+
+      &.selected {
+        .mark {
+          background: $dark-grey;
+          border-color: $dark-grey;
+        }
+      }
     }
   }
 }

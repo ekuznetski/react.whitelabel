@@ -9,7 +9,7 @@ export const initDataStore: Nullable<IDataStore> = {
   geoIp: null,
   client: {
     profile: null,
-    statusData: null,
+    status: null,
     settings: useLabelView({
       '*': {
         allowed_account_types: ['fixed', 'classic', 'raw'],
@@ -50,7 +50,7 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
       return { ...state, client: { ...state.client, settings: { ...state.client.settings, ...action.payload } } };
 
     case EActionTypes.saveClientData:
-      return { ...state, client: { ...state.client, statusData: action.payload } };
+      return { ...state, client: { ...state.client, status: action.payload } };
 
     case EActionTypes.saveTransactionalStatements:
       return { ...state, client: { ...state.client, statements: action.payload } };

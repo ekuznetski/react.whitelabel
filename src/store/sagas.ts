@@ -272,7 +272,7 @@ export function* getClientStatusDataSaga() {
       yield put(Action.ac_saveEdd(new Model.MEdd(response.edd_data))); // remove when API clients/edd will been added 
       return response;
     },
-    'data.client.statusData',
+    'data.client.status',
   );
 }
 
@@ -360,8 +360,7 @@ export function* fetchDocumentsSaga() {
     EActionTypes.fetchDocuments,
     function* () {
       const { response }: IDocumentsInterfaceResponse = yield call(Request.getDocumentsRequest);
-      const data = response.message.map((document) => new Model.MDocument(document));
-      yield put(Action.ac_saveDocuments(data));
+      yield put(Action.ac_saveDocuments(new Model.MDocuments(response.message)));
       return response;
     },
     'data.client.documents',

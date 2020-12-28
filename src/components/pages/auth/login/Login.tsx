@@ -31,7 +31,7 @@ export function Login() {
       ac_login(data as ILoginRequest, () => {
         dispatch(
           ac_showNotification({
-            type: ENotificationType.failure,
+            type: ENotificationType.danger,
             context: 'Incorrect Email/Username or Password',
           }),
         );

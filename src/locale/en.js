@@ -448,4 +448,21 @@ export default {
     'At WHITE_LABEL our clients can trade using leverage, allowing them to control larger trade sizes',
   'Leverage Ratios': 'Leverage Ratios',
   'Leverage Ratios Desc': 'WHITE_LABEL uses a dynamic forex leverage model available on the MT5 platform.',
+  'Client Status': {
+    'notSubmitted': 'Not Submitted',
+    'submitted': 'Submitted',
+    'notRequested': 'Not Requested',
+    'required': 'Required',
+    'notApplicable': 'Not Applicable',
+    'clientApproved': 'The Client is Approved',
+    'clientEddRequired': 'The Client is EDD Required',
+    'clientLiquidOnly': 'The Client is Liquidation Only',
+    'liquidOnlyEdd': 'Liquidation Only - EDD',
+    'onReview': 'Under Review',
+    'approved': 'Approved',
+    'rejected': 'Rejected',
+    'notRequired': 'Not Required',
+    'pending': 'Pending',
+    'dormant': 'The Client is Dormant',
+  }
 };

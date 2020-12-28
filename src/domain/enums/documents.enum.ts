@@ -17,6 +17,7 @@ export enum EDocumentsStatus {
   Pending = 'Pending',
   Submitted = 'Submitted',
   Rejected = 'Rejected',
+  NotSubmitted = 'Not Submitted',
 }
 
 export enum EDocumentsIconStatus {

@@ -93,7 +93,7 @@ export function Registration() {
           },
           () =>
             ac_showNotification({
-              type: ENotificationType.failure,
+              type: ENotificationType.danger,
               context: 'Settings not loaded',
             }),
         ),
@@ -115,7 +115,7 @@ export function Registration() {
             () => resolve(),
             () =>
               ac_showNotification({
-                type: ENotificationType.failure,
+                type: ENotificationType.danger,
                 context: 'Registration unsuccessful',
               }),
           ),
@@ -152,7 +152,7 @@ export function Registration() {
               setActiveStep(ERegSteps.step1);
               dispatch(
                 ac_showNotification({
-                  type: ENotificationType.failure,
+                  type: ENotificationType.danger,
                   context: 'Registration unsuccessful',
                 }),
               );

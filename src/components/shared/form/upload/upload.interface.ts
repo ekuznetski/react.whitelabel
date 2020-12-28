@@ -1,5 +1,5 @@
 import { EDocumentsType } from '@domain/enums';
-import { MDocument } from '@domain/models';
+import { MDocuments } from '@domain/models';
 import { EUploadWrapperViewType } from './Upload';
 import { UploadDispatch, UploadState, UploadText } from './upload.context';
 
@@ -48,5 +48,5 @@ export interface ISelectDocumentTypeProps {
 }
 
 export interface IDocumentsListProps {
-  documents: MDocument[];
+  documents: MDocuments[];
 }

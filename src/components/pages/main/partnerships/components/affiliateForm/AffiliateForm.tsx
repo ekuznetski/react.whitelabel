@@ -52,7 +52,7 @@ export const AffiliateForm = memo(() => {
         () =>
           dispatch(
             ac_showNotification({
-              type: ENotificationType.failure,
+              type: ENotificationType.danger,
               context: 'Error',
             }),
           ),
