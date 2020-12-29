@@ -52,7 +52,10 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.submitEdd:
     case EActionTypes.fetchStocksPrices:
     case EActionTypes.login:
-    case EActionTypes.logout:
+    case EActionTypes.makeInternalTransfer:
+    case EActionTypes.changeAccountSettings:
+    case EActionTypes.changeAccountLeverage:
+    case EActionTypes.changeAccountPassword:
       return {
         ...state,
         requests: {
