@@ -84,7 +84,6 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
     openedRequests: state.app.requests.activeList,
   }));
   const [firstRender, { setFalse: setFirstRenderFalse }] = useBoolean(true);
-  const [pageLoaded, { setTrue: setPageLoadedTrue }] = useBoolean(false);
   const { localizePath } = usePathLocale();
   const history = useHistory();
 
@@ -96,7 +95,7 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
 
   useThrottleEffect(
     () => {
-      if (!firstRender && !pageLoaded) {
+      if (!firstRender) {
         const _routeStrictRequests = [
           ...(route.apiData?.strict || []),
           ...(routesInitialApiData[route.appSection]?.strict || []),
@@ -105,24 +104,21 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
           ? openedRequests.filter((request) => _routeStrictRequests.includes(request)).length > 0
           : false;
 
-        useLockScroll(hasUncompletedStrictRequest);
         if (routeState.isLoading != hasUncompletedStrictRequest) {
+          useLockScroll(hasUncompletedStrictRequest);
           store.dispatch(ac_updateRouteParams({ isLoading: hasUncompletedStrictRequest }));
         }
 
-        if (!hasUncompletedStrictRequest) {
-          if (route.activators) {
-            const _redirectParams = route.activators
-              .map((activator) => activator())
-              .find((a) => !a || Object.keys(a).length);
+        if (route.activators && !hasUncompletedStrictRequest) {
+          const _redirectParams = route.activators
+            .map((activator) => activator())
+            .find((a) => !a || Object.keys(a).length);
 
-            if (typeof _redirectParams === 'object') {
-              history.push(localizePath(_redirectParams.path), _redirectParams?.state);
-            } else if (_redirectParams === false) {
-              history.push(localizePath(route.path));
-            }
+          if (typeof _redirectParams === 'object') {
+            history.push(localizePath(_redirectParams.path), _redirectParams?.state);
+          } else if (_redirectParams === false) {
+            history.push(localizePath(route.path));
           }
-          setPageLoadedTrue();
         }
       }
     },
@@ -137,7 +133,5 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
         <route.component />
       </main>
     </>
-  ) : (
-    <PageLoader isLoading={true} overlay />
-  );
+  ) : null;
 }
