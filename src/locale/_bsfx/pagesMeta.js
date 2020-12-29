@@ -1,11 +1,11 @@
 export default {
   Home: {
-    title: 'Blue Square FX - Build by FX traders, for FX traders.',
+    title: 'Blue Square FX - Build by FX traders, for FX traders',
     desc:
       'Blue Square FX is a leading provider of online foreign exchange (FX) trading. Blue Square FX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure an excellent user experience.',
   },
   About: {
-    title: 'Blue Square FX - Build by FX traders, for FX traders.',
+    title: 'About us - Blue Square FX',
     desc:
       'Blue Square FX is a leading provider of online foreign exchange (FX) trading. Blue Square FX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure an excellent user experience.',
   },
@@ -38,7 +38,7 @@ export default {
     title: 'Login - Blue Square FX',
   },
   Registration: {
-    title: 'Blue Square FX - Build by FX traders, for FX traders.',
+    title: 'Registration - Blue Square FX',
     desc:
       'Blue Square FX is a leading provider of online foreign exchange (FX) trading. Blue Square FX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure an excellent user experience.',
   },
