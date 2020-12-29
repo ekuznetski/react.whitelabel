@@ -6,6 +6,7 @@ import { dataStoreReducer, initDataStore } from './_data.reducer';
 import { appStoreReducer, initAppStore } from './_app.reducer';
 import { IStore } from './store.interface';
 import { Nullable } from '@domain/interfaces';
+import { env } from '@env';
 
 export const reducers = combineReducers({ data: dataStoreReducer, app: appStoreReducer });
 const sagaMiddleware = createSagaMiddleware();
@@ -23,7 +24,10 @@ const preloadedState: IStore =
 export const store = createStore<IStore>(
   reducers,
   preloadedState,
-  composeWithDevTools(applyMiddleware(sagaMiddleware)),
+  composeWithDevTools({
+    trace: !env.PRODUCTION,
+    traceLimit: 20
+  })(applyMiddleware(sagaMiddleware)),
 );
 
 Object.keys(sagaMiddlewareRunners).forEach((runner: any) => {

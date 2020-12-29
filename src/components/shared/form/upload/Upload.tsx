@@ -40,7 +40,7 @@ interface IUploadWrapperProps {
     | React.ReactElement<typeof MultipleUpload>
     | React.ReactElement<typeof UploadDocumentCard>
     | React.ReactElement<typeof UploadDocumentCard>[];
-  documents: MDocuments[];
+  documents: MDocument[];
   className?: string;
   viewChanged?: (view: EUploadWrapperViewType) => void;
 }
@@ -325,7 +325,7 @@ export const UploadWrapper = memo(function UploadWrapper({ children, documents, 
             });
           }
 
-          if (documents?.length) dispatch({ view: EUploadWrapperViewType.documents });
+          if (documents.length) dispatch({ view: EUploadWrapperViewType.documents });
           else if (documentsTypeList.length && documentsTypeList.length > 1) {
             dispatch({ view: EUploadWrapperViewType.select, documentsTypeList });
           } else dispatch({ view: EUploadWrapperViewType.upload });
@@ -347,18 +347,20 @@ export const UploadWrapper = memo(function UploadWrapper({ children, documents, 
             case EUploadWrapperViewType.upload:
               return (
                 <>
-                  <div className="upload-wrapper__header mb-7">
-                    <a
-                      className="upload-wrapper__back"
-                      onClick={() => dispatch({ view: EUploadWrapperViewType.select })}
-                    >
-                      Back
-                    </a>
-                    {
-                      // @ts-ignore
-                      !Array.isArray(children) ? children.props.label : children[state.selectedDocTypeIdx].props.label
-                    }
-                  </div>
+                  {!!state.documentsTypeList.length && (
+                    <div className="upload-wrapper__header mb-7">
+                      <a
+                        className="upload-wrapper__back"
+                        onClick={() => dispatch({ view: EUploadWrapperViewType.select })}
+                      >
+                        Back
+                      </a>
+                      {
+                        // @ts-ignore
+                        !Array.isArray(children) ? children.props.label : children[state.selectedDocTypeIdx].props.label
+                      }
+                    </div>
+                  )}
                   {
                     // @ts-ignore
                     !Array.isArray(children) ? children : children[state.selectedDocTypeIdx].props.children

@@ -30,7 +30,7 @@ export interface ITab {
   children?: React.ReactNode;
   anchor: string | number; // anchor
   className?: string;
-  status?: ENotificationType;
+  status?: ENotificationType | null;
 }
 
 interface TabsState {

@@ -2,7 +2,7 @@ import { PageTitle, Tab, Tabs } from '@components/shared';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { AdditionalInformation, FinancialProfile } from './components';
+import { AdditionalInformation, FinancialProfile, UploadDocuments } from './components';
 import './Verification.scss';
 
 export const Verification = memo(function Verification() {
@@ -22,7 +22,7 @@ export const Verification = memo(function Verification() {
               <FinancialProfile />
             </Tab>
             <Tab label={t('Upload Documents')} anchor="uploadDocuments">
-              Upload Documents
+              <UploadDocuments />
             </Tab>
             <Tab label={t('Additional Information')} anchor="additionalInformation">
               <AdditionalInformation />

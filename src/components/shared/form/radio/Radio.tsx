@@ -8,7 +8,7 @@ import './Radio.scss';
 
 export interface IRadioItem {
   label: React.ReactNode;
-  value: string;
+  value: string | boolean;
   className?: string;
 }
 export type IRadio = FastFieldAttributes<{
@@ -32,14 +32,24 @@ export const Radio = memo(function Radio({
   const _disabled = props.disabled || FormStatus === EFormStatus.disabled;
 
   function onChangeHandler(e: any) {
-    helpers.setValue(e.target.value);
+    helpers.setValue(valueConverter(e.target.value));
     props.onChange?.(e);
   }
 
   function onClickHandler(e: any) {
-    helpers.setValue(e.target.value);
+    helpers.setValue(valueConverter(e.target.value));
     props.onClick?.(e);
   }
+
+  function valueConverter(val: any) {
+    if(val === 'true') {
+      val = true;
+    } else if(val === 'false') {
+      val = false;
+    }
+    return val;
+  }
+
   return (
     <Row
       className={classNames(
@@ -63,7 +73,7 @@ export const Radio = memo(function Radio({
               'radio-label',
               !React.isValidElement(el.label) && 'pl-7 pr-7 py-3',
               showMarkDot && 'pl-sm-13',
-              field.value === el.value.toString() && 'selected',
+              field.value?.toString?.() === el.value.toString() && 'selected',
             )}
           >
             {showMarkDot && <span className="mark d-none d-sm-block" />}

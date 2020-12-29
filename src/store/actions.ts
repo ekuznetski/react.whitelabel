@@ -16,6 +16,7 @@ import {
   IResetPasswordRequest,
   ISetProfileRequest,
   ISubmitFPRequest,
+  ITins,
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
   IWithdrawFundRequest,
@@ -410,6 +411,19 @@ export function ac_uploadDocuments(
 ): IAction {
   return {
     type: EActionTypes.fetchDocuments,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_updateTins(
+  payload: ITins,
+  onSuccess: AnyFunction = () => {},
+  onFailure: AnyFunction = () => {},
+): IAction {
+  return {
+    type: EActionTypes.updateTins,
     payload,
     onSuccess,
     onFailure,

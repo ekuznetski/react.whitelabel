@@ -8,40 +8,41 @@ import { useSelector } from 'react-redux';
 import './CreditCardVerification.scss';
 
 export const CreditCardVerification = memo(function CreditCardVerification() {
-  const { documents } = useSelector<IStore, { documents: MDocuments[] }>((state) => ({
+  const { documents } = useSelector<IStore, { documents: MDocuments }>((state) => ({
     documents: state.data.client.documents,
   }));
   const { t } = useTranslation();
 
   return (
-    <UploadWrapper documents={documents} className="credit-card-verification">
-      <UploadDocumentCard icon="upload_bank" label={t('Bank Statement')}>
-        <MultipleUpload>
-          <UploadFile
-            fileType={EDocumentsType.CCFront}
-            fieldName={t('Front Side')}
-            description="Please cover the 6 middle digits as shown below"
-            icon="shrimp"
-            iconWidth={40}
-          />
-          <UploadFile
-            fileType={EDocumentsType.CCBack}
-            fieldName={t('Front Side')}
-            description="Please cover the 6 middle digits as shown below"
-            icon="shrimp"
-            iconWidth={40}
-          />
-        </MultipleUpload>
-      </UploadDocumentCard>
-      <UploadDocumentCard icon="upload_bill" label={t('Utility Bill')}>
+    <UploadWrapper
+      documents={documents.getAllDocumentsOfTypes([
+        EDocumentsType.CCFront,
+        EDocumentsType.CCBack,
+        EDocumentsType.CCCopy,
+        EDocumentsType.CCCopy1,
+        EDocumentsType.CCCopy2,
+        EDocumentsType.CCCopy3,
+        EDocumentsType.CCCopy4,
+        EDocumentsType.CCCopy5,
+      ])}
+      className="credit-card-verification"
+    >
+      <MultipleUpload>
         <UploadFile
           fileType={EDocumentsType.CCFront}
-          fieldName={t('Front Side')}
+          fieldName={t('Face Side')}
           description="Please cover the 6 middle digits as shown below"
-          icon="shrimp"
-          iconWidth={40}
+          icon="upload_card_front_drop"
+          iconWidth={120}
         />
-      </UploadDocumentCard>
+        <UploadFile
+          fileType={EDocumentsType.CCBack}
+          fieldName={t('Back Side')}
+          description="Please cover the 6 middle digits as shown below"
+          icon="upload_card_back_drop"
+          iconWidth={120}
+        />
+      </MultipleUpload>
     </UploadWrapper>
   );
 });

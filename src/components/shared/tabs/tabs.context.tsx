@@ -5,7 +5,7 @@ export enum EMobileDisplay {
   labels = 'labels',
   content = 'content ',
 }
-export type TabData = string | React.ReactFragment | undefined;
+export type TabData = string | React.ReactFragment | undefined | null;
 type TabAnchor = number | string | undefined;
 type Action = {
   type:
@@ -49,7 +49,7 @@ type State = {
   anchors: TabAnchor[];
   active: TabAnchor;
   disabledAll: boolean;
-  tempLabel: { value: TabData; icon?: string } | undefined;
+  tempLabel: { value: TabData; icon?: string; status?: ENotificationType } | undefined;
   tempSubLabel: TabData;
   tempContent: TabData;
   initial: boolean;
