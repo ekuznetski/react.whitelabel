@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { EFormStatus, ENotificationType, ETradingType } from '@domain/enums';
 import { IInternalTransferRequestData } from '@domain/interfaces';
 import { MClientStatus, MTradingAccount } from '@domain/models';
-import { IStore, ac_makeInternalTransfer, ac_showNotification } from '@store';
+import { EActionTypes, IStore, ac_makeInternalTransfer, ac_showNotification } from '@store';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -134,7 +134,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
                     disabled={!values?.accountFrom}
                     forceShowError={values.amount > 0}
                   />
-                  <Button type="submit" checkFormValidity={true}>
+                  <Button type="submit" checkFormValidity={true} loadingOnAction={EActionTypes.makeInternalTransfer}>
                     {t('Submit')}
                   </Button>
                 </Form>
