@@ -5,7 +5,7 @@ import { ITradingAccountSingleCard } from '@pages/portal/dashboard/components/Tr
 import * as Yup from 'yup';
 import { FieldValidators } from '@domain';
 import { Form, Formik } from 'formik';
-import { IStore, ac_changeAccountSettings, ac_hideModal, ac_showNotification } from '@store';
+import { EActionTypes, IStore, ac_changeAccountSettings, ac_hideModal, ac_showNotification } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import { MClientSettings } from '@domain/models';
@@ -63,7 +63,7 @@ export const AccountSettingsModal = memo(function AccountSettingsModal({ trading
           dispatch(ac_hideModal());
           dispatch(
             ac_showNotification({
-              type: ENotificationType.failure,
+              type: ENotificationType.danger,
               innerText: t('Failed To Update Account'),
             }),
           );
@@ -115,7 +115,9 @@ export const AccountSettingsModal = memo(function AccountSettingsModal({ trading
                     </Col>
                   )}
                 </Row>
-                <Button type="submit">{t('Submit')}</Button>
+                <Button type="submit" loadingOnAction={EActionTypes.changeAccountSettings}>
+                  {t('Submit')}
+                </Button>
               </Form>
             );
           }}

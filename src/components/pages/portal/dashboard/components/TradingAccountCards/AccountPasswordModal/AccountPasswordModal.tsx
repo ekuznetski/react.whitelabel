@@ -5,7 +5,7 @@ import { ITradingAccountSingleCard } from '@pages/portal/dashboard/components/Tr
 import * as Yup from 'yup';
 import { FieldValidators } from '@domain';
 import { Form, Formik } from 'formik';
-import { ac_changeAccountPassword, ac_hideModal, ac_showNotification } from '@store';
+import { EActionTypes, ac_changeAccountPassword, ac_hideModal, ac_showNotification } from '@store';
 import { useDispatch } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import { IChangeAccountPasswordRequest } from '@domain/interfaces';
@@ -48,7 +48,7 @@ export const AccountPasswordModal = memo(function AccountPasswordModal({ trading
           dispatch(ac_hideModal());
           dispatch(
             ac_showNotification({
-              type: ENotificationType.failure,
+              type: ENotificationType.danger,
               innerText: t('Failed To Update Account'),
             }),
           );
@@ -80,7 +80,9 @@ export const AccountPasswordModal = memo(function AccountPasswordModal({ trading
                     <Input label={t('Confirm password')} name={EFields.confirmPassword} type="password" />
                   </Col>
                 </Row>
-                <Button type="submit">{t('Submit')}</Button>
+                <Button type="submit" loadingOnAction={EActionTypes.changeAccountPassword}>
+                  {t('Submit')}
+                </Button>
               </Form>
             );
           }}
