@@ -20,6 +20,10 @@
         }
       }
     }
+
+    &__container {
+      justify-content: center;
+    }
   }
 
   @media (max-width: $viewport-xs-w) {
