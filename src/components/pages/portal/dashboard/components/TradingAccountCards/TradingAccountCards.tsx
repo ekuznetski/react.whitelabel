@@ -15,8 +15,10 @@ export function TradingAccountCards(props: { type: ETradingType[] }) {
       tradingAccountCards: state.data.tradingData.accounts
         .filter((account) => props.type.includes(account.type))
         .map((account) => ({
-          platform: account.platformName,
+          platform: account.platform,
           tradingAccountType: account.accountType,
+          allowLeverageChange: account.allowLeverageChange,
+          type: account.type,
           balance: account.balance,
           accountId: account.accountId,
           leverage: account.leverage,

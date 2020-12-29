@@ -1,8 +1,11 @@
-import { ETradingPlatform } from '@domain/enums';
+import { EResponseStatus, ETradingPlatform } from '@domain/enums';
 import {
   IAddDepositResponse,
   IBankDetailsResponse,
   IBaseResponse,
+  IChangeAccountLeverageResponse,
+  IChangeAccountPasswordResponse,
+  IChangeAccountSettingsResponse,
   IClientAddResponse,
   IClientProfileResponse,
   IClientSettingsResponse,
@@ -18,11 +21,12 @@ import {
   ITinsResponse,
   ITradingAccountsResponse,
   ITransactionalStatementsResponse,
+  IWithdrawFundRequest,
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
-  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import * as Model from '@domain/models';
+import { MRequestAdapter } from '@domain/models';
 import * as Request from '@utils/services';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { store } from './';
@@ -31,6 +35,7 @@ import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
 
 const failureResponseConsoleBlacklist = [81];
+
 /**
  * Get slice of the Store at the current moment.
  * @param path - Describes the path to the data in store
@@ -65,10 +70,15 @@ function* $$(
 ) {
   yield takeEvery(actionType, function* (action?: IAction) {
     const { payload, force, onSuccess, onFailure } = action || {};
+    if (!!action && !!payload) {
+      action.payload = new MRequestAdapter(actionType, payload);
+    }
     if (force || !(pathToStore && pathToStoreSnapshot(pathToStore))) {
       try {
         let response = yield success_transform_response_fn(action);
-        if (onSuccess) yield call(onSuccess, response);
+        if (onSuccess) {
+          yield call(onSuccess, response);
+        }
         yield put(Action.ac_requestActionSuccess({ requestActionType: actionType }));
       } catch (e) {
         if (
@@ -78,8 +88,11 @@ function* $$(
         ) {
           console.error(e);
         }
-        if (failure_transform_response_fn) e = yield failure_transform_response_fn(action, e);
-        else if (onFailure) yield call(onFailure, e);
+        if (failure_transform_response_fn) {
+          e = yield failure_transform_response_fn(action, e);
+        } else if (onFailure) {
+          yield call(onFailure, e);
+        }
         yield put(Action.ac_requestActionFailure({ requestActionType: actionType }));
       }
     } else {
@@ -277,7 +290,7 @@ export function* getClientStatusDataSaga() {
 
 export function* updateTinsSaga() {
   yield $$(EActionTypes.register, function* ({ payload }: IAction) {
-    const { response }: ITinsResponse = yield call(Request.updateTins, payload);
+    const { response }: ITinsResponse = yield call(Request.updateTinsRequest, payload);
     yield put(Action.ac_saveTins(new Model.MTins(response.message)));
     return response;
   });
@@ -285,7 +298,7 @@ export function* updateTinsSaga() {
 
 export function* submitEddSaga() {
   yield $$(EActionTypes.submitEdd, function* ({ payload }: IAction) {
-    const { response }: IEddResponse = yield call(Request.submitEdd, payload);
+    const { response }: IEddResponse = yield call(Request.submitEddRequest, payload);
     yield put(Action.ac_saveEdd(new Model.MEdd(response.message)));
     return response;
   });
@@ -401,6 +414,38 @@ export function* fetchStocksPricesSaga() {
 export function* partnershipRegistrationSaga() {
   yield $$(EActionTypes.partnershipRegister, function* ({ payload }: IAction) {
     const { response }: IPartnershipRegistrationResponse = yield call(Request.partnershipRegistrationRequest, payload);
+    return response;
+  });
+}
+
+export function* changeAccountLeverageSaga() {
+  yield $$(EActionTypes.changeAccountLeverage, function* ({ payload }: IAction) {
+    const { response }: IChangeAccountLeverageResponse = yield call(Request.changeAccountLeverageRequest, payload);
+    console.log(response);
+    if (response.status === EResponseStatus.success) {
+      const { response }: ITradingAccountsResponse = yield call(Request.tradingAccountsRequest);
+      yield put(Action.ac_saveTradingAccounts(new Model.MClientTradingData(response)));
+    }
+    return response;
+  });
+}
+
+export function* changeAccountSettingsSaga() {
+  yield $$(EActionTypes.changeAccountSettings, function* ({ payload }: IAction) {
+    const { response }: IChangeAccountSettingsResponse = yield call(Request.changeAccountSettingsRequest, payload);
+    console.log(response);
+    if (response.status === EResponseStatus.success) {
+      const { response }: ITradingAccountsResponse = yield call(Request.tradingAccountsRequest);
+      yield put(Action.ac_saveTradingAccounts(new Model.MClientTradingData(response)));
+    }
+    return response;
+  });
+}
+
+export function* changeAccountPasswordSaga() {
+  yield $$(EActionTypes.changeAccountPassword, function* ({ payload }: IAction) {
+    const { response }: IChangeAccountPasswordResponse = yield call(Request.changeAccountPasswordRequest, payload);
+    console.log(response);
     return response;
   });
 }

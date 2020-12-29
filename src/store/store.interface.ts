@@ -1,5 +1,5 @@
 import { EAppSection, ELanguage } from '@domain/enums';
-import { AnyFunction, IContent, IGeoIp, INotificationState } from '@domain/interfaces';
+import { AnyFunction, IContent, IGeoIp, IModalState, INotificationState } from '@domain/interfaces';
 import * as Model from '@domain/models';
 import { EActionTypes } from './store.enum';
 
@@ -40,6 +40,7 @@ export interface IAppStore {
     failedList: EActionTypes[];
   };
   notification: INotificationState;
+  modal: IModalState;
 }
 
 export interface IStore {

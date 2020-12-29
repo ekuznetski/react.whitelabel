@@ -5,6 +5,7 @@ import {
   ECurrencySymbol,
   ETradingAccountType,
   ETradingPlatform,
+  ETradingPlatformName,
   ETradingType,
   MinLimitDeposit,
 } from '@domain/enums';
@@ -40,7 +41,7 @@ export class MTradingAccount {
       EAccountLeverage[`1_${props.Leverage}` as keyof typeof EAccountLeverage] || EAccountLeverage['1_200'];
     this.platform =
       ETradingPlatform[props.Platform.toLowerCase() as keyof typeof ETradingPlatform] || ETradingPlatform.mt4;
-    this.platformName = this.platform === ETradingPlatform.mt4 ? 'Mt4' : 'Mt5';
+    this.platformName = ETradingPlatformName[this.platform];
     this.type = ETradingType[props.Type.toLowerCase() as keyof typeof ETradingType] || ETradingType.demo;
     this.minDeposit =
       MinLimitDeposit[this.type]?.find((el: any) => el.accType?.includes(this.accountType))?.ccrLimit?.[

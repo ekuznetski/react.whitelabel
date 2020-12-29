@@ -23,7 +23,11 @@ export const initAppStore: Nullable<IAppStore> = {
     visible: false,
     type: null,
     timeout: null,
-    context: null,
+    innerText: null,
+  },
+  modal: {
+    visible: false,
+    component: null,
   },
 };
 
@@ -84,7 +88,10 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
         ...state,
         route: _route,
         ...(_route.path !== state.route.path
-          ? { notification: { ...initAppStore.notification, type: state.notification.type } }
+          ? {
+              notification: { ...initAppStore.notification, type: state.notification.type },
+              modal: { component: null, visible: false },
+            }
           : {}),
       };
 
@@ -94,6 +101,10 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.hideNotification:
       return { ...state, notification: { ...initAppStore.notification, type: state.notification.type } };
 
+    case EActionTypes.showModal:
+      return { ...state, modal: { ...action.payload, visible: true } };
+    case EActionTypes.hideModal:
+      return { ...state, modal: { component: null, visible: false } };
     default:
       return state;
   }

@@ -11,7 +11,7 @@ interface IModalStateProps {
   modalProps: IModalState;
 }
 
-export const ModalNew = memo(function Modal() {
+export const Modal = memo(function Modal() {
   const { modalProps } = useSelector<IStore, IModalStateProps>((state) => ({
     modalProps: state.app.modal,
   }));

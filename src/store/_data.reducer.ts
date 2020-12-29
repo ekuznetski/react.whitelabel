@@ -10,14 +10,7 @@ export const initDataStore: Nullable<IDataStore> = {
   client: {
     profile: null,
     statusData: null,
-    settings: useLabelView({
-      '*': {
-        allowed_account_types: ['fixed', 'classic', 'raw'],
-      },
-      [ELabels.bsfx]: {
-        allowed_account_types: ['fixed', 'variable'],
-      },
-    }),
+    settings: null,
     statements: null,
     documents: null,
     tins: null,

@@ -52,3 +52,33 @@ export interface ICreateTradingAccountResponse {
   pwd: string;
   platform: string;
 }
+
+export interface IChangeAccountLeverageRequest {
+  trade_account: string;
+  leverage: string;
+  trade_platform: string;
+}
+
+export interface IChangeAccountPasswordRequest {
+  account: string;
+  password: string;
+}
+
+export interface IChangeAccountSettingsRequest {
+  leverage: string;
+  currency: string;
+  account_type: string;
+  firstdeposit_platform: string;
+}
+
+export type IChangeAccountSettingsResponse = {
+  response: any;
+} & IBaseResponse;
+
+export type IChangeAccountLeverageResponse = {
+  response: any;
+} & IBaseResponse;
+
+export type IChangeAccountPasswordResponse = {
+  response: any;
+} & IBaseResponse;
