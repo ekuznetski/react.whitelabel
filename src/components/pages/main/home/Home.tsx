@@ -52,7 +52,6 @@ export function Home() {
                 </LabelView>
               </div>
               <div className="page-top__description mb-11 mb-lg-10">
-                {' '}
                 <Trans i18nKey="Home Page Top Section Desc">
                   An online trading experience by FX traders,
                   <br /> for FX traders.
