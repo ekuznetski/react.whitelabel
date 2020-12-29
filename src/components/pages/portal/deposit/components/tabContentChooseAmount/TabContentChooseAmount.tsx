@@ -137,7 +137,7 @@ export function TabContentChooseAmount() {
           }, [method]);
 
           return (
-            <Form className="m-auto form fadein-row">
+            <Form className="m-auto form">
               {account?.type !== ETradingType.fake && (
                 <Row>
                   <Col xs={12} md={6} lg={7} xl={5}>

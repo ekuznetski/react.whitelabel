@@ -2,7 +2,7 @@ import { Button, Input } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ENotificationType } from '@domain/enums';
 import { MBankDetails } from '@domain/models';
-import { ac_showNotification, ac_updateBankDetails, EActionTypes, IStore } from '@store';
+import { EActionTypes, IStore, ac_showNotification, ac_updateBankDetails } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -36,14 +36,14 @@ export const BankDetails = memo(
             dispatch(
               ac_showNotification({
                 type: ENotificationType.success,
-                context: t('Bank Details Updated Successfully'),
+                innerText: t('Bank Details Updated Successfully'),
               }),
             ),
           () =>
             dispatch(
               ac_showNotification({
                 type: ENotificationType.danger,
-                context: t('Failed To Update Bank Details'),
+                innerText: t('Failed To Update Bank Details'),
               }),
             ),
         ),

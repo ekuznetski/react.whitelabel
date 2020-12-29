@@ -1,4 +1,4 @@
-import { Button, CountrySelect, Input, Modal, ModalContext, ModalTitle, Select, Svg } from '@components/shared';
+import { Button, CountrySelect, Input, ModalContext, ModalOld, ModalTitle, Select, Svg } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
 import { Country } from '@domain/enums';
 import { MClientProfile } from '@domain/models';
@@ -103,7 +103,7 @@ export function BillingDetailsModal({ isModalOpen, setModalOpen }: IBillingDetai
   const { t } = useTranslation();
 
   return (
-    <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
+    <ModalOld isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
       <ModalTitle
         className="ml-0 mr-auto align-items-start mb-10"
         title={
@@ -116,6 +116,6 @@ export function BillingDetailsModal({ isModalOpen, setModalOpen }: IBillingDetai
       <ModalContext>
         <BillingForm setModalOpen={setModalOpen} />
       </ModalContext>
-    </Modal>
+    </ModalOld>
   );
 }

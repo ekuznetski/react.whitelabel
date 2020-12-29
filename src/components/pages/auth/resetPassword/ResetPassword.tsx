@@ -29,7 +29,11 @@ export function ResetPassword() {
   useEffect(() => {
     if (!token || !username) {
       dispatch(
-        ac_showNotification({ type: ENotificationType.danger, context: 'Token or Username is missed', timeout: null }),
+        ac_showNotification({
+          type: ENotificationType.danger,
+          innerText: 'Token or Username is missed',
+          timeout: null,
+        }),
       );
     }
   }, []);
@@ -44,7 +48,7 @@ export function ResetPassword() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: 'Password was changed successfully, now you will be redirected to dashboard',
+              innerText: 'Password was changed successfully, now you will be redirected to dashboard',
               timeout: 4000,
             }),
           );
@@ -56,7 +60,7 @@ export function ResetPassword() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              context: `Reset password failure: ${e.data.response.message}`,
+              innerText: `Reset password failure: ${e.data.response.message}`,
               timeout: null,
             }),
           );

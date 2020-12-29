@@ -62,7 +62,7 @@ export function NetellerMethod() {
           {(props: any) => {
             const { values, setFieldValue, errors } = props;
             return (
-              <Form className="m-auto form fadein-row">
+              <Form className="m-auto form">
                 <Row>
                   <Col xs={12}>
                     <Input label={t('Email or Account ID')} name={EFields.account} />

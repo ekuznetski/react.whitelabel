@@ -14,8 +14,7 @@ export interface IModal {
   isOpenDispatcher: React.Dispatch<React.SetStateAction<boolean>> | React.Dispatch<boolean>;
 }
 
-
-export const Modal = memo(
+export const ModalOld = memo(
   forwardRef<HTMLDivElement, IModal>(function Modal(props: any, ref) {
     const wrapperRef = React.createRef<HTMLDivElement>();
     const elementRef = useCombinedRef(ref);

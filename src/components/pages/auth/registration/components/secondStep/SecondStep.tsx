@@ -107,7 +107,7 @@ export function SecondStep({ submitFn }: any) {
         {(props: any) => {
           const { values, setFieldValue } = props;
           return (
-            <Form className="m-auto form fadein-row">
+            <Form className="m-auto form">
               <h4 className="section-title mb-5">{t('Additional Information')}</h4>
               <Checkbox name={EFields.tax_checkbox}>{t('The country in which I pay taxes')} </Checkbox>
               {!!values.tax_checkbox && (

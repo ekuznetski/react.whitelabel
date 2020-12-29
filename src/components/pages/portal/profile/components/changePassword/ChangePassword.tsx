@@ -2,7 +2,7 @@ import { Button, Input } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ENotificationType } from '@domain/enums';
 import { IEditProfileRequest } from '@domain/interfaces';
-import { ac_editProfile, ac_showNotification, EActionTypes } from '@store';
+import { EActionTypes, ac_editProfile, ac_showNotification } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -53,14 +53,14 @@ export const ChangePassword = memo(
             dispatch(
               ac_showNotification({
                 type: ENotificationType.success,
-                context: t('The Password Has Been Updated Successfully'),
+                innerText: t('The Password Has Been Updated Successfully'),
               }),
             ),
           () =>
             dispatch(
               ac_showNotification({
                 type: ENotificationType.danger,
-                context: t('Failed To Update The Password'),
+                innerText: t('Failed To Update The Password'),
               }),
             ),
         ),

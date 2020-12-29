@@ -51,7 +51,7 @@ export const BrokersForm = memo(function BrokersForm() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: t('IB Registration Completed'),
+              innerText: t('IB Registration Completed'),
             }),
           );
         },
@@ -59,7 +59,7 @@ export const BrokersForm = memo(function BrokersForm() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              context: 'Error',
+              innerText: 'Error',
             }),
           );
         },

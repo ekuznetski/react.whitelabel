@@ -1,4 +1,4 @@
-import { Modal, ModalContext, ModalTitle } from '@components/shared';
+import { ModalContext, ModalOld, ModalTitle } from '@components/shared';
 import React, { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import './NetellerInfoModal.scss';
@@ -12,7 +12,7 @@ export function NetellerInfoModal({ isModalOpen, setModalOpen }: IBillingDetails
   const { t } = useTranslation();
 
   return (
-    <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen} className="netteler-info-modal">
+    <ModalOld isOpen={isModalOpen} isOpenDispatcher={setModalOpen} className="netteler-info-modal">
       <ModalTitle title={t('Additional Information')} />
       <ModalContext>
         <h3>Neteller Payments</h3>
@@ -32,6 +32,6 @@ export function NetellerInfoModal({ isModalOpen, setModalOpen }: IBillingDetails
         </ul>
         <p>Remark: All transactions will appear on your card statement as “XXX”</p>
       </ModalContext>
-    </Modal>
+    </ModalOld>
   );
 }

@@ -91,7 +91,10 @@ export const DropDown = memo<IDropdown>(function DropDown({
   useClickAway(() => {
     if (isOpen) props.isOpenDispatcher(false);
   }, [props.parentRef, dropdownRef]);
-
+  let topPosition = parentBCR ? parentBCR.bottom + (noArrow ? 2 : 0) : 0;
+  // if (typeof _height === 'number' && parentBCR?.bottom && window.innerHeight > parentBCR?.bottom + _height) {
+  //   topPosition = parentBCR.top - _height - (noArrow ? 2 : 0);
+  // }
   return (
     TARGET_CONTAINER &&
     ReactDOM.createPortal(
@@ -109,7 +112,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
               ? parentBCR.left + (alignToParentLeft ? 0 : parentBCR.width / 2 - width + 46)
               : -10000
             : -10000,
-          top: parentBCR ? parentBCR.top + parentBCR.height + (noArrow ? 2 : 0) : 0,
+          top: topPosition,
         }}
         ref={dropdownRef}
       >
