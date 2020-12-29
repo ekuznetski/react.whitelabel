@@ -30,7 +30,6 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
           <div className="item-cel__title mb-2">{t('Date')}</div>
           <div className="item-cel__content">{props.issueDate.format('MM.DD.YYYY')}</div>
         </div>
-        2
         <div className="withdrawal-item__accountId px-6">
           <div className="item-cel__title mb-2">{t('Account')}</div>
           <div className="item-cel__content">{props.accountId}</div>
