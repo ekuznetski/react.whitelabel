@@ -30,12 +30,15 @@ export const MarketTable = memo((props: IMarketTable) => {
             <div className={tdClass}>{item.instr}</div>
             <div className="td grouped">
               {clientSettings.allowed_account_types.map((type: ETradingAccountType) => {
-                if (type === ETradingAccountType.raw) {
-                  return (
-                    <div className={tdClass}>{item.raw.toString() === 'N/A' ? item.raw : item.raw + ' per round'}</div>
-                  );
-                }
-                return <div className={tdClass}>{item[type]}</div>;
+                return (
+                  <div className={tdClass} key={type}>
+                    {type === ETradingAccountType.raw
+                      ? item.raw.toString() === 'N/A'
+                        ? item.raw
+                        : item.raw + ' per round'
+                      : item[type]}
+                  </div>
+                );
               })}
             </div>
             <div className={fullViewParamClass}>

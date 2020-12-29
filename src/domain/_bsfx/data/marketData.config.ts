@@ -25,9 +25,14 @@ export const accountTypePip = {
   variable: 1.4,
 };
 
-const tableEntries = Object.entries(_marketTableContent).map(([key, value]) => [
-  key,
-  value.map((item) => ({ ...item, raw: null, variable: item.classic, platform: [ETradingPlatform.mt5] })),
-]);
-
-export const marketTableContent = Object.fromEntries(tableEntries);
+export const marketTableContent = Object.keys(_marketTableContent).reduce(
+  (acc, key) =>
+    Object.assign(acc, {
+      [key]: _marketTableContent[key].map((item) => ({
+        ...item,
+        variable: item.classic,
+        platform: [ETradingPlatform.mt5],
+      })),
+    }),
+  {},
+);
