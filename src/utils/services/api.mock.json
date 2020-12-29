@@ -315,6 +315,19 @@
         },
         "messageCode": 54
       }
+    },
+    "settings": {
+      "response": {
+        "status": "success",
+        "message": {
+          "allowed_currencies": ["USD"],
+          "allowed_leverages": [100, 500],
+          "allowed_platforms": ["mt5"],
+          "allowed_account_types": ["fixed", "variable"],
+          "jurisdiction": "St Vincent"
+        },
+        "messageCode": 0
+      }
     }
   },
   "documents": {
