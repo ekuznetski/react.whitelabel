@@ -51,6 +51,7 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.createDemoTradingAccount:
     case EActionTypes.submitEdd:
     case EActionTypes.fetchStocksPrices:
+    case EActionTypes.login:
     case EActionTypes.logout:
       return {
         ...state,

@@ -1,5 +1,3 @@
-import { AnyFunction } from '@domain/interfaces';
-
 export function appendAndSubmitForm(url: string, data: { [key: string]: any }): any {
   const form = document.createElement('form');
   form.setAttribute('action', 'https://api.hycm.com/deposits/add');

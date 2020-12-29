@@ -1,8 +1,8 @@
 import { Alert, Button, CountrySelect, Input, Radio, Select, TabMobileBackButton } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ENotificationType } from '@domain/enums';
+import { EClientStatusCode, ENotificationType } from '@domain/enums';
 import { IEdd } from '@domain/interfaces';
-import { MClientProfile } from '@domain/models';
+import { MClientProfile, MClientStatus } from '@domain/models';
 import { EActionTypes, IStore, ac_showNotification, ac_submitEdd } from '@store';
 import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
@@ -15,9 +15,12 @@ import { config } from './';
 import './EddForm.scss';
 
 export const EddForm = memo(function EddForm() {
-  const { profile } = useSelector<IStore, { profile: MClientProfile }>((state) => ({
-    profile: state.data.client.profile,
-  }));
+  const { profile, clientStatus } = useSelector<IStore, { profile: MClientProfile; clientStatus: MClientStatus }>(
+    (state) => ({
+      profile: state.data.client.profile,
+      clientStatus: state.data.client.status,
+    }),
+  );
   const viewportSize = useResponsive();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -62,6 +65,8 @@ export const EddForm = memo(function EddForm() {
   function Submit(data: FormikValues) {
     const values = { ...data };
 
+    // TODO: Move the data conversion to RouterAdapter
+
     // Convert and prepare data to submit
     values.nationality = values.nationality.name;
     if (values.employment_status_ext) {
@@ -72,6 +77,8 @@ export const EddForm = memo(function EddForm() {
     Object.keys(values).forEach((key) => {
       if (!values[key]) delete values[key];
     });
+
+    // TODO end
 
     dispatch(
       ac_submitEdd(
@@ -86,7 +93,7 @@ export const EddForm = memo(function EddForm() {
         () =>
           dispatch(
             ac_showNotification({
-              type: ENotificationType.failure,
+              type: ENotificationType.danger,
               innerText: t('Failed To Submit Edd Form'),
             }),
           ),
@@ -123,9 +130,10 @@ export const EddForm = memo(function EddForm() {
           },
         )}
         validationSchema={validationSchema}
+        initialStatus={clientStatus.edd_status.code === EClientStatusCode.submitted && 'disabled'}
         onSubmit={Submit}
       >
-        {({ values, submitCount, setFieldValue, errors }: FormikProps<any>) => {
+        {({ values, setFieldValue }: FormikProps<any>) => {
           useEffect(() => {
             setFieldValue('employment_status_ext', '');
           }, [values.employment_status]);
@@ -294,8 +302,7 @@ export const EddForm = memo(function EddForm() {
                   </>
                 )}
                 <Col xs={12} md={viewportSize.lg ? 12 : 6}>
-                  <Button type="submit">
-                    {/*   loadingOnAction={EActionTypes.editProfile} checkFormValidity={submitCount > 0}> */}
+                  <Button type="submit" checkFormValidity loadingOnAction={EActionTypes.submitEdd}>
                     {t('Save')}
                   </Button>
                 </Col>

@@ -1,4 +1,12 @@
 @import '~/variables';
 
 .credit-card-verification {
+  .upload-file__desc {
+    background: lighten($yellow, 30%);
+    color: $yellow;
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 }

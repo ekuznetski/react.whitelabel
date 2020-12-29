@@ -21,6 +21,7 @@ import {
   IResetPasswordRequest,
   ISetProfileRequest,
   ISubmitFPRequest,
+  ITins,
   ITransactionalStatementsRequestData,
   IUserExistsRequest,
   IWithdrawFundRequest,
@@ -31,7 +32,7 @@ import {
   MClientSettings,
   MClientStatus,
   MClientTradingData,
-  MDocument,
+  MDocuments,
   MEdd,
   MTins,
   MTransactionalStatementData,
@@ -176,7 +177,7 @@ export function ac_register(
 }
 
 export function ac_preRegister(
-  payload: { clientData: IClientAddRequest },
+  payload: { clientStatus: IClientAddRequest },
   onSuccess: AnyFunction,
   onFailure: AnyFunction,
 ): IAction {
@@ -351,9 +352,10 @@ export function ac_withdrawFunds(payload: IWithdrawFundRequest, onSuccess: AnyFu
   };
 }
 
-export function ac_fetchClientData(): IAction {
+export function ac_fetchClientData(payload?: { force: true | null }): IAction {
   return {
     type: EActionTypes.fetchClientData,
+    force: payload?.force || null,
   };
 }
 
@@ -417,7 +419,7 @@ export function ac_fetchDocuments(payload?: { force: true | null }): IAction {
   };
 }
 
-export function ac_saveDocuments(payload: MDocument[]): IAction {
+export function ac_saveDocuments(payload: MDocuments): IAction {
   return {
     type: EActionTypes.saveDocuments,
     payload,
@@ -431,6 +433,19 @@ export function ac_uploadDocuments(
 ): IAction {
   return {
     type: EActionTypes.fetchDocuments,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_updateTins(
+  payload: ITins,
+  onSuccess: AnyFunction = () => {},
+  onFailure: AnyFunction = () => {},
+): IAction {
+  return {
+    type: EActionTypes.updateTins,
     payload,
     onSuccess,
     onFailure,

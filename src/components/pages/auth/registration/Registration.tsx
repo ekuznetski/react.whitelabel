@@ -15,8 +15,8 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
-import './Registration.scss';
 import { ContinueRegistrationModal } from '@pages/auth/registration/components/continueRegistrationModal/ContinueRegistrationModal';
+import './Registration.scss';
 
 function getLocalStorageRegData() {
   if (!localStorage) return null;
@@ -95,7 +95,7 @@ export function Registration() {
           },
           () =>
             ac_showNotification({
-              type: ENotificationType.failure,
+              type: ENotificationType.danger,
               innerText: 'Settings not loaded',
             }),
         ),
@@ -117,7 +117,7 @@ export function Registration() {
             () => resolve(),
             () =>
               ac_showNotification({
-                type: ENotificationType.failure,
+                type: ENotificationType.danger,
                 innerText: 'Registration unsuccessful',
               }),
           ),
@@ -154,7 +154,7 @@ export function Registration() {
               setActiveStep(ERegSteps.step1);
               dispatch(
                 ac_showNotification({
-                  type: ENotificationType.failure,
+                  type: ENotificationType.danger,
                   innerText: 'Registration unsuccessful',
                 }),
               );

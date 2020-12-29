@@ -5,13 +5,11 @@ import { batch } from 'react-redux';
 
 export function routeFetchData(route: IRouteNavConfig) {
   const _batchDispatch: any[] = [];
-  // Request Initial ApiData
   [
     ...(routesInitialApiData[route.appSection]?.lazy || []),
     ...(routesInitialApiData[route.appSection]?.strict || []),
   ]?.forEach((ac) => {
     const _ac = ac();
-    // console.log('Request Initial Action: ' + _ac.type);
     _batchDispatch.push(_ac);
   });
 

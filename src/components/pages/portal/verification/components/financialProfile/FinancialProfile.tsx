@@ -12,8 +12,8 @@ import { FinancialProfileLastStep, FinancialProfileStepGenerator } from './compo
 import './FinancialProfile.scss';
 
 export const FinancialProfile = memo(function FinancialProfile() {
-  const { statusData } = useSelector<IStore, { statusData: MClientStatus }>((state) => ({
-    statusData: state.data.client.statusData,
+  const { clientStatus } = useSelector<IStore, { clientStatus: MClientStatus }>((state) => ({
+    clientStatus: state.data.client.status,
   }));
   const [state, setState] = useState<IFPState>({
     step: EFPSteps.step1,
@@ -56,7 +56,7 @@ export const FinancialProfile = memo(function FinancialProfile() {
 
   return (
     <div className="financial-profile form-wrapper py-10 px-9 col-xl-10 col-12 m-auto">
-      {statusData.fp_status.code === EClientStatusCode.submitted ? (
+      {clientStatus.fp_status.code === EClientStatusCode.submitted ? (
         <div className="text-center">
           <h3>{t('Financial Profile Completed')}</h3>
           <Svg className="mt-5" href="profile-completed" width={78} />

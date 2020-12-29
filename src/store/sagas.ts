@@ -281,17 +281,20 @@ export function* getClientStatusDataSaga() {
     function* () {
       const { response }: IClientStatusDataResponse = yield call(Request.getClientDataRequest);
       yield put(Action.ac_saveClientData(new Model.MClientStatus(response)));
-      yield put(Action.ac_saveTins(new Model.MTins(response.tins_data)));
+      yield put(Action.ac_saveTins(new Model.MTins(response.tins_data))); // remove when API clients/tins will been added
+      yield put(Action.ac_saveEdd(new Model.MEdd(response.edd_data))); // remove when API clients/edd will been added
       return response;
     },
-    'data.client.statusData',
+    'data.client.status',
   );
 }
 
 export function* updateTinsSaga() {
-  yield $$(EActionTypes.register, function* ({ payload }: IAction) {
+  yield $$(EActionTypes.updateTins, function* ({ payload }: IAction) {
+    console.log(1);
     const { response }: ITinsResponse = yield call(Request.updateTinsRequest, payload);
-    yield put(Action.ac_saveTins(new Model.MTins(response.message)));
+    // yield put(Action.ac_saveTins(new Model.MTins(response.message))); // uncomment when API clients/tins will been added
+    yield put(Action.ac_fetchClientData({ force: true }));
     return response;
   });
 }
@@ -299,7 +302,8 @@ export function* updateTinsSaga() {
 export function* submitEddSaga() {
   yield $$(EActionTypes.submitEdd, function* ({ payload }: IAction) {
     const { response }: IEddResponse = yield call(Request.submitEddRequest, payload);
-    yield put(Action.ac_saveEdd(new Model.MEdd(response.message)));
+    // yield put(Action.ac_saveEdd(new Model.MEdd(response.message))); // uncomment when API clients/tins will been added
+    yield put(Action.ac_fetchClientData({ force: true }));
     return response;
   });
 }
@@ -370,8 +374,7 @@ export function* fetchDocumentsSaga() {
     EActionTypes.fetchDocuments,
     function* () {
       const { response }: IDocumentsInterfaceResponse = yield call(Request.getDocumentsRequest);
-      const data = response.message.map((document) => new Model.MDocument(document));
-      yield put(Action.ac_saveDocuments(data));
+      yield put(Action.ac_saveDocuments(new Model.MDocuments(response.message)));
       return response;
     },
     'data.client.documents',

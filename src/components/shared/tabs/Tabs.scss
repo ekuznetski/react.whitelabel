@@ -161,7 +161,7 @@
           font-weight: 600;
           z-index: 1;
           border-radius: $border-radius;
-          transition: background 0.1s, box-shadow 0.1s;
+          transition: background-color 0.1s, box-shadow 0.1s;
           cursor: pointer;
 
           &:before,
@@ -175,17 +175,6 @@
             border: 1px solid $dark-grey;
           }
 
-          &.active {
-            background: #fff;
-            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
-            
-
-            &:after {
-              background-color: $blue;
-              border-color: $blue;
-            }
-          }
-
           &__label {
             @include d-flex(start, center, column);
             text-align: left;
@@ -194,14 +183,55 @@
             min-height: 76px;
 
             &-subtitle {
+              font-size: 14px;
               font-weight: 400;
               color: rgba(0, 0, 0, 0.4);
+            }
+          }
+
+          &.active {
+            background: #fff;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+
+            &:after {
+              background-color: $blue;
+              border-color: $blue;
             }
           }
 
           &.disabled {
             .tab__link {
               &__icon {
+              }
+            }
+          }
+
+          &.warning {
+            .tab__link {
+              &__label {
+                &-subtitle {
+                  color: $yellow;
+                }
+              }
+            }
+          }
+
+          &.danger {
+            .tab__link {
+              &__label {
+                &-subtitle {
+                  color: $red;
+                }
+              }
+            }
+          }
+
+          &.success {
+            .tab__link {
+              &__label {
+                &-subtitle {
+                  color: $green;
+                }
               }
             }
           }

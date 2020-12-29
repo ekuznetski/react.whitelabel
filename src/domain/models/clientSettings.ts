@@ -13,8 +13,10 @@ import {
   ILeveragesSelectList,
   IPlatformsSelectList,
   ITradingAccountTypesSelectList,
+  TClientStatus,
 } from '@domain/interfaces';
 import { store } from '@store';
+import { generateStatus } from '@utils/fn/generateStatus';
 
 export class MClientSettings {
   allow_additional_account: boolean;
@@ -29,7 +31,7 @@ export class MClientSettings {
   enable_citioptions: boolean;
   show_praxis_and_webmoney: boolean;
   show_promotions: boolean;
-  phone_verification: EClientStatus;
+  phone_verification: TClientStatus;
   show_compliance_popup: boolean;
   switch_cayman: boolean;
   is_withdrawal_allowed: boolean;
@@ -72,8 +74,7 @@ export class MClientSettings {
     this.show_praxis_and_webmoney = props.show_praxis_and_webmoney;
     this.enable_citioptions = props.enable_citioptions;
     this.show_promotions = props.show_promotions || true;
-    this.phone_verification =
-      EClientStatus[props.phone_verification?.toLowerCase() as keyof typeof EClientStatus] || EClientStatus.pending;
+    this.phone_verification = generateStatus(props.phone_verification?.toLowerCase?.() as keyof typeof EClientStatus);
     this.show_compliance_popup = props.show_compliance_popup || false;
     this.switch_cayman = props.switch_cayman || false;
     this.is_withdrawal_allowed = props.is_withdrawal_allowed || false;

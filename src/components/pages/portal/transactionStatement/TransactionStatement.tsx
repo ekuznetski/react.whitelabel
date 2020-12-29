@@ -71,7 +71,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
             }),
           );
         },
-        () => dispatch(ac_showNotification({ type: ENotificationType.failure, innerText: 'Error' })),
+        () => dispatch(ac_showNotification({ type: ENotificationType.danger, innerText: 'Error' })),
       ),
     );
   }

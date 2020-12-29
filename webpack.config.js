@@ -7,6 +7,7 @@ const fs = require('fs');
 const glob = require('glob');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const tsConfig = require('./tsconfig.json');
+const postcssAssets = require('postcss-assets');
 const webpack = require('webpack');
 
 /**
@@ -70,7 +71,7 @@ module.exports = (_env, arguments) => {
   let prototypesFilenames = [];
   let environmentFilenames = [];
   let localeFilenames = [];
-  
+
   // Generate map to replace files for different domain
   if (targetLabel) {
     environmentFilenames = glob.sync(`./src/env/${targetLabelFolder}/*`);
@@ -272,6 +273,26 @@ module.exports = (_env, arguments) => {
               },
             },
             'css-loader',
+            {
+              loader: "postcss-loader",
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    [
+                      postcssAssets({
+                        basePath: path.join(__dirname, 'src/'),
+                        loadPaths: [
+                          'assets/img/',
+                          'assets/svg/',
+                          `assets/${targetLabelFolder}/img/`,
+                          `assets/${targetLabelFolder}/svg/`,
+                        ]
+                      })
+                    ],
+                  ],
+                },
+              },
+            },
             {
               loader: 'sass-loader',
               options: {

@@ -20,7 +20,7 @@ export * from './data/auth.interface';
 export * from './data/clientProfile.interface';
 export * from './data/clientSettings.interface';
 export * from './data/editProfile.interface';
-export * from './data/clientData.interface';
+export * from './data/clientStatus.interface';
 export * from './data/statusObject.interface';
 export * from './data/tradingAccounts.interface';
 export * from './data/withdrawal.interface';
