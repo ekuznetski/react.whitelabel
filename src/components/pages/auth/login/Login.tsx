@@ -1,9 +1,9 @@
 import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { env } from '@env';
 import { ELabelsName, ENotificationType } from '@domain/enums';
 import { ILoginRequest } from '@domain/interfaces';
-import { ac_login, ac_showNotification } from '@store';
+import { env } from '@env';
+import { ac_login, ac_showNotification, EActionTypes } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -32,7 +32,7 @@ export function Login() {
         dispatch(
           ac_showNotification({
             type: ENotificationType.danger,
-            context: 'Incorrect Email/Username or Password',
+            innerText: 'Incorrect Email/Username or Password',
           }),
         );
       }),
@@ -59,7 +59,9 @@ export function Login() {
               <Form className="m-auto form">
                 <Input label={t('Email/Username')} name={EFields.username} />
                 <Input label={t('Password')} type="password" name={EFields.password} />
-                <Button type="submit">{t('Sign In')}</Button>
+                <Button type="submit" loadingOnAction={EActionTypes.login}>
+                  {t('Sign In')}
+                </Button>
               </Form>
             )}
           </Formik>

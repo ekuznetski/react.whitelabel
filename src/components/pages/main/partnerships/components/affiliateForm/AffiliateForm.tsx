@@ -46,14 +46,14 @@ export const AffiliateForm = memo(() => {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: 'Email added to the queue.',
+              innerText: 'Email added to the queue.',
             }),
           ),
         () =>
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              context: 'Error',
+              innerText: 'Error',
             }),
           ),
       ),

@@ -1,4 +1,4 @@
-import { Footer, Router } from '@components/core';
+import { Footer, Modal, Router } from '@components/core';
 import { IntercomChat } from '@components/shared';
 import { localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
@@ -80,7 +80,9 @@ export function Main() {
           <Router />
         </div>
         <Footer />
-        <div id="dynamic-portals" />
+        <div id="dynamic-portals">
+          <Modal />
+        </div>
       </>
     );
   }, [section]);

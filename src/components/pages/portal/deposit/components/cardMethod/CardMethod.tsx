@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { ECreditCardType, EDepositMethodCode, ELanguage, ETradingType } from '@domain/enums';
 import { ICreditCardDepositRequest } from '@domain/interfaces';
 import { MClientProfile } from '@domain/models';
-import { ac_addDeposit, IStore } from '@store';
+import { IStore, ac_addDeposit } from '@store';
 import cardValidator from 'card-validator';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { BillingDetailsModal, CreditCardInfoModal, DetailsHeader } from '..';
-import { depositActionCreators, IDepositState, useDepositDispatch, useDepositState } from '../../deposit.context';
+import { IDepositState, depositActionCreators, useDepositDispatch, useDepositState } from '../../deposit.context';
 import './CardMethod.scss';
 
 enum EFields {
@@ -175,7 +175,7 @@ export function CardMethod() {
             const { values, setFieldValue } = props;
 
             return (
-              <Form className="m-auto form fadein-row">
+              <Form className="m-auto form">
                 <Row>
                   <Col xs={12}>
                     <Input label="Сardholder Name" name={EFields.cardholderName} className="cardholder" />

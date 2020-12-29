@@ -21,9 +21,9 @@
 
   .common-modal {
     width: 640px;
-    min-height: 400px;
+    min-height: 200px;
     max-height: 600px;
-    overflow: hidden;
+    overflow: visible;
     border-radius: $border-radius;
     box-shadow: box-shadow(85, 0.25);
     background: #fff;
@@ -39,9 +39,13 @@
 
     &__content {
       height: 100%;
+      width: 100%;
       @include d-flex(center, space-between, column);
 
       .modal-content {
+        &__context {
+          width: 100%;
+        }
         &__title {
           font-weight: 500;
           font-size: 22px;

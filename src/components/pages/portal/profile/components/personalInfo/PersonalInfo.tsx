@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { ECountryCode, ENotificationType } from '@domain/enums';
 import { IEditProfileRequest } from '@domain/interfaces';
 import { MClientProfile } from '@domain/models';
-import { ac_editProfile, ac_showNotification, EActionTypes, IStore } from '@store';
+import { EActionTypes, IStore, ac_editProfile, ac_showNotification } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -53,14 +53,14 @@ export const PersonalInfo = memo(
             dispatch(
               ac_showNotification({
                 type: ENotificationType.success,
-                context: t('The Profile Has Been Updated'),
+                innerText: t('The Profile Has Been Updated'),
               }),
             ),
           () =>
             dispatch(
               ac_showNotification({
                 type: ENotificationType.danger,
-                context: t('Failed To Update Client Profile'),
+                innerText: t('Failed To Update Client Profile'),
               }),
             ),
         ),

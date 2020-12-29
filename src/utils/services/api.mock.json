@@ -315,6 +315,19 @@
         },
         "messageCode": 54
       }
+    },
+    "settings": {
+      "response": {
+        "status": "success",
+        "message": {
+          "allowed_currencies": ["USD"],
+          "allowed_leverages": [100, 500],
+          "allowed_platforms": ["mt5"],
+          "allowed_account_types": ["fixed", "variable"],
+          "jurisdiction": "St Vincent"
+        },
+        "messageCode": 0
+      }
     }
   },
   "documents": {
@@ -322,9 +335,7 @@
       "response": {
         "status": "success",
         "message": [
-          { "id": "94299", "document_type": "PoR", "document_status": "Pending", "created": "2020-06-05 13:13:54" },
-          { "id": "88721", "document_type": "IDBack", "document_status": "Pending", "created": "2020-04-02 09:25:50" },
-          { "id": "80829", "document_type": "ID", "document_status": "Pending", "created": "2019-12-05 10:11:06" }
+          { "id": "94299", "document_type": "PoR", "document_status": "Pending", "created": "2020-06-05 13:13:54" }
         ],
         "messageCode": 31
       }

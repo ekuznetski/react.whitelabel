@@ -10,7 +10,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { depositActionCreators, DepositContext, IDepositState } from '../../deposit.context';
+import { DepositContext, IDepositState, depositActionCreators } from '../../deposit.context';
 import { config } from './TabContentBankWire.config';
 import './TabContentBankWire.scss';
 
@@ -43,7 +43,7 @@ export function TabContentBankWire() {
           const banksCurrency =
             (values.account?.currency && config.banks[values.account?.currency]) ?? config.banks[ECurrencyCode.usd];
           return (
-            <Form className="m-auto form fadein-row">
+            <Form className="m-auto form">
               {account?.type !== ETradingType.fake && (
                 <Row>
                   <Col xs={12} sm={5}>

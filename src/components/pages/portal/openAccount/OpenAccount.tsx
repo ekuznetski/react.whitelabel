@@ -2,9 +2,9 @@ import {
   Button,
   CurrencySelect,
   LocaleNavLink,
-  Modal,
   ModalContext,
   ModalNav,
+  ModalOld,
   ModalTitle,
   PageTitle,
   Radio,
@@ -14,15 +14,16 @@ import {
 import { FieldValidators } from '@domain';
 import { EModalType, ETradingType } from '@domain/enums';
 import { ICreateTradingAccountRequest, ICreateTradingAccountResponse } from '@domain/interfaces';
-import { EActionTypes, IAppStore, IStore, ac_createTradingAccount } from '@store';
+import { EActionTypes, IAppStore, IStore, ac_createTradingAccount, ac_showModal } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { MClientSettings } from '@domain/models';
 import * as Yup from 'yup';
 import './OpenAccount.scss';
+import { SubmitModal } from '@pages/portal/openAccount/components/submitModal/SubmitModal';
 
 type modalOptionsProps = { type: EModalType | null; isOpen: boolean; data: ICreateTradingAccountResponse | null };
 
@@ -60,17 +61,21 @@ export const OpenAccount = memo(function OpenAccount() {
   const tradingPlatforms = clientSettings.getPlatformsSelectList();
   const currencies = clientSettings.getCurrenciesSelectList();
 
-  function closeModal(type: EModalType) {
-    return (isOpen: boolean) => setModalOptions({ type, isOpen, data: null });
-  }
-
   function Submit(data: FormikValues) {
     dispatch(
       ac_createTradingAccount(
         data as ICreateTradingAccountRequest,
         route.state.accountType === ETradingType.demo,
-        (accountData) => setModalOptions({ type: EModalType.success, isOpen: true, data: accountData }),
-        () => setModalOptions({ type: EModalType.failure, isOpen: true, data: null }),
+        (accountData) => {
+          dispatch(
+            ac_showModal(SubmitModal, { type: EModalType.success, data: accountData }, 'open-account__modal success'),
+          );
+          setModalOptions({ type: EModalType.success, isOpen: true, data: accountData });
+        },
+        () => {
+          dispatch(ac_showModal(SubmitModal, { type: EModalType.failure }, 'open-account__modal failure'));
+          setModalOptions({ type: EModalType.failure, isOpen: true, data: null });
+        },
       ),
     );
   }
@@ -117,48 +122,6 @@ export const OpenAccount = memo(function OpenAccount() {
           </Col>
         </Row>
       </Container>
-      {modalOptions.type === EModalType.success && (
-        <Modal
-          className="open-account__modal success"
-          isOpen={modalOptions.isOpen}
-          isOpenDispatcher={closeModal(EModalType.success)}
-        >
-          <ModalTitle title={t('Successful Submission')}>
-            <small className="mt-1">
-              {t('Demo Live trade account with ID')} <b>{modalOptions.data?.trade_account_id}</b>{' '}
-              {t('added successfully')}
-            </small>
-          </ModalTitle>
-          <ModalContext>
-            <Svg href="shrimp" width={100} className="p-7" />
-          </ModalContext>
-          <ModalNav>
-            <Button className="col-12 col-md-8 mx-auto" onClick={() => closeModal(EModalType.success)(false)}>
-              <LocaleNavLink to="/dashboard">{t('Continue')}</LocaleNavLink>
-            </Button>
-          </ModalNav>
-        </Modal>
-      )}
-      {modalOptions.type === EModalType.failure && (
-        <Modal
-          className="open-account__modal failure"
-          isOpen={modalOptions.isOpen}
-          isOpenDispatcher={closeModal(EModalType.failure)}
-        >
-          <ModalTitle title={t('Unsuccessful Submission')} subTitle={t('A Similar Trade Account Already Exists')} />
-          <ModalContext>
-            <Svg href="shrimp" width={100} className="p-7" />
-          </ModalContext>
-          <ModalNav>
-            <Button className="red mr-5" onClick={() => closeModal(EModalType.failure)(false)}>
-              {t('Try Again')}
-            </Button>
-            <Button className="red mr-5" noBg onClick={() => closeModal(EModalType.failure)(false)}>
-              <LocaleNavLink to="/dashboard">{t('Back to Dashboard')}</LocaleNavLink>
-            </Button>
-          </ModalNav>
-        </Modal>
-      )}
     </>
   );
 });

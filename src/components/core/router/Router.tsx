@@ -84,6 +84,7 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
     openedRequests: state.app.requests.activeList,
   }));
   const [firstRender, { setFalse: setFirstRenderFalse }] = useBoolean(true);
+  const [pageLoaded, { setTrue: setPageLoaded }] = useBoolean(false);
   const { localizePath } = usePathLocale();
   const history = useHistory();
 
@@ -104,8 +105,8 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
           ? openedRequests.filter((request) => _routeStrictRequests.includes(request)).length > 0
           : false;
 
-        if (routeState.isLoading != hasUncompletedStrictRequest) {
-          useLockScroll(hasUncompletedStrictRequest);
+        useLockScroll(!pageLoaded && hasUncompletedStrictRequest);
+        if (routeState.isLoading != hasUncompletedStrictRequest && !pageLoaded) {
           store.dispatch(ac_updateRouteParams({ isLoading: hasUncompletedStrictRequest }));
         }
 
@@ -119,6 +120,8 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
           } else if (_redirectParams === false) {
             history.push(localizePath(route.path));
           }
+
+          setPageLoaded();
         }
       }
     },
