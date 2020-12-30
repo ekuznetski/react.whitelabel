@@ -11,6 +11,12 @@ export interface IPartnershipRegistrationRequest {
 
 export type IPartnershipRegistrationResponse = IBaseResponse;
 
+export type ISendReferrerLinkResponse = IBaseResponse;
+
+export interface ISendReferrerLinkRequest {
+  email: string;
+}
+
 export interface IPartnershipIBRegistrationRequest {
   first_name: string;
   surname: string;

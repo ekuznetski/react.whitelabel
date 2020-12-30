@@ -7,3 +7,4 @@ export * from './internalTransfer/InternalTransfer';
 export * from './transactionStatement/TransactionStatement';
 export * from './platformDownload/PlatformDownload';
 export * from './verification/Verification';
+export * from './inviteFriends/InviteFriends';

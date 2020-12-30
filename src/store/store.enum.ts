@@ -91,4 +91,7 @@ export enum EActionTypes {
 
   // APP - Stocks Prices
   fetchStocksPrices = '[APP - Stocks Prices] Fetch',
+
+  // APP - Share
+  sendReferrerLink = '[APP - Share] Send Referrer Link',
 }

@@ -17,6 +17,7 @@ import {
   ILoginResponse,
   IPartnershipIBRegistrationResponse,
   IPartnershipRegistrationResponse,
+  ISendReferrerLinkResponse,
   ISetProfileResponse,
   ITinsResponse,
   ITradingAccountsResponse,
@@ -417,6 +418,13 @@ export function* fetchStocksPricesSaga() {
 export function* partnershipRegistrationSaga() {
   yield $$(EActionTypes.partnershipRegister, function* ({ payload }: IAction) {
     const { response }: IPartnershipRegistrationResponse = yield call(Request.partnershipRegistrationRequest, payload);
+    return response;
+  });
+}
+
+export function* sendReferrerLinkSaga() {
+  yield $$(EActionTypes.sendReferrerLink, function* ({ payload }: IAction) {
+    const { response }: ISendReferrerLinkResponse = yield call(Request.sendReferrerLinkRequest, payload);
     return response;
   });
 }

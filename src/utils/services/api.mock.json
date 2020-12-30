@@ -1,5 +1,5 @@
 {
-  "!clients": {
+  "clients": {
     "getProfile": {
       "response": {
         "status": "success",
@@ -543,6 +543,12 @@
   },
   "extra": {
     "partnershipEmail": {
+      "response": {
+        "status": "failure",
+        "message": "Error message"
+      }
+    },
+    "sendReferrerLink": {
       "response": {
         "status": "failure",
         "message": "Error message"

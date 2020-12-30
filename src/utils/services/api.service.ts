@@ -94,6 +94,7 @@ export const partnershipRegistrationRequest = request(
   EHttpMethod.post,
   `${env.API_URL}/frontend/extra/partnershipEmail`,
 );
+export const sendReferrerLinkRequest = request(EHttpMethod.post, `${env.API_URL}/frontend/extra/sendReferrerLink`);
 export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${env.API_URL}/ibs/add`);
 export const getStocksPricesRequest = request(EHttpMethod.post, `https://prices.hycm.com/graphs/prices2`);
 export const getClientSettingsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/settings`);

@@ -348,15 +348,15 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     activators: [allowAuthorizedGuard],
   },
-  // {
-  //   meta: {
-  //     title: meta_t('Invite Friends:title'),
-  //   },
-  //   path: EPagePath.Verification,
-  //   component: Page.Verification,
-  //   appSection: EAppSection.portal,
-  //   activators: [allowAuthorizedGuard],
-  // },
+  {
+    meta: {
+      title: meta_t('Invite Friends:title'),
+    },
+    path: EPagePath.InviteFriends,
+    component: Page.InviteFriends,
+    appSection: EAppSection.portal,
+    activators: [allowAuthorizedGuard],
+  },
   {
     meta: {
       title: meta_t('Not Found:title'),

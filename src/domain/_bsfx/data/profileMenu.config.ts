@@ -7,11 +7,11 @@ export const profileMenuPortalConfig = [
     path: '/verification',
     title: t('Verification'),
   },
-  // {
-  //   icon: 'coins',
-  //   path: '/invite-friends',
-  //   title: t('Invite Friends'),
-  // },
+  {
+    icon: 'share',
+    path: '/invite-friends',
+    title: t('Invite Friends'),
+  },
   {
     icon: 'profile',
     path: '/profile',

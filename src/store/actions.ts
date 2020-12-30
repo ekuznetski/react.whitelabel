@@ -19,6 +19,7 @@ import {
   IPartnershipIBRegistrationRequest,
   IPartnershipRegistrationRequest,
   IResetPasswordRequest,
+  ISendReferrerLinkRequest,
   ISetProfileRequest,
   ISubmitFPRequest,
   ITins,
@@ -479,6 +480,19 @@ export function ac_partnershipRegisterIB(
 ): IAction {
   return {
     type: EActionTypes.partnershipRegisterIB,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_sendReferrerLink(
+  payload: ISendReferrerLinkRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction = null,
+): IAction {
+  return {
+    type: EActionTypes.sendReferrerLink,
     payload,
     onSuccess,
     onFailure,
