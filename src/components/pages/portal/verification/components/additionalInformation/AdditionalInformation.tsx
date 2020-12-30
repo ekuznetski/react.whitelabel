@@ -32,22 +32,26 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
   return (
     <div className="additional-information">
       <Tabs className="client-additional-information__tabs" isVertical={true} activeTab={initialActiveTab}>
-        <Tab
-          status={clientStatus.edd_status.notificationType}
-          label={t('Complete EDD Form')}
-          subLabel={clientStatus.edd_status.message}
-          anchor={EAddInfoTabs.edd}
-        >
-          <EddForm />
-        </Tab>
-        <Tab
-          status={clientStatus.tins_status.notificationType}
-          label={t('Tax Identification')}
-          subLabel={clientStatus.tins_status.message}
-          anchor={EAddInfoTabs.tins}
-        >
-          <TaxIdentification />
-        </Tab>
+        {![2, 4].includes(clientStatus.edd_status.code) && (
+          <Tab
+            status={clientStatus.edd_status.notificationType}
+            label={t('Complete EDD Form')}
+            subLabel={clientStatus.edd_status.message}
+            anchor={EAddInfoTabs.edd}
+          >
+            <EddForm />
+          </Tab>
+        )}
+        {![2, 4].includes(clientStatus.tins_status.code) && (
+          <Tab
+            status={clientStatus.tins_status.notificationType}
+            label={t('Tax Identification')}
+            subLabel={clientStatus.tins_status.message}
+            anchor={EAddInfoTabs.tins}
+          >
+            <TaxIdentification />
+          </Tab>
+        )}
         <Tab
           // className={classNames(clientStatus.edd_status.notificationType)}
           label={t('Debit/Credit Card Verification')}
