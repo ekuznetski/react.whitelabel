@@ -30,8 +30,7 @@ export const AccountTypesForTradingStylesSection = memo(
                 <Card wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={1}>
                   <CardHeader className="mb-7 header">
                     <div>
-                      <Svg href="empty_star" className="mr-5" _label />
-                      <Svg href="blue_star" className="mr-5" _label={ELabels.bsfx} />
+                      <Svg href="star" className="mr-5" />
                       {t('Fixed')}
                     </div>
                     <span>
@@ -47,8 +46,7 @@ export const AccountTypesForTradingStylesSection = memo(
                 <Card wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={2}>
                   <CardHeader className="mb-7 header">
                     <div>
-                      <Svg href="empty_light" className="mr-5" _label />
-                      <Svg href="blue_light" className="mr-5" _label={ELabels.bsfx} />
+                      <Svg href="light" className="mr-5" />
                       {t('Variable')}
                     </div>
                     <span>

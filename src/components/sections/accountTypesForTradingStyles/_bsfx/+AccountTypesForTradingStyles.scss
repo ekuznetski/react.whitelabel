@@ -9,6 +9,11 @@
   }
 
   .common-cards {
+    svg {
+      stroke: $dark-blue;
+      fill: $dark-blue;
+    }
+
     &__item {
       &-header {
         span {
