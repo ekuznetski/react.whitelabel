@@ -1,4 +1,4 @@
-import { Modal, ModalContext, ModalTitle } from '@components/shared';
+import { ModalContext, ModalOld, ModalTitle } from '@components/shared';
 import React, { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import './CreditCardInfoModal.scss';
@@ -12,7 +12,7 @@ export function CreditCardInfoModal({ isModalOpen, setModalOpen }: IBillingDetai
   const { t } = useTranslation();
 
   return (
-    <Modal isOpen={isModalOpen} isOpenDispatcher={setModalOpen} className="credit-card-info-modal">
+    <ModalOld isOpen={isModalOpen} isOpenDispatcher={setModalOpen} className="credit-card-info-modal">
       <ModalTitle title={t('Additional Information')} />
       <ModalContext>
         <h3>Debit/Credit Card</h3>
@@ -66,6 +66,6 @@ export function CreditCardInfoModal({ isModalOpen, setModalOpen }: IBillingDetai
           </li>
         </ul>
       </ModalContext>
-    </Modal>
+    </ModalOld>
   );
 }

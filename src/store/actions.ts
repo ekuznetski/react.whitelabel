@@ -1,6 +1,10 @@
 import { EAppSection, EDocumentsType, ELanguage } from '@domain/enums';
 import {
   AnyFunction,
+  ExtractComponentProps,
+  IChangeAccountLeverageRequest,
+  IChangeAccountPasswordRequest,
+  IChangeAccountSettingsRequest,
   IClientAddRequest,
   IClientSettingsRequest,
   IContent,
@@ -10,6 +14,7 @@ import {
   IGeoIp,
   IInternalTransferRequestData,
   ILoginRequest,
+  IModalState,
   INotificationState,
   IPartnershipIBRegistrationRequest,
   IPartnershipRegistrationRequest,
@@ -23,18 +28,35 @@ import {
 } from '@domain/interfaces';
 import {
   MBankDetails,
-  MClientStatus,
   MClientProfile,
   MClientSettings,
+  MClientStatus,
   MClientTradingData,
   MDocuments,
+  MEdd,
   MTins,
   MTransactionalStatementData,
   MWithdrawalHistoryItem,
-  MEdd,
 } from '@domain/models';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
+
+export function ac_showModal<T = {}>(
+  component: T,
+  props?: ExtractComponentProps<T> | {},
+  modalWrapperClassName?: string,
+): IAction {
+  return {
+    type: EActionTypes.showModal,
+    payload: { component, props, modalWrapperClassName },
+  };
+}
+
+export function ac_hideModal(): IAction {
+  return {
+    type: EActionTypes.hideModal,
+  };
+}
 
 export function ac_showNotification(payload: Omit<INotificationState, 'visible'>): IAction {
   return {
@@ -478,9 +500,48 @@ export function ac_saveEdd(payload: MEdd): IAction {
   };
 }
 
-export function ac_submitEDD(payload: IEdd, onSuccess: AnyFunction = null, onFailure: AnyFunction = null): IAction {
+export function ac_submitEdd(payload: IEdd, onSuccess: AnyFunction = null, onFailure: AnyFunction = null): IAction {
   return {
     type: EActionTypes.submitEdd,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_changeAccountSettings(
+  payload: IChangeAccountSettingsRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
+  return {
+    type: EActionTypes.changeAccountSettings,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_changeAccountPassword(
+  payload: IChangeAccountPasswordRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
+  return {
+    type: EActionTypes.changeAccountPassword,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
+export function ac_changeAccountLeverage(
+  payload: IChangeAccountLeverageRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
+  return {
+    type: EActionTypes.changeAccountLeverage,
     payload,
     onSuccess,
     onFailure,

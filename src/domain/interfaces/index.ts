@@ -6,6 +6,7 @@ export * from './app/registration.interface';
 export * from './app/home.interface';
 export * from './app/clientBannerCard.interface';
 export * from './app/notification.interface';
+export * from './app/modal.interface';
 export * from './app/deposit.interface';
 export * from './app/partnership.interface';
 export * from './app/financialProfile.interface';

@@ -60,14 +60,14 @@ export class MClientSettings {
 
     this.allowed_account_types = Array.from(
       (props.allowed_account_types || []).map(
-        (item) => ETradingAccountType[item.toLowerCase() as keyof typeof ETradingAccountType],
+        (item) => ETradingAccountType[item?.toLowerCase() as keyof typeof ETradingAccountType],
       ),
     );
 
     this.allowed_platforms = Array.from(
-      (props.allowed_platforms || []).map(
-        (item) => ETradingPlatform[item.toLowerCase() as keyof typeof ETradingPlatform],
-      ),
+      (props.allowed_platforms || []).map((item) => {
+        return ETradingPlatform[item.toLowerCase() as keyof typeof ETradingPlatform];
+      }),
     );
 
     this.allow_internal_transfer = props.allow_internal_transfer;
@@ -100,7 +100,7 @@ export class MClientSettings {
   getLeveragesSelectList = (): ILeveragesSelectList[] => {
     return this.allowed_leverages.map((el) => ({
       label: el,
-      value: el.slice(2),
+      value: el,
     }));
   };
 

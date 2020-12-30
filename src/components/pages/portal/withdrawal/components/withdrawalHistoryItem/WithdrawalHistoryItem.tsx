@@ -1,14 +1,17 @@
-import { Button, Modal, ModalContext, ModalNav, ModalTitle, Svg } from '@components/shared';
+import { Button, ModalContext, ModalNav, ModalOld, ModalTitle, Svg } from '@components/shared';
 import { ETaskStatus } from '@domain/enums';
 import { MWithdrawalHistoryItem } from '@domain/models';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import './WithdrawalHistoryItem.scss';
+import { ac_showModal } from '@store';
+import { useDispatch } from 'react-redux';
+import { WithdrawCancelConfirmationModal } from '@pages/portal/withdrawal/components';
 
 export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: MWithdrawalHistoryItem) {
-  const [isModalOpen, setModalOpen] = React.useState(false);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   return (
     <div className={classNames('withdrawal-history-item mb-10', props.status.toLowerCase())}>
@@ -27,6 +30,7 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
           <div className="item-cel__title mb-2">{t('Date')}</div>
           <div className="item-cel__content">{props.issueDate.format('MM.DD.YYYY')}</div>
         </div>
+        2
         <div className="withdrawal-item__accountId px-6">
           <div className="item-cel__title mb-2">{t('Account')}</div>
           <div className="item-cel__content">{props.accountId}</div>
@@ -38,7 +42,12 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
       </div>
       {props.status === ETaskStatus.pending && (
         <div className="withdrawal-option p-6">
-          <Button noBg onClick={() => setModalOpen(true)}>
+          <Button
+            noBg
+            onClick={() =>
+              dispatch(ac_showModal(WithdrawCancelConfirmationModal, {}, 'withdrawal-history-item__modal'))
+            }
+          >
             {t('Cancel Withdrawal')}
           </Button>
         </div>
@@ -69,26 +78,6 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
           </div>
         </div>
       )}
-      <Modal className="withdrawal-history-item__modal" isOpen={isModalOpen} isOpenDispatcher={setModalOpen}>
-        <ModalTitle title={t('Confirmation')} subTitle={t('Please confirm withdrawal cancellation')} />
-        <ModalContext>
-          <Svg href="shrimp" width={100} className="p-7" />
-        </ModalContext>
-        <ModalNav>
-          <Button
-            className="mr-5"
-            onClick={() => {
-              alert('Call `withdrawals/cancel` API.');
-              setModalOpen(false);
-            }}
-          >
-            {t('Confirm')}
-          </Button>
-          <Button noBg onClick={() => setModalOpen(false)}>
-            {t('Cancel')}
-          </Button>
-        </ModalNav>
-      </Modal>
     </div>
   );
 });

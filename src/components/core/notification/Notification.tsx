@@ -1,10 +1,10 @@
 import { Svg } from '@components/shared';
 import { INotificationState } from '@domain/interfaces';
-import { ac_hideNotification, IStore } from '@store';
+import { IStore, ac_hideNotification } from '@store';
 import { useInterval } from 'ahooks';
 import classNames from 'classnames';
 import React, { memo, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import './Notification.scss';
 
@@ -62,8 +62,8 @@ export const Notification = memo(function Notification(props: INotification) {
     >
       <Container>
         <Row>
-          <Col xs={12} className="notification-context px-13">
-            {notificationProps.visible ? notificationProps.context : null}
+          <Col xs={12} className="notification-inner-wrapper px-13">
+            {notificationProps.visible ? notificationProps.innerText : null}
           </Col>
         </Row>
       </Container>

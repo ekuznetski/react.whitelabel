@@ -14,7 +14,7 @@ export * from './tabs/Tabs';
 export * from './cards/Cards';
 export * from './iconFlag/IconFlag';
 export * from './dropdown/Dropdown';
-export * from './modal/Modal';
+export * from './modal/ModalOld';
 export * from './alert/Alert';
 export * from './localeNavLink/LocaleNavLink';
 export * from './localeLink/LocaleLink';

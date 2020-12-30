@@ -45,6 +45,9 @@ export enum EActionTypes {
   makeInternalTransfer = '[DATA - Account] Internal Transfer',
   createLiveTradingAccount = '[DATA - Account] Create Live Trading Account',
   createDemoTradingAccount = '[DATA - Account] Create Demo Trading Account',
+  changeAccountLeverage = '[DATA - Account] Change Account Leverage',
+  changeAccountPassword = '[DATA - Account] Change Account Password',
+  changeAccountSettings = '[DATA - Account] Change Account Settings',
 
   // DATA - Withdrawal
   fetchWithdrawHistory = '[DATA - Withdrawal] Fetch History',
@@ -70,6 +73,10 @@ export enum EActionTypes {
   //APP - Notification
   showNotification = '[APP - Notification] Show',
   hideNotification = '[APP - Notification] Hide',
+
+  //APP - Modal
+  showModal = '[APP - Modal] Show',
+  hideModal = '[APP - Modal] Hide',
 
   // APP - Registration
   userExists = '[APP - Registration] User Exists',
