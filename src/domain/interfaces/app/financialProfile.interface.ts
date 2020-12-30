@@ -1,4 +1,4 @@
-import { EFPQuestionView, EFPSteps } from '@domain/enums';
+import { ECurrencyCode, ECurrencySymbol, EFPQuestionView, EFPSteps } from '@domain/enums';
 
 export interface IFPSubmittedAnswer {
   question: number;
@@ -13,7 +13,7 @@ export interface IFPState {
 
 export interface IFPQuestion {
   id: number | { [key: string]: string | null };
-  text: string;
+  text: (props?: { currencyCode?: ECurrencyCode; currencySymbol?: ECurrencySymbol }) => string;
   view: EFPQuestionView;
   answers: number[];
   step: EFPSteps;
@@ -21,7 +21,7 @@ export interface IFPQuestion {
 
 export interface IFPAnswer {
   apiId: number;
-  text: string;
+  text: (props?: { currencyCode?: ECurrencyCode; currencySymbol?: ECurrencySymbol }) => string;
   icon?: string;
   needRemark?: boolean;
 }
@@ -33,5 +33,5 @@ export interface ISubmitFPRequestItem {
 }
 
 export interface ISubmitFPRequest {
-  kyc_answer: string;
+  kyc_answer: any;
 }
