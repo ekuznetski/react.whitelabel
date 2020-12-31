@@ -3,7 +3,7 @@ import { env } from '@env';
 import axios from 'axios';
 import mockData from './api.mock.json';
 
-export function request<T extends { [K: string]: any }>(method: EHttpMethod, path: string) {
+export function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPath: string) {
   return async (data: T | null = null) => {
     if (data) {
       const formData = new FormData();
@@ -15,7 +15,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
 
     try {
       // RETURN MOCK RESPONSE
-      const [c, s] = path.split('/').splice(-2);
+      const [c, s] = requestPath.split('/').splice(-2);
       const mockResponse = (mockData as any)?.[c]?.[s];
       if (mockResponse) {
         return new Promise((resolve) => {
@@ -25,33 +25,42 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, pat
       // END MOCK RESPONSE
 
       if (method === EHttpMethod.get) {
-        return axios[method](path, { withCredentials: true }).then((e: any) => {
-          if (
-            (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
-            (e.data?.status && e.data.status === EResponseStatus.failure)
-          ) {
-            throw e;
-          } else {
-            return e.data;
-          }
-        });
+        return axios[method](requestPath, { withCredentials: true })
+          .then((e: any) => {
+            if (
+              (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
+              (e.data?.status && e.data.status === EResponseStatus.failure)
+            ) {
+              throw e;
+            } else {
+              return e.data;
+            }
+          })
+          .catch((e: any) => {
+            throw e.response;
+          });
       } else {
         // @ts-ignore
-        return axios[method](path, data, {
+        return axios[method](requestPath, data, {
           headers: {
             'content-type': 'application/x-www-form-urlencoded',
           },
           withCredentials: true,
-        }).then((e: any) => {
-          if (
-            (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
-            (e.data?.status && e.data.status === EResponseStatus.failure)
-          ) {
-            throw e;
-          } else {
-            return e.data;
-          }
-        });
+        })
+          .then((e: any) => {
+            if (
+              (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
+              (e.data?.status && e.data.status === EResponseStatus.failure)
+            ) {
+              throw e;
+            } else {
+              return e.data;
+            }
+          })
+          .catch((e: any) => {
+            console.log(e.response);
+            throw e.response;
+          });
       }
     } catch (err) {
       console.error(err);

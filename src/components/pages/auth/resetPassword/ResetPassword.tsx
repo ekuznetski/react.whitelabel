@@ -31,7 +31,7 @@ export function ResetPassword() {
       dispatch(
         ac_showNotification({
           type: ENotificationType.danger,
-          innerText: 'Token or Username is missed',
+          message: 'Token or Username is missed',
           timeout: null,
         }),
       );
@@ -48,7 +48,7 @@ export function ResetPassword() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              innerText: 'Password was changed successfully, now you will be redirected to dashboard',
+              message: 'Password was changed successfully, now you will be redirected to dashboard',
               timeout: 4000,
             }),
           );
@@ -60,7 +60,7 @@ export function ResetPassword() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              innerText: `Reset password failure: ${e.data.response.message}`,
+              message: `Reset password failure: ${e.data.response.message}`,
               timeout: null,
             }),
           );

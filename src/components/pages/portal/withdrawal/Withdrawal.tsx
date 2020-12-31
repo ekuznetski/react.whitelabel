@@ -93,7 +93,7 @@ export const Withdrawal = memo(function Withdrawal() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              innerText: t('Your Withdraw Request Added Successfully'),
+              message: t('Your Withdraw Request Added Successfully'),
             }),
           ),
       ),

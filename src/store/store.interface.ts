@@ -1,4 +1,4 @@
-import { EAppSection, ELanguage } from '@domain/enums';
+import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IContent, IGeoIp, IModalState, INotificationState } from '@domain/interfaces';
 import * as Model from '@domain/models';
 import { EActionTypes } from './store.enum';
@@ -25,7 +25,7 @@ export interface IDataStore {
 
 export interface IAppStore {
   route: {
-    path: string;
+    path: EPagePath;
     locale: ELanguage;
     appSection: EAppSection;
     meta: {
@@ -34,6 +34,7 @@ export interface IAppStore {
     };
     state: any;
     isLoading: boolean;
+    redirectTo: EPagePath;
   };
   requests: {
     activeList: EActionTypes[];
