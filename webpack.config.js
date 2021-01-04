@@ -391,7 +391,10 @@ module.exports = (_env, arguments) => {
       ],
     },
     plugins: [
-      new webpack.PrefetchPlugin(path.join(__dirname, 'src/utils/hooks'), './index.ts'),
+      new webpack.PrefetchPlugin(
+        path.join(__dirname, 'src/utils/hooks'),
+        './index.ts'
+      ),
       new webpack.DefinePlugin(
         Object.keys(env).reduce(
           (acc, key) =>

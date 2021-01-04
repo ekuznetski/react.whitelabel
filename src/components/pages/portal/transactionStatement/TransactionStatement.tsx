@@ -67,11 +67,18 @@ export const TransactionStatement = memo(function TransactionStatement() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              innerText: t('Requested statements are successfully loaded'),
+              message: t('Requested statements are successfully loaded'),
             }),
           );
         },
-        () => dispatch(ac_showNotification({ type: ENotificationType.danger, innerText: 'Error' })),
+        () => {
+          dispatch(
+            ac_showNotification({
+              type: ENotificationType.danger,
+              message: t('Error'),
+            }),
+          );
+        },
       ),
     );
   }

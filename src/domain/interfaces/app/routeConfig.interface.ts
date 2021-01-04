@@ -1,4 +1,4 @@
-import { EAppSection } from '@domain/enums';
+import { EAppSection, EPagePath } from '@domain/enums';
 import { IAction } from '@store';
 import { Path } from 'history';
 import { RouteProps } from 'react-router-dom';
@@ -8,7 +8,7 @@ export interface IRouteNavConfig {
     title: string;
     desc?: string;
   };
-  path: string;
+  path: EPagePath;
   appSection: EAppSection;
   component:
     | null

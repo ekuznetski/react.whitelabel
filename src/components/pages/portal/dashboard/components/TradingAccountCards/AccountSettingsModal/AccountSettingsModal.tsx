@@ -55,7 +55,7 @@ export const AccountSettingsModal = memo(function AccountSettingsModal({ trading
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              innerText: t('The Account Has Been Updated'),
+              message: t('The Account Has Been Updated'),
             }),
           );
         },
@@ -63,8 +63,8 @@ export const AccountSettingsModal = memo(function AccountSettingsModal({ trading
           dispatch(ac_hideModal());
           dispatch(
             ac_showNotification({
-              type: ENotificationType.failure,
-              innerText: t('Failed To Update Account'),
+              type: ENotificationType.danger,
+              message: t('Failed To Update Account'),
             }),
           );
         },

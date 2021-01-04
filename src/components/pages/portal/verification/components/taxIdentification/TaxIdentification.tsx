@@ -3,9 +3,9 @@ import { ENotificationType } from '@domain/enums';
 import { ITins } from '@domain/interfaces';
 import { MTins } from '@domain/models';
 import { ac_showNotification, ac_updateTins, EActionTypes, IStore } from '@store';
-import { Formik, FormikProps, FormikValues } from 'formik';
+import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo, useMemo } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -58,13 +58,7 @@ export const TaxIdentification = memo(function TaxIdentification() {
   });
 
   function Submit(data: FormikValues) {
-    console.log(1);
     const values = { ...data };
-
-    // TODO: Move the data conversion to RouterAdapter
-
-    // TODO end
-    console.log(1);
 
     dispatch(
       ac_updateTins(
@@ -73,14 +67,14 @@ export const TaxIdentification = memo(function TaxIdentification() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: t('The Tins Form has been submitted'),
+              message: t('The Tins Form has been submitted'),
             }),
           ),
         () =>
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              context: t('Failed to submit Tins Form'),
+              message: t('Failed to submit Tins Form'),
             }),
           ),
       ),
@@ -100,13 +94,9 @@ export const TaxIdentification = memo(function TaxIdentification() {
           [EFields.choice]: true,
         }}
         validationSchema={validationSchema}
-        onSubmit={(a) => {
-          console.log(1);
-          Submit(a);
-        }}
+        onSubmit={Submit}
       >
-        {({ values, errors, ...props }: FormikProps<any>) => {
-          // console.log(props);
+        {({ values }: FormikProps<any>) => {
           return (
             <Form className="tax-identification__form mt-10">
               <Row>
@@ -134,7 +124,7 @@ export const TaxIdentification = memo(function TaxIdentification() {
                   </Col>
                 )}
               </Row>
-              <Button type="button">
+              <Button type="submit" checkFormValidity loadingOnAction={EActionTypes.updateTins}>
                 Submit
               </Button>
             </Form>

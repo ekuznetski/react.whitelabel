@@ -4,5 +4,5 @@ export interface INotificationState {
   visible: boolean;
   type: ENotificationType;
   timeout?: number | null;
-  innerText: React.ReactNode;
+  message: string;
 }

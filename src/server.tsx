@@ -1,8 +1,8 @@
 import './i18n'; // Must be the imported before the App!
 import { Footer, Header, NotFound } from '@components/core';
 import { localesConfig } from '@domain';
-import { EAppSection, ELanguage } from '@domain/enums';
-import { IRouteNavConfig } from '@domain/interfaces';
+import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
+import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
 import { routesInitialApiData, routesNavConfig } from '@routers';
 import { ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn';
@@ -16,10 +16,9 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { document, window } from 'ssr-window';
-import { env } from '@env';
 import './App.scss';
 
-let requestResolver: { (): void; (value?: unknown): void } | null = null;
+let requestResolver: AnyFunction = null;
 let route: IRouteNavConfig | null = null;
 
 const PORT = process.env.PORT || 4201;
@@ -89,7 +88,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
     } else {
       store.dispatch(
         ac_updateRouteParams({
-          path: '/404',
+          path: EPagePath.NotFound,
           appSection: EAppSection.general,
           isLoading: false,
         }),
@@ -140,7 +139,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
             )}</script>`,
           )
           .replace(
-            '<title>WhiteLabel</title>',
+            '<!--TITLE_PLACEHOLDER-->',
             `<title>${route?.meta.title}</title>
             <meta name="description" content="${route?.meta.desc}">
             <meta property="og:type" content="website">

@@ -9,16 +9,24 @@ import classNames from 'classnames';
 import React, { Suspense, useEffect, useMemo } from 'react';
 import { browserName, osName } from 'react-device-detect';
 import TagManager from 'react-gtm-module';
+import Sentry from '@sentry/react';
 import { hot } from 'react-hot-loader/root';
 import { useTranslation } from 'react-i18next';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './App.scss';
 
-if (env.PRODUCTION && env.GTM_ID) {
-  TagManager.initialize({
-    gtmId: env.GTM_ID,
-  });
+if (env.PRODUCTION) {
+  if (env.GTM_ID) {
+    TagManager.initialize({
+      gtmId: env.GTM_ID,
+    });
+  }
+  if (env.SENTRY_PUBLIC_DSN) {
+    Sentry.init({
+      dsn: env.SENTRY_PUBLIC_DSN,
+    });
+  }
 }
 
 function App() {

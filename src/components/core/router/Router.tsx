@@ -1,18 +1,22 @@
 import { localesConfig } from '@domain';
-import { EAppSection, ELanguage } from '@domain/enums';
+import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
 import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@routers';
-import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
+import { ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
 import { routeFetchData } from '@utils/fn';
 import { useLockScroll, useMeta, usePathLocale } from '@utils/hooks';
 import { useBoolean, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
 import React, { memo, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import { Header, NotFound, PageLoader } from '..';
+import { Header, PageLoader } from '..';
 
 export const Router = memo(function Router() {
-  const { routeState } = useSelector<IStore, { routeState: IAppStore['route'] }>((state) => ({
+  const { routeState, failedRequests } = useSelector<
+    IStore,
+    { routeState: IAppStore['route']; failedRequests: EActionTypes[] }
+  >((state) => ({
+    failedRequests: state.app.requests.failedList,
     routeState: state.app.route,
   }));
   const { localizePath, delocalizePath } = usePathLocale();
@@ -39,10 +43,25 @@ export const Router = memo(function Router() {
           meta: _route?.meta,
           state: Object.assign({}, state, _route?.state),
           isLoading: !!_route,
+          redirectTo: undefined,
         }),
       );
     }
   }, [pathname]);
+
+  useEffect(() => {
+    if (_route) {
+      const failedOnAction = (arr1: EActionTypes[]) => {
+        return arr1.some((r) => failedRequests.indexOf(r) >= 0);
+      };
+
+      if (_route.appSection === EAppSection.portal) {
+        if (failedOnAction([EActionTypes.fetchProfile, EActionTypes.fetchClientData])) {
+          store.dispatch(ac_updateRouteParams({ redirectTo: EPagePath.Logout }));
+        }
+      }
+    }
+  }, [failedRequests]);
 
   return useMemo(() => {
     return (
@@ -51,6 +70,7 @@ export const Router = memo(function Router() {
         <Switch>
           <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
           {/* {_path.length > 1 && _route && <Redirect from={_path} to={localizePath(_path)} />} */}
+          {routeState.redirectTo && <Redirect to={localizePath(routeState.redirectTo)} />}
           {routeState.locale && <Redirect exact from="/" to={routeState.locale} />}
           {routesRedirectConfig.map((route) => (
             <Redirect key={route.path} exact from={route.path} to={route.redirectTo} />

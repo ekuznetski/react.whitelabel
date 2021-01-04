@@ -131,7 +131,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: 'Logout',
+      title: meta_t('Login:title'), // MUST BE LOGIN TITLE
     },
     path: EPagePath.Logout,
     component: null,

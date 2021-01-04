@@ -87,14 +87,14 @@ export const EddForm = memo(function EddForm() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              innerText: t('The Edd Form Has Been Submitted'),
+              message: t('The Edd Form Has Been Submitted'),
             }),
           ),
         () =>
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              innerText: t('Failed To Submit Edd Form'),
+              message: t('Failed To Submit Edd Form'),
             }),
           ),
       ),

@@ -14,8 +14,8 @@ export function generateStatus(status?: keyof typeof EClientStatus) {
         notificationType: ClientStatusCodeNotificationType[EClientStatusCode[status]],
       }
     : {
-        code: null,
-        message: null,
-        notificationType: null,
+        code: EClientStatusCode[EClientStatus.notApplicable],
+        message: '',
+        notificationType: ClientStatusCodeNotificationType[EClientStatusCode.notApplicable],
       };
 }

@@ -32,7 +32,7 @@ export function Login() {
         dispatch(
           ac_showNotification({
             type: ENotificationType.danger,
-            innerText: 'Incorrect Email/Username or Password',
+            message: 'Incorrect Email/Username or Password',
           }),
         );
       }),

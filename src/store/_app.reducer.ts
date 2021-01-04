@@ -1,11 +1,11 @@
 import { IAction, IAppStore } from './store.interface';
-import { ELanguage } from '@domain/enums';
+import { ELanguage, EPagePath } from '@domain/enums';
 import { Nullable } from '@domain/interfaces';
 import { EActionTypes } from './store.enum';
 
 export const initAppStore: Nullable<IAppStore> = {
   route: {
-    path: '/',
+    path: EPagePath.Home,
     locale: ELanguage.en,
     appSection: null,
     meta: {
@@ -14,6 +14,7 @@ export const initAppStore: Nullable<IAppStore> = {
     },
     state: null,
     isLoading: true,
+    redirectTo: null
   },
   requests: {
     activeList: [],
@@ -23,7 +24,7 @@ export const initAppStore: Nullable<IAppStore> = {
     visible: false,
     type: null,
     timeout: null,
-    innerText: null,
+    message: null,
   },
   modal: {
     visible: false,

@@ -36,14 +36,14 @@ export const BankDetails = memo(
             dispatch(
               ac_showNotification({
                 type: ENotificationType.success,
-                innerText: t('Bank Details Updated Successfully'),
+                message: t('Bank Details Updated Successfully'),
               }),
             ),
           () =>
             dispatch(
               ac_showNotification({
                 type: ENotificationType.danger,
-                innerText: t('Failed To Update Bank Details'),
+                message: t('Failed To Update Bank Details'),
               }),
             ),
         ),
