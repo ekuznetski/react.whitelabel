@@ -101,3 +101,7 @@ export const ClientStatusCodeNotificationType = Object.freeze({
   [EClientStatusCode.pending]: ENotificationType.warning,
   [EClientStatusCode.dormant]: ENotificationType.warning,
 });
+
+export enum ECookieTypes {
+  raf_id = 'raf_id',
+}

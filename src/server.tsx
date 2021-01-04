@@ -139,7 +139,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
             )}</script>`,
           )
           .replace(
-            '<!--TITLE_PLACEHOLDER-->',
+            '<title></title>',
             `<title>${route?.meta.title}</title>
             <meta name="description" content="${route?.meta.desc}">
             <meta property="og:type" content="website">

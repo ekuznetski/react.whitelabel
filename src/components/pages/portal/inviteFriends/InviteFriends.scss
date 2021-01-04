@@ -1,223 +1,227 @@
 @import '~/variables';
 @import '~/mixin';
 
-.client-invite-friends-page-wrapper {
-  .invite-panel-container {
-    justify-content: center;
+.invite-friends-wrapper {
+  .invite {
+    &__container {
+      & > * {
+        margin-bottom: 20px;
+      }
 
-    .invite-panel {
       box-shadow: box-shadow(15, 0.1);
       border-radius: $border-radius;
       overflow: hidden;
 
-      .inputs-share-links {
-        @include d-flex(center, space-between);
-
-        .inputs-share-copy {
-          @include d-flex(center, space-between);
-          flex: 1 0 auto;
-          border: 1px solid $blue;
-          margin-right: 20px;
-
-          .copy-input {
-            margin-bottom: 0 !important;
-            border: none;
-            width: fit-content;
-            flex: 1 0 auto;
-            input {
-              text-overflow: ellipsis;
-            }
-            &.focused {
-              box-shadow: none;
-            }
-          }
-
-          svg {
-            margin-right: 8px;
-          }
-
-          a {
-            margin-right: 10px;
-            font-size: 14px;
-          }
-        }
-        .social {
-          @include d-flex(center, space-between);
-
-          svg {
-            margin-right: 10px;
-            height: 50px;
-            min-width: 50px;
-            cursor: pointer;
-            &:hover {
-              opacity: 0.8;
-            }
-          }
-
-          .fb {
-            fill: #4267b2;
-          }
-
-          .tw {
-            fill: #00acee;
-          }
-
-          .ln {
-            fill: #006fa6;
-          }
-        }
-      }
-
-      .inputs-seperator {
+      .seperator {
         font-size: 12px;
         color: #818994;
         text-align: center;
         padding: 20px 0;
       }
+    }
 
-      .inputs-share-emails {
-        @include d-flex(center, space-between);
+    &__description {
+      line-height: 26px;
+      color: $text;
+      text-align: center;
 
-        .inputs-share-input {
-          margin-bottom: 0 !important;
-          margin-right: 20px;
-          width: initial;
-          flex: 1 0 auto;
-        }
-
-        .inputs-share-submit {
-          width: 160px;
-        }
+      span {
+        color: #444fed;
       }
+    }
 
-      & > * {
-        margin-bottom: 20px;
+    &__content {
+      position: relative;
+    }
+
+    &__overlay {
+      text-align: center;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 3;
+
+      @media (max-width: 767px) {
+        justify-content: flex-start;
+        top: 40px;
       }
-
-      &-title {
+      svg {
+        margin-bottom: 30px;
+        color: #444fed;
+      }
+      p {
         font-size: 18px;
-        font-weight: 400;
-        @include d-flex(center, center);
-        color: $text;
+        font-weight: bold;
+        max-width: 380px;
+        margin: 0 auto 12px;
       }
-      &-description {
-        line-height: 26px;
-        color: $text;
-        text-align: center;
-
-        span {
-          color: #444fed;
-        }
-      }
-
-      &-hidden {
-        position: relative;
-      }
-
-      &-deposit {
-        text-align: center;
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        flex-direction: column;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 3;
-
-        @media (max-width: 767px) {
-          justify-content: flex-start;
-          top: 40px;
-        }
-        svg {
-          margin-bottom: 30px;
-          color: #d33f45;
-        }
-        p {
-          font-size: 18px;
-          font-weight: bold;
-          max-width: 380px;
-          margin: 0 auto 12px;
-        }
-        a {
-          font-size: 14px;
-          color: #d33f45;
-          text-decoration: underline;
-          &:hover {
-            text-decoration: none;
-          }
+      a {
+        font-size: 14px;
+        color: #444fed;
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
         }
       }
+    }
 
-      &-box {
-        position: relative;
+    &__context {
+      position: relative;
 
-        &.blurred {
-          filter: blur(6px);
+      &.blurred {
+        filter: blur(6px);
 
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 6px;
+          background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        //IE11 specific fix START
+        @media all and (-ms-high-contrast: none) {
           &:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 6px;
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.92);
           }
 
-          //IE11 specific fix START
-          @media all and (-ms-high-contrast: none) {
-            &:after {
-              background-color: rgba(255, 255, 255, 0.92);
-            }
-
-            .field-wrap {
-              &.label-inside {
-                label {
-                  z-index: 0;
-                }
+          .field-wrap {
+            &.label-inside {
+              label {
+                z-index: 0;
               }
             }
           }
-          //IE11 specific fix END
+        }
+        //IE11 specific fix END
+      }
+    }
+
+    &__rewards {
+      text-transform: uppercase;
+      color: #444fed;
+      text-align: center;
+      cursor: pointer;
+      margin: auto;
+      margin-bottom: 30px;
+
+      svg {
+        fill: $blue;
+        margin-right: 10px;
+      }
+    }
+
+    &__avatars {
+      @include d-flex(center, center);
+      margin-bottom: 30px;
+
+      img {
+        box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.05);
+        width: 71px;
+        height: 71px;
+        margin-right: -20px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .note {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #818994;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    text-align: center;
+    border-bottom: 1px solid #eaeaea;
+
+    svg {
+      fill: #818994;
+    }
+  }
+
+  .share {
+    @include d-flex(center, space-between);
+
+    &-copy-url {
+      @include d-flex(center, space-between);
+      flex: 1 0 auto;
+      border: 1px solid $blue;
+      margin-right: 20px;
+
+      .copy-input {
+        margin-bottom: 0 !important;
+        border: none;
+        width: fit-content;
+        flex: 1 0 auto;
+
+        input {
+          text-overflow: ellipsis;
+          cursor: default;
+        }
+        &.focused {
+          box-shadow: none;
         }
       }
 
-      &-rewards {
-        text-transform: uppercase;
-        color: #444fed;
-        text-align: center;
+      svg {
+        margin-right: 8px;
+        fill: #818994;
+      }
+
+      a {
+        margin-right: 10px;
+        font-size: 14px;
+      }
+    }
+
+    &-social {
+      @include d-flex(center, space-between);
+
+      svg {
+        margin-right: 10px;
+        height: 50px;
+        min-width: 50px;
         cursor: pointer;
-        margin: auto;
-        margin-bottom: 30px;
-
-        svg {
-          fill: $blue;
-          margin-right: 10px;
-        }
-      }
-      &-avatars {
-        @include d-flex(center, center);
-        margin-bottom: 30px;
-
-        img {
-          box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.05);
-          width: 71px;
-          height: 71px;
-          margin-right: -20px;
-          border-radius: 50%;
+        &:hover {
+          opacity: 0.8;
         }
       }
 
-      &-note {
-        font-size: 12px;
-        text-transform: uppercase;
-        color: #818994;
-        margin: 20px 0;
-        text-align: center;
+      .fb {
+        fill: #4267b2;
+      }
+
+      .tw {
+        fill: #00acee;
+      }
+
+      .ln {
+        fill: #006fa6;
+      }
+    }
+
+    &-email {
+      @include d-flex(center, space-between);
+
+      &__input {
+        margin-bottom: 0 !important;
+        margin-right: 20px;
+        width: initial;
+        flex: 1 0 auto;
+      }
+
+      &__submit {
+        width: 160px;
+        margin-left: 20px;
       }
     }
   }

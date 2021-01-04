@@ -1,7 +1,8 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { countries, ERegSteps } from '@domain/enums';
-import { ac_userExists, EActionTypes, IStore } from '@store';
+import { ECookieTypes, ERegSteps, countries } from '@domain/enums';
+import { EActionTypes, IStore, ac_userExists } from '@store';
+import { getCookie } from '@utils/services';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -26,6 +27,10 @@ export function FirstStep({ submitFn }: any) {
   const { t } = useTranslation();
 
   function Submit(data: any, helpers: any) {
+    if (getCookie(ECookieTypes.raf_id)) {
+      Object.assign(data, { raf_id: getCookie(ECookieTypes.raf_id) });
+    }
+
     dispatch(
       ac_userExists(
         { username: data.email },

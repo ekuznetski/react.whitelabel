@@ -5,3 +5,4 @@ export * from './internalTransfers.guard';
 export * from './openDemoAccount.guard';
 export * from './openLiveAccount.guard';
 export * from './withdraw.guard';
+export * from './invite.guard';

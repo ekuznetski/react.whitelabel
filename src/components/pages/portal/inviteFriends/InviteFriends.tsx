@@ -48,7 +48,7 @@ export const InviteFriends = memo(function InviteFriends() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              innerText: t('Invitation Successful'),
+              message: t('Invitation Successful'),
             }),
           );
         },
@@ -56,7 +56,7 @@ export const InviteFriends = memo(function InviteFriends() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              innerText: 'Error',
+              message: 'Error',
             }),
           );
         },
@@ -65,39 +65,38 @@ export const InviteFriends = memo(function InviteFriends() {
   }
 
   return (
-    <Container className="client-invite-friends-page-wrapper">
+    <Container className="invite-friends-wrapper">
       <Row>
         <Col xs={12}>
           <PageTitle title={t('Invite Your Friends')} />
         </Col>
       </Row>
-      <Row className="invite-panel-container">
+      <Row className="justify-content-center">
         <Col lg={7} className="mb-3">
-          <div className="invite-panel py-10 px-9">
-            <div className="invite-panel-title">{t('Invest with those you know')}</div>
-            <div className="invite-panel-description">
+          <div className="invite__container py-10 px-9">
+            <div className="invite__description">
               <Trans i18nKey="Share Your Passion">
                 Share your passion for investing with your friends. Invite your friends to trade at BSFX and earn a
                 <span>$200 cash reward</span> for each referral.
               </Trans>
             </div>
-            <div className="invite-panel-hidden">
+            <div className="invite__content">
               {!isActiveAccount && (
-                <div className="invite-panel-deposit">
+                <div className="invite__overlay">
                   <p>You need to have active trading account to start referring friends</p>
-                  <LocaleLink to="/deposit" className="px-5">
-                    {t('Deposit')}
+                  <LocaleLink to="/deposit" className="hovered-underlined">
+                    {t('Make A Deposit')}
                   </LocaleLink>
                 </div>
               )}
-              <div className={classNames('invite-panel-box', !isActiveAccount && 'blurred')}>
-                <div className="invite-panel-rewards">
+              <div className={classNames('invite__context', !isActiveAccount && 'blurred')}>
+                <div className="invite__rewards">
                   <Svg href="info" />
                   <a onClick={openRewardsModal} className="hovered-underlined">
                     {t('Reward Information')}
                   </a>
                 </div>
-                <div className="invite-panel-avatars">
+                <div className="invite__avatars">
                   <Img src="share-avatar-1.png" />
                   <Img src="share-avatar-2.png" />
                   <Img src="share-avatar-1.png" />
@@ -105,62 +104,61 @@ export const InviteFriends = memo(function InviteFriends() {
                   <Img src="share-avatar-1.png" />
                   <Img src="share-avatar-2.png" />
                 </div>
-                <p className="invite-panel-note">
+                <p className="note">
+                  <Svg href="lock" />
                   <span>{t('Secure Information')}</span>
                 </p>
-                <div className="invite-panel-inputs">
-                  <Formik
-                    initialValues={{
-                      copy: '',
-                      shareEmail: '',
-                    }}
-                    validationSchema={Yup.object().shape({
-                      shareEmail: FieldValidators.email,
-                    })}
-                    onSubmit={handleSendEmail}
-                  >
-                    {(props: FormikProps<any>) => (
-                      <Form className="m-auto form">
-                        <div className="inputs-share-links">
-                          <div className="inputs-share-copy">
-                            <Input className="copy-input" readOnly name={'shareUrl'} value={shareUrl} ref={copyUrl} />
-                            <Svg href="upload_other" height={20} width={20} />
-                            <a onClick={handleCopy} className="hovered-underlined">
-                              copy
-                            </a>
-                          </div>
-                          <div className="social">
-                            <FacebookShareButton url={shareUrl}>
-                              <Svg href="facebook" className="fb" />
-                            </FacebookShareButton>
-                            <TwitterShareButton url={shareUrl}>
-                              <Svg href="twitter" className="tw" />
-                            </TwitterShareButton>
-                            <LinkedinShareButton url={shareUrl}>
-                              <Svg href="linkedin" className="ln" />
-                            </LinkedinShareButton>
-                          </div>
+                <Formik
+                  initialValues={{
+                    copy: '',
+                    shareEmail: '',
+                  }}
+                  validationSchema={Yup.object().shape({
+                    shareEmail: FieldValidators.email,
+                  })}
+                  onSubmit={handleSendEmail}
+                >
+                  {(props: FormikProps<any>) => (
+                    <Form className="m-auto form">
+                      <div className="share">
+                        <div className="share-copy-url">
+                          <Input className="copy-input" readOnly name={'shareUrl'} value={shareUrl} ref={copyUrl} />
+                          <Svg href="copy" />
+                          <a onClick={handleCopy} className="hovered-underlined">
+                            {t('Copy')}
+                          </a>
                         </div>
-                        <div className="inputs-seperator">or</div>
-                        <div className="inputs-share-emails">
-                          <Input
-                            className="inputs-share-input"
-                            label={t('Type Your Friends Emails')}
-                            name={'shareEmail'}
-                          />
-                          <Button
-                            className="inputs-share-submit"
-                            type="submit"
-                            disabled={!props.isValid || !props.dirty}
-                            loadingOnAction={EActionTypes.sendReferrerLink}
-                          >
-                            {t('Send')}
-                          </Button>
+                        <div className="share-social">
+                          <FacebookShareButton url={shareUrl}>
+                            <Svg href="facebook" className="fb" />
+                          </FacebookShareButton>
+                          <TwitterShareButton url={shareUrl}>
+                            <Svg href="twitter" className="tw" />
+                          </TwitterShareButton>
+                          <LinkedinShareButton url={shareUrl}>
+                            <Svg href="linkedin" className="ln" />
+                          </LinkedinShareButton>
                         </div>
-                      </Form>
-                    )}
-                  </Formik>
-                </div>
+                      </div>
+                      <div className="seperator">or</div>
+                      <div className="share-email">
+                        <Input
+                          className="share-email__input"
+                          label={t('Type Your Friends Email')}
+                          name={'shareEmail'}
+                        />
+                        <Button
+                          className="share-email__submit"
+                          type="submit"
+                          disabled={!props.isValid || !props.dirty}
+                          loadingOnAction={EActionTypes.sendReferrerLink}
+                        >
+                          {t('Send')}
+                        </Button>
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
               </div>
             </div>
           </div>

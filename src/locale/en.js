@@ -470,11 +470,13 @@ export default {
     'Share your passion for investing with your friends. Invite your friends to trade at BSFX and earn a <1>$200 cash reward</1> for each referral.',
   'Invite Your Friends': 'Invite your friends',
   'Reward Information': 'Reward Information',
-  'Type Your Friends Emails': 'Type your friends emails',
+  'Type Your Friends Email': 'Type your friends email',
   'Secure Information': 'We won’t store your password and your contacts are secure',
   'Minimum Requirements': 'Minimum Requirements',
   'Read Terms and Conditions': 'Read the terms and Conditions',
   'Reward Information Desc':
     'Earn an unlimited refer-a-friend bonus Receive a $200 cash bonus for each referral who opens an account and funds it with at least $500 and traded 3 lots',
   'Invitation Successful': 'Invitation Successful',
+  'Make A Deposit': 'Make a deposit',
+  Copy: 'Copy',
 };
