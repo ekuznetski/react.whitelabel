@@ -36,8 +36,8 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
               return e.data;
             }
           })
-          .catch((e: any) => {
-            throw e.response;
+          .catch((err: any) => {
+            throw err.response;
           });
       } else {
         // @ts-ignore
@@ -57,9 +57,9 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
               return e.data;
             }
           })
-          .catch((e: any) => {
-            console.log(e.response);
-            throw e.response;
+          .catch((err: any) => {
+            console.log(err.response);
+            throw err.response;
           });
       }
     } catch (err) {
