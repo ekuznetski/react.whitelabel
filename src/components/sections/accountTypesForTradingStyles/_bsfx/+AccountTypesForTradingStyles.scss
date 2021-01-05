@@ -9,6 +9,11 @@
   }
 
   .common-cards {
+    svg {
+      stroke: $dark-blue;
+      fill: $dark-blue;
+    }
+
     &__item {
       &-header {
         span {
@@ -19,6 +24,10 @@
           }
         }
       }
+    }
+
+    &__container {
+      justify-content: center;
     }
   }
 

@@ -5,6 +5,7 @@ export interface IMarketTableContent {
   fixed: string;
   classic: string;
   raw: string;
+  variable?: string;
   swap_l: string;
   swap_s: string;
   lotSize: string;
