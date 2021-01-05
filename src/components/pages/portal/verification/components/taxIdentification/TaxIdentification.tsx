@@ -1,71 +1,89 @@
-import { Alert, Button, CountrySelect, Input, Radio } from '@components/shared';
-import { ENotificationType } from '@domain/enums';
-import { ITins } from '@domain/interfaces';
-import { MTins } from '@domain/models';
-import { ac_showNotification, ac_updateTins, EActionTypes, IStore } from '@store';
-import { Formik, FormikProps, FormikValues } from 'formik';
-import React, { memo, useMemo } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import { FieldValidators } from '@domain';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { Form, Formik, FormikValues } from 'formik';
+import { Button, CountrySelect, Input, Radio } from '@components/shared';
 import * as Yup from 'yup';
+import { IStore, ac_showNotification, ac_updateTins } from '@store';
+import { MTins } from '@domain/models';
+import { useDispatch, useSelector } from 'react-redux';
 import { config } from './';
+import { Col, Row } from 'react-bootstrap';
+import { Country, ENotificationType } from '@domain/enums';
+import { ITins } from '@domain/interfaces';
 import './TaxIdentification.scss';
 
 enum EFields {
   choice = 'choice',
   reason = 'reason',
+  tins = 'tins',
   taxCountry = 'taxCountry',
   taxNumber = 'taxNumber',
 }
 
-export const TaxIdentification = memo(function TaxIdentification() {
+export const TaxIdentification = React.memo(function TaxIdentification() {
   const { tins } = useSelector<IStore, { tins: MTins }>((state) => ({
     tins: state.data.client.tins,
   }));
-  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  const tinsList = useMemo(
-    () =>
-      Array.from(
-        { length: config.maxTaxCountries },
-        (_, i) =>
-          tins.tins[i] || {
-            country: null,
-            tax_number: '',
+  const initialValues = {
+    [EFields.choice]: tins.choice ? tins.choice : true,
+    [EFields.reason]: tins.reason ? tins.reason : '',
+    [EFields.tins]: tins.tins
+      ? tins.tins.map((e) => ({
+          [EFields.taxCountry]: e.country,
+          [EFields.taxNumber]: e.tax_number,
+        }))
+      : [
+          {
+            [EFields.taxCountry]: '' as {},
+            [EFields.taxNumber]: '',
           },
-      ),
-    [tins],
+        ],
+  };
+
+  const validationSchema = Yup.lazy((values: typeof initialValues): any =>
+    Yup.object().shape({
+      [EFields.choice]: Yup.boolean().required(),
+      [EFields.reason]: Yup.string().when(EFields.choice, {
+        is: false,
+        then: FieldValidators.requiredString,
+        otherwise: FieldValidators.notRequiredString,
+      }),
+      [EFields.tins]: Yup.array().when(EFields.choice, {
+        is: true,
+        then: Yup.array(
+          Yup.object().shape({
+            [EFields.taxCountry]: Yup.lazy(() =>
+              !!values[EFields.tins].filter((el) => !!(el?.[EFields.taxCountry] && el?.[EFields.taxNumber])).length
+                ? FieldValidators.notRequiredString
+                : FieldValidators.requiredString,
+            ),
+            [EFields.taxNumber]: Yup.lazy(() =>
+              !!values[EFields.tins].filter((el) => !!(el?.[EFields.taxCountry] && el?.[EFields.taxNumber])).length
+                ? FieldValidators.notRequiredString
+                : FieldValidators.requiredString,
+            ),
+          }),
+        ).min(2, t('At least one Tax ID should be added')),
+        otherwise: Yup.array().notRequired(),
+      }),
+    }),
   );
-  const validationSchema = Yup.object().shape({
-    choice: Yup.bool().required(),
-    reason: Yup.string().when('choice', {
-      is: (val: boolean) => val,
-      then: Yup.string().required('This field is required'),
-      otherwise: Yup.string().notRequired(),
-    }),
-    taxCountry: Yup.array().when('choice', {
-      is: (val: boolean) => val,
-      then: Yup.array().required('This field is required'),
-      otherwise: Yup.array().notRequired(),
-    }),
-    taxNumber: Yup.array().when('choice', {
-      is: (val: boolean) => val,
-      then: Yup.array().required('This field is required'),
-      otherwise: Yup.array().notRequired(),
-    }),
-  });
 
   function Submit(data: FormikValues) {
-    console.log(1);
     const values = { ...data };
-
-    // TODO: Move the data conversion to RouterAdapter
-
-    // TODO end
-    console.log(1);
-
+    values.reason = null;
+    values.choice = values.choice.toString();
+    values.tins = values.tins
+      .filter((e: any) => e.taxCountry && e.taxNumber)
+      .map((e: any) => ({
+        tax_number: e.taxNumber,
+        country: e.taxCountry?.name,
+      }));
+    console.log(123);
     dispatch(
       ac_updateTins(
         values as ITins,
@@ -73,14 +91,14 @@ export const TaxIdentification = memo(function TaxIdentification() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              context: t('The Tins Form has been submitted'),
+              innerText: t('The Tins Form has been submitted'),
             }),
           ),
         () =>
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              context: t('Failed to submit Tins Form'),
+              innerText: t('Failed to submit Tins Form'),
             }),
           ),
       ),
@@ -89,24 +107,31 @@ export const TaxIdentification = memo(function TaxIdentification() {
 
   return (
     <div className="tax-identification">
-      <Alert className="col-12 mb-7" type="text" showIcon={false}>
-        {t('Tax Identification Alert')}
-      </Alert>
       {t('Tax Resident List of Countries')}
-      <Formik
-        initialValues={{
-          [EFields.taxCountry]: [],
-          [EFields.taxNumber]: ['', '', ''],
-          [EFields.choice]: true,
-        }}
-        validationSchema={validationSchema}
-        onSubmit={(a) => {
-          console.log(1);
-          Submit(a);
-        }}
-      >
-        {({ values, errors, ...props }: FormikProps<any>) => {
-          // console.log(props);
+      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={Submit}>
+        {({ values, setValues, errors, resetForm }) => {
+          useEffect(() => {
+            resetForm({ values: { ...initialValues, [EFields.choice]: values[EFields.choice] } });
+          }, [values[EFields.choice]]);
+          function removeTinsRow(i: number) {
+            values[EFields.tins].splice(i, 1);
+            setValues(values);
+          }
+
+          function isTinsRowValid(i: number) {
+            return !!(
+              values[EFields.tins]?.[i]?.[EFields.taxCountry] && values[EFields.tins]?.[i]?.[EFields.taxNumber]
+            );
+          }
+          if (
+            values[EFields.tins].filter((_: any, i: number) => !isTinsRowValid(i)).length < 1 &&
+            values[EFields.tins].length < config.maxTaxCountries
+          ) {
+            values[EFields.tins].push({
+              taxCountry: '' as {},
+              taxNumber: '',
+            });
+          }
           return (
             <Form className="tax-identification__form mt-10">
               <Row>
@@ -117,26 +142,41 @@ export const TaxIdentification = memo(function TaxIdentification() {
                   <Radio name={EFields.choice} options={config.haveTinsNumber} />
                 </Col>
                 <Col xs={12} className="form-breakline mt-10 mb-10" />
-                {values.choice &&
-                  tinsList.map((item, idx) => (
-                    <React.Fragment key={idx}>
-                      <Col xs={6}>
-                        <CountrySelect label={t('Country')} name={`${EFields.taxCountry}.${idx}`} />
-                      </Col>
-                      <Col xs={6}>
-                        <Input label={t('Tax Identification Number')} name={`${EFields.taxNumber}.${idx}`} />
-                      </Col>
-                    </React.Fragment>
-                  ))}
-                {!values.choice && (
+              </Row>
+              {values.choice &&
+                values[EFields.tins].map((e: any, i: number) => {
+                  return (
+                    <div className="d-flex justify-content-between" key={e?.taxCountry?.code + i}>
+                      <Row className="tins-row">
+                        <Col xs={6}>
+                          <CountrySelect label={t('Country')} name={`${EFields.tins}.${i}.${EFields.taxCountry}`} />
+                        </Col>
+                        <Col xs={6}>
+                          <Input
+                            label={t('Tax Identification Number')}
+                            name={`${EFields.tins}.${i}.${EFields.taxNumber}`}
+                          />
+                        </Col>
+                      </Row>
+                      <Button
+                        type="button"
+                        className="remove-tins-row"
+                        onClick={() => removeTinsRow(i)}
+                        disabled={!isTinsRowValid(i)}
+                      >
+                        -
+                      </Button>
+                    </div>
+                  );
+                })}
+              {!values.choice && (
+                <Row>
                   <Col xs={12}>
                     <Radio className="mb-8" name={EFields.reason} options={config.chooseReason} />
                   </Col>
-                )}
-              </Row>
-              <Button type="button">
-                Submit
-              </Button>
+                </Row>
+              )}
+              <Button type="submit">{t('Submit')}</Button>
             </Form>
           );
         }}

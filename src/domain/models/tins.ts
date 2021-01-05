@@ -1,4 +1,4 @@
-import { countries, Country } from '@domain/enums';
+import { Country, countries } from '@domain/enums';
 import { ITins } from '@domain/interfaces';
 
 const initialValue: ITins = {
@@ -8,12 +8,12 @@ const initialValue: ITins = {
 };
 export class MTins {
   choice: boolean | null;
-  reason: boolean | null;
+  reason: string | null;
   tins: { country: Country; tax_number: string }[];
 
   constructor(props: ITins = initialValue) {
     this.choice = props.choice;
-    this.reason = props.reason == 'yes' ? true : props.reason == 'no' ? false : null;
+    this.reason = props.reason;
     this.tins = props.tins.map((item) => ({
       country: countries.find((country) => country.name === item.country) || {
         name: undefined,
