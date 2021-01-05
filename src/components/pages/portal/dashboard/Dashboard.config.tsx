@@ -1,7 +1,7 @@
 import { ITabs, Svg } from '@components/shared';
 import { ETradingType, EWorkshopType } from '@domain/enums';
 import { IClientBannerCard } from '@domain/interfaces';
-import i18n from 'i18next';
+import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
 import { TradingAccountCards } from './components';
@@ -28,7 +28,7 @@ interface IConfig {
   bonus_cards: IClientBannerCard[];
 }
 
-const t = i18n.getFixedT(i18n.language);
+const t = i18n.getLazyT;
 
 export const config: IConfig = {
   workshopsData: [
