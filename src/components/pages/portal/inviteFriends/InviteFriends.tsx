@@ -6,20 +6,21 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { EActionTypes, IStore, ac_sendReferrerLink, ac_showModal, ac_showNotification } from '@store';
-import { Form, Formik, FormikProps, useFormikContext } from 'formik';
+import { Form, Formik, FormikContext, FormikProps } from 'formik';
 import { FieldValidators } from '@domain';
 import { RewardInformationModal } from './components';
-import './InviteFriends.scss';
 import * as Yup from 'yup';
 import { ISendReferrerLinkRequest } from '@domain/interfaces';
 import { ENotificationType } from '@domain/enums';
+import './InviteFriends.scss';
+import { config } from './';
 
 export const InviteFriends = memo(function InviteFriends() {
   const { rafId, locale } = useSelector<IStore, { rafId: string; locale: string }>((state) => ({
     rafId: state.data.client.profile.raf_id,
     locale: state.app.route.locale,
   }));
-  const [shareUrl, setShareUrl] = useState('');
+  const [shareUrl, setShareUrl] = useState(`${window.location.origin}/${locale}/invite/HYCP+343129583030`);
   const { t } = useTranslation();
   const copyUrl = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
@@ -97,20 +98,44 @@ export const InviteFriends = memo(function InviteFriends() {
                   </a>
                 </div>
                 <div className="invite__avatars">
-                  <Img src="share-avatar-1.png" />
-                  <Img src="share-avatar-2.png" />
-                  <Img src="share-avatar-1.png" />
-                  <Img src="share-avatar-2.png" />
-                  <Img src="share-avatar-1.png" />
-                  <Img src="share-avatar-2.png" />
+                  {config.avatarImages.map((img) => (
+                    <Img src={img} />
+                  ))}
                 </div>
-                <p className="note">
+                <p className="invite__secure-note">
                   <Svg href="lock" />
                   <span>{t('Secure Information')}</span>
                 </p>
+                <div className="share-copy-url__title">{t('Share your invite link:')}</div>
+                <div className="share">
+                  <div className="share-copy-url">
+                    <Formik
+                      initialValues={{
+                        shareEmail: '',
+                      }}
+                      onSubmit={(values) => console.log(values)}
+                    >
+                      <Input className="copy-input" readOnly name={'shareUrl'} value={shareUrl} ref={copyUrl} />
+                    </Formik>
+                    <Svg href="copy" />
+                    <a onClick={handleCopy} className="hovered-underlined">
+                      {t('Copy')}
+                    </a>
+                  </div>
+                  <div className="share-social">
+                    <FacebookShareButton url={shareUrl} disabled={!config.shareSites.includes('fb')}>
+                      <Svg href="facebook" className="fb" />
+                    </FacebookShareButton>
+                    <TwitterShareButton url={shareUrl} disabled={!config.shareSites.includes('tw')}>
+                      <Svg href="twitter" className="tw" />
+                    </TwitterShareButton>
+                    <LinkedinShareButton url={shareUrl} disabled={!config.shareSites.includes('ln')}>
+                      <Svg href="linkedin" className="ln" />
+                    </LinkedinShareButton>
+                  </div>
+                </div>
                 <Formik
                   initialValues={{
-                    copy: '',
                     shareEmail: '',
                   }}
                   validationSchema={Yup.object().shape({
@@ -120,26 +145,6 @@ export const InviteFriends = memo(function InviteFriends() {
                 >
                   {(props: FormikProps<any>) => (
                     <Form className="m-auto form">
-                      <div className="share">
-                        <div className="share-copy-url">
-                          <Input className="copy-input" readOnly name={'shareUrl'} value={shareUrl} ref={copyUrl} />
-                          <Svg href="copy" />
-                          <a onClick={handleCopy} className="hovered-underlined">
-                            {t('Copy')}
-                          </a>
-                        </div>
-                        <div className="share-social">
-                          <FacebookShareButton url={shareUrl}>
-                            <Svg href="facebook" className="fb" />
-                          </FacebookShareButton>
-                          <TwitterShareButton url={shareUrl}>
-                            <Svg href="twitter" className="tw" />
-                          </TwitterShareButton>
-                          <LinkedinShareButton url={shareUrl}>
-                            <Svg href="linkedin" className="ln" />
-                          </LinkedinShareButton>
-                        </div>
-                      </div>
                       <div className="seperator">or</div>
                       <div className="share-email">
                         <Input

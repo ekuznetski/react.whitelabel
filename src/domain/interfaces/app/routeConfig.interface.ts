@@ -1,8 +1,7 @@
 import { EAppSection, EPagePath } from '@domain/enums';
 import { IAction } from '@store';
 import { Path } from 'history';
-import { RouteProps } from 'react-router-dom';
-
+import { Location } from 'history';
 export interface IRouteNavConfig {
   meta: {
     title: string;
@@ -14,7 +13,7 @@ export interface IRouteNavConfig {
     | null
     | React.ComponentClass<{ routeState?: { [key: string]: any } } & any>
     | React.FunctionComponent<{ routeState?: { [key: string]: any } } & any>;
-  activators?: ((routeProps?: RouteProps) => boolean | { path: Path; state?: { [key: string]: any } })[];
+  activators?: ((routeProps?: Location) => boolean | { path: Path; state?: { [key: string]: any } })[];
   state?: { [key: string]: any };
   apiData?: {
     lazy?: ((args?: { force: true | null }) => IAction)[];

@@ -1,0 +1,1 @@
+export * from './InviteFriends.config';

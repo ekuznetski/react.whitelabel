@@ -1,0 +1,28 @@
+@import '~/variables';
+@import '~/mixin';
+
+.invite-friends-wrapper {
+  .invite {
+    &__rewards {
+      color: $dark-blue;
+
+      svg {
+        fill: $dark-blue;
+      }
+    }
+  }
+
+  .share {
+    &-copy-url {
+      border: 1px solid $dark-blue;
+    }
+  }
+
+  .hovered-underlined {
+    color: $dark-blue;
+
+    &:after {
+      background-color: $dark-blue !important;
+    }
+  }
+}

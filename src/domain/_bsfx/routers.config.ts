@@ -24,7 +24,7 @@ export const routesInitialApiData: IRoutesInitialApiData = {
     strict: [Action.ac_fetchGeoIpData, Action.ac_fetchProfile],
   },
   [EAppSection.main]: {
-    strict: [Action.ac_fetchGeoIpData, Action.ac_fetchProfile],
+    strict: [Action.ac_fetchGeoIpData, Action.ac_fetchProfile, Action.ac_fetchClientSettings],
   },
   [EAppSection.portal]: {
     strict: [Action.ac_fetchGeoIpData, Action.ac_fetchClientData, Action.ac_fetchProfile],

@@ -1,5 +1,5 @@
 {
-  "clients": {
+  "!clients": {
     "getProfile": {
       "response": {
         "status": "success",
@@ -147,7 +147,10 @@
         "tins_data": {
           "choice": true,
           "reason": null,
-          "tins": "[{\"country\":\"Andorra\",\"tax_number\":\"asd\"},{\"country\":\"Albania\",\"tax_number\":\"sdfs\"}]"
+          "tins": [
+            { "country": "Andorra", "tax_number": "asd" },
+            { "country": "Albania", "tax_number": "sdfs" }
+          ]
         }
       }
     },
@@ -543,12 +546,6 @@
   },
   "extra": {
     "partnershipEmail": {
-      "response": {
-        "status": "failure",
-        "message": "Error message"
-      }
-    },
-    "sendReferrerLink": {
       "response": {
         "status": "failure",
         "message": "Error message"
