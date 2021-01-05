@@ -20,7 +20,7 @@ export const InviteFriends = memo(function InviteFriends() {
     rafId: state.data.client.profile.raf_id,
     locale: state.app.route.locale,
   }));
-  const [shareUrl, setShareUrl] = useState(`${window.location.origin}/${locale}/invite/HYCP+343129583030`);
+  const [shareUrl, setShareUrl] = useState('');
   const { t } = useTranslation();
   const copyUrl = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
