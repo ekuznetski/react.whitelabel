@@ -1,4 +1,4 @@
-import { ETradingPlatform, MarketType } from '@domain/enums';
+import { ETradingAccountType, ETradingPlatform, MarketType } from '@domain/enums';
 import {
   accountTypePip as _accountTypePip,
   assetsCharacteristics as _assetsCharacteristics,
@@ -24,6 +24,8 @@ export const accountTypePip = {
   ..._accountTypePip,
   variable: 1.4,
 };
+
+export const allowedAccountTypes = [ETradingAccountType.fixed, ETradingAccountType.variable];
 
 export const marketTableContent = Object.keys(_marketTableContent).reduce(
   (acc, key) =>

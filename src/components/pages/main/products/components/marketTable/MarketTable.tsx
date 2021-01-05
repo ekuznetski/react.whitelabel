@@ -3,10 +3,9 @@ import { ETradingAccountType, ETradingPlatform, MarketType } from '@domain/enums
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { HeaderTableTemplate } from './HeaderTemplate';
-import { files, marketTableContent } from '@domain';
+import { allowedAccountTypes, files, marketTableContent } from '@domain';
 import './MarketTable.scss';
-import { useSelector } from 'react-redux';
-import { IDataStore, IStore } from '@store';
+import { IMarketTableContent } from '@domain/interfaces';
 
 interface IMarketTable {
   type: MarketType;
@@ -15,9 +14,9 @@ interface IMarketTable {
 }
 
 export const MarketTable = memo((props: IMarketTable) => {
-  const { clientSettings } = useSelector<IStore, { clientSettings: IDataStore['client']['settings'] }>((state) => ({
-    clientSettings: state.data.client.settings,
-  }));
+  // const { clientSettings } = useSelector<IStore, { clientSettings: IDataStore['client']['settings'] }>((state) => ({
+  //   clientSettings: state.data.client.settings,
+  // }));
   const tdClass = classNames('td', !props.preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
 
@@ -29,17 +28,15 @@ export const MarketTable = memo((props: IMarketTable) => {
           <div key={i} className="tr">
             <div className={tdClass}>{item.instr}</div>
             <div className="td grouped">
-              {clientSettings.allowed_account_types.map((type: ETradingAccountType) => {
-                return (
-                  <div className={tdClass} key={type}>
-                    {type === ETradingAccountType.raw
-                      ? item.raw.toString() === 'N/A'
-                        ? item.raw
-                        : item.raw + ' per round'
-                      : item[type]}
-                  </div>
-                );
-              })}
+              {allowedAccountTypes.map((key) => (
+                <div key={key} className={tdClass}>
+                  {key === ETradingAccountType.raw
+                    ? item.raw.toString() === 'N/A'
+                      ? item.raw
+                      : item.raw + ' per round'
+                    : item[key]}
+                </div>
+              ))}
             </div>
             <div className={fullViewParamClass}>
               <a target="_blank" href={files.financeFeesFixed}>

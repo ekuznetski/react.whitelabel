@@ -1,14 +1,17 @@
+import { allowedAccountTypes } from '@domain';
+import { MarketType } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { config } from '../../';
 import { locale } from './';
 
 export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolean }) {
-  const { clientSettings } = useSelector<IStore, { clientSettings: IDataStore['client']['settings'] }>((state) => ({
-    clientSettings: state.data.client.settings,
-  }));
+  // const { clientSettings } = useSelector<IStore, { clientSettings: IDataStore['client']['settings'] }>((state) => ({
+  //   clientSettings: state.data.client.settings,
+  // }));
   const tdClass = classNames('td', !preview && 'full');
   const fullViewParamClass = classNames(tdClass, 'fullViewParam');
   const { t } = useTranslation();
@@ -21,7 +24,7 @@ export const HeaderTableTemplate = memo(function ({ preview }: { preview: boolea
           {t('Account Types')} <br />
           {t('Min Spread')}
           <div className="sub-row">
-            {clientSettings.allowed_account_types.map((item, i) => (
+            {allowedAccountTypes.map((item, i) => (
               <span key={i} className={`col${i}`}>
                 {item}
               </span>
