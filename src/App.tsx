@@ -3,7 +3,9 @@ import { IntercomChat } from '@components/shared';
 import { localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
 import { env } from '@env';
-import { IStore, ac_updateRouteParams, store } from '@store';
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/tracing';
+import { ac_updateRouteParams, IStore, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { Suspense, useEffect, useMemo } from 'react';
@@ -15,10 +17,19 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './App.scss';
 
-if (env.PRODUCTION && env.GTM_ID) {
-  TagManager.initialize({
-    gtmId: env.GTM_ID,
-  });
+if (env.PRODUCTION) {
+  if (env.GTM_ID) {
+    TagManager.initialize({
+      gtmId: env.GTM_ID,
+    });
+  }
+  if (env.SENTRY_PUBLIC_DSN) {
+    Sentry.init({
+      dsn: env.SENTRY_PUBLIC_DSN,
+      integrations: [new Integrations.BrowserTracing()],
+      tracesSampleRate: 1.0,
+    });
+  }
 }
 
 function App() {
@@ -26,11 +37,17 @@ function App() {
     <Provider store={store}>
       <Suspense fallback={null}>
         <IntercomChat>
-          <Main />
+          <ErrorProvider>
+            <Main />
+          </ErrorProvider>
         </IntercomChat>
       </Suspense>
     </Provider>
   );
+}
+
+function ErrorProvider(props: { children: React.ReactElement }) {
+  return true || env.PRODUCTION ? <Sentry.ErrorBoundary>{props.children}</Sentry.ErrorBoundary> : props.children;
 }
 
 export function Main() {

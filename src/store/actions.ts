@@ -1,4 +1,4 @@
-import { EAppSection, EDocumentsType, ELanguage } from '@domain/enums';
+import { EAppSection, EDocumentsType, ELanguage, EPagePath } from '@domain/enums';
 import {
   AnyFunction,
   ExtractComponentProps,
@@ -253,7 +253,7 @@ export function ac_clearStore(): IAction {
 }
 
 export function ac_updateRouteParams(payload: {
-  path?: string;
+  path?: EPagePath;
   locale?: ELanguage | null;
   appSection?: EAppSection;
   meta?: {
@@ -262,6 +262,7 @@ export function ac_updateRouteParams(payload: {
   };
   state?: any;
   isLoading?: boolean;
+  redirectTo?: EPagePath;
 }): IAction {
   return {
     type: EActionTypes.updateRoute,

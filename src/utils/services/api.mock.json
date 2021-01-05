@@ -456,7 +456,7 @@
       }
     }
   },
-  "edd": {
+  "!edd": {
     "submit": {
       "response": {
         "status": "success",

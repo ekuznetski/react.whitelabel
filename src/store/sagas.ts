@@ -21,9 +21,9 @@ import {
   ITinsResponse,
   ITradingAccountsResponse,
   ITransactionalStatementsResponse,
-  IWithdrawFundRequest,
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
+  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import * as Model from '@domain/models';
 import { MRequestAdapter } from '@domain/models';
@@ -81,11 +81,7 @@ function* $$(
         }
         yield put(Action.ac_requestActionSuccess({ requestActionType: actionType }));
       } catch (e) {
-        if (
-          e &&
-          !e.toString().includes('status code 403') &&
-          !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)
-        ) {
+        if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)) {
           console.error(e);
         }
         if (failure_transform_response_fn) {

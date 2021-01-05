@@ -53,14 +53,14 @@ export const PersonalInfo = memo(
             dispatch(
               ac_showNotification({
                 type: ENotificationType.success,
-                innerText: t('The Profile Has Been Updated'),
+                message: t('The Profile Has Been Updated'),
               }),
             ),
           () =>
             dispatch(
               ac_showNotification({
                 type: ENotificationType.danger,
-                innerText: t('Failed To Update Client Profile'),
+                message: t('Failed To Update Client Profile'),
               }),
             ),
         ),

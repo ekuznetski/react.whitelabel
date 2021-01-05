@@ -71,10 +71,21 @@ export const InternalTransfer = memo(function InternalTransfer() {
       ac_makeInternalTransfer(
         _data,
         () => {
-          dispatch(ac_showNotification({ type: ENotificationType.success, innerText: 'Success' }));
+          dispatch(
+            ac_showNotification({
+              type: ENotificationType.success,
+              message: t('Success'),
+            }),
+          );
           formikHelpers.resetForm();
         },
-        () => dispatch(ac_showNotification({ type: ENotificationType.danger, innerText: 'Error' })),
+        () =>
+          dispatch(
+            ac_showNotification({
+              type: ENotificationType.danger,
+              message: t('Error'),
+            }),
+          ),
       ),
     );
   }

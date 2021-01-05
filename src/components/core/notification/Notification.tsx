@@ -63,7 +63,7 @@ export const Notification = memo(function Notification(props: INotification) {
       <Container>
         <Row>
           <Col xs={12} className="notification-inner-wrapper px-13">
-            {notificationProps.visible ? notificationProps.innerText : null}
+            {notificationProps.visible ? notificationProps.message : null}
           </Col>
         </Row>
       </Container>

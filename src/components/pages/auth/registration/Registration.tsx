@@ -96,7 +96,7 @@ export function Registration() {
           () =>
             ac_showNotification({
               type: ENotificationType.danger,
-              innerText: 'Settings not loaded',
+              message: 'Settings not loaded',
             }),
         ),
       );
@@ -118,7 +118,7 @@ export function Registration() {
             () =>
               ac_showNotification({
                 type: ENotificationType.danger,
-                innerText: 'Registration unsuccessful',
+                message: 'Registration unsuccessful',
               }),
           ),
         );
@@ -155,7 +155,7 @@ export function Registration() {
               dispatch(
                 ac_showNotification({
                   type: ENotificationType.danger,
-                  innerText: 'Registration unsuccessful',
+                  message: 'Registration unsuccessful',
                 }),
               );
             },

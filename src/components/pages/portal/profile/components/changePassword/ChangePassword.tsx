@@ -53,14 +53,14 @@ export const ChangePassword = memo(
             dispatch(
               ac_showNotification({
                 type: ENotificationType.success,
-                innerText: t('The Password Has Been Updated Successfully'),
+                message: t('The Password Has Been Updated Successfully'),
               }),
             ),
           () =>
             dispatch(
               ac_showNotification({
                 type: ENotificationType.danger,
-                innerText: t('Failed To Update The Password'),
+                message: t('Failed To Update The Password'),
               }),
             ),
         ),
