@@ -9,24 +9,37 @@ export const Map = memo(function Map({
   defaultZoom = 15,
   height = '500px',
   width = '100%',
+  embed,
 }: IMap) {
   const [map, setMap] = useState({});
   const [centerChanged, setCenterChanged] = useState(false);
 
-  return (
-    <LoadScript googleMapsApiKey={env.GOOGLE_MAP_KEY}>
-      <GoogleMap
-        mapContainerStyle={{ height, width }}
-        center={defaultCenter}
-        onCenterChanged={() => setCenterChanged(true)}
-        zoom={defaultZoom}
-        onLoad={(map) => setMap(map)}
-        options={{ styles: mapStyles }}
-      >
-        {markers.map((marker, index) => (
-          <Marker key={index} {...marker} />
-        ))}
-      </GoogleMap>
-    </LoadScript>
-  );
+  if (embed) {
+    return (
+      <iframe
+        width="100%"
+        height="500"
+        frameBorder="0"
+        style={{ border: 0 }}
+        src={`https://www.google.com/maps/embed/v1/view?key=${env.GOOGLE_MAP_KEY}&center=${defaultCenter.lat},${defaultCenter.lng}&zoom=17`}
+        allowFullScreen
+      ></iframe>
+    );
+  } else
+    return (
+      <LoadScript googleMapsApiKey={env.GOOGLE_MAP_KEY}>
+        <GoogleMap
+          mapContainerStyle={{ height, width }}
+          center={defaultCenter}
+          onCenterChanged={() => setCenterChanged(true)}
+          zoom={defaultZoom}
+          onLoad={(map) => setMap(map)}
+          options={{ styles: mapStyles }}
+        >
+          {markers.map((marker, index) => (
+            <Marker key={index} {...marker} />
+          ))}
+        </GoogleMap>
+      </LoadScript>
+    );
 });

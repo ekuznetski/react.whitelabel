@@ -165,10 +165,12 @@ export type Coordinates = {
   lat: number;
   lng: number;
 };
+
 export interface IMap {
   defaultCenter: Coordinates;
   markers: [MarkerProps];
   defaultZoom?: number;
   height?: string;
   width?: string;
+  embed?: boolean;
 }
