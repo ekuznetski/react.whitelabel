@@ -33,7 +33,7 @@ export default {
   'Mobile Trading Section Desc':
     '<0>Have complete control over your account with our native mobile app; open, close, and manage trading positions from your mobile phone.</0><1>Download MetaTrader 5 for Android/iOS on your smartphone or tablet and trade Forex anytime and anywhere in the world!</1>',
   'Home Page Top Title': 'Train and trade with BSFX.',
-  'Home Page Top Section Desc': 'An online trading experience by FX traders, for FX traders.',
+  'Home Page Top Section Desc': 'An online trading experience by FX traders,<1/> for FX traders.',
   'With MT4': 'With MT4',
   'Main Prestigious Platform Technology Title': 'A <1>User Experience</1><2/>Like No Other',
   'Main Prestigious Platform Technology Desc':
