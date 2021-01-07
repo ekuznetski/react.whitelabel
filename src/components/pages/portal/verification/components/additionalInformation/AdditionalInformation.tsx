@@ -32,10 +32,7 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
   return (
     <div className="additional-information">
       <Tabs className="client-additional-information__tabs" isVertical={true} activeTab={initialActiveTab}>
-        {(true ||
-          ![EClientStatusCode.notApplicable, EClientStatusCode.notRequested].includes(
-            clientStatus.edd_status.code,
-          )) && (
+        {![EClientStatusCode.notApplicable, EClientStatusCode.notRequested].includes(clientStatus.edd_status.code) && (
           <Tab
             status={clientStatus.edd_status.notificationType}
             label={t('Complete EDD Form')}
@@ -45,10 +42,7 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
             <EddForm />
           </Tab>
         )}
-        {(true ||
-          ![EClientStatusCode.notApplicable, EClientStatusCode.notRequested].includes(
-            clientStatus.tins_status.code,
-          )) && (
+        {![EClientStatusCode.notApplicable, EClientStatusCode.notRequested].includes(clientStatus.tins_status.code) && (
           <Tab
             status={clientStatus.tins_status.notificationType}
             label={t('Tax Identification')}

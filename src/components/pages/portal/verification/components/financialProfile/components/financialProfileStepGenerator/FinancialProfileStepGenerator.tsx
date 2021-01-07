@@ -1,6 +1,6 @@
-import { Button, Input, IRadioItem, Radio, Select } from '@components/shared';
-import { FieldValidators, FPAnswers } from '@domain';
-import { EFPQuestionView } from '@domain/enums';
+import { Button, IRadioItem, Input, Radio, Select } from '@components/shared';
+import { FPAnswers, FieldValidators } from '@domain';
+import { ECurrencyCode, ECurrencySymbol, EFPQuestionView } from '@domain/enums';
 import { AnyFunction, IFPQuestion, IFPState } from '@domain/interfaces';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { Fragment, memo } from 'react';
@@ -82,7 +82,7 @@ export const FinancialProfileStepGenerator = memo(function FinancialProfileStep(
                 </Fragment>
               );
             })}
-            <Button type="submit">{t('Submit')}</Button>
+            <Button type="submit">{t('Continue')}</Button>
           </Form>
         );
       }}
@@ -94,7 +94,7 @@ const CreateQuestion = memo(function CreateQuestion({ question, state }: { quest
   const options = question.answers.reduce((acc: IRadioItem[], e) => {
     if (question.answers.includes(e)) {
       acc.push({
-        label: FPAnswers[e].text,
+        label: FPAnswers[e].text({ currencySymbol: ECurrencySymbol.usd, currencyCode: ECurrencyCode.usd }),
         value: FPAnswers[e].apiId.toString(),
       });
     }
@@ -109,19 +109,28 @@ const CreateQuestion = memo(function CreateQuestion({ question, state }: { quest
     case EFPQuestionView.radio:
       return (
         <>
-          <div className="financial-profile__step-title mb-9">{question.text}</div>
+          <div className="financial-profile__step-title mb-9">
+            {question.text({ currencySymbol: ECurrencySymbol.usd, currencyCode: ECurrencyCode.usd })}
+          </div>
           <Radio className="mb-10" optionClassName={'col-6'} {...props} />
         </>
       );
     case EFPQuestionView.radioWithIcon:
       return (
         <>
-          <div className="financial-profile__step-title mb-9">{question.text}</div>
+          <div className="financial-profile__step-title mb-9">
+            {question.text({ currencySymbol: ECurrencySymbol.usd, currencyCode: ECurrencyCode.usd })}
+          </div>
           <Radio className="mb-10" optionClassName={'col-12'} {...props} />
         </>
       );
     case EFPQuestionView.select:
-      return <Select {...props} label={question.text} />;
+      return (
+        <Select
+          {...props}
+          label={question.text({ currencySymbol: ECurrencySymbol.usd, currencyCode: ECurrencyCode.usd })}
+        />
+      );
   }
 });
 

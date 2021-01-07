@@ -284,10 +284,16 @@ export function ac_requestActionFailure(payload: { requestActionType?: EActionTy
   };
 }
 
-export function ac_submitFinancialProfile(payload: ISubmitFPRequest): IAction {
+export function ac_submitFinancialProfile(
+  payload: ISubmitFPRequest,
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
+): IAction {
   return {
     type: EActionTypes.submitFinancialProfile,
     payload,
+    onSuccess,
+    onFailure,
   };
 }
 
