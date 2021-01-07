@@ -164,14 +164,16 @@
       }
       .copy-input {
         margin-bottom: 0 !important;
-        border: none;
         width: fit-content;
         flex: 1 0 auto;
+        height: 50px;
+        padding-left: 12px;
+        padding-right: 12px;
+        font-size: 14px;
+        border: none;
+        text-overflow: ellipsis;
+        cursor: default;
 
-        input {
-          text-overflow: ellipsis;
-          cursor: default;
-        }
         &.focused {
           box-shadow: none;
         }

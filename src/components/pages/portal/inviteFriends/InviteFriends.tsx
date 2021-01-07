@@ -6,7 +6,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { EActionTypes, IStore, ac_sendReferrerLink, ac_showModal, ac_showNotification } from '@store';
-import { Form, Formik, FormikContext, FormikProps } from 'formik';
+import { Form, Formik } from 'formik';
 import { FieldValidators } from '@domain';
 import { RewardInformationModal } from './components';
 import * as Yup from 'yup';
@@ -109,14 +109,7 @@ export const InviteFriends = memo(function InviteFriends() {
                 <div className="share-copy-url__title">{t('Share your invite link:')}</div>
                 <div className="share">
                   <div className="share-copy-url">
-                    <Formik
-                      initialValues={{
-                        shareEmail: '',
-                      }}
-                      onSubmit={(values) => console.log(values)}
-                    >
-                      <Input className="copy-input" readOnly name={'shareUrl'} value={shareUrl} ref={copyUrl} />
-                    </Formik>
+                    <input className="copy-input" readOnly name={'shareUrl'} value={shareUrl} ref={copyUrl} />
                     <Svg href="copy" />
                     <a onClick={handleCopy} className="hovered-underlined">
                       {t('Copy')}
