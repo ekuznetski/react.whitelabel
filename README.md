@@ -32,6 +32,10 @@ to run use:
 
 ---
 
+## Packages
+
+- react-share: Social media share buttons and share counts for React.
+
 Spacers:
 
 - sp(1) = 4px
