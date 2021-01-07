@@ -6,7 +6,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { EActionTypes, IStore, ac_sendReferrerLink, ac_showModal, ac_showNotification } from '@store';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikProps } from 'formik';
 import { FieldValidators } from '@domain';
 import { RewardInformationModal } from './components';
 import * as Yup from 'yup';
@@ -75,7 +75,7 @@ export const InviteFriends = memo(function InviteFriends() {
       <Row className="justify-content-center">
         <Col lg={7} className="mb-3">
           <div className="invite__container py-10 px-9">
-            <div className="invite__description">
+            <div className="invite__description mb-7">
               <Trans i18nKey="Share Your Passion">
                 Share your passion for investing with your friends. Invite your friends to trade at BSFX and earn a
                 <span>$200 cash reward</span> for each referral.
@@ -91,42 +91,49 @@ export const InviteFriends = memo(function InviteFriends() {
                 </div>
               )}
               <div className={classNames('invite__context', !isActiveAccount && 'blurred')}>
-                <div className="invite__rewards">
-                  <Svg href="info" />
+                <div className="invite__rewards mb-9">
+                  <Svg href="info" className="mr-3" />
                   <a onClick={openRewardsModal} className="hovered-underlined">
                     {t('Reward Information')}
                   </a>
                 </div>
-                <div className="invite__avatars">
+                <div className="invite__avatars mb-9">
                   {config.avatarImages.map((img) => (
                     <Img src={img} />
                   ))}
                 </div>
-                <p className="invite__secure-note">
-                  <Svg href="lock" />
+                <p className="invite__secure-note mb-9 pb-7">
+                  <Svg href="lock" className="mr-2" />
                   <span>{t('Secure Information')}</span>
                 </p>
-                <div className="share-copy-url__title">{t('Share your invite link:')}</div>
+                <div className="share-copy-url__title mb-3">{t('Share your invite link:')}</div>
                 <div className="share">
                   <div className="share-copy-url">
-                    <input className="copy-input" readOnly name={'shareUrl'} value={shareUrl} ref={copyUrl} />
+                    <input className="copy-input mb-0 px-4" readOnly name={'shareUrl'} value={shareUrl} ref={copyUrl} />
                     <Svg href="copy" />
-                    <a onClick={handleCopy} className="hovered-underlined">
+                    <a onClick={handleCopy} className="hovered-underlined mr-2">
                       {t('Copy')}
                     </a>
                   </div>
                   <div className="share-social">
-                    <FacebookShareButton url={shareUrl} disabled={!config.shareSites.includes('fb')}>
-                      <Svg href="facebook" className="fb" />
-                    </FacebookShareButton>
-                    <TwitterShareButton url={shareUrl} disabled={!config.shareSites.includes('tw')}>
-                      <Svg href="twitter" className="tw" />
-                    </TwitterShareButton>
-                    <LinkedinShareButton url={shareUrl} disabled={!config.shareSites.includes('ln')}>
-                      <Svg href="linkedin" className="ln" />
-                    </LinkedinShareButton>
+                    {config.shareSites.facebook && (
+                      <FacebookShareButton url={shareUrl}>
+                        <Svg href="facebook" className="fb" />
+                      </FacebookShareButton>
+                    )}
+                    {config.shareSites.twitter && (
+                      <TwitterShareButton url={shareUrl}>
+                        <Svg href="twitter" className="tw" />
+                      </TwitterShareButton>
+                    )}
+                    {config.shareSites.linkedIn && (
+                      <LinkedinShareButton url={shareUrl}>
+                        <Svg href="linkedin" className="ln" />
+                      </LinkedinShareButton>
+                    )}
                   </div>
                 </div>
+                <div className="seperator py-7">or</div>
                 <Formik
                   initialValues={{
                     shareEmail: '',
@@ -138,7 +145,6 @@ export const InviteFriends = memo(function InviteFriends() {
                 >
                   {(props: FormikProps<any>) => (
                     <Form className="m-auto form">
-                      <div className="seperator">or</div>
                       <div className="share-email">
                         <Input
                           className="share-email__input"
@@ -146,7 +152,7 @@ export const InviteFriends = memo(function InviteFriends() {
                           name={'shareEmail'}
                         />
                         <Button
-                          className="share-email__submit"
+                          className="share-email__submit ml-7"
                           type="submit"
                           disabled={!props.isValid || !props.dirty}
                           loadingOnAction={EActionTypes.sendReferrerLink}

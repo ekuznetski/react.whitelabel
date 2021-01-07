@@ -4,20 +4,9 @@
 .invite-friends-wrapper {
   .invite {
     &__container {
-      & > * {
-        margin-bottom: 20px;
-      }
-
       box-shadow: box-shadow(15, 0.1);
       border-radius: $border-radius;
       overflow: hidden;
-
-      .seperator {
-        font-size: 12px;
-        color: #818994;
-        text-align: center;
-        padding: 20px 0;
-      }
     }
 
     &__description {
@@ -38,8 +27,6 @@
       font-size: 12px;
       text-transform: uppercase;
       color: #818994;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
       text-align: center;
       border-bottom: 1px solid #eaeaea;
 
@@ -65,16 +52,14 @@
         justify-content: flex-start;
         top: 40px;
       }
-      svg {
-        margin-bottom: 30px;
-        color: #444fed;
-      }
+
       p {
         font-size: 18px;
         font-weight: bold;
         max-width: 380px;
         margin: 0 auto 12px;
       }
+
       a {
         font-size: 14px;
         color: #444fed;
@@ -126,17 +111,14 @@
       text-align: center;
       cursor: pointer;
       margin: auto;
-      margin-bottom: 30px;
 
       svg {
         fill: $blue;
-        margin-right: 10px;
       }
     }
 
     &__avatars {
       @include d-flex(center, center);
-      margin-bottom: 30px;
 
       img {
         box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.05);
@@ -149,26 +131,22 @@
   }
 
   .share {
-    @include d-flex(center, space-between);
+    @include d-flex(center, flex-start);
 
     &-copy-url {
       @include d-flex(center, space-between);
-      flex: 1 0 auto;
+      flex: 0 1 70%;
       border: 1px solid $blue;
       // margin-right: 20px;
       &__title {
         line-height: 26px;
         color: $text;
         text-align: center;
-        margin-bottom: 10px;
       }
       .copy-input {
-        margin-bottom: 0 !important;
         width: fit-content;
         flex: 1 0 auto;
         height: 50px;
-        padding-left: 12px;
-        padding-right: 12px;
         font-size: 14px;
         border: none;
         text-overflow: ellipsis;
@@ -180,12 +158,10 @@
       }
 
       svg {
-        margin-right: 8px;
         fill: #818994;
       }
 
       a {
-        margin-right: 10px;
         font-size: 14px;
       }
     }
@@ -197,14 +173,6 @@
         margin-left: 10px;
         &:first-child {
           margin-left: 20px;
-        }
-        &.disabled {
-          cursor: default !important;
-          svg {
-            &:hover {
-              opacity: 1;
-            }
-          }
         }
 
         svg {
@@ -239,10 +207,15 @@
       }
 
       &__submit {
-        width: 170px;
-        margin-left: 20px;
+        width: 160px;
       }
     }
+  }
+
+  .seperator {
+    font-size: 12px;
+    color: #818994;
+    text-align: center;
   }
 
   .hovered-underlined {
