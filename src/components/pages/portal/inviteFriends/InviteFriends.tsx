@@ -1,6 +1,5 @@
-import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share';
 import { Button, Img, Input, LocaleLink, PageTitle, Svg } from '@components/shared';
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useRef } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,25 +11,19 @@ import { RewardInformationModal } from './components';
 import * as Yup from 'yup';
 import { ISendReferrerLinkRequest } from '@domain/interfaces';
 import { ENotificationType } from '@domain/enums';
-import './InviteFriends.scss';
 import { config } from './';
+import './InviteFriends.scss';
 
 export const InviteFriends = memo(function InviteFriends() {
   const { rafId, locale } = useSelector<IStore, { rafId: string; locale: string }>((state) => ({
     rafId: state.data.client.profile.raf_id,
     locale: state.app.route.locale,
   }));
-  const [shareUrl, setShareUrl] = useState('');
-  const { t } = useTranslation();
   const copyUrl = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
-  const isActiveAccount = !!rafId;
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    if (isActiveAccount) {
-      setShareUrl(`${window.location.origin}/${locale}/invite/${rafId}`);
-    }
-  }, []);
+  const shareUrl: string = !!rafId ? `${window.location.origin}/${locale}/invite/${rafId}` : '';
 
   function openRewardsModal() {
     dispatch(ac_showModal(RewardInformationModal, {}, 'reward-information-modal'));
@@ -38,7 +31,21 @@ export const InviteFriends = memo(function InviteFriends() {
 
   function handleCopy() {
     copyUrl.current?.select();
-    document.execCommand('copy');
+    if (document.execCommand('copy')) {
+      dispatch(
+        ac_showNotification({
+          type: ENotificationType.success,
+          message: t('Copied To Clipboard'),
+        }),
+      );
+    } else {
+      dispatch(
+        ac_showNotification({
+          type: ENotificationType.danger,
+          message: t('Command Not Supported'),
+        }),
+      );
+    }
   }
 
   function handleSendEmail(email: string) {
@@ -71,7 +78,7 @@ export const InviteFriends = memo(function InviteFriends() {
         <Col xs={12}>
           <PageTitle title={t('Invite Your Friends')} />
         </Col>
-        <Col lg={7} className="mb-3">
+        <Col className="mb-3 col-md-10 col-lg-8 col-xl-7">
           <div className="invite__container py-10 px-9">
             <div className="invite__description mb-7">
               <Trans i18nKey="Share Your Passion">
@@ -80,15 +87,17 @@ export const InviteFriends = memo(function InviteFriends() {
               </Trans>
             </div>
             <div className="invite__content">
-              {!isActiveAccount && (
+              {!rafId && (
                 <div className="invite__overlay">
-                  <p>You need to have active trading account to start referring friends</p>
+                  <p className="mx-auto mb-4">
+                    {t('You Need To Have Active Trading Account To Start Referring Friends')}
+                  </p>
                   <LocaleLink to="/deposit" className="hovered-underlined">
                     {t('Make A Deposit')}
                   </LocaleLink>
                 </div>
               )}
-              <div className={classNames('invite__context', !isActiveAccount && 'blurred')}>
+              <div className={classNames('invite__context', !rafId && 'blurred')}>
                 <div className="invite__rewards mx-auto mb-9 ">
                   <Svg href="info" className="mr-3" />
                   <a onClick={openRewardsModal} className="hovered-underlined">
@@ -96,39 +105,27 @@ export const InviteFriends = memo(function InviteFriends() {
                   </a>
                 </div>
                 <div className="invite__avatars mb-9">
-                  {config.avatarImages.map((img) => (
-                    <Img src={img} />
+                  {config.avatarImages.map((img, i) => (
+                    <Img key={i} src={img} />
                   ))}
                 </div>
-                <p className="invite__secure-note mb-9 pb-7">
+                <p className="invite__secure-note mb-0">
                   <Svg href="lock" className="mr-2" />
-                  <span>{t('Secure Information')}</span>
+                  <div>{t('Secure Information')}</div>
                 </p>
+                <div className="divider my-7" />
                 <div className="share-copy-url__title mb-3">{t('Share your invite link:')}</div>
                 <div className="share">
                   <div className="share-copy-url">
-                    <input className="copy-input mb-0 px-4" readOnly name={'shareUrl'} value={shareUrl} ref={copyUrl} />
-                    <Svg href="copy" />
-                    <a onClick={handleCopy} className="hovered-underlined mr-2">
-                      {t('Copy')}
-                    </a>
+                    <input className="copy-input mb-0 px-4" readOnly value={shareUrl} ref={copyUrl} />
+                    <Svg href="copy" onClick={handleCopy} className="mr-2 copy-icon" />
                   </div>
-                  <div className="share-social">
-                    {config.socialNetworks.facebook && (
-                      <FacebookShareButton url={shareUrl}>
-                        <Svg href="facebook" className="fb" />
-                      </FacebookShareButton>
-                    )}
-                    {config.socialNetworks.twitter && (
-                      <TwitterShareButton url={shareUrl}>
-                        <Svg href="twitter" className="tw" />
-                      </TwitterShareButton>
-                    )}
-                    {config.socialNetworks.linkedIn && (
-                      <LinkedinShareButton url={shareUrl}>
-                        <Svg href="linkedin" className="ln" />
-                      </LinkedinShareButton>
-                    )}
+                  <div className="share-social ml-7">
+                    {config.socialNetworks.map((social) => (
+                      <social.component url={shareUrl}>
+                        <Svg href={social.icon} />
+                      </social.component>
+                    ))}
                   </div>
                 </div>
                 <div className="seperator py-7">or</div>
@@ -148,8 +145,6 @@ export const InviteFriends = memo(function InviteFriends() {
                         <Button
                           className="share-email__submit ml-7"
                           type="submit"
-                          disabled={!props.dirty}
-                          checkFormValidity
                           loadingOnAction={EActionTypes.sendReferrerLink}
                         >
                           {t('Send')}

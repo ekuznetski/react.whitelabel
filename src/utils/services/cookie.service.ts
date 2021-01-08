@@ -1,7 +1,7 @@
 import { EMarketingCookies } from '@domain/enums';
 import { parseUrl } from '@utils/fn';
 
-export function getCookie(key: EMarketingCookies): string | null {
+export function getCookie(key: string): string | null {
   const keyPosition = document.cookie.indexOf(key + '=');
   if (keyPosition !== -1) {
     return document.cookie.slice(keyPosition).split('=')[1].split('; ')[0];
@@ -9,7 +9,7 @@ export function getCookie(key: EMarketingCookies): string | null {
   return null;
 }
 
-export function getAllMarketingCookies(): { [key: string]: string } {
+export function getMarketingCookies(): { [key: string]: string } {
   return Object.keys(EMarketingCookies).reduce((acc, key) => {
     const keyPosition = document.cookie.indexOf(key + '=');
     if (keyPosition !== -1) {
@@ -19,7 +19,7 @@ export function getAllMarketingCookies(): { [key: string]: string } {
   }, {});
 }
 
-export function saveAllMarketingCookies(url: string) {
+export function saveMarketingCookies(url: string) {
   const params = parseUrl(url);
   Object.keys(params).map(
     (key) => Object.keys(EMarketingCookies).includes(key) && saveCookie(key as EMarketingCookies, params[key]),
@@ -27,7 +27,7 @@ export function saveAllMarketingCookies(url: string) {
 }
 
 export function saveCookie(
-  key: EMarketingCookies,
+  key: string,
   value: string,
   expires: Date | 'Session' | null = 'Session',
   path: string = '/',

@@ -6,7 +6,7 @@ import { IMap, mapStyles } from './map.config';
 export const Map = memo(function Map({
   markers,
   defaultCenter,
-  defaultZoom = 15,
+  defaultZoom = 17,
   height = '500px',
   width = '100%',
   embed,
@@ -17,11 +17,11 @@ export const Map = memo(function Map({
   if (embed) {
     return (
       <iframe
-        width="100%"
-        height="500"
+        width={width}
+        height={height}
         frameBorder="0"
         style={{ border: 0 }}
-        src={`https://www.google.com/maps/embed/v1/view?key=${env.GOOGLE_MAP_KEY}&center=${defaultCenter.lat},${defaultCenter.lng}&zoom=17`}
+        src={`https://www.google.com/maps/embed/v1/view?key=${env.GOOGLE_MAP_KEY}&center=${defaultCenter.lat},${defaultCenter.lng}&zoom=${defaultZoom}`}
         allowFullScreen
       ></iframe>
     );

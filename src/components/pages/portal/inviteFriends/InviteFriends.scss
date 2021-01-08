@@ -24,14 +24,14 @@
     }
 
     &__secure-note {
+      display: flex;
       font-size: 12px;
       text-transform: uppercase;
-      color: #818994;
-      text-align: center;
-      border-bottom: 1px solid #eaeaea;
+      color: $dark-grey;
+      justify-content: center;
 
       svg {
-        fill: #818994;
+        fill: $dark-grey;
       }
     }
 
@@ -57,7 +57,6 @@
         font-size: 18px;
         font-weight: bold;
         max-width: 380px;
-        margin: 0 auto 12px;
       }
 
       a {
@@ -136,23 +135,31 @@
       @include d-flex(center, space-between);
       flex: 0 1 70%;
       border: 1px solid $blue;
-      // margin-right: 20px;
+
       &__title {
         line-height: 26px;
         color: $text;
         text-align: center;
       }
-      .copy-input {
-        width: fit-content;
-        flex: 1 0 auto;
-        height: 50px;
-        font-size: 14px;
-        border: none;
-        text-overflow: ellipsis;
-        cursor: default;
+      .copy {
+        &-input {
+          width: fit-content;
+          flex: 1 0 auto;
+          height: 50px;
+          font-size: 14px;
+          border: none;
+          text-overflow: ellipsis;
+          cursor: default;
 
-        &.focused {
-          box-shadow: none;
+          &.focused {
+            box-shadow: none;
+          }
+        }
+        &-icon {
+          cursor: pointer;
+          &:hover {
+            opacity: 0.8;
+          }
         }
       }
 
@@ -171,28 +178,16 @@
       .react-share__ShareButton {
         margin-left: 10px;
         &:first-child {
-          margin-left: 20px;
+          margin-left: 0;
         }
 
         svg {
-          height: 50px;
-          min-width: 50px;
+          height: 46px;
+          width: 46px;
           &:hover {
             opacity: 0.8;
           }
         }
-      }
-
-      .fb {
-        fill: #4267b2;
-      }
-
-      .tw {
-        fill: #00acee;
-      }
-
-      .ln {
-        fill: #006fa6;
       }
     }
 
@@ -222,5 +217,9 @@
     &:after {
       background-color: $blue !important;
     }
+  }
+
+  .divider {
+    border-bottom: 1px solid #eaeaea;
   }
 }

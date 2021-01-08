@@ -1,3 +1,5 @@
+import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share';
+
 export const config = {
   avatarImages: [
     'share-avatar-1.png',
@@ -7,9 +9,18 @@ export const config = {
     'share-avatar-1.png',
     'share-avatar-2.png',
   ],
-  socialNetworks: {
-    facebook: true,
-    twitter: true,
-    linkedIn: true,
-  },
+  socialNetworks: [
+    {
+      component: FacebookShareButton,
+      icon: 'facebook',
+    },
+    {
+      component: TwitterShareButton,
+      icon: 'twitter',
+    },
+    {
+      component: LinkedinShareButton,
+      icon: 'linkedin',
+    },
+  ],
 };

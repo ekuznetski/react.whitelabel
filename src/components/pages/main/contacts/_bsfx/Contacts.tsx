@@ -42,7 +42,7 @@ export function Contacts() {
           </Row>
         </Container>
       </section>
-      <section className="p-0 map">
+      <section className="map p-0">
         <Map
           defaultCenter={config.officeCoords}
           markers={[

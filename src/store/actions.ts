@@ -86,7 +86,7 @@ export function ac_fetchProfile() {
 }
 
 export function ac_fetchClientSettings(
-  payload: IClientSettingsRequest = {},
+  payload: IClientSettingsRequest,
   onSuccess: AnyFunction = null,
   onFailure: AnyFunction = null,
 ): IAction {
