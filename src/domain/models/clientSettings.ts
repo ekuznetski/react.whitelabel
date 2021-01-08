@@ -40,7 +40,7 @@ export class MClientSettings {
   trading_central: boolean;
 
   constructor(props: IClientSettings | IClientProfile) {
-    const storeSettings = store.getState().data.client.settings;
+    const storeSettings = store?.getState().data.client.settings;
     props = { ...storeSettings, ...props };
 
     this.allow_additional_account = props.allow_additional_account;

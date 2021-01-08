@@ -7,7 +7,7 @@ export const config = {
     'share-avatar-1.png',
     'share-avatar-2.png',
   ],
-  shareSites: {
+  socialNetworks: {
     facebook: true,
     twitter: true,
     linkedIn: true,

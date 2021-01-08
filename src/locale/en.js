@@ -479,4 +479,5 @@ export default {
   'Invitation Successful': 'Invitation Successful',
   'Make A Deposit': 'Make a deposit',
   Copy: 'Copy',
+  Error: 'Error',
 };

@@ -41,7 +41,7 @@ export const InviteFriends = memo(function InviteFriends() {
     document.execCommand('copy');
   }
 
-  function handleSendEmail({ shareEmail: email }: { shareEmail: string }) {
+  function handleSendEmail(email: string) {
     dispatch(
       ac_sendReferrerLink(
         { email } as ISendReferrerLinkRequest,
@@ -57,7 +57,7 @@ export const InviteFriends = memo(function InviteFriends() {
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              message: 'Error',
+              message: t('Error'),
             }),
           );
         },
@@ -67,12 +67,10 @@ export const InviteFriends = memo(function InviteFriends() {
 
   return (
     <Container className="invite-friends-wrapper">
-      <Row>
+      <Row className="justify-content-center">
         <Col xs={12}>
           <PageTitle title={t('Invite Your Friends')} />
         </Col>
-      </Row>
-      <Row className="justify-content-center">
         <Col lg={7} className="mb-3">
           <div className="invite__container py-10 px-9">
             <div className="invite__description mb-7">
@@ -91,7 +89,7 @@ export const InviteFriends = memo(function InviteFriends() {
                 </div>
               )}
               <div className={classNames('invite__context', !isActiveAccount && 'blurred')}>
-                <div className="invite__rewards mb-9">
+                <div className="invite__rewards mx-auto mb-9 ">
                   <Svg href="info" className="mr-3" />
                   <a onClick={openRewardsModal} className="hovered-underlined">
                     {t('Reward Information')}
@@ -116,17 +114,17 @@ export const InviteFriends = memo(function InviteFriends() {
                     </a>
                   </div>
                   <div className="share-social">
-                    {config.shareSites.facebook && (
+                    {config.socialNetworks.facebook && (
                       <FacebookShareButton url={shareUrl}>
                         <Svg href="facebook" className="fb" />
                       </FacebookShareButton>
                     )}
-                    {config.shareSites.twitter && (
+                    {config.socialNetworks.twitter && (
                       <TwitterShareButton url={shareUrl}>
                         <Svg href="twitter" className="tw" />
                       </TwitterShareButton>
                     )}
-                    {config.shareSites.linkedIn && (
+                    {config.socialNetworks.linkedIn && (
                       <LinkedinShareButton url={shareUrl}>
                         <Svg href="linkedin" className="ln" />
                       </LinkedinShareButton>
@@ -141,20 +139,17 @@ export const InviteFriends = memo(function InviteFriends() {
                   validationSchema={Yup.object().shape({
                     shareEmail: FieldValidators.email,
                   })}
-                  onSubmit={handleSendEmail}
+                  onSubmit={({ shareEmail }) => handleSendEmail(shareEmail)}
                 >
                   {(props: FormikProps<any>) => (
                     <Form className="m-auto form">
                       <div className="share-email">
-                        <Input
-                          className="share-email__input"
-                          label={t('Type Your Friends Email')}
-                          name={'shareEmail'}
-                        />
+                        <Input className="share-email__input" label={t('Type Your Friends Email')} name="shareEmail" />
                         <Button
                           className="share-email__submit ml-7"
                           type="submit"
-                          disabled={!props.isValid || !props.dirty}
+                          disabled={!props.dirty}
+                          checkFormValidity
                           loadingOnAction={EActionTypes.sendReferrerLink}
                         >
                           {t('Send')}

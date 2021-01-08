@@ -1,4 +1,4 @@
-import { ETradingAccountType, ETradingPlatform, MarketType } from '@domain/enums';
+import { ETradingPlatform, MarketType } from '@domain/enums';
 import { IMarketTableContent } from '@domain/interfaces';
 
 export const assetsCharacteristics = {
@@ -29,8 +29,6 @@ export const accountTypePip = {
   fixed: 1.8,
   variable: 1.2,
 };
-
-export const allowedAccountTypes = [ETradingAccountType.fixed, ETradingAccountType.classic, ETradingAccountType.raw];
 
 export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
   [MarketType.forex]: [
