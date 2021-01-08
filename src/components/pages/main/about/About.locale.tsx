@@ -1,12 +1,12 @@
 import { env } from '@env';
 import { ELabels } from '@domain/enums';
 import * as asd from '@utils/hooks';
-import i18n from 'i18next';
+import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
 // import { useLabelView } from '../../../../utils/hooks/useLabelView';
 
-const t = i18n.getFixedT(i18n.language);
+const t = i18n.getLazyT;
 
 export const locale = {
   pageTopRegisterBtn: asd.useLabelView({

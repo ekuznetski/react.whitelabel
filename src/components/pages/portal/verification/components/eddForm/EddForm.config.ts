@@ -1,5 +1,5 @@
-import i18n from 'i18next';
-const t = i18n.getFixedT(i18n.language);
+import i18n from '@i18next';
+const t = i18n.getLazyT;
 
 export const config = {
   empStatNgSelectValList: [

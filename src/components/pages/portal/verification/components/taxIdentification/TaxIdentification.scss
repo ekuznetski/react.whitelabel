@@ -1,6 +1,12 @@
 @import '~/variables';
 
 .tax-identification {
+  .tins-row {
+    width: calc(100% - 50px);
+  }
+  .remove-tins-row {
+    width: 50px;
+  }
   &__col-title {
     font-size: 14px;
     line-height: 22px;

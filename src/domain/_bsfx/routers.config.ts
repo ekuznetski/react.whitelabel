@@ -1,7 +1,7 @@
 import * as Action from '@store';
 import * as Page from '@components/pages';
 import { NotFound } from '@core/404/404';
-import i18n from 'i18next';
+import i18n from '@i18next';
 import { EAppSection, EPagePath, EResponseStatus, ETradingType } from '@domain/enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '@domain/interfaces';
 import {
@@ -15,7 +15,7 @@ import {
   withdrawGuard,
 } from '@utils/guards';
 
-const t = i18n.getFixedT(i18n.language);
+const t = i18n.getLazyT;
 const meta_t = i18n.getFixedT(i18n.language, 'meta');
 
 // Data to be loaded on EVERY page of app section

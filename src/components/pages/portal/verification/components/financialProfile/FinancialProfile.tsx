@@ -1,9 +1,9 @@
 import { Svg } from '@components/shared';
 import { FPQuestions } from '@domain';
-import { EClientStatusCode, EFPSteps } from '@domain/enums';
+import { EClientStatusCode, EFPSteps, ENotificationType } from '@domain/enums';
 import { IFPState, ISubmitFPRequest, ISubmitFPRequestItem } from '@domain/interfaces';
 import { MClientStatus } from '@domain/models';
-import { ac_submitFinancialProfile, IStore } from '@store';
+import { IStore, ac_showNotification, ac_submitFinancialProfile } from '@store';
 import classNames from 'classnames';
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,9 +25,24 @@ export const FinancialProfile = memo(function FinancialProfile() {
   const progressPercent = (100 / (Object.keys(EFPSteps).length / 2)) * state.step;
 
   function submitFn(data: any) {
+    console.log(state.data);
     if (state.step === Object.keys(EFPSteps).length / 2) {
       const preparedData: ISubmitFPRequest = { kyc_answer: JSON.stringify(state.data) };
-      dispatch(ac_submitFinancialProfile(preparedData));
+      dispatch(
+        ac_submitFinancialProfile(
+          preparedData,
+          () =>
+            ac_showNotification({
+              type: ENotificationType.success,
+              innerText: 'update FP - succeess',
+            }),
+          () =>
+            ac_showNotification({
+              type: ENotificationType.danger,
+              innerText: 'update FP - failure',
+            }),
+        ),
+      );
       return;
     }
     data = Object.keys(data)
@@ -35,8 +50,8 @@ export const FinancialProfile = memo(function FinancialProfile() {
       .map(
         (e): ISubmitFPRequestItem => {
           const result = {
-            question: e.replace('q_', ''),
-            answer: data[e as keyof typeof data],
+            question: parseInt(e.replace('q_', '')),
+            answer: parseInt(data[e as keyof typeof data]),
           };
           if (Object.keys(data).includes(e + '_remark') && data[e + '_remark']) {
             Object.assign(result, { remark: data[e + '_remark'] });

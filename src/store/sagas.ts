@@ -288,9 +288,9 @@ export function* getClientStatusDataSaga() {
 
 export function* updateTinsSaga() {
   yield $$(EActionTypes.updateTins, function* ({ payload }: IAction) {
-    console.log(1);
+    console.log('TODO save tins after response');
     const { response }: ITinsResponse = yield call(Request.updateTinsRequest, payload);
-    // yield put(Action.ac_saveTins(new Model.MTins(response.message))); // uncomment when API clients/tins will been added
+    // yield put(Action.ac_saveTins(new Model.MTins(response.message))); // TODO uncomment when API clients/tins will been added
     yield put(Action.ac_fetchClientData({ force: true }));
     return response;
   });

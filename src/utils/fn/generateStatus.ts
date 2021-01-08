@@ -1,8 +1,8 @@
 import { ClientStatusCodeNotificationType, EClientStatus, EClientStatusCode } from '@domain/enums';
 import { camel } from 'case';
-import i18n from 'i18next';
+import i18n from '@i18next';
 
-const t = i18n.getFixedT(i18n.language);
+const t = i18n.getLazyT;
 
 export function generateStatus(status?: keyof typeof EClientStatus) {
   status = status && (camel(status) as keyof typeof EClientStatus);

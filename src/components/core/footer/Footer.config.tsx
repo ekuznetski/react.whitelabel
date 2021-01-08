@@ -1,10 +1,10 @@
 import { LabelView } from '@components/shared';
 import { ELabels } from '@domain/enums';
-import i18n from 'i18next';
+import i18n from '@i18next';
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import { Trans } from 'react-i18next';
-const t = i18n.getFixedT(i18n.language);
+const t = i18n.getLazyT;
 
 export const config = {
   socialMediaLinks: [

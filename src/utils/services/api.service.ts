@@ -58,7 +58,6 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
             }
           })
           .catch((err: any) => {
-            console.log(err.response);
             throw err.response;
           });
       }

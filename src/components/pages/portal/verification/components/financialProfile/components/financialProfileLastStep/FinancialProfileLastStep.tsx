@@ -1,10 +1,10 @@
 import { Button, Checkbox } from '@components/shared';
-import { FieldValidators } from '@domain';
 import { AnyFunction } from '@domain/interfaces';
 import { Form, Formik } from 'formik';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
+import { EActionTypes } from '@store';
 
 interface FinancialProfileStepProps {
   submitFn: AnyFunction;
@@ -16,22 +16,25 @@ export const FinancialProfileLastStep = memo(function FinancialProfileStep({ sub
   return (
     <Formik
       enableReinitialize={true}
-      initialValues={{ agreement: '' }}
+      initialValues={{ agreement: false }}
       validationSchema={Yup.object().shape({
-        agreement: FieldValidators.requiredString,
+        agreement: Yup.bool().oneOf([true], t('This field is required')),
       })}
       onSubmit={(data) => {
         submitFn?.(data);
       }}
     >
-      {() => {
+      {(props) => {
+        console.log(props);
         return (
           <>
             <div className="financial-profile__step-title mb-10">{t('Declarations and Acknowledgement of Risks')}</div>
             <ul>
               {t<string[]>('Financial Profile Last Stem Declaration Terms', { returnObjects: true }).map(
                 (sentence, s) => (
-                  <li key={s}>{sentence}</li>
+                  <li className="mb-5" key={s}>
+                    {sentence}
+                  </li>
                 ),
               )}
             </ul>
@@ -39,7 +42,9 @@ export const FinancialProfileLastStep = memo(function FinancialProfileStep({ sub
               <Checkbox name="agreement" className="mb-10">
                 {t('Financial Profile Agree with Declaration')}
               </Checkbox>
-              <Button type="submit">{t('Submit')}</Button>
+              <Button type="submit" loadingOnAction={EActionTypes.submitFinancialProfile}>
+                {t('Submit')}
+              </Button>
             </Form>
           </>
         );

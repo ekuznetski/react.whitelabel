@@ -156,5 +156,5 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
         <route.component />
       </main>
     </>
-  ) : null;
+  ) : <PageLoader isLoading={true} />;
 }
