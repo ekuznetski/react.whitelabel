@@ -21,7 +21,6 @@ export function getAllMarketingCookies(): { [key: string]: string } {
 
 export function saveAllMarketingCookies(url: string) {
   const params = parseUrl(url);
-  console.log(params);
   Object.keys(params).map(
     (key) => Object.keys(EMarketingCookies).includes(key) && saveCookie(key as EMarketingCookies, params[key]),
   );
