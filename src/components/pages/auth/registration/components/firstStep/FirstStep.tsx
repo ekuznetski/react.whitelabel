@@ -2,7 +2,7 @@ import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@comp
 import { CustomFieldValidators, FieldValidators } from '@domain';
 import { ERegSteps, countries } from '@domain/enums';
 import { EActionTypes, IStore, ac_userExists } from '@store';
-import { getCookies } from '@utils/services';
+import { getAllMarketingCookies } from '@utils/services';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -27,7 +27,7 @@ export function FirstStep({ submitFn }: any) {
   const { t } = useTranslation();
 
   function Submit(data: any, helpers: any) {
-    Object.assign(data, { ...getCookies() });
+    Object.assign(data, { ...getAllMarketingCookies() });
 
     dispatch(
       ac_userExists(

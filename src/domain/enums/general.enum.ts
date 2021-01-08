@@ -102,6 +102,17 @@ export const ClientStatusCodeNotificationType = Object.freeze({
   [EClientStatusCode.dormant]: ENotificationType.warning,
 });
 
-export enum ECookieTypes {
+export enum EMarketingCookies {
   raf_id = 'raf_id',
+  suid = 'suid',
+  click_id = 'click_id',
+  clickid = 'clickid',
+  utm_affiliatecode = 'utm_affiliatecode',
+  eaid = 'eaid',
+  subid = 'subid',
+  subid2 = 'subid2',
+  a_id = 'a_id',
+  campaign_id = 'campaign_id',
+  campaignid = 'campaignid',
+  CAMPAINIDINT = 'CAMPAINIDINT',
 }

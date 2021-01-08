@@ -3,7 +3,7 @@ import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
 import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@routers';
 import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
-import { routeFetchData } from '@utils/fn';
+import { routeFetchData } from '@utils/fn/routeFetchData';
 import { useLockScroll, useMeta, usePathLocale } from '@utils/hooks';
 import { useBoolean, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
 import React, { memo, useEffect, useMemo } from 'react';
