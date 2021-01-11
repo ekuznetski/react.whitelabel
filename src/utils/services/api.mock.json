@@ -43,7 +43,7 @@
           "allowed_leverages": [100, 200, 300, 400, 500],
           "allowed_account_types": ["fixed", "classic", "raw"],
           "allowed_platforms": ["mt4", "mt5"],
-          "is_withdrawal_allowed": true,
+          "allow_withdrawal": true,
           "allow_internal_transfer": true,
           "edit_fake_account": true,
           "validation_countdown": null
@@ -96,7 +96,7 @@
           "allowed_leverages": [100, 200, 300, 400, 500],
           "allowed_account_types": ["fixed", "classic", "raw"],
           "allowed_platforms": ["mt4", "mt5"],
-          "is_withdrawal_allowed": true,
+          "allow_withdrawal": true,
           "allow_internal_transfer": true,
           "edit_fake_account": true
         }

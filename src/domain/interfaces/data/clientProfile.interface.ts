@@ -31,7 +31,6 @@ export type IClientProfile = {
   manager: string;
   regDate: string;
   go_to_praxis: boolean;
-  is_withdrawal_allowed: boolean;
   edit_fake_account: boolean;
 } & IClientSettings;
 

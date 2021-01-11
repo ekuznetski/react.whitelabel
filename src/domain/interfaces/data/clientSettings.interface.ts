@@ -10,6 +10,7 @@ export interface IClientSettings {
   allow_additional_live_account: boolean;
   allow_additional_demo_account: boolean;
   allow_deposit: boolean;
+  allow_withdrawal: boolean;
   allowed_currencies: string[];
   allowed_leverages: number[];
   allowed_account_types: string[];
@@ -22,7 +23,6 @@ export interface IClientSettings {
   show_promotions: boolean;
   show_compliance_popup: boolean;
   switch_cayman: boolean;
-  is_withdrawal_allowed: boolean;
   go_to_praxis: boolean;
   edit_fake_account: boolean;
   trading_central: boolean;
