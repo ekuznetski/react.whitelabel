@@ -1,9 +1,8 @@
 import { Button, Input } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ENotificationType } from '@domain/enums';
-import { IEditProfileRequest } from '@domain/interfaces';
-import { EActionTypes, ac_editProfile, ac_showNotification } from '@store';
-import { Form, Formik, FormikValues } from 'formik';
+import { EActionTypes, ac_changePassword, ac_showNotification } from '@store';
+import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -45,17 +44,22 @@ export const ChangePassword = memo(
       }),
     });
 
-    function Submit(data: FormikValues) {
+    function Submit(data: FormikValues, { resetForm }: FormikHelpers<any>) {
       dispatch(
-        ac_editProfile(
-          data as IEditProfileRequest,
-          () =>
+        ac_changePassword(
+          {
+            old_password: data[EFields.currentPassword],
+            new_password: data[EFields.newPassword],
+          },
+          () => {
+            resetForm();
             dispatch(
               ac_showNotification({
                 type: ENotificationType.success,
                 message: t('The Password Has Been Updated Successfully'),
               }),
-            ),
+            );
+          },
           () =>
             dispatch(
               ac_showNotification({
@@ -81,7 +85,7 @@ export const ChangePassword = memo(
                 validationSchema={validationSchema}
                 onSubmit={Submit}
               >
-                {() => {
+                {(resetForm) => {
                   return (
                     <Form className="internal-transfer__form">
                       <Input
