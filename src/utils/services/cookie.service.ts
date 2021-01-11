@@ -22,7 +22,8 @@ export function getMarketingCookies(): { [key: string]: string } {
 export function saveMarketingCookies(url: string) {
   const params = parseUrl(url);
   Object.keys(params).map(
-    (key) => Object.keys(EMarketingCookies).includes(key) && saveCookie(key as EMarketingCookies, params[key]),
+    (key) =>
+      Object.keys(EMarketingCookies).includes(key) && saveCookie(key as EMarketingCookies, JSON.stringify(params[key])),
   );
 }
 
