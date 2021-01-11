@@ -545,10 +545,8 @@
         "status": "failure",
         "message": "Error message"
       }
-    }
-  },
-  "ibs": {
-    "add": {
+    },
+    "addIB": {
       "response": {
         "status": "failure",
         "message": "Unexpected Error occured, please try again later",
