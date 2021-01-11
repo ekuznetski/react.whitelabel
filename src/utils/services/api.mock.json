@@ -330,17 +330,6 @@
       }
     }
   },
-  "documents": {
-    "getDocuments": {
-      "response": {
-        "status": "success",
-        "message": [
-          { "id": "94299", "document_type": "PoR", "document_status": "Pending", "created": "2020-06-05 13:13:54" }
-        ],
-        "messageCode": 31
-      }
-    }
-  },
   "withdrawals": {
     "getHistory": {
       "response": {
@@ -537,6 +526,15 @@
             { "id": "102559", "document_type": "ID", "document_status": "Pending", "created": "2020-10-30 11:03:23" }
           ],
           "messageCode": 54
+        }
+      },
+      "getDocuments": {
+        "response": {
+          "status": "success",
+          "message": [
+            { "id": "94299", "document_type": "PoR", "document_status": "Pending", "created": "2020-06-05 13:13:54" }
+          ],
+          "messageCode": 31
         }
       }
     }

@@ -15,9 +15,9 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
 
     try {
       // RETURN MOCK RESPONSE
-      const [c, s] = requestPath.split('/').splice(-2);
-      const mockResponse = (mockData as any)?.[c]?.[s];
-      if (mockResponse) {
+      const props = requestPath.replace(`${env.API_URL}/`, '').split('/');
+      const mockResponse = props.reduce((acc: any, key) => acc[key] || {}, mockData);
+      if (Object.keys(mockResponse).length) {
         return new Promise((resolve) => {
           setTimeout(() => resolve(mockResponse), 450);
         });
