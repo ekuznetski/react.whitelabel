@@ -80,9 +80,6 @@ module.exports = (_env, arguments) => {
     prototypesFilenames = glob.sync(`./src/domain/${targetLabelFolder}/!(data)/**/*.*`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
 
-    console.log('-------------------------------', stylesFilenames);
-    return;
-
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
     componentsFilepaths = glob
       .sync(`./src/components/**/!(index).{${componentsExtensionToHandle.toString()}}`)
