@@ -34,12 +34,12 @@ export class MClientSettings {
   phone_verification: TClientStatus;
   show_compliance_popup: boolean;
   switch_cayman: boolean;
-  is_withdrawal_allowed: boolean;
+  allow_withdrawal: boolean;
   go_to_praxis: boolean;
   edit_fake_account: boolean;
   trading_central: boolean;
 
-  constructor(props: IClientSettings | IClientProfile) {
+  constructor (props: IClientSettings | IClientProfile) {
     const storeSettings = store.getState().data.client.settings;
     props = { ...storeSettings, ...props };
 
@@ -77,7 +77,7 @@ export class MClientSettings {
     this.phone_verification = generateStatus(props.phone_verification?.toLowerCase?.() as keyof typeof EClientStatus);
     this.show_compliance_popup = props.show_compliance_popup || false;
     this.switch_cayman = props.switch_cayman || false;
-    this.is_withdrawal_allowed = props.is_withdrawal_allowed || false;
+    this.allow_withdrawal = props.allow_withdrawal || false;
     this.go_to_praxis = props.go_to_praxis || false;
     this.edit_fake_account = props.edit_fake_account || false;
     this.trading_central = props.trading_central || false;

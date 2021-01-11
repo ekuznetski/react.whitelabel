@@ -1,5 +1,5 @@
 import { MarketType } from '@domain/enums';
-import i18n from 'i18next';
+import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
 import { assetsCharacteristics } from '@domain';
@@ -10,7 +10,7 @@ interface IConfig {
   tableSections: ITableSection[];
 }
 
-const t = i18n.getFixedT(i18n.language);
+const t = i18n.getLazyT;
 
 export const config: IConfig = {
   headerNavigation: [

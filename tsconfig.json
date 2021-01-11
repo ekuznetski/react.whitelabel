@@ -35,7 +35,7 @@
       "@store": ["store/index.ts"],
       "@env": ["env/index.ts"],
       "@routers": ["domain/_default/routers.config.ts"],
-      "@i18n": ["i18n.ts"],
+      "@i18next": ["locale/i18n.ts"],
       "~/variables": ["scss/variables.scss"],
       "~/utilities": ["scss/utilities.scss"],
       "~/theme": ["scss/theme.scss"],

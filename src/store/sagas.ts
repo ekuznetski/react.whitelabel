@@ -149,11 +149,9 @@ export function* editProfileSaga() {
   });
 }
 
-export function* changeProfilePasswordSaga() {
+export function* changeClientProfilePasswordSaga() {
   yield $$(EActionTypes.changePassword, function* ({ payload }: IAction) {
-    const { response }: any = yield call(Request.editProfileRequest, payload);
-    yield put(Action.ac_saveProfile(new Model.MClientProfile(response.data)));
-    yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response.data)));
+    const { response }: any = yield call(Request.changeClientProfilePassword, payload);
     return response;
   });
 }

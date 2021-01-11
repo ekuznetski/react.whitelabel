@@ -75,7 +75,7 @@ module.exports = (_env, arguments) => {
   // Generate map to replace files for different domain
   if (targetLabel) {
     environmentFilenames = glob.sync(`./src/env/${targetLabelFolder}/*`);
-    stylesFilenames = fs.readdirSync(`./src/scss/${targetLabelFolder}`);
+    stylesFilenames = glob.sync(`./src/scss/${targetLabelFolder}/**/*.scss`);
     labelFilenames = glob.sync(`./src/domain/${targetLabelFolder}/**/*.*`);
     prototypesFilenames = glob.sync(`./src/domain/${targetLabelFolder}/!(data)/**/*.*`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
@@ -165,7 +165,8 @@ module.exports = (_env, arguments) => {
             return Object.assign(acc, {
               [`@routers`]: path.join(__dirname, `/src/domain/${targetLabelFolder}/${basename}`),
             });
-          default: return acc;
+          default:
+            return acc;
         }
       } else if (parentFolder === targetLabelFolder) {
         return Object.assign(acc, {
@@ -274,7 +275,7 @@ module.exports = (_env, arguments) => {
             },
             'css-loader',
             {
-              loader: "postcss-loader",
+              loader: 'postcss-loader',
               options: {
                 postcssOptions: {
                   plugins: [
@@ -286,8 +287,8 @@ module.exports = (_env, arguments) => {
                           'assets/svg/',
                           `assets/${targetLabelFolder}/img/`,
                           `assets/${targetLabelFolder}/svg/`,
-                        ]
-                      })
+                        ],
+                      }),
                     ],
                   ],
                 },
@@ -373,13 +374,13 @@ module.exports = (_env, arguments) => {
                     '@babel/preset-env',
                     !env.PRODUCTION
                       ? {
-                        modules: false,
-                      }
+                          modules: false,
+                        }
                       : {
-                        targets: {
-                          node: 'current',
+                          targets: {
+                            node: 'current',
+                          },
                         },
-                      },
                   ],
                   '@babel/preset-react',
                   '@babel/preset-typescript',
@@ -391,10 +392,7 @@ module.exports = (_env, arguments) => {
       ],
     },
     plugins: [
-      new webpack.PrefetchPlugin(
-        path.join(__dirname, 'src/utils/hooks'),
-        './index.ts'
-      ),
+      new webpack.PrefetchPlugin(path.join(__dirname, 'src/utils/hooks'), './index.ts'),
       new webpack.DefinePlugin(
         Object.keys(env).reduce(
           (acc, key) =>

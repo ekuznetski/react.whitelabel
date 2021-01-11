@@ -1,6 +1,6 @@
-import i18n from 'i18next';
+import i18n from '@i18next';
 
-const t = i18n.getFixedT(i18n.language);
+const t = i18n.getLazyT;
 
 export const config = {
   topBarLinks: [

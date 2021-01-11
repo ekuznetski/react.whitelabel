@@ -1,4 +1,4 @@
-// import '@i18n';
+// import '@i18next';
 // import React from 'react';
 // import { Cards } from './Cards';
 // import { render } from '@testing-library/react';

@@ -43,7 +43,7 @@
           "allowed_leverages": [100, 200, 300, 400, 500],
           "allowed_account_types": ["fixed", "classic", "raw"],
           "allowed_platforms": ["mt4", "mt5"],
-          "is_withdrawal_allowed": true,
+          "allow_withdrawal": true,
           "allow_internal_transfer": true,
           "edit_fake_account": true,
           "validation_countdown": null
@@ -96,7 +96,7 @@
           "allowed_leverages": [100, 200, 300, 400, 500],
           "allowed_account_types": ["fixed", "classic", "raw"],
           "allowed_platforms": ["mt4", "mt5"],
-          "is_withdrawal_allowed": true,
+          "allow_withdrawal": true,
           "allow_internal_transfer": true,
           "edit_fake_account": true
         }
@@ -147,7 +147,10 @@
         "tins_data": {
           "choice": true,
           "reason": null,
-          "tins": "[{\"country\":\"Andorra\",\"tax_number\":\"asd\"},{\"country\":\"Albania\",\"tax_number\":\"sdfs\"}]"
+          "tins": [
+            { "country": "Andorra", "tax_number": "asd" },
+            { "country": "Albania", "tax_number": "sdfs" }
+          ]
         }
       }
     },
@@ -330,17 +333,6 @@
       }
     }
   },
-  "documents": {
-    "getDocuments": {
-      "response": {
-        "status": "success",
-        "message": [
-          { "id": "94299", "document_type": "PoR", "document_status": "Pending", "created": "2020-06-05 13:13:54" }
-        ],
-        "messageCode": 31
-      }
-    }
-  },
   "withdrawals": {
     "getHistory": {
       "response": {
@@ -495,8 +487,8 @@
       }
     }
   },
-  "bankaccounts": {
-    "getbankdetails": {
+  "bankDetails": {
+    "get": {
       "response": {
         "status": "success",
         "message": {
@@ -511,7 +503,7 @@
         "messageCode": 25
       }
     },
-    "saveaccount": {
+    "!update": {
       "response": {
         "status": "success",
         "message": "Bank Account added successfully",
@@ -538,19 +530,26 @@
           ],
           "messageCode": 54
         }
+      },
+      "getDocuments": {
+        "response": {
+          "status": "success",
+          "message": [
+            { "id": "94299", "document_type": "PoR", "document_status": "Pending", "created": "2020-06-05 13:13:54" }
+          ],
+          "messageCode": 31
+        }
       }
     }
   },
-  "extra": {
-    "partnershipEmail": {
+  "!partnership": {
+    "add": {
       "response": {
         "status": "failure",
         "message": "Error message"
       }
-    }
-  },
-  "ibs": {
-    "add": {
+    },
+    "addIB": {
       "response": {
         "status": "failure",
         "message": "Unexpected Error occured, please try again later",

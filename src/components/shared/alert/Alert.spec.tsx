@@ -1,4 +1,4 @@
-import '@i18n';
+import '@i18next';
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Alert } from './Alert';

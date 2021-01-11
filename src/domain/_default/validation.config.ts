@@ -53,7 +53,7 @@ export const FieldValidators = {
     .required('This field is required'),
   password: Yup.string()
     .matches(RegexValidators.password, 'Password should contain digits and letters')
-    .min(8, 'Minimum length ${max} symbols')
+    .min(8, 'Minimum length ${min} symbols')
     .max(40, 'Maximum length ${max} symbols')
     .required('This field is required'),
   street: Yup.string()

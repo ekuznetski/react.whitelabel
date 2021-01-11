@@ -2,9 +2,9 @@ import { Button, Checkbox, CountrySelect, Input, PhoneCodeSelect } from '@compon
 import { CustomFieldValidators, FieldValidators } from '@domain';
 import { ENotificationType, countries } from '@domain/enums';
 import { IPartnershipIBRegistrationRequest } from '@domain/interfaces';
-import { IStore, ac_partnershipRegisterIB, ac_showNotification } from '@store';
+import { EActionTypes, IStore, ac_partnershipRegisterIB, ac_showNotification } from '@store';
 import { useLabelName } from '@utils/hooks';
-import { Form, Formik, FormikValues } from 'formik';
+import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
@@ -43,11 +43,17 @@ export const BrokersForm = memo(function BrokersForm() {
     [EFields.acceptPolicy]: Yup.bool().oneOf([true], t('This field is required')),
   });
 
-  function Submit(data: FormikValues) {
+  function Submit(data: FormikValues, { resetForm }: FormikHelpers<any>) {
+    const values = data;
+    values[EFields.phone_prefix] = values[EFields.phone_prefix].phoneCode;
+    values[EFields.country] = values[EFields.country].name;
+    delete values[EFields.acceptPolicy];
+
     dispatch(
       ac_partnershipRegisterIB(
         data as IPartnershipIBRegistrationRequest,
         () => {
+          resetForm();
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
@@ -101,7 +107,9 @@ export const BrokersForm = memo(function BrokersForm() {
                 <Checkbox name={EFields.acceptPolicy} className="mb-10">
                   {t('Accept Policy')}
                 </Checkbox>
-                <Button type="submit">{t('Submit')}</Button>
+                <Button type="submit" loadingOnAction={EActionTypes.partnershipRegisterIB}>
+                  {t('Submit')}
+                </Button>
               </Form>
             )}
           </Formik>

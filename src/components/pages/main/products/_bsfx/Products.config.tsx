@@ -1,11 +1,11 @@
-import i18n from 'i18next';
+import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
 import { config as _config } from '../Products.config';
 import { MarketType } from '@domain/enums';
 import { assetsCharacteristics } from '@domain';
 
-const t = i18n.getFixedT(i18n.language);
+const t = i18n.getLazyT;
 
 export const config = {
   ..._config,
