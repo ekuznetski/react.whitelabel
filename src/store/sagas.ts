@@ -22,9 +22,9 @@ import {
   ITinsResponse,
   ITradingAccountsResponse,
   ITransactionalStatementsResponse,
+  IWithdrawFundRequest,
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
-  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import * as Model from '@domain/models';
 import { MRequestAdapter } from '@domain/models';
@@ -150,11 +150,9 @@ export function* editProfileSaga() {
   });
 }
 
-export function* changeProfilePasswordSaga() {
+export function* changeClientProfilePasswordSaga() {
   yield $$(EActionTypes.changePassword, function* ({ payload }: IAction) {
-    const { response }: any = yield call(Request.editProfileRequest, payload);
-    yield put(Action.ac_saveProfile(new Model.MClientProfile(response.data)));
-    yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response.data)));
+    const { response }: any = yield call(Request.changeClientProfilePassword, payload);
     return response;
   });
 }
@@ -308,6 +306,7 @@ export function* submitEddSaga() {
 export function* financialProfileSaga() {
   yield $$(EActionTypes.submitFinancialProfile, function* ({ payload }: IAction) {
     const { response }: any = yield call(Request.financialProfileRequest, payload);
+    yield put(Action.ac_fetchClientData({ force: true }));
     return response;
   });
 }

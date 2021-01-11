@@ -86,3 +86,14 @@
     top: 80px;
   }
 }
+
+.header.main {
+
+  &+.notification-wrapper {
+    top: 140px;
+  }
+
+  &.fixed+.notification-wrapper {
+    top: 70px;
+  }
+}

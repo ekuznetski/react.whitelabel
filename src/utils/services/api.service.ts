@@ -15,9 +15,9 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
 
     try {
       // RETURN MOCK RESPONSE
-      const [c, s] = requestPath.split('/').splice(-2);
-      const mockResponse = (mockData as any)?.[c]?.[s];
-      if (mockResponse) {
+      const props = requestPath.replace(`${env.API_URL}/`, '').split('/');
+      const mockResponse = props.reduce((acc: any, key) => acc[key] || {}, mockData);
+      if (Object.keys(mockResponse).length) {
         return new Promise((resolve) => {
           setTimeout(() => resolve(mockResponse), 450);
         });
@@ -69,10 +69,11 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
 }
 
 // export const getContentRequest = request(EHttpMethod.get, `https://baconipsum.com/api/?type=meat-and-filler`);
-export const getContentRequest = (d: any) => new Promise((resolve, reject) => resolve({}));
+// export const getContentRequest = (d: any) => new Promise((resolve, reject) => resolve({}));
 export const getGeoIpRequest = request(EHttpMethod.get, `${env.API_URL}/frontend/geoIp`);
 export const getProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/getProfile`);
 export const editProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/editProfile`);
+export const changeClientProfilePassword = request(EHttpMethod.post, `${env.API_URL}/clients/changePassword`);
 export const getClientDataRequest = request(EHttpMethod.get, `${env.API_URL}/clients/getClientData`);
 export const loginRequest = request(EHttpMethod.post, `${env.API_URL}/clients/login`);
 export const logoutRequest = request(EHttpMethod.post, `${env.API_URL}/clients/logout`);
@@ -89,8 +90,8 @@ export const tradingAccountsRequest = request(EHttpMethod.get, `${env.API_URL}/c
 export const financialProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/newKyc`);
 export const internalTransferRequest = request(EHttpMethod.post, `${env.API_URL}/accounts/transfer`);
 export const getTransactionalStatementsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/bankingStatements`);
-export const getBankDetailsRequest = request(EHttpMethod.post, `${env.API_URL}/bankaccounts/getbankdetails`);
-export const updateBankDetailsRequest = request(EHttpMethod.post, `${env.API_URL}/bankaccounts/saveaccount`);
+export const getBankDetailsRequest = request(EHttpMethod.post, `${env.API_URL}/bankDetails/get`);
+export const updateBankDetailsRequest = request(EHttpMethod.post, `${env.API_URL}/bankDetails/update`);
 export const createMT4LiveAccountRequest = request(EHttpMethod.post, `${env.API_URL}/mt4accounts/create`);
 export const createMT4DemoAccountRequest = request(EHttpMethod.post, `${env.API_URL}/mt4accounts/demo/create`);
 export const createMT5LiveAccountRequest = request(EHttpMethod.post, `${env.API_URL}/mt5accounts/create`);
@@ -98,12 +99,9 @@ export const createMT5DemoAccountRequest = request(EHttpMethod.post, `${env.API_
 export const addDepositRequest = request(EHttpMethod.post, `${env.API_URL}/deposits/add`);
 export const uploadFileRequest = request(EHttpMethod.post, `${env.API_URL}/v2/documents/upload`);
 export const getDocumentsRequest = request(EHttpMethod.post, `${env.API_URL}/v2/documents/getDocuments`);
-export const partnershipRegistrationRequest = request(
-  EHttpMethod.post,
-  `${env.API_URL}/frontend/extra/partnershipEmail`,
-);
+export const partnershipRegistrationRequest = request(EHttpMethod.post, `${env.API_URL}/partnership/add`);
+export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${env.API_URL}/partnership/addIB`);
 export const sendReferrerLinkRequest = request(EHttpMethod.post, `${env.API_URL}/frontend/extra/sendReferrerLink`);
-export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${env.API_URL}/ibs/add`);
 export const getStocksPricesRequest = request(EHttpMethod.post, `https://prices.hycm.com/graphs/prices2`);
 export const getClientSettingsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/settings`);
 export const updateTinsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/updateTins`);
