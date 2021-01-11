@@ -147,7 +147,10 @@
         "tins_data": {
           "choice": true,
           "reason": null,
-          "tins": "[{\"country\":\"Andorra\",\"tax_number\":\"asd\"},{\"country\":\"Albania\",\"tax_number\":\"sdfs\"}]"
+          "tins": [
+            { "country": "Andorra", "tax_number": "asd" },
+            { "country": "Albania", "tax_number": "sdfs" }
+          ]
         }
       }
     },
