@@ -94,10 +94,12 @@ export function Registration() {
             }
           },
           () =>
-            ac_showNotification({
-              type: ENotificationType.danger,
-              message: 'Settings not loaded',
-            }),
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.danger,
+                message: 'Settings not loaded',
+              }),
+            ),
         ),
       );
     }
@@ -116,10 +118,12 @@ export function Registration() {
             data[ERegSteps.step1],
             () => resolve(),
             () =>
-              ac_showNotification({
-                type: ENotificationType.danger,
-                message: 'Registration unsuccessful',
-              }),
+              dispatch(
+                ac_showNotification({
+                  type: ENotificationType.danger,
+                  message: 'Registration unsuccessful',
+                }),
+              ),
           ),
         );
       });
