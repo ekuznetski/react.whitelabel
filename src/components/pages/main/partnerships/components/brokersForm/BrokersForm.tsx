@@ -46,6 +46,7 @@ export const BrokersForm = memo(function BrokersForm() {
   function Submit(data: FormikValues, { resetForm }: FormikHelpers<any>) {
     const values = data;
     values[EFields.phone_prefix] = values[EFields.phone_prefix].phoneCode;
+    values[EFields.country] = values[EFields.country].name;
     delete values[EFields.acceptPolicy];
 
     dispatch(
