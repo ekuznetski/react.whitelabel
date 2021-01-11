@@ -2,12 +2,12 @@ import { Button, Checkbox, Input, PhoneCodeSelect, TextArea } from '@components/
 import { CustomFieldValidators, FieldValidators } from '@domain';
 import { ENotificationType, countries } from '@domain/enums';
 import { IPartnershipRegistrationRequest } from '@domain/interfaces';
-import { IStore, ac_partnershipRegisterStandard, ac_showNotification } from '@store';
+import { EActionTypes, IStore, ac_partnershipRegisterStandard, ac_showNotification } from '@store';
 import { useLabelName } from '@utils/hooks';
-import { Form, Formik, FormikProps, FormikValues } from 'formik';
+import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
@@ -37,18 +37,23 @@ export const AffiliateForm = memo(() => {
     [EFields.acceptPolicy]: Yup.bool().oneOf([true], t('This field is required')),
   });
 
-  function Submit(data: FormikValues) {
-    console.log(data);
+  function Submit(data: FormikValues, { resetForm }: FormikHelpers<any>) {
+    const values = data;
+    values[EFields.phone_prefix] = values[EFields.phone_prefix].phoneCode;
+    delete values[EFields.acceptPolicy];
+
     dispatch(
       ac_partnershipRegisterStandard(
-        data as IPartnershipRegistrationRequest,
-        () =>
+        values as IPartnershipRegistrationRequest,
+        () => {
+          resetForm();
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
               message: 'Email added to the queue.',
             }),
-          ),
+          );
+        },
         () =>
           dispatch(
             ac_showNotification({
@@ -88,7 +93,9 @@ export const AffiliateForm = memo(() => {
                 <Checkbox name={EFields.acceptPolicy} className="mb-10">
                   {t('Accept Policy')}
                 </Checkbox>
-                <Button type="submit">{t('Submit')}</Button>
+                <Button type="submit" loadingOnAction={EActionTypes.partnershipRegister}>
+                  {t('Submit')}
+                </Button>
               </Form>
             )}
           </Formik>

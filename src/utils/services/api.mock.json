@@ -539,8 +539,8 @@
       }
     }
   },
-  "extra": {
-    "partnershipEmail": {
+  "!partnership": {
+    "add": {
       "response": {
         "status": "failure",
         "message": "Error message"
