@@ -41,7 +41,7 @@ export class MClientSettings {
 
   constructor(props: IClientSettings | IClientProfile) {
     if (store) {
-      const storeSettings = store?.getState().data.client.settings || {};
+      const storeSettings = store.getState().data.client.settings;
       props = { ...storeSettings, ...props };
     }
 

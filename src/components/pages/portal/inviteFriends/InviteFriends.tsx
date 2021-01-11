@@ -42,7 +42,7 @@ export const InviteFriends = memo(function InviteFriends() {
       dispatch(
         ac_showNotification({
           type: ENotificationType.danger,
-          message: t('Command Not Supported'),
+          message: t('Copying Programmatically Not Supported'),
         }),
       );
     }
@@ -78,7 +78,7 @@ export const InviteFriends = memo(function InviteFriends() {
         <Col xs={12}>
           <PageTitle title={t('Invite Your Friends')} />
         </Col>
-        <Col className="mb-3 col-md-10 col-lg-8 col-xl-7">
+        <Col md={10} lg={8} xl={7} className="mb-3">
           <div className="invite__container py-10 px-9">
             <div className="invite__description mb-7">
               <Trans i18nKey="Share Your Passion">
@@ -118,7 +118,7 @@ export const InviteFriends = memo(function InviteFriends() {
                 <div className="share">
                   <div className="share-copy-url">
                     <input className="copy-input mb-0 px-4" readOnly value={shareUrl} ref={copyUrl} />
-                    <Svg href="copy" onClick={handleCopy} className="mr-2 copy-icon" />
+                    <Svg href="copy" className="copy-icon mr-2" onClick={handleCopy} />
                   </div>
                   <div className="share-social ml-7">
                     {config.socialNetworks.map((social) => (

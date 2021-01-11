@@ -331,6 +331,11 @@
         },
         "messageCode": 0
       }
+    },
+    "!sendReferrerLink": {
+      "response": {
+        "status": "success"
+      }
     }
   },
   "withdrawals": {
@@ -547,11 +552,6 @@
       "response": {
         "status": "failure",
         "message": "Error message"
-      }
-    },
-    "!sendReferrerLink": {
-      "response": {
-        "status": "success"
       }
     }
   },
