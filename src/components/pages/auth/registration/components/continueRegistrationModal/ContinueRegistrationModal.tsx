@@ -26,7 +26,7 @@ export const ContinueRegistrationModal = React.memo(function ContinueRegistratio
             e.preventDefault();
             e.stopPropagation();
             setContinueReg(true);
-            dispatch(ac_hideModal);
+            dispatch(ac_hideModal());
           }}
           loadingOnAction={[EActionTypes.fetchClientSettings]}
         >

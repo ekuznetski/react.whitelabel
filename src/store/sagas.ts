@@ -21,9 +21,9 @@ import {
   ITinsResponse,
   ITradingAccountsResponse,
   ITransactionalStatementsResponse,
+  IWithdrawFundRequest,
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
-  IWithdrawFundRequest,
 } from '@domain/interfaces';
 import * as Model from '@domain/models';
 import { MRequestAdapter } from '@domain/models';
@@ -307,6 +307,7 @@ export function* submitEddSaga() {
 export function* financialProfileSaga() {
   yield $$(EActionTypes.submitFinancialProfile, function* ({ payload }: IAction) {
     const { response }: any = yield call(Request.financialProfileRequest, payload);
+    yield put(Action.ac_fetchClientData({ force: true }));
     return response;
   });
 }

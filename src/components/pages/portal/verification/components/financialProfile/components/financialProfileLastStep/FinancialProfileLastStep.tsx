@@ -42,7 +42,10 @@ export const FinancialProfileLastStep = memo(function FinancialProfileStep({ sub
               <Checkbox name="agreement" className="mb-10">
                 {t('Financial Profile Agree with Declaration')}
               </Checkbox>
-              <Button type="submit" loadingOnAction={EActionTypes.submitFinancialProfile}>
+              <Button
+                type="submit"
+                loadingOnAction={[EActionTypes.submitFinancialProfile, EActionTypes.fetchClientData]}
+              >
                 {t('Submit')}
               </Button>
             </Form>

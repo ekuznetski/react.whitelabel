@@ -32,15 +32,19 @@ export const FinancialProfile = memo(function FinancialProfile() {
         ac_submitFinancialProfile(
           preparedData,
           () =>
-            ac_showNotification({
-              type: ENotificationType.success,
-              innerText: 'update FP - succeess',
-            }),
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.success,
+                message: 'Financial Profile was updated successful',
+              }),
+            ),
           () =>
-            ac_showNotification({
-              type: ENotificationType.danger,
-              innerText: 'update FP - failure',
-            }),
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.danger,
+                message: 'Something went wrong',
+              }),
+            ),
         ),
       );
       return;
@@ -72,7 +76,7 @@ export const FinancialProfile = memo(function FinancialProfile() {
   return (
     <div className="financial-profile form-wrapper py-10 px-9 col-xl-10 col-12 m-auto">
       {clientStatus.fp_status.code === EClientStatusCode.submitted ? (
-        <div className="text-center">
+        <div className="text-center my-15">
           <h3>{t('Financial Profile Completed')}</h3>
           <Svg className="mt-5" href="profile-completed" width={78} />
         </div>
