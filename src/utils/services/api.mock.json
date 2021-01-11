@@ -495,8 +495,8 @@
       }
     }
   },
-  "bankaccounts": {
-    "getbankdetails": {
+  "bankDetails": {
+    "get": {
       "response": {
         "status": "success",
         "message": {
@@ -511,7 +511,7 @@
         "messageCode": 25
       }
     },
-    "saveaccount": {
+    "!update": {
       "response": {
         "status": "success",
         "message": "Bank Account added successfully",
