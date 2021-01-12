@@ -57,13 +57,13 @@ export const BankDetails = memo(
             <Col xs={12} md={10} lg={8} xl={7} className="form-wrapper py-10 px-9">
               <Formik
                 initialValues={{
-                  beneficiary_name: bankDetails?.beneficiary_name ?? '',
-                  beneficiary_bank: bankDetails?.beneficiary_bank ?? '',
-                  beneficiary_bank_account_no: bankDetails?.beneficiary_bank_account_no ?? '',
-                  swift_code: bankDetails?.swift_code ?? '',
-                  iban: bankDetails?.iban ?? '',
-                  branch_name: bankDetails?.branch_name ?? '',
-                  branch_address: bankDetails?.branch_address ?? '',
+                  beneficiary_name: bankDetails.beneficiary_name,
+                  beneficiary_bank: bankDetails.beneficiary_bank,
+                  beneficiary_bank_account_no: bankDetails.beneficiary_bank_account_no,
+                  swift_code: bankDetails.swift_code,
+                  iban: bankDetails.iban,
+                  branch_name: bankDetails.branch_name,
+                  branch_address: bankDetails.branch_address,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={Submit}
