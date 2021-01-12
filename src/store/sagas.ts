@@ -81,7 +81,7 @@ function* $$(
         }
         yield put(Action.ac_requestActionSuccess({ requestActionType: actionType }));
       } catch (e) {
-        if (e?.status !== 200 && e?.status !== 403) {
+        if (e && e.status !== 200 && e.status !== 403) {
           yield put(
             ac_showNotification({
               type: ENotificationType.danger,
