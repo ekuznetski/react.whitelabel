@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { ENotificationType } from '@domain/enums';
 import { MBankDetails } from '@domain/models';
 import { EActionTypes, IStore, ac_showNotification, ac_updateBankDetails } from '@store';
-import { Form, Formik, FormikProps, FormikValues } from 'formik';
+import { Form, Formik, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -68,7 +68,7 @@ export const BankDetails = memo(
                 validationSchema={validationSchema}
                 onSubmit={Submit}
               >
-                {({ values }: FormikProps<any>) => {
+                {() => {
                   return (
                     <Form className="internal-transfer__form">
                       <Row>
