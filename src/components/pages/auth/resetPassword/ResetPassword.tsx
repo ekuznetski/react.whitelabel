@@ -2,7 +2,7 @@ import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ENotificationType } from '@domain/enums';
 import { IResetPasswordRequest } from '@domain/interfaces';
-import { ac_login, ac_resetPassword, ac_showNotification } from '@store';
+import { EActionTypes, ac_login, ac_resetPassword, ac_showNotification } from '@store';
 import { useUrlParams } from '@utils/hooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { useEffect } from 'react';
@@ -84,7 +84,9 @@ export function ResetPassword() {
               <Form className="m-auto form">
                 <Input label={t('New Password')} name={EFields.password} type="password" />
                 <Input label={t('Repeat New Password')} name={EFields.repeatPassword} type="password" />
-                <Button type="submit">{t('Submit')}</Button>
+                <Button type="submit" loadingOnAction={EActionTypes.resetPassword}>
+                  {t('Submit')}
+                </Button>
               </Form>
             )}
           </Formik>

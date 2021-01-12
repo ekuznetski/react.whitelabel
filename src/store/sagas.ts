@@ -1,4 +1,4 @@
-import { EResponseStatus, ETradingPlatform } from '@domain/enums';
+import { ENotificationType, EResponseStatus, ETradingPlatform } from '@domain/enums';
 import {
   IAddDepositResponse,
   IBankDetailsResponse,
@@ -29,7 +29,7 @@ import * as Model from '@domain/models';
 import { MRequestAdapter } from '@domain/models';
 import * as Request from '@utils/services';
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { store } from './';
+import { ac_showNotification, store } from './';
 import * as Action from './actions';
 import { EActionTypes } from './store.enum';
 import { IAction } from './store.interface';
@@ -81,8 +81,15 @@ function* $$(
         }
         yield put(Action.ac_requestActionSuccess({ requestActionType: actionType }));
       } catch (e) {
-        if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)) {
-          console.error(e);
+        if (e && e.status !== 200 && e.status !== 403) {
+          yield put(
+            ac_showNotification({
+              type: ENotificationType.danger,
+              message: 'Server error, please contact administrator...',
+            }),
+          );
+        } else if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)) {
+          console.error('!failureResponseConsoleBlacklist --- ', e);
         }
         if (failure_transform_response_fn) {
           e = yield failure_transform_response_fn(action, e);
@@ -98,13 +105,13 @@ function* $$(
   });
 }
 
-export function* getContentSaga() {
-  yield $$(EActionTypes.fetchContent, function* ({ payload }: IAction) {
-    const response = yield call(Request.getContentRequest, payload?.page);
-    yield put(Action.ac_saveContent({ [payload?.page]: response.data }));
-    return response;
-  });
-}
+// export function* getContentSaga() {
+//   yield $$(EActionTypes.fetchContent, function* ({ payload }: IAction) {
+//     const response = yield call(Request.getContentRequest, payload?.page);
+//     yield put(Action.ac_saveContent({ [payload?.page]: response.data }));
+//     return response;
+//   });
+// }
 
 export function* getGeoIPSaga() {
   yield $$(
