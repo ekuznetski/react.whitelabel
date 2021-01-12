@@ -36,7 +36,7 @@ export const MarketTable = memo((props: IMarketTable) => {
                       ? item.raw.toString() === 'N/A'
                         ? item.raw
                         : item.raw + ' per round'
-                      : item[type]}
+                      : item[type?.toLowerCase() as keyof typeof ETradingAccountType]}
                   </div>
                 );
               })}
