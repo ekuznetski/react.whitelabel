@@ -1,7 +1,6 @@
 import { ETradingAccountType } from '@domain/enums';
-import { IClientSettings } from '@domain/interfaces';
-import { MClientSettings } from '@domain/models';
+import { IDefaultClientSettings } from '@domain/interfaces';
 
-export const initialClientSettings = new MClientSettings({
+export const initialClientSettings: IDefaultClientSettings = {
   allowed_account_types: [ETradingAccountType.fixed, ETradingAccountType.variable],
-} as IClientSettings);
+};

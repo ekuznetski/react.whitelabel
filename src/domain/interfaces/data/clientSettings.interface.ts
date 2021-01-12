@@ -1,5 +1,5 @@
-import { IBaseResponse } from '../general.interface';
 import { EAccountLeverage, ETradingAccountType, ETradingPlatform, ETradingPlatformName } from '@domain/enums';
+import { IBaseResponse } from '../general.interface';
 
 export interface IClientSettingsRequest {
   username?: string;
@@ -27,6 +27,10 @@ export interface IClientSettings {
   go_to_praxis: boolean;
   edit_fake_account: boolean;
   trading_central: boolean;
+}
+
+export interface IDefaultClientSettings {
+  allowed_account_types: ETradingAccountType[];
 }
 
 export type IClientSettingsResponse = {
