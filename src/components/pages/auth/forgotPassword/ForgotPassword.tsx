@@ -1,14 +1,15 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PageTitle, Svg } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ac_forgotPassword, ac_userExists } from '@store';
+import { EActionTypes, ac_forgotPassword, ac_showNotification, ac_userExists } from '@store';
 import { usePathLocale } from '@utils/hooks';
-import { Form, Formik, FormikProps } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
+import { ENotificationType } from '@domain/enums';
 import './ForgotPassword.scss';
 
 enum EFields {
@@ -23,6 +24,29 @@ export function ForgotPassword() {
   const [submittedEmail, setSubmittedEmail] = useState<string>('');
   const validationSchema = Yup.object().shape({ [EFields.email]: FieldValidators.email });
 
+  function Submit(data: { email: string }, helpers: FormikHelpers<any>) {
+    dispatch(
+      ac_userExists(
+        { username: data.email },
+        () =>
+          dispatch(
+            ac_forgotPassword(
+              data,
+              () => setSubmittedEmail(data[EFields.email]),
+              () =>
+                dispatch(
+                  ac_showNotification({
+                    type: ENotificationType.danger,
+                    message: 'Server error, please contact administrator...',
+                  }),
+                ),
+            ),
+          ),
+        () => helpers.setFieldError(EFields.email, t('User is not exists')),
+      ),
+    );
+  }
+
   return (
     <Container className="forgot-password">
       <Row>
@@ -30,30 +54,13 @@ export function ForgotPassword() {
           {!submittedEmail && (
             <>
               <PageTitle title={t('Forgot Password')} description={t('Reset Password Note')} showBackButton={false} />
-              <Formik
-                initialValues={{ email: '' }}
-                validationSchema={validationSchema}
-                onSubmit={(data, helpers) => {
-                  dispatch(
-                    ac_userExists(
-                      { username: data.email },
-                      () =>
-                        dispatch(
-                          ac_forgotPassword(
-                            data,
-                            () => setSubmittedEmail(data[EFields.email]),
-                            (e) => console.log(e),
-                          ),
-                        ),
-                      () => helpers.setFieldError(EFields.email, 'User is not exists'),
-                    ),
-                  );
-                }}
-              >
-                {(props: FormikProps<any>) => (
+              <Formik initialValues={{ email: '' }} validationSchema={validationSchema} onSubmit={Submit}>
+                {() => (
                   <Form className="m-auto form">
                     <Input label={t('Email/Username')} name={EFields.email} />
-                    <Button type="submit">{t('Submit')}</Button>
+                    <Button type="submit" loadingOnAction={EActionTypes.forgotPassword}>
+                      {t('Submit')}
+                    </Button>
                   </Form>
                 )}
               </Formik>
