@@ -1,8 +1,6 @@
 import { EActionTypes } from './store.enum';
 import { IAction, IDataStore } from './store.interface';
 import { Nullable } from '@domain/interfaces';
-import { useLabelView } from '@utils/hooks';
-import { ELabels } from '@domain/enums';
 
 export const initDataStore: Nullable<IDataStore> = {
   content: null,
