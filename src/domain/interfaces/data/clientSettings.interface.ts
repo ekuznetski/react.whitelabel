@@ -29,10 +29,6 @@ export interface IClientSettings {
   trading_central: boolean;
 }
 
-export interface IDefaultClientSettings {
-  allowed_account_types: ETradingAccountType[];
-}
-
 export type IClientSettingsResponse = {
   response: {
     message: IClientSettings;

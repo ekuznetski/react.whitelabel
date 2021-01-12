@@ -1,12 +1,5 @@
 import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
-import {
-  AnyFunction,
-  IContent,
-  IDefaultClientSettings,
-  IGeoIp,
-  IModalState,
-  INotificationState,
-} from '@domain/interfaces';
+import { AnyFunction, IContent, IGeoIp, IModalState, INotificationState } from '@domain/interfaces';
 import * as Model from '@domain/models';
 import { EActionTypes } from './store.enum';
 
@@ -16,7 +9,7 @@ export interface IDataStore {
   client: {
     profile: Model.MClientProfile;
     status: Model.MClientStatus;
-    settings: Model.MClientSettings | IDefaultClientSettings;
+    settings: Partial<Model.MClientSettings>;
     statements: Model.MTransactionalStatementData;
     documents: Model.MDocuments;
     tins: Model.MTins;
