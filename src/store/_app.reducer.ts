@@ -53,6 +53,7 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.submitEdd:
     case EActionTypes.fetchStocksPrices:
     case EActionTypes.login:
+    case EActionTypes.logout:
     case EActionTypes.makeInternalTransfer:
     case EActionTypes.changeAccountSettings:
     case EActionTypes.changeAccountLeverage:
@@ -94,9 +95,9 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
         route: _route,
         ...(_route.path !== state.route.path
           ? {
-              notification: { ...initAppStore.notification, type: state.notification.type },
-              modal: { component: null, visible: false },
-            }
+            notification: { ...initAppStore.notification, type: state.notification.type },
+            modal: { component: null, visible: false },
+          }
           : {}),
       };
 
