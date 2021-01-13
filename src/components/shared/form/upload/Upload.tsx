@@ -13,6 +13,7 @@ import { Button } from '../button/Button';
 import { UploadEmptyView, UploadReadyView } from './components';
 import { UploadWrapperProvider, useUploadWrapperDispatch } from './upload-wrapper.context';
 import {
+  UploadAction,
   UploadDispatch,
   UploadProvider,
   UploadState,
@@ -106,6 +107,12 @@ export const MultipleUpload = memo(
       };
     }
 
+    function everyUploadContextDispatch(payload: UploadAction) {
+      Object.keys(multiContextState).forEach((key) => {
+        multiContextDispatch[key](payload);
+      });
+    }
+
     function Submit() {
       const uploadDocs = {};
       Object.keys(multiContextState).forEach((key) => {
@@ -116,20 +123,24 @@ export const MultipleUpload = memo(
       dispatch(
         ac_uploadDocuments(
           uploadDocs,
-          () =>
+          () => {
+            everyUploadContextDispatch({ type: 'complete' });
             dispatch(
               ac_showNotification({
                 type: ENotificationType.success,
                 message: 'Documents has been uploaded',
               }),
-            ),
-          () =>
+            );
+          },
+          () => {
+            everyUploadContextDispatch({ type: 'error' });
             dispatch(
               ac_showNotification({
                 type: ENotificationType.danger,
                 message: 'Documents upload error. Please contact us to resolve the issue',
               }),
-            ),
+            );
+          },
         ),
       );
     }
@@ -205,9 +216,9 @@ export const UploadFile = memo(
             if (!props.transferControls) {
               switch (contextState.view) {
                 case UploadViewState.loading:
-                  setTimeout(() => {
-                    contextDispatch({ type: 'complete' });
-                  }, 500);
+                  // setTimeout(() => {
+                  //   contextDispatch({ type: 'complete' });
+                  // }, 500);
                   props.isLoading?.();
                   break;
                 case UploadViewState.complete:
@@ -237,20 +248,24 @@ export const UploadFile = memo(
             dispatch(
               ac_uploadDocuments(
                 { [contextState.fileType as string]: contextState.file },
-                () =>
+                () => {
+                  contextDispatch({ type: 'complete' });
                   dispatch(
                     ac_showNotification({
                       type: ENotificationType.success,
                       message: 'Documents has been uploaded',
                     }),
-                  ),
-                () =>
+                  );
+                },
+                () => {
+                  contextDispatch({ type: 'error' });
                   dispatch(
                     ac_showNotification({
                       type: ENotificationType.danger,
                       message: 'Documents upload error. Please contact us to resolve the issue',
                     }),
-                  ),
+                  );
+                },
               ),
             );
           }
