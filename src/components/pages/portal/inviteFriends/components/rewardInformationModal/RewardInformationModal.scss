@@ -1,0 +1,15 @@
+@import '~/variables';
+@import '~/mixin';
+
+.reward-information-modal {
+  .modal-content__body {
+    @include d-flex(center, center, column);
+    text-align: center;
+
+    svg {
+      fill: $blue;
+      height: 78px;
+      min-width: 78px;
+    }
+  }
+}

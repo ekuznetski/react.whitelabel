@@ -4,5 +4,6 @@ export * from './clientStatusPair';
 export * from './formatNumberWithCommas';
 export * from './shallowEqual';
 export * from './deepDifference';
-export * from './routeFetchData';
+// export * from './routeFetchData';
 export * from './getMetaTraderWebTerminalLink';
+export * from './parseUrl';

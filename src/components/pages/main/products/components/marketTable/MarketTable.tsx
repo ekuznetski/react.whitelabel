@@ -1,12 +1,12 @@
 import { LocaleNavLink, Svg } from '@components/shared';
 import { ETradingAccountType, ETradingPlatform, MarketType } from '@domain/enums';
 import classNames from 'classnames';
-import React, { memo, useMemo } from 'react';
+import React, { memo } from 'react';
 import { HeaderTableTemplate } from './HeaderTemplate';
 import { files, marketTableContent } from '@domain';
-import './MarketTable.scss';
 import { useSelector } from 'react-redux';
 import { IDataStore, IStore } from '@store';
+import './MarketTable.scss';
 
 interface IMarketTable {
   type: MarketType;

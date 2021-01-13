@@ -1,7 +1,8 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { countries, ERegSteps } from '@domain/enums';
-import { ac_userExists, EActionTypes, IStore } from '@store';
+import { ERegSteps, countries } from '@domain/enums';
+import { EActionTypes, IStore, ac_userExists } from '@store';
+import { getMarketingCookies } from '@utils/services';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -26,6 +27,8 @@ export function FirstStep({ submitFn }: any) {
   const { t } = useTranslation();
 
   function Submit(data: any, helpers: any) {
+    Object.assign(data, { ...getMarketingCookies() });
+
     dispatch(
       ac_userExists(
         { username: data.email },
@@ -79,9 +82,7 @@ export function FirstStep({ submitFn }: any) {
               </div>
               <p className="my-7 fadeFromBottom-row__4">
                 <Trans i18nKey="Market Event Notification Desc">
-                  To improve your trading experience, we would like to notify you of market events and extreme price movements. 
-                  By signing up, you also declare you read, understood, and accept our <a href="#">{t('Privacy Policy')}</a> and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. 
-                  You can opt-out any time you wish to.
+                  To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <a href="#">Privacy Policy</a> and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. You can opt-out any time you wish to.
                 </Trans>
               </p>
               <Button

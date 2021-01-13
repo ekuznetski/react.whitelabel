@@ -24,5 +24,6 @@ export enum EPagePath {
   Profile = '/profile',
   Verification = '/verification',
   InviteFriends = '/invite-friends',
+  Invite = '/invite/:ref_id',
   NotFound = '/404',
 }

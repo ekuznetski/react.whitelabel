@@ -5,3 +5,4 @@ export * from './_default/data/downloadLinks.config';
 export * from './_default/data/profileMenu.config';
 export * from './_default/data/questions.config';
 export * from './_default/data/fileLinks.config';
+export * from './_default/data/general.config';

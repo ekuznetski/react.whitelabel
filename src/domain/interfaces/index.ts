@@ -12,6 +12,7 @@ export * from './app/partnership.interface';
 export * from './app/financialProfile.interface';
 export * from './app/marketData.interface';
 export * from './app/verification.interface';
+export * from './app/inviteFriends.interface';
 // Data
 export * from './data/bankDetails.interface';
 export * from './data/content.interface';

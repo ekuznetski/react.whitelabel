@@ -8,6 +8,7 @@ import {
   allowAuthorizedGuard,
   disallowAuthorizedGuard,
   internalTransfersGuard,
+  inviteGuard,
   logoutGuard,
   openDemoAccountGuard,
   openLiveAccountGuard,
@@ -364,6 +365,16 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: EPagePath.NotFound,
     component: NotFound,
     appSection: EAppSection.general,
+  },
+  {
+    meta: {
+      title: meta_t('Home:title'),
+      desc: meta_t('Home:desc'),
+    },
+    path: EPagePath.Invite,
+    component: null,
+    appSection: EAppSection.general,
+    activators: [inviteGuard],
   },
 ];
 

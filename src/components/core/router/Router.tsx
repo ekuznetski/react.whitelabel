@@ -2,8 +2,8 @@ import { localesConfig } from '@domain';
 import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
 import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@routers';
-import { ac_updateRouteParams, EActionTypes, IAppStore, IStore, store } from '@store';
-import { routeFetchData } from '@utils/fn';
+import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
+import { routeFetchData } from '@utils/fn/routeFetchData';
 import { useLockScroll, useMeta, usePathLocale } from '@utils/hooks';
 import { useBoolean, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
 import React, { memo, useEffect, useMemo } from 'react';
@@ -132,7 +132,7 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
 
         if (route.activators && !hasUncompletedStrictRequest) {
           const _redirectParams = route.activators
-            .map((activator) => activator())
+            .map((activator) => activator(history.location))
             .find((a) => !a || Object.keys(a).length);
 
           if (typeof _redirectParams === 'object') {

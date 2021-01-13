@@ -9,7 +9,7 @@ export interface IDataStore {
   client: {
     profile: Model.MClientProfile;
     status: Model.MClientStatus;
-    settings: Model.MClientSettings;
+    settings: Partial<Model.MClientSettings>;
     statements: Model.MTransactionalStatementData;
     documents: Model.MDocuments;
     tins: Model.MTins;

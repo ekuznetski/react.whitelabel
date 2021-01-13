@@ -39,7 +39,7 @@ export class MClientSettings {
   edit_fake_account: boolean;
   trading_central: boolean;
 
-  constructor (props: IClientSettings | IClientProfile) {
+  constructor(props: IClientSettings | IClientProfile) {
     const storeSettings = store.getState().data.client.settings;
     props = { ...storeSettings, ...props };
 
