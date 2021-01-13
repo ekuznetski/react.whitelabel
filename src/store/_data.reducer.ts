@@ -38,8 +38,15 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
       return { ...state, client: { ...state.client, profile: action.payload } };
 
     case EActionTypes.saveClientSettings:
-      // console.log(action, state.client.settings);
-      return { ...state, client: { ...state.client, settings: { ...state.client.settings, ...action.payload } } };
+      const _stateSettings = state.client.settings;
+      const _payload = action.payload ?
+        Object.keys(action.payload).reduce(
+          (acc, key) => Object.assign(
+            acc,
+            (action.payload?.[key] ? { [key]: action.payload[key] } : {})
+          ), {}) : {};
+
+      return { ...state, client: { ...state.client, settings: Object.assign({}, _stateSettings, _payload) } };
 
     case EActionTypes.saveClientData:
       return { ...state, client: { ...state.client, status: action.payload } };

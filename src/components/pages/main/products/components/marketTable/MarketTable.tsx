@@ -29,14 +29,15 @@ export const MarketTable = memo((props: IMarketTable) => {
           <div key={i} className="tr">
             <div className={tdClass}>{item.instr}</div>
             <div className="td grouped">
-              {clientSettings.allowed_account_types.map((type: ETradingAccountType) => {
+              {clientSettings.allowed_account_types?.map((type: ETradingAccountType) => {
                 return (
                   <div className={tdClass} key={type}>
                     {type === ETradingAccountType.raw
                       ? item.raw.toString() === 'N/A'
                         ? item.raw
                         : item.raw + ' per round'
-                      : item[type?.toLowerCase() as keyof typeof ETradingAccountType]}
+                      : // @ts-ignore
+                        item[type.toLowerCase()]}
                   </div>
                 );
               })}
