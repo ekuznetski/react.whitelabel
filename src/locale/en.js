@@ -465,6 +465,26 @@ export default {
     pending: 'Pending',
     dormant: 'The Client is Dormant',
   },
+  'Invest with those you know': 'Invest with those you know',
+  'Share Your Passion':
+    'Share your passion for investing with your friends. Invite your friends to trade at BSFX and earn a <1>$200 cash reward</1> for each referral.',
+  'Invite Your Friends': 'Invite your friends',
+  'Reward Information': 'Reward Information',
+  'Type Your Friends Email': 'Type your friends email',
+  'Secure Information': 'We won’t store your password and your contacts are secure',
+  'Minimum Requirements': 'Minimum Requirements',
+  'Read Terms and Conditions': 'Read the terms and Conditions',
+  'Reward Information Desc':
+    'Earn an unlimited refer-a-friend bonus Receive a $200 cash bonus for each referral who opens an account and funds it with at least $500 and traded 3 lots',
+  'Invitation Successful': 'Invitation Successful',
+  'Make A Deposit': 'Make a deposit',
+  Copy: 'Copy',
+  Error: 'Error',
+  'You Need To Have Active Trading Account To Start Referring Friends':
+    'You need to have active trading account to start referring friends',
+  'Copied To Clipboard': 'Copied to clipboard',
+  'Copying Programmatically Not Supported':
+    'Unfortunately, your browser does not support copying programmatically to the clipboard',
   'Choose Your Estimated Annual Income': 'Choose Your Estimated Annual Income ({{currencyCode}})',
   'Choose Your Value of Savings and Investments': 'Choose Your Value of Savings and Investments ({{currencyCode}})',
   'Choose Your Estimated Amount Available for Trading in the next 12 months':

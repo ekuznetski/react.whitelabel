@@ -1,6 +1,7 @@
+import { initialClientSettings } from '@domain';
+import { Nullable } from '@domain/interfaces';
 import { EActionTypes } from './store.enum';
 import { IAction, IDataStore } from './store.interface';
-import { Nullable } from '@domain/interfaces';
 
 export const initDataStore: Nullable<IDataStore> = {
   content: null,
@@ -8,7 +9,7 @@ export const initDataStore: Nullable<IDataStore> = {
   client: {
     profile: null,
     status: null,
-    settings: null,
+    settings: initialClientSettings,
     statements: null,
     documents: null,
     tins: null,

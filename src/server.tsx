@@ -5,7 +5,7 @@ import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
 import { routesInitialApiData, routesNavConfig } from '@routers';
 import { ac_updateRouteParams, store } from '@store';
-import { routeFetchData } from '@utils/fn';
+import { routeFetchData } from '@utils/fn/routeFetchData';
 import compression from 'compression';
 import 'core-js/stable';
 import express from 'express';
@@ -139,7 +139,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
             )}</script>`,
           )
           .replace(
-            '<!--TITLE_PLACEHOLDER-->',
+            '<title></title>',
             `<title>${route?.meta.title}</title>
             <meta name="description" content="${route?.meta.desc}">
             <meta property="og:type" content="website">

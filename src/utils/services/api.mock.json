@@ -331,6 +331,11 @@
         },
         "messageCode": 0
       }
+    },
+    "!sendReferrerLink": {
+      "response": {
+        "status": "success"
+      }
     }
   },
   "withdrawals": {
@@ -546,7 +551,9 @@
         "status": "failure",
         "message": "Error message"
       }
-    },
+    }
+  },
+  "ibs": {
     "addIB": {
       "response": {
         "status": "failure",

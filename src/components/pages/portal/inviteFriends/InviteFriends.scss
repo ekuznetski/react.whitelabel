@@ -1,0 +1,225 @@
+@import '~/variables';
+@import '~/mixin';
+
+.invite-friends-wrapper {
+  .invite {
+    &__container {
+      box-shadow: box-shadow(15, 0.1);
+      border-radius: $border-radius;
+      overflow: hidden;
+    }
+
+    &__description {
+      line-height: 26px;
+      color: $text;
+      text-align: center;
+
+      span {
+        color: #444fed;
+      }
+    }
+
+    &__content {
+      position: relative;
+    }
+
+    &__secure-note {
+      display: flex;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: $dark-grey;
+      justify-content: center;
+
+      svg {
+        fill: $dark-grey;
+      }
+    }
+
+    &__overlay {
+      text-align: center;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 3;
+
+      @media (max-width: 767px) {
+        justify-content: flex-start;
+        top: 40px;
+      }
+
+      p {
+        font-size: 18px;
+        font-weight: bold;
+        max-width: 380px;
+      }
+
+      a {
+        font-size: 14px;
+        color: #444fed;
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
+    &__context {
+      position: relative;
+
+      &.blurred {
+        filter: blur(6px);
+
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 6px;
+          background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        //IE11 specific fix START
+        @media all and (-ms-high-contrast: none) {
+          &:after {
+            background-color: rgba(255, 255, 255, 0.92);
+          }
+
+          .field-wrap {
+            &.label-inside {
+              label {
+                z-index: 0;
+              }
+            }
+          }
+        }
+        //IE11 specific fix END
+      }
+    }
+
+    &__rewards {
+      text-transform: uppercase;
+      color: $blue;
+      text-align: center;
+      cursor: pointer;
+
+      svg {
+        fill: $blue;
+      }
+    }
+
+    &__avatars {
+      @include d-flex(center, center);
+
+      img {
+        box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.05);
+        width: 71px;
+        height: 71px;
+        margin-right: -20px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .share {
+    @include d-flex(center, flex-start);
+
+    &-copy-url {
+      @include d-flex(center, space-between);
+      flex: 0 1 70%;
+      border: 1px solid $blue;
+
+      &__title {
+        line-height: 26px;
+        color: $text;
+        text-align: center;
+      }
+      .copy {
+        &-input {
+          width: fit-content;
+          flex: 1 0 auto;
+          height: 50px;
+          font-size: 14px;
+          border: none;
+          text-overflow: ellipsis;
+          cursor: default;
+
+          &.focused {
+            box-shadow: none;
+          }
+        }
+        &-icon {
+          cursor: pointer;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+
+      svg {
+        fill: #818994;
+      }
+
+      a {
+        font-size: 14px;
+      }
+    }
+
+    &-social {
+      @include d-flex(center, space-between);
+
+      .react-share__ShareButton {
+        margin-left: 10px;
+        &:first-child {
+          margin-left: 0;
+        }
+
+        svg {
+          height: 46px;
+          width: 46px;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+
+    &-email {
+      @include d-flex(center, space-between);
+
+      &__input {
+        margin-bottom: 0 !important;
+        width: initial;
+        flex: 1 0 auto;
+      }
+
+      &__submit {
+        width: 160px;
+      }
+    }
+  }
+
+  .seperator {
+    font-size: 12px;
+    color: $dark-grey;
+    text-align: center;
+  }
+
+  .hovered-underlined {
+    color: $blue;
+    &:after {
+      background-color: $blue !important;
+    }
+  }
+
+  .divider {
+    border-bottom: 1px solid #eaeaea;
+  }
+}

@@ -1,8 +1,9 @@
-import { IBaseResponse } from '../general.interface';
 import { EAccountLeverage, ETradingAccountType, ETradingPlatform, ETradingPlatformName } from '@domain/enums';
+import { IBaseResponse } from '../general.interface';
 
 export interface IClientSettingsRequest {
-  username: string;
+  username?: string;
+  force?: boolean | null;
 }
 
 export interface IClientSettings {
