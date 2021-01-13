@@ -492,7 +492,7 @@
       }
     }
   },
-  "bankDetails": {
+  "!bankDetails": {
     "get": {
       "response": {
         "status": "success",

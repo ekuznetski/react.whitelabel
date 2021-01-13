@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import { FieldValidators } from '@domain';
-import { useTranslation } from 'react-i18next';
-import { Form, Formik, FormikValues } from 'formik';
 import { Button, CountrySelect, Input, Radio } from '@components/shared';
-import * as Yup from 'yup';
-import { EActionTypes, IStore, ac_showNotification, ac_updateTins } from '@store';
-import { MTins } from '@domain/models';
-import { useDispatch, useSelector } from 'react-redux';
-import { config } from './';
-import { Col, Row } from 'react-bootstrap';
-import { Country, ENotificationType } from '@domain/enums';
+import { FieldValidators } from '@domain';
+import { ENotificationType } from '@domain/enums';
 import { ITins } from '@domain/interfaces';
+import { MTins } from '@domain/models';
+import { EActionTypes, IStore, ac_showNotification, ac_updateTins } from '@store';
+import { Form, Formik, FormikValues } from 'formik';
+import React, { useEffect } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
+import { config } from './';
 import './TaxIdentification.scss';
 
 enum EFields {
@@ -77,12 +77,15 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
     const values = { ...data };
     values.reason = null;
     values.choice = values.choice.toString();
-    values.tins = values.tins
-      .filter((e: any) => e.taxCountry && e.taxNumber)
-      .map((e: any) => ({
-        tax_number: e.taxNumber,
-        country: e.taxCountry?.name,
-      }));
+    values.tins = JSON.stringify(
+      values.tins
+        .filter((e: any) => e.taxCountry && e.taxNumber)
+        .map((e: any) => ({
+          tax_number: e.taxNumber,
+          country: e.taxCountry?.name,
+        })),
+    );
+
     dispatch(
       ac_updateTins(
         values as ITins,
