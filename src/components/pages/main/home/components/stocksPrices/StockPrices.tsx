@@ -282,7 +282,14 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
         </div>
         <div className="carousel-item__chart">
           <AreaChart width={180} height={115} data={_data} margin={{ top: 40 }} baseValue={0}>
-            <Area type="monotone" dataKey="p" stroke={color} fill={color} animationDuration={450} />
+            <defs>
+              <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={color} stopOpacity={0.8} />
+                <stop offset="60%" stopColor={color} stopOpacity={0.4} />
+                <stop offset="95%" stopColor={color} stopOpacity={0.1} />
+              </linearGradient>
+            </defs>
+            <Area type="monotone" dataKey="p" stroke={color} fill="url(#color)" animationDuration={450} />
           </AreaChart>
         </div>
       </div>
