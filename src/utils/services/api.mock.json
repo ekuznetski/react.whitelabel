@@ -443,7 +443,7 @@
         "data": { "trade_account_id": "220002709", "Currency": "CAD", "pwd": "pHFCxQjk", "platform": "MT4" }
       }
     },
-    "demo": {
+    "!demo": {
       "create": {
         "response": {
           "status": "failure",
