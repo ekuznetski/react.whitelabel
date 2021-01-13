@@ -408,8 +408,8 @@ export function ac_saveTransactionalStatements(payload: MTransactionalStatementD
 
 export function ac_addDeposit<T>(
   payload: T,
-  onSuccess: AnyFunction = () => {},
-  onFailure: AnyFunction = () => {},
+  onSuccess: AnyFunction = () => { },
+  onFailure: AnyFunction = () => { },
 ): IAction {
   return {
     type: EActionTypes.addDeposit,
@@ -435,11 +435,11 @@ export function ac_saveDocuments(payload: MDocuments): IAction {
 
 export function ac_uploadDocuments(
   payload: { [K in typeof EDocumentsType[keyof typeof EDocumentsType]]?: Blob },
-  onSuccess: AnyFunction = () => {},
-  onFailure: AnyFunction = () => {},
+  onSuccess: AnyFunction,
+  onFailure: AnyFunction,
 ): IAction {
   return {
-    type: EActionTypes.fetchDocuments,
+    type: EActionTypes.uploadDocuments,
     payload,
     onSuccess,
     onFailure,
@@ -448,8 +448,8 @@ export function ac_uploadDocuments(
 
 export function ac_updateTins(
   payload: ITins,
-  onSuccess: AnyFunction = () => {},
-  onFailure: AnyFunction = () => {},
+  onSuccess: AnyFunction = () => { },
+  onFailure: AnyFunction = () => { },
 ): IAction {
   return {
     type: EActionTypes.updateTins,

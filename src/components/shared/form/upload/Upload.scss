@@ -201,7 +201,7 @@
     @include d-flex(center, center, column);
     border-radius: $border-radius;
     background: $grey;
-    height: 300px;
+    height: 380px;
 
     &__list {
       @include d-flex(center, center);
@@ -279,102 +279,121 @@
     left: auto;
     width: calc(100% + 8px);
   }
+
   12.5% {
     right: -4px;
     left: auto;
     width: 0%;
   }
+
   50% {
     right: auto;
     left: -4px;
     width: 0%;
   }
+
   62.5% {
     right: auto;
     left: -4px;
     width: calc(100% + 8px);
   }
+
   100% {
     right: auto;
     left: -4px;
     width: calc(100% + 8px);
   }
 }
+
 @keyframes drawframeBottom {
   0% {
     right: auto;
     left: -4px;
     width: calc(100% + 8px);
   }
+
   12.5% {
     right: auto;
     left: -4px;
     width: 0%;
   }
+
   50% {
     right: -4px;
     left: auto;
     width: 0%;
   }
+
   62.5% {
     right: -4px;
     left: auto;
     width: calc(100% + 8px);
   }
+
   100% {
     right: -4px;
     left: auto;
     width: calc(100% + 8px);
   }
 }
+
 @keyframes drawframeRight {
   0% {
     top: auto;
     bottom: -4px;
     height: calc(100% + 8px);
   }
+
   12.5% {
     top: auto;
     bottom: -4px;
     height: 0%;
   }
+
   50% {
     top: -4px;
     bottom: auto;
     height: 0%;
   }
+
   62.5% {
     top: -4px;
     bottom: auto;
     height: calc(100% + 8px);
   }
+
   100% {
     top: -4px;
     bottom: auto;
     height: calc(100% + 8px);
   }
 }
+
 @keyframes drawframeLeft {
   0% {
     top: -4px;
     bottom: auto;
     height: calc(100% + 8px);
   }
+
   12.5% {
     top: -4px;
     bottom: auto;
     height: 0%;
   }
+
   50% {
     top: auto;
     bottom: -4px;
     height: 0%;
   }
+
   62.5% {
     top: auto;
     bottom: -4px;
     height: calc(100% + 8px);
   }
+
   100% {
     top: auto;
     bottom: -4px;
