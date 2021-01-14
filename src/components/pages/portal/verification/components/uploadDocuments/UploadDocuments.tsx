@@ -5,7 +5,7 @@ import { IStore } from '@store';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { IdentityVerification, AddressVerification } from '..';
+import { AddressVerification, IdentityVerification } from '..';
 import './UploadDocuments.scss';
 
 enum EUploadDocumentsTabs {

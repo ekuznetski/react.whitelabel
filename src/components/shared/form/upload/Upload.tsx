@@ -1,6 +1,7 @@
 import { Svg } from '@components/shared';
-import { MDocuments } from '@domain/models';
-import { ac_uploadDocuments } from '@store';
+import { ENotificationType } from '@domain/enums';
+import { MDocument } from '@domain/models';
+import { ac_showNotification, ac_uploadDocuments } from '@store';
 import { useCombinedRef } from '@utils/hooks';
 import { useSetState } from 'ahooks';
 import classNames from 'classnames';
@@ -12,6 +13,7 @@ import { Button } from '../button/Button';
 import { UploadEmptyView, UploadReadyView } from './components';
 import { UploadWrapperProvider, useUploadWrapperDispatch } from './upload-wrapper.context';
 import {
+  UploadAction,
   UploadDispatch,
   UploadProvider,
   UploadState,
@@ -27,7 +29,6 @@ import {
   UploadProps,
 } from './upload.interface';
 import './Upload.scss';
-import { $t } from './UploadWrapper.locale';
 
 export enum EUploadWrapperViewType {
   select = 'select',
@@ -106,13 +107,42 @@ export const MultipleUpload = memo(
       };
     }
 
+    function everyUploadContextDispatch(payload: UploadAction) {
+      Object.keys(multiContextState).forEach((key) => {
+        multiContextDispatch[key](payload);
+      });
+    }
+
     function Submit() {
       const uploadDocs = {};
       Object.keys(multiContextState).forEach((key) => {
         Object.assign(uploadDocs, { [multiContextState[key].fileType]: multiContextState[key].file });
         multiContextDispatch[key]({ type: 'uploadFile' });
       });
-      dispatch(ac_uploadDocuments(uploadDocs));
+
+      dispatch(
+        ac_uploadDocuments(
+          uploadDocs,
+          () => {
+            everyUploadContextDispatch({ type: 'complete' });
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.success,
+                message: 'Documents has been uploaded',
+              }),
+            );
+          },
+          () => {
+            everyUploadContextDispatch({ type: 'error' });
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.danger,
+                message: 'Documents upload error. Please contact us to resolve the issue',
+              }),
+            );
+          },
+        ),
+      );
     }
 
     return (
@@ -186,9 +216,9 @@ export const UploadFile = memo(
             if (!props.transferControls) {
               switch (contextState.view) {
                 case UploadViewState.loading:
-                  setTimeout(() => {
-                    contextDispatch({ type: 'complete' });
-                  }, 500);
+                  // setTimeout(() => {
+                  //   contextDispatch({ type: 'complete' });
+                  // }, 500);
                   props.isLoading?.();
                   break;
                 case UploadViewState.complete:
@@ -215,7 +245,29 @@ export const UploadFile = memo(
 
           function Submit() {
             contextDispatch({ type: 'uploadFile' });
-            dispatch(ac_uploadDocuments({ [props.fileType]: new Blob() }));
+            dispatch(
+              ac_uploadDocuments(
+                { [contextState.fileType as string]: contextState.file },
+                () => {
+                  contextDispatch({ type: 'complete' });
+                  dispatch(
+                    ac_showNotification({
+                      type: ENotificationType.success,
+                      message: 'Documents has been uploaded',
+                    }),
+                  );
+                },
+                () => {
+                  contextDispatch({ type: 'error' });
+                  dispatch(
+                    ac_showNotification({
+                      type: ENotificationType.danger,
+                      message: 'Documents upload error. Please contact us to resolve the issue',
+                    }),
+                  );
+                },
+              ),
+            );
           }
 
           function renderView() {
@@ -394,9 +446,11 @@ const SelectDocumentType = memo(function SelectDocumentType({
   typesList,
   onDocTypeSelected,
 }: ISelectDocumentTypeProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="select-document-type">
-      <div className="select-document-type__note mb-7">{$t.selectDocumentTypeNote()}</div>
+      <div className="select-document-type__note mb-7">{t('Choose Document From List')}</div>
       <div className="select-document-type__list">
         {typesList.map((item, idx) => (
           <div key={idx} className="list__item mx-2" onClick={() => onDocTypeSelected(idx)}>
@@ -410,6 +464,8 @@ const SelectDocumentType = memo(function SelectDocumentType({
 });
 
 const DocumentsList = memo(function DocumentsList({ documents }: IDocumentsListProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="documents-list">
       {documents.map((document) => (
@@ -419,7 +475,7 @@ const DocumentsList = memo(function DocumentsList({ documents }: IDocumentsListP
         >
           <Svg href="imageType_small" height={16} className="ml-4 mr-3" />
           <div className="document__type mr-auto">{document.document_type}</div>
-          <div className="document__status">{$t.documentStatus(document.document_status)}</div>
+          <div className="document__status">{t('Document Status', { status: document.document_status })}</div>
         </div>
       ))}
     </div>

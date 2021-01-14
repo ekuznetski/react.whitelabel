@@ -12,8 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 enum EFields {
-  'firstName' = 'firstName',
-  'surName' = 'surName',
+  'firstName' = 'first_name',
+  'surName' = 'surname',
   'email' = 'email',
   'company' = 'company',
   'phone' = 'phone',
@@ -21,6 +21,8 @@ enum EFields {
   'country' = 'country',
   'address' = 'address',
   'acceptPolicy' = 'acceptPolicy',
+  'lang' = 'lang',
+  'language' = 'language',
 }
 
 export const BrokersForm = memo(function BrokersForm() {
