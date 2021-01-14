@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 enum EFields {
+  'language' = 'language',
   'name' = 'name',
   'email' = 'email',
   'phone' = 'phone',
@@ -25,7 +26,7 @@ export const AffiliateForm = memo(() => {
     geoIp: state.data.geoIp,
   }));
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const labelName = useLabelName();
 
   const validationSchema = Yup.object().shape({
@@ -39,8 +40,10 @@ export const AffiliateForm = memo(() => {
 
   function Submit(data: FormikValues, { resetForm }: FormikHelpers<any>) {
     const values = data;
-    values[EFields.phone_prefix] = values[EFields.phone_prefix].phoneCode;
+    values[EFields.phone] = values[EFields.phone_prefix].phoneCode + values[EFields.phone];
+    values[EFields.language] = i18n.language;
     delete values[EFields.acceptPolicy];
+    delete values[EFields.phone_prefix];
 
     dispatch(
       ac_partnershipRegisterStandard(

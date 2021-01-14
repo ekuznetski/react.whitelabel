@@ -49,7 +49,7 @@ export const EddForm = memo(function EddForm() {
     years_employment: Yup.number().required(),
     working_financial: Yup.string().required(),
     employer_address: Yup.string().required(),
-    phone: Yup.string().required(),
+    phone: Yup.number().required(),
     other_income: Yup.string().required(),
     appr_annual_income: Yup.string().required(),
     appr_net_worth: Yup.string().required(),
@@ -122,7 +122,7 @@ export const EddForm = memo(function EddForm() {
             nature_of_business: 'asd',
             other_income: 'asd',
             own_property: '1',
-            phone: 'asd',
+            phone: '99887766',
             position: 'asd',
             working_financial: '0',
             years_address: '12',
@@ -234,7 +234,7 @@ export const EddForm = memo(function EddForm() {
                 <Col xs={12} />
                 <Col xs={12} lg={6}>
                   <Input label={t('Employer’s Address')} name="employer_address" />
-                  <Input label={t('Employer’s Contact No:')} name="phone" />
+                  <Input type="tel" label={t('Employer’s Contact No:')} name="phone" />
                 </Col>
                 <Col xs={12} lg={6}>
                   <Input label={t('Other Income Generating Activities')} name="other_income" />
