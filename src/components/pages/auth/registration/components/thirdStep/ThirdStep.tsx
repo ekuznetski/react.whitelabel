@@ -1,16 +1,16 @@
 import { Button, CurrencySelect, Radio, Select } from '@components/shared';
 import { FieldValidators, accountTypePip } from '@domain';
-import { ECurrencyCode, ERegSteps, ETradingAccountType } from '@domain/enums';
+import { ERegSteps, ETradingAccountType } from '@domain/enums';
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import './ThirdStep.scss';
 import { useSelector } from 'react-redux';
 import { IStore } from '@store';
 import { MClientSettings } from '@domain/models';
 import classNames from 'classnames';
+import './ThirdStep.scss';
 
 enum EFields {
   'firstdeposit_platform' = 'firstdeposit_platform',
@@ -60,7 +60,7 @@ export function ThirdStep({ submitFn }: any) {
       ),
       value: ETradingAccountType.variable,
     },
-  ].filter((el) => clientSettings.allowed_account_types.includes(el.value));
+  ].filter((el) => clientSettings.allowed_account_types?.includes(el.value));
 
   const currencies = clientSettings.getCurrenciesSelectList();
   const leverages = clientSettings.getLeveragesSelectList();
@@ -82,7 +82,7 @@ export function ThirdStep({ submitFn }: any) {
         initialValues={{
           firstdeposit_platform: platforms[0].value,
           account_type: tradingAccounts[0].value,
-          currency: ECurrencyCode[Object.keys(currencies)[0] as keyof typeof ECurrencyCode],
+          currency: currencies[Object.keys(currencies)[0]].code,
           leverage: leverages[0].value,
         }}
         validationSchema={validationSchema}
@@ -100,7 +100,7 @@ export function ThirdStep({ submitFn }: any) {
               />
               <h4 className="section-title mb-5">{t('Choose Account Type')}</h4>
               <Radio
-                className={`mb-10 account_type justify-content-between no-gutters totalAccTypes_${clientSettings.allowed_account_types.length}`}
+                className={`mb-10 account_type justify-content-between no-gutters totalAccTypes_${clientSettings.allowed_account_types?.length}`}
                 name={EFields.account_type}
                 options={tradingAccounts}
               />

@@ -24,6 +24,7 @@ import { MClientSettings } from '@domain/models';
 import * as Yup from 'yup';
 import './OpenAccount.scss';
 import { SubmitModal } from '@pages/portal/openAccount/components/submitModal/SubmitModal';
+import classNames from 'classnames';
 
 type modalOptionsProps = { type: EModalType | null; isOpen: boolean; data: ICreateTradingAccountResponse | null };
 
@@ -79,7 +80,7 @@ export const OpenAccount = memo(function OpenAccount() {
       ),
     );
   }
-
+  console.log(tradingPlatforms.length, tradingPlatforms[0].value);
   return (
     <>
       <Container className="open-account-page-wrapper">
@@ -94,9 +95,9 @@ export const OpenAccount = memo(function OpenAccount() {
           <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
             <Formik
               initialValues={{
-                platform: '',
+                platform: tradingPlatforms.length === 1 ? tradingPlatforms[0].value : '',
                 account_type: '',
-                currency: '',
+                currency: Object.keys(currencies).length === 1 ? currencies[Object.keys(currencies)[0]].code : '',
                 leverage: '',
               }}
               validationSchema={validationSchema}
@@ -105,7 +106,12 @@ export const OpenAccount = memo(function OpenAccount() {
               {() => {
                 return (
                   <Form className="open-account__form">
-                    <Radio className="mb-8" name={EFields.platform} options={tradingPlatforms} />
+                    <Radio
+                      optionClassName="col-6"
+                      className="mb-8"
+                      name={EFields.platform}
+                      options={tradingPlatforms}
+                    />
                     <Select placeholder="Account Type" options={tradingAccounts} name={EFields.account_type} />
                     <Select placeholder="Leverage" options={leverages} name={EFields.leverage} />
                     <CurrencySelect placeholder="Currency" name={EFields.currency} options={currencies} />
