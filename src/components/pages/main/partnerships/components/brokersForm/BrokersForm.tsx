@@ -21,8 +21,6 @@ enum EFields {
   'country' = 'country',
   'address' = 'address',
   'acceptPolicy' = 'acceptPolicy',
-  'lang' = 'lang',
-  'language' = 'language',
 }
 
 export const BrokersForm = memo(function BrokersForm() {
@@ -47,9 +45,10 @@ export const BrokersForm = memo(function BrokersForm() {
 
   function Submit(data: FormikValues, { resetForm }: FormikHelpers<any>) {
     const values = data;
-    values[EFields.phone_prefix] = values[EFields.phone_prefix].phoneCode;
+    values[EFields.phone] = values[EFields.phone_prefix].phoneCode + values[EFields.phone];
     values[EFields.country] = values[EFields.country].name;
     delete values[EFields.acceptPolicy];
+    delete values[EFields.phone_prefix];
 
     dispatch(
       ac_partnershipRegisterIB(
