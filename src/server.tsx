@@ -81,7 +81,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
           appSection: route?.appSection,
           meta: route?.meta,
           state: route?.state,
-          isLoading: false,
+          isLoading: true,
         }),
       );
       routeFetchData(route);
@@ -90,7 +90,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
         ac_updateRouteParams({
           path: EPagePath.NotFound,
           appSection: EAppSection.general,
-          isLoading: false,
+          isLoading: true,
         }),
       );
       requestResolver();

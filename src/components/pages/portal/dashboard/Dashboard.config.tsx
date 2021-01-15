@@ -140,7 +140,8 @@ export const config: IConfig = {
   bonus_cards: [
     {
       type: 'blue',
-      bg_img: 'fca_logos',
+      bg_img: 'client_banner_2.jpg',
+      bg_color: '#eff1f3',
       link: { path: '/deposit', text: t('Deposit Now') },
       text: (
         <Trans i18nKey="Promotional Cards Texts:4">
