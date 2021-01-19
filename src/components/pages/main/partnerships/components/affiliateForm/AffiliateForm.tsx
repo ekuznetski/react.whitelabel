@@ -1,7 +1,7 @@
 import { Button, Checkbox, Input, PhoneCodeSelect, TextArea } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
 import { ENotificationType, countries } from '@domain/enums';
-import { IPartnershipRegistrationRequest } from '@domain/interfaces';
+import { IPartnershipRegistrationRequest, IPartnershipRegistrationResponse } from '@domain/interfaces';
 import { EActionTypes, IStore, ac_partnershipRegisterStandard, ac_showNotification } from '@store';
 import { useLabelName } from '@utils/hooks';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
@@ -53,17 +53,21 @@ export const AffiliateForm = memo(() => {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              message: 'Email added to the queue.',
+              message: t('Thank You For Submitting Your Information'),
             }),
           );
         },
-        () =>
+        (partnershipRegistrationResponse: IPartnershipRegistrationResponse) => {
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              message: 'Error',
+              message:
+                partnershipRegistrationResponse?.response?.message ||
+                partnershipRegistrationResponse?.response?.status ||
+                t('Error'),
             }),
-          ),
+          );
+        },
       ),
     );
   }

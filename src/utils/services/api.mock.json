@@ -548,7 +548,7 @@
   "!partnership": {
     "add": {
       "response": {
-        "status": "failure",
+        "status": "Error",
         "message": "Error message"
       }
     }
