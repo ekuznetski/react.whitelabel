@@ -57,14 +57,11 @@ export const AffiliateForm = memo(() => {
             }),
           );
         },
-        (partnershipRegistrationResponse: IPartnershipRegistrationResponse) => {
+        () => {
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              message:
-                partnershipRegistrationResponse?.response?.message ||
-                partnershipRegistrationResponse?.response?.status ||
-                t('Error'),
+              message: t('Error'),
             }),
           );
         },

@@ -20,12 +20,12 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
       if (Object.keys(mockResponse).length) {
         return new Promise((resolve, reject) => {
           if (
-            (mockResponse.response?.status && mockResponse.response?.status === EResponseStatus.success) ||
-            (mockResponse.status && mockResponse.status === EResponseStatus.success)
+            (mockResponse.response?.status && mockResponse.response?.status === EResponseStatus.failure) ||
+            (mockResponse.status && mockResponse.status === EResponseStatus.failure)
           ) {
-            setTimeout(() => resolve(mockResponse), 450);
+            setTimeout(() => reject(mockResponse.response), 450);
           } else {
-            setTimeout(() => reject(mockResponse), 450);
+            setTimeout(() => resolve(mockResponse), 450);
           }
         });
       }
