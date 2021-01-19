@@ -1,7 +1,7 @@
 import { Button, Checkbox, Input, PhoneCodeSelect, TextArea } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
 import { ENotificationType, countries } from '@domain/enums';
-import { IPartnershipRegistrationRequest, IPartnershipRegistrationResponse } from '@domain/interfaces';
+import { IPartnershipRegistrationRequest } from '@domain/interfaces';
 import { EActionTypes, IStore, ac_partnershipRegisterStandard, ac_showNotification } from '@store';
 import { useLabelName } from '@utils/hooks';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
