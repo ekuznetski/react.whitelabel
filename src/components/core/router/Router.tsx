@@ -105,12 +105,13 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
   }));
   const [firstRender, { setFalse: setFirstRenderFalse }] = useBoolean(true);
   const [pageLoaded, { setTrue: setPageLoaded }] = useBoolean(false);
+  const { setScrollLock } = useLockScroll();
   const { localizePath } = usePathLocale();
   const history = useHistory();
 
   useEffect(() => {
     routeFetchData(route);
-    useLockScroll(true);
+    setScrollLock(true);
     setFirstRenderFalse();
   }, [route]);
 
@@ -125,7 +126,7 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
           ? openedRequests.filter((request) => _routeStrictRequests.includes(request)).length > 0
           : false;
 
-        useLockScroll(!pageLoaded && hasUncompletedStrictRequest);
+        setScrollLock(!pageLoaded && hasUncompletedStrictRequest);
         if (routeState.isLoading != hasUncompletedStrictRequest && !pageLoaded) {
           store.dispatch(ac_updateRouteParams({ isLoading: hasUncompletedStrictRequest }));
         }
@@ -156,5 +157,7 @@ function RenderRoute({ route, routeState }: IRenderRoute) {
         <route.component />
       </main>
     </>
-  ) : <PageLoader isLoading={true} />;
+  ) : (
+    <PageLoader isLoading={true} />
+  );
 }

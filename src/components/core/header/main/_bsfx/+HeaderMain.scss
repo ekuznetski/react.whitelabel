@@ -14,5 +14,11 @@
         }
       }
     }
+
+    @media (max-width: $viewport-md-w) {
+      .logo {
+        width: 55px;
+      }
+    }
   }
 }

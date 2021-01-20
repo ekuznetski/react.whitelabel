@@ -19,6 +19,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
   }));
   const _mainRoutesConfig = routesNavConfig.filter((route) => route.menuItem && route.appSection === EAppSection.main);
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
+  const { setScrollLock } = useLockScroll();
   const responsive = useResponsive();
   const { t } = useTranslation();
 
@@ -27,7 +28,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
   }, [responsive]);
 
   useEffect(() => {
-    useLockScroll(isBurgerMenuOpen);
+    setScrollLock(isBurgerMenuOpen, 300);
   }, [isBurgerMenuOpen]);
 
   return (
@@ -60,7 +61,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
           ) : (
             <ProfileMenu className="ml-auto" />
           )}
-          <div className="ml-auto ml-md-0 burger-toggle">
+          <div className="burger-toggle">
             {!responsive.lg &&
               (isBurgerMenuOpen ? (
                 <Svg

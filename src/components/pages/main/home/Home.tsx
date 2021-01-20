@@ -152,7 +152,6 @@ export function Home() {
           [ELabels.bsfx]: null,
         }}
       </LabelView>
-
       <OpenLiveAccountBannerSection />
       <section className="trade-products">
         <Container>
