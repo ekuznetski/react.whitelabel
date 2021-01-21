@@ -90,7 +90,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
       });
     }
   }
-  if (clientSettings.edit_fake_account) {
+  if (tradingAccount.type === ETradingType.fake && clientSettings.edit_fake_account) {
     accountNavItems.push({
       id: 'settings',
       icon: 'coins',
