@@ -33,7 +33,7 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
             </LocaleLink>
           </Button>
           <ProfileMenu />
-          <div className="ml-auto ml-md-0 burger-toggle">
+          <div className="burger-toggle">
             {!responsive.lg &&
               (isBurgerMenuOpen ? (
                 <Svg

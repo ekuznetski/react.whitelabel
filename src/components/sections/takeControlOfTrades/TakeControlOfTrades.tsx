@@ -24,7 +24,7 @@ export const TakeControlOfTradesSection = memo(
             </Row>
             <Row className="controls-row">
               {props.data.map((item, i) => (
-                <Col xs={10} md={5} lg={4} key={i} className="px-0 px-lg-7 mx-5 mx-lg-0">
+                <Col xs={10} md={5} lg={4} key={i} className="px-5 px-lg-7">
                   <div className={classNames('take-control-of-trades-section__item p-9', i % 2 === 0 && 'even')}>
                     <div className="item-title mb-4">{t(item.title)}</div>
                     <div className="item-description mb-4">{t(item.desc)}</div>

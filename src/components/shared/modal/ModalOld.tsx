@@ -16,6 +16,7 @@ export interface IModal {
 
 export const ModalOld = memo(
   forwardRef<HTMLDivElement, IModal>(function Modal(props: any, ref) {
+    const { setScrollLock } = useLockScroll();
     const wrapperRef = React.createRef<HTMLDivElement>();
     const elementRef = useCombinedRef(ref);
     const TARGET_CONTAINER = document.getElementById('dynamic-portals') || document.body;
@@ -27,7 +28,7 @@ export const ModalOld = memo(
     }, []);
 
     useEffect(() => {
-      useLockScroll(props.isOpen);
+      setScrollLock(props.isOpen);
     }, [props.isOpen]);
 
     return (

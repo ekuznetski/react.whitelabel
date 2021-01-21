@@ -259,6 +259,7 @@
 
   @media (max-width: $viewport-lg-w) {
     height: auto;
+
     .stockPrices-item {
       &__info {
         &-description {
@@ -269,6 +270,14 @@
   }
 
   @media (max-width: $viewport-md-w) {
+    .stockPrices-item {
+      &__info {
+        &-description {
+          min-height: 80px;
+        }
+      }
+    }
+
     .stockPrices__content {
       .stockPrices-menu {
         flex-wrap: unset;

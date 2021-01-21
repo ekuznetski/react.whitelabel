@@ -11,6 +11,8 @@
   transition: top 0.2s;
 
   .panel-menu {
+    position: relative;
+
     .container {
       display: flex;
       align-items: center;
@@ -135,9 +137,12 @@
     }
 
     &.fixed {
+      top: 0;
+
       &:before {
         top: 0;
         box-shadow: box-shadow(20, 0.15);
+        transition: top 0.2s;
       }
 
       .logo {
@@ -162,7 +167,7 @@
 
       .sign-in-btn {
         color: $dark-text;
-  
+
         &:hover {
           color: $dark-text;
         }
@@ -247,7 +252,7 @@
       }
 
       &:before {
-        transition: top 0.2s;
+        transition: top 0.2s 0.1s;
       }
     }
   }
@@ -263,5 +268,13 @@
         }
       }
     }
+  }
+}
+
+#root.main.locking,
+#root.main.locked {
+  .header.main {
+    top: 0;
+    z-index: 90;
   }
 }

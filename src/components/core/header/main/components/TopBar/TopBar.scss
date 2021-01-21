@@ -3,7 +3,8 @@
 
 .top-header {
   position: relative;
-  z-index: 9999;
+  background: #fff;
+  z-index: 81;
 
   &__links {
     @include d-flex(center, flex-end);
