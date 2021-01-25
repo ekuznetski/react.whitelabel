@@ -500,4 +500,6 @@ export default {
   'Between 500,000 and 1000,000': 'Between {{currencySymbol}}500,000 and {{currencySymbol}}1000,000',
   'More than 1,000,000': 'More than {{currencySymbol}}1,000,000',
   'More than 500,000': 'More than {{currencySymbol}}500,000',
+  'Thank You For Submitting Your Information':
+    'Thank you for submitting your information. A member of the WHITE_LABEL Team will be in touch shortly.',
 };
