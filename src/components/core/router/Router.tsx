@@ -34,7 +34,7 @@ export const Router = memo(function Router() {
   useTitle(_route?.meta?.title || '');
 
   useEffect(() => {
-    if (routeState.path != _path || (!routeState.path && !_path)) {
+    if ((routeState.path != _path || (!routeState.path && !_path)) && _route?.path !== EPagePath.Logout) {
       window.scrollTo(0, 0);
       store.dispatch(
         ac_updateRouteParams({
