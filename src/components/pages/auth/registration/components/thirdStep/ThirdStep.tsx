@@ -77,8 +77,8 @@ export function ThirdStep({ submitFn }: any) {
     submitFn({ [ERegSteps.step3]: data });
   }
 
-  const initialLeverageValue =
-    config.initialLeverageValue && leverages.find((leverage) => leverage.value === config.initialLeverageValue);
+  const initialLeverage =
+    leverages.find((leverage) => leverage.value === config.initialLeverage)?.value ?? leverages[0].value;
 
   return (
     <div className="registration-third-step">
@@ -87,7 +87,7 @@ export function ThirdStep({ submitFn }: any) {
           firstdeposit_platform: platforms[0].value,
           account_type: tradingAccounts[0].value,
           currency: currencies[Object.keys(currencies)[0]].code,
-          leverage: initialLeverageValue || leverages[0].value,
+          leverage: initialLeverage,
         }}
         validationSchema={validationSchema}
         onSubmit={Submit}
