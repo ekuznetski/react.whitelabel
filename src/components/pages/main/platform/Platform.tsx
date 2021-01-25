@@ -6,11 +6,12 @@ import {
   PrestigiousPlatformTechnologySection,
 } from '@components/sections';
 import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
+import { downloadLinks } from '@domain';
+import { EPagePath } from '@domain/enums';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { config } from './';
 import './Platform.scss';
-import { downloadLinks } from '@domain';
 
 export function Platform() {
   const { t } = useTranslation();
@@ -69,13 +70,16 @@ export function Platform() {
                   }}
                 >
                   CFD for
-                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'currencies' } }}>Currencies</LocaleLink>,
-                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'stocks' } }}>Stocks</LocaleLink>,
-                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'indices' } }}>Indices</LocaleLink>,
-                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'commodities' } }}>
+                  <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'currencies' } }}>
+                    Currencies
+                  </LocaleLink>
+                  ,<LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'stocks' } }}>Stocks</LocaleLink>,
+                  <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'indices' } }}>Indices</LocaleLink>
+                  ,
+                  <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'commodities' } }}>
                     Commodities
                   </LocaleLink>{' '}
-                  <LocaleLink to={{ pathname: '/products', state: { scrollTo: 'crypto' } }}>
+                  <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'crypto' } }}>
                     Cryptocurrencies
                   </LocaleLink>{' '}
                   at your service on one trading account. Monitor and trade the world’s largest financial markets!
