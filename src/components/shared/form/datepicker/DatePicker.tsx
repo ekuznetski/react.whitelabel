@@ -4,7 +4,7 @@ import { useResponsive, useSetState } from 'ahooks';
 import classNames from 'classnames';
 import { useField, useFormikContext } from 'formik';
 import moment from 'moment';
-import React, { forwardRef, memo, ReactNode, useEffect } from 'react';
+import React, { ReactNode, forwardRef, memo, useEffect } from 'react';
 import DayPicker, { DateUtils, DayModifiers } from 'react-day-picker';
 import { DropDown } from '../../dropdown/Dropdown';
 import { Svg } from '../../svg/Svg';
@@ -61,6 +61,10 @@ export const DatePicker = memo(
 
       helpers.setValue(formattedRange);
       setState({ ..._range });
+
+      if ((!range && _range.from) || _range.to) {
+        setOpen(false);
+      }
     }
 
     function onFocusHandler(e: any) {
@@ -100,7 +104,7 @@ export const DatePicker = memo(
           parentRef={_ref}
           isOpen={isOpen}
           isOpenDispatcher={setOpen}
-          height={260}
+          height={280}
           width={range ? state.dropDownWidth : 255}
           noArrow={true}
           alignToParentLeft={false}
