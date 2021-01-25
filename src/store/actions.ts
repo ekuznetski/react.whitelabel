@@ -298,9 +298,10 @@ export function ac_submitFinancialProfile(
   };
 }
 
-export function ac_fetchTradingAccounts(): IAction {
+export function ac_fetchTradingAccounts(payload?: { force: true | null }): IAction {
   return {
     type: EActionTypes.fetchTradingAccounts,
+    force: payload?.force || null,
   };
 }
 
@@ -409,8 +410,8 @@ export function ac_saveTransactionalStatements(payload: MTransactionalStatementD
 
 export function ac_addDeposit<T>(
   payload: T,
-  onSuccess: AnyFunction = () => { },
-  onFailure: AnyFunction = () => { },
+  onSuccess: AnyFunction = () => {},
+  onFailure: AnyFunction = () => {},
 ): IAction {
   return {
     type: EActionTypes.addDeposit,
@@ -449,8 +450,8 @@ export function ac_uploadDocuments(
 
 export function ac_updateTins(
   payload: ITins,
-  onSuccess: AnyFunction = () => { },
-  onFailure: AnyFunction = () => { },
+  onSuccess: AnyFunction = () => {},
+  onFailure: AnyFunction = () => {},
 ): IAction {
   return {
     type: EActionTypes.updateTins,

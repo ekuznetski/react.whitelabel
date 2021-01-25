@@ -14,7 +14,14 @@ import {
 import { FieldValidators } from '@domain';
 import { EModalType, ETradingType } from '@domain/enums';
 import { ICreateTradingAccountRequest, ICreateTradingAccountResponse } from '@domain/interfaces';
-import { EActionTypes, IAppStore, IStore, ac_createTradingAccount, ac_showModal } from '@store';
+import {
+  EActionTypes,
+  IAppStore,
+  IStore,
+  ac_createTradingAccount,
+  ac_fetchTradingAccounts,
+  ac_showModal,
+} from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { memo, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -80,7 +87,7 @@ export const OpenAccount = memo(function OpenAccount() {
       ),
     );
   }
-  console.log(tradingPlatforms.length, tradingPlatforms[0].value);
+
   return (
     <>
       <Container className="open-account-page-wrapper">

@@ -341,7 +341,7 @@ export function* createLiveTradingAccountsSaga() {
         leverage: payload?.leverage,
       },
     );
-    yield put(Action.ac_fetchTradingAccounts());
+    yield put(Action.ac_fetchTradingAccounts({ force: true }));
     return response.data;
   });
 }
@@ -358,7 +358,7 @@ export function* createDemoTradingAccountsSaga() {
         leverage: payload?.leverage,
       },
     );
-    yield put(Action.ac_fetchTradingAccounts());
+    yield put(Action.ac_fetchTradingAccounts({ force: true }));
     return response.data;
   });
 }
@@ -366,7 +366,7 @@ export function* createDemoTradingAccountsSaga() {
 export function* makeInternalTransferSaga() {
   yield $$(EActionTypes.makeInternalTransfer, function* ({ payload }: IAction) {
     const { response }: any = yield call(Request.internalTransferRequest, payload);
-    yield put(Action.ac_fetchTradingAccounts());
+    yield put(Action.ac_fetchTradingAccounts({ force: true }));
     return response;
   });
 }
