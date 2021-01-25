@@ -97,7 +97,12 @@ export const OpenAccount = memo(function OpenAccount() {
                     <CurrencySelect placeholder="Currency" name={EFields.currency} options={currencies} />
                     <Button
                       type="submit"
-                      loadingOnAction={[EActionTypes.createLiveTradingAccount, EActionTypes.createDemoTradingAccount]}
+                      loadingOnAction={[
+                        EActionTypes.createLiveTradingAccount,
+                        EActionTypes.createDemoTradingAccount,
+                        EActionTypes.fetchProfile,
+                        EActionTypes.fetchTradingAccounts,
+                      ]}
                     >
                       {t('Submit')}
                     </Button>
