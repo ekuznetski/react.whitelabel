@@ -22,8 +22,8 @@ export interface ITransactionalSingleStatement {
 }
 
 export interface ITransactionalStatementsRequestData {
-  endDate: string;
-  startDate: string;
+  from: string;
+  to: string;
   deposits?: boolean;
   trades?: boolean;
   withdrawal?: boolean;
