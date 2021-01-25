@@ -18,8 +18,15 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
       const props = requestPath.replace(`${env.API_URL}/`, '').split('/');
       const mockResponse = props.reduce((acc: any, key) => acc[key] || {}, mockData);
       if (Object.keys(mockResponse).length) {
-        return new Promise((resolve) => {
-          setTimeout(() => resolve(mockResponse), 450);
+        return new Promise((resolve, reject) => {
+          if (
+            (mockResponse.response?.status && mockResponse.response?.status === EResponseStatus.failure) ||
+            (mockResponse.status && mockResponse.status === EResponseStatus.failure)
+          ) {
+            setTimeout(() => reject(mockResponse.response), 450);
+          } else {
+            setTimeout(() => resolve(mockResponse), 450);
+          }
         });
       }
       // END MOCK RESPONSE

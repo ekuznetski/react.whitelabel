@@ -105,8 +105,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: meta_t('Partnerships:title'),
-      desc: meta_t('Partnerships:desc'),
+      title: meta_t('Partnership:title'),
+      desc: meta_t('Partnership:desc'),
     },
     path: EPagePath.Partnerships,
     component: Page.Partnerships,
