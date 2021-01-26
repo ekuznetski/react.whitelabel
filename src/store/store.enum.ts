@@ -1,4 +1,8 @@
 export enum EActionTypes {
+  // Data - Prices
+  fetchPrices = '[DATA - Prices] Fetch',
+  savePrices = '[DATA - Prices] Save',
+
   // Data - Content
   fetchContent = '[DATA - Content] Fetch',
   saveContent = '[DATA - Content] Save',
@@ -88,9 +92,6 @@ export enum EActionTypes {
   //APP - Partnership
   partnershipRegisterIB = '[APP - Partnership] Register IB',
   partnershipRegister = '[APP - Partnership] Register',
-
-  // APP - Stocks Prices
-  fetchStocksPrices = '[APP - Stocks Prices] Fetch',
 
   // APP - Share
   sendReferrerLink = '[APP - Share] Send Referrer Link',

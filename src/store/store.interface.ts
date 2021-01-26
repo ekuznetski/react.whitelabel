@@ -2,6 +2,7 @@ import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IContent, IGeoIp, IModalState, INotificationState } from '@domain/interfaces';
 import * as Model from '@domain/models';
 import { EActionTypes } from './store.enum';
+import { IPrices } from '../domain/interfaces/data/prices.interface';
 
 export interface IDataStore {
   content: IContent;
@@ -21,6 +22,7 @@ export interface IDataStore {
     limit: number;
   };
   bankDetails: Model.MBankDetails;
+  prices: IPrices;
 }
 
 export interface IAppStore {

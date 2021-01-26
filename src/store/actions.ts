@@ -313,6 +313,19 @@ export function ac_saveTradingAccounts(payload: MClientTradingData): IAction {
   };
 }
 
+export function ac_fetchPrices(): IAction {
+  return {
+    type: EActionTypes.fetchPrices,
+  };
+}
+
+export function ac_savePrices(payload: any): IAction {
+  return {
+    type: EActionTypes.savePrices,
+    payload,
+  };
+}
+
 export function ac_fetchWithdrawHistory(): IAction {
   return {
     type: EActionTypes.fetchWithdrawHistory,
@@ -507,15 +520,6 @@ export function ac_sendReferrerLink(
     onFailure,
   };
 }
-
-export function ac_fetchStocksPrices(onSuccess: AnyFunction = null, onFailure: AnyFunction = null): IAction {
-  return {
-    type: EActionTypes.fetchStocksPrices,
-    onSuccess,
-    onFailure,
-  };
-}
-
 export function ac_saveEdd(payload: MEdd): IAction {
   return {
     type: EActionTypes.saveEdd,

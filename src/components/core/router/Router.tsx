@@ -5,7 +5,7 @@ import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@ro
 import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
 import { useMeta, usePathLocale } from '@utils/hooks';
-import { useCreation, useDebounce, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
+import { useCreation, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
 import React, { memo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
@@ -81,7 +81,8 @@ export const Router = memo(function Router() {
           ...(routesInitialApiData[_route.appSection]?.strict || []),
         ].map((action) => action().type);
         const hasUncompletedStrictRequest = _routeStrictRequests.length
-          ? requests.activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0
+          ? requests.activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0 &&
+            !(!routeState.isLoading && ignoreOnAction([EActionTypes.fetchPrices]))
           : false;
 
         if (routeState.isLoading != hasUncompletedStrictRequest) {
@@ -107,6 +108,10 @@ export const Router = memo(function Router() {
 
   function failedOnAction(actions: EActionTypes[]) {
     return actions.some((request) => requests.failedList.indexOf(request) != -1);
+  }
+
+  function ignoreOnAction(actions: EActionTypes[]) {
+    return actions.some((request) => requests.activeList.indexOf(request) != -1);
   }
 
   return useCreation(() => {

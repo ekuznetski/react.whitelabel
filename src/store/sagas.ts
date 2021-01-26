@@ -317,6 +317,14 @@ export function* financialProfileSaga() {
   });
 }
 
+export function* fetchPricesSaga() {
+  yield $$(EActionTypes.fetchPrices, function* ({ payload }: IAction) {
+    const { response }: any = yield call(Request.getPricesRequest, payload);
+    yield put(Action.ac_savePrices(response.message));
+    return response;
+  });
+}
+
 export function* getTradingAccountsSaga() {
   yield $$(
     EActionTypes.fetchTradingAccounts,
@@ -409,12 +417,6 @@ export function* addDepositSaga() {
   yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
     const response: IAddDepositResponse = yield call(Request.addDepositRequest, payload);
     return response;
-  });
-}
-
-export function* fetchStocksPricesSaga() {
-  yield $$(EActionTypes.fetchStocksPrices, function* () {
-    return yield call(Request.getStocksPricesRequest);
   });
 }
 

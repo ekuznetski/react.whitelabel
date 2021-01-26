@@ -7,6 +7,7 @@ import { appStoreReducer, initAppStore } from './_app.reducer';
 import { IStore } from './store.interface';
 import { Nullable } from '@domain/interfaces';
 import { env } from '@env';
+import { EActionTypes } from './store.enum';
 
 export const reducers = combineReducers({ data: dataStoreReducer, app: appStoreReducer });
 const sagaMiddleware = createSagaMiddleware();
@@ -25,9 +26,9 @@ export const store = createStore<IStore>(
   reducers,
   preloadedState,
   composeWithDevTools({
-    actionsBlacklist: [],
+    actionsBlacklist: [EActionTypes.fetchPrices, EActionTypes.savePrices],
     trace: !env.PRODUCTION,
-    traceLimit: 20
+    traceLimit: 20,
   })(applyMiddleware(sagaMiddleware)),
 );
 
