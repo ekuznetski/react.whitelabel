@@ -79,9 +79,10 @@ export function ac_fetchContent(payload: { page: string }): IAction {
   };
 }
 
-export function ac_fetchProfile() {
+export function ac_fetchProfile(payload?: { force: true | null }): IAction {
   return {
     type: EActionTypes.fetchProfile,
+    force: payload?.force || null,
   };
 }
 

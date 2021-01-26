@@ -342,6 +342,7 @@ export function* createLiveTradingAccountsSaga() {
       },
     );
     yield put(Action.ac_fetchTradingAccounts({ force: true }));
+    yield put(Action.ac_fetchProfile({ force: true }));
     return response.data;
   });
 }
@@ -359,6 +360,7 @@ export function* createDemoTradingAccountsSaga() {
       },
     );
     yield put(Action.ac_fetchTradingAccounts({ force: true }));
+    yield put(Action.ac_fetchProfile({ force: true }));
     return response.data;
   });
 }
