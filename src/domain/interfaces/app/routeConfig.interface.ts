@@ -13,7 +13,7 @@ export interface IRouteNavConfig {
     | null
     | React.ComponentClass<{ routeState?: { [key: string]: any } } & any>
     | React.FunctionComponent<{ routeState?: { [key: string]: any } } & any>;
-  activators?: ((props?: IActivatorProps) => boolean | { path: Path; state?: { [key: string]: any } })[];
+  activators?: ((props: IActivatorProps) => boolean | { path: Path; state?: { [key: string]: any } })[];
   state?: { [key: string]: any };
   apiData?: {
     lazy?: ((args?: { force: true | null }) => IAction)[];
