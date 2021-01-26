@@ -40,7 +40,7 @@ import {
   MWithdrawalHistoryItem,
 } from '@domain/models';
 import { EActionTypes } from './store.enum';
-import { IAction } from './store.interface';
+import { IAction, IAppStore } from './store.interface';
 
 export function ac_showModal<T = {}>(
   component: T,
@@ -254,18 +254,7 @@ export function ac_clearStore(): IAction {
   };
 }
 
-export function ac_updateRouteParams(payload: {
-  path?: EPagePath;
-  locale?: ELanguage | null;
-  appSection?: EAppSection;
-  meta?: {
-    title: string;
-    desc?: string;
-  };
-  state?: any;
-  isLoading?: boolean;
-  redirectTo?: EPagePath;
-}): IAction {
+export function ac_updateRouteParams(payload: Partial<IAppStore['route']>): IAction {
   return {
     type: EActionTypes.updateRoute,
     payload,

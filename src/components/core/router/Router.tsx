@@ -43,6 +43,7 @@ export const Router = memo(function Router() {
 
   useEffect(() => {
     if (routeState.path != _path || (!routeState.path && !_path)) {
+      routeState.prev = undefined;
       window.scrollTo(0, 0);
       store.dispatch(
         ac_updateRouteParams({
@@ -52,6 +53,7 @@ export const Router = memo(function Router() {
           state: Object.assign({}, state, _route?.state),
           isLoading: !!_route,
           redirectTo: undefined,
+          prev: routeState,
         }),
       );
 

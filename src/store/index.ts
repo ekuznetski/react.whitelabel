@@ -26,9 +26,13 @@ export const store = createStore<IStore>(
   reducers,
   preloadedState,
   composeWithDevTools({
-    actionsBlacklist: [EActionTypes.fetchPrices, EActionTypes.savePrices],
     trace: !env.PRODUCTION,
     traceLimit: 20,
+    predicate: (state, action) =>
+      !(
+        [EActionTypes.fetchPrices, EActionTypes.savePrices, EActionTypes.requestSuccess].includes(action.type) &&
+        !!(state as any).data.prices
+      ),
   })(applyMiddleware(sagaMiddleware)),
 );
 

@@ -25,19 +25,22 @@ export interface IDataStore {
   prices: IPrices;
 }
 
-export interface IAppStore {
-  route: {
-    path: EPagePath;
-    locale: ELanguage;
-    appSection: EAppSection;
-    meta: {
-      title: string;
-      desc: string;
-    };
-    state: any;
-    isLoading: boolean;
-    redirectTo: EPagePath;
+interface IAppStoreRoute {
+  path: EPagePath;
+  locale: ELanguage;
+  appSection: EAppSection;
+  meta: {
+    title: string;
+    desc?: string;
   };
+  state: any;
+  isLoading: boolean;
+  redirectTo: EPagePath;
+  prev?: IAppStoreRoute;
+}
+
+export interface IAppStore {
+  route: IAppStoreRoute;
   requests: {
     activeList: EActionTypes[];
     failedList: EActionTypes[];
