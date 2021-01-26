@@ -1,5 +1,5 @@
 import './i18n'; // Must be the imported before the App!
-import { Footer, Header, NotFound } from '@components/core';
+import { Footer, Header, NotFound, PageLoader } from '@components/core';
 import { localesConfig } from '@domain';
 import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
@@ -99,6 +99,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
     const app = renderToString(
       <StaticRouter location={page}>
         <Provider store={store}>
+          <PageLoader isLoading={true} />
           <div className="main-wrapper">
             <Header />
             <main className="router-context">
@@ -125,7 +126,6 @@ app.get('*', (req: express.Request, res: express.Response) => {
         return res.status(500).send('Oops, better luck next time!');
       }
       const preloadedState = store.getState();
-      preloadedState.app.route.isLoading = false;
 
       return res.send(
         data

@@ -1,12 +1,10 @@
 import { EAppSection, EPagePath } from '@domain/enums';
-import { IRouteGuard } from '@domain/interfaces';
-import { store } from '@store';
+import { IActivatorProps, IRouteGuard } from '@domain/interfaces';
 
-export function logoutGuard(): IRouteGuard {
-  const previousRoute = store.getState().app.route;
-
+export function logoutGuard({ routeState }: IActivatorProps): IRouteGuard {
   return {
-    path: previousRoute.appSection === EAppSection.portal ? EPagePath.Login : previousRoute.path,
+    path:
+      routeState?.prev?.appSection !== EAppSection.portal ? routeState?.prev?.path ?? EPagePath.Login : EPagePath.Login,
     state: { from: location.pathname },
   };
 }

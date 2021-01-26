@@ -1,6 +1,6 @@
 import { EAppSection } from '@domain/enums';
 import { IStore } from '@store';
-import { useScroll } from '@utils/hooks';
+import { useScroll } from 'ahooks';
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { useSelector } from 'react-redux';

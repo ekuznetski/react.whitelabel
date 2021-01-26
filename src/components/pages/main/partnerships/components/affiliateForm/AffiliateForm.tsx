@@ -53,17 +53,18 @@ export const AffiliateForm = memo(() => {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
-              message: 'Email added to the queue.',
+              message: t('Thank You For Submitting Your Information'),
             }),
           );
         },
-        () =>
+        () => {
           dispatch(
             ac_showNotification({
               type: ENotificationType.danger,
-              message: 'Error',
+              message: t('Error'),
             }),
-          ),
+          );
+        },
       ),
     );
   }

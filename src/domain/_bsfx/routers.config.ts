@@ -51,6 +51,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: EPagePath.Home,
     component: Page.Home,
     appSection: EAppSection.main,
+    apiData: {
+      strict: [Action.ac_fetchPrices],
+    },
     menuItem: {
       label: t('Home'),
     },
@@ -105,8 +108,8 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: meta_t('Partnerships:title'),
-      desc: meta_t('Partnerships:desc'),
+      title: meta_t('Partnership:title'),
+      desc: meta_t('Partnership:desc'),
     },
     path: EPagePath.Partnerships,
     component: Page.Partnerships,

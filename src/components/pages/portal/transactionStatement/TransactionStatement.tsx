@@ -55,8 +55,8 @@ export const TransactionStatement = memo(function TransactionStatement() {
 
   function Submit(values: FormikValues) {
     const data = {
-      startDate: values.filter[0].startOf('day').format('YYYY-MM-DD HH:mm:ss'),
-      endDate: values.filter[1].endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+      from: values.filter[0].startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+      to: values.filter[1].endOf('day').format('YYYY-MM-DD HH:mm:ss'),
       ...values.operation_type.reduce((acc: {}, value: string) => Object.assign(acc, { [value]: true }), {}),
     };
 
