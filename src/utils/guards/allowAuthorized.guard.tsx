@@ -1,3 +1,4 @@
+import { EPagePath } from '@domain/enums';
 import { IRouteGuard } from '@domain/interfaces';
 import { store } from '@store';
 
@@ -7,7 +8,7 @@ export function allowAuthorizedGuard(): IRouteGuard {
 
   return (
     isAuthorized || {
-      path: '/login',
+      path: EPagePath.Login,
       state: { from: location.pathname },
     }
   );
