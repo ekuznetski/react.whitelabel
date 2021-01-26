@@ -14,7 +14,7 @@ export const initAppStore: Nullable<IAppStore> = {
     },
     state: null,
     isLoading: true,
-    redirectTo: null
+    redirectTo: null,
   },
   requests: {
     activeList: [],
@@ -35,6 +35,7 @@ export const initAppStore: Nullable<IAppStore> = {
 export function appStoreReducer(state = initAppStore as IAppStore, action: IAction) {
   switch (action.type) {
     case EActionTypes.fetchClientData:
+    case EActionTypes.fetchPrices:
     case EActionTypes.fetchContent:
     case EActionTypes.fetchGeoIpData:
     case EActionTypes.fetchProfile:
@@ -51,7 +52,6 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.createLiveTradingAccount:
     case EActionTypes.createDemoTradingAccount:
     case EActionTypes.submitEdd:
-    case EActionTypes.fetchStocksPrices:
     case EActionTypes.login:
     case EActionTypes.logout:
     case EActionTypes.makeInternalTransfer:
@@ -95,9 +95,9 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
         route: _route,
         ...(_route.path !== state.route.path
           ? {
-            notification: { ...initAppStore.notification, type: state.notification.type },
-            modal: { component: null, visible: false },
-          }
+              notification: { ...initAppStore.notification, type: state.notification.type },
+              modal: { component: null, visible: false },
+            }
           : {}),
       };
 

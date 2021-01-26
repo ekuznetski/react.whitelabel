@@ -1,7 +1,7 @@
 import { EAppSection, EPagePath } from '@domain/enums';
-import { IAction } from '@store';
+import { IAction, IAppStore } from '@store';
 import { Path } from 'history';
-import { Location } from 'history';
+import { History } from 'history';
 export interface IRouteNavConfig {
   meta: {
     title: string;
@@ -13,13 +13,19 @@ export interface IRouteNavConfig {
     | null
     | React.ComponentClass<{ routeState?: { [key: string]: any } } & any>
     | React.FunctionComponent<{ routeState?: { [key: string]: any } } & any>;
-  activators?: ((routeProps?: Location) => boolean | { path: Path; state?: { [key: string]: any } })[];
+  activators?: ((props: IActivatorProps) => boolean | { path: Path; state?: { [key: string]: any } })[];
   state?: { [key: string]: any };
   apiData?: {
     lazy?: ((args?: { force: true | null }) => IAction)[];
     strict?: ((args?: { force: true | null }) => IAction)[];
   };
   menuItem?: IMenuItemConfig;
+}
+
+export interface IActivatorProps {
+  route?: IRouteNavConfig;
+  routeState?: IAppStore['route'];
+  history?: History;
 }
 
 export interface IRouteRedirectConfig {

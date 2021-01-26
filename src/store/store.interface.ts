@@ -2,6 +2,7 @@ import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IContent, IGeoIp, IModalState, INotificationState } from '@domain/interfaces';
 import * as Model from '@domain/models';
 import { EActionTypes } from './store.enum';
+import { IPrices } from '../domain/interfaces/data/prices.interface';
 
 export interface IDataStore {
   content: IContent;
@@ -21,21 +22,25 @@ export interface IDataStore {
     limit: number;
   };
   bankDetails: Model.MBankDetails;
+  prices: IPrices;
+}
+
+interface IAppStoreRoute {
+  path: EPagePath;
+  locale: ELanguage;
+  appSection: EAppSection;
+  meta: {
+    title: string;
+    desc?: string;
+  };
+  state: any;
+  isLoading: boolean;
+  redirectTo: EPagePath;
+  prev?: IAppStoreRoute;
 }
 
 export interface IAppStore {
-  route: {
-    path: EPagePath;
-    locale: ELanguage;
-    appSection: EAppSection;
-    meta: {
-      title: string;
-      desc: string;
-    };
-    state: any;
-    isLoading: boolean;
-    redirectTo: EPagePath;
-  };
+  route: IAppStoreRoute;
   requests: {
     activeList: EActionTypes[];
     failedList: EActionTypes[];

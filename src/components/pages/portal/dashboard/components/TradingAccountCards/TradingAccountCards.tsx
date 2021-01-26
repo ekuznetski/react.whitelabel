@@ -7,28 +7,33 @@ import { useDeviceDetect } from '@utils/hooks';
 import { TradingAccountAddCard } from './AddCard/TradingAccountAddCard';
 import { ITradingAccountSingleCard, TradingAccountSingleCard } from './SingleCard/TradingAccountSingleCard';
 import { TradingAccountsProvider } from './trading-accounts.context';
+import { MClientSettings } from '@domain/models';
 import './TradingAccountCards.scss';
 
 export function TradingAccountCards(props: { type: ETradingType[] }) {
-  const { tradingAccountCards } = useSelector<IStore, { tradingAccountCards: ITradingAccountSingleCard[] }>(
-    (state) => ({
-      tradingAccountCards: state.data.tradingData.accounts
-        .filter((account) => props.type.includes(account.type))
-        .map((account) => ({
-          platform: account.platform,
-          tradingAccountType: account.accountType,
-          allowLeverageChange: account.allowLeverageChange,
-          type: account.type,
-          balance: account.balance,
-          accountId: account.accountId,
-          leverage: account.leverage,
-          currency: account.currency,
-        })),
-    }),
-  );
+  const { tradingAccountCards, clientSettings } = useSelector<
+    IStore,
+    { tradingAccountCards: ITradingAccountSingleCard[]; clientSettings: MClientSettings }
+  >((state) => ({
+    tradingAccountCards: state.data.tradingData.accounts
+      .filter((account) => props.type.includes(account.type))
+      .map((account) => ({
+        platform: account.platform,
+        tradingAccountType: account.accountType,
+        allowLeverageChange: account.allowLeverageChange,
+        type: account.type,
+        balance: account.balance,
+        accountId: account.accountId,
+        leverage: account.leverage,
+        currency: account.currency,
+      })),
+    clientSettings: state.data.client.settings,
+  }));
   const { isMobile } = useDeviceDetect();
   const inlineView = tradingAccountCards.length >= 3 && !isMobile;
-
+  const allowAddCard =
+    (props.type.includes(ETradingType.demo) && clientSettings.allow_additional_demo_account) ||
+    (props.type.includes(ETradingType.live) && clientSettings.allow_additional_live_account);
   return (
     <TradingAccountsProvider>
       {() => (
@@ -37,7 +42,9 @@ export function TradingAccountCards(props: { type: ETradingType[] }) {
             {tradingAccountCards.map((cardContext, cc) => (
               <TradingAccountSingleCard key={cc} {...cardContext} inline={inlineView} />
             ))}
-            {tradingAccountCards.length < 10 && <TradingAccountAddCard type={props.type} inline={inlineView} />}
+            {allowAddCard && tradingAccountCards.length < 10 && (
+              <TradingAccountAddCard type={props.type} inline={inlineView} />
+            )}
           </Row>
         </div>
       )}

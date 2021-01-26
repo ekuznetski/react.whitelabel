@@ -1,30 +1,17 @@
-import {
-  Button,
-  CurrencySelect,
-  LocaleNavLink,
-  ModalContext,
-  ModalNav,
-  ModalOld,
-  ModalTitle,
-  PageTitle,
-  Radio,
-  Select,
-  Svg,
-} from '@components/shared';
+import { Button, CurrencySelect, PageTitle, Radio, Select } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { EModalType, ETradingType } from '@domain/enums';
 import { ICreateTradingAccountRequest, ICreateTradingAccountResponse } from '@domain/interfaces';
 import { EActionTypes, IAppStore, IStore, ac_createTradingAccount, ac_showModal } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { SubmitModal } from '@pages/portal/openAccount/components/submitModal/SubmitModal';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { MClientSettings } from '@domain/models';
 import * as Yup from 'yup';
 import './OpenAccount.scss';
-import { SubmitModal } from '@pages/portal/openAccount/components/submitModal/SubmitModal';
-import classNames from 'classnames';
 
 type modalOptionsProps = { type: EModalType | null; isOpen: boolean; data: ICreateTradingAccountResponse | null };
 
@@ -43,11 +30,6 @@ export const OpenAccount = memo(function OpenAccount() {
     }),
   );
 
-  const [modalOptions, setModalOptions] = React.useState<modalOptionsProps>({
-    type: null,
-    isOpen: false,
-    data: null,
-  });
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -71,16 +53,14 @@ export const OpenAccount = memo(function OpenAccount() {
           dispatch(
             ac_showModal(SubmitModal, { type: EModalType.success, data: accountData }, 'open-account__modal success'),
           );
-          setModalOptions({ type: EModalType.success, isOpen: true, data: accountData });
         },
         () => {
           dispatch(ac_showModal(SubmitModal, { type: EModalType.failure }, 'open-account__modal failure'));
-          setModalOptions({ type: EModalType.failure, isOpen: true, data: null });
         },
       ),
     );
   }
-  console.log(tradingPlatforms.length, tradingPlatforms[0].value);
+
   return (
     <>
       <Container className="open-account-page-wrapper">
@@ -117,7 +97,12 @@ export const OpenAccount = memo(function OpenAccount() {
                     <CurrencySelect placeholder="Currency" name={EFields.currency} options={currencies} />
                     <Button
                       type="submit"
-                      loadingOnAction={[EActionTypes.createLiveTradingAccount, EActionTypes.createDemoTradingAccount]}
+                      loadingOnAction={[
+                        EActionTypes.createLiveTradingAccount,
+                        EActionTypes.createDemoTradingAccount,
+                        EActionTypes.fetchProfile,
+                        EActionTypes.fetchTradingAccounts,
+                      ]}
                     >
                       {t('Submit')}
                     </Button>

@@ -4,27 +4,35 @@ import { IRouteNavConfig } from '@domain/interfaces';
 import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@routers';
 import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
-import { useLockScroll, useMeta, usePathLocale } from '@utils/hooks';
-import { useBoolean, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
-import React, { memo, useEffect, useMemo } from 'react';
+import { useMeta, usePathLocale } from '@utils/hooks';
+import { useCreation, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
+import React, { memo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { Header, PageLoader } from '..';
 
+interface IRenderState {
+  routeState: IAppStore['route'];
+  requests: {
+    activeList: EActionTypes[];
+    failedList: EActionTypes[];
+  };
+}
+
 export const Router = memo(function Router() {
-  const { routeState, failedRequests } = useSelector<
-    IStore,
-    { routeState: IAppStore['route']; failedRequests: EActionTypes[] }
-  >((state) => ({
-    failedRequests: state.app.requests.failedList,
+  const { routeState, requests } = useSelector<IStore, IRenderState>((state) => ({
+    requests: state.app.requests,
     routeState: state.app.route,
   }));
   const { localizePath, delocalizePath } = usePathLocale();
   const { pathname, state } = useLocation();
-  const _isLoading = useThrottle(!routeState || routeState.isLoading, { wait: 50 });
-  const _path = delocalizePath(pathname);
-  let _locale = pathname.split('/')[1] as ELanguage;
+  const history = useHistory();
 
+  const _path = delocalizePath(pathname);
+  const _isLoading = useThrottle(!routeState || routeState.isLoading, { wait: 200 }); // delay the loading effect to disappear
+
+  // If the locale is not supported by current LABEL, reset it
+  let _locale = pathname.split('/')[1] as ELanguage;
   if (!localesConfig.includes(_locale)) {
     _locale = ELanguage.en;
   }
@@ -35,6 +43,7 @@ export const Router = memo(function Router() {
 
   useEffect(() => {
     if (routeState.path != _path || (!routeState.path && !_path)) {
+      routeState.prev = undefined;
       window.scrollTo(0, 0);
       store.dispatch(
         ac_updateRouteParams({
@@ -44,26 +53,70 @@ export const Router = memo(function Router() {
           state: Object.assign({}, state, _route?.state),
           isLoading: !!_route,
           redirectTo: undefined,
+          prev: routeState,
         }),
       );
+
+      if (_route) {
+        routeFetchData(_route);
+      }
     }
   }, [pathname]);
 
-  useEffect(() => {
-    if (_route) {
-      const failedOnAction = (arr1: EActionTypes[]) => {
-        return arr1.some((r) => failedRequests.indexOf(r) >= 0);
-      };
-
-      if (_route.appSection === EAppSection.portal) {
+  useThrottleEffect(
+    () => {
+      if (_route?.appSection === EAppSection.portal) {
         if (failedOnAction([EActionTypes.fetchProfile, EActionTypes.fetchClientData])) {
           store.dispatch(ac_updateRouteParams({ redirectTo: EPagePath.Logout }));
         }
       }
-    }
-  }, [failedRequests]);
+    },
+    [requests.failedList],
+    { wait: 50 },
+  );
 
-  return useMemo(() => {
+  useThrottleEffect(
+    () => {
+      if (_route) {
+        const _routeStrictRequests = [
+          ...(_route.apiData?.strict || []),
+          ...(routesInitialApiData[_route.appSection]?.strict || []),
+        ].map((action) => action().type);
+        const hasUncompletedStrictRequest = _routeStrictRequests.length
+          ? requests.activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0 &&
+            !(!routeState.isLoading && ignoreOnAction([EActionTypes.fetchPrices]))
+          : false;
+
+        if (routeState.isLoading != hasUncompletedStrictRequest) {
+          store.dispatch(ac_updateRouteParams({ isLoading: hasUncompletedStrictRequest }));
+        }
+
+        if (_route.activators && !hasUncompletedStrictRequest) {
+          const _redirectParams = _route.activators
+            .map((activator) => activator({ route: _route, routeState, history }))
+            .find((a) => !a || Object.keys(a).length);
+
+          if (typeof _redirectParams === 'object') {
+            history.push(localizePath(_redirectParams.path), _redirectParams?.state);
+          } else if (_redirectParams === false) {
+            history.push(localizePath(_route.path));
+          }
+        }
+      }
+    },
+    [requests.activeList],
+    { wait: 50 },
+  );
+
+  function failedOnAction(actions: EActionTypes[]) {
+    return actions.some((request) => requests.failedList.indexOf(request) != -1);
+  }
+
+  function ignoreOnAction(actions: EActionTypes[]) {
+    return actions.some((request) => requests.activeList.indexOf(request) != -1);
+  }
+
+  return useCreation(() => {
     return (
       <>
         <PageLoader isLoading={_isLoading} />
@@ -84,80 +137,26 @@ export const Router = memo(function Router() {
                   ? [localizePath(route.path), route.path]
                   : localizePath(route.path)
               }
-              render={() => <RenderRoute route={route} routeState={routeState} />}
+              render={() => (
+                // if new route and current route are different, means the page is loading 😁
+                <RenderRoute component={route.component} isLoading={_isLoading || _route?.path !== route.path} />
+              )}
             />
           ))}
           <Redirect to="404" />
         </Switch>
       </>
     );
-  }, [_isLoading, routeState.path == _route?.path]);
+  }, [_isLoading, routeState.redirectTo, routeState.locale, routesRedirectConfig]);
 });
 
-interface IRenderRoute {
-  route: IRouteNavConfig;
-  routeState: IAppStore['route'];
-}
-
-function RenderRoute({ route, routeState }: IRenderRoute) {
-  const { openedRequests } = useSelector<IStore, { openedRequests: EActionTypes[] }>((state) => ({
-    openedRequests: state.app.requests.activeList,
-  }));
-  const [firstRender, { setFalse: setFirstRenderFalse }] = useBoolean(true);
-  const [pageLoaded, { setTrue: setPageLoaded }] = useBoolean(false);
-  const { setScrollLock } = useLockScroll();
-  const { localizePath } = usePathLocale();
-  const history = useHistory();
-
-  useEffect(() => {
-    routeFetchData(route);
-    setScrollLock(true);
-    setFirstRenderFalse();
-  }, [route]);
-
-  useThrottleEffect(
-    () => {
-      if (!firstRender) {
-        const _routeStrictRequests = [
-          ...(route.apiData?.strict || []),
-          ...(routesInitialApiData[route.appSection]?.strict || []),
-        ].map((action) => action().type);
-        const hasUncompletedStrictRequest = _routeStrictRequests.length
-          ? openedRequests.filter((request) => _routeStrictRequests.includes(request)).length > 0
-          : false;
-
-        setScrollLock(!pageLoaded && hasUncompletedStrictRequest);
-        if (routeState.isLoading != hasUncompletedStrictRequest && !pageLoaded) {
-          store.dispatch(ac_updateRouteParams({ isLoading: hasUncompletedStrictRequest }));
-        }
-
-        if (route.activators && !hasUncompletedStrictRequest) {
-          const _redirectParams = route.activators
-            .map((activator) => activator(history.location))
-            .find((a) => !a || Object.keys(a).length);
-
-          if (typeof _redirectParams === 'object') {
-            history.push(localizePath(_redirectParams.path), _redirectParams?.state);
-          } else if (_redirectParams === false) {
-            history.push(localizePath(route.path));
-          }
-
-          setPageLoaded();
-        }
-      }
-    },
-    [openedRequests],
-    { wait: 25 }, // this value will effect the time the page loader displayed
-  );
-
-  return !firstRender && !routeState.isLoading && route.component ? (
+function RenderRoute(props: { component: IRouteNavConfig['component']; isLoading: boolean }) {
+  return !props.isLoading && props.component ? (
     <>
       <Header />
       <main className="router-context">
-        <route.component />
+        <props.component />
       </main>
     </>
-  ) : (
-    <PageLoader isLoading={true} />
-  );
+  ) : null;
 }

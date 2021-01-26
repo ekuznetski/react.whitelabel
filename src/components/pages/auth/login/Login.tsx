@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { ELabelsName, ENotificationType } from '@domain/enums';
 import { ILoginRequest } from '@domain/interfaces';
 import { env } from '@env';
-import { ac_login, ac_showNotification, EActionTypes } from '@store';
+import { EActionTypes, ac_login, ac_showNotification } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
