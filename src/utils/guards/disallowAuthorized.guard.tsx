@@ -1,3 +1,4 @@
+import { EPagePath } from '@domain/enums';
 import { IRouteGuard } from '@domain/interfaces';
 import { store } from '@store';
 
@@ -6,7 +7,7 @@ export function disallowAuthorizedGuard(): IRouteGuard {
   const isAuthorized = !!dataState.client.profile;
   return (
     !isAuthorized || {
-      path: '/dashboard',
+      path: EPagePath.Dashboard,
       state: { from: location.pathname },
     }
   );
