@@ -126,7 +126,8 @@ app.get('*', (req: express.Request, res: express.Response) => {
         return res.status(500).send('Oops, better luck next time!');
       }
       const preloadedState = store.getState();
-
+      preloadedState.app.requests.activeList = [];
+      
       return res.send(
         data
           .replace(
