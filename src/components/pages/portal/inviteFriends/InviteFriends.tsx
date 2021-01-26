@@ -16,7 +16,7 @@ import './InviteFriends.scss';
 
 export const InviteFriends = memo(function InviteFriends() {
   const { rafId, locale } = useSelector<IStore, { rafId: string; locale: string }>((state) => ({
-    rafId: true || state.data.client.profile.raf_id,
+    rafId: state.data.client.profile.raf_id,
     locale: state.app.route.locale,
   }));
   const inviteLinkInputRef = useRef<HTMLInputElement>(null);
