@@ -90,7 +90,7 @@ function* $$(
             }),
           );
         } else if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)) {
-          console.error('!failureResponseConsoleBlacklist --- ', e);
+          console.warn('!failureResponseConsoleBlacklist --- ', e);
         }
         if (failure_transform_response_fn) {
           e = yield failure_transform_response_fn(action, e);

@@ -1,4 +1,4 @@
-import { EDocumentsType, EDocumentsStatus } from '@domain/enums';
+import { EDocumentsStatus, EDocumentsType } from '@domain/enums';
 import { IDocument } from '@domain/interfaces';
 import moment from 'moment';
 import { Moment } from 'moment';

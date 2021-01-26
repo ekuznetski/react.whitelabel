@@ -25,6 +25,7 @@ export const store = createStore<IStore>(
   reducers,
   preloadedState,
   composeWithDevTools({
+    actionsBlacklist: [],
     trace: !env.PRODUCTION,
     traceLimit: 20
   })(applyMiddleware(sagaMiddleware)),
