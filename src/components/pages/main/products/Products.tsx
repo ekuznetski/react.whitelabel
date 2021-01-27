@@ -24,7 +24,7 @@ export function Products() {
         const state = { ...location.state };
         delete state.scrollTo;
         replace(location.pathname, state);
-      }, 10);
+      }, 100);
     }
   }, [location]);
 
