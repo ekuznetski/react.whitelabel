@@ -32,9 +32,10 @@ export const TableSection = memo(
     );
     const { t } = useTranslation();
 
-    function toggleTableView(type: MarketType) {
+    function toggleTableView(scrollIntoView: boolean) {
       return (e: any) => {
         togglePreview.toggle();
+        scrollIntoView && ref.current.scrollIntoView();
       };
     }
 
@@ -43,7 +44,7 @@ export const TableSection = memo(
         <div className="container">
           <div className={rowClass}>
             <div className={infoColClass}>
-              {!preview ? <Svg href="close" className="close" onClick={toggleTableView(props.tableType)} /> : null}
+              {!preview ? <Svg href="close" className="close" onClick={toggleTableView(false)} /> : null}
               <div className="table-section__title mb-7">{props.title}</div>
               <div className="table-section__desc mb-8">{props.desc}</div>
               {preview ? (
@@ -58,7 +59,7 @@ export const TableSection = memo(
             </div>
             <div className={tableColClass}>
               <MarketTable className="mb-6" type={props.tableType} preview={preview} />
-              <div className="table-section__toggleTableSize" onClick={toggleTableView(props.tableType)}>
+              <div className="table-section__toggleTableSize" onClick={toggleTableView(!preview)}>
                 {preview ? (
                   <>
                     {t('See all products')}

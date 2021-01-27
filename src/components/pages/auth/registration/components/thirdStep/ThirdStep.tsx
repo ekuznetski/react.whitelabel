@@ -1,15 +1,16 @@
 import { Button, CurrencySelect, Radio, Select } from '@components/shared';
 import { FieldValidators, accountTypePip } from '@domain';
 import { ERegSteps, ETradingAccountType } from '@domain/enums';
+import { MClientSettings } from '@domain/models';
+import { config } from '@pages/auth/registration';
+import { IStore } from '@store';
+import classNames from 'classnames';
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
-import { IStore } from '@store';
-import { MClientSettings } from '@domain/models';
-import classNames from 'classnames';
+import * as Yup from 'yup';
 import './ThirdStep.scss';
 
 enum EFields {
@@ -76,6 +77,9 @@ export function ThirdStep({ submitFn }: any) {
     submitFn({ [ERegSteps.step3]: data });
   }
 
+  const initialLeverage =
+    leverages.find((leverage) => leverage.value === config.initialLeverage)?.value ?? leverages[0].value;
+
   return (
     <div className="registration-third-step">
       <Formik
@@ -83,7 +87,7 @@ export function ThirdStep({ submitFn }: any) {
           firstdeposit_platform: platforms[0].value,
           account_type: tradingAccounts[0].value,
           currency: currencies[Object.keys(currencies)[0]].code,
-          leverage: leverages[0].value,
+          leverage: initialLeverage,
         }}
         validationSchema={validationSchema}
         onSubmit={Submit}
