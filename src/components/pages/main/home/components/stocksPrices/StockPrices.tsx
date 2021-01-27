@@ -20,83 +20,85 @@ export function StockPrices() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const priceTabs: IPriceTabItem[] = [
-    {
-      name: 'Forex',
-      icon: 'filter',
-      anchor: MarketType.forex,
-      info: {
-        title: `40+ ${t('Forex')}`,
-        desc: t('Product Section Forex Desc'),
-        points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.forex].leverage }}>
-            Max. Leverage <b>1:200</b>
-          </Trans>,
-        ],
-      },
-      priceData: generatePriceData(prices.Forex),
-    },
-    {
-      name: 'Stocks',
-      icon: 'graph_bars',
-      anchor: MarketType.stocks,
-      info: {
-        title: `40+ ${t('Stocks')}`,
-        desc: t('Product Section Stocks Desc'),
-        points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.stocks].leverage }}>
-            Max. Leverage <b>1:20</b>
-          </Trans>,
-        ],
-      },
-      priceData: generatePriceData(prices.Stocks),
-    },
-    {
-      name: 'Indices',
-      icon: 'indices',
-      anchor: MarketType.indices,
-      info: {
-        title: t('Indices'),
-        desc: t('Product Section Indices Desc'),
-        points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.indices].leverage }}>
-            Max. Leverage <b>1:200</b>
-          </Trans>,
-        ],
-      },
-      priceData: generatePriceData(prices.Indices),
-    },
-    {
-      name: 'Commodities',
-      icon: 'commodities',
-      anchor: MarketType.commodities,
-      info: {
-        title: t('Commodities'),
-        desc: t('Product Section Commodities Desc'),
-        points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.commodities].leverage }}>
-            Max. Leverage <b>1:133</b>
-          </Trans>,
-        ],
-      },
-      priceData: generatePriceData(prices.Commodities),
-    },
-    {
-      name: 'Cryptocurrencies',
-      icon: 'crypto',
-      anchor: MarketType.crypto,
-      info: {
-        title: t('Cryptocurrencies'),
-        desc: t('Product Section Cryptocurrencies Desc'),
-        points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.crypto].leverage }}>
-            Max. Leverage <b>1:20</b>
-          </Trans>,
-        ],
-      },
-      priceData: generatePriceData(prices.Crypto),
-    },
-  ];
+  const priceTabs: IPriceTabItem[] = prices
+    ? [
+        {
+          name: 'Forex',
+          icon: 'filter',
+          anchor: MarketType.forex,
+          info: {
+            title: `40+ ${t('Forex')}`,
+            desc: t('Product Section Forex Desc'),
+            points: [
+              <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.forex].leverage }}>
+                Max. Leverage <b>1:200</b>
+              </Trans>,
+            ],
+          },
+          priceData: generatePriceData(prices.Forex),
+        },
+        {
+          name: 'Stocks',
+          icon: 'graph_bars',
+          anchor: MarketType.stocks,
+          info: {
+            title: `40+ ${t('Stocks')}`,
+            desc: t('Product Section Stocks Desc'),
+            points: [
+              <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.stocks].leverage }}>
+                Max. Leverage <b>1:20</b>
+              </Trans>,
+            ],
+          },
+          priceData: generatePriceData(prices.Stocks),
+        },
+        {
+          name: 'Indices',
+          icon: 'indices',
+          anchor: MarketType.indices,
+          info: {
+            title: t('Indices'),
+            desc: t('Product Section Indices Desc'),
+            points: [
+              <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.indices].leverage }}>
+                Max. Leverage <b>1:200</b>
+              </Trans>,
+            ],
+          },
+          priceData: generatePriceData(prices.Indices),
+        },
+        {
+          name: 'Commodities',
+          icon: 'commodities',
+          anchor: MarketType.commodities,
+          info: {
+            title: t('Commodities'),
+            desc: t('Product Section Commodities Desc'),
+            points: [
+              <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.commodities].leverage }}>
+                Max. Leverage <b>1:133</b>
+              </Trans>,
+            ],
+          },
+          priceData: generatePriceData(prices.Commodities),
+        },
+        {
+          name: 'Cryptocurrencies',
+          icon: 'crypto',
+          anchor: MarketType.crypto,
+          info: {
+            title: t('Cryptocurrencies'),
+            desc: t('Product Section Cryptocurrencies Desc'),
+            points: [
+              <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.crypto].leverage }}>
+                Max. Leverage <b>1:20</b>
+              </Trans>,
+            ],
+          },
+          priceData: generatePriceData(prices.Crypto),
+        },
+      ]
+    : [];
 
   useEffect(() => {
     setPriceTab(priceTabs[0]);
