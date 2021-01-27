@@ -5,7 +5,7 @@
   div[class*='fadeFromBottom-row'] {
     // will-change: transform;
     animation-name: fadeFromBottom;
-    animation-fill-mode: both;
+    animation-fill-mode: backwards;
     animation-duration: 0.3s;
     animation-timing-function: ease-out;
   }
