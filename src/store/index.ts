@@ -7,6 +7,7 @@ import { appStoreReducer, initAppStore } from './_app.reducer';
 import { IStore } from './store.interface';
 import { Nullable } from '@domain/interfaces';
 import { env } from '@env';
+import { EActionTypes } from './store.enum';
 
 export const reducers = combineReducers({ data: dataStoreReducer, app: appStoreReducer });
 const sagaMiddleware = createSagaMiddleware();
@@ -26,7 +27,12 @@ export const store = createStore<IStore>(
   preloadedState,
   composeWithDevTools({
     trace: !env.PRODUCTION,
-    traceLimit: 20
+    traceLimit: 20,
+    predicate: (state, action) =>
+      !(
+        [EActionTypes.fetchPrices, EActionTypes.savePrices, EActionTypes.requestSuccess].includes(action.type) &&
+        !!(state as any).data.prices
+      ),
   })(applyMiddleware(sagaMiddleware)),
 );
 

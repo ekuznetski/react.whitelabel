@@ -5,7 +5,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { EActionTypes, IStore, ac_sendReferrerLink, ac_showModal, ac_showNotification } from '@store';
-import { Form, Formik, FormikProps } from 'formik';
+import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import { FieldValidators } from '@domain';
 import { RewardInformationModal } from './components';
 import * as Yup from 'yup';
@@ -19,7 +19,7 @@ export const InviteFriends = memo(function InviteFriends() {
     rafId: state.data.client.profile.raf_id,
     locale: state.app.route.locale,
   }));
-  const copyUrl = useRef<HTMLInputElement>(null);
+  const inviteLinkInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -29,8 +29,8 @@ export const InviteFriends = memo(function InviteFriends() {
     dispatch(ac_showModal(RewardInformationModal, {}, 'reward-information-modal'));
   }
 
-  function handleCopy() {
-    copyUrl.current?.select();
+  function copyInviteLink() {
+    inviteLinkInputRef.current?.select();
     if (document.execCommand('copy')) {
       dispatch(
         ac_showNotification({
@@ -48,7 +48,7 @@ export const InviteFriends = memo(function InviteFriends() {
     }
   }
 
-  function handleSendEmail(email: string) {
+  function Submit({ shareEmail: email }: FormikValues) {
     dispatch(
       ac_sendReferrerLink(
         { email } as ISendReferrerLinkRequest,
@@ -109,26 +109,26 @@ export const InviteFriends = memo(function InviteFriends() {
                     <Img key={i} src={img} />
                   ))}
                 </div>
-                <p className="invite__secure-note mb-0">
+                <div className="invite__secure-note mb-0">
                   <Svg href="lock" className="mr-2" />
                   <div>{t('Secure Information')}</div>
-                </p>
+                </div>
                 <div className="divider my-7" />
                 <div className="share-copy-url__title mb-3">{t('Share your invite link:')}</div>
                 <div className="share">
                   <div className="share-copy-url">
-                    <input className="copy-input mb-0 px-4" readOnly value={shareUrl} ref={copyUrl} />
-                    <Svg href="copy" className="copy-icon mr-2" onClick={handleCopy} />
+                    <input className="copy-input mb-0 px-4" readOnly value={shareUrl} ref={inviteLinkInputRef} />
+                    <Svg href="copy" className="copy-icon mr-4" onClick={copyInviteLink} />
                   </div>
                   <div className="share-social ml-7">
-                    {config.socialNetworks.map((social) => (
-                      <social.component url={shareUrl}>
+                    {config.socialNetworks.map((social, s) => (
+                      <social.component key={s} url={shareUrl}>
                         <Svg href={social.icon} />
                       </social.component>
                     ))}
                   </div>
                 </div>
-                <div className="seperator py-7">or</div>
+                <div className="separator py-7">or</div>
                 <Formik
                   initialValues={{
                     shareEmail: '',
@@ -136,7 +136,7 @@ export const InviteFriends = memo(function InviteFriends() {
                   validationSchema={Yup.object().shape({
                     shareEmail: FieldValidators.email,
                   })}
-                  onSubmit={({ shareEmail }) => handleSendEmail(shareEmail)}
+                  onSubmit={Submit}
                 >
                   {(props: FormikProps<any>) => (
                     <Form className="m-auto form">

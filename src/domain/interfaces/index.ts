@@ -30,5 +30,6 @@ export * from './data/mifid.interface';
 export * from './data/statusObject.interface';
 export * from './data/taxIdentification.interface';
 export * from './data/transactionalStatement.interface';
+export * from './data/prices.interface';
 
 export * from './general.interface';

@@ -51,6 +51,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: EPagePath.Home,
     component: Page.Home,
     appSection: EAppSection.main,
+    apiData: {
+      strict: [Action.ac_fetchPrices],
+    },
     menuItem: {
       label: t('Home'),
     },

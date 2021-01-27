@@ -1,5 +1,4 @@
 export * from './useForceUpdate';
-export * from './useScroll';
 export * from './useLabelName';
 export * from './useCombinedRef';
 export * from './useTitleCase';

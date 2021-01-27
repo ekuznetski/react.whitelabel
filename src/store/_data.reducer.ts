@@ -21,6 +21,7 @@ export const initDataStore: Nullable<IDataStore> = {
     limit: null,
   },
   bankDetails: null,
+  prices: null,
 };
 
 export function dataStoreReducer(state = initDataStore as IDataStore, action: IAction) {
@@ -39,12 +40,12 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
 
     case EActionTypes.saveClientSettings:
       const _stateSettings = state.client.settings;
-      const _payload = action.payload ?
-        Object.keys(action.payload).reduce(
-          (acc, key) => Object.assign(
-            acc,
-            (action.payload?.[key] ? { [key]: action.payload[key] } : {})
-          ), {}) : {};
+      const _payload = action.payload
+        ? Object.keys(action.payload).reduce(
+            (acc, key) => Object.assign(acc, action.payload?.[key] ? { [key]: action.payload[key] } : {}),
+            {},
+          )
+        : {};
 
       return { ...state, client: { ...state.client, settings: Object.assign({}, _stateSettings, _payload) } };
 
@@ -74,6 +75,9 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
 
     case EActionTypes.saveGeoIpData:
       return { ...state, geoIp: action.payload };
+
+    case EActionTypes.savePrices:
+      return { ...state, prices: action.payload };
 
     default:
       return state;

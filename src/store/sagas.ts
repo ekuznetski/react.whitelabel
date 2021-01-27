@@ -90,7 +90,7 @@ function* $$(
             }),
           );
         } else if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)) {
-          console.error('!failureResponseConsoleBlacklist --- ', e);
+          console.warn('!failureResponseConsoleBlacklist --- ', e);
         }
         if (failure_transform_response_fn) {
           e = yield failure_transform_response_fn(action, e);
@@ -317,6 +317,14 @@ export function* financialProfileSaga() {
   });
 }
 
+export function* fetchPricesSaga() {
+  yield $$(EActionTypes.fetchPrices, function* ({ payload }: IAction) {
+    const { response }: any = yield call(Request.getPricesRequest, payload);
+    yield put(Action.ac_savePrices(response.message));
+    return response;
+  });
+}
+
 export function* getTradingAccountsSaga() {
   yield $$(
     EActionTypes.fetchTradingAccounts,
@@ -342,6 +350,7 @@ export function* createLiveTradingAccountsSaga() {
       },
     );
     yield put(Action.ac_fetchTradingAccounts({ force: true }));
+    yield put(Action.ac_fetchProfile({ force: true }));
     return response.data;
   });
 }
@@ -359,6 +368,7 @@ export function* createDemoTradingAccountsSaga() {
       },
     );
     yield put(Action.ac_fetchTradingAccounts({ force: true }));
+    yield put(Action.ac_fetchProfile({ force: true }));
     return response.data;
   });
 }
@@ -407,12 +417,6 @@ export function* addDepositSaga() {
   yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
     const response: IAddDepositResponse = yield call(Request.addDepositRequest, payload);
     return response;
-  });
-}
-
-export function* fetchStocksPricesSaga() {
-  yield $$(EActionTypes.fetchStocksPrices, function* () {
-    return yield call(Request.getStocksPricesRequest);
   });
 }
 

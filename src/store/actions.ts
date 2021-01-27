@@ -40,7 +40,7 @@ import {
   MWithdrawalHistoryItem,
 } from '@domain/models';
 import { EActionTypes } from './store.enum';
-import { IAction } from './store.interface';
+import { IAction, IAppStore } from './store.interface';
 
 export function ac_showModal<T = {}>(
   component: T,
@@ -79,9 +79,10 @@ export function ac_fetchContent(payload: { page: string }): IAction {
   };
 }
 
-export function ac_fetchProfile() {
+export function ac_fetchProfile(payload?: { force: true | null }): IAction {
   return {
     type: EActionTypes.fetchProfile,
+    force: payload?.force || null,
   };
 }
 
@@ -253,18 +254,7 @@ export function ac_clearStore(): IAction {
   };
 }
 
-export function ac_updateRouteParams(payload: {
-  path?: EPagePath;
-  locale?: ELanguage | null;
-  appSection?: EAppSection;
-  meta?: {
-    title: string;
-    desc?: string;
-  };
-  state?: any;
-  isLoading?: boolean;
-  redirectTo?: EPagePath;
-}): IAction {
+export function ac_updateRouteParams(payload: Partial<IAppStore['route']>): IAction {
   return {
     type: EActionTypes.updateRoute,
     payload,
@@ -308,6 +298,19 @@ export function ac_fetchTradingAccounts(payload?: { force: true | null }): IActi
 export function ac_saveTradingAccounts(payload: MClientTradingData): IAction {
   return {
     type: EActionTypes.saveTradingAccounts,
+    payload,
+  };
+}
+
+export function ac_fetchPrices(): IAction {
+  return {
+    type: EActionTypes.fetchPrices,
+  };
+}
+
+export function ac_savePrices(payload: any): IAction {
+  return {
+    type: EActionTypes.savePrices,
     payload,
   };
 }
@@ -506,15 +509,6 @@ export function ac_sendReferrerLink(
     onFailure,
   };
 }
-
-export function ac_fetchStocksPrices(onSuccess: AnyFunction = null, onFailure: AnyFunction = null): IAction {
-  return {
-    type: EActionTypes.fetchStocksPrices,
-    onSuccess,
-    onFailure,
-  };
-}
-
 export function ac_saveEdd(payload: MEdd): IAction {
   return {
     type: EActionTypes.saveEdd,

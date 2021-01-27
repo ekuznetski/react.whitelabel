@@ -1,12 +1,16 @@
 import { Img } from '@components/shared';
+import { useLockScroll } from '@utils/hooks';
 import classNames from 'classnames';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect } from 'react';
 import './PageLoader.scss';
 
 export function PageLoader({ isLoading, overlay = false }: any) {
   const elemRef = React.createRef<HTMLDivElement>();
-  const { t } = useTranslation();
+  const { setScrollLock } = useLockScroll();
+
+  useEffect(() => {
+    setScrollLock(isLoading);
+  }, [isLoading]);
 
   return (
     <div className={classNames('page-loader', !isLoading && 'hide', overlay && 'overlay')} ref={elemRef}>

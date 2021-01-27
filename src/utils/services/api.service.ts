@@ -77,7 +77,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
 
 // export const getContentRequest = request(EHttpMethod.get, `https://baconipsum.com/api/?type=meat-and-filler`);
 // export const getContentRequest = (d: any) => new Promise((resolve, reject) => resolve({}));
-export const getGeoIpRequest = request(EHttpMethod.get, `${env.API_URL}/frontend/geoIp`);
+export const getGeoIpRequest = request(EHttpMethod.get, `${env.API_URL}/frontend/xwayz`);
 export const getProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/getProfile`);
 export const editProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/editProfile`);
 export const changeClientProfilePassword = request(EHttpMethod.post, `${env.API_URL}/clients/changePassword`);
@@ -111,8 +111,9 @@ export const getDocumentsRequest = request(EHttpMethod.post, `${env.API_URL}/v2/
 export const partnershipRegistrationRequest = request(EHttpMethod.post, `${env.API_URL}/partnership/add`);
 export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${env.API_URL}/partnership/addIB`);
 export const sendReferrerLinkRequest = request(EHttpMethod.post, `${env.API_URL}/clients/sendReferrerLink`);
-export const getStocksPricesRequest = request(EHttpMethod.post, `https://prices.hycm.com/graphs/prices2`);
 export const getClientSettingsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/settings`);
 export const updateTinsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/updateTins`);
 export const submitEddRequest = request(EHttpMethod.post, `${env.API_URL}/edd/submit`);
 export const changeAccountSettingsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/editFakeAccount`); // TODO update path when Ralph update endpoint
+// export const getPricesRequest = request(EHttpMethod.get, `${env.API_URL.replace('api', 'prices')}/graphs/homepage`); // TODO uncomment when cors will be fixed
+export const getPricesRequest = request(EHttpMethod.get, `${env.API_URL}/graphs/homepage`);
