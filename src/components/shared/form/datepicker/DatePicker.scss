@@ -103,6 +103,10 @@
     }
   }
 
+  .common-dropdown-wrapper {
+    padding-bottom: 28px;
+  }
+
   .common-dropdown-context {
     @include d-flex(flex-start, center);
 
