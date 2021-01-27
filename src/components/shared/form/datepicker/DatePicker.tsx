@@ -60,11 +60,12 @@ export const DatePicker = memo(
       const formattedRange = range ? [moment(_range.from), moment(_range.to)] : [moment(_range.from)];
 
       helpers.setValue(formattedRange);
-      setState({ ..._range });
 
-      if ((!range && _range.from) || _range.to) {
+      if ((!range && _range.from) || state.to !== _range.to) {
         setOpen(false);
       }
+
+      setState({ ..._range });
     }
 
     function onFocusHandler(e: any) {
@@ -104,7 +105,6 @@ export const DatePicker = memo(
           parentRef={_ref}
           isOpen={isOpen}
           isOpenDispatcher={setOpen}
-          height={280}
           width={range ? state.dropDownWidth : 255}
           noArrow={true}
           alignToParentLeft={false}
