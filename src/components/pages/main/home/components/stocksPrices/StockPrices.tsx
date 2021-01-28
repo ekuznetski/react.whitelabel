@@ -20,10 +20,10 @@ export function StockPrices() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const priceTabs: IPriceTabItem[] = prices
+  const initPriceTabs: IPriceTabItem[] = prices
     ? [
         {
-          name: 'Forex',
+          name: t('Forex'),
           icon: 'filter',
           anchor: MarketType.forex,
           info: {
@@ -35,10 +35,10 @@ export function StockPrices() {
               </Trans>,
             ],
           },
-          priceData: generatePriceData(prices.Forex),
+          priceData: generatePriceData(prices[MarketType.forex]),
         },
         {
-          name: 'Stocks',
+          name: t('Stocks'),
           icon: 'graph_bars',
           anchor: MarketType.stocks,
           info: {
@@ -50,10 +50,10 @@ export function StockPrices() {
               </Trans>,
             ],
           },
-          priceData: generatePriceData(prices.Stocks),
+          priceData: generatePriceData(prices[MarketType.stocks]),
         },
         {
-          name: 'Indices',
+          name: t('Indices'),
           icon: 'indices',
           anchor: MarketType.indices,
           info: {
@@ -65,10 +65,10 @@ export function StockPrices() {
               </Trans>,
             ],
           },
-          priceData: generatePriceData(prices.Indices),
+          priceData: generatePriceData(prices[MarketType.indices]),
         },
         {
-          name: 'Commodities',
+          name: t('Commodities'),
           icon: 'commodities',
           anchor: MarketType.commodities,
           info: {
@@ -80,10 +80,10 @@ export function StockPrices() {
               </Trans>,
             ],
           },
-          priceData: generatePriceData(prices.Commodities),
+          priceData: generatePriceData(prices[MarketType.commodities]),
         },
         {
-          name: 'Cryptocurrencies',
+          name: t('Cryptocurrencies'),
           icon: 'crypto',
           anchor: MarketType.crypto,
           info: {
@@ -95,10 +95,11 @@ export function StockPrices() {
               </Trans>,
             ],
           },
-          priceData: generatePriceData(prices.Crypto),
+          priceData: generatePriceData(prices[MarketType.crypto]),
         },
       ]
     : [];
+  const [priceTabs, setPriceTabs] = useState<IPriceTabItem[] | []>(prices ? initPriceTabs : []);
 
   useEffect(() => {
     setPriceTab(priceTabs[0]);
@@ -109,6 +110,17 @@ export function StockPrices() {
       clearInterval(fetchPricesInterval);
     };
   }, []);
+
+  useEffect(() => {
+    if (prices)
+      setPriceTabs((prevState) => {
+        // @ts-ignore
+        return prevState.map((e: any) => {
+          e.priceData = generatePriceData(prices[e.anchor]);
+          return e;
+        });
+      });
+  }, [prices]);
 
   return (
     <div className="stockPrices">
@@ -282,11 +294,11 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
         <div className="carousel-item__bid_ask">
           <div className="bid px-6">
             <div className="label">{t('Bid')}</div>
-            <div className="amount">{props.bid}</div>
+            <div className="amount">{props.bid.toFixed(2)}</div>
           </div>
           <div className="ask px-6">
             <div className="label">{t('Ask')}</div>
-            <div className="amount">{props.ask}</div>
+            <div className="amount">{props.ask.toFixed(2)}</div>
           </div>
         </div>
         <div className="carousel-item__chart">
