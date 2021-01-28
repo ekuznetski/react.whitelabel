@@ -90,6 +90,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: EPagePath.Platform,
     component: Page.Platform,
     appSection: EAppSection.main,
+    apiData: {
+      strict: [Action.ac_fetchPrices],
+    },
     menuItem: {
       label: t('Platform'),
     },

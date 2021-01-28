@@ -89,6 +89,9 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     path: EPagePath.Platform,
     component: Page.Platform,
+    apiData: {
+      strict: [Action.ac_fetchPrices],
+    },
     appSection: EAppSection.main,
     menuItem: {
       label: t('Platforms'),

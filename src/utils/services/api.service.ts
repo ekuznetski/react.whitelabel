@@ -3,7 +3,7 @@ import { env } from '@env';
 import axios from 'axios';
 import mockData from './api.mock.json';
 
-export function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPath: string) {
+function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPath: string) {
   return async (data: T | null = null) => {
     if (data) {
       const formData = new FormData();
@@ -116,5 +116,5 @@ export const getClientSettingsRequest = request(EHttpMethod.post, `${env.API_URL
 export const updateTinsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/updateTins`);
 export const submitEddRequest = request(EHttpMethod.post, `${env.API_URL}/edd/submit`);
 export const changeAccountSettingsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/editFakeAccount`); // TODO update path when Ralph update endpoint
-export const getPricesRequest = request(EHttpMethod.get, `${env.API_URL.replace('api', 'prices')}/graphs/homepage`); // TODO uncomment when cors will be fixed
+export const getPricesRequest = request(EHttpMethod.get, `${env.API_URL.replace('api', 'prices')}/graphs/homepage`);
 // export const getPricesRequest = request(EHttpMethod.get, `${env.API_URL}/graphs/homepage`);

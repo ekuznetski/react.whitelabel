@@ -320,8 +320,8 @@ export function* financialProfileSaga() {
 
 export function* fetchPricesSaga() {
   yield $$(EActionTypes.fetchPrices, function* ({ payload }: IAction) {
-    const { response }: any = yield call(Request.getPricesRequest, payload);
-    yield put(Action.ac_savePrices(response.message));
+    const response: any = yield call(Request.getPricesRequest, payload);
+    yield put(Action.ac_savePrices(response));
     return response;
   });
 }

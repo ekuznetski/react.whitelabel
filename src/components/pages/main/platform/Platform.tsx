@@ -8,13 +8,29 @@ import {
 import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import { downloadLinks } from '@domain';
 import { EPagePath } from '@domain/enums';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { config } from './';
 import './Platform.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { IStore, ac_fetchPrices } from '@store';
+import { IPrices } from '@domain/interfaces';
 
 export function Platform() {
   const { t } = useTranslation();
+  const { prices } = useSelector<IStore, { prices: IPrices }>((state) => ({
+    prices: state.data.prices,
+  }));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchPricesInterval = setInterval(() => {
+      dispatch(ac_fetchPrices());
+    }, 2000);
+    return function () {
+      clearInterval(fetchPricesInterval);
+    };
+  }, []);
 
   return (
     <div className="platform-wrapper">
@@ -88,11 +104,24 @@ export function Platform() {
             </div>
             <div className="col-12 col-lg-9">
               <Tabs>
-                {config.marketTabs.map((item) => (
-                  <Tab key={item.id} label={item.label} anchor={item.id}>
-                    <Table {...item.tableData} />
-                  </Tab>
-                ))}
+                {!prices && <div>Prices can't be loaded</div>}
+                {prices &&
+                  Object.keys(prices)?.map((asset) => {
+                    const rowData = Object.keys(prices[asset]).map((item) =>
+                      // @ts-ignore
+                      Object.values(prices[asset][item].details),
+                    );
+                    return (
+                      <Tab key={asset} label={t(asset)} anchor={asset}>
+                        <Table
+                          key={asset}
+                          headers={[t('Instrument'), t('Sell'), t('Buy'), t('Change percent')]}
+                          rows={rowData as string[][]}
+                          colsPctSize={[30, 20, 20, 20]}
+                        />
+                      </Tab>
+                    );
+                  })}
               </Tabs>
             </div>
           </div>
