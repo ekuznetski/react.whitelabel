@@ -51,6 +51,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
         return axios[method](requestPath, data, {
           headers: {
             'content-type': 'application/x-www-form-urlencoded',
+            // 'set-cookies': 'CAKEPHP=ma1btss9db9i0g0ucdke8l721k',
           },
           withCredentials: true,
         })
@@ -115,5 +116,5 @@ export const getClientSettingsRequest = request(EHttpMethod.post, `${env.API_URL
 export const updateTinsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/updateTins`);
 export const submitEddRequest = request(EHttpMethod.post, `${env.API_URL}/edd/submit`);
 export const changeAccountSettingsRequest = request(EHttpMethod.post, `${env.API_URL}/clients/editFakeAccount`); // TODO update path when Ralph update endpoint
-// export const getPricesRequest = request(EHttpMethod.get, `${env.API_URL.replace('api', 'prices')}/graphs/homepage`); // TODO uncomment when cors will be fixed
-export const getPricesRequest = request(EHttpMethod.get, `${env.API_URL}/graphs/homepage`);
+export const getPricesRequest = request(EHttpMethod.get, `${env.API_URL.replace('api', 'prices')}/graphs/homepage`); // TODO uncomment when cors will be fixed
+// export const getPricesRequest = request(EHttpMethod.get, `${env.API_URL}/graphs/homepage`);
