@@ -14,7 +14,8 @@ export const FPQuestions: IFPQuestion[] = [
   },
   {
     id: 3,
-    text: (props) => t('Choose Your Value of Savings and Investments', { currencyCode: props?.currencyCode }),
+    text: (props) =>
+      t('Choose Your Value of Savings and Investments (excluding property)', { currencyCode: props?.currencyCode }),
     view: EFPQuestionView.radio,
     answers: [112, 111, 16, 11, 102, 105, 106, 107],
     step: EFPSteps.step2,
@@ -26,7 +27,7 @@ export const FPQuestions: IFPQuestion[] = [
         currencyCode: props?.currencyCode,
       }),
     view: EFPQuestionView.radio,
-    answers: [112, 111, 16, 11, 102, 105, 106, 107],
+    answers: [112, 111, 16, 11, 102, 105, 113],
     step: EFPSteps.step3,
   },
   {

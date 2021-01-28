@@ -486,7 +486,8 @@ export default {
   'Copying Programmatically Not Supported':
     'Unfortunately, your browser does not support copying programmatically to the clipboard',
   'Choose Your Estimated Annual Income': 'Choose Your Estimated Annual Income ({{currencyCode}})',
-  'Choose Your Value of Savings and Investments': 'Choose Your Value of Savings and Investments ({{currencyCode}})',
+  'Choose Your Value of Savings and Investments (excluding property)':
+    'Choose Your Value of Savings and Investments (excluding property) ({{currencyCode}})',
   'Choose Your Estimated Amount Available for Trading in the next 12 months':
     'Choose Your Estimated Amount Available for Trading in the next 12 months ({{currencyCode}})',
   'More than 100,000': 'More than {{currencySymbol}}100,000',
