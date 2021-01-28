@@ -51,6 +51,7 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
         return axios[method](requestPath, data, {
           headers: {
             'content-type': 'application/x-www-form-urlencoded',
+            // 'set-cookies': 'CAKEPHP=ma1btss9db9i0g0ucdke8l721k',
           },
           withCredentials: true,
         })
