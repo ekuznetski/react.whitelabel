@@ -580,7 +580,7 @@
       "allowed_account_types": ["fixed", "classic", "raw"]
     }
   },
-  "graphs": {
+  "!graphs": {
     "homepage": {
       "response": {
         "status": "success",

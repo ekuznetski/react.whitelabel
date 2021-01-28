@@ -3,7 +3,7 @@
 
 .field.select-wrapper {
   position: relative;
-  border-radius: $border-radius; 
+  border-radius: $border-radius;
   border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
   min-height: 50px;
@@ -120,11 +120,11 @@
       left: -1px;
       top: calc(100% + 3px);
       margin: auto;
-      z-index: 5;
+      z-index: 10;
       box-shadow: box-shadow(25, 0.12);
       overflow: hidden;
       box-sizing: content-box;
-      border-radius: $border-radius; 
+      border-radius: $border-radius;
 
       .menu-wrapper {
         overflow: hidden;
@@ -132,7 +132,7 @@
         opacity: 0.4;
         transition: height 0.3s, opacity 0.3s, border-color 0.05s;
         border: 1px solid transparent;
-        border-radius: $border-radius; 
+        border-radius: $border-radius;
         padding: 1px 0;
 
         &.open {

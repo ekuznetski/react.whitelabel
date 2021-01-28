@@ -490,7 +490,7 @@ export default {
   'Choose Your Estimated Amount Available for Trading in the next 12 months':
     'Choose Your Estimated Amount Available for Trading in the next 12 months ({{currencyCode}})',
   'More than 100,000': 'More than {{currencySymbol}}100,000',
-  'Between 10,000 and 100,000': 'Between {{currencySymbol}}10,000 and {{currencySymbol}}100,000',
+  'Between 10,000 and 50,000': 'Between {{currencySymbol}}10,000 and {{currencySymbol}}50,000',
   'Less than 10,000': 'Less than {{currencySymbol}}10,000',
   'Between 0 and 5,000': 'Between {{currencySymbol}}0 and {{currencySymbol}}5,000',
   'Between 5,000 and 10,000': 'Between {{currencySymbol}}5,000 and {{currencySymbol}}10,000',
