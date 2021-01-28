@@ -91,7 +91,7 @@ function* $$(
             }),
           );
         } else if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)) {
-          console.info('!failureResponseConsoleBlacklist --- ', e);
+          if (!(window as any).isSSR) console.info('!failureResponseConsoleBlacklist --- ', e);
         }
         if (failure_transform_response_fn) {
           e = yield failure_transform_response_fn(action, e);

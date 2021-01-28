@@ -3,19 +3,23 @@ import { Footer, Header, NotFound, PageLoader } from '@components/core';
 import { localesConfig } from '@domain';
 import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
+import { env } from '@env';
 import { routesInitialApiData, routesNavConfig } from '@routers';
 import { IStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
+import axios from 'axios';
 import compression from 'compression';
 import 'core-js/stable';
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
+import queryString from 'query-string';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { document, window } from 'ssr-window';
+import bodyParser from 'body-parser';
 import './App.scss';
 
 let requestResolver: AnyFunction = null;
@@ -57,7 +61,45 @@ const unsubscribeRequestResolver = store.subscribe(() => {
     }
   }
 });
+let CakePHPCookie = '';
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.post('/login', (req, resp) => {
+  function parsedHeaders(headers: any) {
+    return (
+      !!headers &&
+      Object.keys(headers).reduce(
+        (acc, el) => Object.assign(acc, { [el]: Array.isArray(headers[el]) ? headers[el][0] : headers[el] }),
+        {},
+      )
+    );
+  }
+
+  console.log('++++++++++++++++++', req.body);
+
+  axios
+    .post(`${env.API_URL}/clients/login`, queryString.stringify(req.body), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      withCredentials: true,
+    })
+    .catch((err) => {
+      const statusCode = !!err.response ? err.response.status : 500;
+      return resp.status(statusCode).send(err);
+    })
+    .then((res: any) => {
+      // CakePHPCookie = res.headers['set-cookie']
+      //   ? res.headers['set-cookie'].split('; ').filter((el: any) => el.includes('CAKEPHP'))[0]
+      //   : '';
+      resp.set(parsedHeaders(res.headers));
+      return resp.status(res.status).send(res.data);
+    });
+});
+
+// app.use(nocache());
 app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));
@@ -68,6 +110,9 @@ app.get('*', (req: express.Request, res: express.Response) => {
   (global as any).location = window.location;
   (global as any).localStorage = null;
   (global as any).window['isSSR'] = true;
+  (global as any).window['CakePHPCookie'] = CakePHPCookie;
+
+  console.log('--------------------------------', CakePHPCookie);
 
   const fileExist = fs.existsSync(indexFile);
   let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],

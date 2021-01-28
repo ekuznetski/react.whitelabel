@@ -5,12 +5,11 @@ import mockData from './api.mock.json';
 
 export function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPath: string) {
   return async (data: T | null = null) => {
+    const formData = new FormData();
     if (data) {
-      const formData = new FormData();
       Object.keys(data).map((el: string) => {
         formData.set(el, (data as T)[el]);
       });
-      data = formData as any;
     }
 
     try {
@@ -48,11 +47,13 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
           });
       } else {
         // @ts-ignore
-        return axios[method](requestPath, data, {
-          headers: {
-            'content-type': 'application/x-www-form-urlencoded',
-            // 'set-cookies': 'CAKEPHP=ma1btss9db9i0g0ucdke8l721k',
-          },
+        return axios[method](requestPath, formData, {
+          headers: Object.assign(
+            {
+              'content-type': 'application/x-www-form-urlencoded',
+            },
+            (window as any).isSSR ? { Cookie: (window as any).CakePHPCookie } : {},
+          ),
           withCredentials: true,
         })
           .then((e: any) => {
@@ -83,7 +84,7 @@ export const getProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clien
 export const editProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/editProfile`);
 export const changeClientProfilePassword = request(EHttpMethod.post, `${env.API_URL}/clients/changePassword`);
 export const getClientDataRequest = request(EHttpMethod.get, `${env.API_URL}/clients/getClientData`);
-export const loginRequest = request(EHttpMethod.post, `${env.API_URL}/clients/login`);
+export const loginRequest = request(EHttpMethod.post, `http://localhost:4201/login`);
 export const logoutRequest = request(EHttpMethod.post, `${env.API_URL}/clients/logout`);
 export const clientSetProfileRequest = request(EHttpMethod.post, `${env.API_URL}/clients/setProfile`);
 export const clientAddRequest = request(EHttpMethod.post, `${env.API_URL}/clients/add`);
