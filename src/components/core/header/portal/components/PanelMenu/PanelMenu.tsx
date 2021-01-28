@@ -94,7 +94,7 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
               {{
                 '*': (
                   <>
-                    <Svg href="logo" height={12} />
+                    <Svg href="logo" _label height={12} />
                     <span>{t('Est since 1977')}</span>
                   </>
                 ),

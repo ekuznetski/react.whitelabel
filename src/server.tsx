@@ -4,7 +4,7 @@ import { localesConfig } from '@domain';
 import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
 import { routesInitialApiData, routesNavConfig } from '@routers';
-import { ac_updateRouteParams, store } from '@store';
+import { IStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
 import compression from 'compression';
 import 'core-js/stable';
@@ -24,19 +24,35 @@ let route: IRouteNavConfig | null = null;
 const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
+
+let storeState: IStore;
 const unsubscribeRequestResolver = store.subscribe(() => {
-  const storeState = store.getState();
+  const prevStoreState = storeState;
+  storeState = store.getState();
 
   if (route) {
     const _routeStrictRequests = [
       ...(route.apiData?.strict || []),
       ...(routesInitialApiData[route.appSection]?.strict || []),
-    ].map((action) => action().type);
+    ]
+      .filter((action) => !!action)
+      .map((action) => action().type);
+
+    const prevActiveList = prevStoreState?.app?.requests?.activeList || [],
+      activeList = storeState.app.requests.activeList;
+
     const hasUncompletedStrictRequest = _routeStrictRequests.length
-      ? storeState.app.requests.activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0
+      ? prevActiveList.length
+        ? prevActiveList.join('') !== activeList.join('')
+          ? prevActiveList.filter((request) => _routeStrictRequests.includes(request)).length > 0 &&
+            activeList.length != 0
+          : true
+        : true
       : false;
 
     if (!hasUncompletedStrictRequest && storeState.app.route.appSection && requestResolver) {
+      // console.count('-----------------');
+      // console.log(!!storeState.data.client.profile, storeState.app.requests.failedList.join(','));
       requestResolver();
     }
   }
@@ -127,7 +143,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
       }
       const preloadedState = store.getState();
       preloadedState.app.requests.activeList = [];
-      
+
       return res.send(
         data
           .replace(

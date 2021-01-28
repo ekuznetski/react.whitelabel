@@ -82,6 +82,7 @@ function* $$(
         }
         yield put(Action.ac_requestActionSuccess({ requestActionType: actionType }));
       } catch (e) {
+        // console.log(e.status, e.data)
         if (e && e.status !== 200 && e.status !== 403) {
           yield put(
             ac_showNotification({
@@ -90,7 +91,7 @@ function* $$(
             }),
           );
         } else if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)) {
-          console.warn('!failureResponseConsoleBlacklist --- ', e);
+          console.info('!failureResponseConsoleBlacklist --- ', e);
         }
         if (failure_transform_response_fn) {
           e = yield failure_transform_response_fn(action, e);
