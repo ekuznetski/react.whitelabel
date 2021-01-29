@@ -47,7 +47,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
     },
   ];
   const monthlyTransactionsFilter = Array.apply(0, Array(12))
-    .map((_, i) => moment().subtract(i, 'months'))
+    .map((_, i) => moment().subtract(i + 1, 'months'))
     .map((_moment, idx) => ({
       label: _moment.format('MMMM YYYY'),
       value: [moment(_moment).startOf('month').startOf('day'), _moment.endOf('month')],

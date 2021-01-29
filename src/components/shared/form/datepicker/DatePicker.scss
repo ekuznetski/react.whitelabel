@@ -3,7 +3,7 @@
 
 .field.datepicker {
   position: relative;
-  border-radius: $border-radius; 
+  border-radius: $border-radius;
   border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
   height: 50px;
@@ -94,6 +94,7 @@
 
 .common-dropdown.datepicker {
   padding: 1px;
+  background-color: #fff;
 
   &.open {
     &.focused {
@@ -102,8 +103,12 @@
     }
   }
 
+  .common-dropdown-wrapper {
+    padding-bottom: 28px;
+  }
+
   .common-dropdown-context {
-    @include d-flex(center, center);
+    @include d-flex(flex-start, center);
 
     .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--selectedDay):not(.DayPicker-Day--outside) {
       background-color: rgba($blue, 0.1) !important;
