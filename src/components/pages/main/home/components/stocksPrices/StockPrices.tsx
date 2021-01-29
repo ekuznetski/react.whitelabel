@@ -15,7 +15,7 @@ export function StockPrices() {
   const { prices } = useSelector<IStore, { prices: IPrices }>((state) => ({
     prices: state.data.prices,
   }));
-  const [activePriceTab, setPriceTab] = useState<IPriceTabItem | null>();
+  const [activePriceTab, setActivePriceTab] = useState<IPriceTabItem | null>();
   const responsive = useResponsive();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -99,10 +99,10 @@ export function StockPrices() {
         },
       ]
     : [];
-  const [priceTabs, setPriceTabs] = useState<IPriceTabItem[] | []>(prices ? initPriceTabs : []);
+  const [priceTabs, setActivePriceTabs] = useState<IPriceTabItem[] | []>(prices ? initPriceTabs : []);
 
   useEffect(() => {
-    setPriceTab(priceTabs[0]);
+    setActivePriceTab(priceTabs[0]);
     const fetchPricesInterval = setInterval(() => {
       dispatch(ac_fetchPrices());
     }, 2000);
@@ -113,7 +113,7 @@ export function StockPrices() {
 
   useEffect(() => {
     if (prices)
-      setPriceTabs((prevState) => {
+      setActivePriceTabs((prevState) => {
         // @ts-ignore
         return prevState.map((e: any) => {
           e.priceData = generatePriceData(prices[e.anchor]);
@@ -134,7 +134,7 @@ export function StockPrices() {
             />
           )}
           <div className="stockPrices__content py-0 py-lg-11">
-            <StockPricesMenu items={priceTabs} activeTab={activePriceTab} selectTab={setPriceTab} />
+            <StockPricesMenu items={priceTabs} activeTab={activePriceTab} selectTab={setActivePriceTab} />
             {!responsive.lg && (
               <StockPricesInfo
                 {...(activePriceTab.info as IPriceTabInfo)}
@@ -142,7 +142,7 @@ export function StockPrices() {
                 icon={activePriceTab.icon}
               />
             )}
-            <StockPricesChartCarousel {...activePriceTab} />
+            <StockPricesChartCarousel {...activePriceTab} currentAsset={activePriceTab.anchor} />
           </div>
         </>
       ) : null}
@@ -221,7 +221,7 @@ function StockPricesMenu({ items, activeTab, selectTab }: IPriceTabMenu) {
   );
 }
 
-function StockPricesChartCarousel({ priceData }: IPriceTabItem) {
+function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & { currentAsset: MarketType }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const _item = createRef<HTMLDivElement>();
   const wrapper = createRef<HTMLDivElement>();
@@ -235,11 +235,14 @@ function StockPricesChartCarousel({ priceData }: IPriceTabItem) {
   }, [activeIndex]);
 
   useEffect(() => {
-    setActiveIndex(0);
     if (wrapper.current && _item.current) {
       wrapper.current.style.width = _item.current.clientWidth * (responsive.md ? 3 : responsive.sm ? 2 : 1) + 'px';
     }
-  }, [priceData, responsive]);
+  }, [responsive]);
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [currentAsset]);
 
   return (
     <div className="stockPrices-item__carousel">
@@ -294,11 +297,11 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
         <div className="carousel-item__bid_ask">
           <div className="bid px-6">
             <div className="label">{t('Bid')}</div>
-            <div className="amount">{props.bid.toFixed(2)}</div>
+            <div className="amount">{props.bid}</div>
           </div>
           <div className="ask px-6">
             <div className="label">{t('Ask')}</div>
-            <div className="amount">{props.ask.toFixed(2)}</div>
+            <div className="amount">{props.ask}</div>
           </div>
         </div>
         <div className="carousel-item__chart">
