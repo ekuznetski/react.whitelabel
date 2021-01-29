@@ -5,21 +5,20 @@ import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
 import { env } from '@env';
 import { routesInitialApiData, routesNavConfig } from '@routers';
-import { IStore, ac_updateRouteParams, store } from '@store';
+import { IStore, ac_clearStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
-import axios from 'axios';
+import axios, { Method } from 'axios';
 import compression from 'compression';
 import 'core-js/stable';
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import queryString from 'query-string';
+import qs from 'qs';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { document, window } from 'ssr-window';
-import bodyParser from 'body-parser';
 import './App.scss';
 
 let requestResolver: AnyFunction = null;
@@ -39,8 +38,8 @@ const unsubscribeRequestResolver = store.subscribe(() => {
       ...(route.apiData?.strict || []),
       ...(routesInitialApiData[route.appSection]?.strict || []),
     ]
-      .filter((action) => !!action)
-      .map((action) => action().type);
+      .map((action) => action().type)
+      .filter((action) => !!action);
 
     const prevActiveList = prevStoreState?.app?.requests?.activeList || [],
       activeList = storeState.app.requests.activeList;
@@ -55,54 +54,65 @@ const unsubscribeRequestResolver = store.subscribe(() => {
       : false;
 
     if (!hasUncompletedStrictRequest && storeState.app.route.appSection && requestResolver) {
-      // console.count('-----------------');
-      // console.log(!!storeState.data.client.profile, storeState.app.requests.failedList.join(','));
+      console.log('========ready========');
       requestResolver();
     }
   }
 });
 let CakePHPCookie = '';
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.post('/login', (req, resp) => {
-  function parsedHeaders(headers: any) {
-    return (
-      !!headers &&
-      Object.keys(headers).reduce(
-        (acc, el) => Object.assign(acc, { [el]: Array.isArray(headers[el]) ? headers[el][0] : headers[el] }),
-        {},
-      )
-    );
-  }
+app.use(compression());
+app.use(express.static('./browser'));
+app.use(express.static('./assets'));
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-  console.log('++++++++++++++++++', req.body);
-
-  axios
-    .post(`${env.API_URL}/clients/login`, queryString.stringify(req.body), {
-      headers: {
+app.use('/proxy', (req, resp) => {
+  const options = {
+    headers: Object.assign(
+      {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      withCredentials: true,
-    })
+      CakePHPCookie ? { Cookie: CakePHPCookie } : {},
+    ),
+    withCredentials: true,
+    method: req.method as Method,
+    data: qs.stringify(req.body),
+  };
+
+  axios(`${env.API_URL}${req.url}`, options)
     .catch((err) => {
       const statusCode = !!err.response ? err.response.status : 500;
       return resp.status(statusCode).send(err);
     })
     .then((res: any) => {
-      // CakePHPCookie = res.headers['set-cookie']
-      //   ? res.headers['set-cookie'].split('; ').filter((el: any) => el.includes('CAKEPHP'))[0]
-      //   : '';
-      resp.set(parsedHeaders(res.headers));
+      if (req.url.includes('/login')) {
+        let setCookie = Array.from(res.headers['set-cookie']);
+
+        CakePHPCookie = setCookie
+          ? setCookie
+              .join('; ')
+              .split('; ')
+              .filter((el: any) => el.includes('CAKEPHP'))[0]
+          : '';
+
+        if (req.hostname === 'localhost') {
+          console.log(setCookie);
+          setCookie = setCookie.map((sc: any) =>
+            sc
+              .split('; ')
+              .map((el: any) => (el.includes('domain=') ? 'domain=localhost' : el.includes('secure') ? '' : el))
+              .join('; '),
+          );
+        }
+
+        res.headers['set-cookie'] = setCookie;
+      }
+      if (res?.headers?.['transfer-encoding']) delete res.headers['transfer-encoding'];
+
+      resp.set(res.headers);
       return resp.status(res.status).send(res.data);
     });
 });
-
-// app.use(nocache());
-app.use(compression());
-app.use(express.static('./browser'));
-app.use(express.static('./assets'));
 
 app.get('*', (req: express.Request, res: express.Response) => {
   (global as any).window = window;
@@ -111,8 +121,6 @@ app.get('*', (req: express.Request, res: express.Response) => {
   (global as any).localStorage = null;
   (global as any).window['isSSR'] = true;
   (global as any).window['CakePHPCookie'] = CakePHPCookie;
-
-  console.log('--------------------------------', CakePHPCookie);
 
   const fileExist = fs.existsSync(indexFile);
   let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
@@ -133,6 +141,8 @@ app.get('*', (req: express.Request, res: express.Response) => {
     return res.status(500).send('Oops, better luck next time!');
   }
 
+  store.dispatch(ac_clearStore());
+
   return new Promise((resolve) => {
     requestResolver = resolve;
     if (route) {
@@ -145,6 +155,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
           isLoading: true,
         }),
       );
+      console.log('========data========');
       routeFetchData(route);
     } else {
       store.dispatch(
@@ -161,19 +172,19 @@ app.get('*', (req: express.Request, res: express.Response) => {
       <StaticRouter location={page}>
         <Provider store={store}>
           <PageLoader isLoading={true} />
-          <div className="main-wrapper">
-            <Header />
-            <main className="router-context">
-              {route ? (
-                route.appSection === EAppSection.portal ? null : (
-                  route.component && <route.component />
-                )
-              ) : (
-                <NotFound />
-              )}
-            </main>
-          </div>
-          <Footer />
+          {route ? (
+            route.appSection === EAppSection.portal ? null : (
+              <>
+                <div className="main-wrapper">
+                  <Header />
+                  <main className="router-context">{route.component && <route.component />}</main>
+                </div>
+                <Footer />{' '}
+              </>
+            )
+          ) : (
+            <NotFound />
+          )}
           <div id="dynamic-portals" />
         </Provider>
       </StaticRouter>,

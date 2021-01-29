@@ -82,7 +82,6 @@ function* $$(
         }
         yield put(Action.ac_requestActionSuccess({ requestActionType: actionType }));
       } catch (e) {
-        // console.log(e.status, e.data)
         if (e && e.status !== 200 && e.status !== 403) {
           yield put(
             ac_showNotification({
@@ -90,7 +89,7 @@ function* $$(
               message: 'Server error, please contact administrator...',
             }),
           );
-        } else if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)) {
+        } else if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response?.messageCode == err)) {
           if (!(window as any).isSSR) console.info('!failureResponseConsoleBlacklist --- ', e);
         }
         if (failure_transform_response_fn) {

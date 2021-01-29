@@ -29,7 +29,7 @@ export const Router = memo(function Router() {
   const history = useHistory();
 
   const _path = delocalizePath(pathname);
-  const _isLoading = useThrottle(!routeState || routeState.isLoading, { wait: 200 }); // delay the loading effect to disappear
+  const _isLoading = useThrottle(!routeState || routeState.isLoading, { wait: 0 }); // delay the loading effect to disappear
 
   // If the locale is not supported by current LABEL, reset it
   let _locale = pathname.split('/')[1] as ELanguage;
@@ -88,6 +88,7 @@ export const Router = memo(function Router() {
           : false;
 
         if (routeState.isLoading != hasUncompletedStrictRequest) {
+          // console.log('useThrottleEffect', routeState.isLoading, hasUncompletedStrictRequest);
           store.dispatch(ac_updateRouteParams({ isLoading: hasUncompletedStrictRequest }));
         }
 
@@ -117,6 +118,7 @@ export const Router = memo(function Router() {
   }
 
   return useCreation(() => {
+    // console.log('Router', _isLoading, requests.activeList);
     return (
       <>
         <PageLoader isLoading={_isLoading} />
@@ -137,10 +139,11 @@ export const Router = memo(function Router() {
                   ? [localizePath(route.path), route.path]
                   : localizePath(route.path)
               }
-              render={() => (
+              render={() => {
+                // console.log('Render', _route?.path, route.path);
                 // if new route and current route are different, means the page is loading 😁
-                <RenderRoute component={route.component} isLoading={_isLoading || _route?.path !== route.path} />
-              )}
+                return <RenderRoute component={route.component} isLoading={_isLoading || _route?.path != route.path} />;
+              }}
             />
           ))}
           <Redirect to="404" />
@@ -151,6 +154,7 @@ export const Router = memo(function Router() {
 });
 
 function RenderRoute(props: { component: IRouteNavConfig['component']; isLoading: boolean }) {
+  // console.log('RenderRoute', props.isLoading);
   return !props.isLoading && props.component ? (
     <>
       <Header />
