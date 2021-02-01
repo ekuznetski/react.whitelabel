@@ -72,7 +72,7 @@
   }
 
   input:-webkit-autofill::first-line {
-    font-family: 'Poppins', sans-serif;
+    font-family: $body-font-family;
     font-size: 14px;
   }
 
