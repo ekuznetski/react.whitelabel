@@ -14,16 +14,27 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import qs from 'qs';
+import redis from 'redis';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { document, window } from 'ssr-window';
 import './App.scss';
 
+declare module 'express-session' {
+  interface SessionData {
+    CakePHPCookie: string;
+  }
+}
+
 let requestResolver: AnyFunction = null;
 let route: IRouteNavConfig | null = null;
 
+const REDIS_PORT = 6379;
 const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
@@ -59,20 +70,53 @@ const unsubscribeRequestResolver = store.subscribe(() => {
     }
   }
 });
-let CakePHPCookie = '';
+
+const RedisStore = require('connect-redis')(session);
+const RedisClient = redis.createClient(REDIS_PORT);
+const sessionOptions: session.SessionOptions = {
+  genid: () => uuidv4(),
+  secret: '$2y$12$2pMm6FzrD/Vu7lN/sBw07.MKzcc7LLkGyf4maPWV/8JokAJFDoCVO', // LW_wNc+G2x#Erc;C
+  resave: true,
+  saveUninitialized: true,
+  store: new RedisStore({ client: RedisClient, ttl: 86400 }),
+};
+
+RedisClient.on('error', function (err) {
+  console.log('Redis error: ' + err);
+});
+
+RedisClient.on('ready', function () {
+  console.log('Redis is ready');
+});
+
+if (env.PRODUCTION) {
+  app.set('trust proxy', 1);
+}
 
 app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));
+app.use(cookieParser());
+app.use(session(sessionOptions));
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.use('/proxy', (req, resp) => {
+  const reqCakePHPCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
+  const token = req.session.CakePHPCookie || reqCakePHPCookie;
+
+  if (req.session && (req.url.includes('/logout') || !reqCakePHPCookie) {
+    req.session.destroy(function () {
+      req.session.CakePHPCookie = undefined;
+      console.log('user logged out.');
+    });
+  }
+
   const options = {
     headers: Object.assign(
       {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      CakePHPCookie ? { Cookie: CakePHPCookie } : {},
+      token ? { Cookie: token } : {},
     ),
     withCredentials: true,
     method: req.method as Method,
@@ -88,7 +132,7 @@ app.use('/proxy', (req, resp) => {
       if (req.url.includes('/login')) {
         let setCookie = Array.from(res.headers['set-cookie']);
 
-        CakePHPCookie = setCookie
+        const _cakePHP = setCookie
           ? setCookie
               .join('; ')
               .split('; ')
@@ -106,8 +150,16 @@ app.use('/proxy', (req, resp) => {
         }
 
         res.headers['set-cookie'] = setCookie;
+        req.session.CakePHPCookie = _cakePHP;
       }
-      if (res?.headers?.['transfer-encoding']) delete res.headers['transfer-encoding'];
+
+      if (res.headers) {
+        // res.headers['Cache-Control'] = "no-cache='Set-Cookie, Set-Cookie2'";
+
+        if (res.headers['transfer-encoding']) delete res.headers['transfer-encoding'];
+      }
+
+      // console.log('222', req.session?.CakePHPCookie);
 
       resp.set(res.headers);
       return resp.status(res.status).send(res.data);
@@ -120,7 +172,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
   (global as any).location = window.location;
   (global as any).localStorage = null;
   (global as any).window['isSSR'] = true;
-  (global as any).window['CakePHPCookie'] = CakePHPCookie;
+  (global as any).window['CakePHPCookie'] = req.session?.CakePHPCookie || '';
 
   const fileExist = fs.existsSync(indexFile);
   let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],

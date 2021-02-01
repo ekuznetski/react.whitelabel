@@ -1,6 +1,6 @@
 import { EHttpMethod, EResponseStatus } from '@domain/enums';
 import { env } from '@env';
-import axios, { ResponseType } from 'axios';
+import axios from 'axios';
 import qs from 'qs';
 import mockData from './api.mock.json';
 
@@ -29,9 +29,8 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
           {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          (window as any).isSSR ? { Cookie: (window as any).CakePHPCookie } : {},
+          window.isSSR && window.CakePHPCookie ? { Cookie: window.CakePHPCookie } : {},
         ),
-        responseType: 'json' as ResponseType,
         withCredentials: true,
       };
 
