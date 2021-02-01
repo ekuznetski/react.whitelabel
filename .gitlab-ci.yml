@@ -94,7 +94,7 @@ update:wl:docker:
             exit"
     only:
         refs:
-            - bsfx_pages
+            - dev
         changes:
             - deploy-scripts/docker-compose.yml
             - deploy-scripts/Dockerfile
