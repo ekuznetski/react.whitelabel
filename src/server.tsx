@@ -104,7 +104,7 @@ app.use('/proxy', (req, resp) => {
   const reqCakePHPCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const token = req.session.CakePHPCookie || reqCakePHPCookie;
 
-  if (req.session && (req.url.includes('/logout') || !reqCakePHPCookie) {
+  if (req.session && (req.url.includes('/logout') || !reqCakePHPCookie)) {
     req.session.destroy(function () {
       req.session.CakePHPCookie = undefined;
       console.log('user logged out.');
