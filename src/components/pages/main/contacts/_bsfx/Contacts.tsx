@@ -3,6 +3,7 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { config } from '@pages/main/contacts/_bsfx/Contacts.config';
+import classNames from 'classnames';
 import './Contacts.scss';
 
 export function Contacts() {
@@ -24,7 +25,7 @@ export function Contacts() {
         <Container>
           <Row>
             {config.contactsList.map((contact, c) => (
-              <Col key={c} xs={12} md={6} lg={5} className="mb-8">
+              <Col key={c} xs={12} md={6} lg={5} className="contacts__item mb-8">
                 <div className="contacts__title mb-6">
                   {contact.title}
                   <div className="contacts__title-line mt-6"></div>

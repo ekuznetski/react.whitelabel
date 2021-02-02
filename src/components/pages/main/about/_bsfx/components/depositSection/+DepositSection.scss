@@ -40,6 +40,17 @@
           }
         }
       }
+      @media (max-width: $viewport-md-w) {
+        &__cards {
+          .card {
+            border-right: 1px solid #f1f2f2 !important;
+            &:first-child {
+              border-left: 1px solid #f1f2f2;
+            }
+          }
+        }
+      }
+
       @media (max-width: $viewport-lg-w) {
         &__cards {
           .common-cards {

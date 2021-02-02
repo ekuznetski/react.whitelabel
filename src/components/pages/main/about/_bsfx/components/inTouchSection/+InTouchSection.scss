@@ -54,6 +54,21 @@
         }
       }
 
+      @media (max-width: $viewport-md-w) {
+        &__cards {
+          .common-cards {
+            &__container {
+              .card {
+                border-right: 2px solid rgba(255, 255, 255, 0.2);
+                &:first-child {
+                  border-left: 2px solid rgba(255, 255, 255, 0.2);
+                }
+              }
+            }
+          }
+        }
+      }
+
       @media (max-width: $viewport-lg-w) {
         &__cards {
           .common-cards {

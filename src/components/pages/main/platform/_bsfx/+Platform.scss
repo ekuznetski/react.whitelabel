@@ -1,4 +1,5 @@
 @import '~/variables';
+@import '~/mixin';
 
 .platform-wrapper {
   .page-top {
@@ -114,9 +115,25 @@
     @media (max-width: $viewport-md-w) {
       height: 440px;
 
+      &__items {
+        flex: 0 0 colSizePrc(8);
+        max-width: colSizePrc(8);
+        margin: 0 auto;
+      }
+
       &__item {
+        text-align: left;
         &:not(:last-child) {
           border-bottom: 0;
+          &:not(:first-child) {
+            padding: sp(7) 0 !important;
+          }
+        }
+        &:first-child {
+          padding-bottom: sp(7) !important;
+        }
+        &:last-child {
+          padding-top: sp(7) !important;
         }
       }
     }

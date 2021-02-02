@@ -38,12 +38,14 @@ export const DepositSection = memo(function DepositSection() {
                 <strong>Information</strong>
               </Trans>
             </div>
-            <Cards
-              id="depositCards"
-              className="deposit__cards mb-16"
-              cards={config.depositCards}
-              cardWrapperClass="card col-12 col-md-4 mb-9 mb-md-0"
-            />
+            <div className="col-sm-8 col-md-12 mx-sm-auto">
+              <Cards
+                id="depositCards"
+                className="deposit__cards mb-16"
+                cards={config.depositCards}
+                cardWrapperClass="card col-12 col-md-4 mb-9 mb-md-0"
+              />
+            </div>
           </div>
           <div className="col-12 px-0 px-md-5">
             <Tabs className="deposit__tabs" {...tabsData} />
