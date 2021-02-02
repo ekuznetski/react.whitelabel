@@ -1,5 +1,6 @@
 const dev = {
   PRODUCTION: false,
+  DEV_MODE: true,
   LABEL: 'bsfx',
   GTM_ID: 'GTM-KWJHRK9',
   INTERCOM_ID: 'p31288aj',
@@ -11,6 +12,17 @@ const dev = {
 
 const prod = {
   PRODUCTION: true,
+  DEV_MODE: false,
+  PROXY_URL: 'https://api.bluesquarefx.com/proxy',
 };
 
-export const env: { [k: string]: any } = Object.assign({}, dev, process.env.PRODUCTION ? prod : {});
+const prod_dev = {
+  PRODUCTION: true,
+  DEV_MODE: true,
+};
+
+export const env: { [k: string]: any } = Object.assign(
+  {},
+  dev,
+  process.env.PRODUCTION ? (process.env.DEV_MODE ? prod_dev : prod) : {},
+);

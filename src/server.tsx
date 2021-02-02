@@ -75,7 +75,7 @@ const RedisStore = require('connect-redis')(session);
 const RedisClient = redis.createClient(REDIS_PORT);
 const sessionOptions: session.SessionOptions = {
   genid: () => uuidv4(),
-  secret: '$2y$12$2pMm6FzrD/Vu7lN/sBw07.MKzcc7LLkGyf4maPWV/8JokAJFDoCVO', // LW_wNc+G2x#Erc;C 
+  secret: '$2y$12$2pMm6FzrD/Vu7lN/sBw07.MKzcc7LLkGyf4maPWV/8JokAJFDoCVO', // LW_wNc+G2x#Erc;C
   resave: true,
   saveUninitialized: true,
   store: new RedisStore({ client: RedisClient, ttl: 18000 }), // 5hours to expire the session should be same as CAKEPHP cookie expire timeout
@@ -140,11 +140,13 @@ app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
   };
 
   axios(`${env.API_URL}${req.url}`, options)
-    .catch((err) => {
-      const statusCode = !!err.response ? err.response.status : 500;
-      return resp.status(statusCode).send(err);
-    })
     .then((res: any) => {
+      if ((res.data?.status || res.data?.response?.status) === 'failure') {
+        console.log(`failure ${req.method} - ${req.url}: ${res.data}`);
+      } else {
+        console.log(`success ${req.method} - ${req.url}: ${res.data}`);
+      }
+
       if (req.url.includes('/login')) {
         let setCookie = Array.from(res.headers['set-cookie']);
 
@@ -177,6 +179,11 @@ app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
 
       resp.set(res.headers);
       return resp.status(res.status).send(res.data);
+    })
+    .catch((err) => {
+      const statusCode = !!err.response ? err.response.status : 500;
+      console.log(`catch ${req.method} - ${req.url}: ${err}`);
+      return resp.status(statusCode).send(err);
     });
 });
 

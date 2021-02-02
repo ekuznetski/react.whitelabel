@@ -41,15 +41,12 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
               (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
               (e.data?.status && e.data.status === EResponseStatus.failure)
             ) {
-              console.log(`failure ${method} - ${requestPath}: ${e}`);
               throw e;
             } else {
-              console.log(`success ${method} - ${requestPath}: ${e}`);
               return e.data;
             }
           })
           .catch((err: any) => {
-            console.log(`catch ${method} - ${requestPath}: ${err}`);
             throw err.response || err;
           });
       } else {
@@ -60,15 +57,12 @@ export function request<T extends { [K: string]: any }>(method: EHttpMethod, req
               (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
               (e.data?.status && e.data.status === EResponseStatus.failure)
             ) {
-              console.log(`failure ${method} - ${requestPath}: ${e}`);
               throw e;
             } else {
-              console.log(`success ${method} - ${requestPath}: ${e}`);
               return e.data;
             }
           })
           .catch((err: any) => {
-            console.log(`catch ${method} - ${requestPath}: ${err}`);
             throw err.response || err;
           });
       }
