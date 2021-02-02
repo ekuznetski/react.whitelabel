@@ -128,7 +128,9 @@ export const Router = memo(function Router() {
     return actions.some((request) => requests.activeList.indexOf(request) != -1);
   }
 
-  return 
+  return useCreation(() => {
+    console.log('----------');
+    return (
       <>
         <PageLoader isLoading={_isLoading} />
         <Switch>
