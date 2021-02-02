@@ -132,7 +132,7 @@ app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
       {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      authenticationToken ? { Cookie: authenticationToken } : {},
+      authenticationToken && { Cookie: authenticationToken },
     ),
     withCredentials: true,
     method: req.method as Method,

@@ -5,7 +5,7 @@ import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@ro
 import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
 import { useMeta, usePathLocale } from '@utils/hooks';
-import { useCreation, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
+import { useCreation, useThrottle, useThrottleEffect, useTitle, useWhyDidYouUpdate } from 'ahooks';
 import React, { memo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
@@ -40,6 +40,17 @@ export const Router = memo(function Router() {
   let _route = routesNavConfig.find((route) => route.path === _path);
   useMeta({ name: 'description', content: _route?.meta?.desc || '' });
   useTitle(_route?.meta?.title || '');
+
+  useWhyDidYouUpdate('Router', {
+    _locale,
+    _route,
+    pathname,
+    history,
+    _path,
+    _isLoading,
+    requests,
+    routeState,
+  });
 
   useEffect(() => {
     if (routeState.path != _path || (!routeState.path && !_path)) {
@@ -117,9 +128,7 @@ export const Router = memo(function Router() {
     return actions.some((request) => requests.activeList.indexOf(request) != -1);
   }
 
-  return useCreation(() => {
-    // console.log('Router', _isLoading, requests.activeList);
-    return (
+  return 
       <>
         <PageLoader isLoading={_isLoading} />
         <Switch>
@@ -130,19 +139,25 @@ export const Router = memo(function Router() {
           {routesRedirectConfig.map((route) => (
             <Redirect key={route.path} exact from={route.path} to={route.redirectTo} />
           ))}
-          {routesNavConfig.map((route, r) => (
+          {routesNavConfig.map((route) => (
             <Route
-              key={r}
+              key={route.path}
               exact
               path={
                 _route?.appSection === EAppSection.general
                   ? [localizePath(route.path), route.path]
                   : localizePath(route.path)
               }
-              render={() => {
+              render={({ match }) => {
+                console.log('22', match, _route?.path, route.path);
                 // console.log('Render', _route?.path, route.path);
                 // if new route and current route are different, means the page is loading 😁
-                return <RenderRoute component={route.component} isLoading={_isLoading || _route?.path != route.path} />;
+                return (
+                  <RenderRoute
+                    component={route.component}
+                    isLoading={_isLoading || (!!_route && _route.path != route.path)}
+                  />
+                );
               }}
             />
           ))}
@@ -150,11 +165,12 @@ export const Router = memo(function Router() {
         </Switch>
       </>
     );
-  }, [_isLoading, routeState.redirectTo, routeState.locale, routesRedirectConfig]);
+  }, [_isLoading, routeState.redirectTo, routeState.locale]);
 });
 
 function RenderRoute(props: { component: IRouteNavConfig['component']; isLoading: boolean }) {
-  // console.log('RenderRoute', props.isLoading);
+  useWhyDidYouUpdate('RenderRoute', { ...props });
+  console.log('RenderRoute-isLoading', props.isLoading);
   return !props.isLoading && props.component ? (
     <>
       <Header />
