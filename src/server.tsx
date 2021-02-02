@@ -65,7 +65,7 @@ const unsubscribeRequestResolver = store.subscribe(() => {
       : false;
 
     if (!hasUncompletedStrictRequest && storeState.app.route.appSection && requestResolver) {
-      console.log('========ready========');
+      console.log('========data ready========');
       requestResolver();
     }
   }
@@ -75,10 +75,10 @@ const RedisStore = require('connect-redis')(session);
 const RedisClient = redis.createClient(REDIS_PORT);
 const sessionOptions: session.SessionOptions = {
   genid: () => uuidv4(),
-  secret: '$2y$12$2pMm6FzrD/Vu7lN/sBw07.MKzcc7LLkGyf4maPWV/8JokAJFDoCVO', // LW_wNc+G2x#Erc;C
+  secret: '$2y$12$2pMm6FzrD/Vu7lN/sBw07.MKzcc7LLkGyf4maPWV/8JokAJFDoCVO', // LW_wNc+G2x#Erc;C 
   resave: true,
   saveUninitialized: true,
-  store: new RedisStore({ client: RedisClient, ttl: 86400 }),
+  store: new RedisStore({ client: RedisClient, ttl: 18000 }), // 5hours to expire the session should be same as CAKEPHP cookie expire timeout
 };
 
 RedisClient.on('error', function (err) {
@@ -93,6 +93,28 @@ if (env.PRODUCTION) {
   app.set('trust proxy', 1);
 }
 
+function checkAuthenticationCookie(req: express.Request, resp: express.Response, next: express.NextFunction) {
+  const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
+  const reqSessionCookie = req.session?.CakePHPCookie;
+
+  if (req.originalUrl.indexOf('/proxy') === 0) {
+    if (req.url.includes('/logout')) {
+      req.session.destroy(function () {
+        if (req.session) req.session.CakePHPCookie = undefined;
+        console.log('User logged out: /logout has been called');
+      });
+    }
+  } else {
+    if (!reqHeaderCookie) {
+      req.session.destroy(function () {
+        console.log('User logged out: CAKEPHP cookie not found');
+      });
+    }
+  }
+
+  next();
+}
+
 app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));
@@ -100,23 +122,17 @@ app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.use('/proxy', (req, resp) => {
-  const reqCakePHPCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
-  const token = req.session.CakePHPCookie || reqCakePHPCookie;
-
-  if (req.session && (req.url.includes('/logout') || !reqCakePHPCookie)) {
-    req.session.destroy(function () {
-      req.session.CakePHPCookie = undefined;
-      console.log('user logged out.');
-    });
-  }
+app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
+  const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
+  const reqSessionCookie = req.session?.CakePHPCookie;
+  const authenticationToken = reqHeaderCookie || reqSessionCookie;
 
   const options = {
     headers: Object.assign(
       {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      token ? { Cookie: token } : {},
+      authenticationToken ? { Cookie: authenticationToken } : {},
     ),
     withCredentials: true,
     method: req.method as Method,
@@ -140,7 +156,7 @@ app.use('/proxy', (req, resp) => {
           : '';
 
         if (req.hostname === 'localhost') {
-          console.log(setCookie);
+          // console.log(setCookie);
           setCookie = setCookie.map((sc: any) =>
             sc
               .split('; ')
@@ -159,14 +175,12 @@ app.use('/proxy', (req, resp) => {
         if (res.headers['transfer-encoding']) delete res.headers['transfer-encoding'];
       }
 
-      // console.log('222', req.session?.CakePHPCookie);
-
       resp.set(res.headers);
       return resp.status(res.status).send(res.data);
     });
 });
 
-app.get('*', (req: express.Request, res: express.Response) => {
+app.get('*', checkAuthenticationCookie, (req: express.Request, res: express.Response) => {
   (global as any).window = window;
   (global as any).document = document;
   (global as any).location = window.location;
@@ -207,7 +221,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
           isLoading: true,
         }),
       );
-      console.log('========data========');
+      console.log('========request data========');
       routeFetchData(route);
     } else {
       store.dispatch(
