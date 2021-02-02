@@ -130,12 +130,12 @@ export function Platform() {
                           {preview ? (
                             <>
                               {t('Show more')}
-                              <Svg href="chevron" height={20} />
+                              <Svg href="chevron" className="ml-2" height={14} width={14} />
                             </>
                           ) : (
                             <>
                               {t('Show less')}
-                              <Svg href="chevron" className="up" height={20} />
+                              <Svg href="chevron" className="up ml-2" height={14} width={14} />
                             </>
                           )}
                         </div>

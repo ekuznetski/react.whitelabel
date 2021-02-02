@@ -25,7 +25,7 @@ export function Contacts() {
         <Container>
           <Row>
             {config.contactsList.map((contact, c) => (
-              <Col key={c} xs={12} md={6} lg={5} className={classNames('mb-8', c > 1 && 'mb-lg-0')}>
+              <Col key={c} xs={12} md={6} lg={5} className={classNames('mb-8', c >= 2 && 'mb-lg-0')}>
                 <div className="contacts__title mb-6">
                   {contact.title}
                   <div className="contacts__title-line mt-6"></div>

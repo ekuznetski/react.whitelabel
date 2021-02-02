@@ -73,7 +73,8 @@
       font-size: 14px;
       line-height: 21px;
       color: $dark-blue;
-      display: table;
+      display: flex;
+      align-items: center;
 
       &:hover {
         text-decoration: underline;
@@ -81,7 +82,6 @@
 
       svg {
         fill: $dark-blue;
-        margin: -2px 0 0 5px;
 
         &.up {
           transform: rotate(180deg);
