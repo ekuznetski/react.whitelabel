@@ -324,7 +324,7 @@ export function* fetchPricesSaga() {
     yield put(
       Action.ac_savePrices(
         Object.keys(response).reduce((acc, e) => {
-          Object.assign(acc, { [e.toLowerCase()]: response[e] });
+          Object.assign(acc, { [e]: response[e] });
           return acc;
         }, {}),
       ),

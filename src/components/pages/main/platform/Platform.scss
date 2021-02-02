@@ -67,6 +67,28 @@
       color: $dark-text;
     }
 
+    .toggleTableView {
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: $dark-blue;
+      display: table;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      svg {
+        fill: $dark-blue;
+        margin: -2px 0 0 5px;
+
+        &.up {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
     @media (max-width: $viewport-md-w) {
       &__title {
         font-size: 24px;

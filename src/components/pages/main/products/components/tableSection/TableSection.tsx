@@ -23,12 +23,12 @@ export const TableSection = memo(
     const infoColClass = classNames(
       'py-4',
       preview ? 'col-12 col-lg-4 mb-7' : 'col-12',
-      props.reversed && preview ? 'offset-lg-1' : '',
+      props.reversed && preview ? 'offset-xl-1' : '',
     );
     const tableColClass = classNames(
       'tableCol',
       preview ? 'col-12 col-lg-8 col-xl-7' : 'col-12',
-      props.reversed || !preview ? '' : 'offset-xl-1',
+      props.reversed && preview ? 'offset-lg-1 offset-xl-0' : '',
     );
     const { t } = useTranslation();
 

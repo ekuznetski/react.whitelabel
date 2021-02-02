@@ -10,9 +10,11 @@ export interface ITable {
   // in pixels, use null for auto sizes, if object {colN: number} where N is col number that start with 1
   colsPxSize?: (number | null)[] | { [colN: string]: number };
   className?: string;
+  preview?: boolean;
+  previewAmount?: number;
 }
 
-export function Table({ headers, rows, colsPctSize, colsPxSize, className }: ITable) {
+export function Table({ headers, rows, colsPctSize, colsPxSize, className, preview, previewAmount = 4 }: ITable) {
   if (colsPctSize && colsPxSize) {
     console.info('The colsPxSize has priority over colsPctSize values. ');
   }
@@ -54,7 +56,7 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className }: ITa
         </tr>
       </thead>
       <tbody>
-        {rows.map((row, r) => (
+        {(preview ? rows.slice(0, previewAmount) : rows).map((row, r) => (
           <tr key={r}>
             {row.slice(0, headers.length).map((cell, c) => (
               <td key={c} className="px-2">
