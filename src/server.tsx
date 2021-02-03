@@ -41,10 +41,18 @@ const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
 
-const allowedOriginDevList = ['http://localhost:4200', 'http://localhost:4201'];
+const allowedOriginDevList = ['http://localhost:4200', 'http://localhost:4201', 'https://www.bluesquarefx.com'];
 const allowedOriginLabelList = new RegExp(/(bluesquarefx.com)/);
 const corsOptions: cors.CorsOptions = {
-  origin: 'https://www.bluesquarefx.com',
+  origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+    if (!requestOrigin || allowedOriginDevList.includes(requestOrigin) || allowedOriginLabelList.test(requestOrigin)) {
+      return callback(null, true);
+    } else {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin: ' + requestOrigin;
+      console.error(msg);
+      return callback(new Error(msg), false);
+    }
+  },
   credentials: true,
 };
 
@@ -120,9 +128,9 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
   next();
 }
 
+app.use(cors(corsOptions));
 app.set('trust proxy', true);
 app.use(nocache());
-app.use(cors(corsOptions));
 app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));
@@ -134,13 +142,14 @@ app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
+  const xRealIP = Array.from(req.headers?.['x-forwarded-for'] || '').flat()[0];
 
   const options = {
     headers: Object.assign(
       {
         'Content-Type': 'application/x-www-form-urlencoded',
-        // 'X-Real-IP': Array.from(req.headers['x-forwarded-for'] || '')[0],
       },
+      xRealIP && { 'X-Real-IP': xRealIP },
       authenticationToken && { Cookie: authenticationToken },
     ),
     withCredentials: true,
