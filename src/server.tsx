@@ -16,6 +16,7 @@ import path from 'path';
 import qs from 'qs';
 import redis from 'redis';
 import cors from 'cors';
+import nocache from 'nocache';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import React from 'react';
@@ -39,7 +40,8 @@ const REDIS_PORT = 6379;
 const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
-const allowedOriginList = ['http://localhost:4200', 'http://localhost:4201', 'https://www.bluesquarefx.com'];
+const allowedOriginDevList = ['http://localhost:4200', 'http://localhost:4201'];
+const allowedOriginLabelList = RegExp(/(bluesquarefx.com)/);
 
 let storeState: IStore;
 const unsubscribeRequestResolver = store.subscribe(() => {
@@ -91,19 +93,19 @@ RedisClient.on('ready', function () {
   console.log('Redis is ready');
 });
 
-if (env.PRODUCTION) {
-  app.set('trust proxy', 1);
-}
-
 function corsOptionsDelegate(req: express.Request, callback: any) {
-  var corsOptions;
-  console.log(req.headers['origin']);
-  if (req.headers['origin'] && allowedOriginList.indexOf(req.headers['origin']) !== -1) {
-    corsOptions = { origin: true, credentials: true }; // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false, credentials: true }; // disable CORS for this request
-  }
-  callback(null, corsOptions); // callback expects two parameters: error and options
+  const corsOptions = {
+    origin: function (origin: string, callback: any) {
+      if (!origin || allowedOriginDevList.includes(origin) || allowedOriginLabelList.test(origin)) {
+        return callback(null, true);
+      } else {
+        const msg = 'The CORS policy for this site does not ' + 'allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+    },
+    credentials: true,
+  };
+  return corsOptions;
 }
 
 function checkAuthenticationCookie(req: express.Request, resp: express.Response, next: express.NextFunction) {
@@ -128,8 +130,12 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
   next();
 }
 
-app.set('trust proxy', true);
-app.use(cors(corsOptionsDelegate));
+if (env.PRODUCTION) {
+  app.set('trust proxy', true);
+}
+
+app.use(nocache());
+app.use(cors(corsOptionsDelegate()));
 app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));
