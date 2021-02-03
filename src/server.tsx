@@ -128,6 +128,7 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
   next();
 }
 
+app.set('trust proxy', true);
 app.use(cors(corsOptionsDelegate));
 app.use(compression());
 app.use(express.static('./browser'));
