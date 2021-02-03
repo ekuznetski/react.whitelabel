@@ -45,6 +45,7 @@ const allowedOriginDevList = [
   'http://localhost:3000',
   'http://localhost:4200',
   'http://localhost:4201',
+  'http://18.133.160.155:3000',
   'http://127.0.0.1:3000',
   'https://www.bluesquarefx.com',
 ];
@@ -60,6 +61,7 @@ const corsOptions: cors.CorsOptions = {
     }
   },
   credentials: true,
+  optionsSuccessStatus: 200
 };
 
 let storeState: IStore;
@@ -139,9 +141,9 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-// app.use(nocache());
+app.use(nocache());
 
-app.use('/proxy', cors(corsOptions), checkAuthenticationCookie, (req, resp) => {
+app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
@@ -212,7 +214,7 @@ app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));
 
-app.get('*', cors(corsOptions), checkAuthenticationCookie, (req: express.Request, res: express.Response) => {
+app.get('*', checkAuthenticationCookie, (req: express.Request, res: express.Response) => {
   (global as any).window = window;
   (global as any).document = document;
   (global as any).location = window.location;
