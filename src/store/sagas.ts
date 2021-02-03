@@ -165,11 +165,15 @@ export function* changeClientProfilePasswordSaga() {
 }
 
 export function* getBankDetailsSaga() {
-  yield $$(EActionTypes.fetchBankDetails, function* () {
-    const { response }: IBankDetailsResponse = yield call(Request.getBankDetailsRequest);
-    yield put(Action.ac_saveBankDetails(response.message));
-    return response;
-  });
+  yield $$(
+    EActionTypes.fetchBankDetails,
+    function* () {
+      const { response }: IBankDetailsResponse = yield call(Request.getBankDetailsRequest);
+      yield put(Action.ac_saveBankDetails(response.message));
+      return response;
+    },
+    'data.bankDetails',
+  );
 }
 
 export function* updateBankDetailsSaga() {
