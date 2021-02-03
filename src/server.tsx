@@ -15,6 +15,7 @@ import fs from 'fs';
 import path from 'path';
 import qs from 'qs';
 import redis from 'redis';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import React from 'react';
@@ -38,6 +39,7 @@ const REDIS_PORT = 6379;
 const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
+const allowedOriginList = ['http://localhost:4200', 'http://localhost:4201', 'https://www.bluesquarefx.com'];
 
 let storeState: IStore;
 const unsubscribeRequestResolver = store.subscribe(() => {
@@ -93,6 +95,17 @@ if (env.PRODUCTION) {
   app.set('trust proxy', 1);
 }
 
+function corsOptionsDelegate(req: express.Request, callback: any) {
+  var corsOptions;
+  console.log(req.headers['origin']);
+  if (req.headers['origin'] && allowedOriginList.indexOf(req.headers['origin']) !== -1) {
+    corsOptions = { origin: true, credentials: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false, credentials: true }; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
+}
+
 function checkAuthenticationCookie(req: express.Request, resp: express.Response, next: express.NextFunction) {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
@@ -115,6 +128,7 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
   next();
 }
 
+app.use(cors(corsOptionsDelegate));
 app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));

@@ -13,7 +13,7 @@ const dev = {
 const prod = {
   PRODUCTION: true,
   DEV_MODE: false,
-  PROXY_URL: 'https://api.bluesquarefx.com/proxy',
+  PROXY_URL: 'https://bluesquarefx.com/proxy',
 };
 
 const prod_dev = {
