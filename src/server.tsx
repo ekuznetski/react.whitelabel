@@ -41,7 +41,7 @@ const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
 
-const allowedOriginDevList = ['http://localhost:4200', 'http://localhost:4201', 'https://www.bluesquarefx.com'];
+const allowedOriginDevList = ['http://localhost:4200', 'http://localhost:4201', 'http://127.0.0.1:3000', 'https://www.bluesquarefx.com'];
 const allowedOriginLabelList = new RegExp(/(bluesquarefx.com)/);
 const corsOptions: cors.CorsOptions = {
   origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
@@ -50,7 +50,7 @@ const corsOptions: cors.CorsOptions = {
     } else {
       const msg = 'The CORS policy for this site does not allow access from the specified Origin: ' + requestOrigin;
       console.error(msg);
-      return callback(new Error(msg), false);
+      return callback(new Error(msg), true);
     }
   },
   credentials: true,
