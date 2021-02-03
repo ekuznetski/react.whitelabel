@@ -5,7 +5,7 @@ import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@ro
 import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
 import { useMeta, usePathLocale } from '@utils/hooks';
-import { useCreation, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
+import { useCreation, usePrevious, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
 import React, { memo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
@@ -29,7 +29,6 @@ export const Router = memo(function Router() {
   const history = useHistory();
 
   const _path = delocalizePath(pathname);
-  const _isLoading = useThrottle(!routeState || routeState.isLoading, { wait: 200 }); // delay the loading effect to disappear
 
   // If the locale is not supported by current LABEL, reset it
   let _locale = pathname.split('/')[1] as ELanguage;
@@ -88,6 +87,7 @@ export const Router = memo(function Router() {
           : false;
 
         if (routeState.isLoading != hasUncompletedStrictRequest) {
+          // console.log('useThrottleEffect', routeState.isLoading, hasUncompletedStrictRequest);
           store.dispatch(ac_updateRouteParams({ isLoading: hasUncompletedStrictRequest }));
         }
 
@@ -116,47 +116,66 @@ export const Router = memo(function Router() {
     return actions.some((request) => requests.activeList.indexOf(request) != -1);
   }
 
+  return (
+    <>
+      <Switch>
+        <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
+        {/* {_path.length > 1 && _route && <Redirect from={_path} to={localizePath(_path)} />} */}
+        {routeState.redirectTo && <Redirect to={localizePath(routeState.redirectTo)} />}
+        {routeState.locale && <Redirect exact from="/" to={routeState.locale} />}
+        {routesRedirectConfig.map((route) => (
+          <Redirect key={route.path} exact from={route.path} to={route.redirectTo} />
+        ))}
+        {routesNavConfig.map((route) => (
+          <Route
+            key={route.path}
+            exact
+            path={
+              _route?.appSection === EAppSection.general
+                ? [localizePath(route.path), route.path]
+                : localizePath(route.path)
+            }
+            render={() => {
+              // if new route and current route are different, means the page is loading 😁
+              return <RenderRoute component={route.component} />;
+            }}
+          />
+        ))}
+        <Redirect to="404" />
+      </Switch>
+    </>
+  );
+});
+
+function RenderRoute(props: { component: IRouteNavConfig['component'] }) {
+  const { routeState, requests } = useSelector<IStore, IRenderState>((state) => ({
+    requests: state.app.requests,
+    routeState: state.app.route,
+  }));
+  const _prevActiveList = usePrevious(requests.activeList);
+  const _isLoading = useThrottle(
+    !(
+      Array.isArray(_prevActiveList) &&
+      Array.isArray(requests.activeList) &&
+      _prevActiveList.length == 0 &&
+      requests.activeList.length == 0
+    ) || routeState.isLoading,
+    { wait: 200 },
+  ); // delay the loading effect to disappear
+
   return useCreation(() => {
     return (
       <>
         <PageLoader isLoading={_isLoading} />
-        <Switch>
-          <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
-          {/* {_path.length > 1 && _route && <Redirect from={_path} to={localizePath(_path)} />} */}
-          {routeState.redirectTo && <Redirect to={localizePath(routeState.redirectTo)} />}
-          {routeState.locale && <Redirect exact from="/" to={routeState.locale} />}
-          {routesRedirectConfig.map((route) => (
-            <Redirect key={route.path} exact from={route.path} to={route.redirectTo} />
-          ))}
-          {routesNavConfig.map((route, r) => (
-            <Route
-              key={r}
-              exact
-              path={
-                _route?.appSection === EAppSection.general
-                  ? [localizePath(route.path), route.path]
-                  : localizePath(route.path)
-              }
-              render={() => (
-                // if new route and current route are different, means the page is loading 😁
-                <RenderRoute component={route.component} isLoading={_isLoading || _route?.path !== route.path} />
-              )}
-            />
-          ))}
-          <Redirect to="404" />
-        </Switch>
+        {!_isLoading && props.component ? (
+          <>
+            <Header />
+            <main className="router-context">
+              <props.component />
+            </main>
+          </>
+        ) : null}
       </>
     );
-  }, [_isLoading, routeState.redirectTo, routeState.locale, routesRedirectConfig]);
-});
-
-function RenderRoute(props: { component: IRouteNavConfig['component']; isLoading: boolean }) {
-  return !props.isLoading && props.component ? (
-    <>
-      <Header />
-      <main className="router-context">
-        <props.component />
-      </main>
-    </>
-  ) : null;
+  }, [_isLoading]);
 }
