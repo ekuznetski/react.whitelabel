@@ -134,7 +134,7 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
   next();
 }
 
-app.set('trust proxy', true);
+// app.set('trust proxy', true);
 app.use(nocache());
 app.use(compression());
 app.use(express.static('./browser'));
