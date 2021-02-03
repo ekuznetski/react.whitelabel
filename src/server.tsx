@@ -40,8 +40,20 @@ const REDIS_PORT = 6379;
 const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
+
 const allowedOriginDevList = ['http://localhost:4200', 'http://localhost:4201'];
-const allowedOriginLabelList = RegExp(/(bluesquarefx.com)/);
+const allowedOriginLabelList = new RegExp(/(bluesquarefx.com)/);
+const corsOptions: cors.CorsOptions = {
+  origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+    if (!requestOrigin || allowedOriginDevList.includes(requestOrigin) || allowedOriginLabelList.test(requestOrigin)) {
+      return callback(null, true);
+    } else {
+      const msg = 'The CORS policy for this site does not ' + 'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+  },
+  credentials: true,
+};
 
 let storeState: IStore;
 const unsubscribeRequestResolver = store.subscribe(() => {
@@ -93,25 +105,6 @@ RedisClient.on('ready', function () {
   console.log('Redis is ready');
 });
 
-function corsOptionsDelegate(): cors.CorsOptions {
-  const corsOptions = {
-    origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
-      if (
-        !requestOrigin ||
-        allowedOriginDevList.includes(requestOrigin) ||
-        allowedOriginLabelList.test(requestOrigin)
-      ) {
-        return callback(null, true);
-      } else {
-        const msg = 'The CORS policy for this site does not ' + 'allow access from the specified Origin.';
-        return callback(new Error(msg), false);
-      }
-    },
-    credentials: true,
-  };
-  return corsOptions;
-}
-
 function checkAuthenticationCookie(req: express.Request, resp: express.Response, next: express.NextFunction) {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
@@ -139,7 +132,7 @@ if (env.PRODUCTION) {
 }
 
 app.use(nocache());
-app.use(cors(corsOptionsDelegate()));
+app.use(cors(corsOptions));
 app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));
