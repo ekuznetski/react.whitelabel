@@ -202,7 +202,6 @@ app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
 
       resp.set(res.headers);
       resp.setHeader('Access-Control-Allow-Origin', 'http://18.133.160.155:3000');
-      res.setHeader('Access-Control-Allow-Credentials', true);
       return resp.status(res.status).send(res.data);
     })
     .catch((err) => {
