@@ -19,7 +19,7 @@
     "build:bsfx": "webpack --mode production --devtool none --env.PRODUCTION=true --env.LABEL=bsfx",
     "build:bsfx:ssr": "yarn run build:bsfx && yarn run build:ssr-server --env.LABEL=bsfx",
     "build:bsfx:watch:client": "webpack --mode production --devtool none --env.PRODUCTION=true --env.LABEL=bsfx --watch",
-    "build:ssr-server": "webpack --config ./webpack.config.ssr.js --env.LABEL=bsfx",
+    "build:ssr-server": "webpack --config ./webpack.config.ssr.js",
     "build:watch:ssr-server": "webpack --config ./webpack.config.ssr.js --watch",
     "test": "jest",
     "run-ssr-server-only": "fkill :4201 -f -s && cd dist && nodemon server.js",
