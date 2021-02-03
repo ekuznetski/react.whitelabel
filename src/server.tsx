@@ -136,13 +136,10 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
 
 app.set('trust proxy', true);
 app.use(cors(corsOptions));
-app.use(nocache());
-app.use(compression());
-app.use(express.static('./browser'));
-app.use(express.static('./assets'));
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+// app.use(nocache());
 
 app.use('/proxy', cors(corsOptions), checkAuthenticationCookie, (req, resp) => {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
@@ -210,6 +207,10 @@ app.use('/proxy', cors(corsOptions), checkAuthenticationCookie, (req, resp) => {
       return resp.status(statusCode).send(err);
     });
 });
+
+app.use(compression());
+app.use(express.static('./browser'));
+app.use(express.static('./assets'));
 
 app.get('*', cors(corsOptions), checkAuthenticationCookie, (req: express.Request, res: express.Response) => {
   (global as any).window = window;
