@@ -3,18 +3,17 @@ import {
   MobileTradingSection,
   OpenLiveAccountBannerSection,
   OurOfferBannerSection,
-  PrestigiousPlatformTechnologySection,
+  PrestigiousPlatformTechnologySection
 } from '@components/sections';
 import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import { downloadLinks } from '@domain';
 import { EPagePath } from '@domain/enums';
+import { IPrices } from '@domain/interfaces';
+import { IStore, ac_fetchPrices } from '@store';
 import React, { useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { config } from './';
-import './Platform.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { IStore, ac_fetchPrices } from '@store';
-import { IPrices } from '@domain/interfaces';
+import './Platform.scss';
 
 export function Platform() {
   const { t } = useTranslation();
