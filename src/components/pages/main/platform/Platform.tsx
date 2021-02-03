@@ -8,18 +8,16 @@ import {
 import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import { downloadLinks } from '@domain';
 import { EPagePath } from '@domain/enums';
+import { IPrices } from '@domain/interfaces';
+import { IStore, ac_fetchPrices } from '@store';
+import { capitalize } from '@utils/fn';
 import React, { useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { config } from './';
-import './Platform.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { IStore, ac_fetchPrices } from '@store';
-import { IPrices } from '@domain/interfaces';
-import { useToggle } from 'ahooks';
+import './Platform.scss';
 
 export function Platform() {
   const { t } = useTranslation();
-  const [preview, togglePreview] = useToggle(true);
   const { prices } = useSelector<IStore, { prices: IPrices }>((state) => ({
     prices: state.data.prices,
   }));
@@ -33,10 +31,6 @@ export function Platform() {
       clearInterval(fetchPricesInterval);
     };
   }, []);
-
-  function toggleTableView() {
-    togglePreview.toggle();
-  }
 
   return (
     <div className="platform-wrapper">
@@ -118,27 +112,14 @@ export function Platform() {
                       Object.values(prices[asset][item].details),
                     );
                     return (
-                      <Tab key={asset} label={t(asset)} anchor={asset}>
+                      <Tab key={asset} label={t(capitalize(asset))} anchor={asset}>
                         <Table
                           key={asset}
                           headers={[t('Instrument'), t('Sell'), t('Buy'), t('Change percent')]}
                           rows={rowData as string[][]}
                           colsPctSize={[30, 20, 20, 20]}
-                          preview={preview}
+                          preview
                         />
-                        <div className="toggleTableView mt-4" onClick={toggleTableView}>
-                          {preview ? (
-                            <>
-                              {t('Show more')}
-                              <Svg href="chevron" className="ml-2" height={14} width={14} />
-                            </>
-                          ) : (
-                            <>
-                              {t('Show less')}
-                              <Svg href="chevron" className="up ml-2" height={14} width={14} />
-                            </>
-                          )}
-                        </div>
                       </Tab>
                     );
                   })}
