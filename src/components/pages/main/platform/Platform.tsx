@@ -26,7 +26,7 @@ export function Platform() {
   useEffect(() => {
     const fetchPricesInterval = setInterval(() => {
       dispatch(ac_fetchPrices());
-    }, 2000);
+    }, 5000);
     return function () {
       clearInterval(fetchPricesInterval);
     };
