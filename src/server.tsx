@@ -41,7 +41,7 @@ const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
 
-const allowedOriginDevList = ['http://localhost:4200', 'http://localhost:4201', 'http://127.0.0.1:3000', 'https://www.bluesquarefx.com'];
+const allowedOriginDevList = ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:4201', 'http://127.0.0.1:3000', 'https://www.bluesquarefx.com'];
 const allowedOriginLabelList = new RegExp(/(bluesquarefx.com)/);
 const corsOptions: cors.CorsOptions = {
   origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
@@ -50,7 +50,7 @@ const corsOptions: cors.CorsOptions = {
     } else {
       const msg = 'The CORS policy for this site does not allow access from the specified Origin: ' + requestOrigin;
       console.error(msg);
-      return callback(new Error(msg), true);
+      return callback(new Error(msg), false);
     }
   },
   credentials: true,
@@ -128,7 +128,6 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
   next();
 }
 
-app.use(cors(corsOptions));
 app.set('trust proxy', true);
 app.use(nocache());
 app.use(compression());
@@ -137,6 +136,7 @@ app.use(express.static('./assets'));
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cors(corsOptions));
 
 app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
