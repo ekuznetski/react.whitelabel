@@ -44,14 +44,7 @@ const indexFile = path.normalize('browser/server.html');
 const allowedOriginDevList = ['http://localhost:4200', 'http://localhost:4201'];
 const allowedOriginLabelList = new RegExp(/(bluesquarefx.com)/);
 const corsOptions: cors.CorsOptions = {
-  origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
-    if (!requestOrigin || allowedOriginDevList.includes(requestOrigin) || allowedOriginLabelList.test(requestOrigin)) {
-      return callback(null, true);
-    } else {
-      const msg = 'The CORS policy for this site does not ' + 'allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-  },
+  origin: 'https://www.bluesquarefx.com',
   credentials: true,
 };
 
@@ -127,10 +120,7 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
   next();
 }
 
-if (env.PRODUCTION) {
-  app.set('trust proxy', true);
-}
-
+app.set('trust proxy', true);
 app.use(nocache());
 app.use(cors(corsOptions));
 app.use(compression());
@@ -149,6 +139,7 @@ app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
     headers: Object.assign(
       {
         'Content-Type': 'application/x-www-form-urlencoded',
+        // 'X-Real-IP': Array.from(req.headers['x-forwarded-for'] || '')[0],
       },
       authenticationToken && { Cookie: authenticationToken },
     ),
