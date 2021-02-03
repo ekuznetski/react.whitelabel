@@ -201,7 +201,8 @@ app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
       }
 
       resp.set(res.headers);
-      resp.setHeader('Access-Control-Allow-Origin', 'https://www.bluesquarefx.com');
+      res.header("Access-Control-Allow-Origin", "https://www.bluesquarefx.com");    
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
       return resp.status(res.status).send(res.data);
     })
     .catch((err) => {
