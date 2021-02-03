@@ -41,7 +41,13 @@ const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
 
-const allowedOriginDevList = ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:4201', 'http://127.0.0.1:3000', 'https://www.bluesquarefx.com'];
+const allowedOriginDevList = [
+  'http://localhost:3000',
+  'http://localhost:4200',
+  'http://localhost:4201',
+  'http://127.0.0.1:3000',
+  'https://www.bluesquarefx.com',
+];
 const allowedOriginLabelList = new RegExp(/(bluesquarefx.com)/);
 const corsOptions: cors.CorsOptions = {
   origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
@@ -89,7 +95,7 @@ const unsubscribeRequestResolver = store.subscribe(() => {
 });
 
 const RedisStore = require('connect-redis')(session);
-const RedisClient = redis.createClient(REDIS_PORT);
+const RedisClient = redis.createClient(REDIS_PORT, env.DEV_MODE ? '127.0.0.1' : 'redis');
 const sessionOptions: session.SessionOptions = {
   genid: () => uuidv4(),
   secret: '$2y$12$2pMm6FzrD/Vu7lN/sBw07.MKzcc7LLkGyf4maPWV/8JokAJFDoCVO', // LW_wNc+G2x#Erc;C
