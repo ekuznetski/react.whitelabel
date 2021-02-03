@@ -41,14 +41,7 @@ const PORT = process.env.PORT || 4201;
 const app = express();
 const indexFile = path.normalize('browser/server.html');
 
-const allowedOriginDevList = [
-  'http://localhost:3000',
-  'http://localhost:4200',
-  'http://localhost:4201',
-  'http://18.133.160.155:3000',
-  'http://127.0.0.1:3000',
-  'https://www.bluesquarefx.com',
-];
+const allowedOriginDevList = ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:4201'];
 const allowedOriginLabelList = new RegExp(/(bluesquarefx.com)/);
 const corsOptions: cors.CorsOptions = {
   origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
@@ -61,7 +54,7 @@ const corsOptions: cors.CorsOptions = {
     }
   },
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 let storeState: IStore;
@@ -201,7 +194,6 @@ app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
       }
 
       resp.set(res.headers);
-      resp.setHeader('Access-Control-Allow-Origin', 'https://www.bluesquarefx.com');
       return resp.status(res.status).send(res.data);
     })
     .catch((err) => {
