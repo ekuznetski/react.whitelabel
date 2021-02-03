@@ -93,10 +93,14 @@ RedisClient.on('ready', function () {
   console.log('Redis is ready');
 });
 
-function corsOptionsDelegate(req: express.Request, callback: any) {
+function corsOptionsDelegate(): cors.CorsOptions {
   const corsOptions = {
-    origin: function (origin: string, callback: any) {
-      if (!origin || allowedOriginDevList.includes(origin) || allowedOriginLabelList.test(origin)) {
+    origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+      if (
+        !requestOrigin ||
+        allowedOriginDevList.includes(requestOrigin) ||
+        allowedOriginLabelList.test(requestOrigin)
+      ) {
         return callback(null, true);
       } else {
         const msg = 'The CORS policy for this site does not ' + 'allow access from the specified Origin.';
