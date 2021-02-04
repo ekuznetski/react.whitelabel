@@ -47,7 +47,7 @@ export function Platform() {
                 </div>
               </div>
               <div className="col-12 col-lg-9 col-xl-8 download-buttons row">
-                <Button className="mr-6 px-7 desktop_button">
+                <Button className="desktop-button mr-6 px-7">
                   <a href={downloadLinks.mt5.desktop}>{t('Download Desktop Version')}</a>
                 </Button>
                 <Button className="mr-6 px-7 store-link">
