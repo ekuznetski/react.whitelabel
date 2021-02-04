@@ -45,7 +45,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
   const accountNavItems: IDropdownItem[] = [
     {
       id: 'launch',
-      icon: 'coins',
+      icon: 'launch',
       target: '_blank',
       externalLink: getMetaTraderWebTerminalLink({
         version: tradingAccount.platform == ETradingPlatform.mt4 ? 4 : 5,
@@ -61,7 +61,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
     },
     {
       id: 'download',
-      icon: 'coins',
+      icon: 'downloadPlatform',
       path: '/download',
       title: t('Download MetaTrader Platform', { platform: tradingAccount.platform.toUpperCase() }),
     },
@@ -70,13 +70,13 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
     accountNavItems.push(
       {
         id: 'password',
-        icon: 'coins',
+        icon: 'bag',
         title: t('Change Password'),
         onclick: () => dispatch(ac_showModal(AccountPasswordModal, { tradingAccount })),
       },
       {
         id: 'statement',
-        icon: 'coins',
+        icon: 'getStatement',
         path: '/statement',
         title: t('Get Trading Statement'),
       },
@@ -93,7 +93,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
   if (tradingAccount.type === ETradingType.fake && clientSettings.edit_fake_account) {
     accountNavItems.push({
       id: 'settings',
-      icon: 'coins',
+      icon: 'icon-change-account-settings',
       title: t('Change Account Settings'),
       onclick: () => dispatch(ac_showModal(AccountSettingsModal, { tradingAccount })),
     });

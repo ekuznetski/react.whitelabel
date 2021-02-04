@@ -108,7 +108,7 @@ export function BillingDetailsModal({ isModalOpen, setModalOpen }: IBillingDetai
         className="ml-0 mr-auto align-items-start mb-10"
         title={
           <div className="d-flex align-items-center justify-content-center">
-            <Svg href="shrimp" width={20} height={20} className="mr-4" />
+            <Svg href="billing-popup" width={20} height={20} className="mr-4" />
             {t('Billing Details')}
           </div>
         }

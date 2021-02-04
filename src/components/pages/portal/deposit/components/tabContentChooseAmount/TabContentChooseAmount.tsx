@@ -180,7 +180,7 @@ export function TabContentChooseAmount() {
                 <Col className="you-get-title">{t('You get')}</Col>
               </Row>
               <Row>
-                <Col md={7} xl={8}>
+                <Col md={6} xl={7}>
                   <div className="you-get-amount d-flex align-items-center">
                     <span className="you-get-amount__symbol pr-3">{values[EFields.account].currencySymbol}</span>
                     {(values[EFields.amount] !== 'custom' && formatAmount(values[EFields.amount])) ||
@@ -188,20 +188,20 @@ export function TabContentChooseAmount() {
                       '0'}
                   </div>
                 </Col>
-                <Col md={5} xl={4} className="align-items-center d-flex">
+                <Col md={6} xl={5} className="align-items-center d-flex">
                   <Button type="submit">{t('Proceed to Payment')}</Button>
                 </Col>
               </Row>
               <Row>
                 <Col
-                  md={{ span: 4, offset: 8 }}
-                  lg={{ span: 5, offset: 7 }}
+                  md={{ span: 3, offset: 7 }}
+                  lg={{ span: 4, offset: 8 }}
                   className="d-flex justify-content-between align-items-center"
                 >
-                  <Svg href="shrimp" height="40" width="45" />
-                  <Svg href="shrimp" height="40" width="45" />
-                  <Svg href="shrimp" height="40" width="45" />
-                  <Svg href="shrimp" height="40" width="45" />
+                  <Svg href="bank-level_secure" className="mr-3" height="25" />
+                  <Svg href="master-card" className="mr-3" height="40" />
+                  <Svg href="visa-secure" className="mr-3" height="40" />
+                  <Svg href="pci" className="mr-3" height="20" />
                 </Col>
               </Row>
             </Form>

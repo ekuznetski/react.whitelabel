@@ -24,11 +24,11 @@ export const DepositSuccessFailure = memo(function DepositSuccessFailure({ resul
               </Col>
               <Col className="col-12 col-md-5 d-flex justify-content-between align-items-center">
                 <div className="d-flex justify-content-between align-items-center">
-                  <Svg href="shrimp" height={20} className="mr-2" />
+                  <Svg href="chat" height={20} className="mr-2" />
                   {t('LiveChat')}
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
-                  <Svg href="shrimp" height={20} className="mr-2" />
+                  <Svg href="envelope" height={20} className="mr-2" />
                   {t('Email')}
                 </div>
               </Col>
@@ -51,7 +51,7 @@ function DepositSuccess() {
       <div className="sub-result">
         {t('Thank you. Your payment has been processed to balance of your trading account')}
       </div>
-      <Svg href="shrimp" height={50} className="my-12" />
+      <Svg href="cardSuccessfull" height={50} className="my-12" />
       <Button>
         <LocaleLink to="/deposit">{t('Make another Transaction')}</LocaleLink>
       </Button>

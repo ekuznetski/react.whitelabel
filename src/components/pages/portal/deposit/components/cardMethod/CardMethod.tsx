@@ -238,7 +238,7 @@ export function CardMethod() {
                     <Input type="number" label="CVV/CVC" regex={/^\d{0,3}$/} name={EFields.cvc} />
                   </Col>
                   <Col xs={12} sm={6}>
-                    <Svg href="shrimp" width={20} />
+                    <Svg href="secure-payment" height={40} />
                   </Col>
                   <Col xs={12}>
                     <Button type="submit">Deposit</Button>
