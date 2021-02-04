@@ -51,7 +51,7 @@ function DepositSuccess() {
       <div className="sub-result">
         {t('Thank you. Your payment has been processed to balance of your trading account')}
       </div>
-      <Svg href="cardSuccessfull" height={50} className="my-12" />
+      <Svg href="card-payment-success" height={50} className="my-12" />
       <Button>
         <LocaleLink to="/deposit">{t('Make another Transaction')}</LocaleLink>
       </Button>

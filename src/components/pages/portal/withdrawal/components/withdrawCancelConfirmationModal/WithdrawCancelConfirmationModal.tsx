@@ -13,7 +13,7 @@ export function WithdrawCancelConfirmationModal() {
     <>
       <ModalTitle title={t('Confirmation')} subTitle={t('Please confirm withdrawal cancellation')} />
       <ModalBody>
-        <Svg href="cancel-withdrawal-request-icon" width={100} className="p-7" />
+        <Svg href="cancel-withdrawal-request" width={100} className="p-7" />
       </ModalBody>
       <ModalFooter>
         <Button

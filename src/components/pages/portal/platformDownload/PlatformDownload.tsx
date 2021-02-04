@@ -39,7 +39,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                         {t('Desktop')}
                       </div>
                       <a className="underlined" href={downloadLinks[platform].desktop}>
-                        <Svg href="windows" height="18" fill="grey" />
+                        <Svg href="windows" height="18" />
                         <span>Windows</span>
                       </a>
                     </div>
@@ -49,11 +49,11 @@ export const PlatformDownload = memo(function PlatformDownload() {
                         {t('Mobile')}
                       </div>
                       <a className="underlined mr-10" href={downloadLinks[platform].appStore}>
-                        <Svg href="apple" height="18" fill="grey" />
+                        <Svg href="apple" height="18" />
                         <span>IOS</span>
                       </a>
                       <a className="underlined" href={downloadLinks[platform].googlePlay}>
-                        <Svg href="android" height="18" fill="grey" />
+                        <Svg href="android" height="18" />
                         <span>Android</span>
                       </a>
                     </div>
@@ -63,7 +63,7 @@ export const PlatformDownload = memo(function PlatformDownload() {
                         {t('Web')}
                       </div>
                       <a className="underlined" target="_blank" href={downloadLinks[platform].web}>
-                        <Svg href="globe" height="18" fill="grey" />
+                        <Svg href="globe" height="18" />
                         <span>{t('Launch')}</span>
                       </a>
                     </div>

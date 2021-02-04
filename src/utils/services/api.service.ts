@@ -8,7 +8,7 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
   return async (data: T | null = null) => {
     try {
       // RETURN MOCK RESPONSE
-      const props = requestPath.replace(`${env.API_URL}/`, '').replace(`${env.PROXY_URL}/`, '').split('/');
+      const props = requestPath.replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL})\/`, 'g'), '').split('/');
       const mockResponse = props.reduce((acc: any, key) => acc[key] || {}, mockData);
       if (Object.keys(mockResponse).length) {
         return new Promise((resolve, reject) => {

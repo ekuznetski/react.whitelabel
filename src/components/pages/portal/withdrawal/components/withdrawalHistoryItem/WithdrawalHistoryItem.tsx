@@ -13,6 +13,19 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
+  function getIconHref(status: ETaskStatus) {
+    switch (status) {
+      case ETaskStatus.pending:
+        return 'withdrawal-pending';
+      case ETaskStatus.success:
+        return 'withdrawal-done-spinner';
+      case ETaskStatus.inProgress:
+        return 'in-progress-spinner';
+      case ETaskStatus.failure:
+        return 'withdrawal-canceled-spinner';
+    }
+  }
+
   return (
     <div className={classNames('withdrawal-history-item mb-10', props.status.toLowerCase())}>
       <div className="withdrawal-info ">
@@ -80,14 +93,3 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
     </div>
   );
 });
-
-function getIconHref(status: ETaskStatus) {
-  switch (status) {
-    case 'pending':
-      return 'withdrawal-pending';
-    case 'success':
-      return 'withdrawal-done-spinner';
-    case 'inProgress':
-      return 'in-progress-spinner';
-  }
-}

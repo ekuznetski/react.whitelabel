@@ -61,7 +61,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
     },
     {
       id: 'download',
-      icon: 'downloadPlatform',
+      icon: 'download-platform',
       path: '/download',
       title: t('Download MetaTrader Platform', { platform: tradingAccount.platform.toUpperCase() }),
     },
@@ -70,13 +70,13 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
     accountNavItems.push(
       {
         id: 'password',
-        icon: 'bag',
+        icon: 'password',
         title: t('Change Password'),
         onclick: () => dispatch(ac_showModal(AccountPasswordModal, { tradingAccount })),
       },
       {
         id: 'statement',
-        icon: 'getStatement',
+        icon: 'get-statement',
         path: '/statement',
         title: t('Get Trading Statement'),
       },
@@ -93,7 +93,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
   if (tradingAccount.type === ETradingType.fake && clientSettings.edit_fake_account) {
     accountNavItems.push({
       id: 'settings',
-      icon: 'icon-change-account-settings',
+      icon: 'change-account-settings',
       title: t('Change Account Settings'),
       onclick: () => dispatch(ac_showModal(AccountSettingsModal, { tradingAccount })),
     });
