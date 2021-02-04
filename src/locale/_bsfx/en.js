@@ -65,4 +65,5 @@ export default {
   'Spreads from # pips': 'Spreads from <1>{{val}} pips</1>',
   'Thank You For Submitting Your Information':
     'Thank you for submitting your information. A member of the BSFX Team will be in touch shortly.',
+  '1 working day': '1 working day',
 };

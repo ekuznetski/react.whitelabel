@@ -1,40 +1,64 @@
 @import '~/variables';
 @import '~/mixin';
 
-table.common-table {
-  width: 100%;
-  border-radius: $border-radius;
-  box-shadow: box-shadow(15, 0.1);
+.common-table-wrapper {
+  table.common-table {
+    width: 100%;
+    border-radius: $border-radius;
+    box-shadow: box-shadow(15, 0.1);
 
-  thead {
-    box-shadow: box-shadow(15, 0.066);
+    thead {
+      box-shadow: box-shadow(15, 0.066);
 
-    th {
-      height: 70px;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 24px;
-      color: $text;
+      th {
+        height: 70px;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 24px;
+        color: $text;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid $grey;
+        box-sizing: border-box;
+        transition: background 0.3s;
+
+        &:hover {
+          background: $grey-bg;
+        }
+
+        td {
+          height: 70px;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: $dark-text;
+          text-align: center;
+        }
+      }
     }
   }
 
-  tbody {
-    tr {
-      border-bottom: 1px solid $grey;
-      box-sizing: border-box;
-      transition: background 0.3s;
+  .toggleTableView {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: $dark-blue;
+    display: flex;
+    align-items: center;
 
-      &:hover {
-        background: $grey-bg;
-      }
+    &:hover {
+      text-decoration: underline;
+    }
 
-      td {
-        height: 70px;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 24px;
-        color: $dark-text;
-        text-align: center;
+    svg {
+      fill: $dark-blue;
+
+      &.up {
+        transform: rotate(180deg);
       }
     }
   }

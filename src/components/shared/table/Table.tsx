@@ -1,6 +1,9 @@
-import React from 'react';
-import './Table.scss';
+import { useToggle } from 'ahooks';
 import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Svg } from '..';
+import './Table.scss';
 
 export interface ITable {
   headers: (string | React.ReactFragment)[];
@@ -10,9 +13,13 @@ export interface ITable {
   // in pixels, use null for auto sizes, if object {colN: number} where N is col number that start with 1
   colsPxSize?: (number | null)[] | { [colN: string]: number };
   className?: string;
+  preview?: boolean;
+  previewAmount?: number;
 }
 
-export function Table({ headers, rows, colsPctSize, colsPxSize, className }: ITable) {
+export function Table({ headers, rows, colsPctSize, colsPxSize, className, preview, previewAmount = 4 }: ITable) {
+  const [previewValue, togglePreview] = useToggle(true);
+  const { t } = useTranslation();
   if (colsPctSize && colsPxSize) {
     console.info('The colsPxSize has priority over colsPctSize values. ');
   }
@@ -38,33 +45,54 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className }: ITa
     });
   }
 
+  function toggleTableView() {
+    togglePreview.toggle();
+  }
+
   return (
-    <table className={classNames('common-table', className)}>
-      <thead>
-        <tr>
-          {headers.map((headerCell, h) => (
-            <th
-              key={h}
-              className={`text-center col${h + 1} px-2`}
-              style={{ width: colPct[h] || 'auto', minWidth: colPx[h] || 'auto' }}
-            >
-              {headerCell}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((row, r) => (
-          <tr key={r}>
-            {row.slice(0, headers.length).map((cell, c) => (
-              <td key={c} className="px-2">
-                {cell}
-              </td>
+    <div className="common-table-wrapper">
+      <table className={classNames('common-table', className)}>
+        <thead>
+          <tr>
+            {headers.map((headerCell, h) => (
+              <th
+                key={h}
+                className={`text-center col${h + 1} px-2`}
+                style={{ width: colPct[h] || 'auto', minWidth: colPx[h] || 'auto' }}
+              >
+                {headerCell}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) => (
+            <tr key={r}>
+              {row.slice(0, headers.length).map((cell, c) => (
+                <td key={c} className="px-2">
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {preview && (
+        <div className="toggleTableView mt-4" onClick={toggleTableView}>
+          {previewValue ? (
+            <>
+              {t('Show more')}
+              <Svg href="chevron" className="ml-2" height={14} width={14} />
+            </>
+          ) : (
+            <>
+              {t('Show less')}
+              <Svg href="chevron" className="up ml-2" height={14} width={14} />
+            </>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 

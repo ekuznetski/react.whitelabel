@@ -7,3 +7,4 @@ export * from './deepDifference';
 // export * from './routeFetchData';
 export * from './getMetaTraderWebTerminalLink';
 export * from './parseUrl';
+export * from './capitalize';
