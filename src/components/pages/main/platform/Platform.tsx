@@ -10,6 +10,7 @@ import { downloadLinks } from '@domain';
 import { EPagePath } from '@domain/enums';
 import { IPrices } from '@domain/interfaces';
 import { IStore, ac_fetchPrices } from '@store';
+import { capitalize } from '@utils/fn';
 import React, { useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -111,12 +112,13 @@ export function Platform() {
                       Object.values(prices[asset][item].details),
                     );
                     return (
-                      <Tab key={asset} label={t(asset)} anchor={asset}>
+                      <Tab key={asset} label={t(capitalize(asset))} anchor={asset}>
                         <Table
                           key={asset}
                           headers={[t('Instrument'), t('Sell'), t('Buy'), t('Change percent')]}
                           rows={rowData as string[][]}
                           colsPctSize={[30, 20, 20, 20]}
+                          preview
                         />
                       </Tab>
                     );
