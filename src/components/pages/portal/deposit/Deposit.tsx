@@ -7,7 +7,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
-import { depositActionCreators, DepositProvider, IDepositAction, IDepositState } from './deposit.context';
+import { DepositProvider, IDepositAction, IDepositState, depositActionCreators } from './deposit.context';
 import './Deposit.scss';
 import { DepositSuccessFailure } from './depositSuccessFailure/DepositSuccessFailure';
 
@@ -30,7 +30,7 @@ export const Deposit = memo(function Deposit() {
   return (
     <DepositProvider>
       {(state: IDepositState, dispatch: React.Dispatch<IDepositAction> | null) => {
-        if (route.state.depositMethod && state.method !== route.state.depositMethod) {
+        if (route.state?.depositMethod && state.method !== route.state.depositMethod) {
           dispatch?.(depositActionCreators.setMethod(route.state.depositMethod));
         }
 
@@ -39,7 +39,7 @@ export const Deposit = memo(function Deposit() {
             <Row>
               <Col xs={12}>
                 <PageTitle title={`${t('Deposit')}`} />
-                {route.state.depositResult ? (
+                {route.state?.depositResult ? (
                   <DepositSuccessFailure result={route.state.depositResult} />
                 ) : (
                   <>

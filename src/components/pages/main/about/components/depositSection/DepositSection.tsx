@@ -17,11 +17,19 @@ export const DepositSection = memo(function DepositSection() {
     ],
     content: [
       {
-        value: responsive.md ? <Table {...config.tableData} /> : <MobileDepositTable {...config.tableData} />,
+        value: responsive.md ? (
+          <Table {...config.tableData.deposit} />
+        ) : (
+          <MobileDepositTable {...config.tableData.deposit} />
+        ),
         anchor: 'deposit',
       },
       {
-        value: responsive.md ? <Table {...config.tableData} /> : <MobileDepositTable {...config.tableData} />,
+        value: responsive.md ? (
+          <Table {...config.tableData.withdrawals} />
+        ) : (
+          <MobileDepositTable {...config.tableData.withdrawals} />
+        ),
         anchor: 'withdrawals',
       },
     ],

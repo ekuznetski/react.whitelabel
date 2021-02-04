@@ -3,18 +3,18 @@ import {
   MobileTradingSection,
   OpenLiveAccountBannerSection,
   OurOfferBannerSection,
-  PrestigiousPlatformTechnologySection,
+  PrestigiousPlatformTechnologySection
 } from '@components/sections';
 import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import { downloadLinks } from '@domain';
 import { EPagePath } from '@domain/enums';
+import { IPrices } from '@domain/interfaces';
+import { IStore, ac_fetchPrices } from '@store';
+import { capitalize } from '@utils/fn';
 import React, { useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { config } from './';
-import './Platform.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { IStore, ac_fetchPrices } from '@store';
-import { IPrices } from '@domain/interfaces';
+import './Platform.scss';
 
 export function Platform() {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ export function Platform() {
   useEffect(() => {
     const fetchPricesInterval = setInterval(() => {
       dispatch(ac_fetchPrices());
-    }, 2000);
+    }, 5000);
     return function () {
       clearInterval(fetchPricesInterval);
     };
@@ -47,7 +47,7 @@ export function Platform() {
                 </div>
               </div>
               <div className="col-12 col-lg-9 col-xl-8 download-buttons row">
-                <Button className="mr-6 px-7 desktop_button">
+                <Button className="desktop-button mr-6 px-7">
                   <a href={downloadLinks.mt5.desktop}>{t('Download Desktop Version')}</a>
                 </Button>
                 <Button className="mr-6 px-7 store-link">
@@ -112,12 +112,13 @@ export function Platform() {
                       Object.values(prices[asset][item].details),
                     );
                     return (
-                      <Tab key={asset} label={t(asset)} anchor={asset}>
+                      <Tab key={asset} label={t(capitalize(asset))} anchor={asset}>
                         <Table
                           key={asset}
                           headers={[t('Instrument'), t('Sell'), t('Buy'), t('Change percent')]}
                           rows={rowData as string[][]}
                           colsPctSize={[30, 20, 20, 20]}
+                          preview
                         />
                       </Tab>
                     );

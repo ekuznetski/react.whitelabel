@@ -169,6 +169,8 @@ export default {
   'Leverage Info': 'Leverage Info',
   'See all products': 'See all products',
   'See less products': 'See less products',
+  'Show more': 'Show more',
+  'Show less': 'Show less',
   'Trade smart': 'Trade smart.',
   'Trade safe': 'Trade safe.',
   'Home Page Top Title': '$t(Trade smart)',

@@ -54,7 +54,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
               <LocaleLink to="/login" className="sign-in-btn ml-auto">
                 {t('Sign In')}
               </LocaleLink>
-              <Button className="ml-9 d-none d-md-block">
+              <Button className="open-account-btn ml-9 d-none d-md-block">
                 <LocaleLink to="/registration">{t('Open An Account')}</LocaleLink>
               </Button>
             </>

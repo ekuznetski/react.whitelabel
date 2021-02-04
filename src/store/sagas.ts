@@ -1,4 +1,4 @@
-import { ENotificationType, EResponseStatus, ETradingPlatform } from '@domain/enums';
+import { ENotificationType, EResponseStatus, ETradingPlatform, MarketType } from '@domain/enums';
 import {
   IAddDepositResponse,
   IBankDetailsResponse,
@@ -82,7 +82,6 @@ function* $$(
         }
         yield put(Action.ac_requestActionSuccess({ requestActionType: actionType }));
       } catch (e) {
-        // console.log(e.status, e.data)
         if (e && e.status !== 200 && e.status !== 403) {
           yield put(
             ac_showNotification({
@@ -90,8 +89,8 @@ function* $$(
               message: 'Server error, please contact administrator...',
             }),
           );
-        } else if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response.messageCode == err)) {
-          console.info('!failureResponseConsoleBlacklist --- ', e);
+        } else if (e && !failureResponseConsoleBlacklist.some((err) => e?.data?.response?.messageCode == err)) {
+          if (!(window as any).isSSR) console.info('!failureResponseConsoleBlacklist --- ', e);
         }
         if (failure_transform_response_fn) {
           e = yield failure_transform_response_fn(action, e);
@@ -166,11 +165,15 @@ export function* changeClientProfilePasswordSaga() {
 }
 
 export function* getBankDetailsSaga() {
-  yield $$(EActionTypes.fetchBankDetails, function* () {
-    const { response }: IBankDetailsResponse = yield call(Request.getBankDetailsRequest);
-    yield put(Action.ac_saveBankDetails(response.message));
-    return response;
-  });
+  yield $$(
+    EActionTypes.fetchBankDetails,
+    function* () {
+      const { response }: IBankDetailsResponse = yield call(Request.getBankDetailsRequest);
+      yield put(Action.ac_saveBankDetails(response.message));
+      return response;
+    },
+    'data.bankDetails',
+  );
 }
 
 export function* updateBankDetailsSaga() {
@@ -324,7 +327,7 @@ export function* fetchPricesSaga() {
     yield put(
       Action.ac_savePrices(
         Object.keys(response).reduce((acc, e) => {
-          Object.assign(acc, { [e.toLowerCase()]: response[e] });
+          Object.assign(acc, { [e.toLowerCase() as keyof typeof MarketType]: response[e] });
           return acc;
         }, {}),
       ),
