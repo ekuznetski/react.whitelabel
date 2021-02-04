@@ -3,7 +3,7 @@ import {
   MobileTradingSection,
   OpenLiveAccountBannerSection,
   OurOfferBannerSection,
-  PrestigiousPlatformTechnologySection,
+  PrestigiousPlatformTechnologySection
 } from '@components/sections';
 import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import { downloadLinks } from '@domain';
@@ -26,7 +26,7 @@ export function Platform() {
   useEffect(() => {
     const fetchPricesInterval = setInterval(() => {
       dispatch(ac_fetchPrices());
-    }, 2000);
+    }, 5000);
     return function () {
       clearInterval(fetchPricesInterval);
     };

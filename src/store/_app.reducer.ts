@@ -58,11 +58,13 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.changeAccountSettings:
     case EActionTypes.changeAccountLeverage:
     case EActionTypes.changeAccountPassword:
+      const ignoreActionIfPageLoaded = !state.route.isLoading ? ![EActionTypes.fetchPrices].includes(action.type) : true;
+
       return {
         ...state,
         requests: {
           ...state.requests,
-          activeList: [...(state.requests?.activeList || []), action.type],
+          activeList: Object.assign([], state.requests?.activeList || [], ignoreActionIfPageLoaded && [action.type]),
         },
       };
 
