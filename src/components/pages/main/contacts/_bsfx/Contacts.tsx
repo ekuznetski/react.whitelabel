@@ -1,9 +1,8 @@
 import { Map, SectionBg, Svg } from '@components/shared';
+import { config } from '@pages/main/contacts/_bsfx/Contacts.config';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { config } from '@pages/main/contacts/_bsfx/Contacts.config';
-import classNames from 'classnames';
 import './Contacts.scss';
 
 export function Contacts() {

@@ -61,7 +61,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
           ) : (
             <ProfileMenu className="ml-auto" />
           )}
-          <div className={classNames('burger-toggle', !!clientProfile && 'ml-auto')}>
+          <div className="burger-toggle">
             {!responsive.lg &&
               (isBurgerMenuOpen ? (
                 <Svg

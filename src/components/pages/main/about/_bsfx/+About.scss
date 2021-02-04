@@ -1,7 +1,7 @@
 @import '~/variables';
 
 .about-wrapper {
-  @media (max-width: $viewport-xs-w) {
+  @media (max-width: $viewport-sm-w) {
     .common-cards {
       &__container {
         .card {

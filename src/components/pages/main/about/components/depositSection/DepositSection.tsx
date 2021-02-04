@@ -38,7 +38,7 @@ export const DepositSection = memo(function DepositSection() {
                 <strong>Information</strong>
               </Trans>
             </div>
-            <div className="col-sm-8 col-md-12 mx-sm-auto">
+            <div className="col-12 col-sm-8 mx-sm-auto">
               <Cards
                 id="depositCards"
                 className="deposit__cards mb-16"

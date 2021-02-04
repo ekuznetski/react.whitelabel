@@ -51,7 +51,6 @@
 
   @media (max-width: $viewport-xs-w) {
     [class*='col-'] {
-      padding: 0 15px;
       justify-content: unset;
     }
   }
