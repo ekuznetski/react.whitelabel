@@ -1,15 +1,12 @@
-import React from 'react';
 import { ModalBody, ModalFooter, ModalTitle } from '@components/core';
 import { Button, Svg } from '@components/shared';
-import { ac_hideModal } from '@store';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import './RewardInformationModal.scss';
 import { files } from '@domain';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import './RewardInformationModal.scss';
 
 export const RewardInformationModal = React.memo(function RewardInformationModal() {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   return (
     <>
