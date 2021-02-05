@@ -25,7 +25,6 @@ export * from './data/clientStatus.interface';
 export * from './data/statusObject.interface';
 export * from './data/tradingAccounts.interface';
 export * from './data/withdrawal.interface';
-export * from './data/documents.interface';
 export * from './data/mifid.interface';
 export * from './data/statusObject.interface';
 export * from './data/taxIdentification.interface';

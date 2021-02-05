@@ -10,12 +10,12 @@ export function generateStatus(status?: keyof typeof EClientStatus) {
   return status
     ? {
         code: EClientStatusCode[status],
-        message: t(`Client Status:${EClientStatus[status]}`),
+        message: t(`Client Status:${EClientStatus[status]}`) as EClientStatus,
         notificationType: ClientStatusCodeNotificationType[EClientStatusCode[status]],
       }
     : {
         code: EClientStatusCode[EClientStatus.notApplicable],
-        message: '',
+        message: '' as EClientStatus,
         notificationType: ClientStatusCodeNotificationType[EClientStatusCode.notApplicable],
       };
 }

@@ -1,5 +1,5 @@
 import { EResponseStatus } from '@domain/enums';
-import { IDocument, IEdd, ITins, _statusPair } from '..';
+import { IEdd, ITins, _statusPair } from '..';
 import { IBaseResponse } from '../general.interface';
 
 export type AddInfoFormStatus =
@@ -12,6 +12,7 @@ export interface IClientStatus {
   status: EResponseStatus;
   fp_status: _statusPair<'submitted'> | _statusPair<'required'>;
   document_status: _statusPair<'submitted'> | _statusPair<'required'>;
+  document_status_new: { [k: string]: _statusPair<'submitted'> | _statusPair<'required'> };
   client_status:
     | _statusPair<'clientApproved'>
     | _statusPair<'clientEddRequired'>
@@ -29,7 +30,6 @@ export type IClientStatusData = IClientData & IClientStatus;
 export type _updatedData<T> = { updated_data: T };
 
 export interface IClientData {
-  document_data?: IDocument[] & _updatedData<IDocument[]>;
   edd_data: IEdd & _updatedData<IEdd>;
   tins_data: ITins & _updatedData<ITins>;
 }

@@ -1,10 +1,11 @@
-import { EClientStatusCode } from '@domain/enums';
+import { EClientStatusCode, EDocumentsType } from '@domain/enums';
 import { IClientStatus, TClientStatus } from '@domain/interfaces';
 import { generateStatus } from '@utils/fn/generateStatus';
 
 export class MClientStatus {
   fp_status: TClientStatus;
   document_status: TClientStatus;
+  document_status_new: { [k in EDocumentsType]?: TClientStatus };
   client_status: TClientStatus;
   cayman_status: TClientStatus;
   edd_status: TClientStatus;
@@ -14,6 +15,12 @@ export class MClientStatus {
   constructor(props: IClientStatus) {
     this.fp_status = generateStatus(props.fp_status.message);
     this.document_status = generateStatus(props.document_status.message);
+    this.document_status_new = props.document_status_new
+      ? Object.keys(props.document_status_new).reduce(
+          (acc, key) => Object.assign(acc, { [key]: generateStatus(props.document_status_new[key].message) }),
+          {},
+        )
+      : {};
     this.client_status = generateStatus(props.client_status.message);
     this.cayman_status = generateStatus(props.cayman_status.message);
     this.edd_status = generateStatus(props.edd_status.message);

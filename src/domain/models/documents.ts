@@ -1,38 +1,39 @@
-import { EDocumentsStatus, EDocumentsType } from '@domain/enums';
-import { IDocument } from '@domain/interfaces';
-import moment from 'moment';
-import { Moment } from 'moment';
+import { EClientStatus, EDocumentsType } from '@domain/enums';
+import { IClientStatus, TClientStatus } from '@domain/interfaces';
+import i18n from '@i18next';
+
+const t = i18n.getLazyT;
+
+export type MDocument = TClientStatus & { type: EDocumentsType };
 
 export class MDocuments {
   list: MDocument[] = [];
 
-  constructor(props: IDocument[]) {
-    this.list = props.map((document) => new MDocument(document));
+  constructor(documentsStatus: IClientStatus['document_status_new']) {
+    console.log(documentsStatus);
+    this.list = Object.keys(documentsStatus).reduce(
+      (acc, key) => (
+        acc.push({
+          type: key as EDocumentsType,
+          code: documentsStatus[key].code,
+          message: documentsStatus[key].message,
+          notificationType: documentsStatus[key].notificationType,
+        }),
+        acc
+      ),
+      [] as MDocument[],
+    );
   }
 
-  getStatusByDocumentType = (type: EDocumentsType): EDocumentsStatus => {
+  getStatusByDocumentType = (type: EDocumentsType): EClientStatus => {
     return (
-      this.list.find((document) => document.document_type === type)?.document_status || EDocumentsStatus.NotSubmitted
+      this.list.find((document) => document.type === type)?.message ||
+      (t(`Client Status:${EClientStatus.notSubmitted}`) as EClientStatus)
     );
   };
 
   getAllDocumentsOfTypes = (type: EDocumentsType | EDocumentsType[]): any => {
     type = [type].flat();
-    return this.list.filter((document) => type.includes(document.document_type));
+    return this.list.filter((document) => type.includes(document.type));
   };
-}
-
-export class MDocument {
-  id: string;
-  document_status: EDocumentsStatus;
-  document_type: EDocumentsType;
-  created: Moment;
-
-  constructor(props: IDocument) {
-    this.id = props.id;
-    this.document_status =
-      EDocumentsStatus[props.document_status as keyof typeof EDocumentsStatus] || EDocumentsStatus.Pending;
-    this.document_type = EDocumentsType[props.document_type as keyof typeof EDocumentsType] || EDocumentsType.NoNType;
-    this.created = moment(props.created);
-  }
 }

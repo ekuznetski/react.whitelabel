@@ -64,9 +64,11 @@ export enum EClientStatus {
   notRequired = 'notRequired',
   pending = 'pending',
   dormant = 'dormant',
+  unknown = 'unknown',
 }
 
 export enum EClientStatusCode {
+  unknown = -1,
   notSubmitted = 0,
   submitted = 1,
   notRequested = 2,
@@ -85,6 +87,7 @@ export enum EClientStatusCode {
 }
 
 export const ClientStatusCodeNotificationType = Object.freeze({
+  [EClientStatusCode.unknown]: ENotificationType.danger,
   [EClientStatusCode.notSubmitted]: ENotificationType.danger,
   [EClientStatusCode.submitted]: ENotificationType.success,
   [EClientStatusCode.notRequested]: ENotificationType.info,

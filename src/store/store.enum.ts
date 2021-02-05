@@ -36,7 +36,6 @@ export enum EActionTypes {
   submitFinancialProfile = '[DATA - Financial Profile] Submit',
 
   // DATA - Document
-  fetchDocuments = '[DATA - Documents] Fetch',
   saveDocuments = '[DATA - Documents] Save',
   uploadDocuments = '[DATA - Documents] Upload Documents',
 

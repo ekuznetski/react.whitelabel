@@ -350,9 +350,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: EPagePath.Verification,
     component: Page.Verification,
     appSection: EAppSection.portal,
-    apiData: {
-      strict: [Action.ac_fetchDocuments], // TINS, CCard Data
-    },
     activators: [allowAuthorizedGuard],
   },
   {

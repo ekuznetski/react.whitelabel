@@ -424,13 +424,6 @@ export function ac_addDeposit<T>(
   };
 }
 
-export function ac_fetchDocuments(payload?: { force: true | null }): IAction {
-  return {
-    type: EActionTypes.fetchDocuments,
-    force: payload?.force || null,
-  };
-}
-
 export function ac_saveDocuments(payload: MDocuments): IAction {
   return {
     type: EActionTypes.saveDocuments,

@@ -12,16 +12,3 @@ export enum EDocumentsType {
   CCBack = 'CCBack',
   NoNType = 'NoNType',
 }
-
-export enum EDocumentsStatus {
-  Pending = 'Pending',
-  Submitted = 'Submitted',
-  Rejected = 'Rejected',
-  NotSubmitted = 'Not Submitted',
-}
-
-export enum EDocumentsIconStatus {
-  Pending = 'circle_pending',
-  Submitted = 'circle_success',
-  Rejected = 'icon-status_error',
-}

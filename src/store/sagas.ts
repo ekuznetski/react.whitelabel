@@ -11,7 +11,6 @@ import {
   IClientSettingsResponse,
   IClientStatusDataResponse,
   ICreateTradingAccountRequest,
-  IDocumentsInterfaceResponse,
   IEddResponse,
   IEditProfileResponse,
   ILoginResponse,
@@ -83,6 +82,7 @@ function* $$(
         yield put(Action.ac_requestActionSuccess({ requestActionType: actionType }));
       } catch (e) {
         if (e && e.status !== 200 && e.status !== 403) {
+          console.log(e, actionType);
           yield put(
             ac_showNotification({
               type: ENotificationType.danger,
@@ -287,8 +287,9 @@ export function* getClientStatusDataSaga() {
     function* () {
       const { response }: IClientStatusDataResponse = yield call(Request.getClientDataRequest);
       yield put(Action.ac_saveClientData(new Model.MClientStatus(response)));
-      yield put(Action.ac_saveTins(new Model.MTins(response.tins_data))); // remove when API clients/tins will been added
-      yield put(Action.ac_saveEdd(new Model.MEdd(response.edd_data))); // remove when API clients/edd will been added
+      yield put(Action.ac_saveDocuments(new Model.MDocuments(response.document_status_new)));
+      yield put(Action.ac_saveTins(new Model.MTins(response.tins_data)));
+      yield put(Action.ac_saveEdd(new Model.MEdd(response.edd_data)));
       return response;
     },
     'data.client.status',
@@ -298,7 +299,7 @@ export function* getClientStatusDataSaga() {
 export function* updateTinsSaga() {
   yield $$(EActionTypes.updateTins, function* ({ payload }: IAction) {
     const { response }: ITinsResponse = yield call(Request.updateTinsRequest, payload);
-    yield put(Action.ac_saveTins(new Model.MTins(response.message))); // TODO uncomment when API clients/tins will been added
+    yield put(Action.ac_saveTins(new Model.MTins(response.message)));
     yield put(Action.ac_fetchClientData({ force: true }));
     return response;
   });
@@ -392,22 +393,10 @@ export function* makeInternalTransferSaga() {
   });
 }
 
-export function* fetchDocumentsSaga() {
-  yield $$(
-    EActionTypes.fetchDocuments,
-    function* () {
-      const { response }: IDocumentsInterfaceResponse = yield call(Request.getDocumentsRequest);
-      yield put(Action.ac_saveDocuments(new Model.MDocuments(response.message)));
-      return response;
-    },
-    'data.client.documents',
-  );
-}
-
 export function* uploadFileSaga() {
   yield $$(EActionTypes.uploadDocuments, function* ({ payload }: IAction) {
     const { response }: any = yield call(Request.uploadFileRequest, payload);
-    yield put(Action.ac_fetchDocuments({ force: true }));
+    yield put(Action.ac_fetchClientData({ force: true }));
     return response;
   });
 }
