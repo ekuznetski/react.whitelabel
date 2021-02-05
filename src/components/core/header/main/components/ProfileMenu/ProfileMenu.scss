@@ -3,7 +3,7 @@
 
 .header.main {
   .header-profile-menu {
-    align-items: center;
+    @include d-flex(center);
     position: relative;
 
     &__facepile {
