@@ -5,6 +5,7 @@ import { ac_hideModal } from '@store';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import './RewardInformationModal.scss';
+import { files } from '@domain';
 
 export const RewardInformationModal = React.memo(function RewardInformationModal() {
   const { t } = useTranslation();
@@ -18,7 +19,9 @@ export const RewardInformationModal = React.memo(function RewardInformationModal
         {t('Reward Information Desc')}
       </ModalBody>
       <ModalFooter>
-        <Button onClick={() => dispatch(ac_hideModal())}>{t('Read Terms and Conditions')}</Button>
+        <Button onClick={() => window.open(files.termsOfService, '_blank')}>
+          {t('Read Terms and Conditions')}
+        </Button>
       </ModalFooter>
     </>
   );
