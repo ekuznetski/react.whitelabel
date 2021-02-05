@@ -1,6 +1,6 @@
 export enum EDocumentsType {
   PoR = 'PoR',
-  IDFront = 'IDFront',
+  ID = 'ID',
   CCCopy = 'CCCopy',
   CCCopy1 = 'CCCopy1',
   CCCopy2 = 'CCCopy2',

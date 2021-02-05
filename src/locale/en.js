@@ -465,6 +465,7 @@ export default {
     notRequired: 'Not Required',
     pending: 'Pending',
     dormant: 'The Client is Dormant',
+    unknown: 'Unknown'
   },
   'Invest with those you know': 'Invest with those you know',
   'Share Your Passion':

@@ -53,9 +53,9 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
           </Tab>
         )}
         <Tab
-          // className={classNames(clientStatus.edd_status.notificationType)}
+          status={documents.getDocumentByType(EDocumentsType.CCFront).notificationType}
           label={t('Debit/Credit Card Verification')}
-          subLabel={documents.getStatusByDocumentType(EDocumentsType.CCFront)}
+          subLabel={documents.getDocumentByType(EDocumentsType.CCFront).statusMessage}
           anchor={EAddInfoTabs.card}
         >
           <CreditCardVerification />

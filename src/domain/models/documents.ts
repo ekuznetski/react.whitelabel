@@ -32,10 +32,12 @@ export class MDocuments {
     }, [] as MDocument[]);
   }
 
-  getStatusByDocumentType = (type: EDocumentsType): EClientStatus => {
+  getDocumentByType = (type: EDocumentsType): MDocument => {
     return (
-      this.list.find((document) => document.type === type)?.statusMessage ||
-      (t(`Client Status:${EClientStatus.notSubmitted}`) as EClientStatus)
+      this.list.find((document) => document.type === type) || {
+        type: EDocumentsType.NoNType,
+        ...generateStatus('notSubmitted'),
+      }
     );
   };
 

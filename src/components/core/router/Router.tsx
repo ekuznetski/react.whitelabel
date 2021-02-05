@@ -2,7 +2,7 @@ import { localesConfig } from '@domain';
 import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { IRouteNavConfig } from '@domain/interfaces';
 import { routesInitialApiData, routesNavConfig, routesRedirectConfig } from '@routers';
-import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, store } from '@store';
+import { EActionTypes, IAppStore, IStore, ac_updateRouteParams, ignoreActionIfPageLoadedList, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
 import { useMeta, usePathLocale } from '@utils/hooks';
 import { useCreation, usePrevious, useThrottle, useThrottleEffect, useTitle } from 'ahooks';
@@ -83,7 +83,7 @@ export const Router = memo(function Router() {
         ].map((action) => action().type);
         const hasUncompletedStrictRequest = _routeStrictRequests.length
           ? requests.activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0 &&
-            !(!routeState.isLoading && ignoreOnAction([EActionTypes.fetchPrices]))
+            !(!routeState.isLoading && ignoreOnAction(ignoreActionIfPageLoadedList))
           : false;
 
         if (routeState.isLoading != hasUncompletedStrictRequest) {

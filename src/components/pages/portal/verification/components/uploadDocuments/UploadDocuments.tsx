@@ -25,15 +25,17 @@ export const UploadDocuments = memo(function UploadDocuments() {
     <div className="upload-documents">
       <Tabs className="client-upload-documents__tabs" isVertical={true} activeTab={initialActiveTab}>
         <Tab
+          status={documents.getDocumentByType(EDocumentsType.ID).notificationType}
           label={t('Identity Verification')}
-          subLabel={documents.getStatusByDocumentType(EDocumentsType.IDFront)}
+          subLabel={documents.getDocumentByType(EDocumentsType.ID).statusMessage}
           anchor={EUploadDocumentsTabs.Identity}
         >
           <IdentityVerification />
         </Tab>
         <Tab
+          status={documents.getDocumentByType(EDocumentsType.PoR).notificationType}
           label={t('Address Verification')}
-          subLabel={documents.getStatusByDocumentType(EDocumentsType.PoR)}
+          subLabel={documents.getDocumentByType(EDocumentsType.PoR).statusMessage}
           anchor={EUploadDocumentsTabs.Address}
         >
           <AddressVerification />

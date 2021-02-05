@@ -1,7 +1,7 @@
 import { Svg } from '@components/shared';
 import { ENotificationType } from '@domain/enums';
 import { MDocument } from '@domain/models';
-import { ac_showNotification, ac_uploadDocuments } from '@store';
+import { EActionTypes, ac_showNotification, ac_uploadDocuments } from '@store';
 import { useCombinedRef } from '@utils/hooks';
 import { useSetState } from 'ahooks';
 import classNames from 'classnames';
@@ -179,6 +179,7 @@ export const MultipleUpload = memo(
             <Button
               className="upload-file__btn mt-9"
               disabled={!checkEveryUploadState(UploadViewState.ready)}
+              loadingOnAction={EActionTypes.uploadDocuments}
               onClick={Submit}
             >
               {t('Confirm & Upload')}
@@ -316,6 +317,7 @@ export const UploadFile = memo(
                   <Button
                     className="upload-file__btn mt-9"
                     disabled={contextState.view !== UploadViewState.ready}
+                    loadingOnAction={EActionTypes.uploadDocuments}
                     onClick={Submit}
                   >
                     {t('Confirm & Upload')}
