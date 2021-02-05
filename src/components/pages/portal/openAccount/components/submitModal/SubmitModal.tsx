@@ -31,9 +31,9 @@ export const SubmitModal = React.memo(function SubmitModal({ type, data }: ISubm
       )}
       <ModalBody>
         {type === EModalType.success ? (
-          <Svg href="openAccount_success" width={100} className="p-7" />
+          <Svg href="open-account-success" width={100} className="p-7" />
         ) : (
-          <Svg href="openAccount_error" width={100} className="p-7" />
+          <Svg href="open-account-error" width={100} className="p-7" />
         )}
       </ModalBody>
       <ModalFooter>
