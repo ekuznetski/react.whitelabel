@@ -1,3 +1,5 @@
+// @ts-nocфheck
+
 import './i18n'; // Must be the imported before the App!
 import { Footer, Header, NotFound, PageLoader } from '@components/core';
 import { localesConfig } from '@domain';
@@ -17,6 +19,8 @@ import qs from 'qs';
 import redis from 'redis';
 import cors from 'cors';
 import nocache from 'nocache';
+import multer from 'multer';
+import FormData from 'form-data';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import React from 'react';
@@ -39,8 +43,12 @@ let route: IRouteNavConfig | null = null;
 const REDIS_PORT = 6379;
 const PORT = process.env.PORT || 4201;
 const app = express();
+const inMemoryStorage = multer.memoryStorage();
+const upload = multer({ dest: '/tmp/uploads', limits: { fieldNameSize: 1024, fieldSize: 1024 * 1024 * 15 } });
+// const upload = multer({ storage: inMemoryStorage, limits: { fieldNameSize: 1024, fieldSize: 1024 * 1024 * 15 } });
 const indexFile = path.normalize('browser/server.html');
 
+const allowedUploadURLs = ['/v2/documents/upload'];
 const allowedOriginDevList = ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:4201'];
 const allowedOriginLabelList = new RegExp(/(bluesquarefx.com)/);
 const corsOptions: cors.CorsOptions = {
@@ -133,10 +141,11 @@ app.set('trust proxy', true);
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(session(sessionOptions));
+app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(nocache());
 
-app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
+app.use('/proxy', checkAuthenticationCookie, upload.any(), (req, resp) => {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
@@ -154,6 +163,19 @@ app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
     method: req.method as Method,
     data: qs.stringify(req.body),
   };
+
+  if (allowedUploadURLs.includes(req.url) && Array.isArray(req.files)) {
+    const _filesData = new FormData();
+    req.files.forEach((file) => {
+      const fileStream = fs.createReadStream(file.path);
+      _filesData.append(file.fieldname, fileStream, { contentType: file.mimetype });
+    });
+
+    Object.assign(options, {
+      headers: Object.assign(options.headers, _filesData.getHeaders()),
+      data: _filesData,
+    });
+  }
 
   axios(`${env.API_URL}${req.url}`, options)
     .then((res: any) => {
@@ -191,6 +213,10 @@ app.use('/proxy', checkAuthenticationCookie, (req, resp) => {
         // res.headers['Cache-Control'] = "no-cache='Set-Cookie, Set-Cookie2'";
 
         if (res.headers['transfer-encoding']) delete res.headers['transfer-encoding'];
+      }
+
+      if (req.files && Array.isArray(req.files)) {
+        req.files.forEach((file) => fs.unlink(file.path, () => {}));
       }
 
       resp.set(res.headers);

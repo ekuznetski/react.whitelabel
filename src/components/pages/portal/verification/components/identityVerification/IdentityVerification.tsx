@@ -15,12 +15,12 @@ export const IdentityVerification = memo(function IdentityVerification() {
 
   return (
     <UploadWrapper
-      documents={documents.getAllDocumentsOfTypes([EDocumentsType.ID, EDocumentsType.IDBack])}
+      documents={documents.getAllDocumentsOfTypes([EDocumentsType.IDFront, EDocumentsType.IDBack])}
       className="identity-verification"
     >
       <UploadDocumentCard icon="upload_passport" label={t('Your Passport')}>
         <UploadFile
-          fileType={EDocumentsType.ID}
+          fileType={EDocumentsType.IDFront}
           fieldName={t('Front Side')}
           icon="upload_id_front_drop"
           iconWidth={100}
@@ -29,7 +29,7 @@ export const IdentityVerification = memo(function IdentityVerification() {
       <UploadDocumentCard icon="upload_id" label={t('Identity Card (ID)')}>
         <MultipleUpload>
           <UploadFile
-            fileType={EDocumentsType.ID}
+            fileType={EDocumentsType.IDFront}
             fieldName={t('Front Side')}
             icon="upload_id_front_drop"
             iconWidth={100}
@@ -44,7 +44,7 @@ export const IdentityVerification = memo(function IdentityVerification() {
       </UploadDocumentCard>
       <UploadDocumentCard icon="upload_driver_licence" label={t('Driver’s License')}>
         <UploadFile
-          fileType={EDocumentsType.ID}
+          fileType={EDocumentsType.IDFront}
           fieldName={t('Front Side')}
           icon="upload_id_front_drop"
           iconWidth={100}

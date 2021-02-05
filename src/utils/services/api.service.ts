@@ -1,10 +1,10 @@
 import { EHttpMethod, EResponseStatus } from '@domain/enums';
 import { env } from '@env';
-import axios from 'axios';
+import axios, { AxiosRequestConfig, Method } from 'axios';
 import qs from 'qs';
 import mockData from './api.mock.json';
 
-function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPath: string) {
+function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPath: string, formData = false) {
   return async (data: T | null = null) => {
     try {
       // RETURN MOCK RESPONSE
@@ -24,48 +24,46 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
       }
       // END MOCK RESPONSE
 
-      const options = {
+      const options: AxiosRequestConfig = {
         headers: Object.assign(
           {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
           window.isSSR && window.CakePHPCookie ? { Cookie: window.CakePHPCookie } : {},
         ),
+        method: method as Method,
         withCredentials: true,
+        data: qs.stringify(data),
       };
 
-      if (method === EHttpMethod.get) {
-        return axios[method](requestPath, options)
-          .then((e: any) => {
-            if (
-              (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
-              (e.data?.status && e.data.status === EResponseStatus.failure)
-            ) {
-              throw e;
-            } else {
-              return e.data;
-            }
-          })
-          .catch((err: any) => {
-            throw err.response || err;
-          });
-      } else {
-        // @ts-ignore
-        return axios[method](requestPath, qs.stringify(data), options)
-          .then((e: any) => {
-            if (
-              (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
-              (e.data?.status && e.data.status === EResponseStatus.failure)
-            ) {
-              throw e;
-            } else {
-              return e.data;
-            }
-          })
-          .catch((err: any) => {
-            throw err.response || err;
-          });
+      if (formData && data) {
+        const formData = new FormData();
+        Object.keys(data).map((el: string) => {
+          formData.append(el, (data as T)[el]);
+        });
+
+        Object.assign(options, {
+          headers: Object.assign(options.headers, {
+            'Content-Type': 'multipart/form-data',
+          }),
+          data: formData,
+        });
       }
+
+      return axios(requestPath, options)
+        .then((e: any) => {
+          if (
+            (e.data?.response?.status && e.data.response.status === EResponseStatus.failure) ||
+            (e.data?.status && e.data.status === EResponseStatus.failure)
+          ) {
+            throw e;
+          } else {
+            return e.data;
+          }
+        })
+        .catch((err: any) => {
+          throw err.response || err;
+        });
     } catch (err) {
       console.error(err);
       throw err;
@@ -107,7 +105,7 @@ export const createMT5DemoAccountRequest = request(EHttpMethod.post, `${env.PROX
 export const changeAccountPasswordRequest = request(EHttpMethod.post, `${env.PROXY_URL}/accounts/mt5/changePassword`); // TODO update path when Ralph update endpoint
 export const changeAccountLeverageRequest = request(EHttpMethod.post, `${env.PROXY_URL}/accounts/mt4/changeLeverage`); // TODO update path when Ralph update endpoint
 export const addDepositRequest = request(EHttpMethod.post, `${env.PROXY_URL}/deposits/add`);
-export const uploadFileRequest = request(EHttpMethod.post, `${env.PROXY_URL}/v2/documents/upload`);
+export const uploadFileRequest = request(EHttpMethod.post, `${env.PROXY_URL}/v2/documents/upload`, true);
 export const getDocumentsRequest = request(EHttpMethod.post, `${env.PROXY_URL}/v2/documents/getDocuments`);
 export const partnershipRegistrationRequest = request(EHttpMethod.post, `${env.PROXY_URL}/partnership/add`);
 export const partnershipIBRegistrationRequest = request(EHttpMethod.post, `${env.PROXY_URL}/partnership/addIB`);

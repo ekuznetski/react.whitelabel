@@ -26,7 +26,7 @@ export const UploadDocuments = memo(function UploadDocuments() {
       <Tabs className="client-upload-documents__tabs" isVertical={true} activeTab={initialActiveTab}>
         <Tab
           label={t('Identity Verification')}
-          subLabel={documents.getStatusByDocumentType(EDocumentsType.ID)}
+          subLabel={documents.getStatusByDocumentType(EDocumentsType.IDFront)}
           anchor={EUploadDocumentsTabs.Identity}
         >
           <IdentityVerification />
