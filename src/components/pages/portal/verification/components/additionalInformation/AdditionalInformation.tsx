@@ -36,7 +36,7 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
           <Tab
             status={clientStatus.edd_status.notificationType}
             label={t('Complete EDD Form')}
-            subLabel={clientStatus.edd_status.message}
+            subLabel={clientStatus.edd_status.statusMessage}
             anchor={EAddInfoTabs.edd}
           >
             <EddForm />
@@ -46,7 +46,7 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
           <Tab
             status={clientStatus.tins_status.notificationType}
             label={t('Tax Identification')}
-            subLabel={clientStatus.tins_status.message}
+            subLabel={clientStatus.tins_status.statusMessage}
             anchor={EAddInfoTabs.tins}
           >
             <TaxIdentification />

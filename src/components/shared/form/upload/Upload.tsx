@@ -113,6 +113,14 @@ export const MultipleUpload = memo(
       });
     }
 
+    function checkEveryUploadState(state: UploadViewState) {
+      return Object.keys(multiContextState).every((k) => multiContextState[k].view === state);
+    }
+
+    function checkSomeUploadState(state: UploadViewState) {
+      return Object.keys(multiContextState).some((k) => multiContextState[k].view === state);
+    }
+
     function Submit() {
       const uploadDocs = {};
       Object.keys(multiContextState).forEach((key) => {
@@ -167,13 +175,22 @@ export const MultipleUpload = memo(
           return <></>;
         })}
         <Col xs={12}>
-          <Button
-            className="upload-file__btn mt-9"
-            disabled={!Object.keys(multiContextState).every((k) => multiContextState[k].view === UploadViewState.ready)}
-            onClick={Submit}
-          >
-            {t('Confirm & Upload')}
-          </Button>
+          {!checkSomeUploadState(UploadViewState.error) ? (
+            <Button
+              className="upload-file__btn mt-9"
+              disabled={!checkEveryUploadState(UploadViewState.ready)}
+              onClick={Submit}
+            >
+              {t('Confirm & Upload')}
+            </Button>
+          ) : (
+            <Button
+              className="upload-file__btn red mt-9"
+              onClick={() => everyUploadContextDispatch({ type: 'removeFile' })}
+            >
+              {t('Reassign all documents')}
+            </Button>
+          )}
         </Col>
       </Row>
     );
@@ -294,15 +311,20 @@ export const UploadFile = memo(
               <div className={classNames('upload-file__section', contextState.view !== UploadViewState.empty && 'col')}>
                 {renderView()}
               </div>
-              {!props.transferControls && (
-                <Button
-                  className="upload-file__btn mt-9"
-                  disabled={contextState.view !== UploadViewState.ready}
-                  onClick={Submit}
-                >
-                  {t('Confirm & Upload')}
-                </Button>
-              )}
+              {!props.transferControls &&
+                (contextState.view !== UploadViewState.error ? (
+                  <Button
+                    className="upload-file__btn mt-9"
+                    disabled={contextState.view !== UploadViewState.ready}
+                    onClick={Submit}
+                  >
+                    {t('Confirm & Upload')}
+                  </Button>
+                ) : (
+                  <Button className="upload-file__btn red mt-9" onClick={() => contextDispatch({ type: 'removeFile' })}>
+                    {t('Upload another document')}
+                  </Button>
+                ))}
             </div>
           ) : null;
         }}
@@ -470,12 +492,12 @@ const DocumentsList = memo(function DocumentsList({ documents }: IDocumentsListP
     <div className="documents-list">
       {documents.map((document) => (
         <div
-          key={document.id}
-          className={classNames('documents-list__item mb-3 py-2 pr-2', document.document_status.toLowerCase())}
+          key={document.type}
+          className={classNames('documents-list__item mb-3 py-2 pr-2', document.status.toLowerCase())}
         >
           <Svg href="imageType_small" height={16} className="ml-4 mr-3" />
-          <div className="document__type mr-auto">{document.document_type}</div>
-          <div className="document__status">{t('Document Status', { status: document.document_status })}</div>
+          <div className="document__type mr-auto">{document.type}</div>
+          <div className="document__status">{t(`Client Status:${document.status}`)}</div>
         </div>
       ))}
     </div>

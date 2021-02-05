@@ -2,7 +2,8 @@ import { EClientStatus, EClientStatusCode, ENotificationType } from '@domain/enu
 
 export type TClientStatus = {
   code: EClientStatusCode;
-  message: EClientStatus;
+  status: string;
+  statusMessage: EClientStatus;
   notificationType: ENotificationType;
 };
 

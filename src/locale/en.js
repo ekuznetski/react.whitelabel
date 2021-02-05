@@ -146,7 +146,6 @@ export default {
     'Explore trading opportunities',
     'Start investing in the world’s most popular markets',
   ],
-  'Document Status': '{{status}}',
   'Choose Document From List': 'Choose Your Document from a List:',
   'The Profile Has Been Updated': 'The profile has been updated',
   'Failed To Update Client Profile': 'Failed to update client profile',
