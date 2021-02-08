@@ -5,6 +5,7 @@ export function useLockScroll() {
   const [lockDelay, setLockDelay] = useState(0);
   const [unlockDelay, setUnlockDelay] = useState(0);
   const [lockPos, setLockPos] = useState(0);
+  const [timer, setTimer] = useState<NodeJS.Timeout>();
   const _root = document.getElementById('root');
 
   useEffect(() => {
@@ -14,14 +15,22 @@ export function useLockScroll() {
         setLockPos(window.pageYOffset);
       }
 
-      setTimeout(
-        () => {
-          if (isLocked) _root.classList.toggle('locking', false);
-          _root.classList.toggle('locked', isLocked);
-          // that ensure that scroll() will be executed on the next render frame after class has been changed
-          setTimeout(() => !isLocked && window.scroll(0, lockPos), 0);
-        },
-        isLocked ? lockDelay : unlockDelay,
+      if (timer) {
+        clearTimeout(timer);
+      }
+
+      setTimer(
+        setTimeout(
+          () => {
+            if (isLocked) _root.classList.toggle('locking', false);
+            else {
+              // that ensure that scroll() will be executed on the next render frame after class has been changed
+              setTimeout(() => window.scroll(0, lockPos), 0);
+            }
+            _root.classList.toggle('locked', isLocked);
+          },
+          isLocked ? lockDelay : unlockDelay,
+        ),
       );
     }
   }, [isLocked]);

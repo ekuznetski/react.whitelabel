@@ -1,9 +1,0 @@
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="imageType_small" viewBox="0 0 32 32">
-      <title>imageType_small</title>
-      <path fill="#5090fc" style="fill: var(--color1, #5090fc)" d="M1.525 0h21.319l9.156 9.181v21.294c0 0.841-0.681 1.525-1.525 1.525h-28.95c-0.841 0-1.525-0.681-1.525-1.525v-28.95c0-0.844 0.684-1.525 1.525-1.525v0z"></path>
-      <path fill="none" stroke="#fff" style="stroke: var(--color2, #fff)" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="0.4571" d="M6.662 7.481h18.734c0.956 0 1.728 0.775 1.728 1.728v14.591c0 0.956-0.775 1.728-1.728 1.728h-18.734c-0.956 0-1.728-0.775-1.728-1.728v-14.591c0-0.953 0.775-1.728 1.728-1.728v0z"></path>
-      <path fill="#fff" style="fill: var(--color2, #fff)" d="M11.928 13.459c0 1.044-0.859 1.891-1.922 1.891s-1.922-0.847-1.922-1.891 0.859-1.891 1.922-1.891 1.922 0.847 1.922 1.891v0z"></path>
-      <path fill="#fff" style="fill: var(--color2, #fff)" d="M11.6 19.634l4.366 4.15 5.459-6.228 6.003 8.822h-22.922l7.094-6.744z"></path>
-      <path fill="#5090fc" style="fill: var(--color1, #5090fc)" d="M32 9.144h-6.856c-1.262 0-2.288-1.022-2.288-2.287v-6.856l9.144 9.144z"></path>
-      <path fill="#9dc6f5" style="fill: var(--color3, #9dc6f5)" d="M32 9.144h-6.856c-1.262 0-2.288-1.022-2.288-2.287v-6.856l9.144 9.144z"></path>
-    </svg>

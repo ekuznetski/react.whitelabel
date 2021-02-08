@@ -493,11 +493,8 @@ const DocumentsList = memo(function DocumentsList({ documents }: IDocumentsListP
   return (
     <div className="documents-list">
       {documents.map((document) => (
-        <div
-          key={document.type}
-          className={classNames('documents-list__item mb-3', document.status.toLowerCase())}
-        >
-          <Svg href="imageType_small" height={16} className="ml-4 mr-3" />
+        <div key={document.type} className={classNames('documents-list__item mb-3', document.status.toLowerCase())}>
+          <Svg href="image-type_small" height={16} className="ml-4 mr-3" />
           <div className="document__type">{document.type}</div>
           <div className="document__status ml-auto mr-3">{t(`Client Status:${document.status}`)}</div>
         </div>

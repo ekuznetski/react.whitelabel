@@ -2,7 +2,7 @@ import { Button, LocaleLink, Svg } from '@components/shared';
 import { EAppSection, ELabels } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
 import { getAppSectionMenu } from '@utils/fn/getAppSectionMenu';
-import { useResponsive } from 'ahooks';
+import { useDebounceFn, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import { Container } from 'react-bootstrap';
@@ -15,6 +15,10 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const responsive = useResponsive();
   const { t } = useTranslation();
+
+  const { run: debounceOpenBurger } = useDebounceFn((value) => setOpenBurgerMenu(value), {
+    wait: isBurgerMenuOpen ? 0 : 150,
+  });
 
   return (
     <>
@@ -40,14 +44,14 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
                   href="close"
                   className="close-icon ml-9"
                   height={!responsive.md ? 18 : 21}
-                  onClick={() => setOpenBurgerMenu(false)}
+                  onClick={() => debounceOpenBurger(false)}
                 />
               ) : (
                 <Svg
                   href="burger_menu"
                   className="burger-icon ml-9"
                   height={!responsive.md ? 18 : 21}
-                  onClick={() => setOpenBurgerMenu(true)}
+                  onClick={() => debounceOpenBurger(true)}
                 />
               ))}
           </div>
