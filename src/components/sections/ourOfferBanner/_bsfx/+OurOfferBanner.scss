@@ -3,7 +3,9 @@
 .our-offer-banner-section {
   .container {
     height: inherit;
+    padding: 0;
     .row {
+      margin: 0;
       height: inherit;
     }
   }
@@ -36,12 +38,20 @@
 
   @media (max-width: $viewport-md-w) {
     [class*='col-'] {
+      border-right: none !important;
+      justify-content: center;
       &:not(:last-child) {
         border-bottom: 3px solid #fff;
         &:after {
           display: none;
         }
       }
+    }
+  }
+
+  @media (max-width: $viewport-xs-w) {
+    [class*='col-'] {
+      justify-content: unset;
     }
   }
 }

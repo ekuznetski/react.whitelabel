@@ -16,7 +16,7 @@ export const InTouchSection = memo(function InTouchSection() {
             <div className="in-touch__title mb-7">{t('In Touch Section Title')}</div>
             <div className="in-touch__description mb-13">{t('In Touch Section Desc')}</div>
           </div>
-          <div className="col-lg-12">
+          <div className="col-12 col-sm-8 col-md-12 mx-sm-auto">
             <Cards
               id="inTouchCards"
               className="in-touch__cards"

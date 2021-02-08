@@ -3,8 +3,7 @@
 
 .header.main {
   .header-profile-menu {
-    display: none;
-    align-items: center;
+    @include d-flex(center);
     position: relative;
 
     &__facepile {
@@ -58,6 +57,16 @@
       .header-profile-menu__dropdown {
         visibility: visible;
         opacity: 1;
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      .header-profile-menu {
+        &__facepile {
+          height: 30px;
+          width: 30px;
+          font-size: 12px;
+        }
       }
     }
   }
