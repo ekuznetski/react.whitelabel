@@ -1,9 +1,0 @@
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="imageType" viewBox="0 0 32 32">
-      <title>image-type</title>
-      <path fill="#5090fc" style="fill: var(--color20, #5090fc)" d="M1.524 0h21.32l9.157 9.182v21.294c0 0.842-0.682 1.524-1.524 1.524h-28.952c-0.842 0-1.524-0.682-1.524-1.524v-28.952c0-0.842 0.682-1.524 1.524-1.524z"></path>
-      <path fill="none" stroke="#fff" style="stroke: var(--color8, #fff)" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="0.4571" d="M11.048 11.935h9.905c0.505 0 0.914 0.409 0.914 0.914v7.714c0 0.505-0.409 0.914-0.914 0.914h-9.905c-0.505 0-0.914-0.409-0.914-0.914v-7.714c0-0.505 0.409-0.914 0.914-0.914z"></path>
-      <path fill="#fff" style="fill: var(--color8, #fff)" d="M13.831 15.095c0 0.552-0.455 1-1.016 1s-1.016-0.448-1.016-1c0-0.552 0.455-1 1.016-1s1.016 0.448 1.016 1z"></path>
-      <path fill="#fff" style="fill: var(--color8, #fff)" d="M13.658 18.36l2.309 2.195 2.886-3.293 3.174 4.665h-12.12z"></path>
-      <path fill="#5090fc" style="fill: var(--color20, #5090fc)" d="M32 9.143h-6.857c-1.262 0-2.286-1.023-2.286-2.286v-6.857l9.143 9.143z"></path>
-      <path fill="#9dc6f5" style="fill: var(--color22, #9dc6f5)" d="M32 9.143h-6.857c-1.262 0-2.286-1.023-2.286-2.286v-6.857l9.143 9.143z"></path>
-    </svg>

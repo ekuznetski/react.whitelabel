@@ -1,15 +1,17 @@
 import { Button, LocaleLink, LocaleNavLink, Svg } from '@components/shared';
 import { EAppSection, ELabels } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
+import { env } from '@env';
 import { routesNavConfig } from '@routers';
 import { IDataStore, IStore } from '@store';
 import { useLockScroll } from '@utils/hooks';
-import { useResponsive } from 'ahooks';
+import { useDebounceFn, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { useIntercom } from 'react-use-intercom';
 import { ProfileMenu } from './components';
 import './HeaderMain.scss';
 
@@ -20,8 +22,13 @@ export function HeaderMain(props: IHeaderDefaultProps) {
   const _mainRoutesConfig = routesNavConfig.filter((route) => route.menuItem && route.appSection === EAppSection.main);
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const { setScrollLock } = useLockScroll();
+  const { shutdown, boot } = useIntercom();
   const responsive = useResponsive();
   const { t } = useTranslation();
+
+  const { run: debounceOpenBurger } = useDebounceFn((value) => setOpenBurgerMenu(value), {
+    wait: isBurgerMenuOpen ? 0 : 150,
+  });
 
   useEffect(() => {
     if (isBurgerMenuOpen && responsive.lg) setOpenBurgerMenu(false);
@@ -29,6 +36,9 @@ export function HeaderMain(props: IHeaderDefaultProps) {
 
   useEffect(() => {
     setScrollLock(isBurgerMenuOpen, 300);
+    if (env.PRODUCTION) {
+      isBurgerMenuOpen ? shutdown() : boot();
+    }
   }, [isBurgerMenuOpen]);
 
   return (
@@ -68,14 +78,14 @@ export function HeaderMain(props: IHeaderDefaultProps) {
                   href="close"
                   className="close-icon ml-9"
                   height={!responsive.md ? 18 : 21}
-                  onClick={() => setOpenBurgerMenu(false)}
+                  onClick={() => debounceOpenBurger(false)}
                 />
               ) : (
                 <Svg
                   href="burger_menu"
                   className="burger-icon ml-9"
                   height={!responsive.md ? 18 : 21}
-                  onClick={() => setOpenBurgerMenu(true)}
+                  onClick={() => debounceOpenBurger(true)}
                 />
               ))}
           </div>
