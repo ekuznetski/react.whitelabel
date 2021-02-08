@@ -37,10 +37,7 @@ export function FifthStep({ name, submitFn }: any) {
               <h4 className="section-title mb-5">{t('Declaration')}</h4>
               <Checkbox name={EFields.declaration} className="mb-10">
                 <Trans i18nKey="Customer introduction agreement" values={{ name }}>
-                  I, {name} , declare that I have carefully read and understood, <a href="#">Customer Agreement</a>,
-                  <a target="_blank" href={files.termsOfBusiness}>
-                    Terms of Business
-                  </a>{' '}
+                  I, {name} , declare that I have carefully read and understood, <a href="#">Customer Agreement</a>, <a target="_blank" href={files.termsOfBusiness}>Terms of Business</a>
                   and all other policies as found here which I fully accept and agree with. I accept I am electronically
                   signing these documents, and that this is a legally binding contractual agreement.
                 </Trans>
