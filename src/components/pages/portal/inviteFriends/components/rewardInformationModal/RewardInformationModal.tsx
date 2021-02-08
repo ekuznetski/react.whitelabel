@@ -1,14 +1,12 @@
-import React from 'react';
 import { ModalBody, ModalFooter, ModalTitle } from '@components/core';
 import { Button, Svg } from '@components/shared';
-import { ac_hideModal } from '@store';
+import { files } from '@domain';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import './RewardInformationModal.scss';
 
 export const RewardInformationModal = React.memo(function RewardInformationModal() {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   return (
     <>
@@ -18,7 +16,7 @@ export const RewardInformationModal = React.memo(function RewardInformationModal
         {t('Reward Information Desc')}
       </ModalBody>
       <ModalFooter>
-        <Button onClick={() => dispatch(ac_hideModal())}>{t('Read Terms and Conditions')}</Button>
+        <Button onClick={() => window.open(files.termsOfBusiness, '_blank')}>{t('Read Terms of Business')}</Button>
       </ModalFooter>
     </>
   );

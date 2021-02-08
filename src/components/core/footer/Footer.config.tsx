@@ -1,5 +1,4 @@
-import { LabelView } from '@components/shared';
-import { ELabels } from '@domain/enums';
+import { files } from '@domain';
 import i18n from '@i18next';
 import React from 'react';
 import { Col } from 'react-bootstrap';
@@ -41,11 +40,11 @@ export const config = {
     },
     {
       name: t('Risk Warnings'),
-      link: '',
+      link: files.riskWarning,
     },
     {
       name: t('Cookies Policy'),
-      link: '',
+      link: files.cookiePolicy,
     },
   ],
   context: {
