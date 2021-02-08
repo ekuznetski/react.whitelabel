@@ -230,6 +230,7 @@
       @include d-flex(center);
       background: $grey-bg;
       border-left: 4px solid rgba($dark-grey, 0.6);
+      height: 50px;
 
       .document {
         &__type {
@@ -238,7 +239,7 @@
         }
 
         &__status {
-          font-size: 14px;
+          font-size: 15px;
         }
       }
 

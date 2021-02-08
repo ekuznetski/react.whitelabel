@@ -1,2 +1,9 @@
 .client-verification-page-wrapper {
+  .common-tabs {
+    &.vertical {
+      .common-tabs__container {
+        min-height: 400px;
+      }
+    }
+  }
 }

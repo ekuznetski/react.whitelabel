@@ -41,7 +41,7 @@ export class MDocuments {
     );
   };
 
-  getAllDocumentsOfTypes = (type: EDocumentsType | EDocumentsType[]): any => {
+  getAllDocumentsOfTypes = (type: EDocumentsType | EDocumentsType[]): MDocument[] => {
     type = [type].flat();
     return this.list.filter((document) => type.includes(document.type));
   };

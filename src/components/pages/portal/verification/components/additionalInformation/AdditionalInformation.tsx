@@ -1,5 +1,5 @@
 import { Tab, Tabs } from '@components/shared';
-import { EClientStatusCode, EDocumentsType } from '@domain/enums';
+import { EClientStatus, EClientStatusCode, EDocumentsType, ENotificationType } from '@domain/enums';
 import { MClientStatus, MDocuments } from '@domain/models';
 import { IStore } from '@store';
 import React, { memo } from 'react';
@@ -26,8 +26,25 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
   const initialActiveTab =
     (EClientStatusCode.required === clientStatus.edd_status.code && EAddInfoTabs.edd) ||
     (EClientStatusCode.required === clientStatus.tins_status.code && EAddInfoTabs.tins) ||
-    // EClientStatusCode.required === clientStatus.card.code && EAddInfoTabs.card ||
     EAddInfoTabs.card;
+  const ccFilesStatus = documents
+    .getAllDocumentsOfTypes([
+      EDocumentsType.CCCopy1,
+      EDocumentsType.CCCopy2,
+      EDocumentsType.CCCopy3,
+      EDocumentsType.CCCopy4,
+      EDocumentsType.CCCopy5,
+    ])
+    .map((file) => file.code)
+    .reduce(
+      (a, c, i, arr) => {
+        if (arr.includes(EClientStatusCode.rejected) && arr.splice(1))
+          // if arr includes rejected code, enforce arr to be the size of 1, so the .reduce() has only 1 iteration
+          return { status: ENotificationType.danger, label: EClientStatus.rejected };
+        return { status: ENotificationType.success, label: EClientStatus.submitted };
+      },
+      { status: ENotificationType.danger, label: EClientStatus.notSubmitted },
+    );
 
   return (
     <div className="additional-information">
@@ -53,9 +70,9 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
           </Tab>
         )}
         <Tab
-          status={documents.getDocumentByType(EDocumentsType.CCFront).notificationType}
+          status={ccFilesStatus.status}
           label={t('Debit/Credit Card Verification')}
-          subLabel={documents.getDocumentByType(EDocumentsType.CCFront).statusMessage}
+          subLabel={ccFilesStatus.label}
           anchor={EAddInfoTabs.card}
         >
           <CreditCardVerification />

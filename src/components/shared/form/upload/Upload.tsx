@@ -495,11 +495,11 @@ const DocumentsList = memo(function DocumentsList({ documents }: IDocumentsListP
       {documents.map((document) => (
         <div
           key={document.type}
-          className={classNames('documents-list__item mb-3 py-2 pr-2', document.status.toLowerCase())}
+          className={classNames('documents-list__item mb-3', document.status.toLowerCase())}
         >
           <Svg href="imageType_small" height={16} className="ml-4 mr-3" />
-          <div className="document__type mr-auto">{document.type}</div>
-          <div className="document__status">{t(`Client Status:${document.status}`)}</div>
+          <div className="document__type">{document.type}</div>
+          <div className="document__status ml-auto mr-3">{t(`Client Status:${document.status}`)}</div>
         </div>
       ))}
     </div>
