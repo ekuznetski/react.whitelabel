@@ -1,3 +1,4 @@
+import { files } from '@domain';
 import i18n from '@i18next';
 import React from 'react';
 import { Col } from 'react-bootstrap';
@@ -8,16 +9,16 @@ export const config = {
   socialMediaLinks: [],
   documents: [
     {
-      name: t('Legal Forms and Documents'),
-      link: '',
+      name: t('Terms of Business'),
+      link: files.termsOfBusiness,
     },
     {
       name: t('Risk Warnings'),
-      link: '',
+      link: files.riskWarning,
     },
     {
       name: t('Cookies Policy'),
-      link: '',
+      link: files.cookiePolicy,
     },
   ],
   context: {
@@ -43,8 +44,8 @@ export const config = {
         <Col xs={12} className="context mb-lg-9 mb-7">
           <b className="mr-2">{t('Regional Restrictions')}:</b>
           <Trans i18nKey="Regional Restrictions Desc">
-            Regional Restrictions Desc
-            <a className="ml-2">{t('Help Center')}</a>
+            We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong,
+            Japan, the United States of America and some other regions. For more information please refer to our <a target="_blank" href={files.termsOfBusiness}>Terms of Business</a>
           </Trans>
         </Col>
       </>

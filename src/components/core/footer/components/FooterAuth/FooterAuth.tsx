@@ -14,7 +14,7 @@ export const FooterAuth = memo(function FooterAuth() {
           <div className="links d-flex flex-column flex-sm-row">
             {config?.documents?.map((documents, index) => (
               <React.Fragment key={index}>
-                <a href={documents.link} className="links-item">
+                <a target="_blank" href={documents.link} className="links-item">
                   {documents.name}
                 </a>
                 {index + 1 != config.documents.length && <div className="links-divider"></div>}

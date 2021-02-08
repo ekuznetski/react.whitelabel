@@ -3,4 +3,7 @@ export const files = {
   financeFeesVariable: '',
   installInstructionsMT4: '',
   installInstructionsMT5: '',
+  riskWarning: '',
+  cookiePolicy: '',
+  termsOfBusiness: '',
 };

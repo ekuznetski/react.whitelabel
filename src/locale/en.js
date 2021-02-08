@@ -356,7 +356,7 @@ export default {
   'Choose date range': 'Choose date range',
   'Total Amount': 'Total Amount:',
   'Customer introduction agreement':
-    "I, {{name}}, declare that I have carefully read and understood, <3 href='#'>Customer Agreement</3>, <3 href='#'>Terms of Business</3> and all other policies as found here which I fully accept and agree with. I accept I am electronically signing these documents, and that this is a legally binding contractual agreement.",
+    'I, {{name}}, declare that I have carefully read and understood, <3>Customer Agreement</3>, <5>Terms of Business</5> and all other policies as found here which I fully accept and agree with. I accept I am electronically signing these documents, and that this is a legally binding contractual agreement.',
   'This field is required': 'This field is required',
   'Passwords must match': 'Passwords must match',
   'Invalid value': 'Invalid value',
@@ -475,7 +475,7 @@ export default {
   'Type Your Friends Email': 'Type your friends email',
   'Secure Information': 'We won’t store your password and your contacts are secure',
   'Minimum Requirements': 'Minimum Requirements',
-  'Read Terms and Conditions': 'Read the terms and Conditions',
+  'Read Terms of Business': 'Read the Terms of Business',
   'Reward Information Desc':
     'Earn an unlimited refer-a-friend bonus Receive a $200 cash bonus for each referral who opens an account and funds it with at least $500 and traded 3 lots',
   'Invitation Successful': 'Invitation Successful',
@@ -505,4 +505,5 @@ export default {
   'More than 500,000': 'More than {{currencySymbol}}500,000',
   'Thank You For Submitting Your Information':
     'Thank you for submitting your information. A member of the WHITE_LABEL Team will be in touch shortly.',
+  'Terms of Business': 'Terms of Business',
 };
