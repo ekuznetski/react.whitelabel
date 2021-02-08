@@ -32,11 +32,9 @@ export const initAppStore: Nullable<IAppStore> = {
   },
 };
 
-export const ignoreActionIfPageLoadedList = [
-  EActionTypes.fetchPrices,
-  EActionTypes.fetchClientData,
-  EActionTypes.uploadDocuments,
-];
+export function ignoreActionIfPageLoadedList() {
+  return window.isSSR ? [] : [EActionTypes.fetchPrices, EActionTypes.fetchClientData, EActionTypes.uploadDocuments];
+}
 
 export function appStoreReducer(state = initAppStore as IAppStore, action: IAction) {
   switch (action.type) {
@@ -64,7 +62,7 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.changeAccountLeverage:
     case EActionTypes.changeAccountPassword:
       const ignoreActionIfPageLoaded = !state.route.isLoading
-        ? !ignoreActionIfPageLoadedList.includes(action.type)
+        ? !ignoreActionIfPageLoadedList().includes(action.type)
         : true;
 
       return {
