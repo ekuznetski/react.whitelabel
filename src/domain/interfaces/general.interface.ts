@@ -1,4 +1,5 @@
 import { EResponseStatus } from '@domain/enums';
+import { IStore } from '@store';
 
 export interface IHeaderDefaultProps {
   fixed: boolean;
@@ -12,7 +13,7 @@ export interface IBaseResponse {
   };
 }
 
-export type WindowProps = { isSSR?: boolean; CakePHPCookie?: string };
+export type WindowProps = { isSSR?: boolean; CakePHPCookie?: string; __PRELOADED_STATE__?: Nullable<IStore> };
 
 export type ColNumberAttr = number | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
 

@@ -7,7 +7,7 @@ import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
 import { env } from '@env';
 import { routesInitialApiData, routesNavConfig } from '@routers';
-import { IStore, ac_clearStore, ac_updateRouteParams, store } from '@store';
+import { IStore, ac_clearStore, ac_updateRouteParams, initStore, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
 import axios, { Method } from 'axios';
 import compression from 'compression';
@@ -67,7 +67,7 @@ const corsOptions: cors.CorsOptions = {
 
 let storeState: IStore;
 const unsubscribeRequestResolver = store.subscribe(() => {
-  const prevStoreState = storeState;
+  const prevStoreState: IStore = JSON.parse(JSON.stringify(storeState || initStore));
   storeState = store.getState();
 
   if (route) {
@@ -137,6 +137,17 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
   next();
 }
 
+function declareGlobalProps(req: express.Request, resp: express.Response, next: express.NextFunction) {
+  (global as any).window = window;
+  (global as any).document = document;
+  (global as any).location = window.location;
+  (global as any).localStorage = null;
+  (global as any).window['isSSR'] = true;
+  (global as any).window['CakePHPCookie'] = req.session?.CakePHPCookie || '';
+
+  next();
+}
+
 app.set('trust proxy', true);
 app.use(cors(corsOptions));
 app.use(cookieParser());
@@ -145,7 +156,7 @@ app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(nocache());
 
-app.use('/proxy', checkAuthenticationCookie, upload.any(), (req, resp) => {
+app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (req, resp) => {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
@@ -233,14 +244,7 @@ app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));
 
-app.get('*', checkAuthenticationCookie, (req: express.Request, res: express.Response) => {
-  (global as any).window = window;
-  (global as any).document = document;
-  (global as any).location = window.location;
-  (global as any).localStorage = null;
-  (global as any).window['isSSR'] = true;
-  (global as any).window['CakePHPCookie'] = req.session?.CakePHPCookie || '';
-
+app.get('*', declareGlobalProps, checkAuthenticationCookie, (req: express.Request, res: express.Response) => {
   const fileExist = fs.existsSync(indexFile);
   let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
     lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],

@@ -8,18 +8,27 @@ import { IStore } from './store.interface';
 import { Nullable } from '@domain/interfaces';
 import { env } from '@env';
 import { EActionTypes } from './store.enum';
+import { MDocuments } from '@domain/models';
 
 export const reducers = combineReducers({ data: dataStoreReducer, app: appStoreReducer });
-const sagaMiddleware = createSagaMiddleware();
 export const initStore: Nullable<IStore> = {
   data: initDataStore,
   app: initAppStore,
 };
 
-const preloadedState: IStore =
-  typeof window !== 'undefined' && (window as any).__PRELOADED_STATE__
-    ? (window as any).__PRELOADED_STATE__
-    : initStore;
+const _preloadState = typeof window !== 'undefined' && window.__PRELOADED_STATE__;
+const sagaMiddleware = createSagaMiddleware();
+const preloadedState = Object.assign(initStore, _preloadState && (window.__PRELOADED_STATE__ as Nullable<IStore>));
+
+// type casting
+if (_preloadState) {
+  if (preloadedState.data?.client) {
+    preloadedState.data.client.documents = Object.assign(
+      new MDocuments({}, true),
+      preloadedState.data?.client?.documents,
+    );
+  }
+}
 
 // @ts-ignore
 export const store = createStore<IStore>(

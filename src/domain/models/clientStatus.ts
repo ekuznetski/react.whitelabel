@@ -10,7 +10,7 @@ export class MClientStatus {
   tins_status: TClientStatus;
   dual_status: TClientStatus;
 
-  constructor(props: IClientStatus) {
+  constructor(props: IClientStatus, castType = false) {
     this.fp_status = generateStatus(props.fp_status.message);
     this.client_status = generateStatus(props.client_status.message);
     this.cayman_status = generateStatus(props.cayman_status.message);

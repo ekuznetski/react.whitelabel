@@ -10,7 +10,9 @@ export type MDocument = TClientStatus & { type: EDocumentsType; status: string }
 export class MDocuments {
   list: MDocument[] = [];
 
-  constructor(documentsStatus: IClientStatus['document_status_new']) {
+  constructor(documentsStatus: IClientStatus['document_status_new'], castType = false) {
+    if (castType) return this;
+
     const document_status_new: { [k in EDocumentsType]?: TClientStatus } = documentsStatus
       ? Object.keys(documentsStatus).reduce(
           (acc, key) => Object.assign(acc, { [key]: generateStatus(documentsStatus[key].message) }),

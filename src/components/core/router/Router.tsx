@@ -83,7 +83,7 @@ export const Router = memo(function Router() {
         ].map((action) => action().type);
         const hasUncompletedStrictRequest = _routeStrictRequests.length
           ? requests.activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0 &&
-            !(!routeState.isLoading && ignoreOnAction(ignoreActionIfPageLoadedList))
+            !(!routeState.isLoading && ignoreOnAction(ignoreActionIfPageLoadedList()))
           : false;
 
         if (routeState.isLoading != hasUncompletedStrictRequest) {
