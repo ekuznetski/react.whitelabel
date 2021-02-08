@@ -130,7 +130,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
                 function Children() {
                   return (
                     <>
-                      {child.icon?.length && <Svg href={child.icon} className="mr-4" />}
+                      {child.icon?.length && <Svg href={child.icon} className="mr-4" width="27" height="20" />}
                       {child.title}
                     </>
                   );

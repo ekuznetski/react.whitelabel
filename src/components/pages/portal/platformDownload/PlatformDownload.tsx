@@ -35,41 +35,41 @@ export const PlatformDownload = memo(function PlatformDownload() {
                   <div className="download__panel-devices py-10 px-9">
                     <div className="device-item mb-11">
                       <div className="device-type mb-5">
-                        <Svg href="shrimp" height="24" />
+                        <Svg href="display" height="24" />
                         {t('Desktop')}
                       </div>
                       <a className="underlined" href={downloadLinks[platform].desktop}>
-                        <Svg href="shrimp" height="18" />
+                        <Svg href="windows" height="18" />
                         <span>Windows</span>
                       </a>
                     </div>
                     <div className="device-item mb-11">
                       <div className="device-type mb-5">
-                        <Svg href="shrimp" height="24" />
+                        <Svg href="mobile" height="24" />
                         {t('Mobile')}
                       </div>
                       <a className="underlined mr-10" href={downloadLinks[platform].appStore}>
-                        <Svg href="shrimp" height="18" />
+                        <Svg href="apple" height="18" />
                         <span>IOS</span>
                       </a>
                       <a className="underlined" href={downloadLinks[platform].googlePlay}>
-                        <Svg href="shrimp" height="18" />
+                        <Svg href="android" height="18" />
                         <span>Android</span>
                       </a>
                     </div>
                     <div className="device-item">
                       <div className="device-type mb-5">
-                        <Svg href="shrimp" height="24" />
+                        <Svg href="browser" height="24" />
                         {t('Web')}
                       </div>
                       <a className="underlined" target="_blank" href={downloadLinks[platform].web}>
-                        <Svg href="shrimp" height="18" />
+                        <Svg href="globe" height="18" />
                         <span>{t('Launch')}</span>
                       </a>
                     </div>
                   </div>
                   <div className="download__panel-instructions">
-                    <Svg href="shrimp" height="18" className="mr-5" />
+                    <Svg href="tools" height="18" className="mr-5" />
                     {t('Read instructions on')}
                     <a
                       href={files[`installInstructions${platform.toUpperCase()}` as keyof typeof files]}

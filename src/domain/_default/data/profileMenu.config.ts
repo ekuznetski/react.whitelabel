@@ -3,12 +3,12 @@ const t = i18n.getLazyT;
 
 export const profileMenuPortalConfig = [
   {
-    icon: 'coins',
+    icon: 'shield',
     path: '/verification',
     title: t('Verification'),
   },
   {
-    icon: 'coins',
+    icon: 'share',
     path: '/invite-friends',
     title: t('Invite Friends'),
   },
@@ -18,7 +18,7 @@ export const profileMenuPortalConfig = [
     title: t('My Profile'),
   },
   {
-    icon: 'coins',
+    icon: 'log-out',
     path: '/logout',
     title: t('Log Out'),
   },

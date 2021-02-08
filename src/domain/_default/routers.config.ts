@@ -279,7 +279,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     activators: [allowAuthorizedGuard],
     menuItem: {
       label: t('Transactional Statement'),
-      icon: 'coins',
+      icon: 'statement',
       parent: 'Funds Management',
     },
   },
@@ -327,7 +327,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     activators: [allowAuthorizedGuard],
     menuItem: {
       label: t('Platform Download'),
-      icon: 'coins',
+      icon: 'download-platform',
       parent: { label: t('Tools'), icon: 'documents' },
     },
   },

@@ -73,7 +73,7 @@ export function ForgotPassword() {
                 description={t('Reset Password Note Success')}
                 showBackButton={false}
               />
-              <Svg className="d-block m-auto pb-10" href="shrimp" width={20} />
+              <Svg className="d-block m-auto pb-10" href="restorePass" width={20} />
               <div className="text-center pb-10">{submittedEmail}</div>
               <Button
                 type="button"

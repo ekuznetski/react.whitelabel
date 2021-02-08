@@ -141,11 +141,6 @@
         box-shadow: box-shadow(10, 0.1);
 
         .withdrawal-item {
-          &__icon {
-            svg {
-              background: $blue;
-            }
-          }
           &__status {
             color: $blue;
           }
@@ -162,11 +157,6 @@
         border-radius: $border-radius $border-radius 0 0;
 
         .withdrawal-item {
-          &__icon {
-            svg {
-              background: $yellow;
-            }
-          }
           &__status {
             color: $yellow;
           }
@@ -181,11 +171,6 @@
         box-shadow: box-shadow(10, 0.1);
 
         .withdrawal-item {
-          &__icon {
-            svg {
-              background: $green;
-            }
-          }
           &__status {
             color: $green;
           }
@@ -200,11 +185,6 @@
     .withdrawal {
       &-info {
         .withdrawal-item {
-          &__icon {
-            svg {
-              background: $red;
-            }
-          }
           &__status {
             color: $red;
           }

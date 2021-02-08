@@ -13,11 +13,24 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
+  function getIconHref(status: ETaskStatus) {
+    switch (status) {
+      case ETaskStatus.pending:
+        return 'withdrawal-pending';
+      case ETaskStatus.success:
+        return 'withdrawal-done-spinner';
+      case ETaskStatus.inProgress:
+        return 'in-progress-spinner';
+      case ETaskStatus.failure:
+        return 'withdrawal-canceled-spinner';
+    }
+  }
+
   return (
     <div className={classNames('withdrawal-history-item mb-10', props.status.toLowerCase())}>
       <div className="withdrawal-info ">
         <div className="withdrawal-item__icon px-6">
-          <Svg href="shrimp" height={18} />
+          <Svg href={getIconHref(props.status)} height={18} />
         </div>
         <div className="withdrawal-item__amount px-6">
           <div className="item-cel__title mb-2">{t('Requested')}</div>
