@@ -5,5 +5,5 @@ export const files = {
   installInstructionsMT5: '/files/install_instructions_mt5.pdf',
   riskWarning: '/files/risk_warning.pdf',
   cookiePolicy: '/files/cookie_policy.pdf',
-  termsOfService: '/files/terms_of_service.pdf',
+  termsOfBusiness: '/files/terms_of_business.pdf',
 };

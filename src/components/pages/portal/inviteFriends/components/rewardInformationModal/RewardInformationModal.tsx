@@ -16,9 +16,7 @@ export const RewardInformationModal = React.memo(function RewardInformationModal
         {t('Reward Information Desc')}
       </ModalBody>
       <ModalFooter>
-        <Button onClick={() => window.open(files.termsOfService, '_blank')}>
-          {t('Read Terms and Conditions')}
-        </Button>
+        <Button onClick={() => window.open(files.termsOfBusiness, '_blank')}>{t('Read Terms of Business')}</Button>
       </ModalFooter>
     </>
   );
