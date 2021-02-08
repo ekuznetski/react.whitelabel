@@ -61,6 +61,10 @@ export const Input = memo(
       onChange?.(e);
     }
 
+    function onAnimationStartHandler(e: any) {
+      setState({ ...state, isFilled: e.animationName === 'onAutoFillStart' });
+    }
+
     return (
       <div
         className={classNames(
@@ -89,6 +93,7 @@ export const Input = memo(
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
           onChange={onChangeHandler}
+          onAnimationStart={onAnimationStartHandler}
           ref={ref}
         />
         {(meta.touched || forceShowError) && !_disabled && meta.error ? (

@@ -62,9 +62,18 @@
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
+    animation-name: onAutoFillStart;
     border: none;
     -webkit-text-fill-color: $dark-text;
     -webkit-box-shadow: 0 0 0 1000px #fff inset;
+  }
+
+  @keyframes onAutoFillStart {
+  }
+
+  input:-webkit-autofill::first-line {
+    font-family: $font-family;
+    font-size: 14px;
   }
 
   .error {
