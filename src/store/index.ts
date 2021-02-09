@@ -5,10 +5,10 @@ import * as sagaMiddlewareRunners from './sagas';
 import { dataStoreReducer, initDataStore } from './_data.reducer';
 import { appStoreReducer, initAppStore } from './_app.reducer';
 import { IStore } from './store.interface';
-import { Nullable } from '@domain/interfaces';
+import { IClientSettings, IClientStatus, Nullable } from '@domain/interfaces';
 import { env } from '@env';
 import { EActionTypes } from './store.enum';
-import { MDocuments } from '@domain/models';
+import { MClientSettings, MClientStatus, MDocuments } from '@domain/models';
 
 export const reducers = combineReducers({ data: dataStoreReducer, app: appStoreReducer });
 export const initStore: Nullable<IStore> = {
@@ -26,6 +26,16 @@ if (_preloadState) {
     preloadedState.data.client.documents = Object.assign(
       new MDocuments({}, true),
       preloadedState.data?.client?.documents,
+    );
+
+    preloadedState.data.client.status = Object.assign(
+      new MClientStatus({} as IClientStatus, true),
+      preloadedState.data?.client?.status,
+    );
+
+    preloadedState.data.client.settings = Object.assign(
+      new MClientSettings({} as IClientSettings, true),
+      preloadedState.data?.client?.settings,
     );
   }
 }

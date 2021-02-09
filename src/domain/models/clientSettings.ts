@@ -5,7 +5,7 @@ import {
   ECurrencyCode,
   ETradingAccountType,
   ETradingPlatform,
-  ETradingPlatformName
+  ETradingPlatformName,
 } from '@domain/enums';
 import {
   IClientProfile,
@@ -13,7 +13,7 @@ import {
   ILeveragesSelectList,
   IPlatformsSelectList,
   ITradingAccountTypesSelectList,
-  TClientStatus
+  TClientStatus,
 } from '@domain/interfaces';
 import { generateStatus } from '@utils/fn/generateStatus';
 
@@ -38,29 +38,33 @@ export class MClientSettings {
   edit_fake_account?: boolean;
   trading_central?: boolean;
 
-  constructor (props: IClientSettings | IClientProfile) {
+  constructor(props: IClientSettings | IClientProfile, castType = false) {
+    if (castType) return this;
+
     this.allow_additional_account = props.allow_additional_account;
     this.allow_additional_live_account = props.allow_additional_live_account;
     this.allow_additional_demo_account = props.allow_additional_demo_account;
     this.allow_deposit = props.allow_deposit;
 
     if (props.allowed_currencies)
-      this.allowed_currencies = props.allowed_currencies.map((item) => ECurrencyCode[item.toLowerCase() as keyof typeof ECurrencyCode])
+      this.allowed_currencies = props.allowed_currencies.map(
+        (item) => ECurrencyCode[item.toLowerCase() as keyof typeof ECurrencyCode],
+      );
 
     if (props.allowed_leverages)
       this.allowed_leverages = props.allowed_leverages.map(
         (item) => EAccountLeverage[item.toString().replace(/(1[_:])?(.*)/, '1_$2') as keyof typeof EAccountLeverage],
-      )
+      );
 
     if (props.allowed_account_types)
       this.allowed_account_types = props.allowed_account_types.map(
         (item) => ETradingAccountType[item?.toLowerCase() as keyof typeof ETradingAccountType],
-      )
+      );
 
     if (props.allowed_platforms)
       this.allowed_platforms = props.allowed_platforms.map((item) => {
         return ETradingPlatform[item.toLowerCase() as keyof typeof ETradingPlatform];
-      })
+      });
 
     if (props.phone_verification)
       this.phone_verification = generateStatus(props.phone_verification?.toLowerCase?.() as keyof typeof EClientStatus);
