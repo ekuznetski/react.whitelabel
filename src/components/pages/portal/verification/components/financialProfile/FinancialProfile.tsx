@@ -25,7 +25,6 @@ export const FinancialProfile = memo(function FinancialProfile() {
   const progressPercent = (100 / (Object.keys(EFPSteps).length / 2)) * state.step;
 
   function submitFn(data: any) {
-    console.log(state.data);
     if (state.step === Object.keys(EFPSteps).length / 2) {
       const preparedData: ISubmitFPRequest = { kyc_answer: JSON.stringify(state.data) };
       dispatch(
