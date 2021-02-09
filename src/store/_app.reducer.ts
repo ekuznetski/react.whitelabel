@@ -64,12 +64,11 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
       const ignoreActionIfPageLoaded = !state.route.isLoading
         ? !ignoreActionIfPageLoadedList().includes(action.type)
         : true;
-
       return {
         ...state,
         requests: {
           ...state.requests,
-          activeList: Object.assign([], state.requests?.activeList || [], ignoreActionIfPageLoaded && [action.type]),
+          activeList: Array.from(new Set([...(state.requests?.activeList ?? []), action.type])),
         },
       };
 

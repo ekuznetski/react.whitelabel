@@ -302,7 +302,7 @@ app.get('*', declareGlobalProps, checkAuthenticationCookie, (req: express.Reques
                   <Header />
                   <main className="router-context">{route.component && <route.component />}</main>
                 </div>
-                <Footer />{' '}
+                <Footer />
               </>
             )
           ) : (
