@@ -1,4 +1,3 @@
-import { countries, Country } from '@domain/enums';
 import { IEdd } from '@domain/interfaces';
 
 export class MEdd {
