@@ -1,5 +1,4 @@
 // @ts-nocфheck
-
 import './i18n'; // Must be the imported before the App!
 import { Footer, Header, NotFound, PageLoader } from '@components/core';
 import { localesConfig } from '@domain';
@@ -7,45 +6,47 @@ import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
 import { env } from '@env';
 import { routesInitialApiData, routesNavConfig } from '@routers';
-import { IStore, ac_clearStore, ac_updateRouteParams, initStore, store } from '@store';
+import { EActionTypes, IStore, ac_clearStore, ac_updateRouteParams, initStore, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
 import axios, { Method } from 'axios';
 import compression from 'compression';
+import cookieParser from 'cookie-parser';
 import 'core-js/stable';
+import cors from 'cors';
 import express from 'express';
+import session from 'express-session';
+import FormData from 'form-data';
 import fs from 'fs';
+import multer from 'multer';
+import nocache from 'nocache';
 import path from 'path';
 import qs from 'qs';
-import redis from 'redis';
-import cors from 'cors';
-import nocache from 'nocache';
-import multer from 'multer';
-import FormData from 'form-data';
-import cookieParser from 'cookie-parser';
-import session from 'express-session';
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
+import redis from 'redis';
 import { document, window } from 'ssr-window';
+import { v4 as uuidv4 } from 'uuid';
+import { Unsubscribe } from 'redux';
 import './App.scss';
 
 declare module 'express-session' {
   interface SessionData {
     CakePHPCookie: string;
+    activeRequests: string[];
   }
 }
 
+let unsubscribeRequestResolver: Unsubscribe;
 let requestResolver: AnyFunction = null;
 let route: IRouteNavConfig | null = null;
 
 const REDIS_PORT = 6379;
+const REDIS_REQUESTs_STORE = 'actions_list';
 const PORT = process.env.PORT || 4201;
 const app = express();
-const inMemoryStorage = multer.memoryStorage();
 const upload = multer({ dest: '/tmp/uploads', limits: { fieldNameSize: 1024, fieldSize: 1024 * 1024 * 15 } });
-// const upload = multer({ storage: inMemoryStorage, limits: { fieldNameSize: 1024, fieldSize: 1024 * 1024 * 15 } });
 const indexFile = path.normalize('browser/server.html');
 
 const allowedUploadURLs = ['/v2/documents/upload'];
@@ -65,37 +66,14 @@ const corsOptions: cors.CorsOptions = {
   optionsSuccessStatus: 200,
 };
 
-let storeState: IStore;
-const unsubscribeRequestResolver = store.subscribe(() => {
-  const prevStoreState: IStore = JSON.parse(JSON.stringify(storeState || initStore));
-  storeState = store.getState();
-
-  if (route) {
-    const _routeStrictRequests = [
-      ...(route.apiData?.strict || []),
-      ...(routesInitialApiData[route.appSection]?.strict || []),
-    ]
-      .map((action) => action().type)
-      .filter((action) => !!action);
-
-    const prevActiveList = prevStoreState?.app?.requests?.activeList || [],
-      activeList = storeState.app.requests.activeList;
-
-    const hasUncompletedStrictRequest = _routeStrictRequests.length
-      ? prevActiveList.length
-        ? prevActiveList.join('') !== activeList.join('')
-          ? prevActiveList.filter((request) => _routeStrictRequests.includes(request)).length > 0 &&
-            activeList.length != 0
-          : true
-        : true
-      : false;
-
-    if (!hasUncompletedStrictRequest && storeState.app.route.appSection && requestResolver) {
-      console.log('========data ready========');
-      requestResolver();
-    }
-  }
-});
+function checkRouterLoaderState(prevActiveList: EActionTypes[], activeList: EActionTypes[], pal = 0, al = 0) {
+  return (
+    Array.isArray(prevActiveList) &&
+    Array.isArray(activeList) &&
+    prevActiveList.length == pal &&
+    activeList.length == al
+  );
+}
 
 const RedisStore = require('connect-redis')(session);
 const RedisClient = redis.createClient(REDIS_PORT, env.DEV_MODE ? '127.0.0.1' : 'redis');
@@ -114,6 +92,16 @@ RedisClient.on('error', function (err) {
 RedisClient.on('ready', function () {
   console.log('Redis is ready');
 });
+
+function clearRedisRequestsList() {
+  RedisClient.del(REDIS_REQUESTs_STORE, function (err, response) {
+    if (response == 1) {
+      // console.log('Deleted Successfully!');
+    } else {
+      // console.log('Cannot delete', err);
+    }
+  });
+}
 
 function checkAuthenticationCookie(req: express.Request, resp: express.Response, next: express.NextFunction) {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
@@ -148,6 +136,33 @@ function declareGlobalProps(req: express.Request, resp: express.Response, next: 
   next();
 }
 
+function storeTracker(req: express.Request, resp: express.Response, next: express.NextFunction) {
+  let storeState: IStore;
+  unsubscribeRequestResolver = store.subscribe(() => {
+    const prevStoreState: IStore = storeState;
+    storeState = store.getState();
+
+    if (route && requestResolver) {
+      RedisClient.smembers(REDIS_REQUESTs_STORE, function (err, activeRequests) {
+        const prevActiveList = prevStoreState?.app?.requests?.activeList || [],
+          activeList = storeState.app.requests.activeList;
+
+        if (checkRouterLoaderState(prevActiveList, activeList, 1)) {
+          store.dispatch(ac_updateRouteParams({ isLoading: true }));
+        }
+
+        if (checkRouterLoaderState(prevActiveList, activeList) && activeRequests.length == 0 && requestResolver) {
+          console.log('========data ready========');
+          requestResolver();
+          requestResolver = null;
+        }
+      });
+    }
+  });
+
+  next();
+}
+
 app.set('trust proxy', true);
 app.use(cors(corsOptions));
 app.use(cookieParser());
@@ -161,6 +176,8 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
   const xRealIP = Array.from(req.headers?.['x-forwarded-for'] || '').flat()[0];
+
+  RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
   const options = {
     headers: Object.assign(
@@ -230,10 +247,14 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
         req.files.forEach((file) => fs.unlink(file.path, () => {}));
       }
 
+      RedisClient.srem(REDIS_REQUESTs_STORE, req.url);
+
       resp.set(res.headers);
       return resp.status(res.status).send(res.data);
     })
     .catch((err) => {
+      RedisClient.srem(REDIS_REQUESTs_STORE, req.url);
+
       const statusCode = !!err.response ? err.response.status : 500;
       console.log(`catch ${req.method} - ${req.url}: ${err}`);
       return resp.status(statusCode).send(err);
@@ -244,99 +265,107 @@ app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));
 
-app.get('*', declareGlobalProps, checkAuthenticationCookie, (req: express.Request, res: express.Response) => {
-  const fileExist = fs.existsSync(indexFile);
-  let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
-    lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],
-    page = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? urlArr[1] : urlArr[2];
+app.get(
+  '*',
+  declareGlobalProps,
+  checkAuthenticationCookie,
+  storeTracker,
+  (req: express.Request, res: express.Response) => {
+    const fileExist = fs.existsSync(indexFile);
+    let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
+      lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],
+      page = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? urlArr[1] : urlArr[2];
 
-  if (!lng) lng = ELanguage.en;
-  page = !page ? '' : '/' + page;
+    if (!lng) lng = ELanguage.en;
+    page = !page ? '' : '/' + page;
 
-  route = routesNavConfig.find((el) => el.path === page) || null;
-  if (!route) {
-    console.error('Cant find content for route', req.url, '#', lng, '[', page, ']', 'redirect to 404');
-  }
-
-  if (!fileExist) {
-    console.error('Server.html not found');
-    // unsubscribeRequestResolver();
-    return res.status(500).send('Oops, better luck next time!');
-  }
-
-  store.dispatch(ac_clearStore());
-
-  return new Promise((resolve) => {
-    requestResolver = resolve;
-    if (route) {
-      store.dispatch(
-        ac_updateRouteParams({
-          path: route?.path,
-          appSection: route?.appSection,
-          meta: route?.meta,
-          state: route?.state,
-          isLoading: true,
-        }),
-      );
-      console.log('========request data========');
-      routeFetchData(route);
-    } else {
-      store.dispatch(
-        ac_updateRouteParams({
-          path: EPagePath.NotFound,
-          appSection: EAppSection.general,
-          isLoading: true,
-        }),
-      );
-      requestResolver();
+    route = routesNavConfig.find((el) => el.path === page) || null;
+    if (!route) {
+      console.error('Cant find content for route', req.url, '#', lng, '[', page, ']', 'redirect to 404');
     }
-  }).then(() => {
-    const app = renderToString(
-      <StaticRouter location={page}>
-        <Provider store={store}>
-          <PageLoader isLoading={true} />
-          {route ? (
-            route.appSection === EAppSection.portal ? null : (
-              <>
-                <div className="main-wrapper">
-                  <Header />
-                  <main className="router-context">{route.component && <route.component />}</main>
-                </div>
-                <Footer />{' '}
-              </>
-            )
-          ) : (
-            <NotFound />
-          )}
-          <div id="dynamic-portals" />
-        </Provider>
-      </StaticRouter>,
-    );
 
-    return fs.readFile(indexFile, 'utf8', async (err, data) => {
-      if (err) {
-        console.error('Something went wrong:', err);
+    if (!fileExist) {
+      console.error('Server.html not found');
+      if (unsubscribeRequestResolver) unsubscribeRequestResolver();
+      return res.status(500).send('Oops, better luck next time!');
+    }
 
-        unsubscribeRequestResolver();
-        return res.status(500).send('Oops, better luck next time!');
+    clearRedisRequestsList();
+    store.dispatch(ac_clearStore());
+
+    return new Promise((resolve) => {
+      requestResolver = resolve;
+      if (route) {
+        store.dispatch(
+          ac_updateRouteParams({
+            path: route?.path,
+            appSection: route?.appSection,
+            meta: route?.meta,
+            state: route?.state,
+            isLoading: true,
+          }),
+        );
+        console.log('========request data========');
+        routeFetchData(route);
+      } else {
+        store.dispatch(
+          ac_updateRouteParams({
+            path: EPagePath.NotFound,
+            appSection: EAppSection.general,
+            isLoading: true,
+          }),
+        );
+        requestResolver();
       }
-      const preloadedState = store.getState();
-      preloadedState.app.requests.activeList = [];
+    }).then(() => {
+      const app = renderToString(
+        <StaticRouter location={page}>
+          <Provider store={store}>
+            <PageLoader isLoading={true} />
+            {route ? (
+              route.appSection === EAppSection.portal ? null : (
+                <>
+                  <div className="main-wrapper">
+                    <Header />
+                    <main className="router-context">{route.component && <route.component />}</main>
+                  </div>
+                  <Footer />{' '}
+                </>
+              )
+            ) : (
+              <NotFound />
+            )}
+            <div id="dynamic-portals" />
+          </Provider>
+        </StaticRouter>,
+      );
 
-      return res.send(
-        data
-          .replace(
-            '<div id="root"></div>',
-            `<div id="root" class="${
-              route?.appSection
-            }">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(preloadedState).replace(
-              /</g,
-              '\\u003c',
-            )}</script>`,
-          )
-          .replace(
-            '<title></title>',
-            `<title>${route?.meta.title}</title>
+      clearRedisRequestsList();
+
+      return fs.readFile(indexFile, 'utf8', async (err, data) => {
+        if (err) {
+          console.error('Something went wrong:', err);
+
+          if (unsubscribeRequestResolver) unsubscribeRequestResolver();
+          return res.status(500).send('Oops, better luck next time!');
+        }
+        const preloadedState = store.getState();
+        preloadedState.app.requests.activeList = [];
+
+        return res.send(
+          data
+            .replace(
+              '<div id="root"></div>',
+              `<div id="root" class="${
+                route?.appSection
+              }">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(preloadedState).replace(
+                /</g,
+                '\\u003c',
+              )}</script>`,
+            )
+            .replace(
+              '<title></title>',
+              `<title>${route?.meta.title}</title>
             <meta name="description" content="${route?.meta.desc}">
             <meta property="og:type" content="website">
             <meta property="og:title" content="${route?.meta.title}">
@@ -344,11 +373,12 @@ app.get('*', declareGlobalProps, checkAuthenticationCookie, (req: express.Reques
             <meta property="og:image" content="https://${req.headers.host}/assets/og-img.jpg">
             <meta property="og:url" content="https://${req.headers.host}">
             <meta name="twitter:card" content="summary_large_image">`,
-          ),
-      );
+            ),
+        );
+      });
     });
-  });
-});
+  },
+);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
