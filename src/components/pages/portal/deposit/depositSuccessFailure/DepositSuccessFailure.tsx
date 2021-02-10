@@ -1,11 +1,14 @@
 import { Button, LocaleLink, Svg } from '@components/shared';
-import { EDepositMethodCode, EResponseStatus } from '@domain/enums';
+import { ECurrencyCode, EDepositMethodCode, EDepositMethodIcon, EResponseStatus } from '@domain/enums';
 import { usePathLocale } from '@utils/hooks';
 import React, { memo } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import './DepositSuccessFailure.scss';
+import { useSelector } from 'react-redux';
+import { IAppStore, IStore } from '@store';
+import { IClientSettings } from '@domain/interfaces';
 
 export const DepositSuccessFailure = memo(function DepositSuccessFailure({ result }: { result: EResponseStatus }) {
   const { t } = useTranslation();
@@ -41,8 +44,6 @@ export const DepositSuccessFailure = memo(function DepositSuccessFailure({ resul
 });
 
 function DepositSuccess() {
-  const history = useHistory();
-  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
 
   return (
@@ -60,6 +61,12 @@ function DepositSuccess() {
 }
 
 function DepositFailure() {
+  const { allowed_deposit_methods: allowedMethods } = useSelector<
+    IStore,
+    Pick<IClientSettings, 'allowed_deposit_methods'>
+  >((state) => ({
+    allowed_deposit_methods: state.data.client.settings?.allowed_deposit_methods ?? [],
+  }));
   const { t } = useTranslation();
   function createLinkObject(method: EDepositMethodCode) {
     return {
@@ -73,23 +80,12 @@ function DepositFailure() {
     <div className="deposit-failure">
       <div className="result mb-5">{t('Unsuccessful Transaction')}</div>
       <div className="sub-result">{t('Choose another payment method:')}</div>
-      <div className="payment-methods-imgs d-flex justify-content-between align-items-center mx-auto mt-5 mb-5">
-        <LocaleLink to={createLinkObject(EDepositMethodCode.creditCard)}>
-          <Svg href="visaMastercard" height={30} />
-        </LocaleLink>
-        <LocaleLink to={createLinkObject(EDepositMethodCode.skrill)}>
-          <Svg href="skrill" height={30} />
-        </LocaleLink>
-        <LocaleLink to={createLinkObject(EDepositMethodCode.neteller)}>
-          <Svg href="neteller" height={30} />
-        </LocaleLink>
-        <LocaleLink to={createLinkObject(EDepositMethodCode.webmoney)}>
-          <Svg href="webmoney" height={30} />
-        </LocaleLink>
-        <LocaleLink to={createLinkObject(EDepositMethodCode.bankWire)}>
-          <Svg href="bankwire" height={30} />
-        </LocaleLink>
-        FIXME
+      <div className="payment-methods-imgs d-flex justify-content-around align-items-center mx-auto mt-5 mb-5">
+        {allowedMethods.map((method) => (
+          <LocaleLink key={method} to={createLinkObject(method as EDepositMethodCode)}>
+            <Svg href={EDepositMethodIcon[method as EDepositMethodCode]} height={30} />
+          </LocaleLink>
+        ))}
       </div>
     </div>
   );
