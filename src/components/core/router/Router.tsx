@@ -81,6 +81,7 @@ export const Router = memo(function Router() {
           ...(_route.apiData?.strict || []),
           ...(routesInitialApiData[_route.appSection]?.strict || []),
         ].map((action) => action().type);
+
         const hasUncompletedStrictRequest = _routeStrictRequests.length
           ? requests.activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0 &&
             !(!routeState.isLoading && ignoreOnAction(ignoreActionIfPageLoadedList()))
@@ -135,10 +136,7 @@ export const Router = memo(function Router() {
                 ? [localizePath(route.path), route.path]
                 : localizePath(route.path)
             }
-            render={() => {
-              // if new route and current route are different, means the page is loading 😁
-              return <RenderRoute component={route.component} />;
-            }}
+            render={() => <RenderRoute component={route.component} />}
           />
         ))}
         <Redirect to="404" />
@@ -147,21 +145,16 @@ export const Router = memo(function Router() {
   );
 });
 
-function RenderRoute(props: { component: IRouteNavConfig['component'] }) {
-  const { routeState, requests } = useSelector<IStore, IRenderState>((state) => ({
-    requests: state.app.requests,
+type renderRouteComponent = IRouteNavConfig['component'];
+function RenderRoute(props: { component: renderRouteComponent }) {
+  const { routeState } = useSelector<IStore, { routeState: IAppStore['route'] }>((state) => ({
     routeState: state.app.route,
   }));
-  const _prevActiveList = usePrevious(requests.activeList);
-  const _isLoading = useThrottle(
-    !(
-      Array.isArray(_prevActiveList) &&
-      Array.isArray(requests.activeList) &&
-      _prevActiveList.length == 0 &&
-      requests.activeList.length == 0
-    ) || routeState.isLoading,
-    { wait: 200 },
-  ); // delay the loading effect to disappear
+  const _prevComp = usePrevious(
+    props.component,
+    (prev: renderRouteComponent | undefined, next: renderRouteComponent) => !prev || !!(prev && next),
+  );
+  const _isLoading = useThrottle(!_prevComp || routeState.isLoading, { wait: 200 }); // delay the loading effect to disappear
 
   return useCreation(() => {
     return (
