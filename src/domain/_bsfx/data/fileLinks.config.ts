@@ -6,4 +6,5 @@ export const files = {
   riskWarning: '/files/risk_warning.pdf',
   cookiePolicy: '/files/cookie_policy.pdf',
   termsOfBusiness: '/files/terms_of_business.pdf',
+  privacyPolicy: '/files/privacy_policy.pdf',
 };

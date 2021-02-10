@@ -1,5 +1,5 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
-import { CustomFieldValidators, FieldValidators } from '@domain';
+import { CustomFieldValidators, FieldValidators, files } from '@domain';
 import { ERegSteps, countries } from '@domain/enums';
 import { EActionTypes, IStore, ac_userExists } from '@store';
 import { getMarketingCookies } from '@utils/services';
@@ -82,7 +82,13 @@ export function FirstStep({ submitFn }: any) {
               </div>
               <p className="my-7 fadeFromBottom-row__4">
                 <Trans i18nKey="Market Event Notification Desc">
-                  To improve your trading experience, we would like to notify you of market events and extreme price movements. By signing up, you also declare you read, understood, and accept our <a href="#">Privacy Policy</a> and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone or e-mail. You can opt-out any time you wish to.
+                  To improve your trading experience, we would like to notify you of market events and extreme price
+                  movements. By signing up, you also declare you read, understood, and accept our
+                  <a target="_blank" href={files.privacyPolicy}>
+                    Privacy Policy
+                  </a>
+                  and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives
+                  via phone or e-mail. You can opt-out any time you wish to.
                 </Trans>
               </p>
               <Button
