@@ -71,19 +71,13 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.changeAccountSettings:
     case EActionTypes.changeAccountLeverage:
     case EActionTypes.changeAccountPassword:
-      const ignoreActionIfPageLoaded = !state.route.isLoading
-        ? ignoreActionIfPageLoadedList().includes(action.type)
-        : false;
-
-      return ignoreActionIfPageLoaded
-        ? state
-        : {
-            ...state,
-            requests: {
-              ...state.requests,
-              activeList: Array.from(new Set([...(state.requests?.activeList ?? []), action.type])),
-            },
-          };
+      return {
+        ...state,
+        requests: {
+          ...state.requests,
+          activeList: Array.from(new Set([...(state.requests?.activeList ?? []), action.type])),
+        },
+      };
 
     case EActionTypes.requestSuccess:
       return {

@@ -237,7 +237,7 @@ export function ac_saveBankDetails(payload: MBankDetails): IAction {
 
 export function ac_fetchGeoIpData(): IAction {
   return {
-    type: !(window as any).isSSR ? EActionTypes.fetchGeoIpData : null,
+    type: EActionTypes.fetchGeoIpData,
   };
 }
 

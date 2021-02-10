@@ -174,7 +174,9 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
-  const xRealIP = Array.from(req.headers?.['x-forwarded-for'] || '').flat()[0];
+  const xRealIP = (req.headers['x-forwarded-for']?.[0] || req.connection.remoteAddress || req.ip).replace(/::ffff:/, '');
+
+  console.log(xRealIP);
 
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
@@ -328,7 +330,7 @@ app.get(
                     <Header />
                     <main className="router-context">{route.component && <route.component />}</main>
                   </div>
-                <Footer />
+                  <Footer />
                 </>
               )
             ) : (

@@ -73,7 +73,7 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
 
 // export const getContentRequest = request(EHttpMethod.get, `https://baconipsum.com/api/?type=meat-and-filler`);
 // export const getContentRequest = (d: any) => new Promise((resolve, reject) => resolve({}));
-export const getGeoIpRequest = request(EHttpMethod.get, `${env.API_URL}/frontend/xwayz`);
+export const getGeoIpRequest = request(EHttpMethod.get, `${env.PROXY_URL}/frontend/xwayz`);
 export const getProfileRequest = request(EHttpMethod.post, `${env.PROXY_URL}/clients/getProfile`);
 export const editProfileRequest = request(EHttpMethod.post, `${env.PROXY_URL}/clients/editProfile`);
 export const changeClientProfilePassword = request(EHttpMethod.post, `${env.PROXY_URL}/clients/changePassword`);
