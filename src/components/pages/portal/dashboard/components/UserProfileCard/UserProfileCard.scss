@@ -101,4 +101,24 @@
       }
     }
   }
+
+  @media (max-width: $viewport-sm-w) {
+    height: 230px;
+
+    &__context {
+      .profile-context {
+        &__info {
+          .profile-info {
+            &__name {
+              font-size: 18px;
+            }
+
+            &__email {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
 }

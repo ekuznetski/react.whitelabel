@@ -112,4 +112,20 @@
       }
     }
   }
+
+  @media (max-width: $viewport-sm-w) {
+    height: 230px;
+
+    &__context {
+      .context-card {
+        &__title {
+          font-size: 18px;
+        }
+
+        &__text {
+          font-size: 14px;
+        }
+      }
+    }
+  }
 }

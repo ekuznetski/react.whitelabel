@@ -24,7 +24,7 @@ export const Dashboard = memo(function Dashboard() {
             </Col>
           </Row>
           <Row>
-            <Col md={12} lg={6}>
+            <Col md={12} lg={6} className="mb-9 mb-lg-0">
               <UserProfileCard />
             </Col>
             <Col md={12} lg={6}>

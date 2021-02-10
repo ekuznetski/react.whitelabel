@@ -25,8 +25,8 @@ export function UserProfileCard() {
 
   return (
     <div className="user-profile-card">
-      <div className="user-profile-card__context px-11 pt-11">
-        <div className="profile-context__facepile mr-11">
+      <div className="user-profile-card__context px-7 pt-7 px-sm-11 pt-sm-11">
+        <div className="profile-context__facepile mr-7 mr-sm-11">
           {clientProfile.first_name[0]}
           {clientProfile.last_name[0]}
         </div>
@@ -40,7 +40,7 @@ export function UserProfileCard() {
           </div>
         </div>
       </div>
-      <div className="user-profile-card__options px-11">
+      <div className="user-profile-card__options px-7 px-sm-11">
         <div className="profile-options__deposit">
           <Button className="px-3">
             <LocaleNavLink exact to="/deposit">
