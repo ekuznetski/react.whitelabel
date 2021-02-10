@@ -90,45 +90,47 @@ export const TransactionStatement = memo(function TransactionStatement() {
           <PageTitle title={t('Transactional Statement')} />
         </Col>
       </Row>
-      <Row className="justify-content-center">
-        <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
-          <Formik
-            initialValues={{
-              operation_type: '',
-              filter: '',
-            }}
-            validationSchema={validationSchema}
-            onSubmit={Submit}
-          >
-            {({ values, errors, resetForm }: FormikProps<any>) => {
-              return (
-                <Form className="transaction-statement__form">
-                  <MultiSelect placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
-                  <Tabs
-                    className="statement__tabs"
-                    alignNavigation="left"
-                    onChange={() => resetForm({ values: { ...values, [EFields.filter]: '' } })}
-                  >
-                    <Tab anchor="recent" label={t('Recent')}>
-                      <Select label={t('Choose a filter')} options={recentTransactionsFilter} name={EFields.filter} />
-                    </Tab>
-                    <Tab anchor="monthly" label={t('Monthly')}>
-                      <Select
-                        label={t('Choose the period')}
-                        options={monthlyTransactionsFilter}
-                        name={EFields.filter}
-                      />
-                    </Tab>
-                    <Tab anchor="range" label={t('Range')}>
-                      <DatePicker label={t('Choose date range')} name={EFields.filter} range={true} />
-                    </Tab>
-                  </Tabs>
-                  <Button type="submit">{t('Get Trading Statement')}</Button>
-                </Form>
-              );
-            }}
-          </Formik>
-        </Col>
+      <Row>
+        <Container className="d-flex justify-content-center">
+          <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-8 px-6 py-md-10 px-md-9">
+            <Formik
+              initialValues={{
+                operation_type: '',
+                filter: '',
+              }}
+              validationSchema={validationSchema}
+              onSubmit={Submit}
+            >
+              {({ values, errors, resetForm }: FormikProps<any>) => {
+                return (
+                  <Form className="transaction-statement__form">
+                    <MultiSelect placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
+                    <Tabs
+                      className="statement__tabs"
+                      alignNavigation="left"
+                      onChange={() => resetForm({ values: { ...values, [EFields.filter]: '' } })}
+                    >
+                      <Tab anchor="recent" label={t('Recent')}>
+                        <Select label={t('Choose a filter')} options={recentTransactionsFilter} name={EFields.filter} />
+                      </Tab>
+                      <Tab anchor="monthly" label={t('Monthly')}>
+                        <Select
+                          label={t('Choose the period')}
+                          options={monthlyTransactionsFilter}
+                          name={EFields.filter}
+                        />
+                      </Tab>
+                      <Tab anchor="range" label={t('Range')}>
+                        <DatePicker label={t('Choose date range')} name={EFields.filter} range={true} />
+                      </Tab>
+                    </Tabs>
+                    <Button type="submit">{t('Get Trading Statement')}</Button>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </Col>
+        </Container>
       </Row>
       <Row className="justify-content-center">
         <Col xs={12}>
@@ -141,7 +143,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
         <Col xs={12} lg={10} xl={8} className="px-0">
           <div className="statement text-center">
             {statements ? (
-              <>
+              <Col>
                 <StatementSearchResultSection className="mb-9" title={t('Deposits')} statements={statements.deposits} />
                 <StatementSearchResultSection
                   className="mb-9"
@@ -149,7 +151,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                   statements={statements.withdrawals}
                 />
                 <StatementSearchResultSection className="mb-9" title={t('Trades')} statements={statements.trades} />
-              </>
+              </Col>
             ) : (
               <Svg
                 href="no-filter"
