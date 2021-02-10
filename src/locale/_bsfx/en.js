@@ -67,4 +67,6 @@ export default {
   'Thank You For Submitting Your Information':
     'Thank you for submitting your information. A member of the BSFX Team will be in touch shortly.',
   '1 working day': '1 working day',
+  'Customer introduction agreement':
+    'I, {{name}}, declare that I have carefully read and understood, <3>Terms of Business</3> and all other policies as found here which I fully accept and agree with. I accept I am electronically signing these documents, and that this is a legally binding contractual agreement.',
 };
