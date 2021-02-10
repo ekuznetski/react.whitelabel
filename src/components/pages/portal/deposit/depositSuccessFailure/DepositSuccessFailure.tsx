@@ -1,5 +1,5 @@
 import { Button, LocaleLink, Svg } from '@components/shared';
-import { EDepositMethods, EResponseStatus } from '@domain/enums';
+import { EDepositMethodCode, EResponseStatus } from '@domain/enums';
 import { usePathLocale } from '@utils/hooks';
 import React, { memo } from 'react';
 import { Col, Row } from 'react-bootstrap';
@@ -61,7 +61,7 @@ function DepositSuccess() {
 
 function DepositFailure() {
   const { t } = useTranslation();
-  function createLinkObject(method: EDepositMethods) {
+  function createLinkObject(method: EDepositMethodCode) {
     return {
       pathname: '/deposit',
       state: {
@@ -74,21 +74,22 @@ function DepositFailure() {
       <div className="result mb-5">{t('Unsuccessful Transaction')}</div>
       <div className="sub-result">{t('Choose another payment method:')}</div>
       <div className="payment-methods-imgs d-flex justify-content-between align-items-center mx-auto mt-5 mb-5">
-        <LocaleLink to={createLinkObject(EDepositMethods.creditCard)}>
+        <LocaleLink to={createLinkObject(EDepositMethodCode.creditCard)}>
           <Svg href="visaMastercard" height={30} />
         </LocaleLink>
-        <LocaleLink to={createLinkObject(EDepositMethods.skrill)}>
+        <LocaleLink to={createLinkObject(EDepositMethodCode.skrill)}>
           <Svg href="skrill" height={30} />
         </LocaleLink>
-        <LocaleLink to={createLinkObject(EDepositMethods.neteller)}>
+        <LocaleLink to={createLinkObject(EDepositMethodCode.neteller)}>
           <Svg href="neteller" height={30} />
         </LocaleLink>
-        <LocaleLink to={createLinkObject(EDepositMethods.webmoney)}>
+        <LocaleLink to={createLinkObject(EDepositMethodCode.webmoney)}>
           <Svg href="webmoney" height={30} />
         </LocaleLink>
-        <LocaleLink to={createLinkObject(EDepositMethods.bankWire)}>
+        <LocaleLink to={createLinkObject(EDepositMethodCode.bankWire)}>
           <Svg href="bankwire" height={30} />
         </LocaleLink>
+        FIXME
       </div>
     </div>
   );

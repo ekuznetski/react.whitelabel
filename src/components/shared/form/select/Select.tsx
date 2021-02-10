@@ -286,7 +286,7 @@ export const TradingAccountsSelect = memo((props: ISelect & { options: MTradingA
   const options = props.options.map((account: MTradingAccount) => ({
     label: (
       <div className="trading-account-item" key={account.accountId}>
-        <div className="trading-item__platform mr-1">{account.platformName}</div>
+        <div className="trading-item__platform mr-1">{account.platform.toUpperCase()}</div>
         <div className="trading-item__number">{account.accountId}</div>
         <div className="trading-item__spacer mx-3" />
         <div className="trading-item__balance">
