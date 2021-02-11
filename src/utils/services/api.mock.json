@@ -338,7 +338,7 @@
       }
     }
   },
-  "withdrawals": {
+  "!withdrawals": {
     "getHistory": {
       "response": {
         "status": "success",
@@ -434,7 +434,7 @@
       }
     }
   },
-  "mt4accounts": {
+  "!mt4accounts": {
     "create": {
       "response": {
         "status": "success",
@@ -525,7 +525,7 @@
       }
     }
   },
-  "v2": {
+  "!v2": {
     "documents": {
       "!upload": {
         "response": {
@@ -553,7 +553,7 @@
       }
     }
   },
-  "ibs": {
+  "!ibs": {
     "addIB": {
       "response": {
         "status": "failure",
