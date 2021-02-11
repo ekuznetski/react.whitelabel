@@ -120,33 +120,35 @@ export function Tabs({
               <div
                 className={classNames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}
               >
-                {state.labels.map((label, l) => (
-                  <div
-                    key={l}
-                    className={classNames(
-                      'tab__link',
-                      label.status,
-                      label.disabled && 'disabled',
-                      !disabledAll && activeTabProps?.anchor === label.anchor && 'active',
-                      !isVertical && state.labels.length - 1 != l && 'mr-7',
-                    )}
-                    onClick={() => !label.disabled && switchTab(label.anchor)}
-                    ref={(ref) => activeTabProps?.anchor === label.anchor && (activeNavTabLink = ref)}
-                  >
-                    <div className={classNames('tab__link__label', isVertical && 'py-6 pl-12 pr-4')}>
-                      <div className="tab__link__label-title">{label.value}</div>
-                      {label.desc && <div className="tab__link__label-subtitle">{label.desc}</div>}
+                <div className="navigation__links">
+                  {state.labels.map((label, l) => (
+                    <div
+                      key={l}
+                      className={classNames(
+                        'tab__link',
+                        label.status,
+                        label.disabled && 'disabled',
+                        !disabledAll && activeTabProps?.anchor === label.anchor && 'active',
+                        !isVertical && state.labels.length - 1 != l && 'mr-7',
+                      )}
+                      onClick={() => !label.disabled && switchTab(label.anchor)}
+                      ref={(ref) => activeTabProps?.anchor === label.anchor && (activeNavTabLink = ref)}
+                    >
+                      <div className={classNames('tab__link__label', isVertical && 'py-6 pl-12 pr-4')}>
+                        <div className="tab__link__label-title">{label.value}</div>
+                        {label.desc && <div className="tab__link__label-subtitle">{label.desc}</div>}
+                      </div>
+                      {label.icon && (
+                        <Svg
+                          className="tab__link__icon mr-9"
+                          href={label.icon}
+                          width={isVertical ? 40 : 24}
+                          height={24}
+                        />
+                      )}
                     </div>
-                    {label.icon && (
-                      <Svg
-                        className="tab__link__icon mr-9"
-                        href={label.icon}
-                        width={isVertical ? 40 : 24}
-                        height={24}
-                      />
-                    )}
-                  </div>
-                ))}
+                  ))}
+                </div>
                 {activeTabProps && !isVertical && (
                   <div
                     className="active-tab-line"
@@ -154,7 +156,7 @@ export function Tabs({
                   />
                 )}
               </div>
-              <div className={classNames('common-tabs__container', isVertical && 'py-8 px-9')}>
+              <div className={classNames('common-tabs__container', isVertical && 'py-6 px-6 py-md-8 px-sm-9')}>
                 {!children
                   ? state.contents.map((content, c) => <Tab key={c} anchor={content.anchor} content={content.value} />)
                   : children}
