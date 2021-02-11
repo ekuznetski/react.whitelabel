@@ -1,14 +1,14 @@
 import { Svg } from '@components/shared';
-import { ENotificationType } from '@domain/enums';
-import { MDocument } from '@domain/models';
-import { EActionTypes, ac_showNotification, ac_uploadDocuments } from '@store';
+import { EDocumentsType, ENotificationType } from '@domain/enums';
+import { MDocument, MDocuments } from '@domain/models';
+import { EActionTypes, IStore, ac_showNotification, ac_uploadDocuments } from '@store';
 import { useCombinedRef } from '@utils/hooks';
 import { useSetState } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../button/Button';
 import { UploadEmptyView, UploadReadyView } from './components';
 import { UploadWrapperProvider, useUploadWrapperDispatch } from './upload-wrapper.context';
@@ -41,7 +41,8 @@ interface IUploadWrapperProps {
     | React.ReactElement<typeof MultipleUpload>
     | React.ReactElement<typeof UploadDocumentCard>
     | React.ReactElement<typeof UploadDocumentCard>[];
-  documents: MDocument[];
+  documentsType: EDocumentsType[];
+  showUploadMoreBtn?: boolean;
   className?: string;
   viewChanged?: (view: EUploadWrapperViewType) => void;
 }
@@ -372,12 +373,11 @@ export const UploadFileIcon = memo(function UploadFileIcon(props: {
   return null;
 });
 
-export const UploadWrapper = memo(function UploadWrapper({ children, documents, ...props }: IUploadWrapperProps) {
-  // const [state, setState] = useSetState<IUploadWrapperState>({
-  //   documentsTypeList: [],
-  //   selectedDocTypeIdx: 0,
-  //   view: null,
-  // });
+export const UploadWrapper = memo(function UploadWrapper({ children, documentsType, ...props }: IUploadWrapperProps) {
+  const { documents } = useSelector<IStore, { documents: MDocument[] }>((state) => ({
+    documents: state.data.client.documents.getAllDocumentsOfTypes(documentsType),
+  }));
+  const { t } = useTranslation();
 
   return (
     <UploadWrapperProvider>
@@ -423,20 +423,31 @@ export const UploadWrapper = memo(function UploadWrapper({ children, documents, 
                 />
               );
             case EUploadWrapperViewType.upload:
+              const _showDocListBtn = props.showUploadMoreBtn && documents.length;
               return (
                 <>
-                  {!!state.documentsTypeList.length && (
+                  {(_showDocListBtn || !!state.documentsTypeList.length) && (
                     <div className="upload-wrapper__header mb-7">
-                      <a
-                        className="upload-wrapper__back"
-                        onClick={() => dispatch({ view: EUploadWrapperViewType.select })}
-                      >
-                        Back
-                      </a>
+                      {!!state.documentsTypeList.length && (
+                        <a
+                          className="upload-wrapper__back"
+                          onClick={() => dispatch({ view: EUploadWrapperViewType.select })}
+                        >
+                          {t('Back')}
+                        </a>
+                      )}
                       {
                         // @ts-ignore
                         !Array.isArray(children) ? children.props.label : children[state.selectedDocTypeIdx].props.label
                       }
+                      {_showDocListBtn && (
+                        <a
+                          className="upload-wrapper__documents"
+                          onClick={() => dispatch({ view: EUploadWrapperViewType.documents })}
+                        >
+                          {t('Documents')}
+                        </a>
+                      )}
                     </div>
                   )}
                   {
@@ -446,7 +457,20 @@ export const UploadWrapper = memo(function UploadWrapper({ children, documents, 
                 </>
               );
             case EUploadWrapperViewType.documents:
-              return <DocumentsList documents={documents} />;
+              return (
+                <>
+                  <DocumentsList documents={documents} />
+                  {props.showUploadMoreBtn && documentsType.length != documents.length && (
+                    <Button
+                      className="upload-file__btn mt-9"
+                      onClick={() => dispatch({ view: EUploadWrapperViewType.upload })}
+                      noBg
+                    >
+                      {t('Upload another document')}
+                    </Button>
+                  )}
+                </>
+              );
           }
         }
 

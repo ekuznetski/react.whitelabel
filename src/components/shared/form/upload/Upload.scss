@@ -197,6 +197,11 @@
     left: 0;
   }
 
+  &__documents {
+    position: absolute;
+    right: 0;
+  }
+
   .select-document-type {
     @include d-flex(center, center, column);
     border-radius: $border-radius;
