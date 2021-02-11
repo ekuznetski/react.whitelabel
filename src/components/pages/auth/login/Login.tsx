@@ -42,7 +42,7 @@ export function Login() {
   return (
     <Container>
       <Row>
-        <Col sm={12} md={7} lg={5} className="m-auto">
+        <Col sm={9} md={7} lg={5} className="m-auto">
           <PageTitle
             title={t('Log in to', { labelName: ELabelsName[env.LABEL?.toLowerCase() as keyof typeof ELabelsName] })}
             showBackButton={false}
