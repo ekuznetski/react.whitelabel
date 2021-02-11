@@ -7,7 +7,7 @@ import { env } from '@env';
 import { routesInitialApiData, routesNavConfig } from '@routers';
 import { EActionTypes, IStore, ac_clearStore, ac_updateRouteParams, initStore, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
-import axios, { Method } from 'axios';
+import axios, { AxiosRequestConfig, Method } from 'axios';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import 'core-js/stable';
@@ -44,6 +44,7 @@ let route: IRouteNavConfig | null = null;
 const REDIS_PORT = 6379;
 const REDIS_REQUESTs_STORE = 'actions_list';
 const PORT = process.env.PORT || 4201;
+const DATA_LIMIT = 335 * 1024 * 1024; // 35bm
 const app = express();
 const upload = multer({ dest: '/tmp/uploads', limits: { fieldNameSize: 1024, fieldSize: 1024 * 1024 * 15 } });
 const indexFile = path.normalize('browser/server.html');
@@ -167,7 +168,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(express.json({ limit: '15mb' }));
-app.use(express.urlencoded({ extended: true, limit: '15mb' })); // for parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true, limit: DATA_LIMIT })); // for parsing application/x-www-form-urlencoded
 app.use(nocache());
 
 app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (req, resp) => {
@@ -189,6 +190,8 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
       xRealIP && { 'X-Real-IP': xRealIP },
       authenticationToken && { Cookie: authenticationToken },
     ),
+    maxContentLength: DATA_LIMIT,
+    maxBodyLength: DATA_LIMIT,
     withCredentials: true,
     method: req.method as Method,
     data: qs.stringify(req.body),
