@@ -460,7 +460,7 @@ export const UploadWrapper = memo(function UploadWrapper({ children, documentsTy
               return (
                 <>
                   <DocumentsList documents={documents} />
-                  {props.showUploadMoreBtn && documentsType.length != documents.length && (
+                  {props.showUploadMoreBtn && documentsType.length > documents.length && (
                     <Button
                       className="upload-file__btn mt-9"
                       onClick={() => dispatch({ view: EUploadWrapperViewType.upload })}
