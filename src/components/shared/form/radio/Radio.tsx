@@ -63,7 +63,9 @@ export const Radio = memo(function Radio({
         <div
           key={idx}
           className={classNames(
-            (options.length % 2 == 0 ? idx < options.length - 2 : idx < options.length - 1) && 'mb-8',
+            (options.length % 2 == 0 && !optionClassName.includes('col-12')
+              ? idx < options.length - 2
+              : idx < options.length - 1) && 'mb-8',
             optionClassName,
             el.className,
           )}
