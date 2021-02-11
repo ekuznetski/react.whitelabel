@@ -36,6 +36,7 @@ export interface MultipleUploadProps {
   children: React.ReactElement[];
   accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx' | 'tiff')[];
   maxFileSizeKb?: number;
+  label?: string;
   disabled?: boolean;
   isComplete?: () => void;
   isLoading?: () => void;

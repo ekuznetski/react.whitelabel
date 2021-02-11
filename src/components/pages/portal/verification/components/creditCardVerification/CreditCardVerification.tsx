@@ -19,7 +19,7 @@ export const CreditCardVerification = memo(function CreditCardVerification() {
       showUploadMoreBtn={true}
       className="credit-card-verification"
     >
-      <MultipleUpload>
+      <MultipleUpload label={t('Debit/Credit Card')}>
         <UploadFile
           fileType={EDocumentsType.CCFront}
           fieldName={t('Face Side')}
