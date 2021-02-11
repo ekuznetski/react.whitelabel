@@ -46,11 +46,13 @@ interface IUploadWrapperProps {
   viewChanged?: (view: EUploadWrapperViewType) => void;
 }
 
+const ACCEPT_FORMATS = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx', 'tiff'];
+
 // not working with HMR
 export const MultipleUpload = memo(
   forwardRef<HTMLDivElement, MultipleUploadProps>(function MultipleUpload(
     {
-      accept = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx', 'tiff'],
+      accept = ACCEPT_FORMATS,
       maxFileSizeKb = 15 * 1024, // 15mb
       disabled = false,
       ...props
@@ -201,7 +203,7 @@ export const MultipleUpload = memo(
 export const UploadFile = memo(
   forwardRef<HTMLDivElement, UploadProps>(function UploadFile(
     {
-      accept = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx', 'tiff'],
+      accept = ACCEPT_FORMATS,
       maxFileSizeKb = 15 * 1024, // 15mb
       disabled = false,
       ...props
