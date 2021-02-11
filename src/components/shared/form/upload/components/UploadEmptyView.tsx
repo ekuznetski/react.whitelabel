@@ -32,7 +32,7 @@ export const UploadEmptyView = memo(function UploadEmptyView({
     if (files.length) {
       const file = files[0];
       const _fileSize = file.size / 1024;
-      const _fileExtension = file.name.split('.').pop();
+      const _fileExtension = file.name.toLowerCase().split('.').pop();
 
       // @ts-ignore
       if (_fileSize <= maxFileSizeKb && _fileExtension && accept.includes(_fileExtension)) {
