@@ -167,14 +167,17 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(express.json({ limit: '15mb' }));
-app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true, limit: '15mb' })); // for parsing application/x-www-form-urlencoded
 app.use(nocache());
 
 app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (req, resp) => {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
-  const xRealIP = (req.headers['x-forwarded-for']?.[0] || req.connection.remoteAddress || req.ip).replace(/::ffff:/, '');
+  const xRealIP = (req.headers['x-forwarded-for']?.[0] || req.connection.remoteAddress || req.ip).replace(
+    /::ffff:/,
+    '',
+  );
 
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
