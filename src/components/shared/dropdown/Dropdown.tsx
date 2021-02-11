@@ -1,6 +1,8 @@
+import { AnyFunction } from '@domain/interfaces';
 import { IAppStore, IStore } from '@store';
 import { useClickAway, useEventListener, useSize } from 'ahooks';
 import classNames from 'classnames';
+import { Pathname } from 'history';
 import React, { memo, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useSelector } from 'react-redux';
@@ -8,8 +10,6 @@ import { LinkProps } from 'react-router-dom';
 import { LocaleNavLink } from '../localeNavLink/LocaleNavLink';
 import { Svg } from '../svg/Svg';
 import './Dropdown.scss';
-import { Pathname } from 'history';
-import { AnyFunction } from '@domain/interfaces';
 
 export interface IDropdownItem {
   id?: string;
@@ -50,6 +50,8 @@ export const DropDown = memo<IDropdown>(function DropDown({
   noArrow = false,
   ...props
 }) {
+  if(window.isSSR) return null;
+
   const { route } = useSelector<IStore, Partial<IAppStore>>((state) => ({
     route: state.app.route,
   }));

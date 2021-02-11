@@ -110,14 +110,16 @@ export const Select = memo(function Select({
   useEffect(() => {
     let _intSelectedValue = preselectedValue;
     if (!_intSelectedValue && (meta.initialValue || field.value)) {
-      _intSelectedValue = options.find((el: any) => el.value === (meta.initialValue || field.value)) || null;
+      _intSelectedValue = options.find(
+        (option: any) => JSON.stringify(option.value) === JSON.stringify(meta.initialValue || field.value || null),
+      );
     }
     setState({ value: _intSelectedValue, isFilled: !!_intSelectedValue || !!meta.initialValue });
   }, []);
 
   useEffect(() => {
     if (!!field.value && field.value != state.value)
-      setState({ value: options.find((option: any) => option.value == field.value) });
+      setState({ value: options.find((option: any) => JSON.stringify(option.value) == JSON.stringify(field.value)) });
   }, [field.value]);
 
   function onChangeSelect(e: any) {

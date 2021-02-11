@@ -190,11 +190,17 @@
   &__header {
     @include d-flex(center, center);
     position: relative;
+    height: 24px;
   }
 
   &__back {
     position: absolute;
     left: 0;
+  }
+
+  &__documents {
+    position: absolute;
+    right: 0;
   }
 
   .select-document-type {

@@ -53,7 +53,7 @@ export function getAppSectionMenu(section: EAppSection): IMenuConfig {
       _item.label = _itemKey;
       delete _item.parent;
 
-      if (!route.activators?.length || route.activators?.every((e) => e())) {
+      if (!route.activators?.length || route.activators?.every((e) => e({}) === true)) {
         if (_parent) _menu[_parent].children.push({ ..._item, path: route.path });
         else _menu[_itemKey] = { ..._item, path: route.path, children: [] };
       }

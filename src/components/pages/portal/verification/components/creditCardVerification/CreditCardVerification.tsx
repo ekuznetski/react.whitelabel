@@ -1,33 +1,25 @@
-import { MultipleUpload, UploadDocumentCard, UploadFile, UploadWrapper } from '@components/shared';
+import { MultipleUpload, UploadFile, UploadWrapper } from '@components/shared';
 import { EDocumentsType } from '@domain/enums';
-import { MDocuments } from '@domain/models';
-import { IStore } from '@store';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import './CreditCardVerification.scss';
 
 export const CreditCardVerification = memo(function CreditCardVerification() {
-  const { documents } = useSelector<IStore, { documents: MDocuments }>((state) => ({
-    documents: state.data.client.documents,
-  }));
   const { t } = useTranslation();
 
   return (
     <UploadWrapper
-      documents={documents.getAllDocumentsOfTypes([
-        EDocumentsType.CCFront,
-        EDocumentsType.CCBack,
-        EDocumentsType.CCCopy,
+      documentsType={[
         EDocumentsType.CCCopy1,
         EDocumentsType.CCCopy2,
         EDocumentsType.CCCopy3,
         EDocumentsType.CCCopy4,
         EDocumentsType.CCCopy5,
-      ])}
+      ]}
+      showUploadMoreBtn={true}
       className="credit-card-verification"
     >
-      <MultipleUpload>
+      <MultipleUpload label={t('Debit/Credit Card')}>
         <UploadFile
           fileType={EDocumentsType.CCFront}
           fieldName={t('Face Side')}
