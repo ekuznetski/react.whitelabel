@@ -29,7 +29,7 @@ export const SubmitModal = React.memo(function SubmitModal({ type, data }: ISubm
       ) : (
         <ModalTitle title={t('Unsuccessful Submission')} subTitle={t('A Similar Trade Account Already Exists')} />
       )}
-      <ModalBody>
+      <ModalBody className="d-flex justify-content-center">
         {type === EModalType.success ? (
           <Svg href="open-account-success" width={100} className="p-7" />
         ) : (
