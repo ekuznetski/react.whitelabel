@@ -190,6 +190,7 @@
   &__header {
     @include d-flex(center, center);
     position: relative;
+    height: 24px;
   }
 
   &__back {

@@ -1,6 +1,6 @@
 import { Svg } from '@components/shared';
 import { EDocumentsType, ENotificationType } from '@domain/enums';
-import { MDocument, MDocuments } from '@domain/models';
+import { MDocument } from '@domain/models';
 import { EActionTypes, IStore, ac_showNotification, ac_uploadDocuments } from '@store';
 import { useCombinedRef } from '@utils/hooks';
 import { useSetState } from 'ahooks';
