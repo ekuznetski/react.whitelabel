@@ -19,7 +19,7 @@ export interface UploadProps {
   icon?: string;
   iconWidth?: number;
   iconHeight?: number;
-  accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx' | 'tiff')[];
+  accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx')[];
   maxFileSizeKb?: number;
   disabled?: boolean;
   errorText?: UploadText;
@@ -34,7 +34,7 @@ export interface UploadProps {
 
 export interface MultipleUploadProps {
   children: React.ReactElement[];
-  accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx' | 'tiff')[];
+  accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx')[];
   maxFileSizeKb?: number;
   label?: string;
   disabled?: boolean;

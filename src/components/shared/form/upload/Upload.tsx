@@ -47,7 +47,7 @@ interface IUploadWrapperProps {
   viewChanged?: (view: EUploadWrapperViewType) => void;
 }
 
-const ACCEPT_FORMATS = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx', 'tiff'];
+const ACCEPT_FORMATS = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx'];
 
 // not working with HMR
 export const MultipleUpload = memo(
