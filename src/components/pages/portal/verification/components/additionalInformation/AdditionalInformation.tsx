@@ -2,7 +2,6 @@ import { Tab, Tabs } from '@components/shared';
 import { EClientStatus, EClientStatusCode, EDocumentsType, ENotificationType } from '@domain/enums';
 import { MClientStatus, MDocuments } from '@domain/models';
 import { IStore } from '@store';
-import { generateStatus } from '@utils/fn/generateStatus';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -73,7 +72,7 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
         <Tab
           status={ccFilesStatus.status}
           label={t('Debit/Credit Card Verification')}
-          subLabel={generateStatus(ccFilesStatus.label).statusMessage}
+          subLabel={ccFilesStatus.label}
           anchor={EAddInfoTabs.card}
         >
           <CreditCardVerification />
