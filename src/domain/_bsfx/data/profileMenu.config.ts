@@ -11,7 +11,7 @@ export const profileMenuPortalConfig = [
   },
   {
     icon: 'share',
-    path: EPagePath.Invite,
+    path: EPagePath.InviteFriends,
     title: t('Invite Friends'),
   },
   {
