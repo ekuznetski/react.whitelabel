@@ -177,7 +177,7 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
-  const xRealIP = req.clientIp;
+  const xRealIP = req.ip || req.ips[0] || req.clientIp;
 
   console.log('xRealIP: ', xRealIP);
 
