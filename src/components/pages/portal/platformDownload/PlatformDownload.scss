@@ -82,7 +82,7 @@
     }
 
     &-instructions {
-      height: 40px;
+      min-height: 40px;
       border-top: 1px solid $grey;
       color: $text;
       @include d-flex(center, center);
@@ -97,6 +97,10 @@
         &:after {
           background-color: $dark-blue !important;
         }
+      }
+
+      @media (max-width: $viewport-sm-w) {
+        flex-direction: column;
       }
     }
   }

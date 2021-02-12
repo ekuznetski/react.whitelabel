@@ -97,12 +97,14 @@ export const InternalTransfer = memo(function InternalTransfer() {
           <PageTitle title={t('Internal Transfer')} />
         </Col>
       </Row>
-      <Row className="justify-content-center">
-        {tradingAccounts?.length <= 1 && (
-          <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
-            {t('Two live accounts required')}
-          </Alert>
-        )}
+      <Row>
+        <Col className="d-flex justify-content-center">
+          {tradingAccounts?.length <= 1 && (
+            <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
+              {t('Two live accounts required')}
+            </Alert>
+          )}
+        </Col>
       </Row>
       <Row>
         <Container className="d-flex justify-content-center">

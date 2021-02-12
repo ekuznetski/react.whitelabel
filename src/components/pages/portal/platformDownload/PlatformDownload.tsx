@@ -68,8 +68,8 @@ export const PlatformDownload = memo(function PlatformDownload() {
                       </a>
                     </div>
                   </div>
-                  <div className="download__panel-instructions">
-                    <Svg href="tools" height="18" className="mr-5" />
+                  <div className="download__panel-instructions py-5 py-sm-0">
+                    <Svg href="tools" height="18" className="mr-0 mr-sm-5" />
                     {t('Read instructions on')}
                     <a
                       href={files[`installInstructions${platform.toUpperCase()}` as keyof typeof files]}
