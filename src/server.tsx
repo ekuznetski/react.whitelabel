@@ -127,6 +127,15 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
   next();
 }
 
+function declareXRealIP(req: express.Request, resp: express.Response, next: express.NextFunction) {
+  const xRealIP = req.ip || req.ips[0] || req.clientIp;
+  console.log('xRealIP: ', xRealIP);
+  if (req.session) req.session.xRealIP = xRealIP;
+  RedisClient.set('xRealIP', xRealIP || '');
+
+  next();
+}
+
 function declareGlobalProps(req: express.Request, resp: express.Response, next: express.NextFunction) {
   (global as any).window = window;
   (global as any).document = document;
@@ -134,11 +143,6 @@ function declareGlobalProps(req: express.Request, resp: express.Response, next: 
   (global as any).localStorage = null;
   (global as any).window['isSSR'] = true;
   (global as any).window['CakePHPCookie'] = req.session?.CakePHPCookie || '';
-
-  const xRealIP = req.ip || req.ips[0] || req.clientIp;
-  console.log('xRealIP: ', xRealIP);
-  if(req.session) req.session.xRealIP = xRealIP;
-  RedisClient.set('xRealIP', xRealIP || '');
 
   next();
 }
@@ -279,6 +283,7 @@ app.use(express.static('./assets'));
 
 app.get(
   '*',
+  declareXRealIP,
   declareGlobalProps,
   checkAuthenticationCookie,
   storeTracker,
