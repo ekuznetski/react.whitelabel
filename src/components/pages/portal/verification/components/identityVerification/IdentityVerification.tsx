@@ -1,23 +1,14 @@
 import { MultipleUpload, UploadDocumentCard, UploadFile, UploadWrapper } from '@components/shared';
 import { EDocumentsType } from '@domain/enums';
-import { MDocuments } from '@domain/models';
-import { IStore } from '@store';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import './IdentityVerification.scss';
 
 export const IdentityVerification = memo(function IdentityVerification() {
-  const { documents } = useSelector<IStore, { documents: MDocuments }>((state) => ({
-    documents: state.data.client.documents,
-  }));
   const { t } = useTranslation();
 
   return (
-    <UploadWrapper
-      documents={documents.getAllDocumentsOfTypes([EDocumentsType.ID, EDocumentsType.IDBack])}
-      className="identity-verification"
-    >
+    <UploadWrapper documentsType={[EDocumentsType.ID, EDocumentsType.IDBack]} className="identity-verification">
       <UploadDocumentCard icon="upload_passport" label={t('Your Passport')}>
         <UploadFile
           fileType={EDocumentsType.ID}
