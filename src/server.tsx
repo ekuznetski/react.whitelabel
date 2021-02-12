@@ -285,6 +285,8 @@ app.get(
     const xRealIP = req.ip || req.ips[0] || req.clientIp;
     (global as any).window['xRealIP'] = xRealIP;
 
+    console.log('----------------------------', xRealIP)
+
     const fileExist = fs.existsSync(indexFile);
     let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
       lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],
