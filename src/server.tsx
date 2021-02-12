@@ -181,9 +181,9 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
-  const xRealIP = req.ip || req.ips[0] || req.clientIp || req.get('X-Real-IP');
+  const xRealIP = req.ip || req.ips[0] || req.clientIp || req.get('xrealip');
 
-  console.log('; req.xRealIP: ', req.headers);
+  console.log('; req.xRealIP: ', req.get('xrealip'));
 
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
@@ -193,6 +193,7 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       xRealIP && { 'X-Real-IP': xRealIP },
+      xRealIP && { 'X-Forwarded-For': xRealIP },
       authenticationToken && { Cookie: authenticationToken },
     ),
     maxContentLength: DATA_LIMIT,
@@ -284,7 +285,7 @@ app.get(
     const xRealIP = req.ip || req.ips[0] || req.clientIp;
     (global as any).window['xRealIP'] = xRealIP;
 
-    console.log('----------------------------', xRealIP)
+    console.log('----------------------------', xRealIP);
 
     const fileExist = fs.existsSync(indexFile);
     let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
