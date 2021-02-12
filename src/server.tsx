@@ -131,14 +131,6 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
   next();
 }
 
-function declareXRealIP(req: express.Request, resp: express.Response, next: express.NextFunction) {
-  const xRealIP = req.ip || req.ips[0] || req.clientIp;
-  (global as any).window['xRealIP'] = xRealIP;
-  console.log('============', xRealIP);
-
-  next();
-}
-
 function declareGlobalProps(req: express.Request, resp: express.Response, next: express.NextFunction) {
   (global as any).window = window;
   (global as any).document = document;
@@ -286,11 +278,13 @@ app.use(express.static('./assets'));
 
 app.get(
   '*',
-  declareXRealIP,
   declareGlobalProps,
   checkAuthenticationCookie,
   storeTracker,
   (req: express.Request, res: express.Response) => {
+    const xRealIP = req.ip || req.ips[0] || req.clientIp;
+    (global as any).window['xRealIP'] = xRealIP;
+
     const fileExist = fs.existsSync(indexFile);
     let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
       lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],
