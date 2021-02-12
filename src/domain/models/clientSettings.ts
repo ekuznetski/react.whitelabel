@@ -29,6 +29,7 @@ export class MClientSettings {
   allow_additional_live_account?: boolean;
   allow_additional_demo_account?: boolean;
   allow_deposit?: boolean;
+  allow_raf?: boolean;
   allow_internal_transfer?: boolean;
   enable_citioptions?: boolean;
   show_praxis_and_webmoney?: boolean;
@@ -47,6 +48,7 @@ export class MClientSettings {
     this.allow_additional_live_account = props.allow_additional_live_account;
     this.allow_additional_demo_account = props.allow_additional_demo_account;
     this.allow_deposit = props.allow_deposit;
+    this.allow_raf = props.allow_raf;
 
     if (props.allowed_deposit_methods) {
       this.allowed_deposit_methods = props.allowed_deposit_methods.map((e: any) => {
