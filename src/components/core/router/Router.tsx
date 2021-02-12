@@ -37,8 +37,8 @@ export const Router = memo(function Router() {
   }
 
   let _route = routesNavConfig.find((route) => route.path === _path);
-  useMeta({ name: 'description', content: _route?.meta?.desc || '' });
-  useTitle(_route?.meta?.title || '');
+  useMeta({ name: 'description', content: (routeState.isLoading ? routeState.prev : _route)?.meta?.desc || '' });
+  useTitle((routeState.isLoading ? routeState.prev : _route)?.meta?.title || '');
 
   useEffect(() => {
     if (routeState.path != _path || (!routeState.path && !_path)) {
@@ -100,7 +100,8 @@ export const Router = memo(function Router() {
           if (typeof _redirectParams === 'object') {
             history.push(localizePath(_redirectParams.path), _redirectParams?.state);
           } else if (_redirectParams === false) {
-            history.push(localizePath(_route.path));
+            if (routeState.prev?.path) history.replace(localizePath(routeState.prev?.path));
+            else history.push(localizePath(_route.path));
           }
         }
       }
