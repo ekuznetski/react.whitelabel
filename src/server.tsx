@@ -189,7 +189,7 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
       {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      xRealIP && { 'X-Real-IP': xRealIP },
+      xRealIP && { 'X-Real-IP': '1.1.1.1' || xRealIP },
       authenticationToken && { Cookie: authenticationToken },
     ),
     maxContentLength: DATA_LIMIT,
