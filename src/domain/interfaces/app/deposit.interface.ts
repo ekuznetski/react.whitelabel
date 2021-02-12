@@ -2,28 +2,22 @@ import { IBaseResponse } from '../general.interface';
 import { EDepositMethodCode } from '@domain/enums';
 
 export interface ICreditCardDepositRequest {
-  amount: string;
-  currency?: string;
-  PaymentMethod: EDepositMethodCode.creditCard;
-  first_name: string;
+  firstName: string;
   surname: string;
-  postcode: string;
   city: string;
-  country: string;
-  country_code: string;
-  phone: string;
-  email: string;
-  address: string;
-  language_code: string;
-  name_on_card: string;
-  card_number: string;
-  expiry_month: string;
-  expiry_year: string;
+  street: string;
+  postcode: string;
+  amount: string;
+  cardNumber: string;
+  currency: string;
+  countryCode: string;
+  nameOnCard: string;
+  expiryMonth: string;
+  expiryYear: string;
   cvv: string;
-  trade_platform?: string;
-  trade_account?: string;
-  deposit_ip: string;
-  state_code?: string;
+  paymentMethod: EDepositMethodCode.creditCard;
+  tradePlatform?: string;
+  tradeAccount?: string;
 }
 
 export interface INetellerDepositRequest {

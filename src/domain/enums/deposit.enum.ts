@@ -1,13 +1,6 @@
 import { ECurrencyCode } from './currency.enum';
 import { ETradingAccountType } from './domains.enum';
 
-export enum EDepositMethods {
-  creditCard = 'visaMastercard',
-  neteller = 'neteller',
-  webmoney = 'webmoney',
-  skrill = 'skrill',
-  bankWire = 'bankwire',
-}
 export enum EDepositMethodCode {
   creditCard = 'CC',
   neteller = 'NT',
@@ -15,6 +8,14 @@ export enum EDepositMethodCode {
   skrill = 'SK',
   bankWire = 'BW',
 }
+
+export const EDepositMethodIcon = {
+  [EDepositMethodCode.creditCard]: 'visaMastercard',
+  [EDepositMethodCode.neteller]: 'neteller',
+  [EDepositMethodCode.webmoney]: 'webmoney',
+  [EDepositMethodCode.skrill]: 'skrill',
+  [EDepositMethodCode.bankWire]: 'bankwire',
+};
 
 export const MinLimitDeposit: { [k: string]: any } = {
   fake: [
@@ -66,17 +67,17 @@ export const StaticAmounts = {
 };
 
 export const AllowedCurrToMethodMap: { [k: string]: any } = {
-  [EDepositMethods.creditCard]: [
+  [EDepositMethodCode.creditCard]: [
     ECurrencyCode.eur,
     ECurrencyCode.usd,
     ECurrencyCode.gbp,
     ECurrencyCode.aed,
     ECurrencyCode.rub,
   ],
-  [EDepositMethods.neteller]: [ECurrencyCode.eur, ECurrencyCode.usd],
-  [EDepositMethods.skrill]: [ECurrencyCode.eur, ECurrencyCode.usd, ECurrencyCode.gbp, ECurrencyCode.aed],
-  [EDepositMethods.webmoney]: [ECurrencyCode.eur, ECurrencyCode.usd, ECurrencyCode.rub],
-  [EDepositMethods.bankWire]: [
+  [EDepositMethodCode.neteller]: [ECurrencyCode.eur, ECurrencyCode.usd],
+  [EDepositMethodCode.skrill]: [ECurrencyCode.eur, ECurrencyCode.usd, ECurrencyCode.gbp, ECurrencyCode.aed],
+  [EDepositMethodCode.webmoney]: [ECurrencyCode.eur, ECurrencyCode.usd, ECurrencyCode.rub],
+  [EDepositMethodCode.bankWire]: [
     ECurrencyCode.eur,
     ECurrencyCode.usd,
     ECurrencyCode.gbp,
