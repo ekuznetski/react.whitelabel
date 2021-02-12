@@ -31,7 +31,7 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
           {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          window.xRealIP ? { 'X-Real-IP': window.xRealIP } : {},
+          window.xRealIP ? { 'xRealIP': window.xRealIP } : {},
           window.isSSR && window.CakePHPCookie ? { Cookie: window.CakePHPCookie } : {},
         ),
         method: method as Method,
