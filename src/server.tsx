@@ -96,7 +96,6 @@ RedisClient.on('ready', function () {
 });
 
 function clearRedisRequestsList() {
-  RedisClient.del('ip');
   RedisClient.del(REDIS_REQUESTs_STORE, function (err, response) {
     if (response == 1) {
       // console.log('Deleted Successfully!');
@@ -135,6 +134,11 @@ function declareGlobalProps(req: express.Request, resp: express.Response, next: 
   (global as any).localStorage = null;
   (global as any).window['isSSR'] = true;
   (global as any).window['CakePHPCookie'] = req.session?.CakePHPCookie || '';
+
+  const xRealIP = req.ip || req.ips[0] || req.clientIp;
+  console.log('xRealIP: ', xRealIP);
+  req.session.ip = xRealIP;
+  RedisClient.set('ip', xRealIP || '');
 
   next();
 }
@@ -181,7 +185,7 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
   const xRealIP = RedisClient.get('ip') || req.ip || req.ips[0] || req.clientIp;
 
-  console.log('RedisClient IP', RedisClient.get('ip'));
+  console.log('RedisClient IP', RedisClient.get('ip'), '; req.session.ip: ', req.session.ip);
 
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
@@ -279,7 +283,6 @@ app.get(
   checkAuthenticationCookie,
   storeTracker,
   (req: express.Request, res: express.Response) => {
-    const xRealIP = req.ip || req.ips[0] || req.clientIp;
     const fileExist = fs.existsSync(indexFile);
     let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
       lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],
@@ -301,8 +304,6 @@ app.get(
 
     clearRedisRequestsList();
     store.dispatch(ac_clearStore());
-    console.log('xRealIP: ', xRealIP);
-    RedisClient.set('ip', xRealIP || '');
 
     return new Promise((resolve) => {
       requestResolver = resolve;
@@ -352,6 +353,7 @@ app.get(
       );
 
       clearRedisRequestsList();
+      RedisClient.del('ip');
 
       return fs.readFile(indexFile, 'utf8', async (err, data) => {
         if (err) {
