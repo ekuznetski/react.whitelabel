@@ -214,8 +214,6 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
     });
   }
 
-  console.log('-----', options.headers);
-
   axios(`${env.API_URL}${req.url}`, options)
     .then((res: any) => {
       if ((res.data?.status || res.data?.response?.status) === 'failure') {
@@ -284,8 +282,6 @@ app.get(
   (req: express.Request, res: express.Response) => {
     const xRealIP = req.ip || req.ips[0] || req.clientIp;
     (global as any).window['xRealIP'] = xRealIP;
-
-    console.log('----------------------------', xRealIP);
 
     const fileExist = fs.existsSync(indexFile);
     let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
