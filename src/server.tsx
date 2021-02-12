@@ -20,6 +20,7 @@ import multer from 'multer';
 import nocache from 'nocache';
 import path from 'path';
 import qs from 'qs';
+import requestIp from 'request-ip';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -164,6 +165,7 @@ function storeTracker(req: express.Request, resp: express.Response, next: expres
 }
 
 app.set('trust proxy', true);
+app.use(requestIp.mw());
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(session(sessionOptions));
@@ -175,10 +177,7 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
-  const xRealIP = (req.headers['x-forwarded-for']?.[0] || req.connection.remoteAddress || req.ip).replace(
-    /::ffff:/,
-    '',
-  );
+  const xRealIP = req.clientIp;
 
   console.log('xRealIP: ', xRealIP);
 
@@ -189,7 +188,7 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
       {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      { 'X-Real-IP': '1.1.1.1' || xRealIP },
+      xRealIP && { 'X-Real-IP': xRealIP },
       authenticationToken && { Cookie: authenticationToken },
     ),
     maxContentLength: DATA_LIMIT,
