@@ -1,5 +1,5 @@
 import { PageTitle, Svg } from '@components/shared';
-import { ETradingPlatform } from '@domain/enums';
+import { ELabels, ETradingPlatform } from '@domain/enums';
 import { MClientSettings } from '@domain/models';
 import { files } from '@domain';
 import { IStore } from '@store';
@@ -63,7 +63,8 @@ export const PlatformDownload = memo(function PlatformDownload() {
                         {t('Web')}
                       </div>
                       <a className="underlined" target="_blank" href={downloadLinks[platform].web}>
-                        <Svg href="sphere" height="18" />
+                        <Svg href="globe" _label height="18" />
+                        <Svg href="globe" _label={ELabels.bsfx} height="18" />
                         <span>{t('Launch')}</span>
                       </a>
                     </div>

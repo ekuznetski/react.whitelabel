@@ -120,7 +120,7 @@ export function Tabs({
               <div
                 className={classNames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}
               >
-                <div className="navigation__links">
+                <div className={classNames('navigation__links', !isVertical && 'd-flex')}>
                   {state.labels.map((label, l) => (
                     <div
                       key={l}
@@ -156,7 +156,7 @@ export function Tabs({
                   />
                 )}
               </div>
-              <div className={classNames('common-tabs__container', isVertical && 'py-6 px-6 py-md-8 px-sm-9')}>
+              <div className={classNames('common-tabs__container', isVertical && 'py-6 px-6 py-sm-8 px-sm-9')}>
                 {!children
                   ? state.contents.map((content, c) => <Tab key={c} anchor={content.anchor} content={content.value} />)
                   : children}

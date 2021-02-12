@@ -249,9 +249,6 @@
   }
 
   &:not(.vertical) > .common-tabs__navigation {
-    .navigation__links {
-      display: flex;
-    }
     @media (max-width: $viewport-md-w) {
       overflow-x: scroll;
       scroll-behavior: smooth;

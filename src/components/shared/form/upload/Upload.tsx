@@ -499,7 +499,7 @@ const SelectDocumentType = memo(function SelectDocumentType({
   const { t } = useTranslation();
 
   return (
-    <div className="select-document-type">
+    <div className="select-document-type p-5 p-sm-0">
       <div className="select-document-type__note mb-7">{t('Choose Document From List')}</div>
       <div className="select-document-type__list">
         {typesList.map((item, idx) => (

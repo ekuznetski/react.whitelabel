@@ -72,7 +72,7 @@ export const OpenAccount = memo(function OpenAccount() {
           </Col>
         </Row>
         <Row>
-          <Container className="d-flex justify-content-center">
+          <Col className="d-flex justify-content-center">
             <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-8 px-6 py-md-10 px-md-9">
               <Formik
                 initialValues={{
@@ -111,7 +111,7 @@ export const OpenAccount = memo(function OpenAccount() {
                 }}
               </Formik>
             </Col>
-          </Container>
+          </Col>
         </Row>
       </Container>
     </>

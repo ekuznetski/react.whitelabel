@@ -27,7 +27,7 @@
 
     .mark {
       position: absolute;
-      left: 12px;
+      left: 20px;
       display: block;
       border-radius: 50%;
       border: 1px solid $dark-grey;
@@ -67,6 +67,19 @@
           background: $dark-grey;
           border-color: $dark-grey;
         }
+      }
+    }
+  }
+
+  @media (max-width: $viewport-sm-w) {
+    .radio-label {
+      .mark {
+        left: 12px;
+      }
+    }
+    .radio-item {
+      &:not(:last-child) {
+        margin-bottom: sp(8);
       }
     }
   }

@@ -91,7 +91,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
         </Col>
       </Row>
       <Row>
-        <Container className="d-flex justify-content-center">
+        <Col className="d-flex justify-content-center">
           <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-8 px-6 py-md-10 px-md-9">
             <Formik
               initialValues={{
@@ -130,7 +130,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
               }}
             </Formik>
           </Col>
-        </Container>
+        </Col>
       </Row>
       <Row className="justify-content-center">
         <Col xs={12}>
