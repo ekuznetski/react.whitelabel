@@ -130,8 +130,10 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
 function declareXRealIP(req: express.Request, resp: express.Response, next: express.NextFunction) {
   const xRealIP = req.ip || req.ips[0] || req.clientIp;
   console.log('xRealIP: ', xRealIP);
-  if (req.session) req.session.xRealIP = xRealIP;
+  req.session.xRealIP = xRealIP;
   RedisClient.set('xRealIP', xRealIP || '');
+
+  console.log('============', req.session.xRealIP, RedisClient.set('xRealIP'));
 
   next();
 }
