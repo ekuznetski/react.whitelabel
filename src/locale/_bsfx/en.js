@@ -57,7 +57,7 @@ export default {
   'Financial Profile Last Stem Declaration Terms': [
     'I understand that the nature of my transactions with BSFX will be buying and selling only CFD products in various underlying assets.',
     'I am aware that by not submitting the KYC documents as requested by the Company may lead to the suspension of my trading rights',
-    'I am aware that the products offered by BSFX are leverage CFD products which carry a high level of risk, and it is possible to lose all my capital deposited with BSFX.I further acknowledge that I have read the Risk Disclosure Notice as available online.',
+    'I am aware that the products offered by BSFX are leverage CFD products which carry a high level of risk, and it is possible to lose all my capital deposited with BSFX. I further acknowledge that I have read the Risk Disclosure Notice as available online.',
     'I have reviewed my answers and responded as accurately as possible.',
   ],
   'You opening account with': 'You are now opening an account with <1>Blue Square FX Limited</1>',
