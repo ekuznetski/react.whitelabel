@@ -96,7 +96,7 @@ RedisClient.on('ready', function () {
 });
 
 function clearRedisRequestsList() {
-  RedisClient.del('XRealIP');
+  RedisClient.del('ip');
   RedisClient.del(REDIS_REQUESTs_STORE, function (err, response) {
     if (response == 1) {
       // console.log('Deleted Successfully!');
@@ -179,9 +179,9 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
-  const xRealIP = req.session.ip || req.ip || req.ips[0] || req.clientIp;
+  const xRealIP = RedisClient.get('ip') || req.ip || req.ips[0] || req.clientIp;
 
-  console.log('req.session.ip', req.session.ip);
+  console.log('RedisClient IP', RedisClient.get('ip'));
 
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
@@ -281,7 +281,7 @@ app.get(
   checkAuthenticationCookie,
   storeTracker,
   (req: express.Request, res: express.Response) => {
-    const xRealIP = req.ip || req.ips[0] || req.clientIp;
+    const xRealIP = req.ip || req.ips[0] || req.clientIp || '';
     const fileExist = fs.existsSync(indexFile);
     let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
       lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],
@@ -303,7 +303,7 @@ app.get(
 
     clearRedisRequestsList();
     store.dispatch(ac_clearStore());
-    req.session.ip = xRealIP;
+    RedisClient.sadd('ip', xRealIP);
 
     return new Promise((resolve) => {
       requestResolver = resolve;
