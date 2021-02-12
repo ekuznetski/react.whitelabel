@@ -133,7 +133,7 @@ function declareXRealIP(req: express.Request, resp: express.Response, next: expr
   req.session.xRealIP = xRealIP;
   RedisClient.set('xRealIP', xRealIP || '');
 
-  console.log('============', req.session.xRealIP, RedisClient.set('xRealIP'));
+  console.log('============', req.session.xRealIP, RedisClient.get('xRealIP'));
 
   next();
 }
