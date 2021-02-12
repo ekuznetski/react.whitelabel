@@ -95,6 +95,10 @@ RedisClient.on('ready', function () {
   console.log('Redis is ready');
 });
 
+RedisClient.on('ready', function () {
+  console.log('Redis is ready');
+});
+
 function clearRedisRequestsList() {
   RedisClient.del(REDIS_REQUESTs_STORE, function (err, response) {
     if (response == 1) {
@@ -133,6 +137,7 @@ function declareXRealIP(req: express.Request, resp: express.Response, next: expr
   req.session.xRealIP = xRealIP;
   RedisClient.set('xRealIP', xRealIP || '');
 
+  (global as any).window['xRealIP'] = req.session.xRealIP;
   console.log('============', req.session.xRealIP, RedisClient.get('xRealIP'));
 
   next();

@@ -13,7 +13,12 @@ export interface IBaseResponse {
   };
 }
 
-export type WindowProps = { isSSR?: boolean; CakePHPCookie?: string; __PRELOADED_STATE__?: Nullable<IStore> };
+export type WindowProps = {
+  isSSR?: boolean;
+  CakePHPCookie?: string;
+  __PRELOADED_STATE__?: Nullable<IStore>;
+  xRealIP?: string;
+};
 
 export type ColNumberAttr = number | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
 
