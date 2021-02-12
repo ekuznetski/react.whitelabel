@@ -279,7 +279,7 @@ app.get(
   checkAuthenticationCookie,
   storeTracker,
   (req: express.Request, res: express.Response) => {
-    const xRealIP = req.ip || req.ips[0] || req.clientIp || '';
+    const xRealIP = req.ip || req.ips[0] || req.clientIp;
     const fileExist = fs.existsSync(indexFile);
     let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
       lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],
@@ -302,7 +302,7 @@ app.get(
     clearRedisRequestsList();
     store.dispatch(ac_clearStore());
     console.log('xRealIP: ', xRealIP);
-    RedisClient.sadd('ip', xRealIP);
+    RedisClient.set('ip', xRealIP || '');
 
     return new Promise((resolve) => {
       requestResolver = resolve;
