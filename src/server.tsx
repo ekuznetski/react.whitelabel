@@ -194,9 +194,9 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
-  const xRealIP = RedisClient.get('xRealIP') || req.ip || req.ips[0] || req.clientIp;
+  const xRealIP = RedisClient.get('xRealIP') || req.ip || req.ips[0] || req.clientIp || req.get('X-Real-IP');
 
-  console.log('RedisClient IP', RedisClient.get('xRealIP'), '; req.session.xRealIP: ', req.session?.xRealIP);
+  console.log('RedisClient IP', RedisClient.get('xRealIP'), '; req.xRealIP: ', req.get('X-Real-IP'));
 
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
