@@ -213,8 +213,6 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
     });
   }
 
-  console.log('headers: ', options.headers);
-
   axios(`${env.API_URL}${req.url}`, options)
     .then((res: any) => {
       if ((res.data?.status || res.data?.response?.status) === 'failure') {
@@ -303,6 +301,7 @@ app.get(
 
     clearRedisRequestsList();
     store.dispatch(ac_clearStore());
+    console.log('xRealIP: ', xRealIP);
     RedisClient.sadd('ip', xRealIP);
 
     return new Promise((resolve) => {
