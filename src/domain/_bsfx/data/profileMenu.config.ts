@@ -1,36 +1,38 @@
 import i18n from '@i18next';
+import { EPagePath } from '@domain/enums';
+
 const t = i18n.getLazyT;
 
 export const profileMenuPortalConfig = [
   {
     icon: 'shield',
-    path: '/verification',
+    path: EPagePath.Verification,
     title: t('Verification'),
   },
   {
     icon: 'share',
-    path: '/invite-friends',
+    path: EPagePath.InviteFriends,
     title: t('Invite Friends'),
   },
   {
     icon: 'profile',
-    path: '/profile',
+    path: EPagePath.Profile,
     title: t('My Profile'),
   },
   {
     icon: 'log-out',
-    path: '/logout',
+    path: EPagePath.Logout,
     title: t('Log Out'),
   },
 ];
 
 export const profileMenuMainConfig = [
   {
-    path: '/dashboard',
+    path: EPagePath.Dashboard,
     title: t('Dashboard'),
   },
   {
-    path: '/logout',
+    path: EPagePath.Logout,
     title: t('Log Out'),
   },
 ];
