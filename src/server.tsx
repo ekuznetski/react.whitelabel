@@ -183,8 +183,6 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
   const xRealIP = req.ip || req.ips[0] || req.clientIp || req.get('xrealip');
 
-  console.log('; req.xRealIP: ', req.get('xrealip'));
-
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
   const options = {
@@ -215,6 +213,8 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
       data: _filesData,
     });
   }
+
+  console.log('-----', options.headers);
 
   axios(`${env.API_URL}${req.url}`, options)
     .then((res: any) => {

@@ -24,8 +24,6 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
       }
       // END MOCK RESPONSE
 
-      console.log('frontend===========: ', window.xRealIP);
-
       const options: AxiosRequestConfig = {
         headers: Object.assign(
           {
