@@ -183,7 +183,7 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
   const xRealIP = req.ip || req.ips[0] || req.clientIp || req.get('X-Real-IP');
 
-  console.log('; req.xRealIP: ', req.get('X-Real-IP'));
+  console.log('; req.xRealIP: ', req.headers);
 
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
