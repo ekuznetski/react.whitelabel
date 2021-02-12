@@ -137,7 +137,7 @@ function declareGlobalProps(req: express.Request, resp: express.Response, next: 
 
   const xRealIP = req.ip || req.ips[0] || req.clientIp;
   console.log('xRealIP: ', xRealIP);
-  req.session.ip = xRealIP;
+  if(req.session) req.session.ip = xRealIP;
   RedisClient.set('ip', xRealIP || '');
 
   next();
