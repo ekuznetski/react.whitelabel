@@ -17,6 +17,7 @@ export interface IClientSettings {
   allow_additional_live_account: boolean;
   allow_additional_demo_account: boolean;
   allow_deposit: boolean;
+  allow_raf: boolean;
   allowed_deposit_methods: string[];
   allow_withdrawal: boolean;
   allowed_currencies: string[];
