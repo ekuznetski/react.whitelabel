@@ -1,4 +1,4 @@
-import { EDepositMethods } from '@domain/enums';
+import { EDepositMethodCode } from '@domain/enums';
 import React, { useContext } from 'react';
 import { CardMethod, NetellerMethod, SkrillMethod, WebmoneyMethod } from '..';
 import { DepositContext } from '../../deposit.context';
@@ -6,10 +6,10 @@ import { DepositContext } from '../../deposit.context';
 export function DetailsFormWrapper() {
   const { method } = useContext(DepositContext).state;
   const detailsFormComponents: { [k: string]: JSX.Element } = {
-    [EDepositMethods.creditCard]: <CardMethod />,
-    [EDepositMethods.neteller]: <NetellerMethod />,
-    [EDepositMethods.webmoney]: <WebmoneyMethod />,
-    [EDepositMethods.skrill]: <SkrillMethod />,
+    [EDepositMethodCode.creditCard]: <CardMethod />,
+    [EDepositMethodCode.neteller]: <NetellerMethod />,
+    [EDepositMethodCode.webmoney]: <WebmoneyMethod />,
+    [EDepositMethodCode.skrill]: <SkrillMethod />,
   };
   return method ? detailsFormComponents[method] : null;
 }

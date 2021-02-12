@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { Nullable } from '@domain/interfaces';
-import { Country, EDepositMethods, ETradingType, StaticAmounts } from '@domain/enums';
+import { Country, EDepositMethodCode, ETradingType, StaticAmounts } from '@domain/enums';
 import { IStore } from '@store';
 import { MClientProfile, MTradingAccount } from '@domain/models';
 import { useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ export type IDepositState = Nullable<{
   amount: string;
   account: MTradingAccount;
   staticAmounts: number[];
-  method: EDepositMethods;
+  method: EDepositMethodCode;
   isAmountSelected: boolean;
   depositDetails: any;
   billingDetails: {
@@ -32,11 +32,11 @@ export enum EDepositActionTypes {
 
 export interface IDepositAction {
   type: EDepositActionTypes;
-  payload: string | EDepositMethods | boolean;
+  payload: string | EDepositMethodCode | boolean;
 }
 
 export const depositActionCreators = {
-  setMethod: (payload: EDepositMethods) => ({
+  setMethod: (payload: EDepositMethodCode) => ({
     type: EDepositActionTypes.setMethod,
     payload,
   }),
@@ -70,7 +70,7 @@ export const depositStateInit = {
   amount: null,
   account: null,
   staticAmounts: [],
-  method: EDepositMethods.creditCard,
+  method: EDepositMethodCode.creditCard,
   isAmountSelected: false,
   depositDetails: null,
   billingDetails: null,

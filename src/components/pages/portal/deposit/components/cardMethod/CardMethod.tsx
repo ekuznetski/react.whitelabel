@@ -1,11 +1,13 @@
 import { Button, Input, Svg } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ECreditCardType, EDepositMethodCode, ELanguage, ETradingType } from '@domain/enums';
+import { ECreditCardType, EDepositMethodCode, ELanguage, EPagePath, ETradingType } from '@domain/enums';
 import { ICreditCardDepositRequest } from '@domain/interfaces';
 import { MClientProfile } from '@domain/models';
-import { IStore, ac_addDeposit } from '@store';
+import { EActionTypes, IStore, ac_addDeposit } from '@store';
 import cardValidator from 'card-validator';
 import { Form, Formik } from 'formik';
+import { usePathLocale } from '@utils/hooks';
+import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { BillingDetailsModal, CreditCardInfoModal, DetailsHeader } from '..';
 import { IDepositState, depositActionCreators, useDepositDispatch, useDepositState } from '../../deposit.context';
+import Payment from 'payment';
 import './CardMethod.scss';
 
 enum EFields {
@@ -27,8 +30,9 @@ export function CardMethod() {
   const { account, amount, billingDetails }: IDepositState = useDepositState();
   const depositContextDispatch = useDepositDispatch();
   const dispatch = useDispatch();
+  const { localizePath } = usePathLocale();
+  const history = useHistory();
   const { t } = useTranslation();
-  const [cardNumberCaretPosition, setCardNumberCaretPosition] = useState<any>();
   const [cardType, setCardType] = useState<string | null>(null);
   const [isBillingDetailsModalOpen, setIsBillingDetailsModalOpen] = React.useState<boolean>(false);
   const [isCreditCardInfoModalOpen, setCreditCardInfoModalOpen] = React.useState<boolean>(false);
@@ -38,12 +42,6 @@ export function CardMethod() {
     locale: state.app.route.locale,
   }));
   const currentYear = new Date().getFullYear();
-
-  // useEffect(() => {
-  //   // if (cardNumberCaretPosition?.start && cardNumberCaretPosition?.end) {
-  //   ref.current?.setSelectionRange(cardNumberCaretPosition?.start, cardNumberCaretPosition?.end);
-  //   // }
-  // }, [cardNumberCaretPosition]);
 
   function openBillingDetailsModal(e: React.MouseEvent) {
     e.preventDefault();
@@ -57,18 +55,6 @@ export function CardMethod() {
 
   function formatYear(val: number): number {
     return val < 2000 ? val + 2000 : val;
-  }
-
-  function formatCreditCard(cardNumber: string, gaps: number[] | undefined): string {
-    gaps = gaps ? [0, ...gaps] : [0, 4, 8, 12];
-    let result = '';
-    for (let i = 1; i < gaps.length; i++) {
-      result += cardNumber.slice(gaps[i - 1], gaps[i]) + ' ';
-      if (i === gaps.length - 1) {
-        result += cardNumber.slice(gaps[i]);
-      }
-    }
-    return result.trim();
   }
 
   const validationSchema = Yup.object().shape({
@@ -123,11 +109,11 @@ export function CardMethod() {
         <DetailsHeader />
         <Formik
           initialValues={{
-            cardholderName: 'TEST TEST',
-            cardNumber: '4000000000000077',
-            month: '12',
-            year: '25',
-            cvc: '123',
+            cardholderName: '',
+            cardNumber: '',
+            month: '',
+            year: '',
+            cvc: '',
           }}
           validationSchema={validationSchema}
           onSubmit={(data) => {
@@ -135,38 +121,42 @@ export function CardMethod() {
             _data.cardNumber = _data.cardNumber.replaceAll(' ', '');
             const preparedData: ICreditCardDepositRequest = {
               amount: amount as string,
-              PaymentMethod: EDepositMethodCode.creditCard,
+              paymentMethod: EDepositMethodCode.creditCard,
               currency: account?.currency as string,
-              first_name: profile.first_name,
+              firstName: profile.first_name,
               surname: profile.last_name,
               postcode: billingDetails?.postcode ?? profile.postcode,
               city: billingDetails?.city ?? profile.city,
-              country: (billingDetails?.country?.name ?? profile.country.name) as string,
-              country_code: (billingDetails?.country?.code ?? profile.country.code) as string,
-              phone: profile.phone.toString(),
-              email: profile.email,
-              address: billingDetails?.address ?? profile.street,
-              language_code: locale.toUpperCase(),
-              name_on_card: _data.cardholderName,
-              card_number: _data.cardNumber,
-              expiry_month: _data.month,
-              expiry_year: _data.year.slice(-2),
+              countryCode: (billingDetails?.country?.code ?? profile.country.code) as string,
+              street: billingDetails?.address ?? profile.street,
+              nameOnCard: _data.cardholderName,
+              cardNumber: _data.cardNumber,
+              expiryMonth: _data.month,
+              expiryYear: _data.year.slice(-2),
               cvv: _data.cvc,
-              deposit_ip: '',
             };
             if (account && account?.type !== ETradingType.fake) {
               Object.assign(preparedData, {
-                trade_platform: account.platformName as string,
-                trade_account: account.accountId?.toString(),
+                tradePlatform: account.platformName as string,
+                tradeAccount: account.accountId?.toString(),
               });
             }
-            if (!!billingDetails?.state_code || !!profile.state.code) {
-              console.log(123);
-              Object.assign(preparedData, {
-                state_code: (billingDetails?.state_code as string) ?? profile.state.code,
-              });
-            }
-            dispatch(ac_addDeposit<ICreditCardDepositRequest>(preparedData));
+
+            dispatch(
+              ac_addDeposit<ICreditCardDepositRequest>(
+                preparedData,
+                ({ response }) => {
+                  if (typeof response.message === 'string') {
+                    history.push(localizePath(EPagePath.DepositSuccess));
+                  } else {
+                    window.location = response.message.url;
+                  }
+                },
+                () => {
+                  history.push(localizePath(EPagePath.DepositFailure));
+                },
+              ),
+            );
             depositContextDispatch(depositActionCreators.setDepositDetails(_data));
             console.log(preparedData);
           }}
@@ -178,37 +168,32 @@ export function CardMethod() {
               <Form className="m-auto form">
                 <Row>
                   <Col xs={12}>
-                    <Input label="Сardholder Name" name={EFields.cardholderName} className="cardholder" />
+                    <Input label={t('Сardholder Name')} name={EFields.cardholderName} className="cardholder" />
                   </Col>
                   <Col xs={12} className="card-number">
-                    {cardType && <Svg href={`${cardType}-logo`} width={45} className={`card-icon ${cardType}`} />}
+                    {cardType && <Svg href={`${cardType}`} width={45} className={`card-icon ${cardType}`} />}
                     <Input
-                      label="Сard Number"
+                      label={t('Сard Number')}
                       name={EFields.cardNumber}
-                      regex={/^\d{0,25}$/}
+                      // regex={/^\d{0,25}$/}
                       ref={ref}
                       onChange={(e: any) => {
                         const val = e.target.value.replaceAll(' ', '');
                         if (/^\d{0,25}$/.test(val)) {
                           const cardType = cardValidator.number(val).card?.type;
-                          const gaps = cardValidator.number(val).card?.gaps;
                           if (!!cardType && !!ECreditCardType[cardType as ECreditCardType]) {
                             setCardType(cardType);
                           } else {
                             setCardType(null);
                           }
-                          setFieldValue(EFields.cardNumber, formatCreditCard(val, gaps));
-                          setCardNumberCaretPosition({
-                            start: e.target.selectionStart,
-                            end: e.target.selectionEnd,
-                          });
                         }
+                        Payment.formatCardNumber(e.target);
                       }}
                     />
                   </Col>
                   <Col xs={12} sm={6}>
                     <Input
-                      label="Month"
+                      label={t('Month')}
                       type="number"
                       regex={/^\d{0,2}$/}
                       onBlur={(e: any) => {
@@ -222,7 +207,7 @@ export function CardMethod() {
                   </Col>
                   <Col xs={12} sm={6}>
                     <Input
-                      label="Year"
+                      label={t('Year')}
                       type="number"
                       regex={/^\d{0,4}$/}
                       onBlur={(e: any) => {
@@ -241,7 +226,9 @@ export function CardMethod() {
                     <Svg href="secure-payment" />
                   </Col>
                   <Col xs={12}>
-                    <Button type="submit">Deposit</Button>
+                    <Button type="submit" className={'tests'} loadingOnAction={[EActionTypes.addDeposit]}>
+                      {t('Deposit')}
+                    </Button>
                   </Col>
                 </Row>
               </Form>

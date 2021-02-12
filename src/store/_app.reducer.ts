@@ -48,6 +48,7 @@ export function ignoreActionIfPageLoadedList() {
 
 export function appStoreReducer(state = initAppStore as IAppStore, action: IAction) {
   switch (action.type) {
+    case EActionTypes.addDeposit:
     case EActionTypes.fetchClientData:
     case EActionTypes.fetchPrices:
     case EActionTypes.fetchContent:
