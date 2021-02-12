@@ -35,7 +35,7 @@ declare module 'express-session' {
   interface SessionData {
     CakePHPCookie: string;
     activeRequests: string[];
-    ip?: string;
+    xRealIP?: string;
   }
 }
 
@@ -137,8 +137,8 @@ function declareGlobalProps(req: express.Request, resp: express.Response, next: 
 
   const xRealIP = req.ip || req.ips[0] || req.clientIp;
   console.log('xRealIP: ', xRealIP);
-  if(req.session) req.session.ip = xRealIP;
-  RedisClient.set('ip', xRealIP || '');
+  if(req.session) req.session.xRealIP = xRealIP;
+  RedisClient.set('xRealIP', xRealIP || '');
 
   next();
 }
@@ -183,9 +183,9 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const reqSessionCookie = req.session?.CakePHPCookie;
   const authenticationToken = reqHeaderCookie || reqSessionCookie;
-  const xRealIP = RedisClient.get('ip') || req.ip || req.ips[0] || req.clientIp;
+  const xRealIP = RedisClient.get('xRealIP') || req.ip || req.ips[0] || req.clientIp;
 
-  console.log('RedisClient IP', RedisClient.get('ip'), '; req.session.ip: ', req.session?.ip);
+  console.log('RedisClient IP', RedisClient.get('xRealIP'), '; req.session.xRealIP: ', req.session?.xRealIP);
 
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
@@ -353,7 +353,7 @@ app.get(
       );
 
       clearRedisRequestsList();
-      RedisClient.del('ip');
+      RedisClient.del('xRealIP');
 
       return fs.readFile(indexFile, 'utf8', async (err, data) => {
         if (err) {
