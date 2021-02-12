@@ -180,6 +180,8 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
     '',
   );
 
+  console.log('xRealIP: ', xRealIP);
+
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
   const options = {
