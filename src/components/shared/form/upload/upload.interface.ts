@@ -22,6 +22,7 @@ export interface UploadProps {
   accept?: ('jpg' | 'jpeg' | 'jpe' | 'png' | 'gif' | 'pdf' | 'doc' | 'docx')[];
   maxFileSizeKb?: number;
   disabled?: boolean;
+  optional?: boolean;
   errorText?: UploadText;
   transferControls?: false & {
     trackContextState: (state: UploadState) => void;

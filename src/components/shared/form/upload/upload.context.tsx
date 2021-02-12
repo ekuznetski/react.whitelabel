@@ -28,6 +28,7 @@ export type UploadAction = {
   file?: File;
   fileDataURL?: string;
   error?: string | React.ReactFragment;
+  optional?: boolean
 };
 export type UploadDispatch = (action: UploadAction) => void;
 export type UploadState = {
@@ -38,6 +39,7 @@ export type UploadState = {
   fileIcon: UploadIcon;
   view: UploadViewState;
   error: string | React.ReactFragment | null;
+  optional: boolean
 };
 type UploadProviderProps = {
   children: (state: UploadState, action: UploadDispatch) => React.ReactNode;
@@ -54,6 +56,7 @@ function UploadReducer(state: UploadState, action: UploadAction) {
         desc: action.desc,
         fileIcon: action.fileIcon || { name: '' },
         fileType: action.fileType || null,
+        optional: action.optional || false,
       };
     }
 
@@ -101,6 +104,7 @@ function UploadProvider({ children }: UploadProviderProps) {
     fileDataURL: null,
     view: UploadViewState.empty,
     error: null,
+    optional: false
   });
 
   return (
