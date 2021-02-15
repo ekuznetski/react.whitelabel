@@ -62,10 +62,7 @@ export function CreditCardInfoModal({ isModalOpen, setModalOpen }: IBillingDetai
             All withdrawal requests must be credited back to the same Neteller account before other methods can are
             offered.
           </li>
-          <li>
-            No processing fees apply on deposits from HYCM's side, but there is a set % of commission and exchange rate
-            charged by Neteller. For more information, please contact Neteller.
-          </li>
+          <li>{t('Credit Card Neteller Payments')}</li>
         </ul>
       </ModalContext>
     </ModalOld>
