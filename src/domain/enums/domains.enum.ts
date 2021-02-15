@@ -4,6 +4,10 @@ export enum ELabels {
   bsfx = 'bsfx',
 }
 
+export enum EWebSocketMessage {
+  prices = 'prices',
+}
+
 export enum ELabelsName {
   default = 'Default',
   arofx = 'AroFX',

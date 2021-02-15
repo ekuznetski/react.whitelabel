@@ -1,13 +1,13 @@
 import './i18n'; // Must be the imported before the App!
 import { Footer, Header, NotFound, PageLoader } from '@components/core';
 import { localesConfig } from '@domain';
-import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
+import { EAppSection, ELanguage, EPagePath, EWebSocketMessage } from '@domain/enums';
 import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
 import { env } from '@env';
-import { routesInitialApiData, routesNavConfig } from '@routers';
-import { EActionTypes, IStore, ac_clearStore, ac_updateRouteParams, initStore, store } from '@store';
+import { routesNavConfig } from '@routers';
+import { EActionTypes, IStore, ac_clearStore, ac_updateRouteParams, store } from '@store';
 import { routeFetchData } from '@utils/fn/routeFetchData';
-import axios, { AxiosRequestConfig, Method } from 'axios';
+import axios, { Method } from 'axios';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import 'core-js/stable';
@@ -20,15 +20,16 @@ import multer from 'multer';
 import nocache from 'nocache';
 import path from 'path';
 import qs from 'qs';
-import requestIp from 'request-ip';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import redis from 'redis';
+import { Unsubscribe } from 'redux';
+import requestIp from 'request-ip';
+import { Server } from 'socket.io';
 import { document, window } from 'ssr-window';
 import { v4 as uuidv4 } from 'uuid';
-import { Unsubscribe } from 'redux';
 import './App.scss';
 
 declare module 'express-session' {
@@ -76,6 +77,7 @@ function checkRouterLoaderState(prevActiveList: EActionTypes[], activeList: EAct
   );
 }
 
+const io = new Server();
 const RedisStore = require('connect-redis')(session);
 const RedisClient = redis.createClient(REDIS_PORT, env.DEV_MODE ? '127.0.0.1' : 'redis');
 const sessionOptions: session.SessionOptions = {
@@ -88,10 +90,6 @@ const sessionOptions: session.SessionOptions = {
 
 RedisClient.on('error', function (err) {
   console.log('Redis error: ' + err);
-});
-
-RedisClient.on('ready', function () {
-  console.log('Redis is ready');
 });
 
 RedisClient.on('ready', function () {
@@ -391,6 +389,18 @@ app.get(
   },
 );
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
+});
+
+io.attach(server);
+
+io.on('connection', () => {
+  console.log('WebSocket connected');
+
+  setInterval(() => {
+    axios(`${env.PRICES_URL}/graphs/homepage`, { method: 'GET' }).then((res) => {
+      io.emit(EWebSocketMessage.prices, res.data);
+    });
+  }, 5000);
 });
