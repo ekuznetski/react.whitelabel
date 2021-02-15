@@ -30,7 +30,7 @@ export interface ITab {
   children?: React.ReactNode;
   anchor: string | number; // anchor
   className?: string;
-  status?: ENotificationType | null;
+  status?: ENotificationType;
 }
 
 interface TabsState {
@@ -197,12 +197,8 @@ export const Tab = memo(
       throw new Error('Tab must have (props.children) or (props.content)!');
     }
 
-    function tabInitialized() {
-      return tabsState.anchors.includes(props.anchor);
-    }
-
-    function AfterRenderDispatch() {
-      useEffect(() => {
+    useEffect(() => {
+      if (!tabsState.anchors.includes(props.anchor))
         dispatch({
           type: 'add',
           anchor: props.anchor,
@@ -210,21 +206,11 @@ export const Tab = memo(
           content: props.content,
           disabled: props.disabled,
         });
-      }, []);
-
-      return null;
-    }
+    }, []);
 
     return (
       <div className={classnames('tab__content', props.className, isActive && 'active')} ref={ref}>
-        {!tabInitialized() ? (
-          <>
-            {_content}
-            <AfterRenderDispatch />
-          </>
-        ) : isActive ? (
-          _content
-        ) : null}
+        {isActive ? _content : null}
       </div>
     );
   }),

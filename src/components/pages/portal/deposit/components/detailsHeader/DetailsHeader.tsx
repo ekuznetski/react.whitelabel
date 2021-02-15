@@ -1,8 +1,8 @@
 import { Svg } from '@components/shared';
-import { EDepositMethods } from '@domain/enums';
+import { EDepositMethodCode } from '@domain/enums';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { depositActionCreators, DepositContext } from '../../deposit.context';
+import { DepositContext, depositActionCreators } from '../../deposit.context';
 import './DetailsHeader.scss';
 
 export function DetailsHeader() {
@@ -28,7 +28,7 @@ export function DetailsHeader() {
             </a>
           </div>
         </div>
-        {method && method !== EDepositMethods.creditCard && <Svg href={method} width={80} />}
+        {method && method !== EDepositMethodCode.creditCard && <Svg href={method} width={80} />}
       </div>
     </>
   );

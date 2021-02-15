@@ -20,6 +20,7 @@ import multer from 'multer';
 import nocache from 'nocache';
 import path from 'path';
 import qs from 'qs';
+import requestIp from 'request-ip';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -93,6 +94,10 @@ RedisClient.on('ready', function () {
   console.log('Redis is ready');
 });
 
+RedisClient.on('ready', function () {
+  console.log('Redis is ready');
+});
+
 function clearRedisRequestsList() {
   RedisClient.del(REDIS_REQUESTs_STORE, function (err, response) {
     if (response == 1) {
@@ -105,7 +110,6 @@ function clearRedisRequestsList() {
 
 function checkAuthenticationCookie(req: express.Request, resp: express.Response, next: express.NextFunction) {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
-  const reqSessionCookie = req.session?.CakePHPCookie;
 
   if (req.originalUrl.indexOf('/proxy') === 0) {
     if (req.url.includes('/logout')) {
@@ -126,12 +130,14 @@ function checkAuthenticationCookie(req: express.Request, resp: express.Response,
 }
 
 function declareGlobalProps(req: express.Request, resp: express.Response, next: express.NextFunction) {
+  const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
+
   (global as any).window = window;
   (global as any).document = document;
   (global as any).location = window.location;
   (global as any).localStorage = null;
   (global as any).window['isSSR'] = true;
-  (global as any).window['CakePHPCookie'] = req.session?.CakePHPCookie || '';
+  (global as any).window['CakePHPCookie'] = reqHeaderCookie || '';
 
   next();
 }
@@ -164,6 +170,7 @@ function storeTracker(req: express.Request, resp: express.Response, next: expres
 }
 
 app.set('trust proxy', true);
+app.use(requestIp.mw());
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(session(sessionOptions));
@@ -173,12 +180,8 @@ app.use(nocache());
 
 app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (req, resp) => {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
-  const reqSessionCookie = req.session?.CakePHPCookie;
-  const authenticationToken = reqHeaderCookie || reqSessionCookie;
-  const xRealIP = (req.headers['x-forwarded-for']?.[0] || req.connection.remoteAddress || req.ip).replace(
-    /::ffff:/,
-    '',
-  );
+  const authenticationToken = reqHeaderCookie;
+  const xRealIP = req.get('xrealip') || req.ip || req.ips[0] || req.clientIp;
 
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
@@ -187,7 +190,8 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
       {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      xRealIP && { 'X-Real-IP': xRealIP },
+      xRealIP && { 'HTTP-X-Real-IP': xRealIP },
+      xRealIP && { 'X-Forwarded-For': xRealIP },
       authenticationToken && { Cookie: authenticationToken },
     ),
     maxContentLength: DATA_LIMIT,
@@ -239,7 +243,6 @@ app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (
         }
 
         res.headers['set-cookie'] = setCookie;
-        req.session.CakePHPCookie = _cakePHP;
       }
 
       if (res.headers) {
@@ -276,6 +279,9 @@ app.get(
   checkAuthenticationCookie,
   storeTracker,
   (req: express.Request, res: express.Response) => {
+    const xRealIP = req.ip || req.ips[0] || req.clientIp;
+    (global as any).window['xRealIP'] = xRealIP;
+
     const fileExist = fs.existsSync(indexFile);
     let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
       lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],

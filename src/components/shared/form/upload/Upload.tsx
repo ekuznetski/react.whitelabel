@@ -47,7 +47,7 @@ interface IUploadWrapperProps {
   viewChanged?: (view: EUploadWrapperViewType) => void;
 }
 
-const ACCEPT_FORMATS = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx', 'tiff'];
+const ACCEPT_FORMATS = ['jpg', 'jpeg', 'jpe', 'png', 'gif', 'pdf', 'doc', 'docx'];
 
 // not working with HMR
 export const MultipleUpload = memo(
@@ -61,7 +61,7 @@ export const MultipleUpload = memo(
     _ref,
   ) {
     const [multiContextDispatch, setMultiContextDispatch] = useSetState<{ [k: string]: any }>({});
-    const [multiContextState, setMultiContextState] = useSetState<{ [k: string]: any }>({});
+    const [multiContextState, setMultiContextState] = useSetState<{ [k: string]: UploadState }>({});
     const wrapperDispatch = useUploadWrapperDispatch();
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -117,7 +117,9 @@ export const MultipleUpload = memo(
     }
 
     function checkEveryUploadState(state: UploadViewState) {
-      return Object.keys(multiContextState).every((k) => multiContextState[k].view === state);
+      return Object.keys(multiContextState).every(
+        (k) => multiContextState[k].view === state || multiContextState[k].optional,
+      );
     }
 
     function checkSomeUploadState(state: UploadViewState) {
@@ -127,8 +129,10 @@ export const MultipleUpload = memo(
     function Submit() {
       const uploadDocs = {};
       Object.keys(multiContextState).forEach((key) => {
-        Object.assign(uploadDocs, { [multiContextState[key].fileType]: multiContextState[key].file });
-        multiContextDispatch[key]({ type: 'uploadFile' });
+        if (multiContextState[key].file) {
+          Object.assign(uploadDocs, { [multiContextState[key].fileType as string]: multiContextState[key].file });
+          multiContextDispatch[key]({ type: 'uploadFile' });
+        }
       });
 
       dispatch(
@@ -207,6 +211,7 @@ export const UploadFile = memo(
       accept = ACCEPT_FORMATS,
       maxFileSizeKb = 15 * 1024, // 15mb
       disabled = false,
+      optional = false,
       ...props
     },
     _ref,
@@ -226,6 +231,7 @@ export const UploadFile = memo(
               fileType: props.fileType,
               desc: props.description || undefined,
               fileIcon: props.icon ? { name: props.icon, width: props.iconWidth, height: props.iconHeight } : undefined,
+              optional,
             });
 
             if (props.transferControls) {

@@ -2,6 +2,7 @@ import { Tab, Tabs } from '@components/shared';
 import { EClientStatus, EClientStatusCode, EDocumentsType, ENotificationType } from '@domain/enums';
 import { MClientStatus, MDocuments } from '@domain/models';
 import { IStore } from '@store';
+import { generateStatus } from '@utils/fn/generateStatus';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -36,15 +37,12 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
       EDocumentsType.CCCopy5,
     ])
     .map((file) => file.code)
-    .reduce(
-      (a, c, i, arr) => {
-        if (arr.includes(EClientStatusCode.rejected) && arr.splice(1))
-          // if arr includes rejected code, enforce arr to be the size of 1, so the .reduce() has only 1 iteration
-          return { status: ENotificationType.danger, label: EClientStatus.rejected };
-        return { status: ENotificationType.success, label: EClientStatus.submitted };
-      },
-      { status: ENotificationType.danger, label: EClientStatus.notSubmitted },
-    );
+    .reduce((a, c, i, arr) => {
+      if (arr.includes(EClientStatusCode.rejected) && arr.splice(1))
+        // if arr includes rejected code, enforce arr to be the size of 1, so the .reduce() has only 1 iteration
+        return generateStatus(EClientStatus.rejected);
+      return generateStatus(EClientStatus.submitted);
+    }, generateStatus(EClientStatus.notSubmitted));
 
   return (
     <div className="additional-information">
@@ -70,9 +68,9 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
           </Tab>
         )}
         <Tab
-          status={ccFilesStatus.status}
+          status={ccFilesStatus.notificationType}
           label={t('Debit/Credit Card Verification')}
-          subLabel={ccFilesStatus.label}
+          subLabel={ccFilesStatus.statusMessage}
           anchor={EAddInfoTabs.card}
         >
           <CreditCardVerification />

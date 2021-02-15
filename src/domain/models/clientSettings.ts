@@ -3,6 +3,7 @@ import {
   EAccountLeverage,
   EClientStatus,
   ECurrencyCode,
+  EDepositMethodCode,
   ETradingAccountType,
   ETradingPlatform,
   ETradingPlatformName,
@@ -22,11 +23,13 @@ export class MClientSettings {
   allowed_currencies?: ECurrencyCode[];
   allowed_leverages?: EAccountLeverage[];
   allowed_account_types?: ETradingAccountType[];
+  allowed_deposit_methods?: EDepositMethodCode[];
   allowed_platforms?: ETradingPlatform[];
   allow_additional_account?: boolean;
   allow_additional_live_account?: boolean;
   allow_additional_demo_account?: boolean;
   allow_deposit?: boolean;
+  allow_raf?: boolean;
   allow_internal_transfer?: boolean;
   enable_citioptions?: boolean;
   show_praxis_and_webmoney?: boolean;
@@ -45,6 +48,13 @@ export class MClientSettings {
     this.allow_additional_live_account = props.allow_additional_live_account;
     this.allow_additional_demo_account = props.allow_additional_demo_account;
     this.allow_deposit = props.allow_deposit;
+    this.allow_raf = props.allow_raf;
+
+    if (props.allowed_deposit_methods) {
+      this.allowed_deposit_methods = props.allowed_deposit_methods.map((e: any) => {
+        return e as EDepositMethodCode;
+      });
+    }
 
     if (props.allowed_currencies)
       this.allowed_currencies = props.allowed_currencies.map(

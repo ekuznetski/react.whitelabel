@@ -33,6 +33,7 @@ export const CreditCardVerification = memo(function CreditCardVerification() {
           description="Please cover the 6 middle digits as shown below"
           icon="upload_card_back_drop"
           iconWidth={120}
+          optional={true}
         />
       </MultipleUpload>
     </UploadWrapper>

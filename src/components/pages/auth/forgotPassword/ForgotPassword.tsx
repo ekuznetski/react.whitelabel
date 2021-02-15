@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-import { ENotificationType } from '@domain/enums';
+import { ENotificationType, EPagePath } from '@domain/enums';
 import './ForgotPassword.scss';
 
 enum EFields {
@@ -78,7 +78,7 @@ export function ForgotPassword() {
               <Button
                 type="button"
                 onClick={() => {
-                  history.push(localizePath('/login'));
+                  history.push(localizePath(EPagePath.Login));
                 }}
               >
                 {t('Return to Login Page')}

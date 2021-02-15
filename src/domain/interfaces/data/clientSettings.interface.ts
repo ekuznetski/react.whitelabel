@@ -1,4 +1,10 @@
-import { EAccountLeverage, ETradingAccountType, ETradingPlatform, ETradingPlatformName } from '@domain/enums';
+import {
+  EAccountLeverage,
+  EDepositMethodCode,
+  ETradingAccountType,
+  ETradingPlatform,
+  ETradingPlatformName,
+} from '@domain/enums';
 import { IBaseResponse } from '../general.interface';
 
 export interface IClientSettingsRequest {
@@ -11,6 +17,8 @@ export interface IClientSettings {
   allow_additional_live_account: boolean;
   allow_additional_demo_account: boolean;
   allow_deposit: boolean;
+  allow_raf: boolean;
+  allowed_deposit_methods: string[];
   allow_withdrawal: boolean;
   allowed_currencies: string[];
   allowed_leverages: number[];
