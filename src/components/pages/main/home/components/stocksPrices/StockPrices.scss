@@ -1,7 +1,7 @@
 @import '~/variables';
 @import '~/mixin';
 
-.stockPrices {
+.stock-prices {
   height: 400px;
   display: flex;
   background: #fff;
@@ -9,7 +9,7 @@
   border-radius: $border-radius;
   overflow: hidden;
 
-  .stockPrices-item {
+  .stock-prices-item {
     &__info {
       flex: 0 0 350px;
       display: flex;
@@ -166,7 +166,7 @@
             }
           }
 
-          &__bid_ask {
+          &__bid-ask {
             border: 1px solid $grey;
             border-width: 1px 0;
             display: flex;
@@ -203,16 +203,16 @@
     }
   }
 
-  .stockPrices__content {
+  .stock-prices__content {
     width: 100%;
     border-left: 1px solid $grey;
 
-    .stockPrices-menu {
+    .stock-prices-menu {
       position: relative;
       scroll-behavior: smooth;
       height: 50px;
 
-      .stockPrices-wrapper {
+      .stock-prices-wrapper {
         display: flex;
         align-items: center;
         background: $grey-bg;
@@ -255,7 +255,7 @@
   }
 
   @media (min-width: $viewport-lg-w) and (max-width: $viewport-xl-w) {
-    .stockPrices-item {
+    .stock-prices-item {
       &__info {
         flex: 0 0 260px;
       }
@@ -265,7 +265,7 @@
   @media (max-width: $viewport-lg-w) {
     height: auto;
 
-    .stockPrices-item {
+    .stock-prices-item {
       &__info {
         &-description {
           min-height: 52px;
@@ -275,7 +275,7 @@
   }
 
   @media (max-width: $viewport-md-w) {
-    .stockPrices-item {
+    .stock-prices-item {
       &__info {
         &-description {
           min-height: 80px;
@@ -283,8 +283,8 @@
       }
     }
 
-    .stockPrices__content {
-      .stockPrices-menu {
+    .stock-prices__content {
+      .stock-prices-menu {
         flex-wrap: unset;
         overflow-x: scroll;
 
@@ -292,7 +292,7 @@
         margin: 0;
         padding: 0;
 
-        .stockPrices-wrapper {
+        .stock-prices-wrapper {
           position: absolute;
           left: 0;
           top: 0;

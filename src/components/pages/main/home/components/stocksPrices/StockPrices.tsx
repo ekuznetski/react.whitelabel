@@ -1,14 +1,14 @@
-import { IStore, ac_fetchPrices } from '@store';
-import { useDispatch, useSelector } from 'react-redux';
 import { LocaleLink, Svg } from '@components/shared';
 import { EPagePath, MarketType } from '@domain/enums';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu, IPrices } from '@domain/interfaces';
+import { config } from '@pages/main/home';
+import { IStore, ac_fetchPrices } from '@store';
 import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { Area, AreaChart } from 'recharts';
-import { assetsCharacteristics } from '@domain';
 import './StockPrices.scss';
 
 export function StockPrices() {
@@ -21,83 +21,12 @@ export function StockPrices() {
   const { t } = useTranslation();
 
   const initPriceTabs: IPriceTabItem[] = prices
-    ? [
-        {
-          name: t('Forex'),
-          icon: 'filter',
-          anchor: MarketType.forex,
-          info: {
-            title: `40+ ${t('Forex')}`,
-            desc: t('Product Section Forex Desc'),
-            points: [
-              <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.forex].leverage }}>
-                Max. Leverage <b>1:200</b>
-              </Trans>,
-            ],
-          },
-          priceData: generatePriceData(prices[MarketType.forex]),
-        },
-        {
-          name: t('Stocks'),
-          icon: 'graph_bars',
-          anchor: MarketType.stocks,
-          info: {
-            title: `40+ ${t('Stocks')}`,
-            desc: t('Product Section Stocks Desc'),
-            points: [
-              <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.stocks].leverage }}>
-                Max. Leverage <b>1:20</b>
-              </Trans>,
-            ],
-          },
-          priceData: generatePriceData(prices[MarketType.stocks]),
-        },
-        {
-          name: t('Indices'),
-          icon: 'indices',
-          anchor: MarketType.indices,
-          info: {
-            title: t('Indices'),
-            desc: t('Product Section Indices Desc'),
-            points: [
-              <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.indices].leverage }}>
-                Max. Leverage <b>1:200</b>
-              </Trans>,
-            ],
-          },
-          priceData: generatePriceData(prices[MarketType.indices]),
-        },
-        {
-          name: t('Commodities'),
-          icon: 'commodities',
-          anchor: MarketType.commodities,
-          info: {
-            title: t('Commodities'),
-            desc: t('Product Section Commodities Desc'),
-            points: [
-              <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.commodities].leverage }}>
-                Max. Leverage <b>1:133</b>
-              </Trans>,
-            ],
-          },
-          priceData: generatePriceData(prices[MarketType.commodities]),
-        },
-        {
-          name: t('Cryptocurrencies'),
-          icon: 'crypto',
-          anchor: MarketType.crypto,
-          info: {
-            title: t('Cryptocurrencies'),
-            desc: t('Product Section Cryptocurrencies Desc'),
-            points: [
-              <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.crypto].leverage }}>
-                Max. Leverage <b>1:20</b>
-              </Trans>,
-            ],
-          },
-          priceData: generatePriceData(prices[MarketType.crypto]),
-        },
-      ]
+    ? config.initPriceTabs
+        .filter((item) => prices[item.anchor])
+        .map((item) => {
+          item.priceData = generatePriceData(prices[MarketType.forex]);
+          return item;
+        })
     : [];
   const [priceTabs, setActivePriceTabs] = useState<IPriceTabItem[] | []>(prices ? initPriceTabs : []);
 
@@ -123,7 +52,7 @@ export function StockPrices() {
   }, [prices]);
 
   return (
-    <div className="stockPrices">
+    <div className="stock-prices">
       {activePriceTab ? (
         <>
           {responsive.lg && (
@@ -133,7 +62,7 @@ export function StockPrices() {
               icon={activePriceTab.icon}
             />
           )}
-          <div className="stockPrices__content py-0 py-lg-11">
+          <div className="stock-prices__content py-0 py-lg-11">
             <StockPricesMenu items={priceTabs} activeTab={activePriceTab} selectTab={setActivePriceTab} />
             {!responsive.lg && (
               <StockPricesInfo
@@ -154,15 +83,15 @@ function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
   const { t } = useTranslation();
 
   return (
-    <div className="stockPrices-item__info pt-9 pt-lg-11 pb-0 pb-lg-11 pl-11 pl-lg-9 pl-xl-11">
-      <div className="stockPrices-item__info-title mb-6">
+    <div className="stock-prices-item__info pt-9 pt-lg-11 pb-0 pb-lg-11 pl-11 pl-lg-9 pl-xl-11">
+      <div className="stock-prices-item__info-title mb-6">
         <Svg href={icon} width={50} height={50} className="mr-5 d-lg-none d-xl-inline" />
         {title}
       </div>
-      <div className="stockPrices-item__info-description mb-6 pr-15 pr-lg-8 pr-xl-15">{desc}</div>
-      <div className="stockPrices-item__info-points">
+      <div className="stock-prices-item__info-description mb-6 pr-15 pr-lg-8 pr-xl-15">{desc}</div>
+      <div className="stock-prices-item__info-points">
         {points.map((point, p) => (
-          <div key={p} className="stockPrices-item__info-points-item">
+          <div key={p} className="stock-prices-item__info-points-item">
             {point}
           </div>
         ))}
@@ -196,8 +125,8 @@ function StockPricesMenu({ items, activeTab, selectTab }: IPriceTabMenu) {
   );
 
   return (
-    <div className="stockPrices-menu" ref={menuRef}>
-      <div className="stockPrices-wrapper px-7">
+    <div className="stock-prices-menu" ref={menuRef}>
+      <div className="stock-prices-wrapper px-7">
         {items.map((item, i) => (
           <div
             key={i}
@@ -214,7 +143,7 @@ function StockPricesMenu({ items, activeTab, selectTab }: IPriceTabMenu) {
           </div>
         ))}
         {lineProps && (
-          <div className="stockPrices-menu__line" style={{ left: lineProps?.left, width: lineProps?.width + 'px' }} />
+          <div className="stock-prices-menu__line" style={{ left: lineProps?.left, width: lineProps?.width + 'px' }} />
         )}
       </div>
     </div>
@@ -245,7 +174,7 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
   }, [currentAsset]);
 
   return (
-    <div className="stockPrices-item__carousel">
+    <div className="stock-prices-item__carousel">
       <div
         className={classNames('carousel-left', activeIndex == 0 && 'disabled')}
         onClick={() => activeIndex > 0 && setActiveIndex(activeIndex - 1)}
@@ -294,7 +223,7 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
             {props.variation}%
           </div>
         </div>
-        <div className="carousel-item__bid_ask">
+        <div className="carousel-item__bid-ask">
           <div className="bid px-6">
             <div className="label">{t('Bid')}</div>
             <div className="amount">{props.bid}</div>
