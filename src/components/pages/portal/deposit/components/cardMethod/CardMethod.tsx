@@ -5,7 +5,7 @@ import { ICreditCardDepositRequest } from '@domain/interfaces';
 import { MClientProfile } from '@domain/models';
 import { EActionTypes, IStore, ac_addDeposit } from '@store';
 import cardValidator from 'card-validator';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikValues } from 'formik';
 import { usePathLocale } from '@utils/hooks';
 import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
@@ -28,34 +28,20 @@ enum EFields {
 
 export function CardMethod() {
   const { account, amount, billingDetails }: IDepositState = useDepositState();
+  const [isBillingDetailsModalOpen, setIsBillingDetailsModalOpen] = React.useState<boolean>(false);
+  const [isCreditCardInfoModalOpen, setCreditCardInfoModalOpen] = React.useState<boolean>(false);
+  const [cardType, setCardType] = useState<string | null>(null);
   const depositContextDispatch = useDepositDispatch();
   const dispatch = useDispatch();
   const { localizePath } = usePathLocale();
   const history = useHistory();
   const { t } = useTranslation();
-  const [cardType, setCardType] = useState<string | null>(null);
-  const [isBillingDetailsModalOpen, setIsBillingDetailsModalOpen] = React.useState<boolean>(false);
-  const [isCreditCardInfoModalOpen, setCreditCardInfoModalOpen] = React.useState<boolean>(false);
   const ref = React.createRef<HTMLInputElement>();
   const { profile, locale } = useSelector<IStore, { profile: MClientProfile; locale: ELanguage }>((state) => ({
     profile: state.data.client.profile,
     locale: state.app.route.locale,
   }));
   const currentYear = new Date().getFullYear();
-
-  function openBillingDetailsModal(e: React.MouseEvent) {
-    e.preventDefault();
-    setIsBillingDetailsModalOpen(true);
-  }
-
-  function openCreditCardInfoModal(e: React.MouseEvent) {
-    e.preventDefault();
-    setCreditCardInfoModalOpen(true);
-  }
-
-  function formatYear(val: number): number {
-    return val < 2000 ? val + 2000 : val;
-  }
 
   const validationSchema = Yup.object().shape({
     cardholderName: FieldValidators.requiredString.test(
@@ -103,6 +89,65 @@ export function CardMethod() {
     ),
   });
 
+  function openBillingDetailsModal(e: React.MouseEvent) {
+    e.preventDefault();
+    setIsBillingDetailsModalOpen(true);
+  }
+
+  function openCreditCardInfoModal(e: React.MouseEvent) {
+    e.preventDefault();
+    setCreditCardInfoModalOpen(true);
+  }
+
+  function formatYear(val: number): number {
+    return val < 2000 ? val + 2000 : val;
+  }
+
+  function Submit(data: FormikValues) {
+    const _data = { ...data };
+    _data.cardNumber = _data.cardNumber.replaceAll(' ', '');
+    const preparedData: ICreditCardDepositRequest = {
+      amount: amount as string,
+      paymentMethod: EDepositMethodCode.creditCard,
+      currency: account?.currency as string,
+      firstName: profile.first_name,
+      surname: profile.last_name,
+      postcode: billingDetails?.postcode ?? profile.postcode,
+      city: billingDetails?.city ?? profile.city,
+      countryCode: (billingDetails?.country?.code ?? profile.country.code) as string,
+      street: billingDetails?.address ?? profile.street,
+      nameOnCard: _data.cardholderName,
+      cardNumber: _data.cardNumber,
+      expiryMonth: _data.month,
+      expiryYear: _data.year.slice(-2),
+      cvv: _data.cvc,
+    };
+    if (account && account?.type !== ETradingType.fake) {
+      Object.assign(preparedData, {
+        tradePlatform: account.platform,
+        tradeAccount: account.accountId?.toString(),
+      });
+    }
+
+    dispatch(
+      ac_addDeposit<ICreditCardDepositRequest>(
+        preparedData,
+        ({ response }) => {
+          if (typeof response.message === 'string') {
+            history.push(localizePath(EPagePath.DepositSuccess));
+          } else {
+            window.location = response.message.url;
+          }
+        },
+        () => {
+          history.push(localizePath(EPagePath.DepositFailure));
+        },
+      ),
+    );
+    depositContextDispatch(depositActionCreators.setDepositDetails(_data));
+    console.log(preparedData);
+  }
+
   return (
     <>
       <div className="card-method-wrapper form-wrapper py-10 px-9 col-xl-6 col-lg-7 col-md-9 col-12 m-auto">
@@ -116,50 +161,7 @@ export function CardMethod() {
             cvc: '',
           }}
           validationSchema={validationSchema}
-          onSubmit={(data) => {
-            const _data = { ...data };
-            _data.cardNumber = _data.cardNumber.replaceAll(' ', '');
-            const preparedData: ICreditCardDepositRequest = {
-              amount: amount as string,
-              paymentMethod: EDepositMethodCode.creditCard,
-              currency: account?.currency as string,
-              firstName: profile.first_name,
-              surname: profile.last_name,
-              postcode: billingDetails?.postcode ?? profile.postcode,
-              city: billingDetails?.city ?? profile.city,
-              countryCode: (billingDetails?.country?.code ?? profile.country.code) as string,
-              street: billingDetails?.address ?? profile.street,
-              nameOnCard: _data.cardholderName,
-              cardNumber: _data.cardNumber,
-              expiryMonth: _data.month,
-              expiryYear: _data.year.slice(-2),
-              cvv: _data.cvc,
-            };
-            if (account && account?.type !== ETradingType.fake) {
-              Object.assign(preparedData, {
-                tradePlatform: account.platformName as string,
-                tradeAccount: account.accountId?.toString(),
-              });
-            }
-
-            dispatch(
-              ac_addDeposit<ICreditCardDepositRequest>(
-                preparedData,
-                ({ response }) => {
-                  if (typeof response.message === 'string') {
-                    history.push(localizePath(EPagePath.DepositSuccess));
-                  } else {
-                    window.location = response.message.url;
-                  }
-                },
-                () => {
-                  history.push(localizePath(EPagePath.DepositFailure));
-                },
-              ),
-            );
-            depositContextDispatch(depositActionCreators.setDepositDetails(_data));
-            console.log(preparedData);
-          }}
+          onSubmit={Submit}
         >
           {(props: any) => {
             const { values, setFieldValue } = props;
