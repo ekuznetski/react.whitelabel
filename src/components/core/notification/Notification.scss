@@ -79,6 +79,12 @@
     display: none;
     cursor: pointer;
   }
+
+  @media (max-width: $viewport-sm-w) {
+    .notification-close {
+      right: sp(7);
+    }
+  }
 }
 
 .auth {
@@ -88,12 +94,11 @@
 }
 
 .header.main {
-
-  &+.notification-wrapper {
+  & + .notification-wrapper {
     top: 140px;
   }
 
-  &.fixed+.notification-wrapper {
+  &.fixed + .notification-wrapper {
     top: 70px;
   }
 }
