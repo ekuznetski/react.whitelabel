@@ -1,4 +1,6 @@
 import { ModalContext, ModalOld, ModalTitle } from '@components/shared';
+import { ELabelsName } from '@domain/enums';
+import { env } from '@env';
 import React, { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import './CreditCardInfoModal.scss';
@@ -30,7 +32,10 @@ export function CreditCardInfoModal({ isModalOpen, setModalOpen }: IBillingDetai
           </li>
           <li>No processing fees apply on credit/debit card deposits.</li>
         </ul>
-        <p>Remark: All transactions will appear on your card statement as “{t('Card Statement Name')}”</p>
+        <p>
+          Remark: All transactions will appear on your card statement as “
+          {ELabelsName[env.LABEL?.toLowerCase() as keyof typeof ELabelsName]}”
+        </p>
         <h3>Uploading Credit/Debit Card copies: General Information</h3>
         <p>
           We are forced to apply security measures designed for the security of both our clients and ourselves in line

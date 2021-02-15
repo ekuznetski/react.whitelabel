@@ -7,7 +7,7 @@ export enum ELabels {
 export enum ELabelsName {
   default = 'Default',
   arofx = 'AroFX',
-  bsfx = 'BSFX',
+  bsfx = 'BlueSquare FX',
 }
 
 export enum EAppSection {
