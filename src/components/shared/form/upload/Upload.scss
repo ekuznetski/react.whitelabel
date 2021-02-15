@@ -229,6 +229,25 @@
         }
       }
     }
+
+    @media (max-width: $viewport-md-w) {
+      &__list {
+        .list__item {
+          width: 130px;
+          height: 130px;
+          font-size: 14px;
+        }
+      }
+    }
+    @media (max-width: $viewport-sm-w) {
+      justify-content: flex-start;
+      height: 500px;
+      &__list {
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+    }
   }
 
   .documents-list {

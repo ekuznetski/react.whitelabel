@@ -112,67 +112,69 @@ export const Withdrawal = memo(function Withdrawal() {
             />
           </Col>
         </Row>
-        <Row className="justify-content-center">
-          {clientStatus?.isNotApprovedAndNotDormant && (
-            <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
-              {t('You cannot transfer at the moment')}
-            </Alert>
-          )}
-          {clientStatus?.isDormant && locale.isDormantAlert && (
-            <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
-              {locale.isDormantAlert}
-            </Alert>
-          )}
-        </Row>
-        <Row className="justify-content-center">
-          <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
-            <Formik
-              initialStatus={
-                tradingAccounts?.length === 0 || !clientStatus.isApproved || clientStatus.isDormant
-                  ? EFormStatus.disabled
-                  : null
-              }
-              initialValues={{
-                account: '',
-                amount: '',
-              }}
-              isInitialValid={false}
-              validationSchema={validationSchema}
-              onSubmit={Submit}
-            >
-              {({ values, setFieldValue }: FormikProps<any>) => {
-                return (
-                  <Form className="withdrawal__form">
-                    <TradingAccountsSelect
-                      placeholder={t('Trading Account')}
-                      options={tradingAccounts}
-                      name={EFields.account}
-                      onChange={(account: MTradingAccount) => {
-                        setFieldValue(EFields.amount, '');
-                        dispatch(
-                          ac_fetchWithdrawLimit({ accountId: account.accountId, platform: account.platformName }),
-                        );
-                      }}
-                    />
-                    <Input
-                      label={t('Trading Amount')}
-                      name={EFields.amount}
-                      disabled={!values.account || withdrawalLimitIsLoading}
-                      isLoading={withdrawalLimitIsLoading}
-                      forceShowError={values.amount > 0}
-                    />
-                    <Button type="submit" loadingOnAction={EActionTypes.withdrawFunds}>
-                      {t('Submit')}
-                    </Button>
-                  </Form>
-                );
-              }}
-            </Formik>
+        <Row>
+          <Col className="d-flex justify-content-center">
+            {clientStatus?.isNotApprovedAndNotDormant && (
+              <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
+                {t('You cannot transfer at the moment')}
+              </Alert>
+            )}
+            {clientStatus?.isDormant && locale.isDormantAlert && (
+              <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
+                {locale.isDormantAlert}
+              </Alert>
+            )}
           </Col>
         </Row>
-        {withdrawalHistoryItems?.length ? (
-          <WithdrawalHistorySection items={withdrawalHistoryItems} />
-        ) : null}
+        <Row>
+          <Col className="d-flex justify-content-center">
+            <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-8 px-6 py-md-10 px-md-9">
+              <Formik
+                initialStatus={
+                  tradingAccounts?.length === 0 || !clientStatus.isApproved || clientStatus.isDormant
+                    ? EFormStatus.disabled
+                    : null
+                }
+                initialValues={{
+                  account: '',
+                  amount: '',
+                }}
+                isInitialValid={false}
+                validationSchema={validationSchema}
+                onSubmit={Submit}
+              >
+                {({ values, setFieldValue }: FormikProps<any>) => {
+                  return (
+                    <Form className="withdrawal__form">
+                      <TradingAccountsSelect
+                        placeholder={t('Trading Account')}
+                        options={tradingAccounts}
+                        name={EFields.account}
+                        onChange={(account: MTradingAccount) => {
+                          setFieldValue(EFields.amount, '');
+                          dispatch(
+                            ac_fetchWithdrawLimit({ accountId: account.accountId, platform: account.platformName }),
+                          );
+                        }}
+                      />
+                      <Input
+                        label={t('Trading Amount')}
+                        name={EFields.amount}
+                        disabled={!values.account || withdrawalLimitIsLoading}
+                        isLoading={withdrawalLimitIsLoading}
+                        forceShowError={values.amount > 0}
+                      />
+                      <Button type="submit" loadingOnAction={EActionTypes.withdrawFunds}>
+                        {t('Submit')}
+                      </Button>
+                    </Form>
+                  );
+                }}
+              </Formik>
+            </Col>
+          </Col>
+        </Row>
+        {withdrawalHistoryItems?.length ? <WithdrawalHistorySection items={withdrawalHistoryItems} /> : null}
       </Container>
     </div>
   );

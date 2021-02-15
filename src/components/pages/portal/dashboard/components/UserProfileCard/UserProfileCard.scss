@@ -7,9 +7,9 @@
   border-radius: $border-radius;
   display: flex;
   flex-direction: column;
-  height: 264px;
 
   &__context {
+    flex: 0 0 164px;
     display: flex;
     height: 100%;
     border-bottom: 1px solid $grey;
@@ -21,7 +21,7 @@
         justify-content: center;
         background: $grey-bg;
         border-radius: 50%;
-        width: 85px;
+        flex: 0 0 85px;
         height: 85px;
 
         font-weight: 500;
@@ -32,11 +32,10 @@
       }
 
       &__info {
-        height: 85px;
         display: flex;
         flex-direction: column;
         align-items: start;
-        justify-content: space-between;
+        justify-content: flex-start;
 
         .profile-info {
           &__name {
@@ -75,9 +74,6 @@
     align-items: center;
 
     .profile-options {
-      &__deposit {
-      }
-
       &__nav {
         width: 50px;
 
@@ -95,6 +91,32 @@
 
             svg {
               fill: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: $viewport-sm-w) {
+    &__context {
+      .profile-context {
+        &__facepile {
+          flex: 0 0 75px;
+          height: 75px;
+          font-size: 18px;
+          line-height: 28px;
+        }
+        &__info {
+          .profile-info {
+            &__name {
+              font-size: 18px;
+              line-height: 28px;
+            }
+
+            &__email {
+              font-size: 10px;
+              line-height: 20px;
             }
           }
         }

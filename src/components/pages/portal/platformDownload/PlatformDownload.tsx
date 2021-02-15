@@ -1,5 +1,5 @@
 import { PageTitle, Svg } from '@components/shared';
-import { ETradingPlatform } from '@domain/enums';
+import { ELabels, ETradingPlatform } from '@domain/enums';
 import { MClientSettings } from '@domain/models';
 import { files } from '@domain';
 import { IStore } from '@store';
@@ -63,13 +63,14 @@ export const PlatformDownload = memo(function PlatformDownload() {
                         {t('Web')}
                       </div>
                       <a className="underlined" target="_blank" href={downloadLinks[platform].web}>
-                        <Svg href="globe" height="18" />
+                        <Svg href="globe" _label height="18" />
+                        <Svg href="globe" _label={ELabels.bsfx} height="18" />
                         <span>{t('Launch')}</span>
                       </a>
                     </div>
                   </div>
-                  <div className="download__panel-instructions">
-                    <Svg href="tools" height="18" className="mr-5" />
+                  <div className="download__panel-instructions py-5 py-sm-0">
+                    <Svg href="tools" height="18" className="mr-0 mr-sm-5" />
                     {t('Read instructions on')}
                     <a
                       href={files[`installInstructions${platform.toUpperCase()}` as keyof typeof files]}
