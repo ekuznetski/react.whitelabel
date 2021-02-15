@@ -27,7 +27,7 @@ export function ProfileMenu() {
 
   useEffect(() => {
     if (!clientSettings.allow_raf) {
-      setProfileMenu(profileMenuPortalConfig.filter((el) => el.path !== EPagePath.Invite));
+      setProfileMenu(profileMenuPortalConfig.filter((el) => el.path !== EPagePath.InviteFriends));
     }
   }, []);
 
