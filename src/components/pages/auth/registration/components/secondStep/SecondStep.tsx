@@ -91,7 +91,7 @@ export function SecondStep({ submitFn }: any) {
     <div className="registration-second-step">
       <Formik
         initialValues={{
-          tax_checkbox: false,
+          tax_checkbox: true,
           tax_country: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
           country: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
           dayOfBirth: '',
@@ -110,7 +110,7 @@ export function SecondStep({ submitFn }: any) {
             <Form className="m-auto form">
               <h4 className="section-title mb-5">{t('Additional Information')}</h4>
               <Checkbox name={EFields.tax_checkbox}>{t('The country in which I pay taxes')} </Checkbox>
-              {!!values.tax_checkbox && (
+              {!values.tax_checkbox && (
                 <CountrySelect className="fadein-row" label={t('Country of tax')} name={EFields.tax_country} />
               )}
               <CountrySelect label={t('Country of residence')} name={EFields.country} />
