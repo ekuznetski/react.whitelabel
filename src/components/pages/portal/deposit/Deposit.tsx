@@ -6,9 +6,8 @@ import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
+import { DepositSuccessFailure, DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
 import { DepositProvider, IDepositAction, IDepositState, depositActionCreators } from './deposit.context';
-import { DepositSuccessFailure } from './depositSuccessFailure/DepositSuccessFailure';
 import './Deposit.scss';
 import { IClientSettings } from '@domain/interfaces';
 

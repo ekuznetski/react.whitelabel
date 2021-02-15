@@ -70,4 +70,17 @@
       }
     }
   }
+
+  @media (max-width: $viewport-sm-w) {
+    .radio-label {
+      .mark {
+        left: 12px;
+      }
+    }
+    .radio-item {
+      &:not(:last-child) {
+        margin-bottom: sp(8);
+      }
+    }
+  }
 }

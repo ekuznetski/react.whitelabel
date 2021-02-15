@@ -1,0 +1,12 @@
+@import '~/variables';
+@import '~/mixin';
+
+.deposit-success-failure-wrapper {
+  .deposit-success-failure-footer {
+    a {
+      svg {
+        fill: $dark-blue;
+      }
+    }
+  }
+}

@@ -97,7 +97,7 @@ export function ThirdStep({ submitFn }: any) {
             <Form className="m-auto form fadein-row">
               {platforms.length > 1 && <h4 className="section-title mb-5">{t('Choose Trading Platform')}</h4>}
               <Radio
-                optionClassName="col-6"
+                optionClassName="col-12 col-sm-6"
                 className={classNames('mb-10', platforms.length === 1 && 'justify-content-center')}
                 name={EFields.firstdeposit_platform}
                 options={platforms}

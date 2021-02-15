@@ -5,7 +5,7 @@ import { EAppSection, ELanguage } from '@domain/enums';
 import { env } from '@env';
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
-import { ac_updateRouteParams, IStore, store } from '@store';
+import { IStore, ac_updateRouteParams, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
 import classNames from 'classnames';
 import React, { Suspense, useEffect, useMemo } from 'react';
@@ -102,7 +102,7 @@ export function Main() {
         </div>
       </>
     );
-  }, [section]);
+  }, [section, device]);
 }
 
 export default hot(App);

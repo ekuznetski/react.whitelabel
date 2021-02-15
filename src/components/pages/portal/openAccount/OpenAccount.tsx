@@ -71,45 +71,46 @@ export const OpenAccount = memo(function OpenAccount() {
             />
           </Col>
         </Row>
-        <Row className="justify-content-center">
-          <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
-            <Formik
-              initialValues={{
-                platform: tradingPlatforms.length === 1 ? tradingPlatforms[0].value : '',
-                account_type: '',
-                currency: Object.keys(currencies).length === 1 ? currencies[Object.keys(currencies)[0]].code : '',
-                leverage: '',
-              }}
-              validationSchema={validationSchema}
-              onSubmit={Submit}
-            >
-              {() => {
-                return (
-                  <Form className="open-account__form">
-                    <Radio
-                      optionClassName="col-6"
-                      className="mb-8"
-                      name={EFields.platform}
-                      options={tradingPlatforms}
-                    />
-                    <Select placeholder="Account Type" options={tradingAccounts} name={EFields.account_type} />
-                    <Select placeholder="Leverage" options={leverages} name={EFields.leverage} />
-                    <CurrencySelect placeholder="Currency" name={EFields.currency} options={currencies} />
-                    <Button
-                      type="submit"
-                      loadingOnAction={[
-                        EActionTypes.createLiveTradingAccount,
-                        EActionTypes.createDemoTradingAccount,
-                        EActionTypes.fetchProfile,
-                        EActionTypes.fetchTradingAccounts,
-                      ]}
-                    >
-                      {t('Submit')}
-                    </Button>
-                  </Form>
-                );
-              }}
-            </Formik>
+        <Row>
+          <Col className="d-flex justify-content-center">
+            <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-8 px-6 py-md-10 px-md-9">
+              <Formik
+                initialValues={{
+                  platform: tradingPlatforms.length === 1 ? tradingPlatforms[0].value : '',
+                  account_type: '',
+                  currency: Object.keys(currencies).length === 1 ? currencies[Object.keys(currencies)[0]].code : '',
+                  leverage: '',
+                }}
+                validationSchema={validationSchema}
+                onSubmit={Submit}
+              >
+                {() => {
+                  return (
+                    <Form className="open-account__form">
+                      <Radio
+                        optionClassName="col-12 col-sm-6 mb-8"
+                        name={EFields.platform}
+                        options={tradingPlatforms}
+                      />
+                      <Select placeholder="Account Type" options={tradingAccounts} name={EFields.account_type} />
+                      <Select placeholder="Leverage" options={leverages} name={EFields.leverage} />
+                      <CurrencySelect placeholder="Currency" name={EFields.currency} options={currencies} />
+                      <Button
+                        type="submit"
+                        loadingOnAction={[
+                          EActionTypes.createLiveTradingAccount,
+                          EActionTypes.createDemoTradingAccount,
+                          EActionTypes.fetchProfile,
+                          EActionTypes.fetchTradingAccounts,
+                        ]}
+                      >
+                        {t('Submit')}
+                      </Button>
+                    </Form>
+                  );
+                }}
+              </Formik>
+            </Col>
           </Col>
         </Row>
       </Container>

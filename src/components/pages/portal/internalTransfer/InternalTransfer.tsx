@@ -97,61 +97,65 @@ export const InternalTransfer = memo(function InternalTransfer() {
           <PageTitle title={t('Internal Transfer')} />
         </Col>
       </Row>
-      <Row className="justify-content-center">
-        {tradingAccounts?.length <= 1 && (
-          <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
-            {t('Two live accounts required')}
-          </Alert>
-        )}
+      <Row>
+        <Col className="d-flex justify-content-center">
+          {tradingAccounts?.length <= 1 && (
+            <Alert sizes={{ xs: 12, md: 9, lg: 7, xl: 6 }} className="mb-7" type="error">
+              {t('Two live accounts required')}
+            </Alert>
+          )}
+        </Col>
       </Row>
-      <Row className="justify-content-center">
-        <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-10 px-9">
-          <Formik
-            initialStatus={
-              tradingAccounts?.length <= 1 || !clientStatus.isApproved // Client should have a least two trading accounts
-                ? EFormStatus.disabled
-                : null
-            }
-            initialValues={{
-              accountFrom: '',
-              accountTo: '',
-              amount: '',
-            }}
-            validationSchema={validationSchema}
-            isInitialValid={false}
-            onSubmit={Submit}
-          >
-            {({ values }: FormikProps<any>) => {
-              return (
-                <Form className="internal-transfer__form">
-                  <TradingAccountsSelect
-                    placeholder={t('Account From')}
-                    options={tradingAccounts}
-                    name={EFields.accountFrom}
-                  />
-                  <TradingAccountsSelect
-                    placeholder={t('Account To')}
-                    options={tradingAccounts.filter(
-                      (account) =>
-                        account.currency === values?.accountFrom?.currency &&
-                        account.accountId !== values?.accountFrom?.accountId,
-                    )}
-                    name={EFields.accountTo}
-                    isDisabled={!values?.accountFrom}
-                  />
-                  <Input
-                    label={t('Amount')}
-                    name={EFields.amount}
-                    disabled={!values?.accountFrom}
-                    forceShowError={values.amount > 0}
-                  />
-                  <Button type="submit" checkFormValidity={true} loadingOnAction={EActionTypes.makeInternalTransfer}>
-                    {t('Submit')}
-                  </Button>
-                </Form>
-              );
-            }}
-          </Formik>
+      <Row>
+        <Col className="d-flex justify-content-center">
+          <Col xs={12} md={9} lg={7} xl={6} className="form-wrapper py-8 px-6 py-md-10 px-md-9">
+            <Formik
+              initialStatus={
+                tradingAccounts?.length <= 1 || !clientStatus.isApproved // Client should have a least two trading accounts
+                  ? EFormStatus.disabled
+                  : null
+              }
+              initialValues={{
+                accountFrom: '',
+                accountTo: '',
+                amount: '',
+              }}
+              validationSchema={validationSchema}
+              isInitialValid={false}
+              onSubmit={Submit}
+            >
+              {({ values }: FormikProps<any>) => {
+                return (
+                  <Form className="internal-transfer__form">
+                    <TradingAccountsSelect
+                      placeholder={t('Account From')}
+                      options={tradingAccounts}
+                      name={EFields.accountFrom}
+                    />
+                    <TradingAccountsSelect
+                      placeholder={t('Account To')}
+                      options={tradingAccounts.filter(
+                        (account) =>
+                          account.currency === values?.accountFrom?.currency &&
+                          account.accountId !== values?.accountFrom?.accountId,
+                      )}
+                      name={EFields.accountTo}
+                      isDisabled={!values?.accountFrom}
+                    />
+                    <Input
+                      label={t('Amount')}
+                      name={EFields.amount}
+                      disabled={!values?.accountFrom}
+                      forceShowError={values.amount > 0}
+                    />
+                    <Button type="submit" checkFormValidity={true} loadingOnAction={EActionTypes.makeInternalTransfer}>
+                      {t('Submit')}
+                    </Button>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </Col>
         </Col>
       </Row>
     </Container>

@@ -42,9 +42,9 @@ export const Radio = memo(function Radio({
   }
 
   function valueConverter(val: any) {
-    if(val === 'true') {
+    if (val === 'true') {
       val = true;
-    } else if(val === 'false') {
+    } else if (val === 'false') {
       val = false;
     }
     return val;
@@ -63,6 +63,7 @@ export const Radio = memo(function Radio({
         <div
           key={idx}
           className={classNames(
+            'radio-item',
             (options.length % 2 == 0 ? idx < options.length - 2 : idx < options.length - 1) && 'mb-8',
             optionClassName,
             el.className,
@@ -72,11 +73,11 @@ export const Radio = memo(function Radio({
             className={classNames(
               'radio-label',
               !React.isValidElement(el.label) && 'pl-7 pr-7 py-3',
-              showMarkDot && 'pl-sm-13',
+              showMarkDot && 'pl-11',
               field.value?.toString?.() === el.value.toString() && 'selected',
             )}
           >
-            {showMarkDot && <span className="mark d-none d-sm-block" />}
+            {showMarkDot && <span className="mark" />}
             <FastField
               className="d-none"
               type="radio"

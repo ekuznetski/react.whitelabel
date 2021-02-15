@@ -180,7 +180,7 @@ export function Registration() {
     <div className="registration mb-15">
       <Container>
         <Row>
-          <Col sm={12} md={7} lg={6} xl={5} className="m-auto">
+          <Col sm={9} md={7} lg={6} xl={5} className="m-auto">
             <PageTitle title={t('Open a Trading Account')} showBackButton={false} />
             <ul className="steps-indicator">
               {Array.from({ length: 5 }).map((_, i) => (

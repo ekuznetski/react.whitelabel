@@ -191,7 +191,6 @@
       @include d-flex(center, space-between);
 
       &__input {
-        margin-bottom: 0 !important;
         width: initial;
         flex: 1 0 auto;
       }
@@ -217,5 +216,32 @@
 
   .divider {
     border-bottom: 1px solid #eaeaea;
+  }
+
+  @media (max-width: $viewport-sm-w) {
+    .invite {
+      &__avatars {
+        img {
+          width: 57px;
+          height: 57px;
+        }
+      }
+    }
+    .share {
+      flex-direction: column;
+
+      &-social,
+      &-copy-url {
+        width: 100%;
+      }
+      &-email {
+        flex-direction: column;
+
+        &__input,
+        &__submit {
+          width: 100%;
+        }
+      }
+    }
   }
 }

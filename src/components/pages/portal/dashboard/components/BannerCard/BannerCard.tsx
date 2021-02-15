@@ -36,7 +36,7 @@ export function BannerCard() {
           />
         ))}
       </div>
-      <div className="banner-card__context px-11">
+      <div className="banner-card__context px-7 px-sm-11">
         {cards.map((card, idx) => (
           <div
             key={idx}
@@ -48,7 +48,7 @@ export function BannerCard() {
           </div>
         ))}
       </div>
-      <div className="banner-card__options px-11">
+      <div className="banner-card__options px-7 px-sm-11">
         <div className="banner-options__btn">
           <Button className="px-9" noBg>
             {cards[activeCardIdx].link.path ? (

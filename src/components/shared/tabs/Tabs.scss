@@ -247,6 +247,21 @@
       }
     }
   }
+
+  &:not(.vertical) > .common-tabs__navigation {
+    @media (max-width: $viewport-md-w) {
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+      @include hideScrollbar;
+
+      .navigation__links {
+        position: absolute;
+        width: max-content;
+        left: 0;
+        top: 0;
+      }
+    }
+  }
 }
 
 .isDesktop {

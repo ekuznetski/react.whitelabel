@@ -112,7 +112,7 @@ const CreateQuestion = memo(function CreateQuestion({ question, state }: { quest
           <div className="financial-profile__step-title mb-9">
             {question.text({ currencySymbol: ECurrencySymbol.usd, currencyCode: ECurrencyCode.usd })}
           </div>
-          <Radio className="mb-10" optionClassName={'col-6'} {...props} />
+          <Radio className="mb-10" optionClassName={'col-12 col-sm-6'} {...props} />
         </>
       );
     case EFPQuestionView.radioWithIcon:

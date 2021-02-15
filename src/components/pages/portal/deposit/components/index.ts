@@ -8,3 +8,4 @@ export * from './detailsHeader/DetailsHeader';
 export * from './bilingDetailsModal/BillingDetailsModal';
 export * from './creditCardInfoModal/CreditCardInfoModal';
 export * from './webmoneyMethod/WebmoneyMethod';
+export * from './depositSuccessFailure/DepositSuccessFailure';

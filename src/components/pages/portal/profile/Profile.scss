@@ -12,6 +12,14 @@
             width: 620px;
           }
 
+          @media (max-width: $viewport-md-w) {
+            align-self: start;
+          }
+
+          @media (max-width: $viewport-sm-w) {
+            width: 100%;
+          }
+
           // &:after {
           // 	background: $dark-grey;
           // }

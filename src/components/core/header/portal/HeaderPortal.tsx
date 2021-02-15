@@ -27,7 +27,7 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
           <LocaleLink to="" className="logo">
             <Svg href="logo" className="mr-xl-9" _label height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-9" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
-            <Svg href="logo" className="mr-xl-1" _label={ELabels.bsfx} height={!responsive.md ? 48 : 60} />
+            <Svg href="logo" className="mr-xl-1" _label={ELabels.bsfx} height={!responsive.lg ? 48 : 60} />
           </LocaleLink>
           <PanelMenu menuConfig={_portalMenuConfig} />
           <Button className="ml-auto d-none d-md-block">

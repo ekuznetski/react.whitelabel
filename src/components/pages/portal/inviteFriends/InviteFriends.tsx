@@ -116,11 +116,11 @@ export const InviteFriends = memo(function InviteFriends() {
                 <div className="divider my-7" />
                 <div className="share-copy-url__title mb-3">{t('Share your invite link:')}</div>
                 <div className="share">
-                  <div className="share-copy-url">
+                  <div className="share-copy-url mb-5 mb-sm-0">
                     <input className="copy-input mb-0 px-4" readOnly value={shareUrl} ref={inviteLinkInputRef} />
                     <Svg href="copy" className="copy-icon mr-4" onClick={copyInviteLink} />
                   </div>
-                  <div className="share-social ml-7">
+                  <div className="share-social ml-0 ml-sm-7">
                     {config.socialNetworks.map((social, s) => (
                       <social.component key={s} url={shareUrl}>
                         <Svg href={social.icon} />
@@ -128,7 +128,7 @@ export const InviteFriends = memo(function InviteFriends() {
                     ))}
                   </div>
                 </div>
-                <div className="separator py-7">or</div>
+                <div className="separator py-5 py-sm-7">or</div>
                 <Formik
                   initialValues={{
                     shareEmail: '',
@@ -141,9 +141,13 @@ export const InviteFriends = memo(function InviteFriends() {
                   {(props: FormikProps<any>) => (
                     <Form className="m-auto form">
                       <div className="share-email">
-                        <Input className="share-email__input" label={t('Type Your Friends Email')} name="shareEmail" />
+                        <Input
+                          className="share-email__input mb-5 mb-sm-0"
+                          label={t('Type Your Friends Email')}
+                          name="shareEmail"
+                        />
                         <Button
-                          className="share-email__submit ml-7"
+                          className="share-email__submit ml-0 ml-sm-7"
                           type="submit"
                           loadingOnAction={EActionTypes.sendReferrerLink}
                         >
