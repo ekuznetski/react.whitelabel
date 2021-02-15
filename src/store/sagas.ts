@@ -416,6 +416,7 @@ export function* fetchTransactionalStatementsSaga() {
 export function* addDepositSaga() {
   yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
     const response: IAddDepositResponse = yield call(Request.addDepositRequest, payload);
+    yield put(Action.ac_fetchTradingAccounts({ force: true }));
     return response;
   });
 }
