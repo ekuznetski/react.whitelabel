@@ -1,17 +1,18 @@
-import { Button, LocaleLink, Svg } from '@components/shared';
-import { ECurrencyCode, EDepositMethodCode, EDepositMethodIcon, EResponseStatus } from '@domain/enums';
-import { usePathLocale } from '@utils/hooks';
+import { Button, LocaleLink, LocaleNavLink, Svg } from '@components/shared';
+import { EDepositMethodCode, EDepositMethodIcon, EPagePath, EResponseStatus } from '@domain/enums';
+import { IClientSettings } from '@domain/interfaces';
+import { IStore } from '@store';
 import React, { memo } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
-import './DepositSuccessFailure.scss';
 import { useSelector } from 'react-redux';
-import { IAppStore, IStore } from '@store';
-import { IClientSettings } from '@domain/interfaces';
+import { useIntercom } from 'react-use-intercom';
+import './DepositSuccessFailure.scss';
 
 export const DepositSuccessFailure = memo(function DepositSuccessFailure({ result }: { result: EResponseStatus }) {
   const { t } = useTranslation();
+  const { show } = useIntercom();
+
   return (
     <div className="deposit-success-failure-wrapper">
       <Row>
@@ -26,14 +27,14 @@ export const DepositSuccessFailure = memo(function DepositSuccessFailure({ resul
                 {t('Get in touch with Customer Support:')}
               </Col>
               <Col className="col-12 col-md-5 d-flex justify-content-between align-items-center">
-                <div className="d-flex justify-content-between align-items-center">
-                  <Svg href="chat" height={20} className="mr-2" />
+                <a onClick={show} className="d-flex justify-content-between align-items-center">
+                  <Svg href="chat" width={14} height={14} className="mr-2" />
                   {t('LiveChat')}
-                </div>
-                <div className="d-flex justify-content-between align-items-center">
+                </a>
+                <LocaleNavLink to={EPagePath.Contacts} className="d-flex justify-content-between align-items-center">
                   <Svg href="envelope" height={20} className="mr-2" />
                   {t('Email')}
-                </div>
+                </LocaleNavLink>
               </Col>
             </Row>
           </div>
