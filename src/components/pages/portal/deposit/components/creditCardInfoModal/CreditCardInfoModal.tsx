@@ -30,7 +30,7 @@ export function CreditCardInfoModal({ isModalOpen, setModalOpen }: IBillingDetai
           </li>
           <li>No processing fees apply on credit/debit card deposits.</li>
         </ul>
-        <p>Remark: All transactions will appear on your card statement as “{t('WHITE_LABEL')}”</p>
+        <p>Remark: All transactions will appear on your card statement as “{t('Card Statement Name')}”</p>
         <h3>Uploading Credit/Debit Card copies: General Information</h3>
         <p>
           We are forced to apply security measures designed for the security of both our clients and ourselves in line

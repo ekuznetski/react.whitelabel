@@ -69,5 +69,5 @@ export default {
   '1 working day': '1 working day',
   'Customer introduction agreement':
     'I, {{name}}, declare that I have carefully read and understood, <3>Terms of Business</3> and all other policies as found here which I fully accept and agree with. I accept I am electronically signing these documents, and that this is a legally binding contractual agreement.',
-  WHITE_LABEL: 'BlueSquare FX',
+  'Card Statement Name': 'BlueSquare FX',
 };
