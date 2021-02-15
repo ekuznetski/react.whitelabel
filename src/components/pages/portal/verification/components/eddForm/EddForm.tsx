@@ -110,24 +110,6 @@ export const EddForm = memo(function EddForm() {
       <Formik
         initialValues={Object.assign(
           Object.keys(validationSchema.fields || {}).reduce((acc, key) => Object.assign(acc, { [key]: '' }), {}),
-          {
-            nationality: profile.country,
-            address: 'asd',
-            appr_annual_income: 'Below 50,000',
-            appr_net_worth: 'Below 250,000',
-            employer_address: 'asd',
-            employer_name: 'ads',
-            employment_status: 'retired',
-            funds_available: 'Below 25,000',
-            nature_of_business: 'asd',
-            other_income: 'asd',
-            own_property: '1',
-            phone: '99887766',
-            position: 'asd',
-            working_financial: '0',
-            years_address: '12',
-            years_employment: '12',
-          },
         )}
         validationSchema={validationSchema}
         initialStatus={clientStatus.edd_status.code === EClientStatusCode.submitted && 'disabled'}

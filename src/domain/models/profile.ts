@@ -26,6 +26,11 @@ export class MClientProfile {
   phone_prefix_code: Country;
   phone_prefix: string;
   phone: number;
+  newPhone: {
+    country: Country;
+    prefix: string;
+    number: number;
+  };
   dob: Moment;
   nationality: Country;
   dual_nationality: Country;
@@ -78,6 +83,15 @@ export class MClientProfile {
     };
     this.phone_prefix = props.phone_prefix;
     this.phone = parseInt(props.phone);
+    this.newPhone = {
+      country: countries.find((country) => country.phoneCode === props.phone_prefix) || {
+        name: undefined,
+        code: undefined,
+        phoneCode: '',
+      },
+      prefix: props.phone_prefix,
+      number: parseInt(props.phone),
+    };
     this.dob = moment(props.dob);
     this.nationality = countries.find((country) => country.name === props.nationality) || {
       name: undefined,
