@@ -18,6 +18,15 @@
       color: $text;
     }
   }
+
+  .deposit-success-failure-footer {
+    a {
+      color: $blue;
+      svg {
+        fill: $dark-blue;
+      }
+    }
+  }
   .deposit-success {
     .result {
       color: $green;
