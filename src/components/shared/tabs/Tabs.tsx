@@ -1,7 +1,7 @@
 import { ENotificationType } from '@domain/enums';
 import { useDeviceDetect } from '@utils/hooks';
 import { useResponsive } from 'ahooks';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import React, { forwardRef, memo, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../form/button/Button';
@@ -115,16 +115,16 @@ export function Tabs({
         return useMemo(
           () => (
             <div
-              className={classNames('common-tabs', isVertical && 'vertical', 'show_' + state.mobileDisplay, className)}
+              className={classnames('common-tabs', isVertical && 'vertical', 'show_' + state.mobileDisplay, className)}
             >
               <div
-                className={classNames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}
+                className={classnames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}
               >
-                <div className={classNames('navigation__links', !isVertical && 'd-flex')}>
+                <div className={classnames('navigation__links', !isVertical && 'd-flex')}>
                   {state.labels.map((label, l) => (
                     <div
                       key={l}
-                      className={classNames(
+                      className={classnames(
                         'tab__link',
                         label.status,
                         label.disabled && 'disabled',
@@ -134,7 +134,7 @@ export function Tabs({
                       onClick={() => !label.disabled && switchTab(label.anchor)}
                       ref={(ref) => activeTabProps?.anchor === label.anchor && (activeNavTabLink = ref)}
                     >
-                      <div className={classNames('tab__link__label', isVertical && 'py-6 pl-12 pr-4')}>
+                      <div className={classnames('tab__link__label', isVertical && 'py-6 pl-12 pr-4')}>
                         <div className="tab__link__label-title">{label.value}</div>
                         {label.desc && <div className="tab__link__label-subtitle">{label.desc}</div>}
                       </div>
@@ -156,7 +156,7 @@ export function Tabs({
                   />
                 )}
               </div>
-              <div className={classNames('common-tabs__container', isVertical && 'py-6 px-6 py-sm-8 px-sm-9')}>
+              <div className={classnames('common-tabs__container', isVertical && 'py-6 px-6 py-sm-8 px-sm-9')}>
                 {!children
                   ? state.contents.map((content, c) => <Tab key={c} anchor={content.anchor} content={content.value} />)
                   : children}
@@ -216,7 +216,7 @@ export const Tab = memo(
     }
 
     return (
-      <div className={classNames('tab__content', props.className, isActive && 'active')} ref={ref}>
+      <div className={classnames('tab__content', props.className, isActive && 'active')} ref={ref}>
         {!tabInitialized() ? (
           <>
             {_content}
