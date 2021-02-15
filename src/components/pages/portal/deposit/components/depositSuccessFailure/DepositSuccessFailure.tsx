@@ -12,6 +12,7 @@ import './DepositSuccessFailure.scss';
 export const DepositSuccessFailure = memo(function DepositSuccessFailure({ result }: { result: EResponseStatus }) {
   const { t } = useTranslation();
   const { show } = useIntercom();
+
   return (
     <div className="deposit-success-failure-wrapper">
       <Row>
