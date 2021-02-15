@@ -465,7 +465,7 @@ export default {
     notRequired: 'Not Required',
     pending: 'Pending',
     dormant: 'The Client is Dormant',
-    unknown: 'Unknown'
+    unknown: 'Unknown',
   },
   'Invest with those you know': 'Invest with those you know',
   'Share Your Passion':
@@ -506,4 +506,5 @@ export default {
   'Thank You For Submitting Your Information':
     'Thank you for submitting your information. A member of the WHITE_LABEL Team will be in touch shortly.',
   'Terms of Business': 'Terms of Business',
+  'Credit Card Remark': 'Remark: All transactions will appear on your card statement as “WHITE_LABEL”',
 };

@@ -75,9 +75,15 @@
 
   .notification-close {
     position: absolute;
-    right: 40px;
+    right: sp(11);
     display: none;
     cursor: pointer;
+  }
+
+  @media (max-width: $viewport-sm-w) {
+    .notification-close {
+      right: sp(7);
+    }
   }
 }
 
@@ -88,12 +94,11 @@
 }
 
 .header.main {
-
-  &+.notification-wrapper {
+  & + .notification-wrapper {
     top: 140px;
   }
 
-  &.fixed+.notification-wrapper {
+  &.fixed + .notification-wrapper {
     top: 70px;
   }
 }
