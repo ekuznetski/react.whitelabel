@@ -1,6 +1,6 @@
 import { Button, CountrySelect, Input, Radio } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ENotificationType } from '@domain/enums';
+import { EFormStatus, ENotificationType } from '@domain/enums';
 import { ITins } from '@domain/interfaces';
 import { MTins } from '@domain/models';
 import { EActionTypes, IStore, ac_showNotification, ac_updateTins } from '@store';
@@ -110,7 +110,12 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
   return (
     <div className="tax-identification">
       {t('Tax Resident List of Countries')}
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={Submit}>
+      <Formik
+        initialStatus={tins.tins.length === config.maxTaxCountries ? EFormStatus.disabled : null}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={Submit}
+      >
         {({ values, setValues, errors, resetForm }) => {
           useEffect(() => {
             resetForm({ values: { ...initialValues, [EFields.choice]: values[EFields.choice] } });
