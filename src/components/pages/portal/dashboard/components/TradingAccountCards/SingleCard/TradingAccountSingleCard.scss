@@ -98,7 +98,7 @@
 
         .common-button {
           &.fund {
-            &:hover {
+            &:hover:not(.disabled) {
               border-color: $dark-text;
 
               a {

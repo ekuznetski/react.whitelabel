@@ -40,6 +40,7 @@ export function ignoreActionIfPageLoadedList() {
         EActionTypes.fetchClientData,
         EActionTypes.uploadDocuments,
         EActionTypes.updateBankDetails,
+        EActionTypes.fetchTradingAccounts,
         EActionTypes.editProfile,
         EActionTypes.changePassword,
         EActionTypes.submitEdd,
@@ -56,6 +57,7 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.fetchProfile:
     case EActionTypes.fetchTradingAccounts:
     case EActionTypes.fetchWithdrawHistory:
+    case EActionTypes.fetchTransactionalStatements:
     case EActionTypes.fetchWithdrawLimit:
     case EActionTypes.fetchBankDetails:
     case EActionTypes.uploadDocuments:

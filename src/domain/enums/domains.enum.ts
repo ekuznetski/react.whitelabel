@@ -5,10 +5,6 @@ export enum ELabels {
   uinvex = 'uinvex',
 }
 
-export enum EWebSocketMessage {
-  prices = 'prices',
-}
-
 export enum ELabelsName {
   default = 'Default',
   arofx = 'AroFX',
