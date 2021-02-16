@@ -57,13 +57,18 @@ export const InternalTransfer = memo(function InternalTransfer() {
       otherwise: Yup.number().notRequired(),
     }),
   });
+  const formInitialValues = {
+    accountFrom: '',
+    accountTo: '',
+    amount: '',
+  };
 
   function Submit(values: FormikValues, formikHelpers: FormikHelpers<any>) {
     const _data: IInternalTransferRequestData = {
       fromAccount: values.accountFrom.accountId,
-      fromPlatform: values.accountFrom.platformName,
+      fromPlatform: values.accountFrom.platform,
       toAccount: values.accountTo.accountId,
-      toPlatform: values.accountTo.platformName,
+      toPlatform: values.accountTo.platform,
       amount: parseFloat(values.amount),
     };
 
@@ -77,7 +82,9 @@ export const InternalTransfer = memo(function InternalTransfer() {
               message: t('Success'),
             }),
           );
-          formikHelpers.resetForm();
+          formikHelpers.resetForm({
+            values: formInitialValues,
+          });
         },
         () =>
           dispatch(
@@ -115,11 +122,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
                   ? EFormStatus.disabled
                   : null
               }
-              initialValues={{
-                accountFrom: '',
-                accountTo: '',
-                amount: '',
-              }}
+              initialValues={formInitialValues}
               validationSchema={validationSchema}
               isInitialValid={false}
               onSubmit={Submit}

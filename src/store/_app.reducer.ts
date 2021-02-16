@@ -40,6 +40,7 @@ export function ignoreActionIfPageLoadedList() {
         EActionTypes.fetchClientData,
         EActionTypes.uploadDocuments,
         EActionTypes.updateBankDetails,
+        EActionTypes.fetchTradingAccounts,
         EActionTypes.editProfile,
         EActionTypes.changePassword,
         EActionTypes.submitEdd,

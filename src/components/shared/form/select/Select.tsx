@@ -118,8 +118,9 @@ export const Select = memo(function Select({
   }, []);
 
   useEffect(() => {
-    if (!!field.value && field.value != state.value)
+    if (field.value && field.value != state.value)
       setState({ value: options.find((option: any) => JSON.stringify(option.value) == JSON.stringify(field.value)) });
+    else setState({ value: null });
   }, [field.value]);
 
   function onChangeSelect(e: any) {

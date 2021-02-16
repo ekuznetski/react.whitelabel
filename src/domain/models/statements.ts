@@ -20,7 +20,8 @@ export class MTransactionalStatement {
     this.date_created = moment(props.date_created);
     this.trade_platform =
       ETradingPlatform[props.trade_platform.toLowerCase() as keyof typeof ETradingPlatform] || ETradingPlatform.mt4;
-    this.trade_platformName = this.trade_platform === ETradingPlatform.mt4 ? 'Mt4' : 'Mt5';
+    this.trade_platformName =
+      this.trade_platform === ETradingPlatform.mt4 ? ETradingPlatform.mt4 : ETradingPlatform.mt5;
   }
 }
 
