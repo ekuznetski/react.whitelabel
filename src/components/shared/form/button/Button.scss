@@ -81,8 +81,10 @@
     }
   }
 
-  &.disabled.noBg {
-    border-color: $dark-grey;
+  
+    &.noBg {
+      border-color: $dark-grey;
+    }
   }
 
   a,
