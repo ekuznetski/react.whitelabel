@@ -9,11 +9,11 @@ import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@component
 import { downloadLinks } from '@domain';
 import { EPagePath } from '@domain/enums';
 import { IPrices } from '@domain/interfaces';
-import { IStore } from '@store';
+import { IStore, ac_fetchPrices } from '@store';
 import { capitalize } from '@utils/fn';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './Platform.scss';
 
 export function Platform() {
@@ -21,6 +21,16 @@ export function Platform() {
   const { prices } = useSelector<IStore, { prices: IPrices }>((state) => ({
     prices: state.data.prices,
   }));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchPricesInterval = setInterval(() => {
+      dispatch(ac_fetchPrices());
+    }, 5000);
+    return function () {
+      clearInterval(fetchPricesInterval);
+    };
+  }, []);
 
   return (
     <div className="platform-wrapper">

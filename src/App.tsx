@@ -40,7 +40,7 @@ function App() {
         <IntercomChat>
           <ErrorProvider>
             <>
-              <WebSocketListener />
+              {/* <WebSocketListener /> */}
               <Main />
             </>
           </ErrorProvider>

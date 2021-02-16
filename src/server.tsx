@@ -77,7 +77,9 @@ function checkRouterLoaderState(prevActiveList: EActionTypes[], activeList: EAct
   );
 }
 
-const io = new Server();
+const io = new Server({
+  path: 'ws'
+});
 const RedisStore = require('connect-redis')(session);
 const RedisClient = redis.createClient(REDIS_PORT, env.DEV_MODE ? '127.0.0.1' : 'redis');
 const sessionOptions: session.SessionOptions = {

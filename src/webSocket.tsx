@@ -4,7 +4,9 @@ import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import socket from 'socket.io-client';
 
-const io = socket();
+const io = socket({
+  path: 'ws',
+});
 
 export const WebSocketListener = memo(function WebSocketListener() {
   const { route } = useSelector<IStore, { route: IAppStore['route'] }>((state) => ({

@@ -2,12 +2,12 @@ import { LocaleLink, Svg } from '@components/shared';
 import { EPagePath, MarketType } from '@domain/enums';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu, IPrices } from '@domain/interfaces';
 import { config } from '@pages/main/home';
-import { IStore } from '@store';
+import { IStore, ac_fetchPrices } from '@store';
 import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Area, AreaChart } from 'recharts';
 import './StockPrices.scss';
 
@@ -17,6 +17,7 @@ export function StockPrices() {
   }));
   const [activePriceTab, setActivePriceTab] = useState<IPriceTabItem | null>();
   const responsive = useResponsive();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const initPriceTabs: IPriceTabItem[] = prices
@@ -31,6 +32,12 @@ export function StockPrices() {
 
   useEffect(() => {
     setActivePriceTab(priceTabs[0]);
+    const fetchPricesInterval = setInterval(() => {
+      dispatch(ac_fetchPrices());
+    }, 5000);
+    return function () {
+      clearInterval(fetchPricesInterval);
+    };
   }, []);
 
   useEffect(() => {
