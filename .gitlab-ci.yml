@@ -28,7 +28,8 @@ compile:wl:
     stage: compile
     script:
         - export NG_CLI_ANALYTICS=ci  
-        - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
+        - yarn global add concurrently  
+        # - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
         - yarn install
         - yarn run build:bsfx:ssr
         - cp -R node_modules dist/
@@ -41,7 +42,7 @@ compile:wl:
         - wl
     only:
         refs:
-            - dev  
+            - bsfx_prod  
     allow_failure: true
 
 deploy:wl:web:
@@ -69,7 +70,7 @@ deploy:wl:web:
         - compile:wl
     only:
         refs:
-            - dev             
+            - bsfx_prod             
     tags:
         - wl
     allow_failure: true
@@ -94,7 +95,7 @@ update:wl:docker:
             exit"
     only:
         refs:
-            - dev
+            - bsfx_prod
         changes:
             - deploy-scripts/docker-compose.yml
             - deploy-scripts/Dockerfile
