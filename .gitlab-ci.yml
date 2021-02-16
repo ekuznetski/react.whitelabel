@@ -23,7 +23,7 @@ stages:
   - deploy:uinvex
   - update:uinvex
 
-# BSFX
+# BSFX DEPLOYMENT
 compile:bsfx:
     cache:
         key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
@@ -50,7 +50,7 @@ compile:bsfx:
     allow_failure: true
 
 deploy:bsfx:web:
-    stage: deploy:wl
+    stage: deploy:bsfx
     script:
         - ssh $BSFX_SERVER "sudo mkdir -p /var/www/wl &&
             sudo mkdir -p /var/www/wl/server &&
@@ -134,7 +134,7 @@ compile:uinvex:
             - uinvex_prod  
     allow_failure: true
 
-deploy:bsfx:web:
+deploy:uinvex:web:
     stage: deploy:uinvex
     script:
         - ssh $UINVEX_SERVER "sudo mkdir -p /var/www/wl &&
