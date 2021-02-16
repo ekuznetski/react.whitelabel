@@ -193,7 +193,7 @@
     }
   }
 
-  @media (max-width: $viewport-sm-w) {
+  @media (max-width: $viewport-md-w) {
     .withdrawal {
       &-info {
         flex-direction: column;
@@ -208,6 +208,7 @@
           }
         }
       }
+
       &-itemsTable {
         .withdrawal-table {
           &__row {
