@@ -14,7 +14,7 @@ export const config = {
     },
     {
       name: 'Tweeter',
-      icon: 'tweeter',
+      icon: 'twitter',
       link: '',
     },
     {

@@ -1,0 +1,179 @@
+@import '~/variables';
+@import '~/mixin';
+
+.open-live-account-banner {
+  overflow: visible;
+  background: transparent;
+
+  &:before {
+    position: absolute;
+    content: '';
+    display: block;
+    background: $dark-blue;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    transform: none;
+    opacity: 1;
+  }
+
+  &__title {
+    font-size: 56px;
+    line-height: 66px;
+  }
+
+  .open-account {
+    flex: 0 0 colSizePrc(4);
+    max-width: colSizePrc(4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1;
+    padding: 0 70px;
+    margin-top: -115px !important;
+
+    .open-live-account-banner__title {
+      font-size: 42px;
+      line-height: 52px;
+      font-weight: normal;
+
+      svg {
+        fill: $blue;
+
+        .label {
+          fill: white;
+        }
+
+        .label-icon {
+          fill: $dark-blue;
+        }
+      }
+    }
+
+    &:before {
+      content: '';
+      top: -40px;
+      left: -25px;
+      background: linear-gradient(0.35deg, #262a4b 0.29%, #44486c 99.67%);
+      position: absolute;
+      display: block;
+      opacity: 1;
+      height: calc(100% + 80px);
+      z-index: -1;
+      width: calc(100% + 50px);
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+    }
+
+    button {
+      height: 50px;
+      background-color: white;
+      a {
+        color: $dark-blue;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-xl-w) {
+    .open-account {
+      padding: 0 40px;
+    }
+  }
+
+  @media (max-width: $viewport-lg-w) {
+    .container {
+      max-width: 100%;
+    }
+
+    &__column {
+      flex: 0 0 colSizePrc(6);
+      max-width: colSizePrc(6);
+      padding: 0 40px;
+    }
+
+    &__title {
+      font-size: 48px;
+      line-height: 58px;
+    }
+
+    .open-account {
+      flex: 0 0 colSizePrc(5);
+      max-width: colSizePrc(5);
+      padding: 0 40px;
+      margin-top: -70px !important;
+      margin-bottom: sp(12);
+      margin-left: sp(3);
+
+      .open-live-account-banner {
+        &__title {
+          font-size: 36px;
+          text-align: center;
+        }
+        &__description {
+          text-align: center;
+        }
+      }
+
+      &:before {
+        width: calc(100% + 30px);
+        height: calc(100% + 80px);
+        left: -15px;
+      }
+      button {
+        align-self: center;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-sm-w) {
+    padding-bottom: 0 !important;
+    margin-bottom: 100px;
+
+    &__column {
+      flex: 0 0 colSizePrc(8);
+      max-width: 100%;
+      padding: 0px 20px;
+      padding-bottom: 0;
+    }
+
+    .row {
+      flex-direction: column;
+    }
+
+    &__title,
+    &__description {
+      text-align: center;
+    }
+
+    .open-account {
+      margin-top: 0 !important;
+      margin-bottom: 0;
+
+      flex: 0 0 colSizePrc(4);
+      max-width: colSizePrc(10);
+      margin-left: colSizePrc(1);
+
+      .open-live-account-banner {
+        &__title {
+          line-height: 44px;
+        }
+      }
+
+      &:before {
+        top: unset;
+        bottom: -100px;
+        height: calc(100% + 130px);
+      }
+
+      button {
+        position: absolute;
+        bottom: -50px;
+        width: 190px;
+      }
+    }
+
+    .section-bg {
+      display: none;
+    }
+  }
+}

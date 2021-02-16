@@ -1,0 +1,22 @@
+@import '../theme';
+
+body {
+  #root {
+    &.main,
+    &.auth,
+    &.general {
+      section {
+        position: relative;
+        padding: 100px 0;
+
+        @media (max-width: $viewport-lg-w) {
+          padding: 68px 0;
+        }
+
+        @media (max-width: $viewport-md-w) {
+          padding: 48px 0;
+        }
+      }
+    }
+  }
+}
