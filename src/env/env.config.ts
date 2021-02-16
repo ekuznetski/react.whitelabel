@@ -3,6 +3,7 @@ const dev = {
   LABEL: 'default',
   API_URL: 'https://api.hycm.com',
   PROXY_URL: 'https://api.hycm.com',
+  PRICES_URL: 'https://api.hycm.com',
   GTM_ID: null,
   INTERCOM_ID: null,
   GOOGLE_MAP_KEY: null,

@@ -52,8 +52,17 @@ export class MTradingAccount {
 
 export class MClientTradingData {
   accounts: MTradingAccount[];
+  live: MTradingAccount[] = [];
+  demo: MTradingAccount[] = [];
+  fake: MTradingAccount[] = [];
 
   constructor(props: ITradingAccounts) {
     this.accounts = props.message?.map((item) => new MTradingAccount(item)) || [];
+
+    if (this.accounts.length) {
+      this.live = this.accounts.filter((account) => account.type === ETradingType.live);
+      this.demo = this.accounts.filter((account) => account.type === ETradingType.demo);
+      this.fake = this.accounts.filter((account) => account.type === ETradingType.fake);
+    }
   }
 }

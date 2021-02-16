@@ -1,11 +1,12 @@
 import { Button, DropDown, LocaleNavLink, Svg } from '@components/shared';
-import { profileMenuPortalConfig } from '@domain';
+import { portalProfileMenu } from '@utils/fn/portalProfileMenu';
 import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import './UserProfileCard.scss';
+import { EPagePath } from '@domain/enums';
 
 type IUserProfileCardState = {
   clientProfile: MClientProfile;
@@ -43,7 +44,7 @@ export function UserProfileCard() {
       <div className="user-profile-card__options px-7 px-sm-11">
         <div className="profile-options__deposit">
           <Button className="px-3">
-            <LocaleNavLink exact to="/deposit">
+            <LocaleNavLink exact to={EPagePath.Deposit}>
               {t('Add Deposit')}
               <Svg href="coins" className="ml-4" />
             </LocaleNavLink>
@@ -56,7 +57,7 @@ export function UserProfileCard() {
           <DropDown
             parentRef={profileNavRef}
             position="right"
-            items={profileMenuPortalConfig}
+            items={portalProfileMenu()}
             isOpen={isDropdownMenuOpen}
             isOpenDispatcher={setDropdownMenuOpen}
           />

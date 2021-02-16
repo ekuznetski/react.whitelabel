@@ -11,12 +11,12 @@ export class MClientStatus {
   dual_status: TClientStatus;
 
   constructor(props: IClientStatus, castType = false) {
-    this.fp_status = generateStatus(props.fp_status?.message);
-    this.client_status = generateStatus(props.client_status?.message);
-    this.cayman_status = generateStatus(props.cayman_status?.message);
-    this.edd_status = generateStatus(props.edd_status?.message);
-    this.tins_status = generateStatus(props.tins_status?.message);
-    this.dual_status = generateStatus(props.dual_status?.message);
+    this.fp_status = generateStatus(props.fp_status?.code);
+    this.client_status = generateStatus(props.client_status?.code);
+    this.cayman_status = generateStatus(props.cayman_status?.code);
+    this.edd_status = generateStatus(props.edd_status?.code);
+    this.tins_status = generateStatus(props.tins_status?.code);
+    this.dual_status = generateStatus(props.dual_status?.code);
 
     if (castType) return this;
   }

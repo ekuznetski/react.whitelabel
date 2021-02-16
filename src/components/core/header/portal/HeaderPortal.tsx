@@ -1,5 +1,5 @@
 import { Button, LocaleLink, Svg } from '@components/shared';
-import { EAppSection, ELabels } from '@domain/enums';
+import { EAppSection, ELabels, EPagePath } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
 import { getAppSectionMenu } from '@utils/fn/getAppSectionMenu';
 import { useDebounceFn, useResponsive } from 'ahooks';
@@ -24,14 +24,14 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
     <>
       <div className={classNames('panel', isBurgerMenuOpen && 'fixed')}>
         <Container className="py-3 py-lg-0">
-          <LocaleLink to="" className="logo">
+          <LocaleLink to={EPagePath.Home} className="logo">
             <Svg href="logo" className="mr-xl-9" _label height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-9" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-1" _label={ELabels.bsfx} height={!responsive.lg ? 48 : 60} />
           </LocaleLink>
           <PanelMenu menuConfig={_portalMenuConfig} />
           <Button className="ml-auto d-none d-md-block">
-            <LocaleLink to="/deposit" className="px-5">
+            <LocaleLink to={EPagePath.Deposit} className="px-5">
               {t('Deposit')}
               <Svg href="coins" className="ml-auto" />
             </LocaleLink>

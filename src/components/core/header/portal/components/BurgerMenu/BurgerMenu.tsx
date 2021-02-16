@@ -1,4 +1,5 @@
 import { LocaleLink, LocaleNavLink, Svg } from '@components/shared';
+import { EPagePath } from '@domain/enums';
 import { IMenuConfig } from '@domain/interfaces';
 import classNames from 'classnames';
 import React from 'react';
@@ -37,7 +38,7 @@ export function BurgerMenu({ menuConfig, closeBurgerMenu, className }: IBurgerMe
             ))}
           </Col>
           <Button className="mt-auto">
-            <LocaleLink to="/deposit" className="px-5">
+            <LocaleLink to={EPagePath.Deposit} className="px-5">
               {t('Deposit')}
               <Svg href="coins" className="ml-auto" />
             </LocaleLink>

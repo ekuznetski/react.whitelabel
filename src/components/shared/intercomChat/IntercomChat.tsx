@@ -8,7 +8,11 @@ import { IIntercomChatParams } from './intercomChat.interface';
 
 export const IntercomChat = memo(function IntercomChat(props: { children: React.ReactElement }) {
   if (!env.PRODUCTION || !env.INTERCOM_ID) {
-    return props.children;
+    return (
+      <IntercomProvider appId={env.INTERCOM_ID} shouldInitialize={false}>
+        {props.children}
+      </IntercomProvider>
+    );
   }
 
   const { clientProfile, locale } = useSelector<IStore, { clientProfile: MClientProfile; locale: string }>((state) => ({

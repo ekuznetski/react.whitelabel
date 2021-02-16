@@ -374,13 +374,13 @@ module.exports = (_env, arguments) => {
                     '@babel/preset-env',
                     !env.PRODUCTION
                       ? {
-                          modules: false,
-                        }
+                        modules: false,
+                      }
                       : {
-                          targets: {
-                            node: 'current',
-                          },
+                        targets: {
+                          node: 'current',
                         },
+                      },
                   ],
                   '@babel/preset-react',
                   '@babel/preset-typescript',
@@ -405,13 +405,22 @@ module.exports = (_env, arguments) => {
       new CopyPlugin({
         patterns: [
           {
-            from: 'assets/**/*',
+            from: 'assets/_default/**/*',
             flatten: true,
             to: 'assets/',
             globOptions: {
               ignore: [
                 ...excludeAssets.map((asset) => `**/${asset}/**`),
-                ...(targetLabel ? [`**/${targetLabelFolder}/**`] : []),
+              ],
+            },
+          },
+          {
+            from: 'assets/(img|svg)/*',
+            flatten: true,
+            to: 'assets/',
+            globOptions: {
+              ignore: [
+                ...excludeAssets.map((asset) => `**/${asset}/**`),
               ],
             },
           },

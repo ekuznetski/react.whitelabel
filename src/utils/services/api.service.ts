@@ -115,5 +115,5 @@ export const getClientSettingsRequest = request(EHttpMethod.post, `${env.PROXY_U
 export const updateTinsRequest = request(EHttpMethod.post, `${env.PROXY_URL}/clients/updateTins`);
 export const submitEddRequest = request(EHttpMethod.post, `${env.PROXY_URL}/edd/submit`);
 export const changeAccountSettingsRequest = request(EHttpMethod.post, `${env.PROXY_URL}/clients/editFakeAccount`); // TODO update path when Ralph update endpoint
-export const getPricesRequest = request(EHttpMethod.get, `${env.API_URL.replace('api', 'prices')}/graphs/homepage`); // TODO uncomment when cors will be fixed
+export const getPricesRequest = request(EHttpMethod.get, `${env.PRICES_URL}/graphs/homepage`); // TODO uncomment when cors will be fixed
 // export const getPricesRequest = request(EHttpMethod.get, `${env.PROXY_URL}/graphs/homepage`);

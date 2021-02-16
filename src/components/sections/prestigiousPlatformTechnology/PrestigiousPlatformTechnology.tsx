@@ -1,5 +1,5 @@
 import { Button, Img, LabelView, LocaleLink } from '@components/shared';
-import { ELabels } from '@domain/enums';
+import { ELabels, EPagePath } from '@domain/enums';
 import classNames from 'classnames';
 import { locale } from './';
 import React, { forwardRef, memo } from 'react';
@@ -32,7 +32,7 @@ export const PrestigiousPlatformTechnologySection = memo(
                 {description || locale.prestigiousPlatformTechnologyDesc}
               </div>
               <Button>
-                <LocaleLink to="/registration">{t('Open Live Account')}</LocaleLink>
+                <LocaleLink to={EPagePath.Registration}>{t('Open Live Account')}</LocaleLink>
               </Button>
             </Col>
             <Col xs={12} lg={6}>

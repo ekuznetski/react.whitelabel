@@ -8,6 +8,7 @@ import {
   allowAuthorizedGuard,
   disallowAuthorizedGuard,
   internalTransfersGuard,
+  inviteFriendsGuard,
   inviteGuard,
   logoutGuard,
   openDemoAccountGuard,
@@ -359,7 +360,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: EPagePath.InviteFriends,
     component: Page.InviteFriends,
     appSection: EAppSection.portal,
-    activators: [allowAuthorizedGuard],
+    activators: [allowAuthorizedGuard, inviteFriendsGuard],
   },
   {
     meta: {

@@ -1,3 +1,4 @@
+import { EPagePath } from '@domain/enums';
 import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +11,7 @@ export function AuthAlreadyRegisteredLink({ className }: any) {
   return (
     <div className={classNames('mt-5 text-center auth-under-form', className)}>
       {t('Already Registered')}
-      <LocaleLink className="already__link ml-1" to="/login">
+      <LocaleLink className="already__link ml-1" to={EPagePath.Login}>
         {t('Sign In')}
       </LocaleLink>
     </div>

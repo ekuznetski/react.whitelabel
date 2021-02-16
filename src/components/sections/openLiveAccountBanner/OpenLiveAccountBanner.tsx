@@ -1,5 +1,5 @@
 import { Button, LabelView, LocaleLink, SectionBg } from '@components/shared';
-import { ELabels } from '@domain/enums';
+import { ELabels, EPagePath } from '@domain/enums';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -41,7 +41,7 @@ export const OpenLiveAccountBannerSection = memo(
               </div>
               <div className="open-live-account-banner__description mb-8 mb-md-6">{t('Discover Trading Tools')}</div>
               <Button>
-                <LocaleLink to="/registration">{t('Open Live Account')}</LocaleLink>
+                <LocaleLink to={EPagePath.Registration}>{t('Open Live Account')}</LocaleLink>
               </Button>
             </Col>
           </Row>

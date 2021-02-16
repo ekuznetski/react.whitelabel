@@ -7,6 +7,7 @@ const dev = {
   API_URL: 'https://api.bluesquarefx.com',
   // PROXY_URL: 'http://localhost:4201/proxy', // for local SSR testing
   PROXY_URL: 'https://www.bluesquarefx.com/proxy',
+  PRICES_URL: 'https://prices.bluesquarefx.com',
   GOOGLE_MAP_KEY: 'AIzaSyDOyshXiJCVtAmFMAHfRqR_9sfNRhNJm3k',
   SENTRY_PUBLIC_DSN: 'https://6fe4ef1e5cb34971a4f9fd7d1dd1ba6d@sentry.hycm.com/6',
 };

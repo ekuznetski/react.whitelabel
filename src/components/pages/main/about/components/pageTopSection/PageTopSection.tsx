@@ -1,4 +1,5 @@
 import { Button, LocaleLink, SectionBg } from '@components/shared';
+import { EPagePath } from '@domain/enums';
 import { locale } from '@pages/main/about';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +17,7 @@ export const PageTopSection = memo(function PageTopSection() {
             <div className="page-top__title mb-7">{t('Who Are We')}</div>
             <div className="page-top__description mb-9">{t('About Us Page Desc')}</div>
             <Button className="page-top__register-btn">
-              <LocaleLink to="/registration">{locale.pageTopRegisterBtn}</LocaleLink>
+              <LocaleLink to={EPagePath.Registration}>{locale.pageTopRegisterBtn}</LocaleLink>
             </Button>
           </div>
         </div>

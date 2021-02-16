@@ -34,7 +34,7 @@ export const Withdrawal = memo(function Withdrawal() {
     withdrawalLimitIsLoading,
     clientStatus,
   } = useSelector<IStore, WithdrawalStoreProps>((state) => ({
-    tradingAccounts: state.data.tradingData?.accounts || [],
+    tradingAccounts: state.data.tradingData.live,
     withdrawalHistoryItems: state.data.withdrawals.history || [],
     withdrawalLimit: state.data.withdrawals.limit,
     withdrawalLimitIsLoading: state.app.requests.activeList.includes(EActionTypes.fetchWithdrawLimit),

@@ -1,6 +1,6 @@
 import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ENotificationType } from '@domain/enums';
+import { ENotificationType, EPagePath } from '@domain/enums';
 import { IResetPasswordRequest } from '@domain/interfaces';
 import { EActionTypes, ac_login, ac_resetPassword, ac_showNotification } from '@store';
 import { useUrlParams } from '@utils/hooks';
@@ -92,7 +92,7 @@ export function ResetPassword() {
           </Formik>
           <div className="mt-5 text-center auth-under-form">
             {t('Already Registered?')}
-            <LocaleLink className="already__link ml-1" to="/login">
+            <LocaleLink className="already__link ml-1" to={EPagePath.Login}>
               {t('Sign In')}
             </LocaleLink>
           </div>
