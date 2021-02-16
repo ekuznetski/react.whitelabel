@@ -129,6 +129,17 @@ export function TabContentChooseAmount() {
         }}
       >
         {({ values, setFieldValue, initialValues }: FormikProps<any>) => {
+          const amount = (
+            <Col xs={8} md={7} xl={8} className="ml-auto">
+              <div className="you-get-amount text-right text-lg-left">
+                <span className="you-get-amount__symbol pr-3">{values[EFields.account].currencySymbol}</span>
+                {(isDesktop && values[EFields.amount] !== 'custom' && formatAmount(values[EFields.amount])) ||
+                  formatAmount(values[EFields.customAmount]) ||
+                  '0'}
+              </div>
+            </Col>
+          );
+
           useEffect(() => {
             if (!tradingAccounts.map((e) => e.accountId).includes(values[EFields.account]?.accountId as string)) {
               setFieldValue(EFields.account, tradingAccounts[0]);
@@ -176,30 +187,27 @@ export function TabContentChooseAmount() {
                   regex={/^\d{0,9}$/gm}
                 />
               )}
-              <Row className="mb-6 mt-5 mt-md-0">
-                <Col className="you-get-title">{t('You get')}</Col>
-              </Row>
-              <Row>
-                <Col md={7} xl={8}>
-                  <div className="you-get-amount d-flex align-items-center">
-                    <span className="you-get-amount__symbol pr-3">{values[EFields.account].currencySymbol}</span>
-                    {(values[EFields.amount] !== 'custom' && formatAmount(values[EFields.amount])) ||
-                      formatAmount(values[EFields.customAmount]) ||
-                      '0'}
-                  </div>
+              <Row className="mb-6 mt-5 mt-md-0 align-items-center">
+                <Col xs={4} className="you-get-title">
+                  {t('You get')}
                 </Col>
-                <Col md={5} xl={4} className="align-items-center d-flex">
+                {!isDesktop && amount}
+                {isDesktop && (
+                  <Col md={5} xl={4} className="d-none d-lg-flex ml-auto">
+                    <Svg href="secure-payment" />
+                  </Col>
+                )}
+              </Row>
+              <Row className="align-items-center">
+                {isDesktop && amount}
+                <Col md={5} xl={4}>
                   <Button type="submit">{t('Proceed to Payment')}</Button>
                 </Col>
-              </Row>
-              <Row>
-                <Col
-                  md={{ span: 4, offset: 8 }}
-                  lg={{ span: 4, offset: 8 }}
-                  className="d-flex justify-content-between align-items-center"
-                >
-                  <Svg href="secure-payment" />
-                </Col>
+                {!isDesktop && (
+                  <Col md={5} xl={4} className="d-flex mt-9 mt-md-0 ml-md-auto">
+                    <Svg href="secure-payment" height={40} className="m-auto" />
+                  </Col>
+                )}
               </Row>
             </Form>
           );

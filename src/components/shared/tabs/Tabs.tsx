@@ -154,7 +154,7 @@ export function Tabs({
                   />
                 )}
               </div>
-              <div className={classNames('common-tabs__container', isVertical && 'py-8 px-9')}>
+              <div className={classNames('common-tabs__container', isVertical && 'py-8 px-6 py-md-10 px-md-9')}>
                 {!children
                   ? state.contents.map((content, c) => <Tab key={c} anchor={content.anchor} content={content.value} />)
                   : children}
