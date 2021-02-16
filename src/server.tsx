@@ -27,7 +27,7 @@ import { StaticRouter } from 'react-router-dom';
 import redis from 'redis';
 import { Unsubscribe } from 'redux';
 import requestIp from 'request-ip';
-import { Server } from 'socket.io';
+// import { Server } from 'socket.io';
 import { document, window } from 'ssr-window';
 import { v4 as uuidv4 } from 'uuid';
 import './App.scss';
@@ -77,9 +77,9 @@ function checkRouterLoaderState(prevActiveList: EActionTypes[], activeList: EAct
   );
 }
 
-const io = new Server({
-  path: 'ws'
-});
+// const io = new Server({
+//   path: 'ws'
+// });
 const RedisStore = require('connect-redis')(session);
 const RedisClient = redis.createClient(REDIS_PORT, env.DEV_MODE ? '127.0.0.1' : 'redis');
 const sessionOptions: session.SessionOptions = {
@@ -391,18 +391,18 @@ app.get(
   },
 );
 
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
-io.attach(server);
+// io.attach(server);
 
-io.on('connection', () => {
-  console.log('WebSocket connected');
+// io.on('connection', () => {
+//   console.log('WebSocket connected');
 
-  setInterval(() => {
-    axios(`${env.PRICES_URL}/graphs/homepage`, { method: 'GET' }).then((res) => {
-      io.emit(EWebSocketMessage.prices, res.data);
-    });
-  }, 5000);
-});
+//   setInterval(() => {
+//     axios(`${env.PRICES_URL}/graphs/homepage`, { method: 'GET' }).then((res) => {
+//       io.emit(EWebSocketMessage.prices, res.data);
+//     });
+//   }, 5000);
+// });

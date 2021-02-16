@@ -5,11 +5,9 @@ export type ITransactionalStatementsResponse = {
 } & IBaseResponse;
 
 export interface ITransactionalStatements {
-  data: {
-    trades: ITransactionalSingleStatement[];
-    deposits: ITransactionalSingleStatement[];
-    withdrawals: ITransactionalSingleStatement[];
-  };
+  trades: ITransactionalSingleStatement[];
+  deposits: ITransactionalSingleStatement[];
+  withdrawals: ITransactionalSingleStatement[];
 }
 
 export interface ITransactionalSingleStatement {

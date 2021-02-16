@@ -142,7 +142,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
         </Col>
         <Col xs={12} lg={10} xl={8} className="px-0">
           <div className="statement text-center">
-            {statements ? (
+            {statements && (statements.deposits.length || statements.trades.length || statements.withdrawals.length) ? (
               <Col>
                 <StatementSearchResultSection className="mb-9" title={t('Deposits')} statements={statements.deposits} />
                 <StatementSearchResultSection

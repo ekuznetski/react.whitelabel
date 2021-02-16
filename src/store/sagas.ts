@@ -407,7 +407,7 @@ export function* fetchTransactionalStatementsSaga() {
       Request.getTransactionalStatementsRequest,
       payload,
     );
-    const data = new Model.MTransactionalStatementData(response);
+    const data = new Model.MTransactionalStatementData(response.data);
     yield put(Action.ac_saveTransactionalStatements(data));
     return response;
   });
