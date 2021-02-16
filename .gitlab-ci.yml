@@ -37,10 +37,10 @@ compile:bsfx:
         - yarn install
         - yarn run build:bsfx:ssr
         - cp -R node_modules dist/
-        - tar -czf dist_wl.tar.gz dist
+        - tar -czf dist_bsfx.tar.gz dist
     artifacts:
         paths:
-            - dist_wl.tar.gz
+            - dist_bsfx.tar.gz
         expire_in: 40 minutes
     tags:
         - wl
@@ -55,13 +55,13 @@ deploy:bsfx:web:
         - ssh $BSFX_SERVER "sudo mkdir -p /var/www/wl &&
             sudo mkdir -p /var/www/wl/server &&
             sudo chmod 777 /var/www/wl/server"
-        - scp dist_wl.tar.gz $BSFX_SERVER:/var/www/wl/server/dist_wl.tar.gz
+        - scp dist_bsfx.tar.gz $BSFX_SERVER:/var/www/wl/server/dist_bsfx.tar.gz
         - ssh $BSFX_SERVER "
             sudo chmod 755 /var/www/wl/server &&
             cd /var/www/wl/server &&
             sudo rm -rf server/dist/ &&
-            sudo tar -xzf dist_wl.tar.gz &&
-            sudo rm -rf dist_wl.tar.gz &&
+            sudo tar -xzf dist_bsfx.tar.gz &&
+            sudo rm -rf dist_bsfx.tar.gz &&
             ls -al &&
             sudo chmod 755 /var/www/wl/server &&
             sudo chmod 755 /var/www/wl/server/dist &&
@@ -122,10 +122,10 @@ compile:uinvex:
         - yarn install
         - yarn run build:uinvex:ssr
         - cp -R node_modules dist/
-        - tar -czf dist_wl.tar.gz dist
+        - tar -czf dist_uinvex.tar.gz dist
     artifacts:
         paths:
-            - dist_wl.tar.gz
+            - dist_uinvex.tar.gz
         expire_in: 40 minutes
     tags:
         - wl
@@ -140,13 +140,13 @@ deploy:uinvex:web:
         - ssh $UINVEX_SERVER "sudo mkdir -p /var/www/wl &&
             sudo mkdir -p /var/www/wl/server &&
             sudo chmod 777 /var/www/wl/server"
-        - scp dist_wl.tar.gz $UINVEX_SERVER:/var/www/wl/server/dist_wl.tar.gz
+        - scp dist_uinvex.tar.gz $UINVEX_SERVER:/var/www/wl/server/dist_uinvex.tar.gz
         - ssh $UINVEX_SERVER "
             sudo chmod 755 /var/www/wl/server &&
             cd /var/www/wl/server &&
             sudo rm -rf server/dist/ &&
-            sudo tar -xzf dist_wl.tar.gz &&
-            sudo rm -rf dist_wl.tar.gz &&
+            sudo tar -xzf dist_uinvex.tar.gz &&
+            sudo rm -rf dist_uinvex.tar.gz &&
             ls -al &&
             sudo chmod 755 /var/www/wl/server &&
             sudo chmod 755 /var/www/wl/server/dist &&
