@@ -1,4 +1,4 @@
-import { EClientStatus, EDocumentsType } from '@domain/enums';
+import { EClientStatus, EClientStatusCode, EDocumentsType } from '@domain/enums';
 import { IClientStatus, TClientStatus } from '@domain/interfaces';
 import i18n from '@i18next';
 import { generateStatus } from '@utils/fn/generateStatus';
@@ -15,7 +15,7 @@ export class MDocuments {
 
     const document_status_new: { [k in EDocumentsType]?: TClientStatus } = documentsStatus
       ? Object.keys(documentsStatus).reduce(
-          (acc, key) => Object.assign(acc, { [key]: generateStatus(documentsStatus[key].message) }),
+          (acc, key) => Object.assign(acc, { [key]: generateStatus(documentsStatus[key].code) }),
           {},
         )
       : {};
@@ -38,7 +38,7 @@ export class MDocuments {
     return (
       this.list.find((document) => document.type === type) || {
         type: EDocumentsType.NoNType,
-        ...generateStatus('notSubmitted'),
+        ...generateStatus(EClientStatusCode.notSubmitted),
       }
     );
   };

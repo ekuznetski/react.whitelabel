@@ -5,20 +5,21 @@ import { TClientStatus } from '@domain/interfaces';
 
 const t = i18n.getLazyT;
 
-export function generateStatus(status?: keyof typeof EClientStatus): TClientStatus {
-  status = status && (camel(status) as keyof typeof EClientStatus);
+export function generateStatus(statusCode?: typeof EClientStatusCode[keyof typeof EClientStatusCode]): TClientStatus {
+  if (statusCode) {
+    const _status = statusCode && (camel(EClientStatusCode[statusCode]) as keyof typeof EClientStatus);
 
-  return status
-    ? {
-        code: EClientStatusCode[status],
-        status: status,
-        statusMessage: t(`Client Status:${EClientStatus[status]}`) as EClientStatus,
-        notificationType: ClientStatusCodeNotificationType[EClientStatusCode[status]],
-      }
-    : {
-        code: EClientStatusCode[EClientStatus.notApplicable],
-        status: '',
-        statusMessage: EClientStatus.unknown,
-        notificationType: ClientStatusCodeNotificationType[EClientStatusCode.notApplicable],
-      };
+    return {
+      code: EClientStatusCode[_status],
+      status: _status,
+      statusMessage: t(`Client Status:${EClientStatus[_status]}`) as EClientStatus,
+      notificationType: ClientStatusCodeNotificationType[EClientStatusCode[_status]],
+    };
+  } else
+    return {
+      code: EClientStatusCode[EClientStatus.notApplicable],
+      status: '',
+      statusMessage: EClientStatus.unknown,
+      notificationType: ClientStatusCodeNotificationType[EClientStatusCode.notApplicable],
+    };
 }

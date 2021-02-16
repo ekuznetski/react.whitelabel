@@ -2,6 +2,7 @@ import {
   Currencies,
   EAccountLeverage,
   EClientStatus,
+  EClientStatusCode,
   ECurrencyCode,
   EDepositMethodCode,
   ETradingAccountType,
@@ -77,7 +78,7 @@ export class MClientSettings {
       });
 
     if (props.phone_verification)
-      this.phone_verification = generateStatus(props.phone_verification?.toLowerCase?.() as keyof typeof EClientStatus);
+      this.phone_verification = generateStatus(EClientStatusCode[props.phone_verification.toLowerCase() as keyof typeof EClientStatusCode]);
 
     this.allow_internal_transfer = props.allow_internal_transfer;
     this.show_praxis_and_webmoney = props.show_praxis_and_webmoney;
