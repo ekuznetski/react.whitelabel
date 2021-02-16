@@ -27,7 +27,8 @@ compile:wl:
             - node_modules/
     stage: compile
     script:
-        - export NG_CLI_ANALYTICS=ci    
+        - export NG_CLI_ANALYTICS=ci  
+        - yarn global add concurrently  
         - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
         - yarn install
         - yarn run build:bsfx:ssr
