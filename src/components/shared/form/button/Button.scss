@@ -81,6 +81,12 @@
     }
   }
 
+  
+    &.noBg {
+      border-color: $dark-grey;
+    }
+  }
+
   a,
   a:hover {
     color: #ffffff;

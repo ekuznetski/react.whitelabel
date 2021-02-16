@@ -135,11 +135,18 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
           <div className="leverage-value">{tradingAccount.leverage}</div>
         </div>
         <div className="account-card__options px-7">
-          <Button className="fund px-3 mr-3" noBg>
-            <LocaleNavLink exact to={EPagePath.Deposit}>
-              {t('Fund')}
-              <Svg href="coins" className="ml-4" />
-            </LocaleNavLink>
+          <Button className="fund px-3 mr-3" noBg disabled={tradingAccount.type === ETradingType.demo}>
+            {tradingAccount.type !== ETradingType.demo ? (
+              <LocaleNavLink exact to={EPagePath.Deposit}>
+                {t('Fund')}
+                <Svg href="coins" className="ml-4" />
+              </LocaleNavLink>
+            ) : (
+              <>
+                {t('Fund')}
+                <Svg href="coins" className="ml-4" />
+              </>
+            )}
           </Button>
           <Button
             className={classNames('nav', isDropdownMenuOpen && 'active')}
