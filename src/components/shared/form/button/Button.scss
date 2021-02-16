@@ -68,7 +68,7 @@
   }
 
   &.disabled {
-    border-color: $dark-grey;
+    // border-color: $dark-grey;
     background: $grey;
     color: rgba(#000, 0.3);
 
@@ -79,6 +79,10 @@
         fill: rgba(#000, 0.3);
       }
     }
+  }
+
+  &.disabled.noBg {
+    border-color: $dark-grey;
   }
 
   a,
