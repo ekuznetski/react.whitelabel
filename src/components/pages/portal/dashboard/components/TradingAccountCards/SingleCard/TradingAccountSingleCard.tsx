@@ -3,6 +3,7 @@ import {
   Currencies,
   EAccountLeverage,
   ECurrencyCode,
+  EPagePath,
   ETradingAccountType,
   ETradingPlatform,
   ETradingType,
@@ -135,7 +136,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
         </div>
         <div className="account-card__options px-7">
           <Button className="fund px-3 mr-3" noBg>
-            <LocaleNavLink exact to="/deposit">
+            <LocaleNavLink exact to={EPagePath.Deposit}>
               {t('Fund')}
               <Svg href="coins" className="ml-4" />
             </LocaleNavLink>

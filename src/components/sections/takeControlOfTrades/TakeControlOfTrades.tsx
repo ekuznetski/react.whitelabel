@@ -1,4 +1,5 @@
 import { Button, Img, LocaleLink } from '@components/shared';
+import { EPagePath } from '@domain/enums';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -36,7 +37,7 @@ export const TakeControlOfTradesSection = memo(
             <Row>
               <Col xs={12} className="mt-12">
                 <Button>
-                  <LocaleLink to="/registration">{t('Start Trading')}</LocaleLink>
+                  <LocaleLink to={EPagePath.Registration}>{t('Start Trading')}</LocaleLink>
                 </Button>
               </Col>
             </Row>

@@ -55,7 +55,7 @@ function DepositSuccess() {
       </div>
       <Svg href="card-payment-success" height={50} className="my-12" />
       <Button>
-        <LocaleLink to="/deposit">{t('Make another Transaction')}</LocaleLink>
+        <LocaleLink to={EPagePath.Deposit}>{t('Make another Transaction')}</LocaleLink>
       </Button>
     </div>
   );

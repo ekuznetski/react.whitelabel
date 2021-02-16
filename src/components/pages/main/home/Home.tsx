@@ -19,7 +19,7 @@ import {
   SectionBg,
   Svg,
 } from '@components/shared';
-import { ELabels } from '@domain/enums';
+import { ELabels, EPagePath } from '@domain/enums';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
@@ -58,7 +58,7 @@ export function Home() {
                 </Trans>
               </div>
               <Button>
-                <LocaleLink to="/registration">{t('Open Live Account')}</LocaleLink>
+                <LocaleLink to={EPagePath.Registration}>{t('Open Live Account')}</LocaleLink>
               </Button>
             </Col>
           </Row>

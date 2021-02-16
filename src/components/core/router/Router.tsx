@@ -143,7 +143,7 @@ export const Router = memo(function Router() {
             render={() => <RenderRoute component={route.component} />}
           />
         ))}
-        <Redirect to="404" />
+        <Redirect to={EPagePath.NotFound} />
       </Switch>
     </>
   );

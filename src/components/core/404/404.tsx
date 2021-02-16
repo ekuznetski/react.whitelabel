@@ -1,10 +1,11 @@
 import { Button, LocaleLink } from '@components/shared';
-import React, { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { EPagePath } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
-import './404.scss';
-import { useSelector } from 'react-redux';
+import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import './404.scss';
 
 export const NotFound = memo(function NotFound() {
   const { clientProfile } = useSelector<IStore, { clientProfile: IDataStore['client']['profile'] }>((state) => ({
@@ -22,11 +23,11 @@ export const NotFound = memo(function NotFound() {
             <div className="not-found__description mb-13">{t('Not Found Page desc')}</div>
             <div className="not-found__btns">
               <Button className="mx-7 mt-3 col-12 col-sm-6 col-md-4 col-lg-3">
-                <LocaleLink to="">{t('Go to Home Page')}</LocaleLink>
+                <LocaleLink to={EPagePath.Home}>{t('Go to Home Page')}</LocaleLink>
               </Button>
               {!!clientProfile && (
                 <Button className="mx-7 mt-3 col-12 col-sm-6 col-md-4 col-lg-3">
-                  <LocaleLink to="/dashboard">{t('Go to Dashboard')}</LocaleLink>
+                  <LocaleLink to={EPagePath.Dashboard}>{t('Go to Dashboard')}</LocaleLink>
                 </Button>
               )}
             </div>

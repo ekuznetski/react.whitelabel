@@ -1,5 +1,5 @@
 import { Button, LocaleLink, LocaleNavLink, Svg } from '@components/shared';
-import { EAppSection, ELabels } from '@domain/enums';
+import { EAppSection, ELabels, EPagePath } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
 import { env } from '@env';
 import { routesNavConfig } from '@routers';
@@ -45,7 +45,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
     <>
       <div className={classNames('panel-menu', (props.fixed || isBurgerMenuOpen) && 'fixed')}>
         <Container className="py-3 py-lg-0">
-          <LocaleLink to="" className="logo">
+          <LocaleLink to={EPagePath.Home} className="logo">
             <Svg href="logo" className="mr-xl-9" _label height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-9" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-1" _label={ELabels.bsfx} height={!responsive.md ? 48 : 60} />
@@ -61,11 +61,11 @@ export function HeaderMain(props: IHeaderDefaultProps) {
           </div>
           {!clientProfile ? (
             <>
-              <LocaleLink to="/login" className="sign-in-btn ml-auto">
+              <LocaleLink to={EPagePath.Login} className="sign-in-btn ml-auto">
                 {t('Sign In')}
               </LocaleLink>
               <Button className="open-account-btn ml-9 d-none d-md-block">
-                <LocaleLink to="/registration">{t('Open An Account')}</LocaleLink>
+                <LocaleLink to={EPagePath.Registration}>{t('Open An Account')}</LocaleLink>
               </Button>
             </>
           ) : (
@@ -104,7 +104,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
               ))}
             </Col>
             <Button className="mt-auto">
-              <LocaleLink to="/registration">{t('Open An Account')}</LocaleLink>
+              <LocaleLink to={EPagePath.Registration}>{t('Open An Account')}</LocaleLink>
             </Button>
           </Row>
         </Container>

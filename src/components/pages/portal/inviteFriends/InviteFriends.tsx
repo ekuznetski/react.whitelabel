@@ -10,7 +10,7 @@ import { FieldValidators } from '@domain';
 import { RewardInformationModal } from './components';
 import * as Yup from 'yup';
 import { ISendReferrerLinkRequest } from '@domain/interfaces';
-import { ENotificationType } from '@domain/enums';
+import { ENotificationType, EPagePath } from '@domain/enums';
 import { config } from './';
 import './InviteFriends.scss';
 
@@ -92,7 +92,7 @@ export const InviteFriends = memo(function InviteFriends() {
                   <p className="mx-auto mb-4">
                     {t('You Need To Have Active Trading Account To Start Referring Friends')}
                   </p>
-                  <LocaleLink to="/deposit" className="hovered-underlined">
+                  <LocaleLink to={EPagePath.Deposit} className="hovered-underlined">
                     {t('Make A Deposit')}
                   </LocaleLink>
                 </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { EModalType } from '@domain/enums';
+import { EModalType, EPagePath } from '@domain/enums';
 import { ICreateTradingAccountResponse } from '@domain/interfaces';
 import { ModalBody, ModalFooter, ModalTitle } from '@components/core';
 import { Button, LocaleNavLink, Svg } from '@components/shared';
@@ -39,7 +39,7 @@ export const SubmitModal = React.memo(function SubmitModal({ type, data }: ISubm
       <ModalFooter>
         {type === EModalType.success ? (
           <Button className="col-12 col-md-8 mx-auto" onClick={() => dispatch(ac_hideModal())}>
-            <LocaleNavLink to="/dashboard">{t('Continue')}</LocaleNavLink>
+            <LocaleNavLink to={EPagePath.Dashboard}>{t('Continue')}</LocaleNavLink>
           </Button>
         ) : (
           <>
@@ -47,7 +47,7 @@ export const SubmitModal = React.memo(function SubmitModal({ type, data }: ISubm
               {t('Try Again')}
             </Button>
             <Button className="red mr-5" noBg>
-              <LocaleNavLink to="/dashboard">{t('Back to Dashboard')}</LocaleNavLink>
+              <LocaleNavLink to={EPagePath.Dashboard}>{t('Back to Dashboard')}</LocaleNavLink>
             </Button>
           </>
         )}

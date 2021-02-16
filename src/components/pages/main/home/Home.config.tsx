@@ -9,7 +9,12 @@ const t = i18n.getLazyT;
 
 interface IConfig {
   initPriceTabs: IPriceTabItem[];
-  [k: string]: any
+  tradeProductsCards: {
+    title: string;
+    icon: string;
+    exchange: string;
+  }[];
+  [k: string]: any;
 }
 
 export const config: IConfig = {

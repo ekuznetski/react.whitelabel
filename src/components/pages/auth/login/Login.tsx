@@ -1,6 +1,6 @@
 import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { ELabelsName, ENotificationType } from '@domain/enums';
+import { ELabelsName, ENotificationType, EPagePath } from '@domain/enums';
 import { ILoginRequest } from '@domain/interfaces';
 import { env } from '@env';
 import { EActionTypes, ac_login, ac_showNotification } from '@store';
@@ -66,8 +66,8 @@ export function Login() {
             )}
           </Formik>
           <div className="mt-5 text-center d-flex align-items-center justify-content-between forgot-create">
-            <LocaleLink to="/forgot-password">{t('Restore password')}</LocaleLink>
-            <LocaleLink to="/registration">{t('Create Live Account')}</LocaleLink>
+            <LocaleLink to={EPagePath.ForgotPassword}>{t('Restore password')}</LocaleLink>
+            <LocaleLink to={EPagePath.Registration}>{t('Create Live Account')}</LocaleLink>
           </div>
         </Col>
       </Row>

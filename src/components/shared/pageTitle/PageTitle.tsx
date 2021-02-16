@@ -1,3 +1,4 @@
+import { EPagePath } from '@domain/enums';
 import { ColNumberAttr } from '@domain/interfaces';
 import classNames from 'classnames';
 import React from 'react';
@@ -25,7 +26,7 @@ export function PageTitle({ showBackButton = true, sizes = { xs: 12 }, ...props 
     <div className={classNames('page-title pt-4 pb-9', props.className)}>
       {showBackButton && (
         <div className="page-title__to-dashboard">
-          <LocaleNavLink exact to="/dashboard">
+          <LocaleNavLink exact to={EPagePath.Dashboard}>
             <Svg href="arrow_left" className="mr-3" />
             Back To Dashboard
           </LocaleNavLink>
