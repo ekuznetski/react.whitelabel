@@ -6,8 +6,8 @@ import { TClientStatus } from '@domain/interfaces';
 const t = i18n.getLazyT;
 
 export function generateStatus(statusCode?: typeof EClientStatusCode[keyof typeof EClientStatusCode]): TClientStatus {
-  if (statusCode) {
-    const _status = statusCode && (camel(EClientStatusCode[statusCode]) as keyof typeof EClientStatus);
+  if (statusCode !== undefined) {
+    const _status = camel(EClientStatusCode[statusCode]) as keyof typeof EClientStatus;
 
     return {
       code: EClientStatusCode[_status],
