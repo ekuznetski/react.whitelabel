@@ -18,9 +18,9 @@ before_script:
 
 stages:
   - compile
-  - deploy:bsfx
+  - deploy:wl
   - update:bsfx
-  - deploy:uinvex
+#   - deploy:uinvex
   - update:uinvex
 
 # BSFX DEPLOYMENT
@@ -50,7 +50,7 @@ compile:bsfx:
     allow_failure: true
 
 deploy:bsfx:web:
-    stage: deploy:bsfx
+    stage: deploy:wl
     script:
         - ssh $BSFX_SERVER "sudo mkdir -p /var/www/wl &&
             sudo mkdir -p /var/www/wl/server &&
@@ -135,7 +135,7 @@ compile:uinvex:
     allow_failure: true
 
 deploy:uinvex:web:
-    stage: deploy:uinvex
+    stage: deploy:wl
     script:
         - ssh $UINVEX_SERVER "sudo mkdir -p /var/www/wl &&
             sudo mkdir -p /var/www/wl/server &&
