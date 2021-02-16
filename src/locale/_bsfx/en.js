@@ -70,6 +70,11 @@ export default {
   'Customer introduction agreement':
     'I, {{name}}, declare that I have carefully read and understood, <3>Terms of Business</3> and all other policies as found here which I fully accept and agree with. I accept I am electronically signing these documents, and that this is a legally binding contractual agreement.',
   'Credit Card Remark': 'Remark: All transactions will appear on your card statement as “BlueSquare FX”',
-  'Credit Card Neteller Payments': `No processing fees apply on deposits from BlueSquare FX's side, but there is a set % of commission and exchange rate
+  'Credit Card Neteller Payments Notes': [
+    'Deposits throught Neteller online wallet are instant.',
+    'The Neteller account you are sending your deposit from, has to be registered to you.',
+    'Deposits throught Neteller online wallet are instant.',
+    `No processing fees apply on deposits from BlueSquare FX's side, but there is a set % of commission and exchange rate
   charged by Neteller. For more information, please contact Neteller.`,
+  ],
 };

@@ -56,13 +56,9 @@ export function CreditCardInfoModal({ isModalOpen, setModalOpen }: IBillingDetai
         <h3>Neteller Payments</h3>
         <p>Notes on Deposits and Withdrawals by Neteller online wallet</p>
         <ul>
-          <li>Deposits throught Neteller online wallet are instant.</li>
-          <li>The Neteller account you are sending your deposit from, has to be registered to you.</li>
-          <li>
-            All withdrawal requests must be credited back to the same Neteller account before other methods can are
-            offered.
-          </li>
-          <li>{t('Credit Card Neteller Payments')}</li>
+          {t<string[]>('Credit Card Neteller Payments Notes', { returnObjects: true }).map((note, i) => (
+            <li key={i}>{note}</li>
+          ))}
         </ul>
       </ModalContext>
     </ModalOld>
