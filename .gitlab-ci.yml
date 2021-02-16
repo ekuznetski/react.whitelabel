@@ -32,7 +32,7 @@ compile:bsfx:
     stage: compile
     script:
         - export NG_CLI_ANALYTICS=ci  
-        - yarn global add concurrently  
+        # - yarn global add concurrently  
         # - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
         - yarn install
         - yarn run build:bsfx:ssr
@@ -117,7 +117,7 @@ compile:uinvex:
     stage: compile
     script:
         - export NG_CLI_ANALYTICS=ci  
-        - yarn global add concurrently  
+        # - yarn global add concurrently  
         # - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
         - yarn install
         - yarn run build:uinvex:ssr
