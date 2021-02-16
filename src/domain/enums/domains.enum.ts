@@ -2,6 +2,7 @@ export enum ELabels {
   default = 'default',
   arofx = 'arofx',
   bsfx = 'bsfx',
+  uinvex = 'uinvex',
 }
 
 export enum EWebSocketMessage {
@@ -12,6 +13,7 @@ export enum ELabelsName {
   default = 'Default',
   arofx = 'AroFX',
   bsfx = 'BSFX',
+  uinvex = 'UINVEX',
 }
 
 export enum EAppSection {
