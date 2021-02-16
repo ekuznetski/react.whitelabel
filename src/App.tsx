@@ -15,7 +15,6 @@ import { hot } from 'react-hot-loader/root';
 import { useTranslation } from 'react-i18next';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { WebSocketListener } from './webSocket';
 import './App.scss';
 
 if (env.PRODUCTION) {
@@ -39,10 +38,7 @@ function App() {
       <Suspense fallback={null}>
         <IntercomChat>
           <ErrorProvider>
-            <>
-              {/* <WebSocketListener /> */}
-              <Main />
-            </>
+            <Main />
           </ErrorProvider>
         </IntercomChat>
       </Suspense>
