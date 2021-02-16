@@ -3,7 +3,7 @@
 
 .market-table {
   box-shadow: box-shadow(10, 0.1);
-  border-radius: $border-radius;
+  border-radius: $border-box-radius;
   overflow: hidden;
   background: #fff;
 
@@ -101,7 +101,7 @@
         background: $grey-bg;
         border: 1px solid $grey;
         box-sizing: border-box;
-        border-radius: $border-radius;
+        border-radius: $border-box-radius;
         margin: 0 5px;
         padding: 2px 4px;
         text-transform: uppercase;

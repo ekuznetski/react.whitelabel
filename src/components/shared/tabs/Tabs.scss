@@ -161,7 +161,7 @@
           position: relative;
           font-weight: 600;
           z-index: 1;
-          border-radius: $border-radius;
+          border-radius: $border-box-radius;
           transition: background-color 0.1s, box-shadow 0.1s;
           cursor: pointer;
 
@@ -241,7 +241,7 @@
 
       &__container {
         background-color: #fff;
-        border-radius: $border-radius;
+        border-radius: $border-box-radius;
         box-shadow: box-shadow(15, 0.1);
         width: 100%;
       }
@@ -268,10 +268,10 @@
   .common-tabs.vertical {
     .common-tabs__navigation {
       .tab__link {
-        border-radius: $border-radius 0 0 $border-radius;
+        border-radius: $border-box-radius 0 0 $border-box-radius;
 
         &.active {
-          box-shadow: 5px 0 0 0 #fff, -4px 0 10px 0 rgba(0, 0, 0, 0.08);
+          box-shadow: 20px 0 0 0 #fff, -4px 0 10px 0 rgba(0, 0, 0, 0.08);
         }
       }
     }

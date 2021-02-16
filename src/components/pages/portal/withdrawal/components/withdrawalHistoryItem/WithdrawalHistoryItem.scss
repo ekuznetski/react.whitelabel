@@ -4,7 +4,7 @@
 .withdrawal-history-item {
   display: flex;
   flex-direction: column;
-  border-radius: $border-radius;
+  border-radius: $border-box-radius;
 
   &:last-child {
     margin-bottom: 0 !important;
@@ -16,7 +16,7 @@
       display: flex;
       height: 80px;
       background: #fff;
-      border-radius: $border-radius;
+      border-radius: $border-box-radius;
 
       .withdrawal-item {
         &__icon,
@@ -69,7 +69,7 @@
 
     &-option {
       background: #fff;
-      border-radius: 0 0 $border-radius $border-radius;
+      border-radius: 0 0 $border-box-radius $border-box-radius;
 
       .common-button {
         border-color: $red;
@@ -80,7 +80,7 @@
     &-itemsTable {
       background: #fff;
       box-shadow: box-shadow(10, 0.1);
-      border-radius: $border-radius;
+      border-radius: $border-box-radius;
       overflow: hidden;
 
       .withdrawal-table {
@@ -96,7 +96,7 @@
           }
 
           &.header {
-            border-radius: $border-radius $border-radius 0 0;
+            border-radius: $border-box-radius $border-box-radius 0 0;
             background: lighten($dark-grey, 20%);
             font-size: 12px;
             line-height: 20px;
@@ -154,7 +154,7 @@
 
     .withdrawal {
       &-info {
-        border-radius: $border-radius $border-radius 0 0;
+        border-radius: $border-box-radius $border-box-radius 0 0;
 
         .withdrawal-item {
           &__status {
