@@ -507,4 +507,11 @@ export default {
     'Thank you for submitting your information. A member of the WHITE_LABEL Team will be in touch shortly.',
   'Terms of Business': 'Terms of Business',
   'Credit Card Remark': 'Remark: All transactions will appear on your card statement as “WHITE_LABEL”',
+  'Credit Card Neteller Payments Notes': [
+    'Deposits throught Neteller online wallet are instant.',
+    'The Neteller account you are sending your deposit from, has to be registered to you.',
+    'Deposits throught Neteller online wallet are instant.',
+    `No processing fees apply on deposits from WHITE_LABEL's side, but there is a set % of commission and exchange rate
+  charged by Neteller. For more information, please contact Neteller.`,
+  ],
 };
