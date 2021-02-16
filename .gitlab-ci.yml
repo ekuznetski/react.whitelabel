@@ -2,7 +2,8 @@ image: node:12.18.4-alpine
 
 variables:
     DOCKER_DRIVER: overlay2
-    SERVER: 'wl-prodServer'
+    BSFX_SERVER: 'bsfx-prodServer'
+    UINVEX_SERVER: 'uinvex-prodServer'
 
 before_script:
     - apk update && apk add openssh-client git
@@ -17,10 +18,13 @@ before_script:
 
 stages:
   - compile
-  - deploy:wl
-  - update:wl
+  - deploy:bsfx
+  - update:bsfx
+  - deploy:uinvex
+  - update:uinvex
 
-compile:wl:
+# BSFX
+compile:bsfx:
     cache:
         key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
         paths:
@@ -28,6 +32,7 @@ compile:wl:
     stage: compile
     script:
         - export NG_CLI_ANALYTICS=ci  
+        - yarn global add concurrently  
         - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
         - yarn install
         - yarn run build:bsfx:ssr
@@ -41,17 +46,17 @@ compile:wl:
         - wl
     only:
         refs:
-            - dev  
+            - bsfx_prod  
     allow_failure: true
 
-deploy:wl:web:
+deploy:bsfx:web:
     stage: deploy:wl
     script:
-        - ssh $SERVER "sudo mkdir -p /var/www/wl &&
+        - ssh $BSFX_SERVER "sudo mkdir -p /var/www/wl &&
             sudo mkdir -p /var/www/wl/server &&
             sudo chmod 777 /var/www/wl/server"
-        - scp dist_wl.tar.gz $SERVER:/var/www/wl/server/dist_wl.tar.gz
-        - ssh $SERVER "
+        - scp dist_wl.tar.gz $BSFX_SERVER:/var/www/wl/server/dist_wl.tar.gz
+        - ssh $BSFX_SERVER "
             sudo chmod 755 /var/www/wl/server &&
             cd /var/www/wl/server &&
             sudo rm -rf server/dist/ &&
@@ -66,22 +71,22 @@ deploy:wl:web:
             sudo docker container exec wl pm2 start server &&
             exit"
     dependencies:
-        - compile:wl
+        - compile:bsfx
     only:
         refs:
-            - dev             
+            - bsfx_prod             
     tags:
         - wl
     allow_failure: true
 
-update:wl:docker:
-    stage: update:wl
+update:bsfx:docker:
+    stage: update:bsfx
     script:
         - cd deploy-scripts &&
         - tar czf docker.tar.gz docker-compose.yml Dockerfile pm2_services.json
-        - ssh $SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker/"
-        - scp docker.tar.gz $SERVER:/var/www/wl/temp_docker
-        - ssh $SERVER "
+        - ssh $BSFX_SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker/"
+        - scp docker.tar.gz $BSFX_SERVER:/var/www/wl/temp_docker
+        - ssh $BSFX_SERVER "
             cd /var/www/wl/ &&
             sudo mkdir -p /var/www/wl/logs &&
             sudo chmod 777 /var/www/wl/logs &&
@@ -94,7 +99,92 @@ update:wl:docker:
             exit"
     only:
         refs:
-            - dev
+            - bsfx_prod
+        changes:
+            - deploy-scripts/docker-compose.yml
+            - deploy-scripts/Dockerfile
+            - deploy-scripts/pm2_services.json              
+    tags:
+        - wl    
+    when: manual
+
+# UINVEX
+compile:uinvex:
+    cache:
+        key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
+        paths:
+            - node_modules/
+    stage: compile
+    script:
+        - export NG_CLI_ANALYTICS=ci  
+        - yarn global add concurrently  
+        - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
+        - yarn install
+        - yarn run build:uinvex:ssr
+        - cp -R node_modules dist/
+        - tar -czf dist_wl.tar.gz dist
+    artifacts:
+        paths:
+            - dist_wl.tar.gz
+        expire_in: 40 minutes
+    tags:
+        - wl
+    only:
+        refs:
+            - uinvex_prod  
+    allow_failure: true
+
+deploy:bsfx:web:
+    stage: deploy:uinvex
+    script:
+        - ssh $UINVEX_SERVER "sudo mkdir -p /var/www/wl &&
+            sudo mkdir -p /var/www/wl/server &&
+            sudo chmod 777 /var/www/wl/server"
+        - scp dist_wl.tar.gz $UINVEX_SERVER:/var/www/wl/server/dist_wl.tar.gz
+        - ssh $UINVEX_SERVER "
+            sudo chmod 755 /var/www/wl/server &&
+            cd /var/www/wl/server &&
+            sudo rm -rf server/dist/ &&
+            sudo tar -xzf dist_wl.tar.gz &&
+            sudo rm -rf dist_wl.tar.gz &&
+            ls -al &&
+            sudo chmod 755 /var/www/wl/server &&
+            sudo chmod 755 /var/www/wl/server/dist &&
+            cd /var/www/wl/server && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
+            cd /var/www/wl/logs && sudo find -type f \( -name '*log' \) -size +100M -exec rm -f {} + &&
+            sudo docker container exec wl pm2 stop server &&
+            sudo docker container exec wl pm2 start server &&
+            exit"
+    dependencies:
+        - compile:uinvex
+    only:
+        refs:
+            - uinvex_prod             
+    tags:
+        - wl
+    allow_failure: true
+
+update:uinvex:docker:
+    stage: update:uinvex
+    script:
+        - cd deploy-scripts &&
+        - tar czf docker.tar.gz docker-compose.yml Dockerfile pm2_services.json
+        - ssh $UINVEX_SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker/"
+        - scp docker.tar.gz $UINVEX_SERVER:/var/www/wl/temp_docker
+        - ssh $UINVEX_SERVER "
+            cd /var/www/wl/ &&
+            sudo mkdir -p /var/www/wl/logs &&
+            sudo chmod 777 /var/www/wl/logs &&
+            sudo tar -xzf temp_docker/docker.tar.gz -C /var/www/wl/ &&
+            sudo rm -rf docker.tar.gz temp_docker &&
+            sudo docker-compose down &&
+            sudo docker-compose build &&
+            sudo docker-compose up -d &&
+            sudo docker ps -a &&
+            exit"
+    only:
+        refs:
+            - uinvex_prod
         changes:
             - deploy-scripts/docker-compose.yml
             - deploy-scripts/Dockerfile
@@ -108,9 +198,9 @@ update:wl:docker:
 #     stage: update:wl
 #     script:
 #         - cd deploy-scripts && tar -czf nginx.tar.gz nginx
-#         - ssh $SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_nginx/"
-#         - scp nginx.tar.gz $SERVER:/var/www/wl/temp_nginx
-#         - ssh $SERVER "
+#         - ssh $BSFX_SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_nginx/"
+#         - scp nginx.tar.gz $BSFX_SERVER:/var/www/wl/temp_nginx
+#         - ssh $BSFX_SERVER "
 #             cd /var/www/wl &&
 #             sudo rm -rf nginx/nginx.conf nginx/conf.d &&
 #             sudo mv /var/www/wl/temp_nginx/nginx.tar.gz /var/www/wl/ &&
@@ -135,9 +225,9 @@ update:wl:docker:
 #     script:
 #         - cd deploy-scripts &&
 #         - tar czf docker.tar.gz docker-compose.yml Dockerfile pm2_services.json restart_nginx.sh nginx.sh
-#         - ssh $SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker/"
-#         - scp docker.tar.gz $SERVER:/var/www/wl/temp_docker
-#         - ssh $SERVER "
+#         - ssh $BSFX_SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker/"
+#         - scp docker.tar.gz $BSFX_SERVER:/var/www/wl/temp_docker
+#         - ssh $BSFX_SERVER "
 #             cd /var/www/wl/ &&
 #             sudo mkdir -p /var/www/wl/logs/pm2 &&
 #             sudo mkdir -p /var/www/wl/logs/nginx &&
