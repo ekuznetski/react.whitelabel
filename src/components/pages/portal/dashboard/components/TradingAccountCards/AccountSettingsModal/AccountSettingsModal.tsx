@@ -74,7 +74,7 @@ export const AccountSettingsModal = memo(function AccountSettingsModal({ trading
 
   return (
     <>
-      <ModalTitle title={t('Change Account Settings')} />
+      <ModalTitle title={t('Change Account Settings')} className="mb-5" />
       <ModalBody>
         <Formik
           initialValues={{

@@ -10,7 +10,7 @@ export const RewardInformationModal = React.memo(function RewardInformationModal
 
   return (
     <>
-      <ModalTitle title={t('Minimum Requirements')} />
+      <ModalTitle title={t('Minimum Requirements')} className="mb-5" />
       <ModalBody className="mt-10 mb-12">
         <Svg href="gift-successful" className="mb-7" />
         {t('Reward Information Desc')}

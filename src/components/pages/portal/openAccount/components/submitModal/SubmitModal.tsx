@@ -20,7 +20,6 @@ export const SubmitModal = React.memo(function SubmitModal({ type, data }: ISubm
     <>
       {type === EModalType.success ? (
         <ModalTitle title={t('Successful Submission')}>
-          {' '}
           :
           <small className="mt-1">
             {t('Demo Live trade account with ID')} <b>{data?.trade_account_id}</b> {t('added successfully')}
@@ -31,9 +30,9 @@ export const SubmitModal = React.memo(function SubmitModal({ type, data }: ISubm
       )}
       <ModalBody className="d-flex justify-content-center">
         {type === EModalType.success ? (
-          <Svg href="open-account-success" width={100} className="p-7" />
+          <Svg href="open-account-success" width={100} className="py-13" />
         ) : (
-          <Svg href="open-account-error" width={100} className="p-7" />
+          <Svg href="open-account-error" width={100} className="py-13" />
         )}
       </ModalBody>
       <ModalFooter>
