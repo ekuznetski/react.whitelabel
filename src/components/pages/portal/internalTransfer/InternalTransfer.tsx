@@ -25,7 +25,7 @@ interface InternalTransferStoreProps {
 
 export const InternalTransfer = memo(function InternalTransfer() {
   const { tradingAccounts, clientStatus } = useSelector<IStore, InternalTransferStoreProps>((state) => ({
-    tradingAccounts: state.data.tradingData.accounts.filter((account) => account.type === ETradingType.live),
+    tradingAccounts: state.data.tradingData.live,
     clientStatus: state.data.client.status,
   }));
   const dispatch = useDispatch();
