@@ -1,7 +1,7 @@
 import './i18n'; // Must be the imported before the App!
 import { Footer, Header, NotFound, PageLoader } from '@components/core';
 import { localesConfig } from '@domain';
-import { EAppSection, ELanguage, EPagePath, EWebSocketMessage } from '@domain/enums';
+import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
 import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
 import { env } from '@env';
 import { routesNavConfig } from '@routers';

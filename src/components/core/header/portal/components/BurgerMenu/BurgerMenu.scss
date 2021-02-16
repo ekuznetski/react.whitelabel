@@ -8,12 +8,22 @@
   top: -100%;
   transition: top 0.35s;
   left: 0;
+  z-index: 95;
 
   &.visible {
     top: 0;
 
     button {
       opacity: 1;
+    }
+  }
+
+  .sub-menu {
+    overflow: hidden;
+    transition: height 0.3s;
+
+    &.closed {
+      height: 0 !important;
     }
   }
 
@@ -29,6 +39,18 @@
       &.active {
         border-bottom-color: $dark-text;
         font-weight: 500;
+      }
+
+      svg {
+        fill: $dark-blue;
+      }
+    }
+  }
+
+  .sub-menu__item {
+    a {
+      svg {
+        fill: $blue;
       }
     }
   }
