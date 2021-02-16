@@ -46,7 +46,7 @@ compile:bsfx:
         - wl
     only:
         refs:
-            - bsfx_prod  
+            - dev  
     allow_failure: true
 
 deploy:bsfx:web:
@@ -74,7 +74,7 @@ deploy:bsfx:web:
         - compile:bsfx
     only:
         refs:
-            - bsfx_prod             
+            - dev             
     tags:
         - wl
     allow_failure: true
@@ -99,7 +99,7 @@ update:bsfx:docker:
             exit"
     only:
         refs:
-            - bsfx_prod
+            - dev
         changes:
             - deploy-scripts/docker-compose.yml
             - deploy-scripts/Dockerfile
@@ -131,7 +131,7 @@ compile:uinvex:
         - wl
     only:
         refs:
-            - uinvex_prod  
+            - dev  
     allow_failure: true
 
 deploy:uinvex:web:
@@ -159,7 +159,7 @@ deploy:uinvex:web:
         - compile:uinvex
     only:
         refs:
-            - uinvex_prod             
+            - dev             
     tags:
         - wl
     allow_failure: true
@@ -184,7 +184,7 @@ update:uinvex:docker:
             exit"
     only:
         refs:
-            - uinvex_prod
+            - dev
         changes:
             - deploy-scripts/docker-compose.yml
             - deploy-scripts/Dockerfile
