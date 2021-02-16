@@ -23,7 +23,7 @@ stages:
   - deploy:uinvex
   - update:uinvex
 
-# BSFX
+# BSFX DEPLOYMENT
 compile:bsfx:
     cache:
         key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
@@ -32,8 +32,8 @@ compile:bsfx:
     stage: compile
     script:
         - export NG_CLI_ANALYTICS=ci  
-        - yarn global add concurrently  
-        - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
+        # - yarn global add concurrently  
+        # - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
         - yarn install
         - yarn run build:bsfx:ssr
         - cp -R node_modules dist/
@@ -50,7 +50,7 @@ compile:bsfx:
     allow_failure: true
 
 deploy:bsfx:web:
-    stage: deploy:wl
+    stage: deploy:bsfx
     script:
         - ssh $BSFX_SERVER "sudo mkdir -p /var/www/wl &&
             sudo mkdir -p /var/www/wl/server &&
@@ -117,8 +117,8 @@ compile:uinvex:
     stage: compile
     script:
         - export NG_CLI_ANALYTICS=ci  
-        - yarn global add concurrently  
-        - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
+        # - yarn global add concurrently  
+        # - yarn --new-version --no-git-tag-version 1.0.$CI_JOB_ID
         - yarn install
         - yarn run build:uinvex:ssr
         - cp -R node_modules dist/
@@ -134,7 +134,7 @@ compile:uinvex:
             - uinvex_prod  
     allow_failure: true
 
-deploy:bsfx:web:
+deploy:uinvex:web:
     stage: deploy:uinvex
     script:
         - ssh $UINVEX_SERVER "sudo mkdir -p /var/www/wl &&
@@ -192,63 +192,3 @@ update:uinvex:docker:
     tags:
         - wl    
     when: manual
-
-# sudo docker exec wl sudo /restart_nginx.sh &&
-# update:wl:nginx:
-#     stage: update:wl
-#     script:
-#         - cd deploy-scripts && tar -czf nginx.tar.gz nginx
-#         - ssh $BSFX_SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_nginx/"
-#         - scp nginx.tar.gz $BSFX_SERVER:/var/www/wl/temp_nginx
-#         - ssh $BSFX_SERVER "
-#             cd /var/www/wl &&
-#             sudo rm -rf nginx/nginx.conf nginx/conf.d &&
-#             sudo mv /var/www/wl/temp_nginx/nginx.tar.gz /var/www/wl/ &&
-#             sudo rm -rf /var/www/wl/temp_nginx &&
-#             sudo tar -xzf /var/www/wl/nginx.tar.gz &&
-#             sudo rm -rf nginx.tar.gz &&
-#             sudo chmod 755 /var/www/wl/nginx &&
-#             sudo docker restart wl &&
-#             exit"
-#     only:
-#         refs:
-#             - bsfx_pages
-#         changes:
-#             - deploy-scripts/nginx/**/*
-              
-#     tags:
-#         - wl
-#     when: manual
-
-# update:wl:docker:
-#     stage: update:wl
-#     script:
-#         - cd deploy-scripts &&
-#         - tar czf docker.tar.gz docker-compose.yml Dockerfile pm2_services.json restart_nginx.sh nginx.sh
-#         - ssh $BSFX_SERVER "sudo mkdir -p -m 777 /var/www/wl/temp_docker/"
-#         - scp docker.tar.gz $BSFX_SERVER:/var/www/wl/temp_docker
-#         - ssh $BSFX_SERVER "
-#             cd /var/www/wl/ &&
-#             sudo mkdir -p /var/www/wl/logs/pm2 &&
-#             sudo mkdir -p /var/www/wl/logs/nginx &&
-#             sudo chmod 777 /var/www/wl/logs/pm2 /var/www/wl/logs/nginx &&
-#             sudo tar -xzf temp_docker/docker.tar.gz -C /var/www/wl/ &&
-#             sudo rm -rf docker.tar.gz temp_docker &&
-#             sudo docker-compose down &&
-#             sudo docker-compose build &&
-#             sudo docker-compose up -d &&
-#             sudo docker ps -a &&
-#             exit"
-#     only:
-#         refs:
-#             - bsfx_pages
-#         changes:
-#             - deploy-scripts/docker-compose.yml
-#             - deploy-scripts/Dockerfile
-#             - deploy-scripts/pm2_services.json
-#             - deploy-scripts/restart_nginx.sh
-#             - deploy-scripts/nginx.sh
-              
-#     tags:
-#         - wl    
-#     when: manual
