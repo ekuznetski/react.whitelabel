@@ -15,20 +15,10 @@ export function StockPrices() {
   const { prices } = useSelector<IStore, { prices: IPrices }>((state) => ({
     prices: state.data.prices,
   }));
+  const [priceTabs, setPriceTabs] = useState<IPriceTabItem[] | []>(generatePriceTabs());
   const [activePriceTab, setActivePriceTab] = useState<IPriceTabItem | null>();
   const responsive = useResponsive();
   const dispatch = useDispatch();
-  const { t } = useTranslation();
-
-  const initPriceTabs: IPriceTabItem[] = prices
-    ? config.initPriceTabs
-        .filter((item) => prices[item.anchor])
-        .map((item) => {
-          item.priceData = generatePriceData(prices[MarketType.forex]);
-          return item;
-        })
-    : [];
-  const [priceTabs, setActivePriceTabs] = useState<IPriceTabItem[] | []>(prices ? initPriceTabs : []);
 
   useEffect(() => {
     setActivePriceTab(priceTabs[0]);
@@ -41,15 +31,21 @@ export function StockPrices() {
   }, []);
 
   useEffect(() => {
-    if (prices)
-      setActivePriceTabs((prevState) => {
-        // @ts-ignore
-        return prevState.map((e: any) => {
-          e.priceData = generatePriceData(prices[e.anchor]);
-          return e;
-        });
-      });
+    if (prices) {
+      setPriceTabs(generatePriceTabs());
+    }
   }, [prices]);
+
+  function generatePriceTabs(): IPriceTabItem[] {
+    return prices
+      ? config.initPriceTabs
+          .filter((item) => prices[item.anchor])
+          .map((item) => {
+            item.priceData = generatePriceData(prices[item.anchor]);
+            return item;
+          })
+      : [];
+  }
 
   return (
     <div className="stock-prices">
