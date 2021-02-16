@@ -30,8 +30,8 @@ export class MTransactionalStatementData {
   withdrawals: MTransactionalStatement[];
 
   constructor(props: ITransactionalStatements) {
-    this.trades = props.data.trades?.map((item) => new MTransactionalStatement(item)) || [];
-    this.deposits = props.data.deposits?.map((item) => new MTransactionalStatement(item)) || [];
-    this.withdrawals = props.data.withdrawals?.map((item) => new MTransactionalStatement(item)) || [];
+    this.trades = props.trades?.map((item) => new MTransactionalStatement(item)) || [];
+    this.deposits = props.deposits?.map((item) => new MTransactionalStatement(item)) || [];
+    this.withdrawals = props.withdrawals?.map((item) => new MTransactionalStatement(item)) || [];
   }
 }
