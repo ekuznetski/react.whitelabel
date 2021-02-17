@@ -177,8 +177,7 @@ app.use(nocache());
 app.use('/proxy', declareGlobalProps, checkAuthenticationCookie, upload.any(), (req, resp) => {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
   const authenticationToken = reqHeaderCookie;
-  const xRealIP = req.get('xrealip') || req.ip || req.ips[0] || req.clientIp;
-
+  const xRealIP = (req.get('xrealip') || req.ip || req.ips[0] || req.clientIp)?.replace('::ffff:', '');
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
   const options = {
@@ -275,6 +274,7 @@ app.get(
   checkAuthenticationCookie,
   storeTracker,
   (req: express.Request, res: express.Response) => {
+    console.time('page is open');
     const xRealIP = req.ip || req.ips[0] || req.clientIp;
     (global as any).window['xRealIP'] = xRealIP;
 
@@ -300,6 +300,7 @@ app.get(
     clearRedisRequestsList();
     store.dispatch(ac_clearStore());
 
+    console.time('requests starts');
     return new Promise((resolve) => {
       requestResolver = resolve;
       if (route) {
@@ -325,6 +326,8 @@ app.get(
         requestResolver();
       }
     }).then(() => {
+      console.timeEnd('requests starts');
+
       const app = renderToString(
         <StaticRouter location={page}>
           <Provider store={store}>
@@ -358,6 +361,8 @@ app.get(
         }
         const preloadedState = store.getState();
         preloadedState.app.requests.activeList = [];
+
+        console.timeEnd('page is open');
 
         return res.send(
           data
