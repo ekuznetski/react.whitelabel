@@ -324,16 +324,16 @@ export function* financialProfileSaga() {
 
 export function* fetchPricesSaga() {
   yield $$(EActionTypes.fetchPrices, function* ({ payload }: IAction) {
-    const response: any = yield call(Request.getPricesRequest, payload);
-    yield put(
-      Action.ac_savePrices(
-        Object.keys(response).reduce((acc, e) => {
-          Object.assign(acc, { [e.toLowerCase() as keyof typeof MarketType]: response[e] });
-          return acc;
-        }, {}),
-      ),
-    );
-    return response;
+    // const response: any = yield call(Request.getPricesRequest, payload);
+    // yield put(
+    //   Action.ac_savePrices(
+    //     Object.keys(response).reduce((acc, e) => {
+    //       Object.assign(acc, { [e.toLowerCase() as keyof typeof MarketType]: response[e] });
+    //       return acc;
+    //     }, {}),
+    //   ),
+    // );
+    // return response;
   });
 }
 
