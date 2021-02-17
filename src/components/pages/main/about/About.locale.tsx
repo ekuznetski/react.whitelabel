@@ -4,6 +4,8 @@ import * as asd from '@utils/hooks';
 import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
+import { SectionBg, Svg } from '@components/shared';
+import { useResponsive } from 'ahooks';
 // import { useLabelView } from '../../../../utils/hooks/useLabelView';
 
 const t = i18n.getLazyT;
@@ -11,7 +13,39 @@ const t = i18n.getLazyT;
 export const locale = {
   pageTopRegisterBtn: asd.useLabelView({
     '*': t('Open An Account'),
-    [ELabels.bsfx]: t('Start Trading'),
+    [(ELabels.bsfx, ELabels.uinvex)]: t('Start Trading'),
+  }),
+  pageTopBg: asd.useLabelView({
+    '*': <SectionBg img="about-page-top.jpg" />,
+    [ELabels.uinvex]: <SectionBg img="about-page-top.png" />,
+  }),
+  pageTopTitle: (responsive: any) =>
+    asd.useLabelView({
+      '*': t('About Us Page Title'),
+      [ELabels.uinvex]: responsive.lg ? (
+        <>
+          {t('About Us Page Title')}
+          <Svg href="logo" _label={ELabels.uinvex} />
+        </>
+      ) : (
+        <Trans i18nKey="About Us Page Title Without Logo">
+          Why choose <strong>Uinvex</strong>
+        </Trans>
+      ),
+    }),
+  pageTopDesc: asd.useLabelView({
+    '*': t('About Us Page Desc'),
+    [ELabels.uinvex]: (
+      <>
+        {t('About Us Page Desc:0')}
+        <br />
+        <br />
+        <Trans i18nKey="About Us Page Desc:1">
+          <strong>UINVEX</strong> is dedicated to providing a secure and intuitive trading experience for seasoned and
+          new traders alike
+        </Trans>
+      </>
+    ),
   }),
   trustedTitle: asd.useLabelView({
     '*': t('Trusted Section Title'),
