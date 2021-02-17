@@ -20,7 +20,7 @@
     &__section {
       @include d-flex(center, center, column);
       border: 1px dashed $blue;
-      border-radius: $border-radius;
+      border-radius: $border-box-radius;
       background: rgba(lighten($blue, 10%), 0.06) resolve('dots-bg.png');
       overflow: hidden;
       flex: 0 0 300px;

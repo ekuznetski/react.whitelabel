@@ -4,7 +4,7 @@
 .common-alert {
   @include d-flex(center, start);
   border: 1px solid transparent;
-  border-radius: $border-radius;
+  border-radius: $border-box-radius;
 
   font-size: 12px;
   line-height: 20px;

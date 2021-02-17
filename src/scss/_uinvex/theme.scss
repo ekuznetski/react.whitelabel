@@ -2,6 +2,10 @@
 
 body {
   #root {
+    &.portal {
+      background: white;
+    }
+
     &.main,
     &.auth,
     &.general {

@@ -71,7 +71,14 @@
         }
       }
     }
-    @media (max-width: $viewport-sm-w) {
+
+    @media (max-width: $viewport-xl-w) {
+      .contacts__item:nth-child(-2) {
+        margin-bottom: 0px !important;
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
       .contacts__item:last-child {
         margin-bottom: 0px !important;
       }
