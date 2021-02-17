@@ -33,15 +33,3 @@
   $sp: percentage($columnSize / $grid-columns);
   @return $sp;
 }
-
-@mixin fillSvg($base, $label, $labelIcon) {
-  fill: $base;
-
-  .label {
-    fill: $label;
-  }
-
-  .label-icon {
-    fill: $labelIcon;
-  }
-}

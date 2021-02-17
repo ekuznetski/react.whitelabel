@@ -3,10 +3,30 @@
 
 .open-live-account-banner {
   overflow: visible;
-  background: $dark-blue;
+  padding: 0 !important;
 
   &:before {
     content: none;
+  }
+
+  .open-live-account-banner__column {
+    height: 440px;
+    overflow: hidden;
+    @include d-flex(start, center, column);
+    z-index: 1;
+    margin-bottom: 0 !important;
+    &:before {
+      content: '';
+      top: -500%;
+      left: -40px;
+      background: $dark-blue;
+      position: absolute;
+      display: block;
+      opacity: 1;
+      height: 1000%;
+      z-index: -1;
+      width: 100%;
+    }
   }
 
   &__title {
@@ -14,21 +34,31 @@
     line-height: 66px;
   }
 
+  &__description {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
   .open-account {
     flex: 0 0 colSizePrc(4);
     max-width: colSizePrc(4);
-    @include d-flex(start, space-between, column);
+    @include d-flex(start, center, column);
     z-index: 1;
-    padding: 0 70px;
-    margin-top: -115px !important;
+    padding: 0 65px;
+    margin-bottom: 80px;
 
-    .open-live-account-banner__title {
-      font-size: 42px;
-      line-height: 52px;
-      font-weight: normal;
+    .open-live-account-banner {
+      &__title {
+        font-size: 42px;
+        line-height: 52px;
+        font-weight: normal;
 
-      svg {
-        @include fillSvg($blue, white, $dark-blue);
+        svg {
+          @include fillLogo($blue, white, $dark-blue);
+        }
+      }
+      &__description {
+        margin: 15px 0 40px 0 !important;
       }
     }
 
@@ -49,6 +79,7 @@
 
     button {
       background-color: white;
+      width: 190px;
       a {
         color: $dark-blue;
       }
@@ -62,10 +93,24 @@
   }
 
   @media (max-width: $viewport-lg-w) {
-    &__column {
+    padding: 0 !important;
+    .open-live-account-banner__column {
+      justify-content: flex-start;
+      &:before {
+        width: 70%;
+      }
+      height: 400px;
       flex: 0 0 colSizePrc(6);
       max-width: colSizePrc(6);
-      padding: 0 40px;
+      margin-bottom: 0 !important;
+
+      .open-live-account-banner__title {
+        padding-top: 48px;
+      }
+    }
+
+    .container {
+      max-width: 100%;
     }
 
     &__title {
@@ -73,11 +118,18 @@
       line-height: 58px;
     }
 
+    &__description {
+      font-size: 16px;
+      line-height: 26px;
+    }
+
     .open-account {
+      justify-content: flex-start;
+
       flex: 0 0 colSizePrc(5);
       max-width: colSizePrc(5);
       padding: 0 40px;
-      margin-top: -70px !important;
+      margin-top: 0 !important;
       margin-bottom: sp(12);
       margin-left: sp(3);
 
@@ -85,6 +137,7 @@
         &__title {
           font-size: 36px;
           text-align: center;
+          padding-top: 15px;
         }
         &__description {
           text-align: center;
@@ -93,7 +146,7 @@
 
       &:before {
         width: calc(100% + 30px);
-        height: calc(100% + 80px);
+        height: calc(100% + 50px);
         left: -15px;
       }
       button {
@@ -103,13 +156,19 @@
   }
 
   @media (max-width: $viewport-sm-w) {
-    padding-bottom: 0 !important;
+    padding: 0 !important;
     margin-bottom: 100px;
+    background: $dark-blue;
 
-    &__column {
+    .open-live-account-banner__column {
+      align-items: center;
+      height: 530px;
+      &:before {
+        content: none;
+      }
       max-width: 100%;
-      padding: 0px 20px;
-      padding-bottom: 0;
+      padding: 0 20px;
+      margin-bottom: 62px !important;
     }
 
     .row {
@@ -122,8 +181,8 @@
     }
 
     .open-account {
-      margin-top: 0 !important;
       margin-bottom: 0;
+      padding: 0 16px;
 
       flex: 0 0 colSizePrc(4);
       max-width: colSizePrc(10);
