@@ -2,8 +2,8 @@ import { Currencies, EFormStatus, countries } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import { useCounter, useSetState } from 'ahooks';
 import classNames from 'classnames';
-import { FieldAttributes, useField, useFormikContext } from 'formik';
-import React, { memo, useEffect } from 'react';
+import { FieldAttributes, FormikContext, useField } from 'formik';
+import React, { memo, useContext, useEffect } from 'react';
 import ReactSelect, { MenuProps, components } from 'react-select';
 import { FixedSizeList as List } from 'react-window';
 import { IconFlag } from '../../iconFlag/IconFlag';
@@ -98,30 +98,30 @@ export const Select = memo(function Select({
   options,
   ...props
 }: ISelect) {
-  const { status: FormStatus } = useFormikContext();
-  const [field, meta, helpers] = useField(props as any);
+  const formikProps = useContext(FormikContext);
+  const [field, meta, helpers] = formikProps ? [] : useField(props as any);
   const [state, setState] = useSetState({
     value: null,
     isFilled: false,
     isFocused: false,
   });
-  const _disabled = props.isDisabled || FormStatus === EFormStatus.disabled;
+  const _disabled = props.isDisabled || formikProps.status === EFormStatus.disabled;
 
   useEffect(() => {
     let _intSelectedValue = preselectedValue;
-    if (!_intSelectedValue && (meta.initialValue || field.value)) {
+    if (!_intSelectedValue && (meta?.initialValue || field?.value)) {
       _intSelectedValue = options.find(
-        (option: any) => JSON.stringify(option.value) === JSON.stringify(meta.initialValue || field.value || null),
+        (option: any) => JSON.stringify(option.value) === JSON.stringify(meta?.initialValue || field?.value || null),
       );
     }
-    setState({ value: _intSelectedValue, isFilled: !!_intSelectedValue || !!meta.initialValue });
+    setState({ value: _intSelectedValue, isFilled: !!_intSelectedValue || !!meta?.initialValue });
   }, []);
 
   useEffect(() => {
-    if (field.value && field.value != state.value)
+    if (field && field.value && field.value != state.value)
       setState({ value: options.find((option: any) => JSON.stringify(option.value) == JSON.stringify(field.value)) });
     else setState({ value: null });
-  }, [field.value]);
+  }, [field?.value]);
 
   function onChangeSelect(e: any) {
     let _val = e;
@@ -129,7 +129,7 @@ export const Select = memo(function Select({
       _val = { value: _val?.map((item: ISelectItem) => item.value) || [] };
     }
     setState({ isFilled: !!_val?.value });
-    helpers.setValue(_val?.value);
+    if (helpers) helpers.setValue(_val?.value);
     if (props.onChange) {
       props.onChange(_val?.value);
     }
@@ -150,7 +150,7 @@ export const Select = memo(function Select({
         'field select-wrapper',
         !inline && 'mb-8',
         className,
-        meta.touched && !!meta.error && 'field-error',
+        meta?.touched && !!meta?.error && 'field-error',
         !!label && 'with-label',
         state.isFocused && 'focused',
         state.isFilled && 'filled',
@@ -167,13 +167,13 @@ export const Select = memo(function Select({
         isSearchable={isSearchable}
         // defaultMenuIsOpen={true}
         onFocus={() => setState({ ...state, isFocused: true })}
-        onBlur={() => setState({ isFocused: false, isFilled: !!field.value })}
+        onBlur={() => setState({ isFocused: false, isFilled: !!field?.value })}
         // onMenuOpen={() => setState({ ...state, isFocused: true })}
         // onMenuClose={() => setState({ isFocused: false, isFilled: !!field.value })}
         value={state.value}
         onChange={onChangeSelect}
       />
-      {!_disabled && meta.touched && meta.error ? <div className="error">{meta.error}</div> : null}
+      {!_disabled && meta && meta.touched && meta.error ? <div className="error">{meta.error}</div> : null}
     </div>
   );
 });

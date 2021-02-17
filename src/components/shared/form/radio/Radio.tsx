@@ -1,8 +1,8 @@
 import { EFormStatus } from '@domain/enums';
 import { AnyFunction } from '@domain/interfaces';
 import classNames from 'classnames';
-import { FastField, FastFieldAttributes, useField, useFormikContext } from 'formik';
-import React, { memo } from 'react';
+import { FastField, FastFieldAttributes, FormikContext, useField } from 'formik';
+import React, { memo, useContext } from 'react';
 import { Row } from 'react-bootstrap';
 import './Radio.scss';
 
@@ -27,17 +27,17 @@ export const Radio = memo(function Radio({
   showMarkDot = true,
   ...props
 }: IRadio) {
-  const { status: FormStatus } = useFormikContext();
-  const [field, meta, helpers] = useField(props);
-  const _disabled = props.disabled || FormStatus === EFormStatus.disabled;
+  const formikProps = useContext(FormikContext);
+  const [field, meta, helpers] = formikProps ? [] : useField(props);
+  const _disabled = props.disabled || formikProps.status === EFormStatus.disabled;
 
   function onChangeHandler(e: any) {
-    helpers.setValue(valueConverter(e.target.value));
+    if (helpers) helpers.setValue(valueConverter(e.target.value));
     props.onChange?.(e);
   }
 
   function onClickHandler(e: any) {
-    helpers.setValue(valueConverter(e.target.value));
+    if (helpers) helpers.setValue(valueConverter(e.target.value));
     props.onClick?.(e);
   }
 
@@ -55,7 +55,7 @@ export const Radio = memo(function Radio({
       className={classNames(
         'radio-wrapper',
         className,
-        meta.touched && meta.error && 'field-error',
+        meta?.touched && meta?.error && 'field-error',
         _disabled && 'disabled',
       )}
     >
@@ -74,7 +74,7 @@ export const Radio = memo(function Radio({
               'radio-label',
               !React.isValidElement(el.label) && 'pl-7 pr-7 py-3',
               showMarkDot && 'pl-11',
-              field.value?.toString?.() === el.value.toString() && 'selected',
+              field && field.value?.toString?.() === el.value.toString() && 'selected',
             )}
           >
             {showMarkDot && <span className="mark" />}
@@ -91,7 +91,7 @@ export const Radio = memo(function Radio({
           </label>
         </div>
       ))}
-      {!_disabled && meta.touched && meta.error ? <div className="col-12 error">{meta.error}</div> : null}
+      {!_disabled && meta?.touched && meta?.error ? <div className="col-12 error">{meta.error}</div> : null}
     </Row>
   );
 });

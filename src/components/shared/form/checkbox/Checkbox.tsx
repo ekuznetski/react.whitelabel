@@ -1,13 +1,13 @@
 import { EFormStatus } from '@domain/enums';
 import classNames from 'classnames';
-import { FastField, useField, useFormikContext } from 'formik';
-import React, { memo } from 'react';
+import { FastField, FormikContext, useField } from 'formik';
+import React, { memo, useContext } from 'react';
 import './Checkbox.scss';
 
 export const Checkbox = memo(function Checkbox({ className = '', children, ...props }: any) {
-  const { status: FormStatus } = useFormikContext();
-  const [field, meta] = useField(props);
-  const _disabled = props.disabled || FormStatus === EFormStatus.disabled;
+  const formikProps = useContext(FormikContext);
+  const [field, meta] = formikProps ? [] : useField(props);
+  const _disabled = props.disabled || formikProps.status === EFormStatus.disabled;
 
   return (
     <div
@@ -15,8 +15,8 @@ export const Checkbox = memo(function Checkbox({ className = '', children, ...pr
         'field checkbox',
         !className && 'mb-8',
         className,
-        !!field.value && 'checked',
-        !!meta.error && 'field-error',
+        !!field?.value && 'checked',
+        !!meta?.error && 'field-error',
         _disabled && 'disabled',
       )}
     >
@@ -25,7 +25,7 @@ export const Checkbox = memo(function Checkbox({ className = '', children, ...pr
         <div className="checkbox-mark" />
         <div>{children}</div>
       </label>
-      {!_disabled && meta.error ? <div className="error">{meta.error}</div> : null}
+      {!_disabled && meta?.error ? <div className="error">{meta.error}</div> : null}
     </div>
   );
 });

@@ -1,8 +1,8 @@
 import { EFormStatus } from '@domain/enums';
 import { EActionTypes, IStore } from '@store';
 import classNames from 'classnames';
-import { useFormikContext } from 'formik';
-import React, { forwardRef, memo } from 'react';
+import { FormikContext } from 'formik';
+import React, { forwardRef, memo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { Svg } from '../../svg/Svg';
 import './Button.scss';
@@ -20,7 +20,7 @@ export const Button = memo(
     const { activeRequestsList } = useSelector<IStore, { activeRequestsList: EActionTypes[] }>((state) => ({
       activeRequestsList: state.app.requests.activeList,
     }));
-    const formikProps = useFormikContext();
+    const formikProps = useContext(FormikContext)
 
     const _loading =
       props.isLoading ||
