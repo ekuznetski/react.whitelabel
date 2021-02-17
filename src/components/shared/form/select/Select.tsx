@@ -99,7 +99,7 @@ export const Select = memo(function Select({
   ...props
 }: ISelect) {
   const formikProps = useContext(FormikContext);
-  const [field, meta, helpers] = formikProps ? [] : useField(props as any);
+  const [field, meta, helpers] = !formikProps ? [] : useField(props as any);
   const [state, setState] = useSetState({
     value: null,
     isFilled: false,

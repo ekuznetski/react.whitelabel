@@ -23,7 +23,7 @@ export const TextArea = memo(
     _ref,
   ) {
     const formikProps = useContext(FormikContext);
-    const [field, meta, helpers] = formikProps ? [] : useField(props);
+    const [field, meta, helpers] = !formikProps ? [] : useField(props);
     const ref = useRef(null);
     const _scroll = useScroll(ref);
     const hideLabel = _scroll.top > 0;

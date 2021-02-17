@@ -26,7 +26,7 @@ export const DatePicker = memo(
     ref,
   ) {
     const formikProps = useContext(FormikContext);
-    const [field, meta, helpers] = formikProps ? [] : useField(props);
+    const [field, meta, helpers] = !formikProps ? [] : useField(props);
     const [isOpen, setOpen] = React.useState(false);
     const _ref = useCombinedRef(ref);
     const responsive = useResponsive();

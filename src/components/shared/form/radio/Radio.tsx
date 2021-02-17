@@ -28,7 +28,7 @@ export const Radio = memo(function Radio({
   ...props
 }: IRadio) {
   const formikProps = useContext(FormikContext);
-  const [field, meta, helpers] = formikProps ? [] : useField(props);
+  const [field, meta, helpers] = !formikProps ? [] : useField(props);
   const _disabled = props.disabled || formikProps.status === EFormStatus.disabled;
 
   function onChangeHandler(e: any) {

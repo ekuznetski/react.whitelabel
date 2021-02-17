@@ -24,7 +24,7 @@ export const Input = memo(
     _ref,
   ) {
     const formikProps = useContext(FormikContext);
-    const [field, meta, helpers] = formikProps ? [] : useField(props);
+    const [field, meta, helpers] = !formikProps ? [] : useField(props);
     const ref = useCombinedRef(_ref);
     const [state, setState] = useState({
       isFocused: false,

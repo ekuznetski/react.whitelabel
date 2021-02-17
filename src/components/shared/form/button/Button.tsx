@@ -20,7 +20,7 @@ export const Button = memo(
     const { activeRequestsList } = useSelector<IStore, { activeRequestsList: EActionTypes[] }>((state) => ({
       activeRequestsList: state.app.requests.activeList,
     }));
-    const formikProps = useContext(FormikContext)
+    const formikProps = useContext(FormikContext);
 
     const _loading =
       props.isLoading ||

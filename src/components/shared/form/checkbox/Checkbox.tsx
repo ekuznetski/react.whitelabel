@@ -6,7 +6,7 @@ import './Checkbox.scss';
 
 export const Checkbox = memo(function Checkbox({ className = '', children, ...props }: any) {
   const formikProps = useContext(FormikContext);
-  const [field, meta] = formikProps ? [] : useField(props);
+  const [field, meta] = !formikProps ? [] : useField(props);
   const _disabled = props.disabled || formikProps.status === EFormStatus.disabled;
 
   return (
