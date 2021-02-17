@@ -274,7 +274,6 @@ app.get(
   checkAuthenticationCookie,
   storeTracker,
   (req: express.Request, res: express.Response) => {
-    console.time('page is open');
     const xRealIP = req.ip || req.ips[0] || req.clientIp;
     (global as any).window['xRealIP'] = xRealIP;
 
@@ -300,7 +299,6 @@ app.get(
     clearRedisRequestsList();
     store.dispatch(ac_clearStore());
 
-    console.time('requests starts');
     return new Promise((resolve) => {
       requestResolver = resolve;
       if (route) {
@@ -326,8 +324,6 @@ app.get(
         requestResolver();
       }
     }).then(() => {
-      console.timeEnd('requests starts');
-
       const app = renderToString(
         <StaticRouter location={page}>
           <Provider store={store}>
@@ -361,8 +357,6 @@ app.get(
         }
         const preloadedState = store.getState();
         preloadedState.app.requests.activeList = [];
-
-        console.timeEnd('page is open');
 
         return res.send(
           data
