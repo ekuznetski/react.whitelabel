@@ -34,6 +34,10 @@ export class MDocuments {
     }, [] as MDocument[]);
   }
 
+  get isRequired(): boolean {
+    return !this.list.length;
+  }
+
   getDocumentByType = (type: EDocumentsType): MDocument => {
     return (
       this.list.find((document) => document.type === type) || {

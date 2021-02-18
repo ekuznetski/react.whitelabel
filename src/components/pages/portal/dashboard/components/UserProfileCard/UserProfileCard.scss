@@ -52,11 +52,16 @@
           }
 
           &__status {
+            @include d-flex();
             font-size: 12px;
             line-height: 20px;
 
             &.success {
               color: $green;
+            }
+
+            &.warning {
+              color: $yellow;
             }
 
             &.danger {
