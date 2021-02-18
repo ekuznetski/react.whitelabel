@@ -34,11 +34,6 @@
     line-height: 66px;
   }
 
-  &__description {
-    font-size: 18px;
-    line-height: 30px;
-  }
-
   .open-account {
     flex: 0 0 colSizePrc(4);
     max-width: colSizePrc(4);
@@ -59,6 +54,8 @@
       }
       &__description {
         margin: 15px 0 40px 0 !important;
+        font-size: 22px;
+        line-height: 34px;
       }
     }
 
