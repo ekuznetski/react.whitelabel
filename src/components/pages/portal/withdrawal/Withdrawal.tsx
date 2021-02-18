@@ -85,9 +85,9 @@ export const Withdrawal = memo(function Withdrawal() {
     dispatch(
       ac_withdrawFunds(
         {
-          trade_account: data[EFields.account].account_id,
-          trade_platform: data[EFields.account].platform,
-          amount: data[EFields.account],
+          trade_account: data.account.accountId,
+          trade_platform: data.account.platform,
+          amount: data[EFields.amount],
         },
         () =>
           dispatch(
@@ -153,7 +153,10 @@ export const Withdrawal = memo(function Withdrawal() {
                         onChange={(account: MTradingAccount) => {
                           setFieldValue(EFields.amount, '');
                           dispatch(
-                            ac_fetchWithdrawLimit({ accountId: account.accountId, platform: account.platformName }),
+                            ac_fetchWithdrawLimit({
+                              trade_account: account.accountId,
+                              trade_platform: account.platform,
+                            }),
                           );
                         }}
                       />

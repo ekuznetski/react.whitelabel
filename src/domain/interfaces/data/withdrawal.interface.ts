@@ -30,7 +30,7 @@ export type IWithdrawalLimitResponse = IBaseResponse & {
 };
 
 export interface IWithdrawFundRequest {
-  trade_account: number;
+  trade_account: string;
   trade_platform: string;
   amount: number;
 }

@@ -28,7 +28,7 @@ import {
 import * as Model from '@domain/models';
 import { MRequestAdapter } from '@domain/models';
 import * as Request from '@utils/services';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, delay, put, takeEvery } from 'redux-saga/effects';
 import { ac_showNotification, store } from './';
 import * as Action from './actions';
 import { EActionTypes } from './store.enum';
@@ -263,10 +263,7 @@ export function* getWithdrawLimitSaga() {
   yield $$(
     EActionTypes.fetchWithdrawLimit,
     function* ({ payload }: IAction) {
-      const { response }: IWithdrawalLimitResponse = yield call(Request.withdrawalsLimitRequest, {
-        trade_account: payload?.accountId,
-        trade_platform: payload?.platform,
-      });
+      const { response }: IWithdrawalLimitResponse = yield call(Request.withdrawalsLimitRequest, payload);
       yield put(Action.ac_saveWithdrawLimit({ limit: response.data }));
       return response;
     },
@@ -416,6 +413,7 @@ export function* fetchTransactionalStatementsSaga() {
 export function* addDepositSaga() {
   yield $$(EActionTypes.addDeposit, function* ({ payload }: IAction) {
     const response: IAddDepositResponse = yield call(Request.addDepositRequest, payload);
+    yield delay(5000);
     yield put(Action.ac_fetchTradingAccounts({ force: true }));
     return response;
   });
