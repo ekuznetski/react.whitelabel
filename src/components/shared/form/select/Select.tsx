@@ -221,7 +221,7 @@ export const CountrySelect = memo((props: ISelect) => {
   const innerProps = { ...props };
   delete innerProps.options;
 
-  const options = countries.map((el) => ({
+  const options = (props.options || countries).map((el: any) => ({
     label: (
       <>
         <IconFlag flag={el.code} className="mr-1" />

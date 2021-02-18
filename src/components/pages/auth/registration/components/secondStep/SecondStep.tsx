@@ -1,10 +1,11 @@
 import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { ERegSteps, countries } from '@domain/enums';
+import { Country, ERegSteps, countries } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';
 import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -14,6 +15,7 @@ enum EFields {
   'tax_checkbox' = 'tax_checkbox',
   'tax_country' = 'tax_country',
   'country' = 'country',
+  'state' = 'state',
   'dayOfBirth' = 'dayOfBirth',
   'monthOfBirth' = 'monthOfBirth',
   'yearOfBirth' = 'yearOfBirth',
@@ -76,6 +78,7 @@ export function SecondStep({ submitFn }: any) {
     } else {
       data.tax_country = data.tax_country.name;
     }
+    if(data.state) data.state = data.state.code;
     Object.assign(data, { dob: `${data.yearOfBirth}-${data.monthOfBirth}-${data.dayOfBirth}` });
     const unusedKeys: any[] = [EFields.yearOfBirth, EFields.monthOfBirth, EFields.dayOfBirth, EFields.tax_checkbox];
     data = Object.keys(data).reduce((acc, key) => {
@@ -87,6 +90,10 @@ export function SecondStep({ submitFn }: any) {
     submitFn({ [ERegSteps.step2]: data });
   }
 
+  function hasState(country?: Country) {
+    return !!country?.states?.length;
+  }
+
   return (
     <div className="registration-second-step">
       <Formik
@@ -94,6 +101,7 @@ export function SecondStep({ submitFn }: any) {
           tax_checkbox: true,
           tax_country: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
           country: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
+          state: '',
           dayOfBirth: '',
           monthOfBirth: '',
           yearOfBirth: '',
@@ -104,8 +112,11 @@ export function SecondStep({ submitFn }: any) {
         validationSchema={validationSchema}
         onSubmit={Submit}
       >
-        {(props: any) => {
-          const { values, setFieldValue } = props;
+        {({ values }) => {
+          const _showTaxCountryState =
+            values.tax_checkbox && values.tax_country && hasState(values.tax_country as Country);
+          const _showCountryState = values.country && hasState(values.country as Country);
+
           return (
             <Form className="m-auto form">
               <h4 className="section-title mb-5">{t('Additional Information')}</h4>
@@ -113,7 +124,21 @@ export function SecondStep({ submitFn }: any) {
               {!values.tax_checkbox && (
                 <CountrySelect className="fadein-row" label={t('Country of tax')} name={EFields.tax_country} />
               )}
-              <CountrySelect label={t('Country of residence')} name={EFields.country} />
+              <Row>
+                <Col sm={12} lg={_showCountryState ? 6 : 12}>
+                  <CountrySelect label={t('Country of residence')} name={EFields.country} />
+                </Col>
+                {_showCountryState && (
+                  <Col sm={12} lg={6}>
+                    <CountrySelect
+                      options={(values.country as Country)?.states}
+                      label={t('Country State')}
+                      name={EFields.state}
+                    />
+                  </Col>
+                )}
+              </Row>
+
               <h4 className="section-title mb-5">{t('Date of Birth')}</h4>
               <div className="dob d-flex">
                 <Input label={t('Day')} name={EFields.dayOfBirth} value={values.dayOfBirth} regex={/^\d{0,2}$/gm} />

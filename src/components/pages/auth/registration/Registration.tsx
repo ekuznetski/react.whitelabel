@@ -1,6 +1,7 @@
 import { PageTitle } from '@components/shared';
 import { ENotificationType, ERegSteps } from '@domain/enums';
 import { IRegData } from '@domain/interfaces';
+import { ContinueRegistrationModal } from '@pages/auth/registration/components/continueRegistrationModal/ContinueRegistrationModal';
 import {
   ac_fetchClientSettings,
   ac_login,
@@ -9,66 +10,26 @@ import {
   ac_showModal,
   ac_showNotification,
 } from '@store';
+import { useSessionStorageState } from 'ahooks';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
-import { ContinueRegistrationModal } from '@pages/auth/registration/components/continueRegistrationModal/ContinueRegistrationModal';
 import './Registration.scss';
-
-function getLocalStorageRegData() {
-  if (!localStorage) return null;
-  const b64String = localStorage.getItem('regData');
-  let b64StringDecoded = '';
-  if (b64String) {
-    for (let i = 0; i < b64String.length; i++) {
-      b64StringDecoded += String.fromCodePoint(b64String.charCodeAt(i) >> 2);
-    }
-    return JSON.parse(atob(b64StringDecoded));
-  } else {
-    return null;
-  }
-}
-
-function setLocalStorageRegData(data: any) {
-  const newObj = { ...(getLocalStorageRegData() || {}), ...data };
-  const b64String = btoa(JSON.stringify(newObj));
-  let b64StringEncoded = '';
-  for (let i = 0; i < b64String.length; i++) {
-    b64StringEncoded += String.fromCodePoint(b64String.charCodeAt(i) << 2);
-  }
-  localStorage.setItem('regData', b64StringEncoded);
-}
-
-export function randomNumber(length = 6) {
-  return parseInt(
-    Math.random()
-      .toString()
-      .slice(2, 2 + length),
-  );
-}
-export function randomString(length = 1) {
-  // @ts-ignore
-  return Array.from({ length }, () =>
-    randomNumber(100)
-      .toString(36)
-      .replace(/[^a-z]/g, ''),
-  ).join('');
-}
 
 export function Registration() {
   const [name, setName] = useState<string>('XXXX');
   const [formData, setFormData] = useState<IRegData>();
   const [activeStep, setActiveStep] = useState<ERegSteps>(ERegSteps.step1);
   const [continueReg, setContinueReg] = useState<boolean | null>(null);
+  const [localStorageRegData, setLocalStorageRegData] = useSessionStorageState<IRegData>('regData');
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const regData = getLocalStorageRegData();
 
   useEffect(() => {
-    if (!!regData) {
+    if (!!localStorageRegData) {
       dispatch(
         ac_showModal(ContinueRegistrationModal, { setContinueReg: setContinueReg }, 'continue-registration-modal'),
       );
@@ -76,20 +37,22 @@ export function Registration() {
   }, []);
 
   useEffect(() => {
-    if (!!regData && !!continueReg) {
-      setFormData(regData);
+    if (!!localStorageRegData && !!continueReg) {
+      setFormData(localStorageRegData);
       dispatch(
         ac_fetchClientSettings(
-          { username: regData[ERegSteps.step1]['email'] },
+          { username: localStorageRegData[ERegSteps.step1]['email'] },
           () => {
-            setName(`${regData[ERegSteps.step1]?.first_name} ${regData[ERegSteps.step1]?.surname}`);
-            if (!!regData[ERegSteps.step1]) {
+            setName(
+              `${localStorageRegData[ERegSteps.step1]?.first_name} ${localStorageRegData[ERegSteps.step1]?.surname}`,
+            );
+            if (!!localStorageRegData[ERegSteps.step1]) {
               setActiveStep(ERegSteps.step2);
             }
-            if (!!regData[ERegSteps.step2]) {
+            if (!!localStorageRegData[ERegSteps.step2]) {
               setActiveStep(ERegSteps.step3);
             }
-            if (!!regData[ERegSteps.step3]) {
+            if (!!localStorageRegData[ERegSteps.step3]) {
               setActiveStep(ERegSteps.step4);
             }
           },
@@ -105,30 +68,26 @@ export function Registration() {
     }
 
     if (continueReg === false) {
-      localStorage.removeItem('regData');
+      setLocalStorageRegData();
     }
   }, [continueReg]);
 
-  async function onSubmitFn(data: any) {
+  function onSubmitFn(data: any) {
     setFormData({ ...formData, ...data });
     if (activeStep === ERegSteps.step1) {
-      const preRegister = new Promise((resolve) => {
-        dispatch(
-          ac_preRegister(
-            data[ERegSteps.step1],
-            () => resolve(),
-            () =>
-              dispatch(
-                ac_showNotification({
-                  type: ENotificationType.danger,
-                  message: 'Registration unsuccessful',
-                }),
-              ),
-          ),
-        );
-      });
-      await preRegister;
-      setName(`${data?.[ERegSteps.step1]?.first_name} ${data?.[ERegSteps.step1]?.surname}`);
+      dispatch(
+        ac_preRegister(
+          data[ERegSteps.step1],
+          () => setName(`${data?.[ERegSteps.step1]?.first_name} ${data?.[ERegSteps.step1]?.surname}`),
+          () =>
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.danger,
+                message: 'Registration unsuccessful',
+              }),
+            ),
+        ),
+      );
     }
 
     if (activeStep === ERegSteps.step5) {
@@ -146,13 +105,13 @@ export function Registration() {
         delete preparedData['phone'];
         delete preparedData['mobile'];
         delete preparedData['language'];
-        
+
         dispatch(
           ac_register(
             preparedData,
             (e) => {
               dispatch(ac_login({ username: preparedData.username, password: preparedData.password }));
-              localStorage.removeItem('regData');
+              setLocalStorageRegData();
             },
             (e) => {
               console.log('failure registration', e);
@@ -170,7 +129,7 @@ export function Registration() {
     }
 
     if (activeStep !== ERegSteps.step4 && activeStep !== ERegSteps.step5) {
-      setLocalStorageRegData(data);
+      setLocalStorageRegData({ ...formData, ...data });
     }
     if (activeStep !== ERegSteps.step5) {
       setActiveStep(activeStep + 1);
