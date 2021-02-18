@@ -105,6 +105,8 @@
 
   @media (max-width: $viewport-sm-w) {
     &__context {
+      flex: 0 0 114px;
+
       .profile-context {
         &__facepile {
           flex: 0 0 75px;

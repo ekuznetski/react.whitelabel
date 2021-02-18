@@ -3,7 +3,8 @@
 
 .header.portal {
   border-bottom: 1px solid $grey;
-
+  box-sizing: content-box;
+  
   .header-wrapper {
     .panel {
       .container {
