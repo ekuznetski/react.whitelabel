@@ -1,0 +1,81 @@
+@import '~/variables';
+@import '~/mixin';
+
+.about-wrapper {
+  &__in-touch {
+    background: $grey-bg;
+    color: $dark-text;
+
+    .container {
+      max-width: 1150px;
+    }
+
+    .section-bg {
+      display: none;
+    }
+
+    .in-touch {
+      &__title {
+        font-size: 44px;
+        line-height: 52px;
+        font-family: $font-family1;
+      }
+
+      &__header {
+        flex: 0 0 colSizePrc(9);
+        max-width: colSizePrc(9);
+        padding: 0 sp(11);
+      }
+
+      &__description {
+        font-size: 16px;
+        line-height: 26px;
+      }
+
+      &__cards {
+        .common-cards {
+          &__container {
+            .card {
+              flex: 0 0 colSizePrc(4);
+              max-width: colSizePrc(4);
+              padding: 0 10px;
+            }
+          }
+          &__item {
+            background: linear-gradient(0.35deg, #262a4b 0.29%, #44486c 99.67%);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            height: 200px;
+            justify-content: center;
+            align-items: center;
+
+            &-header {
+              font-weight: 300;
+              font-size: 44px;
+              line-height: 52px;
+              text-transform: capitalize;
+              color: #ffffff;
+              margin-bottom: 20px;
+
+              span {
+                color: $blue;
+              }
+            }
+
+            &-content {
+              font-size: 16px;
+              line-height: 26px;
+              color: #ffffff;
+            }
+          }
+        }
+
+        @media (max-width: $viewport-lg-w) {
+          .common-cards__item {
+            height: 200px;
+          }
+        }
+      }
+    }
+  }
+}
