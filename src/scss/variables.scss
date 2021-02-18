@@ -44,6 +44,9 @@ $yellow: #ffba3a;
 
 // Fonts
 $font-family: 'Poppins', sans-serif;
+// Overload bootstrap fonts variables
+$font-family-base: $font-family;
+$headings-font-family: $font-family;
 
 // Grid
 $grid-columns: 12;
