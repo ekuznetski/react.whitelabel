@@ -1,8 +1,8 @@
 import { EFormStatus } from '@domain/enums';
 import { useScroll } from 'ahooks';
 import classNames from 'classnames';
-import { useField, useFormikContext } from 'formik';
-import React, { forwardRef, memo, useEffect, useRef, useState } from 'react';
+import { FormikContext, useField } from 'formik';
+import React, { forwardRef, memo, useContext, useEffect, useRef, useState } from 'react';
 import { Loader } from '../../loader/Loader';
 import './TextArea.scss';
 
@@ -22,16 +22,16 @@ export const TextArea = memo(
     },
     _ref,
   ) {
-    const { status: FormStatus } = useFormikContext();
-    const [field, meta, helpers] = useField(props);
+    const formikProps = useContext(FormikContext);
+    const [field, meta, helpers] = !formikProps ? [] : useField(props);
     const ref = useRef(null);
     const _scroll = useScroll(ref);
     const hideLabel = _scroll.top > 0;
     const [state, setState] = useState({
       isFocused: false,
-      isFilled: !!meta.initialValue,
+      isFilled: !!meta?.initialValue,
     });
-    const _disabled = props.disabled || FormStatus === EFormStatus.disabled;
+    const _disabled = props.disabled || formikProps.status === EFormStatus.disabled;
     const inputProps = { ...props };
     delete inputProps.isLoading;
 
@@ -56,7 +56,7 @@ export const TextArea = memo(
 
     function onChangeHandler(e: any) {
       const val = e.target.value;
-      if ((!!regex && regex.test(val.toString())) || val.toString() === '' || !regex) {
+      if (helpers && ((!!regex && regex.test(val.toString())) || val.toString() === '' || !regex)) {
         helpers.setValue(val);
       }
       onChange?.(e);
@@ -67,7 +67,7 @@ export const TextArea = memo(
         className={classNames(
           'field textarea mb-8',
           !!label && 'with-label',
-          meta.touched && meta.error && 'field-error',
+          meta?.touched && meta?.error && 'field-error',
           state.isFocused && 'focused',
           state.isFilled && 'filled',
           _disabled && 'disabled',
@@ -89,7 +89,7 @@ export const TextArea = memo(
           onChange={onChangeHandler}
           ref={ref}
         />
-        {(meta.touched || forceShowError) && !_disabled && meta.error ? (
+        {meta && (meta.touched || forceShowError) && !_disabled && meta.error ? (
           <div className="error">{meta.error}</div>
         ) : null}
       </div>

@@ -19,3 +19,10 @@ $dark-grey: #cacfd5;
 $grey: #f1f2f2;
 $red: #ea3131;
 $green: #40d9a2;
+
+// Fonts
+$font-family: 'Mulish', sans-serif;
+$font-family1: 'Montserrat', sans-serif;
+// Overload bootstrap fonts variables
+$font-family-base: $font-family;
+$headings-font-family: $font-family1;

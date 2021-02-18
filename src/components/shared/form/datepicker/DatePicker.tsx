@@ -2,9 +2,9 @@ import { EFormStatus } from '@domain/enums';
 import { useCombinedRef } from '@utils/hooks';
 import { useResponsive, useSetState } from 'ahooks';
 import classNames from 'classnames';
-import { useField, useFormikContext } from 'formik';
+import { FormikContext, useField } from 'formik';
 import moment from 'moment';
-import React, { ReactNode, forwardRef, memo, useEffect } from 'react';
+import React, { ReactNode, forwardRef, memo, useContext, useEffect } from 'react';
 import DayPicker, { DateUtils, DayModifiers } from 'react-day-picker';
 import { DropDown } from '../../dropdown/Dropdown';
 import { Svg } from '../../svg/Svg';
@@ -25,8 +25,8 @@ export const DatePicker = memo(
     { className = '', label = null, forceShowError = null, range = false, ...props },
     ref,
   ) {
-    const { status: FormStatus } = useFormikContext();
-    const [field, meta, helpers] = useField(props);
+    const formikProps = useContext(FormikContext);
+    const [field, meta, helpers] = !formikProps ? [] : useField(props);
     const [isOpen, setOpen] = React.useState(false);
     const _ref = useCombinedRef(ref);
     const responsive = useResponsive();
@@ -36,7 +36,7 @@ export const DatePicker = memo(
       to: undefined,
       dropDownWidth: 245, // the size of a single datepicker
     });
-    const _disabled = props.disabled || FormStatus === EFormStatus.disabled;
+    const _disabled = props.disabled || formikProps.status === EFormStatus.disabled;
 
     useEffect(() => {
       setState({ isFilled: !!state.to || !!state.from });
@@ -59,7 +59,7 @@ export const DatePicker = memo(
       const _range = range ? DateUtils.addDayToRange(day, state) : { from: selected ? undefined : day, to: undefined };
       const formattedRange = range ? [moment(_range.from), moment(_range.to)] : [moment(_range.from)];
 
-      helpers.setValue(formattedRange);
+      if (helpers) helpers.setValue(formattedRange);
 
       if ((!range && _range.from) || state.to !== _range.to) {
         setOpen(false);
@@ -86,7 +86,7 @@ export const DatePicker = memo(
           'field datepicker mb-8',
           !!label && 'with-label',
           className,
-          meta.touched && meta.error && 'field-error',
+          meta?.touched && meta?.error && 'field-error',
           state.isFocused && 'focused',
           state.isFilled && 'filled',
           _disabled && 'disabled',
@@ -117,7 +117,7 @@ export const DatePicker = memo(
             onDayClick={handleDayClick}
           />
         </DropDown>
-        {meta.touched && meta.error ? <div className="error">{meta.error}</div> : null}
+        {meta?.touched && meta?.error ? <div className="error">{meta.error}</div> : null}
       </div>
     );
   }),

@@ -36,6 +36,7 @@
       "@env": ["env/index.ts"],
       "@routers": ["domain/_default/routers.config.ts"],
       "@i18next": ["locale/i18n.ts"],
+      "~/fonts": ["scss/fonts.scss"],
       "~/variables": ["scss/variables.scss"],
       "~/utilities": ["scss/utilities.scss"],
       "~/theme": ["scss/theme.scss"],
