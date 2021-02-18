@@ -1,6 +1,6 @@
 import { Button, IRadioItem, Input, Radio, Svg, TradingAccountsSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { AllowedCurrToMethodMap, EFormStatus, ETradingType } from '@domain/enums';
+import { AllowedCurrToMethodMap, ETradingType } from '@domain/enums';
 import { MTradingAccount } from '@domain/models';
 import { IStore } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
@@ -10,6 +10,7 @@ import React, { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { depositActionCreators, useDepositDispatch, useDepositState } from '../../deposit.context';
 import './TabContentChooseAmount.scss';
@@ -27,9 +28,10 @@ export function TabContentChooseAmount() {
       (acc) => acc.type !== ETradingType.demo && AllowedCurrToMethodMap?.[method as string].includes(acc?.currency),
     ),
   }));
-  const dispatch = useDepositDispatch();
-  const { t } = useTranslation();
   const { isDesktop } = useDeviceDetect();
+  const { state: locationState } = useLocation<{ accountId: string }>();
+  const { t } = useTranslation();
+  const dispatch = useDepositDispatch();
   const ref = React.createRef<HTMLInputElement>();
 
   // @ts-ignore
@@ -110,7 +112,10 @@ export function TabContentChooseAmount() {
   }
 
   const initialValues = {
-    [EFields.account]: account ?? tradingAccounts[0],
+    [EFields.account]:
+      tradingAccounts.find((account) => account.accountId === locationState?.accountId) ??
+      account ??
+      tradingAccounts[0],
     [EFields.amount]: preselectedAmount,
     [EFields.customAmount]: preselectedCustomAmount,
   };
@@ -128,7 +133,7 @@ export function TabContentChooseAmount() {
           dispatch(depositActionCreators.setAmount(amount));
         }}
       >
-        {({ values, setFieldValue, initialValues }: FormikProps<any>) => {
+        {({ values, setFieldValue }: FormikProps<any>) => {
           const amount = (
             <Col xs={8} md={7} xl={8} className="ml-auto">
               <div className="you-get-amount text-right text-lg-left">
