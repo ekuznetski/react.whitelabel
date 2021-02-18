@@ -284,7 +284,7 @@ export function* getClientStatusDataSaga() {
     function* () {
       const { response }: IClientStatusDataResponse = yield call(Request.getClientDataRequest);
       yield put(Action.ac_saveClientData(new Model.MClientStatus(response)));
-      yield put(Action.ac_saveDocuments(new Model.MDocuments(response.document_status_new)));
+      yield put(Action.ac_saveDocuments(new Model.MDocuments(response.document_status)));
       yield put(Action.ac_saveTins(new Model.MTins(response.tins_data)));
       yield put(Action.ac_saveEdd(new Model.MEdd(response.edd_data)));
       return response;

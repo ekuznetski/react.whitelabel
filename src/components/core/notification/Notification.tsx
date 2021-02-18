@@ -24,7 +24,7 @@ export const Notification = memo(function Notification(props: INotification) {
   const [progress, setProgress] = React.useState(0);
   const [interval, setInterval] = React.useState<number | null>(null);
   const _timeout = notificationProps.timeout === null ? null : notificationProps.timeout || 10000; // if null don't show progress bar
-  const _tick = 20;
+  const _tick = 100;
 
   useEffect(() => {
     return () => {
@@ -56,7 +56,7 @@ export const Notification = memo(function Notification(props: INotification) {
       className={classNames(
         'notification-wrapper',
         notificationProps.type,
-        notificationProps.visible && 'open',
+        (notificationProps.visible || true) && 'open',
         props.fixed && 'fixed',
       )}
     >

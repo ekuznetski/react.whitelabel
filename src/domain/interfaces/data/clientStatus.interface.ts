@@ -11,8 +11,7 @@ export type AddInfoFormStatus =
 export interface IClientStatus {
   status: EResponseStatus;
   fp_status: _statusPair<'submitted'> | _statusPair<'required'>;
-  document_status: _statusPair<'submitted'> | _statusPair<'required'>;
-  document_status_new: { [k: string]: _statusPair<'submitted'> | _statusPair<'required'> };
+  document_status: { [k: string]: _statusPair<'submitted'> | _statusPair<'required'> };
   client_status:
     | _statusPair<'clientApproved'>
     | _statusPair<'clientEddRequired'>
