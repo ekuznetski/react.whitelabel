@@ -17,8 +17,8 @@ export const ContinueRegistrationModal = React.memo(function ContinueRegistratio
   return (
     <>
       <ModalTitle title={t('Do you want to continue registration')} />
-      <ModalBody className="my-10">
-        <Img src="live-account-bg.png" />
+      <ModalBody className="w-auto my-10 mx-n9">
+        <Img src="live-account-bg.jpg" />
       </ModalBody>
       <ModalFooter>
         <Button

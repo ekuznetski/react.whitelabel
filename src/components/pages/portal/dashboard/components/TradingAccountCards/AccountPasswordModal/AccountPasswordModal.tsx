@@ -59,7 +59,7 @@ export const AccountPasswordModal = memo(function AccountPasswordModal({ trading
 
   return (
     <>
-      <ModalTitle title={t('Change Password')} className="mb-5"/>
+      <ModalTitle title={t('Change Password')} className="mb-7"/>
       <ModalBody>
         <Formik
           initialValues={{

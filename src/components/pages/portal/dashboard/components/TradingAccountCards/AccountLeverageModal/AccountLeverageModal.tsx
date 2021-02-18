@@ -31,22 +31,22 @@ export const AccountLeverageModal = memo(function AccountLeverageModal({ trading
     leverage: FieldValidators.requiredString,
   });
 
-  const leverages = clientSettings.getLeveragesSelectList();
+  const leverages = clientSettings
+    .getLeveragesSelectList()
+    .filter((leverage) => leverage.value !== tradingAccount.leverage);
 
   function isArrBiggerThanOne(arr: any[]) {
     return arr.length > 1;
   }
 
   function Submit(data: FormikValues) {
-    console.log(tradingAccount);
-    const preparedData = {
-      trade_account: tradingAccount.accountId,
-      leverage: data.leverage,
-      trade_platform: tradingAccount.platform,
-    };
     dispatch(
       ac_changeAccountLeverage(
-        preparedData,
+        {
+          trade_account: tradingAccount.accountId,
+          trade_platform: tradingAccount.platform,
+          leverage: data.leverage,
+        },
         () => {
           dispatch(ac_hideModal());
           dispatch(
@@ -71,11 +71,11 @@ export const AccountLeverageModal = memo(function AccountLeverageModal({ trading
 
   return (
     <>
-      <ModalTitle title={t('Change Leverage')} />
+      <ModalTitle title={t('Change Leverage')} className="mb-7" />
       <ModalBody>
         <Formik
           initialValues={{
-            leverage: tradingAccount?.leverage || '',
+            leverage: leverages[0].value || '',
           }}
           validationSchema={validationSchema}
           onSubmit={Submit}
