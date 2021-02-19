@@ -45,7 +45,7 @@ import { IAction, IAppStore } from './store.interface';
 export function ac_traceRequestData(payload: any): IAction {
   return {
     type: EActionTypes.traceRequestData,
-    payload
+    payload,
   };
 }
 
@@ -325,6 +325,15 @@ export function ac_savePrices(payload: any): IAction {
 export function ac_fetchWithdrawHistory(): IAction {
   return {
     type: EActionTypes.fetchWithdrawHistory,
+  };
+}
+
+export function ac_cancelWithdrawal(payload: { id: string }, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+  return {
+    type: EActionTypes.cancelWithdraw,
+    payload,
+    onSuccess,
+    onFailure,
   };
 }
 

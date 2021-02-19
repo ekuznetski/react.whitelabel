@@ -95,6 +95,7 @@ export const withdrawalsHistoryRequest = request(EHttpMethod.get, `${env.PROXY_U
 export const withdrawalsLimitRequest = request(EHttpMethod.post, `${env.PROXY_URL}/withdrawals/limit`);
 export const mt4WithdrawFundsRequest = request(EHttpMethod.post, `${env.PROXY_URL}/withdrawals/mt4`);
 export const mt5WithdrawFundsRequest = request(EHttpMethod.post, `${env.PROXY_URL}/withdrawals/mt5`);
+export const cancelWithdrawalRequest = request(EHttpMethod.post, `${env.PROXY_URL}/withdrawals/cancel`);
 export const tradingAccountsRequest = request(EHttpMethod.get, `${env.PROXY_URL}/clients/getTradingAccounts`);
 export const financialProfileRequest = request(EHttpMethod.post, `${env.PROXY_URL}/clients/newKyc`);
 export const internalTransferRequest = request(EHttpMethod.post, `${env.PROXY_URL}/accounts/transfer`);

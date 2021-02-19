@@ -22,6 +22,7 @@ import {
   ITradingAccountsResponse,
   ITransactionalStatementsResponse,
   IWithdrawFundRequest,
+  IWithdrawalCancelResponse,
   IWithdrawalHistoryResponse,
   IWithdrawalLimitResponse,
 } from '@domain/interfaces';
@@ -266,6 +267,15 @@ export function* getWithdrawHistorySaga() {
     const { response }: IWithdrawalHistoryResponse = yield call(handleRequest, Request.withdrawalsHistoryRequest);
     const payload = response.message.map((item) => new Model.MWithdrawalHistoryItem(item));
     yield put(Action.ac_saveWithdrawHistory(payload));
+    return response;
+  });
+}
+
+export function* cancelWithdrawHistorySaga() {
+  yield $$(EActionTypes.cancelWithdraw, function* ({ payload }: IAction) {
+    const { response }: IWithdrawalCancelResponse = yield call(handleRequest, Request.cancelWithdrawalRequest, payload);
+    yield put(Action.ac_fetchWithdrawHistory());
+    // yield put(Action.ac_fetchTradingAccounts({ force: true }));
     return response;
   });
 }

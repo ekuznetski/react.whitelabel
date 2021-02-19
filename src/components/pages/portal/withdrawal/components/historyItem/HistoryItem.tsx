@@ -57,14 +57,24 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
       </div>
       {props.status === ETaskStatus.pending && (
         <div className="withdrawal-option p-6">
-          <Button
-            noBg
-            onClick={() =>
-              dispatch(ac_showModal(WithdrawCancelConfirmationModal, {}, 'withdrawal-history-item__modal'))
-            }
-          >
-            {t('Cancel Withdrawal')}
-          </Button>
+          {props.cancelable ? (
+            <Button
+              noBg
+              onClick={() =>
+                dispatch(
+                  ac_showModal(
+                    WithdrawCancelConfirmationModal,
+                    { withdrawalId: props.reference },
+                    'withdrawal-history-item__modal',
+                  ),
+                )
+              }
+            >
+              {t('Cancel Withdrawal')}
+            </Button>
+          ) : (
+            <div className="text-center">{t('Cancellation in progress...')}</div>
+          )}
         </div>
       )}
       {(props.status === ETaskStatus.success || props.status === ETaskStatus.inProgress) && !!props.items?.length && (

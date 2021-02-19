@@ -139,7 +139,7 @@ export const Withdrawal = memo(function Withdrawal() {
                   account: '',
                   amount: '',
                 }}
-                isInitialValid={false}
+                validateOnMount={false}
                 validationSchema={validationSchema}
                 onSubmit={Submit}
               >
