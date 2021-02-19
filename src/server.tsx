@@ -354,8 +354,7 @@ app.get(
           if (unsubscribeRequestResolver) unsubscribeRequestResolver();
           return res.status(500).send('Oops, better luck next time!');
         }
-        const preloadedState = store.getState();
-        preloadedState.app.requests.activeList = [];
+        const preloadedState = store.getState().ssr;
 
         return res.send(
           data
