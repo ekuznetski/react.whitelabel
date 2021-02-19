@@ -1,13 +1,13 @@
-import { Button, ModalContext, ModalNav, ModalOld, ModalTitle, Svg } from '@components/shared';
+import { Button, Svg } from '@components/shared';
 import { ETaskStatus } from '@domain/enums';
 import { MWithdrawalHistoryItem } from '@domain/models';
+import { ac_showModal } from '@store';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import './WithdrawalHistoryItem.scss';
-import { ac_showModal } from '@store';
 import { useDispatch } from 'react-redux';
-import { WithdrawCancelConfirmationModal } from '@pages/portal/withdrawal/components';
+import { WithdrawCancelConfirmationModal } from '..';
+import './HistoryItem.scss';
 
 export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: MWithdrawalHistoryItem) {
   const { t } = useTranslation();

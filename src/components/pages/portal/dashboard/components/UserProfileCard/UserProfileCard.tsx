@@ -31,7 +31,6 @@ export function UserProfileCard() {
   }
 
   function profileStatus() {
-    console.log(clientStatus.isNotVerified, documents.isRequired)
     const _status =
       clientStatus.isNotVerified || documents.isRequired
         ? config.profileStatusTemplates.danger

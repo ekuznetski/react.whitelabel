@@ -8,7 +8,9 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
   return async (data: T | null = null) => {
     try {
       // RETURN MOCK RESPONSE
-      const props = requestPath.replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL})\/`, 'g'), '').split('/');
+      const props = requestPath
+        .replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL | env.PRICES_URL})\/`, 'g'), '')
+        .split('/');
       const mockResponse = props.reduce((acc: any, key) => acc[key] || {}, mockData);
       if (Object.keys(mockResponse).length) {
         return new Promise((resolve, reject) => {
@@ -29,7 +31,7 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
           {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          window.isSSR && window.xRealIP ? { 'xRealIP': window.xRealIP } : {},
+          window.isSSR && window.xRealIP ? { xRealIP: window.xRealIP } : {},
           window.isSSR && window.CakePHPCookie ? { Cookie: window.CakePHPCookie } : {},
         ),
         method: method as Method,
@@ -59,7 +61,10 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
           ) {
             throw e;
           } else {
-            return e.data;
+            return {
+              url: requestPath.replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL}|${env.PRICES_URL})\/`, 'g'), '').split('/').slice(-1)[0],
+              data: e.data,
+            };
           }
         })
         .catch((err: any) => {

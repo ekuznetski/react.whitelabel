@@ -16,7 +16,7 @@ export interface IBaseResponse {
 export type WindowProps = {
   isSSR?: boolean;
   CakePHPCookie?: string;
-  __PRELOADED_STATE__?: Nullable<IStore>;
+  __PRELOADED_STATE__?: Nullable<IStore['ssr']>;
   xRealIP?: string;
 };
 

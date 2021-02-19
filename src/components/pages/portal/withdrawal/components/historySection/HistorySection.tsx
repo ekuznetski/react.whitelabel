@@ -1,9 +1,9 @@
 import { MWithdrawalHistoryItem } from '@domain/models';
 import React, { memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { WithdrawalHistoryItem } from '..';
-import './WithdrawalHistorySection.scss';
+import './HistorySection.scss';
 
 export const WithdrawalHistorySection = memo(function WithdrawalHistorySection(props: {
   items: MWithdrawalHistoryItem[];

@@ -1,4 +1,5 @@
 export enum EActionTypes {
+  traceRequestData = '[APP] Trace Request Data',
   // Data - Prices
   fetchPrices = '[DATA - Prices] Fetch',
   savePrices = '[DATA - Prices] Save',
