@@ -41,7 +41,7 @@ export function UserProfileCard() {
 
     return (
       <div className={classNames('profile-info__status', _status.status)}>
-        <Svg href={_status.icon} height={18} className="mr-1"/> {_status.text}
+        <Svg href={_status.icon} height={14} className="mr-1"/> {_status.text}
       </div>
     );
   }

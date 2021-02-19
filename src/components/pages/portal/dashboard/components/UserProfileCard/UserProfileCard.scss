@@ -52,20 +52,32 @@
           }
 
           &__status {
-            @include d-flex();
+            @include d-flex(center);
             font-size: 12px;
             line-height: 20px;
 
             &.success {
               color: $green;
+
+              svg {
+                fill: $green;
+              }
             }
 
             &.warning {
               color: $yellow;
+
+              svg {
+                fill: $yellow;
+              }
             }
 
             &.danger {
               color: $red;
+
+              svg {
+                fill: $red;
+              }
             }
           }
         }
