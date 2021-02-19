@@ -1,9 +1,10 @@
 import { env } from '@env';
-import { ELabels } from '@domain/enums';
+import { ELabels, EPagePath } from '@domain/enums';
 import * as asd from '@utils/hooks';
 import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
+import { LocaleLink } from '@components/shared';
 // import { useLabelView } from '../../../../utils/hooks/useLabelView';
 
 const t = i18n.getLazyT;
@@ -38,11 +39,30 @@ export const locale = {
       </Trans>
     ),
     [ELabels.uinvex]: (
-      <Trans i18nKey="Trusted Section Desc">
+      // <Trans i18nKey="Trusted Section Desc">
+      //   Whether you’re interested in trading the $6 trillion-a-day forex (FX) industry or stocks movements, UINVEX has
+      //   what you’re looking for. We offer a large range of products in 6 different asset classes:
+      //   <b>Forex, Stocks, Commodities, Indices, Cryptocurrencies</b> and <b>ETFs</b>. Not only do we have a wide range
+      //   of products but we provide competitive trading conditions for our clients.
+      // </Trans>
+      <Trans
+        i18nKey="Trusted Section Desc"
+        values={{
+          forex: '$t(Forex)',
+          stocks: '$t(Stocks)',
+          commodities: '$t(Commodities)',
+          indices: '$t(Indices)',
+          cryptocurrencies: '$t(Cryptocurrencies)',
+        }}
+      >
         Whether you’re interested in trading the $6 trillion-a-day forex (FX) industry or stocks movements, UINVEX has
         what you’re looking for. We offer a large range of products in 6 different asset classes:
-        <b>Forex, Stocks, Commodities, Indices, Cryptocurrencies</b> and <b>ETFs</b>. Not only do we have a wide range
-        of products but we provide competitive trading conditions for our clients.
+        <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'forex' } }}>Forex</LocaleLink>,
+        <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'stocks' } }}>Stocks</LocaleLink>,
+        <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'commodities' } }}>Commodities</LocaleLink>,
+        <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'indices' } }}>Indices</LocaleLink>,
+        <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'crypto' } }}>Cryptocurrencies</LocaleLink>,
+        and <b>ETFs</b>. Not only do we have a wide range of products but we provide competitive trading conditions
       </Trans>
     ),
   }),
