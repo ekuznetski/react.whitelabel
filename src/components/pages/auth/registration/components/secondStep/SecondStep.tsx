@@ -4,7 +4,7 @@ import { Country, ERegSteps, countries } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -78,7 +78,7 @@ export function SecondStep({ submitFn }: any) {
     } else {
       data.tax_country = data.tax_country.name;
     }
-    if(data.state) data.state = data.state.code;
+    if (data.state) data.state = data.state.code;
     Object.assign(data, { dob: `${data.yearOfBirth}-${data.monthOfBirth}-${data.dayOfBirth}` });
     const unusedKeys: any[] = [EFields.yearOfBirth, EFields.monthOfBirth, EFields.dayOfBirth, EFields.tax_checkbox];
     data = Object.keys(data).reduce((acc, key) => {
@@ -112,10 +112,15 @@ export function SecondStep({ submitFn }: any) {
         validationSchema={validationSchema}
         onSubmit={Submit}
       >
-        {({ values }) => {
+        {({ values, setFieldValue, setFieldTouched }) => {
           const _showTaxCountryState =
             values.tax_checkbox && values.tax_country && hasState(values.tax_country as Country);
           const _showCountryState = values.country && hasState(values.country as Country);
+
+          useEffect(() => {
+            setFieldValue('state', '');
+            setFieldTouched('state', false);
+          }, [values.country]);
 
           return (
             <Form className="m-auto form">
