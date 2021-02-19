@@ -37,10 +37,15 @@ export function UserProfileCard() {
         : clientStatus.isApproved
         ? config.profileStatusTemplates.success
         : config.profileStatusTemplates.warning;
+    const _statusText = (
+      <>
+        <Svg href={_status.icon} height={14} className="mr-1" /> {_status.text}
+      </>
+    );
 
     return (
       <div className={classNames('profile-info__status', _status.status)}>
-        <Svg href={_status.icon} height={14} className="mr-1"/> {_status.text}
+        {_status.url ? <LocaleLink to={_status.url}>_statusText</LocaleLink> : _statusText}
       </div>
     );
   }
