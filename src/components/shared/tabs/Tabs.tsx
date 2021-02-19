@@ -1,8 +1,8 @@
 import { ENotificationType } from '@domain/enums';
 import { useDeviceDetect } from '@utils/hooks';
-import { useResponsive } from 'ahooks';
+import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useEffect, useMemo, useState } from 'react';
+import React, { createRef, forwardRef, memo, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../form/button/Button';
 import { Svg } from '../svg/Svg';
@@ -50,7 +50,8 @@ export function Tabs({
   onChange = undefined,
 }: ITabs) {
   const [activeTabProps, setActiveTabProps] = useState<TabsState['activeTabProps']>();
-  const [lineProps, setLineProps] = useState<TabsState['lineProps']>();
+  const [lineProps, setLineProps] = useState<{ [k: string]: any }>();
+  const navRef = createRef<HTMLDivElement>();
   const viewportSize = useResponsive();
   const tabsContentRef: { [k: string]: HTMLDivElement | null } = {};
   const { t } = useTranslation();
@@ -60,20 +61,6 @@ export function Tabs({
   if (!children && !(labels && content)) {
     throw new Error('Tabs must have (props.children) or (labels && content)!');
   }
-
-  window.onload = function () {
-    setLineProps({
-      navLineWidth: activeNavTabLink?.clientWidth,
-      navLineLeft: activeNavTabLink?.offsetLeft,
-    });
-  };
-
-  useEffect(() => {
-    setLineProps({
-      navLineWidth: activeNavTabLink?.clientWidth,
-      navLineLeft: activeNavTabLink?.offsetLeft,
-    });
-  }, [activeTabProps?.anchor, viewportSize]);
 
   return (
     <TabsProvider>
@@ -104,6 +91,20 @@ export function Tabs({
           }
         }, [active]);
 
+        useDebounceEffect(
+          () => {
+            if (activeNavTabLink) {
+              if (navRef.current) {
+                navRef.current.scrollLeft =
+                  activeNavTabLink.offsetLeft - navRef.current.offsetWidth / 2 + activeNavTabLink.offsetWidth / 2;
+              }
+              setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
+            }
+          },
+          [activeTabProps?.anchor, viewportSize],
+          { wait: 0 },
+        );
+
         function switchTab(anchor: string | number) {
           dispatch({ type: 'setActive', anchor });
         }
@@ -117,43 +118,49 @@ export function Tabs({
             <div
               className={classNames('common-tabs', isVertical && 'vertical', 'show_' + state.mobileDisplay, className)}
             >
-              <div
-                className={classNames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}
-              >
-                {state.labels.map((label, l) => (
-                  <div
-                    key={l}
-                    className={classNames(
-                      'tab__link',
-                      label.status,
-                      label.disabled && 'disabled',
-                      !disabledAll && activeTabProps?.anchor === label.anchor && 'active',
-                      !isVertical && state.labels.length - 1 != l && 'mr-7',
-                    )}
-                    onClick={() => !label.disabled && switchTab(label.anchor)}
-                    ref={(ref) => activeTabProps?.anchor === label.anchor && (activeNavTabLink = ref)}
-                  >
-                    <div className={classNames('tab__link__label', isVertical && 'py-6 pl-12 pr-4')}>
-                      <div className="tab__link__label-title">{label.value}</div>
-                      {label.desc && <div className="tab__link__label-subtitle">{label.desc}</div>}
+              <div className={classNames('common-tabs__navigation', !isVertical && 'mb-9')} ref={navRef}>
+                <div
+                  className={classNames(
+                    !isVertical && 'common-tabs__navigation-wrapper',
+                    !isVertical && alignNavigation,
+                  )}
+                >
+                  {state.labels.map((label, l) => (
+                    <div
+                      key={l}
+                      className={classNames(
+                        'tab__link',
+                        label.status,
+                        label.disabled && 'disabled',
+                        !disabledAll && activeTabProps?.anchor === label.anchor && 'active',
+                        !isVertical && state.labels.length - 1 != l && 'mr-7',
+                      )}
+                      onClick={() => !label.disabled && switchTab(label.anchor)}
+                      ref={(ref) => activeTabProps?.anchor === label.anchor && (activeNavTabLink = ref)}
+                    >
+                      <div className={classNames('tab__link__label', isVertical && 'py-6 pl-12 pr-4')}>
+                        <div className="tab__link__label-title">{label.value}</div>
+                        {label.desc && <div className="tab__link__label-subtitle">{label.desc}</div>}
+                      </div>
+                      {label.icon && (
+                        <Svg
+                          className="tab__link__icon mr-9"
+                          href={label.icon}
+                          width={isVertical ? 40 : 24}
+                          height={24}
+                        />
+                      )}
                     </div>
-                    {label.icon && (
-                      <Svg
-                        className="tab__link__icon mr-9"
-                        href={label.icon}
-                        width={isVertical ? 40 : 24}
-                        height={24}
-                      />
-                    )}
-                  </div>
-                ))}
-                {activeTabProps && !isVertical && (
-                  <div
-                    className="active-tab-line"
-                    style={{ left: lineProps?.navLineLeft, width: lineProps?.navLineWidth }}
-                  />
-                )}
+                  ))}
+                  {lineProps && !isVertical && (
+                    <div
+                      className="active-tab-line"
+                      style={{ left: lineProps?.left, width: lineProps?.width + 'px' }}
+                    />
+                  )}
+                </div>
               </div>
+
               <div className={classNames('common-tabs__container', isVertical && 'py-8 px-6 py-md-10 px-md-9')}>
                 {!children
                   ? state.contents.map((content, c) => <Tab key={c} anchor={content.anchor} content={content.value} />)
