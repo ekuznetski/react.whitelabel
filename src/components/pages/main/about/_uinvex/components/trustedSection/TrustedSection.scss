@@ -3,6 +3,8 @@
 
 .about-wrapper {
   &__trusted {
+    @include d-flex(center, start, row);
+
     .trusted {
       &__text {
         flex: 0 0 colSizePrc(9);
@@ -12,12 +14,17 @@
       &__title {
         font-size: 44px;
         line-height: 52px;
+        text-align: center;
         font-family: $font-family1;
       }
 
       &__description {
         font-size: 16px;
         line-height: 26px;
+        a {
+          color: $dark-text;
+          font-weight: bolder;
+        }
       }
 
       &__cards {
@@ -30,6 +37,8 @@
             flex-flow: row nowrap;
           }
           &__item {
+            height: 140px;
+
             &-observer {
               display: none;
             }
@@ -42,6 +51,7 @@
               font-size: 44px;
               line-height: 52px;
               color: $dark-blue;
+              justify-content: center;
               margin-bottom: 0;
 
               span {
@@ -53,6 +63,8 @@
               }
 
               small {
+                margin-left: 10px;
+                font-size: 18px;
                 color: $dark-blue;
               }
             }
@@ -60,6 +72,7 @@
             &-content {
               font-size: 22px;
               line-height: 34px;
+              text-align: center;
             }
           }
         }
