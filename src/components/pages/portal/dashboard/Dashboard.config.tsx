@@ -26,6 +26,13 @@ interface IConfig {
   tabsData: ITabs;
   promotion_cards: IClientBannerCard[];
   bonus_cards: IClientBannerCard[];
+  profileStatusTemplates: {
+    [k in 'danger' | 'warning' | 'success']: {
+      status: string;
+      icon: string;
+      text: string;
+    };
+  };
 }
 
 const t = i18n.getLazyT;
@@ -151,4 +158,21 @@ export const config: IConfig = {
       title: t('Deposit Now').toUpperCase(),
     },
   ],
+  profileStatusTemplates: {
+    danger: {
+      status: 'danger',
+      icon: 'status_error',
+      text: t('Verify your profile'),
+    },
+    warning: {
+      status: 'warning',
+      icon: 'status_pending',
+      text: t('Profile on review'),
+    },
+    success: {
+      status: 'success',
+      icon: 'status_success',
+      text: t('Profile approved'),
+    },
+  },
 };

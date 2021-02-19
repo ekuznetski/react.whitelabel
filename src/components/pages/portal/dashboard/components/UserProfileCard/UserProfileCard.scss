@@ -52,15 +52,32 @@
           }
 
           &__status {
+            @include d-flex(center);
             font-size: 12px;
             line-height: 20px;
 
             &.success {
               color: $green;
+
+              svg {
+                fill: $green;
+              }
+            }
+
+            &.warning {
+              color: $yellow;
+
+              svg {
+                fill: $yellow;
+              }
             }
 
             &.danger {
               color: $red;
+
+              svg {
+                fill: $red;
+              }
             }
           }
         }
@@ -100,6 +117,8 @@
 
   @media (max-width: $viewport-sm-w) {
     &__context {
+      flex: 0 0 114px;
+
       .profile-context {
         &__facepile {
           flex: 0 0 75px;

@@ -120,7 +120,7 @@ export const Select = memo(function Select({
   useEffect(() => {
     if (field && field.value && field.value != state.value)
       setState({ value: options.find((option: any) => JSON.stringify(option.value) == JSON.stringify(field.value)) });
-    else setState({ value: null });
+    else setState({ value: null, isFilled: false });
   }, [field?.value]);
 
   function onChangeSelect(e: any) {
