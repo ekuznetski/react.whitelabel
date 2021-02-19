@@ -4,10 +4,16 @@
 .open-live-account-banner {
   overflow: visible;
   padding: 0 !important;
-  @include d-flex(center, start, row);
-  background: #1a1b1c;
+  @include d-flex(flex-end, start, row);
+  background: transparent;
   color: white;
   position: relative;
+  height: 480px;
+
+  .section-bg {
+    top: 40px;
+    height: 440px;
+  }
 
   .open-live-account-banner__column {
     height: 440px;
@@ -34,6 +40,7 @@
   &__title {
     font-size: 56px;
     line-height: 66px;
+    font-family: $font-family1;
 
     b {
       display: block;
@@ -50,13 +57,21 @@
     @include d-flex(center, center, column);
     z-index: 1;
     padding: 0 65px;
-    margin-bottom: 80px;
+    padding-top: 10px;
+    margin-top: -40px !important;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background: linear-gradient(0.35deg, #262a4b 0.29%, #44486c 99.67%);
+    height: 440px;
 
     .open-live-account-banner {
       &__title {
+        font-family: $font-family1;
         font-size: 42px;
         line-height: 52px;
+
         font-weight: normal;
+        text-align: center;
 
         svg {
           @include fillLogo($blue, white, $dark-blue);
@@ -66,22 +81,8 @@
         margin: 15px 0 40px 0 !important;
         font-size: 22px;
         line-height: 34px;
+        text-align: center;
       }
-    }
-
-    &:before {
-      content: '';
-      top: -40px;
-      left: -25px;
-      background: linear-gradient(0.35deg, #262a4b 0.29%, #44486c 99.67%);
-      position: absolute;
-      display: block;
-      opacity: 1;
-      height: calc(100% + 80px);
-      z-index: -1;
-      width: calc(100% + 50px);
-      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-      border-radius: 6px;
     }
 
     .open-account {
@@ -118,18 +119,25 @@
 
   @media (max-width: $viewport-lg-w) {
     padding: 0 !important;
+    height: 440px;
+
+    .section-bg {
+      height: 400px;
+    }
+
     .open-live-account-banner__column {
+      height: 400px;
       justify-content: flex-start;
       &:before {
         width: 70%;
       }
-      height: 400px;
       flex: 0 0 colSizePrc(6);
       max-width: colSizePrc(6);
       margin-bottom: 0 !important;
 
       .open-live-account-banner__title {
         padding-top: 48px;
+        margin-bottom: sp(11) !important;
       }
     }
 
@@ -149,23 +157,21 @@
 
     .open-account {
       text-align: left;
-      justify-content: flex-start;
+      justify-content: center;
 
       flex: 0 0 colSizePrc(5);
       max-width: colSizePrc(5);
-      padding: 0 40px;
-      margin-top: 0 !important;
-      margin-bottom: sp(11);
+      padding: 20px 60px;
       margin-left: sp(3);
+      height: 400px;
 
       .open-live-account-banner {
         &__title {
           font-size: 36px;
-          text-align: center;
-          padding-top: 15px;
         }
         &__description {
-          text-align: center;
+          font-size: 16px;
+          line-height: 26px;
         }
       }
 
@@ -195,50 +201,82 @@
     }
 
     .open-account {
+      padding: 20px 40px;
+
       button {
         width: 100%;
         height: 50px;
+      }
+
+      .open-live-account-banner {
+        &__title {
+          font-size: 36px;
+          text-align: center;
+          padding-top: 15px;
+        }
+        &__description {
+          text-align: center;
+        }
       }
     }
   }
 
   @media (max-width: $viewport-sm-w) {
     padding: 0 !important;
-    margin-bottom: 100px;
-    background: $dark-blue;
+    height: 630px;
+    align-items: flex-start;
+
+    .section-bg {
+      height: 530px;
+      background: $dark-blue !important;
+      top: 0;
+    }
 
     .open-live-account-banner__column {
+      height: initial;
       align-items: center;
-      height: 530px;
+      flex: unset;
+      margin-bottom: 50px !important;
+      text-align: center;
+
       &:before {
         content: none;
       }
       max-width: 100%;
       padding: 0 20px;
-      margin-bottom: 62px !important;
+
+      .open-live-account-banner {
+        &__title {
+          font-size: 48px;
+          line-height: 58px;
+          text-align: center;
+          margin-bottom: sp(7) !important;
+        }
+        &__description {
+          line-height: 22px;
+        }
+      }
     }
 
     .row {
       flex-direction: column;
     }
 
-    &__title,
-    &__description {
-      text-align: center;
-    }
-
     .open-account {
+      margin-top: 0 !important;
       margin-bottom: 0;
       padding: 0 16px;
       align-items: center;
+      height: 330px;
 
-      flex: 0 0 colSizePrc(4);
+      flex: unset;
       max-width: colSizePrc(10);
       margin-left: colSizePrc(1);
 
       .open-live-account-banner {
         &__title {
           line-height: 44px;
+          padding-top: 0;
         }
       }
 
@@ -249,14 +287,8 @@
       }
 
       button {
-        position: absolute;
-        bottom: -50px;
         width: 190px;
       }
-    }
-
-    .section-bg {
-      display: none;
     }
   }
 }
