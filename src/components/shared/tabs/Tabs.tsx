@@ -113,12 +113,40 @@ export function Tabs({
           dispatch({ type: 'setMobileDisplay', mobileDisplay: setDisplay });
         }
 
+        function selectPrevTab() {
+          const _currentTabIdx = state.labels.findIndex(
+            (tab) => tab.anchor === activeTabProps?.anchor,
+          );
+          if (_currentTabIdx > 0) {
+            switchTab(state.labels[_currentTabIdx - 1].anchor); 
+          }
+          
+        }
+
+        function selectNextTab() {
+          const _currentTabIdx = state.labels.findIndex(
+            (tab) => tab.anchor === activeTabProps?.anchor,
+          );
+          if (_currentTabIdx + 1 < state.labels.length) {
+            switchTab(state.labels[_currentTabIdx + 1].anchor); 
+          }
+        }
+
         return useMemo(() => {
           return (
             <div
               className={classNames('common-tabs', isVertical && 'vertical', 'show_' + state.mobileDisplay, className)}
             >
-              <div className={classNames('common-tabs__navigation', !isVertical && 'mb-9')} ref={navRef}>
+              {lineProps && !isVertical && (
+                <div className="d-lg-none common-tabs__prev" onClick={() => selectPrevTab()}>
+                  <Svg
+                    href={'chevron_left'}
+                    width={18}
+                    height={18}
+                  />
+                </div>
+                )}
+              <div className={classNames('common-tabs__navigation', !isVertical && 'mb-9', !isVertical && 'mx-7 mx-lg-0')} ref={navRef}>
                 <div
                   className={classNames(
                     !isVertical && 'common-tabs__navigation-wrapper',
@@ -160,6 +188,15 @@ export function Tabs({
                   )}
                 </div>
               </div>
+              {lineProps && !isVertical && (
+                <div className="d-lg-none common-tabs__next" onClick={() => selectNextTab()}>
+                  <Svg
+                    href={'chevron_right'}
+                    width={18}
+                    height={18}
+                  />
+                </div>
+                )}
 
               <div className={classNames('common-tabs__container', isVertical && 'py-8 px-6 py-md-10 px-md-9')}>
                 {!children

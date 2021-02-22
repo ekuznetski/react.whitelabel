@@ -277,6 +277,9 @@
     }
 
     & > .common-tabs__navigation {
+      @media (max-width: $viewport-lg-w) {
+        width: calc(100% - 40px);
+      }
       @media (max-width: $viewport-md-w) {
         overflow-x: scroll;
         scroll-behavior: smooth;
@@ -289,6 +292,23 @@
           top: 0;
         }
       }
+    }
+
+    .common-tabs__next,
+    .common-tabs__prev {
+      position: absolute;
+      width: 20px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      @media (max-width: $viewport-md-w) {
+        align-items: flex-start;
+      }
+    }
+    .common-tabs__next {
+      right: 0;
     }
   }
 }
