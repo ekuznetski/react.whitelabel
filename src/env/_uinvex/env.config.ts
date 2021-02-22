@@ -5,7 +5,7 @@ const dev = {
   API_URL: 'https://api.uinvex.com',
   // PROXY_URL: 'http://localhost:4201/proxy', // for local SSR testing
   PROXY_URL: 'https://www.uinvex.com/proxy',
-  PRICES_URL: 'https://prices.uinvex.com',
+  PRICES_URL: 'https://prices.bluesquarefx.com',
   GTM_ID: '',
   INTERCOM_ID: '',
   GOOGLE_MAP_KEY: '',
