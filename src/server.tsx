@@ -86,7 +86,7 @@ const sessionOptions: session.SessionOptions = {
   cookie: {
     maxAge: 18000,
     httpOnly: true,
-    sameSite: true,
+    // sameSite: true,
   },
   store: new RedisStore({ client: RedisClient, ttl: 18000 }), // 5hours to expire the session should be same as CAKEPHP cookie expire timeout
 };
