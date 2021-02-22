@@ -5,13 +5,14 @@ import { config } from '@pages/main/home';
 import { IStore, ac_fetchPrices } from '@store';
 import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
-import React, { createRef, forwardRef, useEffect, useState } from 'react';
+import React, { createRef, forwardRef, memo, useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Area, AreaChart } from 'recharts';
-import './StockPrices.scss';
+import './StockPricesSection.scss';
 
-export function StockPrices() {
+export const StockPricesSection = memo(function StockPricesSection() {
   const { prices } = useSelector<IStore, { prices: IPrices }>((state) => ({
     prices: state.data.prices,
   }));
@@ -47,33 +48,39 @@ export function StockPrices() {
       : [];
   }
 
-  return (
-    <div className="stock-prices">
-      {activePriceTab ? (
-        <>
-          {responsive.lg && (
-            <StockPricesInfo
-              {...(activePriceTab.info as IPriceTabInfo)}
-              anchor={activePriceTab.anchor}
-              icon={activePriceTab.icon}
-            />
-          )}
-          <div className="stock-prices__content py-0 py-lg-11">
-            <StockPricesMenu items={priceTabs} activeTab={activePriceTab} selectTab={setActivePriceTab} />
-            {!responsive.lg && (
-              <StockPricesInfo
-                {...(activePriceTab.info as IPriceTabInfo)}
-                anchor={activePriceTab.anchor}
-                icon={activePriceTab.icon}
-              />
-            )}
-            <StockPricesChartCarousel {...activePriceTab} currentAsset={activePriceTab.anchor} />
-          </div>
-        </>
-      ) : null}
-    </div>
-  );
-}
+  return activePriceTab ? (
+    <section className="stocks p-0">
+      <Container>
+        <Row>
+          <Col xs={12}>
+            <div className="stock-prices">
+              <>
+                {responsive.lg && (
+                  <StockPricesInfo
+                    {...(activePriceTab.info as IPriceTabInfo)}
+                    anchor={activePriceTab.anchor}
+                    icon={activePriceTab.icon}
+                  />
+                )}
+                <div className="stock-prices__content py-0 py-lg-11">
+                  <StockPricesMenu items={priceTabs} activeTab={activePriceTab} selectTab={setActivePriceTab} />
+                  {!responsive.lg && (
+                    <StockPricesInfo
+                      {...(activePriceTab.info as IPriceTabInfo)}
+                      anchor={activePriceTab.anchor}
+                      icon={activePriceTab.icon}
+                    />
+                  )}
+                  <StockPricesChartCarousel {...activePriceTab} currentAsset={activePriceTab.anchor} />
+                </div>
+              </>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </section>
+  ) : null;
+});
 
 function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
   const { t } = useTranslation();

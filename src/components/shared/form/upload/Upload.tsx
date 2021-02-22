@@ -470,7 +470,7 @@ export const UploadWrapper = memo(function UploadWrapper({ children, documentsTy
                     <Button
                       className="upload-file__btn mt-9"
                       onClick={() => dispatch({ view: EUploadWrapperViewType.upload })}
-                      noBg
+                      secondary
                     >
                       {t('Upload another document')}
                     </Button>

@@ -9,7 +9,7 @@ export const PartnershipPotentialSection = memo(function PartnershipPotentialSec
 
   return (
     <section className="partnership__potential">
-      <SectionBg img="potential-bg.jpg" />
+      <SectionBg primary="potential-bg.jpg" />
       <Container>
         <Row>
           <Col xs={12} lg={9} xl={8}>
