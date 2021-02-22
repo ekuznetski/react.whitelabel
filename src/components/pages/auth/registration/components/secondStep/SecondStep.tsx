@@ -71,7 +71,7 @@ export function SecondStep({ submitFn }: any) {
     postcode: FieldValidators.postcode,
   });
 
-  function Submit(data: FormikValues) {
+  function Submit(data: FormikValues): void {
     data.country = data.country.name;
     if (!data.tax_checkbox) {
       data.tax_country = data.country;
@@ -90,7 +90,7 @@ export function SecondStep({ submitFn }: any) {
     submitFn({ [ERegSteps.step2]: data });
   }
 
-  function hasState(country?: Country) {
+  function hasState(country?: Country): boolean {
     return !!country?.states?.length;
   }
 
@@ -113,9 +113,7 @@ export function SecondStep({ submitFn }: any) {
         onSubmit={Submit}
       >
         {({ values, setFieldValue, setFieldTouched }) => {
-          const _showTaxCountryState =
-            values.tax_checkbox && values.tax_country && hasState(values.tax_country as Country);
-          const _showCountryState = values.country && hasState(values.country as Country);
+          const _showCountryState = !!values.country && hasState(values.country as Country);
 
           useEffect(() => {
             setFieldValue('state', '');
