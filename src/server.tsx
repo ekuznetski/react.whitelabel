@@ -51,8 +51,13 @@ const upload = multer({ dest: '/tmp/uploads', limits: { fieldNameSize: 1024, fie
 const indexFile = path.normalize('browser/server.html');
 
 const allowedUploadURLs = ['/v2/documents/upload'];
-const allowedOriginDevList = ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:4201'];
-const allowedOriginLabelList = new RegExp(/(bluesquarefx.com)/);
+const allowedOriginDevList = [
+  'http://localhost:3000',
+  'http://localhost:4200',
+  'http://localhost:4201',
+  'http://3.8.91.193:3000',
+];
+const allowedOriginLabelList = new RegExp(/(bluesquarefx.com|uinvex.com)/);
 const corsOptions: cors.CorsOptions = {
   origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
     if (!requestOrigin || allowedOriginDevList.includes(requestOrigin) || allowedOriginLabelList.test(requestOrigin)) {
