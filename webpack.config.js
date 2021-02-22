@@ -64,6 +64,7 @@ module.exports = (_env, arguments) => {
   let targetLabelPrototypesAlias = []; // enums , interfaces, models
   let targetLabelScssAlias = [];
   let targetLabelEnvAlias = [];
+  let targetLabelUtilsAlias = [];
   let componentsFilepaths = [];
 
   let stylesFilenames = [];
@@ -71,6 +72,7 @@ module.exports = (_env, arguments) => {
   let prototypesFilenames = [];
   let environmentFilenames = [];
   let localeFilenames = [];
+  let utilsFilenames = [];
 
   // Generate map to replace files for different domain
   if (targetLabel) {
@@ -79,6 +81,7 @@ module.exports = (_env, arguments) => {
     labelFilenames = glob.sync(`./src/domain/${targetLabelFolder}/**/*.*`);
     prototypesFilenames = glob.sync(`./src/domain/${targetLabelFolder}/!(data)/**/*.*`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
+    utilsFilenames = glob.sync(`./src/utils/**/${targetLabelFolder}/*.*`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
     componentsFilepaths = glob
@@ -190,6 +193,19 @@ module.exports = (_env, arguments) => {
       });
     }, {});
 
+    targetLabelUtilsAlias = utilsFilenames.reduce((acc, filePath) => {
+      const extensions = ['tsx', 'ts', 'js'];
+      const { filename, extension, basename } = filePathDestructor(filePath);
+      const file = extensions.includes(extension) ? filename : basename;
+      const _path = filePath.replace(new RegExp(`.*/utils\/(.+)\/${targetLabelFolder}.*`), '$1');
+
+      return Object.assign(acc, {
+        [`./${file}`]: path.join(__dirname, `src/utils/${_path}/${targetLabelFolder}/${file}`),
+      });
+    }, {});
+
+    // console.log(targetLabelUtilsAlias, utilsFilenames)
+
     targetLabelEnvAlias = environmentFilenames
       .map((filePath) => {
         const extensions = ['ts'];
@@ -259,6 +275,7 @@ module.exports = (_env, arguments) => {
         ...targetLabelConfigsAlias,
         ...targetLabelComponentsAlias,
         ...targetLabelPrototypesAlias,
+        ...targetLabelUtilsAlias
       },
     },
     devtool: 'inline-source-map',

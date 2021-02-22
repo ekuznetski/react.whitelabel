@@ -2,14 +2,14 @@ import { EHttpMethod, EResponseStatus } from '@domain/enums';
 import { env } from '@env';
 import axios, { AxiosRequestConfig, Method } from 'axios';
 import qs from 'qs';
-import mockData from './api.mock.json';
+import { mockData } from './';
 
 function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPath: string, formData = false) {
   return async (data: T | null = null) => {
     try {
       // RETURN MOCK RESPONSE
       const props = requestPath
-        .replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL | env.PRICES_URL})\/`, 'g'), '')
+        .replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL}|${env.PRICES_URL})\/`, 'g'), '')
         .split('/');
       const mockResponse = props.reduce((acc: any, key) => acc[key] || {}, mockData);
       if (Object.keys(mockResponse).length) {
@@ -20,7 +20,17 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
           ) {
             setTimeout(() => reject(mockResponse.response), 450);
           } else {
-            setTimeout(() => resolve(mockResponse), 450);
+            setTimeout(
+              () =>
+                resolve({
+                  url: requestPath
+                    .replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL}|${env.PRICES_URL})\/`, 'g'), '')
+                    .split('/')
+                    .slice(-1)[0],
+                  data: mockResponse,
+                }),
+              450,
+            );
           }
         });
       }
@@ -62,7 +72,10 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
             throw e;
           } else {
             return {
-              url: requestPath.replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL}|${env.PRICES_URL})\/`, 'g'), '').split('/').slice(-1)[0],
+              url: requestPath
+                .replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL}|${env.PRICES_URL})\/`, 'g'), '')
+                .split('/')
+                .slice(-1)[0],
               data: e.data,
             };
           }
