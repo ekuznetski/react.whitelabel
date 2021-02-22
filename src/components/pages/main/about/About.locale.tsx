@@ -33,4 +33,17 @@ export const locale = {
       </Trans>
     ),
   }),
+  depositTitle: asd.useLabelView({
+    '*': (
+      <Trans i18nKey="Deposit and Withdrawal Information">
+        Deposit & Withdrawal <br />
+        <strong>Information</strong>
+      </Trans>
+    ),
+    [ELabels.uinvex]: (
+      <Trans i18nKey="Deposit and Withdrawal Information">
+        <strong>Deposit</strong> & <strong>Withdrawal</strong> Information
+      </Trans>
+    ),
+  }),
 };
