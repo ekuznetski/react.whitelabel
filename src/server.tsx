@@ -51,12 +51,7 @@ const upload = multer({ dest: '/tmp/uploads', limits: { fieldNameSize: 1024, fie
 const indexFile = path.normalize('browser/server.html');
 
 const allowedUploadURLs = ['/v2/documents/upload'];
-const allowedOriginDevList = [
-  'http://localhost:3000',
-  'http://localhost:4200',
-  'http://localhost:4201',
-  'http://3.8.91.193:3000',
-];
+const allowedOriginDevList = ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:4201'];
 const allowedOriginLabelList = new RegExp(/(bluesquarefx.com|uinvex.com)/);
 const corsOptions: cors.CorsOptions = {
   origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
@@ -188,7 +183,7 @@ app.use('/proxy', checkAuthenticationCookie, declareGlobalProps, upload.any(), (
   const authenticationToken = req.session?.CakePHPCookie;
   const xRealIP = (req.get('xrealip') || req.ip || req.ips[0] || req.clientIp)
     ?.replace('::ffff:', '')
-    ?.replace('::1', '127.0.0.1');
+    ?.replace('::1', '127.0.0.1:3000');
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
   const options = {
@@ -336,13 +331,6 @@ app.get(
         requestResolver();
       }
     }).then(() => {
-      const _storePath = store.getState().app.route.path;
-      console.log('----------------------------------', JSON.stringify(store.getState().app.route, null, 2));
-      if (page != _storePath) {
-        console.log('redirect to: ', _storePath);
-        res.redirect(`/${lng + _storePath}`);
-      }
-
       const app = renderToString(
         <StaticRouter location={page}>
           <Provider store={store}>
