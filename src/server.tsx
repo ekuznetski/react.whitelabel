@@ -281,7 +281,7 @@ app.get(
   declareGlobalProps,
   storeTracker,
   (req: express.Request, res: express.Response) => {
-    const xRealIP = (req.ip || req.ips[0] || req.clientIp)?.replace('::1', '127.0.0.1');
+    const xRealIP = (req.ip || req.ips[0] || req.clientIp)?.replace('::1', '127.0.0.1:3000');
     (global as any).window['xRealIP'] = xRealIP;
 
     const fileExist = fs.existsSync(indexFile);
