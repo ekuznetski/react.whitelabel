@@ -1,6 +1,6 @@
 import { Button, Img, LabelView, LocaleLink, SectionBg, Svg } from '@components/shared';
 import { ELabels, EPagePath } from '@domain/enums';
-import { locale } from '@pages/main/about';
+import { config, locale } from '@pages/main/about';
 import React, { memo } from 'react';
 import { useResponsive } from 'ahooks';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ export const PageTopSection = memo(function PageTopSection() {
 
   return (
     <section className="about-wrapper__page-top">
-      {locale.pageTopBg(responsive)}
+      {config.pageTopBg(responsive)}
       <div className="container">
         <div className="row">
           <div className="col-md-8 col-lg-7 page-top__header">

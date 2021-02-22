@@ -15,17 +15,6 @@ export const locale = {
     '*': t('Open An Account'),
     [(ELabels.bsfx, ELabels.uinvex)]: t('Start Trading'),
   }),
-  pageTopBg: (responsive: any) =>
-    asd.useLabelView({
-      '*': <SectionBg img="about-page-top.jpg" />,
-      [ELabels.uinvex]: responsive.lg ? (
-        <SectionBg img="about-page-top.jpg" />
-      ) : responsive.md ? (
-        <SectionBg img="about-page-top-tablet.jpg" />
-      ) : (
-        <SectionBg img="about-page-top-mobile.png" />
-      ),
-    }),
   pageTopTitle: (responsive: any) =>
     asd.useLabelView({
       '*': t('About Us Page Title'),
