@@ -42,6 +42,13 @@ import {
 import { EActionTypes } from './store.enum';
 import { IAction, IAppStore } from './store.interface';
 
+export function ac_traceRequestData(payload: any): IAction {
+  return {
+    type: EActionTypes.traceRequestData,
+    payload,
+  };
+}
+
 export function ac_showModal<T = {}>(
   component: T,
   props?: ExtractComponentProps<T> | {},
@@ -321,6 +328,15 @@ export function ac_fetchWithdrawHistory(): IAction {
   };
 }
 
+export function ac_cancelWithdrawal(payload: { id: string }, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+  return {
+    type: EActionTypes.cancelWithdraw,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
 export function ac_saveWithdrawHistory(payload: MWithdrawalHistoryItem[]): IAction {
   return {
     type: EActionTypes.saveWithdrawHistory,
@@ -342,7 +358,7 @@ export function ac_createTradingAccount(
   };
 }
 
-export function ac_fetchWithdrawLimit(payload: { accountId: string; platform: string }): IAction {
+export function ac_fetchWithdrawLimit(payload: Omit<IWithdrawFundRequest, 'amount'>): IAction {
   return {
     type: EActionTypes.fetchWithdrawLimit,
     payload,

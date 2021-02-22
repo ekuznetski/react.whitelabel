@@ -10,6 +10,7 @@ type TabAnchor = number | string | undefined;
 type Action = {
   type:
     | 'instantInit'
+    | 'update'
     | 'add'
     | 'addTempLabel'
     | 'addTempSubLabel'
@@ -19,6 +20,7 @@ type Action = {
     | 'setCustomMobileBackBtn'
     | 'setMobileDisplay';
   label?: { value: TabData; desc?: TabData; icon?: string; status?: ENotificationType };
+  uid?: string;
   content?: TabData;
   anchor?: TabAnchor;
   disabled?: boolean;
@@ -157,6 +159,32 @@ function TabsReducer(state: State, action: Action) {
         active: state.active || _labels.filter((label) => !label.disabled)[0].anchor,
         tempLabel: undefined,
         tempContent: undefined,
+      };
+    }
+    case 'update': {
+      let _labels = state.labels || [];
+      let _active = state.active;
+
+      if (action.label) {
+        _labels = _labels.map((label) => {
+          if (label.anchor == action.anchor)
+            return {
+              ...label,
+              ...action.label,
+              disabled: action.disabled,
+            };
+          return label;
+        });
+      }
+
+      if (_active == action.anchor && action.disabled) {
+        _active = _labels.filter((label) => !label.disabled)[0].anchor;
+      }
+
+      return {
+        ...state,
+        labels: _labels,
+        active: _active,
       };
     }
     default: {

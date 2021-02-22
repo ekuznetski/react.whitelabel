@@ -23,6 +23,20 @@ export type IWithdrawalHistoryResponse = IBaseResponse & {
   };
 };
 
+export interface IWithdrawalCancel {
+  account: string;
+  amount: string;
+  cancelable: number;
+  currency: string;
+  reference: string;
+}
+
+export type IWithdrawalCancelResponse = IBaseResponse & {
+  response: {
+    message: IWithdrawalCancel[];
+  };
+};
+
 export type IWithdrawalLimitResponse = IBaseResponse & {
   response: {
     data: number;
@@ -30,7 +44,7 @@ export type IWithdrawalLimitResponse = IBaseResponse & {
 };
 
 export interface IWithdrawFundRequest {
-  trade_account: number;
+  trade_account: string;
   trade_platform: string;
   amount: number;
 }

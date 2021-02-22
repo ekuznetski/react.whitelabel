@@ -36,6 +36,7 @@ export function ignoreActionIfPageLoadedList() {
   return window.isSSR
     ? []
     : [
+        EActionTypes.fetchProfile,
         EActionTypes.fetchPrices,
         EActionTypes.fetchClientData,
         EActionTypes.uploadDocuments,
@@ -50,6 +51,10 @@ export function ignoreActionIfPageLoadedList() {
 export function appStoreReducer(state = initAppStore as IAppStore, action: IAction) {
   switch (action.type) {
     case EActionTypes.addDeposit:
+    case EActionTypes.userExists:
+    case EActionTypes.fetchClientSettings:
+    case EActionTypes.register:
+    case EActionTypes.preRegister:
     case EActionTypes.fetchClientData:
     case EActionTypes.fetchPrices:
     case EActionTypes.fetchContent:

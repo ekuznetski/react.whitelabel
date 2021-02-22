@@ -2,13 +2,15 @@ import { EHttpMethod, EResponseStatus } from '@domain/enums';
 import { env } from '@env';
 import axios, { AxiosRequestConfig, Method } from 'axios';
 import qs from 'qs';
-import mockData from './api.mock.json';
+import { mockData } from './';
 
 function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPath: string, formData = false) {
   return async (data: T | null = null) => {
     try {
       // RETURN MOCK RESPONSE
-      const props = requestPath.replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL})\/`, 'g'), '').split('/');
+      const props = requestPath
+        .replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL}|${env.PRICES_URL})\/`, 'g'), '')
+        .split('/');
       const mockResponse = props.reduce((acc: any, key) => acc[key] || {}, mockData);
       if (Object.keys(mockResponse).length) {
         return new Promise((resolve, reject) => {
@@ -18,7 +20,17 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
           ) {
             setTimeout(() => reject(mockResponse.response), 450);
           } else {
-            setTimeout(() => resolve(mockResponse), 450);
+            setTimeout(
+              () =>
+                resolve({
+                  url: requestPath
+                    .replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL}|${env.PRICES_URL})\/`, 'g'), '')
+                    .split('/')
+                    .slice(-1)[0],
+                  data: mockResponse,
+                }),
+              450,
+            );
           }
         });
       }
@@ -29,7 +41,7 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
           {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          window.isSSR && window.xRealIP ? { 'xRealIP': window.xRealIP } : {},
+          window.isSSR && window.xRealIP ? { xRealIP: window.xRealIP } : {},
           window.isSSR && window.CakePHPCookie ? { Cookie: window.CakePHPCookie } : {},
         ),
         method: method as Method,
@@ -59,7 +71,13 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
           ) {
             throw e;
           } else {
-            return e.data;
+            return {
+              url: requestPath
+                .replace(new RegExp(`(${env.API_URL}|${env.PROXY_URL}|${env.PRICES_URL})\/`, 'g'), '')
+                .split('/')
+                .slice(-1)[0],
+              data: e.data,
+            };
           }
         })
         .catch((err: any) => {
@@ -90,6 +108,7 @@ export const withdrawalsHistoryRequest = request(EHttpMethod.get, `${env.PROXY_U
 export const withdrawalsLimitRequest = request(EHttpMethod.post, `${env.PROXY_URL}/withdrawals/limit`);
 export const mt4WithdrawFundsRequest = request(EHttpMethod.post, `${env.PROXY_URL}/withdrawals/mt4`);
 export const mt5WithdrawFundsRequest = request(EHttpMethod.post, `${env.PROXY_URL}/withdrawals/mt5`);
+export const cancelWithdrawalRequest = request(EHttpMethod.post, `${env.PROXY_URL}/withdrawals/cancel`);
 export const tradingAccountsRequest = request(EHttpMethod.get, `${env.PROXY_URL}/clients/getTradingAccounts`);
 export const financialProfileRequest = request(EHttpMethod.post, `${env.PROXY_URL}/clients/newKyc`);
 export const internalTransferRequest = request(EHttpMethod.post, `${env.PROXY_URL}/accounts/transfer`);

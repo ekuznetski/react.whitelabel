@@ -120,7 +120,7 @@ export const Select = memo(function Select({
   useEffect(() => {
     if (field && field.value && field.value != state.value)
       setState({ value: options.find((option: any) => JSON.stringify(option.value) == JSON.stringify(field.value)) });
-    else setState({ value: null });
+    else setState({ value: null, isFilled: false });
   }, [field?.value]);
 
   function onChangeSelect(e: any) {
@@ -221,7 +221,7 @@ export const CountrySelect = memo((props: ISelect) => {
   const innerProps = { ...props };
   delete innerProps.options;
 
-  const options = countries.map((el) => ({
+  const options = (props.options || countries).map((el: any) => ({
     label: (
       <>
         <IconFlag flag={el.code} className="mr-1" />

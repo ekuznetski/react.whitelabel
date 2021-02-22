@@ -1,4 +1,5 @@
 export enum EActionTypes {
+  traceRequestData = '[APP] Trace Request Data',
   // Data - Prices
   fetchPrices = '[DATA - Prices] Fetch',
   savePrices = '[DATA - Prices] Save',
@@ -58,6 +59,7 @@ export enum EActionTypes {
   fetchWithdrawLimit = '[DATA - Withdrawal] Fetch Account Limit',
   saveWithdrawLimit = '[DATA - Withdrawal] Save Account Limit',
   withdrawFunds = '[DATA - Withdrawal] Withdrawal Funds',
+  cancelWithdraw = '[DATA - Withdrawal] Cancel Task',
 
   //DATA - Authorization
   forgotPassword = '[DATA - Authorization] Forgot Password',

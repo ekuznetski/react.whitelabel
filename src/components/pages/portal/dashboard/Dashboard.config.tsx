@@ -1,5 +1,5 @@
 import { ITabs, Svg } from '@components/shared';
-import { ETradingType, EWorkshopType } from '@domain/enums';
+import { EPagePath, ETradingType, EWorkshopType } from '@domain/enums';
 import { IClientBannerCard } from '@domain/interfaces';
 import i18n from '@i18next';
 import React from 'react';
@@ -26,6 +26,14 @@ interface IConfig {
   tabsData: ITabs;
   promotion_cards: IClientBannerCard[];
   bonus_cards: IClientBannerCard[];
+  profileStatusTemplates: {
+    [k in 'danger' | 'warning' | 'success']: {
+      url: string | null;
+      status: string;
+      icon: string;
+      text: string;
+    };
+  };
 }
 
 const t = i18n.getLazyT;
@@ -151,4 +159,24 @@ export const config: IConfig = {
       title: t('Deposit Now').toUpperCase(),
     },
   ],
+  profileStatusTemplates: {
+    danger: {
+      url: EPagePath.Verification,
+      status: 'danger',
+      icon: 'status_error',
+      text: t('Verify your profile'),
+    },
+    warning: {
+      url: null,
+      status: 'warning',
+      icon: 'status_pending',
+      text: t('Profile on review'),
+    },
+    success: {
+      url: null,
+      status: 'success',
+      icon: 'status_success',
+      text: t('Profile approved'),
+    },
+  },
 };

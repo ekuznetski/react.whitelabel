@@ -1,13 +1,13 @@
-import { Button, ModalContext, ModalNav, ModalOld, ModalTitle, Svg } from '@components/shared';
+import { Button, Svg } from '@components/shared';
 import { ETaskStatus } from '@domain/enums';
 import { MWithdrawalHistoryItem } from '@domain/models';
+import { ac_showModal } from '@store';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import './WithdrawalHistoryItem.scss';
-import { ac_showModal } from '@store';
 import { useDispatch } from 'react-redux';
-import { WithdrawCancelConfirmationModal } from '@pages/portal/withdrawal/components';
+import { WithdrawCancelConfirmationModal } from '..';
+import './HistoryItem.scss';
 
 export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: MWithdrawalHistoryItem) {
   const { t } = useTranslation();
@@ -57,14 +57,24 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
       </div>
       {props.status === ETaskStatus.pending && (
         <div className="withdrawal-option p-6">
-          <Button
-            noBg
-            onClick={() =>
-              dispatch(ac_showModal(WithdrawCancelConfirmationModal, {}, 'withdrawal-history-item__modal'))
-            }
-          >
-            {t('Cancel Withdrawal')}
-          </Button>
+          {props.cancelable ? (
+            <Button
+              noBg
+              onClick={() =>
+                dispatch(
+                  ac_showModal(
+                    WithdrawCancelConfirmationModal,
+                    { withdrawalId: props.reference },
+                    'withdrawal-history-item__modal',
+                  ),
+                )
+              }
+            >
+              {t('Cancel Withdrawal')}
+            </Button>
+          ) : (
+            <div className="text-center">{t('Cancellation in progress...')}</div>
+          )}
         </div>
       )}
       {(props.status === ETaskStatus.success || props.status === ETaskStatus.inProgress) && !!props.items?.length && (

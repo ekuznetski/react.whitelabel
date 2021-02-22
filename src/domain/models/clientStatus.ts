@@ -1,4 +1,4 @@
-import { EClientStatusCode, EDocumentsType } from '@domain/enums';
+import { EClientStatusCode } from '@domain/enums';
 import { IClientStatus, TClientStatus } from '@domain/interfaces';
 import { generateStatus } from '@utils/fn/generateStatus';
 
@@ -19,6 +19,15 @@ export class MClientStatus {
     this.dual_status = generateStatus(props.dual_status?.code);
 
     if (castType) return this;
+  }
+
+  get isNotVerified(): boolean {
+    return (
+      this.fp_status.code === EClientStatusCode.required ||
+      this.edd_status.code === EClientStatusCode.required ||
+      this.tins_status.code === EClientStatusCode.required ||
+      this.dual_status.code === EClientStatusCode.required
+    );
   }
 
   get isApproved(): boolean {

@@ -41,7 +41,6 @@ export const depositActionCreators = {
     payload,
   }),
   setAccount: (payload: MTradingAccount) => {
-    console.log('payload', payload.accountId);
     return {
       type: EDepositActionTypes.setAccount,
       payload,

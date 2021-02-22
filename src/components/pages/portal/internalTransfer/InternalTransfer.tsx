@@ -124,7 +124,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
               }
               initialValues={formInitialValues}
               validationSchema={validationSchema}
-              isInitialValid={false}
+              validateOnMount={false}
               onSubmit={Submit}
             >
               {({ values }: FormikProps<any>) => {

@@ -52,7 +52,7 @@ const indexFile = path.normalize('browser/server.html');
 
 const allowedUploadURLs = ['/v2/documents/upload'];
 const allowedOriginDevList = ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:4201'];
-const allowedOriginLabelList = new RegExp(/(bluesquarefx.com)/);
+const allowedOriginLabelList = new RegExp(/(bluesquarefx.com|uinvex.com)/);
 const corsOptions: cors.CorsOptions = {
   origin: function (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
     if (!requestOrigin || allowedOriginDevList.includes(requestOrigin) || allowedOriginLabelList.test(requestOrigin)) {
@@ -83,6 +83,11 @@ const sessionOptions: session.SessionOptions = {
   secret: '$2y$12$2pMm6FzrD/Vu7lN/sBw07.MKzcc7LLkGyf4maPWV/8JokAJFDoCVO', // LW_wNc+G2x#Erc;C
   resave: true,
   saveUninitialized: true,
+  cookie: {
+    maxAge: 18000,
+    httpOnly: true,
+    // sameSite: true,
+  },
   store: new RedisStore({ client: RedisClient, ttl: 18000 }), // 5hours to expire the session should be same as CAKEPHP cookie expire timeout
 };
 
@@ -104,36 +109,36 @@ function clearRedisRequestsList() {
   });
 }
 
-function checkAuthenticationCookie(req: express.Request, resp: express.Response, next: express.NextFunction) {
+function checkAuthenticationCookie(req: express.Request, res: express.Response, next: express.NextFunction) {
   const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
+
+  if (req.session.CakePHPCookie && !reqHeaderCookie) {
+    res.clearCookie('CAKEPHP');
+    req.session.destroy(function () {
+      if (req.session) req.session.CakePHPCookie = undefined;
+      console.log('User logged out: CAKEPHP cookie not found');
+    });
+  }
 
   if (req.originalUrl.indexOf('/proxy') === 0) {
     if (req.url.includes('/logout')) {
+      res.clearCookie('CAKEPHP');
       req.session.destroy(function () {
         if (req.session) req.session.CakePHPCookie = undefined;
         console.log('User logged out: /logout has been called');
       });
     }
-  } else {
-    if (!reqHeaderCookie) {
-      req.session.destroy(function () {
-        console.log('User logged out: CAKEPHP cookie not found');
-      });
-    }
   }
-
   next();
 }
 
 function declareGlobalProps(req: express.Request, resp: express.Response, next: express.NextFunction) {
-  const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
-
   (global as any).window = window;
   (global as any).document = document;
   (global as any).location = window.location;
   (global as any).localStorage = null;
   (global as any).window['isSSR'] = true;
-  (global as any).window['CakePHPCookie'] = reqHeaderCookie || '';
+  (global as any).window['CakePHPCookie'] = req.session?.CakePHPCookie || '';
 
   next();
 }
@@ -166,6 +171,7 @@ function storeTracker(req: express.Request, resp: express.Response, next: expres
 }
 
 app.set('trust proxy', true);
+app.use(nocache());
 app.use(requestIp.mw());
 app.use(cors(corsOptions));
 app.use(cookieParser());
@@ -173,10 +179,11 @@ app.use(session(sessionOptions));
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: DATA_LIMIT })); // for parsing application/x-www-form-urlencoded
 
-app.use('/proxy', nocache(), declareGlobalProps, checkAuthenticationCookie, upload.any(), (req, resp) => {
-  const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
-  const authenticationToken = reqHeaderCookie;
-  const xRealIP = (req.get('xrealip') || req.ip || req.ips[0] || req.clientIp)?.replace('::ffff:', '');
+app.use('/proxy', checkAuthenticationCookie, declareGlobalProps, upload.any(), (req, resp) => {
+  const authenticationToken = req.session?.CakePHPCookie;
+  const xRealIP = (req.get('xrealip') || req.ip || req.ips[0] || req.clientIp)
+    ?.replace('::ffff:', '')
+    ?.replace('::1', '127.0.0.1:3000');
   RedisClient.sadd(REDIS_REQUESTs_STORE, req.url);
 
   const options = {
@@ -237,6 +244,7 @@ app.use('/proxy', nocache(), declareGlobalProps, checkAuthenticationCookie, uplo
         }
 
         res.headers['set-cookie'] = setCookie;
+        req.session.CakePHPCookie = _cakePHP;
       }
 
       if (res.headers) {
@@ -269,11 +277,11 @@ app.use(express.static('./assets'));
 
 app.get(
   '*',
-  declareGlobalProps,
   checkAuthenticationCookie,
+  declareGlobalProps,
   storeTracker,
   (req: express.Request, res: express.Response) => {
-    const xRealIP = req.ip || req.ips[0] || req.clientIp;
+    const xRealIP = (req.ip || req.ips[0] || req.clientIp)?.replace('::1', '127.0.0.1:3000');
     (global as any).window['xRealIP'] = xRealIP;
 
     const fileExist = fs.existsSync(indexFile);
@@ -354,8 +362,7 @@ app.get(
           if (unsubscribeRequestResolver) unsubscribeRequestResolver();
           return res.status(500).send('Oops, better luck next time!');
         }
-        const preloadedState = store.getState();
-        preloadedState.app.requests.activeList = [];
+        const preloadedState = store.getState().ssr;
 
         return res.send(
           data

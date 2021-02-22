@@ -40,7 +40,7 @@ export function BannerCard() {
         {cards.map((card, idx) => (
           <div
             key={idx}
-            className={classNames('context-card mt-11', idx == activeCardIdx && 'active')}
+            className={classNames('context-card mt-7 mt-sm-11', idx == activeCardIdx && 'active')}
             style={{ zIndex: -~(idx == activeCardIdx) }}
           >
             {card?.title && <div className={classNames('context-card__title mb-3', card.type)}>{card?.title}</div>}

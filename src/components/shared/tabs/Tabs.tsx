@@ -112,8 +112,8 @@ export function Tabs({
           dispatch({ type: 'setMobileDisplay', mobileDisplay: setDisplay });
         }
 
-        return useMemo(
-          () => (
+        return useMemo(() => {
+          return (
             <div
               className={classNames('common-tabs', isVertical && 'vertical', 'show_' + state.mobileDisplay, className)}
             >
@@ -170,9 +170,8 @@ export function Tabs({
                 </div>
               ) : null}
             </div>
-          ),
-          [active],
-        );
+          );
+        }, [active, state.labels.join('')]);
       }}
     </TabsProvider>
   );
@@ -205,6 +204,25 @@ export const Tab = memo(
           disabled: props.disabled,
         });
     }, []);
+
+    useEffect(() => {
+      if (tabsState.anchors.includes(props.anchor)) {
+        const _value = Object.assign(
+          {},
+          props.label && { value: props.label },
+          props.subLabel && { desc: props.subLabel },
+          props.labelIcon && { icon: props.labelIcon },
+          props.status && { status: props.status },
+        );
+
+        dispatch({
+          type: 'update',
+          anchor: props.anchor,
+          ...(Object.keys(_value).length ? { label: _value } : {}),
+          ...(props.disabled ? { disabled: props.disabled } : {}),
+        });
+      }
+    }, [props.label, props.subLabel, props.labelIcon, props.status, props.disabled]);
 
     return (
       <div className={classNames('tab__content', props.className, isActive && 'active')} ref={ref}>

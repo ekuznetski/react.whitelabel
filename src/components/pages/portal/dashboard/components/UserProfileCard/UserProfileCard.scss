@@ -19,16 +19,26 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: $grey-bg;
-        border-radius: 50%;
         flex: 0 0 85px;
         height: 85px;
 
-        font-weight: 500;
-        font-size: 24px;
-        line-height: 34px;
-        color: $dark-text;
-        text-transform: uppercase;
+        svg {
+          .bg {
+            fill: $grey-bg;
+          }
+
+          .progress {
+            fill: $blue;
+          }
+
+          .text {
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 34px;
+            fill: $dark-text;
+            text-transform: uppercase;
+          }
+        }
       }
 
       &__info {
@@ -52,15 +62,41 @@
           }
 
           &__status {
+            @include d-flex(center);
             font-size: 12px;
             line-height: 20px;
 
-            &.success {
-              color: $green;
+            a {
+              &:hover {
+                text-decoration: none;
+              }
             }
 
-            &.danger {
+            &.success,
+            &.success a {
+              color: $green;
+
+              svg {
+                fill: $green;
+              }
+            }
+
+            &.warning,
+            &.warning a {
+              color: $yellow;
+
+              svg {
+                fill: $yellow;
+              }
+            }
+
+            &.danger,
+            &.danger a {
               color: $red;
+
+              svg {
+                fill: $red;
+              }
             }
           }
         }
@@ -100,6 +136,8 @@
 
   @media (max-width: $viewport-sm-w) {
     &__context {
+      flex: 0 0 114px;
+
       .profile-context {
         &__facepile {
           flex: 0 0 75px;
