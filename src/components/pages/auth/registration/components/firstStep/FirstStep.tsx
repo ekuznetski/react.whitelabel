@@ -42,6 +42,7 @@ export function FirstStep({ submitFn }: any) {
               mobile: 1,
               language: locale,
               country: geoIp?.country ?? 'failed',
+              passive_consent: geoIp?.passive_consent ?? 'failed'
               // TODO add campaign_id
             },
           }),
@@ -80,7 +81,8 @@ export function FirstStep({ submitFn }: any) {
                 <PhoneCodeSelect placeholder={t('Prefix')} name={EFields.phone_prefix} />
                 <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
               </div>
-              <p className="my-7 fadeFromBottom-row__4">
+              {geoIp?.passive_consent && (
+                <p className="mb-7 fadeFromBottom-row__4">
                 <Trans i18nKey="Market Event Notification Desc">
                   To improve your trading experience, we would like to notify you of market events and extreme price
                   movements. By signing up, you also declare you read, understood, and accept our
@@ -91,6 +93,7 @@ export function FirstStep({ submitFn }: any) {
                   via phone or e-mail. You can opt-out any time you wish to.
                 </Trans>
               </p>
+              )}
               <Button
                 type="submit"
                 className="fadeFromBottom-row__5"
