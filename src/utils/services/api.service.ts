@@ -1,5 +1,6 @@
 import { EHttpMethod, EResponseStatus } from '@domain/enums';
 import { env } from '@env';
+import { store } from '@store';
 import axios, { AxiosRequestConfig, Method } from 'axios';
 import qs from 'qs';
 import { mockData } from './';
@@ -36,13 +37,14 @@ function request<T extends { [K: string]: any }>(method: EHttpMethod, requestPat
       }
       // END MOCK RESPONSE
 
+      const _ssrToken = store.getState().ssr?.token;
       const options: AxiosRequestConfig = {
         headers: Object.assign(
           {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
           window.isSSR && window.xRealIP ? { xRealIP: window.xRealIP } : {},
-          window.isSSR && window.CakePHPCookie ? { Cookie: window.CakePHPCookie } : {},
+          window.isSSR && _ssrToken ? { Cookie: _ssrToken } : {},
         ),
         method: method as Method,
         withCredentials: true,

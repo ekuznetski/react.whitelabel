@@ -50,6 +50,7 @@ export interface IAppStore {
 }
 
 export interface ISSRStore {
+  token: string;
   rawData: {
     url: string;
     data: any;

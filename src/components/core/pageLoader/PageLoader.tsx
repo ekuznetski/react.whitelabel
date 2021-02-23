@@ -1,10 +1,10 @@
 import { Img } from '@components/shared';
 import { useLockScroll } from '@utils/hooks';
 import classNames from 'classnames';
-import React, { memo, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './PageLoader.scss';
 
-export const PageLoader = memo(function PageLoader({ isLoading, overlay = false }: any) {
+export function PageLoader({ isLoading, overlay = false }: any) {
   const elemRef = React.createRef<HTMLDivElement>();
   const { setScrollLock } = useLockScroll();
 
@@ -18,4 +18,4 @@ export const PageLoader = memo(function PageLoader({ isLoading, overlay = false 
       {/* {t('Page loading')} */}
     </div>
   );
-});
+}

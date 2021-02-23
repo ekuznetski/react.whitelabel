@@ -49,6 +49,13 @@ export function ac_traceRequestData(payload: any): IAction {
   };
 }
 
+export function ac_traceToken(payload: any): IAction {
+  return {
+    type: EActionTypes.traceToken,
+    payload,
+  };
+}
+
 export function ac_showModal<T = {}>(
   component: T,
   props?: ExtractComponentProps<T> | {},
