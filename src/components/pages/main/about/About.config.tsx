@@ -5,7 +5,6 @@ import React from 'react';
 const t = i18n.getLazyT;
 
 export const config = {
-  pageTopBg: (responsive: any) => <SectionBg img="about-page-top.jpg" />,
   tableData: {
     deposit: {
       headers: [t('Method'), t('Minimum'), t('Currency'), t('Processing'), t('Fees')],
