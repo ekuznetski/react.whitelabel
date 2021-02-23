@@ -83,11 +83,6 @@ const sessionOptions: session.SessionOptions = {
   secret: '$2y$12$2pMm6FzrD/Vu7lN/sBw07.MKzcc7LLkGyf4maPWV/8JokAJFDoCVO', // LW_wNc+G2x#Erc;C
   resave: true,
   saveUninitialized: true,
-  cookie: {
-    maxAge: 18000,
-    httpOnly: true,
-    // sameSite: true,
-  },
   store: new RedisStore({ client: RedisClient, ttl: 18000 }), // 5hours to expire the session should be same as CAKEPHP cookie expire timeout
 };
 
@@ -98,6 +93,12 @@ RedisClient.on('error', function (err) {
 RedisClient.on('ready', function () {
   console.log('Redis is ready');
 });
+
+function authenticationToken(req: express.Request) {
+  const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
+  const reqSessionCookie = req.session?.CakePHPCookie;
+  return reqHeaderCookie || reqSessionCookie;
+}
 
 function clearRedisRequestsList() {
   RedisClient.del(REDIS_REQUESTs_STORE, function (err, response) {
@@ -110,9 +111,9 @@ function clearRedisRequestsList() {
 }
 
 function checkAuthenticationCookie(req: express.Request, res: express.Response, next: express.NextFunction) {
-  const reqHeaderCookie = req.cookies?.CAKEPHP && `CAKEPHP=${req.cookies.CAKEPHP}`;
+  const _token = authenticationToken(req);
 
-  if (req.session.CakePHPCookie && !reqHeaderCookie) {
+  if (req.session.CakePHPCookie && !_token) {
     res.clearCookie('CAKEPHP');
     req.session.destroy(function () {
       if (req.session) req.session.CakePHPCookie = undefined;
@@ -133,12 +134,14 @@ function checkAuthenticationCookie(req: express.Request, res: express.Response, 
 }
 
 function declareGlobalProps(req: express.Request, resp: express.Response, next: express.NextFunction) {
+  const _token = authenticationToken(req);
+
   (global as any).window = window;
   (global as any).document = document;
   (global as any).location = window.location;
   (global as any).localStorage = null;
   (global as any).window['isSSR'] = true;
-  (global as any).window['CakePHPCookie'] = req.session?.CakePHPCookie || '';
+  (global as any).window['CakePHPCookie'] = _token;
 
   next();
 }
@@ -180,7 +183,7 @@ app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: DATA_LIMIT })); // for parsing application/x-www-form-urlencoded
 
 app.use('/proxy', checkAuthenticationCookie, declareGlobalProps, upload.any(), (req, resp) => {
-  const authenticationToken = req.session?.CakePHPCookie;
+  const _token = authenticationToken(req);
   const xRealIP = (req.get('xrealip') || req.ip || req.ips[0] || req.clientIp)
     ?.replace('::ffff:', '')
     ?.replace('::1', '127.0.0.1:3000');
@@ -193,7 +196,7 @@ app.use('/proxy', checkAuthenticationCookie, declareGlobalProps, upload.any(), (
       },
       xRealIP && { 'HTTP-X-Real-IP': xRealIP },
       xRealIP && { 'X-Forwarded-For': xRealIP },
-      authenticationToken && { Cookie: authenticationToken },
+      _token && { Cookie: _token },
     ),
     maxContentLength: DATA_LIMIT,
     maxBodyLength: DATA_LIMIT,

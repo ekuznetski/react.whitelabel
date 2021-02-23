@@ -12,7 +12,7 @@ export const OpenLiveAccountBannerSection = memo(
 
     return (
       <section className={classNames('open-live-account-banner', props.className)} ref={ref}>
-        <SectionBg img="live-account-bg.jpg" />
+        <SectionBg primary="live-account-bg.jpg" />
         <Container>
           <Row>
             <Col lg={5} className="mb-12 mb-lg-0">

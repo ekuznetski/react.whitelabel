@@ -40,7 +40,7 @@ export function WithdrawCancelConfirmationModal(withdrawalId: string) {
         <Button className="mr-5" onClick={CancelWithdrawal}>
           {t('Confirm')}
         </Button>
-        <Button noBg onClick={() => dispatch(ac_hideModal())}>
+        <Button secondary onClick={() => dispatch(ac_hideModal())}>
           {t('Cancel')}
         </Button>
       </ModalFooter>
