@@ -1,4 +1,5 @@
 @import '~/variables';
+@import '~/mixin';
 
 .about-wrapper {
   &__page-top {
@@ -58,13 +59,6 @@
         height: 460px;
       }
 
-      .section-bg {
-        // width: 80%;
-        height: 90%;
-        // background-position-x: -50% !important;
-        // top: 70px;
-      }
-
       .page-top {
         &__title {
           font-size: 44px;
@@ -105,12 +99,6 @@
         height: 460px;
       }
 
-      .section-bg {
-        // width: 80%;
-        height: 90%;
-        top: 70px;
-      }
-
       .page-top {
         &__header {
           flex: 0 0 colSizePrc(11);
@@ -120,7 +108,7 @@
     }
 
     @media (max-width: $viewport-sm-w) {
-      padding: 100px 0 0 0 !important;
+      padding: 100px 0 300px 0 !important;
 
       .page-top {
         background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #eeeef1 100%);
@@ -141,43 +129,17 @@
       }
 
       img {
-        position: relative;
+        position: absolute;
         right: 0;
         left: -40px;
-        // bottom: -110px;
-        top: 50%;
+        bottom: 0;
+        top: unset;
         width: 100%;
         height: initial;
       }
 
       button {
         width: 100%;
-      }
-
-      .section-bg {
-        // top: 90px;
-        // left: 0;
-        // width: 100%;
-        // height: 100%;
-        // background-position-y: 50% !important;
-        background-size: cover !important;
-        width: 100%;
-        height: 100%;
-
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 0;
-
-        // &:after {
-        //   content: '';
-        //   position: absolute;
-        //   width: 100%;
-        //   height: 100%;
-        //   background: resolve('hands.png') 50% 50% no-repeat;
-        //   bottom: -250px;
-        //   left: 0;
-        // }
       }
     }
 

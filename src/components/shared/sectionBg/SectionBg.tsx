@@ -1,5 +1,6 @@
 import path from 'path';
 import React from 'react';
+import { Img } from '..';
 import './SectionBg.scss';
 
 interface ISectionBg {
@@ -10,7 +11,7 @@ interface ISectionBg {
 export function SectionBg({ primary, secondary }: ISectionBg) {
   return (
     <div className="section-bg" style={{ background: `url(${`assets/${path.basename(primary)}`}) 50% 50% no-repeat` }}>
-      {!!secondary && <div style={{ background: `url(${`assets/${path.basename(primary)}`}) 50% 50% no-repeat` }} />}
+      {!!secondary && <Img src={secondary} />}
     </div>
   );
 }

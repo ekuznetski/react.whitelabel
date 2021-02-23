@@ -5,6 +5,7 @@ import React from 'react';
 const t = i18n.getLazyT;
 
 export const config = {
+  pageTopSecondaryImg: undefined,
   tableData: {
     deposit: {
       headers: [t('Method'), t('Minimum'), t('Currency'), t('Processing'), t('Fees')],

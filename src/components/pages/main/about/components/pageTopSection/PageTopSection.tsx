@@ -1,6 +1,6 @@
 import { Button, Img, LabelView, LocaleLink, SectionBg, Svg } from '@components/shared';
 import { ELabels, EPagePath } from '@domain/enums';
-import { locale } from '@pages/main/about';
+import { config, locale } from '@pages/main/about';
 import React, { memo } from 'react';
 import { configResponsive, useResponsive } from 'ahooks';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +20,7 @@ export const PageTopSection = memo(function PageTopSection() {
 
   return (
     <section className="about-wrapper__page-top">
-      <SectionBg primary="about-page-top.jpg" />
+      <SectionBg primary="about-page-top.jpg" secondary={config.pageTopSecondaryImg?.(responsive)} />
       <div className="container">
         <div className="row">
           <div className="col-md-8 col-lg-7 page-top__header">
@@ -32,11 +32,6 @@ export const PageTopSection = memo(function PageTopSection() {
           </div>
         </div>
       </div>
-      {responsive.xs ? (
-        <Img src="Who_we_are_Image_Desktop.png" _label={ELabels.uinvex} />
-      ) : (
-        <Img src="hands.png" _label={ELabels.uinvex} />
-      )}
     </section>
   );
 });
