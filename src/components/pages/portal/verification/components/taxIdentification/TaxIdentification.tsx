@@ -146,7 +146,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                   {t('Do you have Tax Identification Number?')}
                 </Col>
                 <Col xs={7}>
-                  <Radio name={EFields.choice} options={config.haveTinsNumber} />
+                  <Radio name={EFields.choice} options={config.haveTinsNumber} disabled={!!tins.tins.length} />
                 </Col>
                 <Col xs={12} className="form-breakline mt-10 mb-10" />
               </Row>
@@ -156,12 +156,13 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                     <div className="d-flex justify-content-between" key={e?.taxCountry?.code + i}>
                       <Row className="tins-row">
                         <Col xs={6}>
-                          <CountrySelect label={t('Country')} name={`${EFields.tins}.${i}.${EFields.taxCountry}`} />
+                          <CountrySelect label={t('Country')} name={`${EFields.tins}.${i}.${EFields.taxCountry}`} disabled={i < tins.tins.length} />
                         </Col>
                         <Col xs={6}>
                           <Input
                             label={t('Tax Identification Number')}
                             name={`${EFields.tins}.${i}.${EFields.taxNumber}`}
+                            disabled={i < tins.tins.length}
                           />
                         </Col>
                       </Row>
@@ -169,7 +170,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                         type="button"
                         className="remove-tins-row"
                         onClick={() => removeTinsRow(i)}
-                        disabled={!isTinsRowValid(i)}
+                        disabled={!isTinsRowValid(i) || i < tins.tins.length}
                       >
                         -
                       </Button>
