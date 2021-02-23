@@ -1,20 +1,20 @@
-import { Button, Img, LabelView, LocaleLink } from '@components/shared';
-import { ELabels, EPagePath } from '@domain/enums';
+import { Button, Img, LocaleLink } from '@components/shared';
+import { EPagePath } from '@domain/enums';
 import classNames from 'classnames';
-import { locale } from './';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Trans, useTranslation } from 'react-i18next';
-import './PrestigiousPlatformTechnology.scss';
+import { useTranslation } from 'react-i18next';
+import { locale } from '.';
+import './PlatformTechnologySection.scss';
 
-interface PrestigiousPlatformTechnologyProps {
+interface PlatformTechnologySectionProps {
   title?: string | React.ReactFragment;
   description?: string | React.ReactFragment;
   className?: string;
 }
 
-export const PrestigiousPlatformTechnologySection = memo(
-  forwardRef<HTMLDivElement, PrestigiousPlatformTechnologyProps>(function PrestigiousPlatformTechnologySection(
+export const PlatformTechnologySection = memo(
+  forwardRef<HTMLDivElement, PlatformTechnologySectionProps>(function PlatformTechnologySection(
     { title, description, className },
     ref,
   ) {
@@ -26,10 +26,10 @@ export const PrestigiousPlatformTechnologySection = memo(
           <Row>
             <Col xs={12} lg={6} className="mt-md-12 mt-lg-0 mb-12 mt-md-0">
               <div className={classNames('prestigious-platform-technology__title mb-7', className)}>
-                {title || locale.prestigiousPlatformTechnologyTitle}
+                {title || locale.platformTechnologyTitle}
               </div>
               <div className="prestigious-platform-technology__description mb-10">
-                {description || locale.prestigiousPlatformTechnologyDesc}
+                {description || locale.platformTechnologyDesc}
               </div>
               <Button>
                 <LocaleLink to={EPagePath.Registration}>{t('Open Live Account')}</LocaleLink>

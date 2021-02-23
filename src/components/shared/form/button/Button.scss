@@ -26,7 +26,7 @@
     background: lighten($dark-blue, 5%);
   }
 
-  &.noBg {
+  &.secondary {
     color: $dark-blue;
     border-color: $dark-blue;
     background: transparent;
@@ -53,7 +53,7 @@
       }
     }
 
-    &.noBg {
+    &.secondary {
       color: $red;
       background: transparent;
 
@@ -80,7 +80,7 @@
       }
     }
   
-    &.noBg {
+    &.secondary {
       border-color: $dark-grey;
     }
   }

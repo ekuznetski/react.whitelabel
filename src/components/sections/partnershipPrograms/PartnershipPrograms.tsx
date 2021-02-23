@@ -52,7 +52,7 @@ export const PartnershipPrograms = memo(
                           </div>
                         ))}
                       </div>
-                      <Button noBg onClick={() => onProgramSelect(card.id)}>
+                      <Button secondary onClick={() => onProgramSelect(card.id)}>
                         {card.btnText}
                       </Button>
                     </CardContent>

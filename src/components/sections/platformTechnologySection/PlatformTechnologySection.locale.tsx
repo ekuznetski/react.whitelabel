@@ -2,12 +2,12 @@ import React from 'react';
 import { Trans } from 'react-i18next';
 
 export const locale = {
-  prestigiousPlatformTechnologyTitle: (
+  platformTechnologyTitle: (
     <Trans i18nKey="Prestigious Platform Technology Title">
       Prestigious MT5 <br /> <b>Platform Technology</b>
     </Trans>
   ),
-  prestigiousPlatformTechnologyDesc: (
+  platformTechnologyDesc: (
     <Trans i18nKey="Prestigious Platform Technology Desc">
       <p className="mb-6">
         Metatrader is the most popular electronic trading platforms and has long been considered the

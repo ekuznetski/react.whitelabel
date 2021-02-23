@@ -38,7 +38,7 @@ export function Products() {
   return (
     <div className="product-wrapper">
       <section className="page-top">
-        <SectionBg img="product-page-top.jpg" />
+        <SectionBg primary="product-page-top.jpg" />
         <div className="container pt-17">
           <div className="row mb-10">
             <div className="col-lg-7">

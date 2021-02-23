@@ -135,7 +135,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
           <div className="leverage-value">{tradingAccount.leverage}</div>
         </div>
         <div className="account-card__options px-7">
-          <Button className="fund px-3 mr-3" noBg disabled={tradingAccount.type === ETradingType.demo}>
+          <Button className="fund px-3 mr-3" secondary disabled={tradingAccount.type === ETradingType.demo}>
             {tradingAccount.type !== ETradingType.demo ? (
               <LocaleLink to={{ pathname: EPagePath.Deposit, state: { accountId: tradingAccount.accountId } }}>
                 {t('Fund')}

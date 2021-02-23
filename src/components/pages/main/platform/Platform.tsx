@@ -3,7 +3,7 @@ import {
   MobileTradingSection,
   OpenLiveAccountBannerSection,
   OurOfferBannerSection,
-  PrestigiousPlatformTechnologySection
+  PlatformTechnologySection
 } from '@components/sections';
 import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import { downloadLinks } from '@domain';
@@ -35,7 +35,7 @@ export function Platform() {
   return (
     <div className="platform-wrapper">
       <section className="page-top">
-        <SectionBg img="platform-page-top.jpg" />
+        <SectionBg primary="platform-page-top.jpg" />
         <div className="container pt-15">
           <div className="row">
             <div className="col-lg-7">
@@ -129,9 +129,9 @@ export function Platform() {
         </div>
       </section>
       <OurOfferBannerSection />
-      <PrestigiousPlatformTechnologySection />
+      <PlatformTechnologySection />
       <section className="perfect">
-        <SectionBg img="perfect-for-eas.jpg" />
+        <SectionBg primary="perfect-for-eas.jpg" />
         <div className="container">
           <div className="row">
             <div className="col-12">
