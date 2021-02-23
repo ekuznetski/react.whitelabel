@@ -105,7 +105,7 @@ export const Select = memo(function Select({
     isFilled: false,
     isFocused: false,
   });
-  const _disabled = props.isDisabled || props.disabled || formikProps.status === EFormStatus.disabled;
+  const _disabled = props.isDisabled || formikProps.status === EFormStatus.disabled;
 
   useEffect(() => {
     let _intSelectedValue = preselectedValue;
