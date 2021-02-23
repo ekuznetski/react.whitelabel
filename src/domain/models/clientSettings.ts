@@ -41,6 +41,7 @@ export class MClientSettings {
   go_to_praxis?: boolean;
   edit_fake_account?: boolean;
   trading_central?: boolean;
+  min_deposit?: number;
 
   constructor(props: IClientSettings | IClientProfile, castType = false) {
     if (castType) return this;
@@ -78,7 +79,9 @@ export class MClientSettings {
       });
 
     if (props.phone_verification)
-      this.phone_verification = generateStatus(EClientStatusCode[props.phone_verification.toLowerCase() as keyof typeof EClientStatusCode]);
+      this.phone_verification = generateStatus(
+        EClientStatusCode[props.phone_verification.toLowerCase() as keyof typeof EClientStatusCode],
+      );
 
     this.allow_internal_transfer = props.allow_internal_transfer;
     this.show_praxis_and_webmoney = props.show_praxis_and_webmoney;
@@ -90,6 +93,7 @@ export class MClientSettings {
     this.go_to_praxis = props.go_to_praxis;
     this.edit_fake_account = props.edit_fake_account;
     this.trading_central = props.trading_central;
+    this.min_deposit = props.min_deposit;
   }
 
   getCurrenciesSelectList = (): typeof Currencies => {
