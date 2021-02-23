@@ -34,10 +34,6 @@ export const TransactionStatement = memo(function TransactionStatement() {
   ];
   const recentTransactionsFilter = [
     {
-      label: t('Last 20 Transactions'),
-      value: [moment('1.1.2000').startOf('month'), moment()],
-    },
-    {
       label: t('This Month Transactions'),
       value: [moment().startOf('month'), moment()],
     },
