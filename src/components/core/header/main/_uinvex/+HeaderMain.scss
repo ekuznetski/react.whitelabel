@@ -7,6 +7,12 @@
       top: 0;
     }
 
+    .logo {
+      svg {
+        @include fillLogo($blue, black, $dark-blue);
+      }
+    }
+
     .menu {
       height: 60px;
 
@@ -34,6 +40,12 @@
       .menu {
         height: 60px;
         margin-bottom: 0;
+      }
+
+      .logo {
+        svg {
+          @include fillLogo($blue, black, $dark-blue);
+        }
       }
     }
 
