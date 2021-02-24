@@ -67,21 +67,21 @@ function InlineImportsLabelResolver(props) {
     this.apply = function (resolver) {
       var target = resolver.ensureHook(this.target);
       resolver.getHook(this.source).tapAsync('InlineImportsLabelResolver', function (request, resolveContext, callback) {
-        const targetAliasesKey = aliasFoldersPath.find((aliasFolderPath) => {
-          return request.path.search(new RegExp(`(${aliasFolderPath.replace(/\//g, '\\\\')}|${aliasFolderPath})$`)) !== -1;
-        });
-        const targetAliases = targetAliasesKey ? alias[targetAliasesKey] : false;
-
-        if (
-          !request.path.includes('node_modules')
-          && targetAliasesKey
-          && targetAliases
-          && targetAliases[request.request]
-        ) {
-          var obj = Object.assign({}, request, {
-            request: targetAliases[request.request],
+        if (!request.path.includes('node_modules')) {
+          const targetAliasesKey = aliasFoldersPath.find((aliasFolderPath) => {
+            return request.path.search(new RegExp(`(${aliasFolderPath.replace(/\//g, '\\\\')}|${aliasFolderPath})$`)) !== -1;
           });
-          return resolver.doResolve(target, obj, null, resolveContext, callback);
+          const targetAliases = targetAliasesKey ? alias[targetAliasesKey] : false;
+
+          if (targetAliasesKey
+            && targetAliases
+            && targetAliases[request.request]
+          ) {
+            var obj = Object.assign({}, request, {
+              request: targetAliases[request.request],
+            });
+            return resolver.doResolve(target, obj, null, resolveContext, callback);
+          }
         }
 
         callback();
@@ -397,7 +397,10 @@ module.exports = (_env, arguments) => {
                       const { parentFolderPath } = fileParentFolder(filePath, targetLabelFolder);
 
                       return filenamePrefix
-                        && resourcePath.includes(parentFolderPath.replace('./src/', '').replace(/\//g, '\\'))
+                        && (
+                          resourcePath.includes(parentFolderPath.replace('./src/', '').replace(/\//g, '\\'))
+                          || resourcePath.includes(parentFolderPath.replace('./src/', ''))
+                        )
                         && _filename === filename
                         && extension === 'scss';
                     });
