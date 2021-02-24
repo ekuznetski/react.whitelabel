@@ -1,6 +1,6 @@
 import { ENotificationType } from '@domain/enums';
 import { useDeviceDetect } from '@utils/hooks';
-import { useDebounceEffect, useResponsive } from 'ahooks';
+import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, memo, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -91,19 +91,15 @@ export function Tabs({
           }
         }, [active]);
 
-        useDebounceEffect(
-          () => {
-            if (activeNavTabLink) {
-              if (navRef.current) {
-                navRef.current.scrollLeft =
-                  activeNavTabLink.offsetLeft - navRef.current.offsetWidth / 2 + activeNavTabLink.offsetWidth / 2;
-              }
-              setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
+        useEffect(() => {
+          if (activeNavTabLink) {
+            if (navRef.current) {
+              navRef.current.scrollLeft =
+                activeNavTabLink.offsetLeft - navRef.current.offsetWidth / 2 + activeNavTabLink.offsetWidth / 2;
             }
-          },
-          [activeTabProps?.anchor, viewportSize],
-          { wait: 0 },
-        );
+            setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
+          }
+        }, [activeTabProps?.anchor, viewportSize]);
 
         function switchTab(anchor: string | number) {
           dispatch({ type: 'setActive', anchor });
@@ -114,21 +110,16 @@ export function Tabs({
         }
 
         function selectPrevTab() {
-          const _currentTabIdx = state.labels.findIndex(
-            (tab) => tab.anchor === activeTabProps?.anchor,
-          );
+          const _currentTabIdx = state.labels.findIndex((tab) => tab.anchor === activeTabProps?.anchor);
           if (_currentTabIdx > 0) {
-            switchTab(state.labels[_currentTabIdx - 1].anchor); 
+            switchTab(state.labels[_currentTabIdx - 1].anchor);
           }
-          
         }
 
         function selectNextTab() {
-          const _currentTabIdx = state.labels.findIndex(
-            (tab) => tab.anchor === activeTabProps?.anchor,
-          );
+          const _currentTabIdx = state.labels.findIndex((tab) => tab.anchor === activeTabProps?.anchor);
           if (_currentTabIdx + 1 < state.labels.length) {
-            switchTab(state.labels[_currentTabIdx + 1].anchor); 
+            switchTab(state.labels[_currentTabIdx + 1].anchor);
           }
         }
 
@@ -139,14 +130,13 @@ export function Tabs({
             >
               {lineProps && !isVertical && (
                 <div className="d-lg-none common-tabs__prev" onClick={() => selectPrevTab()}>
-                  <Svg
-                    href={'chevron_left'}
-                    width={18}
-                    height={18}
-                  />
+                  <Svg href={'chevron_left'} width={18} height={18} />
                 </div>
-                )}
-              <div className={classNames('common-tabs__navigation', !isVertical && 'mb-9', !isVertical && 'mx-7 mx-lg-0')} ref={navRef}>
+              )}
+              <div
+                className={classNames('common-tabs__navigation', !isVertical && 'mb-9', !isVertical && 'mx-7 mx-lg-0')}
+                ref={navRef}
+              >
                 <div
                   className={classNames(
                     !isVertical && 'common-tabs__navigation-wrapper',
@@ -190,13 +180,9 @@ export function Tabs({
               </div>
               {lineProps && !isVertical && (
                 <div className="d-lg-none common-tabs__next" onClick={() => selectNextTab()}>
-                  <Svg
-                    href={'chevron_right'}
-                    width={18}
-                    height={18}
-                  />
+                  <Svg href={'chevron_right'} width={18} height={18} />
                 </div>
-                )}
+              )}
 
               <div className={classNames('common-tabs__container', isVertical && 'py-8 px-6 py-md-10 px-md-9')}>
                 {!children

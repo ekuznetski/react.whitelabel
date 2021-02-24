@@ -13,8 +13,7 @@
     height: 38px;
 
     &-wrapper {
-      display: flex;
-      align-items: center;
+      @include d-flex(center);
       height: 100%;
 
       @media (min-width: $viewport-md-min-w) {
