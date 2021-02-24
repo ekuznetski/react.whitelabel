@@ -27,7 +27,7 @@ function filePathDestructor(filepath) {
  * @param {string} targetLabelFolder; target label folder name
  */
 function fileParentFolder(filepath, targetLabelFolder) {
-  const _path = path.dirname(filepath).replace(`/${targetLabelFolder}`, '');
+  const _path = path.dirname(filepath).replace(/[\\/]/g, '/').replace(`/${targetLabelFolder}`, '');
   return {
     parentFolderPath: _path,
     parentFolderName: _path.split('/').pop()
@@ -395,11 +395,12 @@ module.exports = (_env, arguments) => {
                     const componentFile = componentsFilepaths.find((filePath) => {
                       const { filenamePrefix, filename: _filename, extension } = filePathDestructor(filePath);
                       const { parentFolderPath } = fileParentFolder(filePath, targetLabelFolder);
+                      const { parentFolderPath: resourceFolderPath } = fileParentFolder(resourcePath, targetLabelFolder);
 
                       return filenamePrefix
                         && (
-                          resourcePath.includes(parentFolderPath.replace('./src/', '').replace(/\//g, '\\'))
-                          || resourcePath.includes(parentFolderPath.replace('./src/', ''))
+                          resourceFolderPath.includes(parentFolderPath.replace('./src/', '').replace(/\//g, '\\'))
+                          || resourceFolderPath.includes(parentFolderPath.replace('./src/', ''))
                         )
                         && _filename === filename
                         && extension === 'scss';
