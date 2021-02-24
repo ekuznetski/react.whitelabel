@@ -30,8 +30,7 @@ export function ProfileMenu(props: { className?: string }) {
         onClick={toggleDropdownMenu}
         ref={facepileRef}
       >
-        {clientProfile.first_name[0]}
-        {clientProfile.last_name[0]}
+        {clientProfile.initials}
       </div>
       <Svg href="chevron" className="header-profile-menu__chevron" onClick={toggleDropdownMenu} />
       <DropDown

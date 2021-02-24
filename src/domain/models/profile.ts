@@ -11,6 +11,8 @@ import moment, { Moment } from 'moment';
 
 export class MClientProfile {
   // Client Data
+  full_name: string;
+  initials: string;
   email: string;
   username: string;
   first_name: string;
@@ -58,6 +60,8 @@ export class MClientProfile {
     this.username = props.username;
     this.first_name = props.first_name;
     this.last_name = props.surname;
+    this.full_name = `${props.first_name} ${props.surname}`;
+    this.initials = `${props.first_name[0]}${props.surname[0]}`.toUpperCase();
     this.country = countries.find((country) => country.name === props.country) || {
       name: undefined,
       code: undefined,

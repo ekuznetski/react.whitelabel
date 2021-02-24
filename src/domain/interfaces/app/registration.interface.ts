@@ -14,6 +14,7 @@ export interface IRegStep2Data {
   tax_checkbox: string;
   tax_country: string;
   country: string;
+  state: string;
   dayOfBirth: string;
   monthOfBirth: string;
   yearOfBirth: string;

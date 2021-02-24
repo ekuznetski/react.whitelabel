@@ -1,4 +1,4 @@
-import { Button, DropDown, IDropdownItem, IconFlag, LocaleNavLink, Svg } from '@components/shared';
+import { Button, DropDown, IDropdownItem, IconFlag, LocaleLink, Svg } from '@components/shared';
 import {
   Currencies,
   EAccountLeverage,
@@ -135,12 +135,12 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
           <div className="leverage-value">{tradingAccount.leverage}</div>
         </div>
         <div className="account-card__options px-7">
-          <Button className="fund px-3 mr-3" noBg disabled={tradingAccount.type === ETradingType.demo}>
+          <Button className="fund px-3 mr-3" secondary disabled={tradingAccount.type === ETradingType.demo}>
             {tradingAccount.type !== ETradingType.demo ? (
-              <LocaleNavLink exact to={EPagePath.Deposit}>
+              <LocaleLink to={{ pathname: EPagePath.Deposit, state: { accountId: tradingAccount.accountId } }}>
                 {t('Fund')}
                 <Svg href="coins" className="ml-4" />
-              </LocaleNavLink>
+              </LocaleLink>
             ) : (
               <>
                 {t('Fund')}

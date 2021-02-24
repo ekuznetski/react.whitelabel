@@ -3,14 +3,14 @@ import React from 'react';
 import './SectionBg.scss';
 
 interface ISectionBg {
-  img: string;
+  primary: string;
+  secondary?: string;
 }
 
-export function SectionBg({ img }: ISectionBg) {
+export function SectionBg({ primary, secondary }: ISectionBg) {
   return (
-    <div
-      className="section-bg"
-      style={{ background: `url(${`assets/${path.basename(img)}`}) 50% 50% no-repeat` }}
-    ></div>
+    <div className="section-bg" style={{ background: `url(${`assets/${path.basename(primary)}`}) 50% 50% no-repeat` }}>
+      {!!secondary && <div style={{ background: `url(${`assets/${path.basename(primary)}`}) 50% 50% no-repeat` }} />}
+    </div>
   );
 }
