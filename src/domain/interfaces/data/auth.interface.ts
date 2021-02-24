@@ -40,7 +40,7 @@ export interface ISetProfileRequest {
   tax_country: string;
   uscitizen: string;
   domain: string;
-  want_receive_email?: string;
+  want_receive_email?: boolean;
 }
 
 export interface ILogin {

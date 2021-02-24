@@ -2,7 +2,7 @@ import { Button, Checkbox } from '@components/shared';
 import { files } from '@domain';
 import { ERegSteps } from '@domain/enums';
 import { locale } from '@pages/auth/registration';
-import { EActionTypes, IStore } from '@store';
+import { EActionTypes, IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -15,7 +15,7 @@ enum EFields {
 }
 
 export function FifthStep({ name, submitFn }: any) {
-  const { geoIp } = useSelector<IStore, any>((state) => ({
+  const { geoIp } = useSelector<IStore, Partial<IDataStore>>((state) => ({
     geoIp: state.data.geoIp,
   }));
   const { t } = useTranslation();
