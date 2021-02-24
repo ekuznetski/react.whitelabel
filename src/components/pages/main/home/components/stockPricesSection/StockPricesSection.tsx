@@ -12,7 +12,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Area, AreaChart } from 'recharts';
 import './StockPricesSection.scss';
 
-export const StockPricesSection = memo(function StockPricesSection() {
+interface IStockPricesSectionProps {
+  className?: string;
+}
+
+export const StockPricesSection = memo(function StockPricesSection(props: IStockPricesSectionProps) {
   const { prices } = useSelector<IStore, { prices: IPrices }>((state) => ({
     prices: state.data.prices,
   }));
@@ -49,7 +53,7 @@ export const StockPricesSection = memo(function StockPricesSection() {
   }
 
   return activePriceTab ? (
-    <section className="stocks p-0">
+    <section className={classNames('stocks', props.className)}>
       <Container>
         <Row>
           <Col xs={12}>
