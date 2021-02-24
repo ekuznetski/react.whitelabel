@@ -47,14 +47,14 @@ function InlineImportsLabelResolver(props) {
   /**
    * @param { { fileParentFolderPath: { alias: labelAlias } } } alias: contains the map for target label files which need to be replaced
    */
-  const alias = Object.keys(props).reduce((acc, path) => {
-    if (!path.includes('src')) return acc;
+  const alias = Object.keys(props).reduce((acc, __path__) => {
+    if (!__path__.includes('src')) return acc;
 
-    let [folderPath, filePath] = path.split('@#@');
-    folderPath = folderPath.replace('./src/', '').replace(/\//g, '\\\\');
+    let [folderPath, filePath] = __path__.split('@#@');
+    folderPath = folderPath.replace('./src/', '');
 
     return Object.assign(acc, {
-      [folderPath]: Object.assign({}, acc[folderPath], { [filePath]: props[path] })
+      [folderPath]: Object.assign({}, acc[folderPath], { [filePath]: props[__path__] })
     });
   }, {});
   const aliasFoldersPath = Object.keys(alias);
@@ -67,7 +67,9 @@ function InlineImportsLabelResolver(props) {
     this.apply = function (resolver) {
       var target = resolver.ensureHook(this.target);
       resolver.getHook(this.source).tapAsync('InlineImportsLabelResolver', function (request, resolveContext, callback) {
-        const targetAliasesKey = aliasFoldersPath.find((aliasFolderPath) => request.path.search(new RegExp(`${aliasFolderPath}$`)) !== -1);
+        const targetAliasesKey = aliasFoldersPath.find((aliasFolderPath) => {
+          return request.path.search(new RegExp(`(${aliasFolderPath.replace(/\//g, '\\\\')}|${aliasFolderPath})$`)) !== -1;
+        });
         const targetAliases = targetAliasesKey ? alias[targetAliasesKey] : false;
 
         if (
