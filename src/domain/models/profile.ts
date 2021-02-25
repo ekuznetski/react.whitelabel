@@ -73,7 +73,7 @@ export class MClientProfile {
         .filter((country) => country.states)
         .find((country) => country.states?.find((state) => state.code === props.state))
     )?.states //@ts-ignore
-      ?.filter((state: any) => state.code === props.state) || {
+      ?.filter((state: any) => state.code === props.state)?.[0] || {
       name: '',
       code: '',
     };
