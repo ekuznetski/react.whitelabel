@@ -46,7 +46,7 @@ export function ModalTitle(props: {
   subTitle?: React.ReactNode;
 }) {
   return (
-    <div className={classNames('modal-content__title mr-8 mr-sm-0', props.className)}>
+    <div className={classNames('modal-content__title', props.className)}>
       {props.title}
       {props.subTitle && <small className="mt-1">{props.subTitle}</small>}
       {props.children}
