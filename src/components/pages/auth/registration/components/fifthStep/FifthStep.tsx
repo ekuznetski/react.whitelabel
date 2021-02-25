@@ -15,7 +15,7 @@ enum EFields {
 }
 
 export function FifthStep({ name, submitFn }: any) {
-  const { geoIp } = useSelector<IStore, Partial<IDataStore>>((state) => ({
+  const { geoIp } = useSelector<IStore, IDataStore['geoIp']>((state) => ({
     geoIp: state.data.geoIp,
   }));
   const { t } = useTranslation();
