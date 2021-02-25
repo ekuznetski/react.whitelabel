@@ -8,10 +8,6 @@
     @include d-flex(center, start, row);
     padding: 140px 0;
 
-    .container {
-      max-width: 1150px;
-    }
-
     .section-bg {
       display: none;
     }
@@ -27,6 +23,7 @@
         flex: 0 0 colSizePrc(9);
         max-width: colSizePrc(9);
         padding: 0 sp(11);
+        margin: auto;
       }
 
       &__description {
