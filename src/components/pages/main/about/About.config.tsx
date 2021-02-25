@@ -1,11 +1,36 @@
-import { Img, SectionBg, Svg } from '@components/shared';
+import { Img, Svg, Table } from '@components/shared';
 import i18n from '@i18next';
 import React from 'react';
+import { MobileDepositTable } from './components';
 
 const t = i18n.getLazyT;
 
 export const config = {
   pageTopSecondaryImg: undefined,
+  tabsData: (responsive: any) => ({
+    labels: [
+      { value: t('Deposit'), anchor: 'deposit' },
+      { value: t('Withdrawals'), anchor: 'withdrawals' },
+    ],
+    content: [
+      {
+        value: responsive.md ? (
+          <Table {...config.tableData.deposit} />
+        ) : (
+          <MobileDepositTable {...config.tableData.deposit} />
+        ),
+        anchor: 'deposit',
+      },
+      {
+        value: responsive.md ? (
+          <Table {...config.tableData.withdrawals} />
+        ) : (
+          <MobileDepositTable {...config.tableData.withdrawals} />
+        ),
+        anchor: 'withdrawals',
+      },
+    ],
+  }),
   tableData: {
     deposit: {
       headers: [t('Method'), t('Minimum'), t('Currency'), t('Processing'), t('Fees')],
