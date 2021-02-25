@@ -40,6 +40,7 @@
   &__title {
     font-size: 56px;
     line-height: 66px;
+    font-weight: 700;
     font-family: $font-family1;
 
     b {
@@ -74,7 +75,7 @@
         text-align: center;
 
         svg {
-          @include fillLogo($blue-on-black, white, $blue);
+          @include fillLogo($uinvex-blue, white, $blue);
         }
       }
       &__description {
@@ -141,10 +142,6 @@
       }
     }
 
-    .container {
-      max-width: 100%;
-    }
-
     &__title {
       font-size: 48px;
       line-height: 58px;
@@ -188,41 +185,7 @@
   }
 
   @media (max-width: $viewport-md-w) {
-    padding: 50px 0;
-
-    &__title {
-      font-size: 24px;
-      line-height: 32px;
-    }
-
-    &__description {
-      font-size: 16px;
-      line-height: 26px;
-    }
-
-    .open-account {
-      padding: 20px 40px;
-
-      button {
-        width: 100%;
-        height: 50px;
-      }
-
-      .open-live-account-banner {
-        &__title {
-          font-size: 36px;
-          text-align: center;
-          padding-top: 15px;
-        }
-        &__description {
-          text-align: center;
-        }
-      }
-    }
-  }
-
-  @media (max-width: $viewport-sm-w) {
-    padding: 0 !important;
+    padding: 48px 0 0 0 !important;
     height: 630px;
     align-items: flex-start;
 
@@ -250,6 +213,7 @@
           font-size: 48px;
           line-height: 58px;
           text-align: center;
+          padding-top: 0;
           margin-bottom: sp(7) !important;
         }
         &__description {
