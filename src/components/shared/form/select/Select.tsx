@@ -119,7 +119,10 @@ export const Select = memo(function Select({
 
   useEffect(() => {
     if (field && field.value && field.value != state.value)
-      setState({ value: options.find((option: any) => JSON.stringify(option.value) == JSON.stringify(field.value)) });
+      setState({
+        value: options.find((option: any) => JSON.stringify(option.value) == JSON.stringify(field.value)),
+        isFilled: !!field?.value,
+      });
     else setState({ value: null, isFilled: false });
   }, [field?.value]);
 
@@ -128,7 +131,6 @@ export const Select = memo(function Select({
     if (props.isMulti) {
       _val = { value: _val?.map((item: ISelectItem) => item.value) || [] };
     }
-    setState({ isFilled: !!_val?.value });
     if (helpers) helpers.setValue(_val?.value);
     if (props.onChange) {
       props.onChange(_val?.value);
