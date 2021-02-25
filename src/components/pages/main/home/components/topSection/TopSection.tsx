@@ -3,9 +3,9 @@ import { ELabels, EPagePath } from '@domain/enums';
 import React, { memo } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Trans, useTranslation } from 'react-i18next';
-import './HomeTopSection.scss';
+import './TopSection.scss';
 
-export const HomeTopSection = memo(function HomeTopSection() {
+export const TopSection = memo(function TopSection() {
   const { t } = useTranslation();
 
   return (
