@@ -95,8 +95,8 @@ export const Withdrawal = memo(function Withdrawal() {
               type: ENotificationType.success,
               message: t('Your Withdraw Request Added Successfully'),
             }),
-          ),
-            resetForm();
+          );
+          resetForm();
         },
       ),
     );
