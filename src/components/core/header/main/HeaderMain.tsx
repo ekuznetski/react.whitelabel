@@ -49,6 +49,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
             <Svg href="logo" className="mr-xl-9" _label height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-9" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-1" _label={ELabels.bsfx} height={!responsive.md ? 48 : 60} />
+            <Svg href="logo" className="mr-xl-1" _label={ELabels.uinvex} height={32} />
           </LocaleLink>
           <div className="menu">
             {_mainRoutesConfig.map((route) => (

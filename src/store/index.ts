@@ -10,16 +10,15 @@ import { EActionTypes } from './store.enum';
 import { IAction, IStore } from './store.interface';
 import { appStoreReducer, initAppStore } from './_app.reducer';
 import { dataStoreReducer, initDataStore } from './_data.reducer';
-import { ssrStoreReducer } from './_ssr.reducer';
 import { batch } from 'react-redux';
 
-export const reducers = combineReducers({ data: dataStoreReducer, app: appStoreReducer, ssr: ssrStoreReducer });
+export const reducers = combineReducers({ data: dataStoreReducer, app: appStoreReducer });
 export const initStore: Nullable<IStore> = {
   data: initDataStore,
   app: initAppStore,
 };
 
-const _ssrState = typeof window !== 'undefined' && window.__PRELOADED_STATE__;
+const preloadedData = typeof window !== 'undefined' && window.__PRELOADED_STATE__;
 const sagaMiddleware = createSagaMiddleware();
 
 // @ts-ignore
@@ -31,8 +30,12 @@ export const store = createStore<IStore>(
     traceLimit: 20,
     predicate: (state, action) =>
       !(
-        [EActionTypes.traceRequestData].includes(action.type) ||
-        ([EActionTypes.fetchPrices, EActionTypes.savePrices, EActionTypes.requestSuccess].includes(action.type) &&
+        [
+          EActionTypes.createLiveTradingAccount,
+          EActionTypes.createDemoTradingAccount,
+          EActionTypes.withdrawFunds,
+        ].includes(action.type) ||
+        ([(EActionTypes.fetchPrices, EActionTypes.savePrices, EActionTypes.requestSuccess)].includes(action.type) &&
           !!(state as any).data.prices)
       ),
   })(applyMiddleware(sagaMiddleware)),
@@ -42,13 +45,12 @@ Object.keys(sagaMiddlewareRunners).forEach((runner: any) => {
   sagaMiddleware.run((sagaMiddlewareRunners as any)[runner]);
 });
 
-if (_ssrState) {
-  const _ssr = _ssrState as IStore['ssr'];
+if (preloadedData) {
   const _batch: IAction<{ [k: string]: any }>[] = [];
 
-  _ssr?.rawData.forEach((item) => {
+  preloadedData?.rawData.forEach((item) => {
     const { response } = item.data;
-    if(!response) return;
+    if (!response) return;
     switch (item.url) {
       case 'xwayz':
         {

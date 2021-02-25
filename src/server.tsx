@@ -1,12 +1,12 @@
 import './i18n'; // Must be the imported before the App!
 import { Footer, Header, NotFound, PageLoader } from '@components/core';
 import { localesConfig } from '@domain';
-import { EAppSection, ELanguage, EPagePath } from '@domain/enums';
+import { EAppSection, ELanguage } from '@domain/enums';
 import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
 import { env } from '@env';
 import { routesInitialApiData, routesNavConfig } from '@routers';
-import { EActionTypes, ISSRStore, IStore, ac_clearStore, ac_traceToken, ac_updateRouteParams, store } from '@store';
-import { routeFetchData } from '@utils/fn/routeFetchData';
+import { store } from '@store';
+import { Request as APIRequest } from '@utils/services';
 import axios, { Method } from 'axios';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -38,8 +38,6 @@ declare module 'express-session' {
   }
 }
 
-let unsubscribeRequestResolver: Unsubscribe;
-let requestResolver: AnyFunction = null;
 let route: IRouteNavConfig | null = null;
 
 const REDIS_PORT = 6379;
@@ -66,15 +64,6 @@ const corsOptions: cors.CorsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
 };
-
-function checkRouterLoaderState(prevActiveList: EActionTypes[], activeList: EActionTypes[], pal = 0, al = 0) {
-  return (
-    Array.isArray(prevActiveList) &&
-    Array.isArray(activeList) &&
-    prevActiveList.length == pal &&
-    activeList.length == al
-  );
-}
 
 const RedisStore = require('connect-redis')(session);
 const RedisClient = redis.createClient(REDIS_PORT, env.DEV_MODE ? '127.0.0.1' : 'redis');
@@ -151,34 +140,6 @@ function declareSSRProps(req: express.Request, resp: express.Response, next: exp
 
 function declareProxyProps(req: express.Request, resp: express.Response, next: express.NextFunction) {
   addUrlToActiveRequestsList(req);
-
-  next();
-}
-
-function storeTracker(req: express.Request, resp: express.Response, next: express.NextFunction) {
-  let storeState: IStore;
-  unsubscribeRequestResolver = store.subscribe(() => {
-    const prevStoreState: IStore = storeState;
-    storeState = store.getState();
-
-    if (route && requestResolver) {
-      const _routeStrictRequests = [
-        ...(route.apiData?.strict || []),
-        ...(routesInitialApiData[route.appSection]?.strict || []),
-      ].map((action) => action().type);
-
-      const prevActiveList = prevStoreState?.app?.requests?.activeList || [],
-        activeList = storeState.app.requests.activeList;
-      const hasUncompletedStrictRequest =
-        activeList.filter((request) => _routeStrictRequests.includes(request)).length > 0;
-
-      if (!hasUncompletedStrictRequest && checkRouterLoaderState(prevActiveList, activeList, 1) && requestResolver) {
-        console.log('========data ready========');
-        requestResolver();
-        requestResolver = null;
-      }
-    }
-  });
 
   next();
 }
@@ -297,111 +258,82 @@ app.use(compression());
 app.use(express.static('./browser'));
 app.use(express.static('./assets'));
 
-app.get(
-  '*',
-  checkAuthenticationCookie,
-  declareSSRProps,
-  storeTracker,
-  (req: express.Request, res: express.Response) => {
-    const xRealIP = (req.ip || req.ips[0] || req.clientIp)?.replace('::1', '127.0.0.1:3000');
-    (global as any).window['xRealIP'] = xRealIP;
+app.get('*', checkAuthenticationCookie, declareSSRProps, (req: express.Request, res: express.Response) => {
+  const xRealIP = (req.ip || req.ips[0] || req.clientIp)?.replace('::1', '127.0.0.1:3000');
+  (global as any).window['xRealIP'] = xRealIP;
 
-    const fileExist = fs.existsSync(indexFile);
-    let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
-      lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],
-      page = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? urlArr[1] : urlArr[2];
+  const fileExist = fs.existsSync(indexFile);
+  let urlArr = req.url.replace(/(\?=?|#).*?$/, '').match(/\/?([^\/]+)?\/?(.*)?$/) || [],
+    lng = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? ELanguage.en : urlArr[1],
+    page = !urlArr[2] && !localesConfig.includes(urlArr[1] as ELanguage) ? urlArr[1] : urlArr[2];
 
-    if (!lng) lng = ELanguage.en;
-    page = !page ? '' : '/' + page;
+  if (!lng) lng = ELanguage.en;
+  page = !page ? '' : '/' + page;
 
-    route = routesNavConfig.find((el) => el.path === page) || null;
-    if (!route) {
-      console.error('Cant find content for route', req.url, '#', lng, '[', page, ']', 'redirect to 404');
-    }
+  route = routesNavConfig.find((el) => el.path === page) || null;
+  if (!route) {
+    console.error('Cant find content for route', req.url, '#', lng, '[', page, ']', 'redirect to 404');
+  }
 
-    if (!fileExist) {
-      console.error('Server.html not found');
-      if (unsubscribeRequestResolver) unsubscribeRequestResolver();
-      return res.status(500).send('Oops, better luck next time!');
-    }
+  if (!fileExist) {
+    console.error('Server.html not found');
+    return res.status(500).send('Oops, better luck next time!');
+  }
 
-    store.dispatch(ac_clearStore());
+  console.log('========request data========');
+  const requests: Promise<any>[] = route
+    ? [...(route.apiData?.strict || []), ...(routesInitialApiData[route.appSection]?.strict || [])].map((action) => {
+        //@ts-ignore
+        return APIRequest[action().type](`${SESSION_COOKIE_NAME}=${req.cookies[SESSION_COOKIE_NAME]}`)()
+          .then((value: any) => value)
+          .catch(() => null);
+      })
+    : [];
 
-    if (req.session.CakePHPCookie) {
-      store.dispatch(ac_traceToken(`${SESSION_COOKIE_NAME}=${req.cookies[SESSION_COOKIE_NAME]}`));
-    }
-
-    return new Promise((resolve) => {
-      requestResolver = resolve;
-      if (route) {
-        store.dispatch(
-          ac_updateRouteParams({
-            path: route?.path,
-            appSection: route?.appSection,
-            meta: route?.meta,
-            state: route?.state,
-            isLoading: true,
-          }),
-        );
-        console.log('========request data========');
-        routeFetchData(route);
-      } else {
-        store.dispatch(
-          ac_updateRouteParams({
-            path: EPagePath.NotFound,
-            appSection: EAppSection.general,
-            isLoading: true,
-          }),
-        );
-        requestResolver();
-      }
-    }).then(() => {
-      const app = renderToString(
-        <StaticRouter location={page}>
-          <Provider store={store}>
-            <PageLoader isLoading={true} />
-            {route ? (
-              route.appSection === EAppSection.portal ? null : (
-                <>
-                  <div className="main-wrapper">
-                    <Header />
-                    <main className="router-context">{route.component && <route.component />}</main>
-                  </div>
-                  <Footer />
-                </>
-              )
-            ) : (
-              <NotFound />
-            )}
-            <div id="dynamic-portals" />
-          </Provider>
-        </StaticRouter>,
-      );
-
-      return fs.readFile(indexFile, 'utf8', async (err, data) => {
-        if (err) {
-          console.error('Something went wrong:', err);
-
-          if (unsubscribeRequestResolver) unsubscribeRequestResolver();
-          return res.status(500).send('Oops, better luck next time!');
-        }
-
-        const { token, ...preloadedState } = store.getState().ssr as ISSRStore;
-
-        return res.send(
-          data
-            .replace(
-              '<div id="root"></div>',
-              `<div id="root" class="${
-                route?.appSection
-              }">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify(preloadedState).replace(
-                /</g,
-                '\\u003c',
-              )}</script>`,
+  return Promise.all(requests).then((preloadedData) => {
+    console.log('========data ready========');
+    const app = renderToString(
+      <StaticRouter location={page}>
+        <Provider store={store}>
+          <PageLoader isLoading={true} />
+          {route ? (
+            route.appSection === EAppSection.portal ? null : (
+              <>
+                <div className="main-wrapper">
+                  <Header />
+                  <main className="router-context">{route.component && <route.component />}</main>
+                </div>
+                <Footer />
+              </>
             )
-            .replace(
-              '<title></title>',
-              `<title>${route?.meta.title}</title>
+          ) : (
+            <NotFound />
+          )}
+          <div id="dynamic-portals" />
+        </Provider>
+      </StaticRouter>,
+    );
+
+    return fs.readFile(indexFile, 'utf8', async (err, data) => {
+      if (err) {
+        console.error('Something went wrong:', err);
+
+        return res.status(500).send('Oops, better luck next time!');
+      }
+
+      return res.send(
+        data
+          .replace(
+            '<div id="root"></div>',
+            `<div id="root" class="${
+              route?.appSection
+            }">${app}</div><script>window.__PRELOADED_STATE__=${JSON.stringify({
+              rawData: preloadedData.filter((e) => !!e),
+            }).replace(/</g, '\\u003c')}</script>`,
+          )
+          .replace(
+            '<title></title>',
+            `<title>${route?.meta.title}</title>
             <meta name="description" content="${route?.meta.desc}">
             <meta property="og:type" content="website">
             <meta property="og:title" content="${route?.meta.title}">
@@ -409,12 +341,11 @@ app.get(
             <meta property="og:image" content="https://${req.headers.host}/assets/og-img.jpg">
             <meta property="og:url" content="https://${req.headers.host}">
             <meta name="twitter:card" content="summary_large_image">`,
-            ),
-        );
-      });
+          ),
+      );
     });
-  },
-);
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);

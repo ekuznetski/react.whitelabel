@@ -2,7 +2,7 @@
 
 .home-wrapper {
   .page-top {
-    height: 900px;
+    height: 608px;
     display: flex;
     align-items: center;
     background: rgb(92, 115, 131);
@@ -66,14 +66,6 @@
       button {
         width: 100%;
       }
-    }
-  }
-
-  .stocks {
-    margin-top: -200px;
-
-    @media (max-width: $viewport-lg-w) {
-      margin-top: -80px;
     }
   }
 
