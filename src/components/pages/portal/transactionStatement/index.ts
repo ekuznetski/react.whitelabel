@@ -1,0 +1,1 @@
+export * from './TransactionStatement.config';

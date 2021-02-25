@@ -1,0 +1,75 @@
+@import '~/variables';
+@import '~/mixin';
+
+.common-tabs {
+  &__navigation {
+    margin: 0 auto;
+    background-color: $grey-bg;
+    border-radius: 25px;
+    width: unset;
+
+    &:after {
+      content: none;
+    }
+
+    &.center {
+      margin-bottom: sp(11) !important;
+    }
+
+    .tab__link {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      padding: 0 sp(7);
+
+      &__label {
+        font-family: $font-family1;
+        font-size: 14px;
+        line-height: 17px;
+        color: $grey;
+      }
+
+      &.active {
+        background: $light-blue;
+        margin-right: 0 !important;
+
+        border: 1px solid $blue;
+        box-sizing: border-box;
+        border-radius: 25px;
+        .tab__link__label {
+          font-weight: 600;
+          color: $dark-blue;
+        }
+      }
+    }
+
+    .active-tab-line {
+      display: none;
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    &__navigation {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+
+      .tab__link {
+        &.active {
+          background: $dark-blue;
+          .tab__link__label {
+            font-weight: 600;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: $viewport-sm-w) {
+    &__navigation {
+      &.center {
+        margin-bottom: sp(9) !important;
+      }
+    }
+  }
+}

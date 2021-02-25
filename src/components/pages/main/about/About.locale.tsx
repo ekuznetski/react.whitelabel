@@ -1,19 +1,18 @@
 import { env } from '@env';
 import { ELabels } from '@domain/enums';
-import * as asd from '@utils/hooks';
+import { useLabelView } from '@utils/hooks';
 import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
-// import { useLabelView } from '../../../../utils/hooks/useLabelView';
 
 const t = i18n.getLazyT;
 
 export const locale = {
-  pageTopRegisterBtn: asd.useLabelView({
+  pageTopRegisterBtn: useLabelView({
     '*': t('Open An Account'),
     [ELabels.bsfx]: t('Start Trading'),
   }),
-  trustedTitle: asd.useLabelView({
+  trustedTitle: useLabelView({
     '*': t('Trusted Section Title'),
     [ELabels.bsfx]: (
       <Trans i18nKey="Trusted Section Title">
@@ -21,7 +20,7 @@ export const locale = {
       </Trans>
     ),
   }),
-  trustedDescription: asd.useLabelView({
+  trustedDescription: useLabelView({
     '*': t('Trusted Section Desc'),
     [ELabels.bsfx]: (
       <Trans i18nKey="Trusted Section Desc">
@@ -30,6 +29,19 @@ export const locale = {
         executives stationed globally to introduce clients to the BSFX platform and welcome them to a $6 trillion-a-day
         FX industry. We believe in giving back to the trading community, so we are1 involved in building training
         stations across the globe to provide an FX education.
+      </Trans>
+    ),
+  }),
+  depositTitle: useLabelView({
+    '*': (
+      <Trans i18nKey="Deposit and Withdrawal Information">
+        Deposit & Withdrawal <br />
+        <strong>Information</strong>
+      </Trans>
+    ),
+    [ELabels.uinvex]: (
+      <Trans i18nKey="Deposit and Withdrawal Information">
+        <strong>Deposit</strong> & <strong>Withdrawal</strong> Information
       </Trans>
     ),
   }),

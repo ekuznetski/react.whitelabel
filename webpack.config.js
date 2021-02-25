@@ -27,7 +27,7 @@ function filePathDestructor(filepath) {
  * @param {string} targetLabelFolder; target label folder name
  */
 function fileParentFolder(filepath, targetLabelFolder) {
-  const _path = path.dirname(filepath).replace(`/${targetLabelFolder}`, '');
+  const _path = path.dirname(filepath).replace(/[\\/]/g, '/').replace(`/${targetLabelFolder}`, '');
   return {
     parentFolderPath: _path,
     parentFolderName: _path.split('/').pop()
@@ -47,14 +47,14 @@ function InlineImportsLabelResolver(props) {
   /**
    * @param { { fileParentFolderPath: { alias: labelAlias } } } alias: contains the map for target label files which need to be replaced
    */
-  const alias = Object.keys(props).reduce((acc, path) => {
-    if (!path.includes('src')) return acc;
+  const alias = Object.keys(props).reduce((acc, __path__) => {
+    if (!__path__.includes('src')) return acc;
 
-    let [folderPath, filePath] = path.split('@#@');
-    folderPath = folderPath.replace('./src/', '').replace(/\//g, '\\\\');
+    let [folderPath, filePath] = __path__.split('@#@');
+    folderPath = folderPath.replace('./src/', '');
 
     return Object.assign(acc, {
-      [folderPath]: Object.assign({}, acc[folderPath], { [filePath]: props[path] })
+      [folderPath]: Object.assign({}, acc[folderPath], { [filePath]: props[__path__] })
     });
   }, {});
   const aliasFoldersPath = Object.keys(alias);
@@ -67,19 +67,21 @@ function InlineImportsLabelResolver(props) {
     this.apply = function (resolver) {
       var target = resolver.ensureHook(this.target);
       resolver.getHook(this.source).tapAsync('InlineImportsLabelResolver', function (request, resolveContext, callback) {
-        const targetAliasesKey = aliasFoldersPath.find((aliasFolderPath) => request.path.search(new RegExp(`${aliasFolderPath}$`)) !== -1);
-        const targetAliases = targetAliasesKey ? alias[targetAliasesKey] : false;
-
-        if (
-          !request.path.includes('node_modules')
-          && targetAliasesKey
-          && targetAliases
-          && targetAliases[request.request]
-        ) {
-          var obj = Object.assign({}, request, {
-            request: targetAliases[request.request],
+        if (!request.path.includes('node_modules')) {
+          const targetAliasesKey = aliasFoldersPath.find((aliasFolderPath) => {
+            return request.path.search(new RegExp(`(${aliasFolderPath.replace(/\//g, '\\\\')}|${aliasFolderPath})$`)) !== -1;
           });
-          return resolver.doResolve(target, obj, null, resolveContext, callback);
+          const targetAliases = targetAliasesKey ? alias[targetAliasesKey] : false;
+
+          if (targetAliasesKey
+            && targetAliases
+            && targetAliases[request.request]
+          ) {
+            var obj = Object.assign({}, request, {
+              request: targetAliases[request.request],
+            });
+            return resolver.doResolve(target, obj, null, resolveContext, callback);
+          }
         }
 
         callback();
@@ -393,9 +395,13 @@ module.exports = (_env, arguments) => {
                     const componentFile = componentsFilepaths.find((filePath) => {
                       const { filenamePrefix, filename: _filename, extension } = filePathDestructor(filePath);
                       const { parentFolderPath } = fileParentFolder(filePath, targetLabelFolder);
+                      const { parentFolderPath: resourceFolderPath } = fileParentFolder(resourcePath, targetLabelFolder);
 
                       return filenamePrefix
-                        && resourcePath.includes(parentFolderPath.replace('./src/', '').replace(/\//g, '\\'))
+                        && (
+                          resourceFolderPath.includes(parentFolderPath.replace('./src/', '').replace(/\//g, '\\'))
+                          || resourceFolderPath.includes(parentFolderPath.replace('./src/', ''))
+                        )
                         && _filename === filename
                         && extension === 'scss';
                     });
