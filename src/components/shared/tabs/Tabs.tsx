@@ -206,13 +206,22 @@ export const Tab = memo(
     }, []);
 
     useEffect(() => {
-      if (tabsState.anchors.includes(props.anchor))
+      if (tabsState.anchors.includes(props.anchor)) {
+        const _value = Object.assign(
+          {},
+          props.label && { value: props.label },
+          props.subLabel && { desc: props.subLabel },
+          props.labelIcon && { icon: props.labelIcon },
+          props.status && { status: props.status },
+        );
+
         dispatch({
           type: 'update',
           anchor: props.anchor,
-          label: { value: props.label, desc: props.subLabel, icon: props.labelIcon, status: props.status },
-          disabled: props.disabled,
+          ...(Object.keys(_value).length ? { label: _value } : {}),
+          ...(props.disabled ? { disabled: props.disabled } : {}),
         });
+      }
     }, [props.label, props.subLabel, props.labelIcon, props.status, props.disabled]);
 
     return (

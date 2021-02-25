@@ -321,6 +321,15 @@ export function ac_fetchWithdrawHistory(): IAction {
   };
 }
 
+export function ac_cancelWithdrawal(payload: { id: string }, onSuccess: AnyFunction, onFailure: AnyFunction): IAction {
+  return {
+    type: EActionTypes.cancelWithdraw,
+    payload,
+    onSuccess,
+    onFailure,
+  };
+}
+
 export function ac_saveWithdrawHistory(payload: MWithdrawalHistoryItem[]): IAction {
   return {
     type: EActionTypes.saveWithdrawHistory,

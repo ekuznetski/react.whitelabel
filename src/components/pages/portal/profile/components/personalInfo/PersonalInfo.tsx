@@ -100,7 +100,7 @@ export const PersonalInfo = memo(
                         </Col>
                       </Row>
                       <div className="form-breakline mt-2 mb-10" />
-                      <CountrySelect label={t('Country')} name={EFields.country} />
+                      <CountrySelect label={t('Country')} disabled name={EFields.country} />
                       <Input label={t('City')} name={EFields.city} />
                       <Input label={t('Street name and number')} name={EFields.street} />
                       {values.country?.code !== ECountryCode.AE && (
@@ -111,7 +111,7 @@ export const PersonalInfo = memo(
                       )}
                       <div className="form-breakline mt-10 mb-10" />
                       <div className="phone-wrapper">
-                        <PhoneCodeSelect name={EFields.phone_prefix} />
+                        <PhoneCodeSelect name={EFields.phone_prefix} disabled />
                         <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
                       </div>
                       <Button type="submit" loadingOnAction={EActionTypes.editProfile}>

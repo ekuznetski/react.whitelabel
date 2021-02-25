@@ -53,6 +53,7 @@ export function appStoreReducer(state = initAppStore as IAppStore, action: IActi
     case EActionTypes.addDeposit:
     case EActionTypes.userExists:
     case EActionTypes.fetchClientSettings:
+    case EActionTypes.register:
     case EActionTypes.preRegister:
     case EActionTypes.fetchClientData:
     case EActionTypes.fetchPrices:

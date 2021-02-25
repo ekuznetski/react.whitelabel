@@ -4,7 +4,7 @@ import { Country, ERegSteps, countries } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -71,14 +71,14 @@ export function SecondStep({ submitFn }: any) {
     postcode: FieldValidators.postcode,
   });
 
-  function Submit(data: FormikValues) {
+  function Submit(data: FormikValues): void {
     data.country = data.country.name;
     if (!data.tax_checkbox) {
       data.tax_country = data.country;
     } else {
       data.tax_country = data.tax_country.name;
     }
-    if(data.state) data.state = data.state.code;
+    if (data.state) data.state = data.state.code;
     Object.assign(data, { dob: `${data.yearOfBirth}-${data.monthOfBirth}-${data.dayOfBirth}` });
     const unusedKeys: any[] = [EFields.yearOfBirth, EFields.monthOfBirth, EFields.dayOfBirth, EFields.tax_checkbox];
     data = Object.keys(data).reduce((acc, key) => {
@@ -90,7 +90,7 @@ export function SecondStep({ submitFn }: any) {
     submitFn({ [ERegSteps.step2]: data });
   }
 
-  function hasState(country?: Country) {
+  function hasState(country?: Country): boolean {
     return !!country?.states?.length;
   }
 
@@ -112,10 +112,13 @@ export function SecondStep({ submitFn }: any) {
         validationSchema={validationSchema}
         onSubmit={Submit}
       >
-        {({ values }) => {
-          const _showTaxCountryState =
-            values.tax_checkbox && values.tax_country && hasState(values.tax_country as Country);
-          const _showCountryState = values.country && hasState(values.country as Country);
+        {({ values, setFieldValue, setFieldTouched }) => {
+          const _showCountryState = !!values.country && hasState(values.country as Country);
+
+          useEffect(() => {
+            setFieldValue('state', '');
+            setFieldTouched('state', false);
+          }, [values.country]);
 
           return (
             <Form className="m-auto form">
