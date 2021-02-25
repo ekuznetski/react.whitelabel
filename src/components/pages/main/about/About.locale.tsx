@@ -1,19 +1,18 @@
 import { env } from '@env';
 import { ELabels } from '@domain/enums';
-import * as asd from '@utils/hooks';
+import { useLabelView } from '@utils/hooks';
 import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
-// import { useLabelView } from '../../../../utils/hooks/useLabelView';
 
 const t = i18n.getLazyT;
 
 export const locale = {
-  pageTopRegisterBtn: asd.useLabelView({
+  pageTopRegisterBtn: useLabelView({
     '*': t('Open An Account'),
     [ELabels.bsfx]: t('Start Trading'),
   }),
-  trustedTitle: asd.useLabelView({
+  trustedTitle: useLabelView({
     '*': t('Trusted Section Title'),
     [ELabels.bsfx]: (
       <Trans i18nKey="Trusted Section Title">
@@ -21,7 +20,7 @@ export const locale = {
       </Trans>
     ),
   }),
-  trustedDescription: asd.useLabelView({
+  trustedDescription: useLabelView({
     '*': t('Trusted Section Desc'),
     [ELabels.bsfx]: (
       <Trans i18nKey="Trusted Section Desc">
@@ -33,7 +32,7 @@ export const locale = {
       </Trans>
     ),
   }),
-  inTouchSectionTitle: asd.useLabelView({
+  inTouchSectionTitle: useLabelView({
     '*': t('In Touch Section Title'),
     [ELabels.uinvex]: (
       <Trans i18nKey="In Touch Section Title">
@@ -41,7 +40,7 @@ export const locale = {
       </Trans>
     ),
   }),
-  inTouchSectionDescription: asd.useLabelView({
+  inTouchSectionDescription: useLabelView({
     '*': t('In Touch Section Desc'),
     [ELabels.uinvex]: (
       <Trans i18nKey="In Touch Section Desc">
@@ -49,6 +48,19 @@ export const locale = {
         super-efficient trade executions, and access to not only forex, the world’s largest and most liquid market, but
         a diverse range of products in 5 other asset classes. <b>UINVEX</b> is regulated and aims to maintain a secure
         trading environment and an intuitive trading experience for its clients.
+      </Trans>
+    ),
+  }),
+  depositTitle: useLabelView({
+    '*': (
+      <Trans i18nKey="Deposit and Withdrawal Information">
+        Deposit & Withdrawal <br />
+        <strong>Information</strong>
+      </Trans>
+    ),
+    [ELabels.uinvex]: (
+      <Trans i18nKey="Deposit and Withdrawal Information">
+        <strong>Deposit</strong> & <strong>Withdrawal</strong> Information
       </Trans>
     ),
   }),

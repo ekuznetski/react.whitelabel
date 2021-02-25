@@ -81,7 +81,7 @@ export const Withdrawal = memo(function Withdrawal() {
     }),
   });
 
-  function Submit(data: FormikValues) {
+  function Submit(data: FormikValues, { resetForm }: FormikProps<any>) {
     dispatch(
       ac_withdrawFunds(
         {
@@ -89,13 +89,15 @@ export const Withdrawal = memo(function Withdrawal() {
           trade_platform: data.account.platform,
           amount: data[EFields.amount],
         },
-        () =>
+        () => {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
               message: t('Your Withdraw Request Added Successfully'),
             }),
-          ),
+          );
+          resetForm();
+        },
       ),
     );
   }
@@ -139,7 +141,7 @@ export const Withdrawal = memo(function Withdrawal() {
                   account: '',
                   amount: '',
                 }}
-                isInitialValid={false}
+                validateOnMount={false}
                 validationSchema={validationSchema}
                 onSubmit={Submit}
               >

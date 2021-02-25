@@ -178,4 +178,6 @@ export const config: IConfig = {
       exchange: 'iShares, ProShares',
     },
   ],
+  platformTechnologySection: {},
+  mobileTradingSection: {},
 };
