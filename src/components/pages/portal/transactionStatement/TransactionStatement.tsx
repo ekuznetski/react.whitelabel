@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { StatementSearchResultSection } from './components';
+import { config } from './TransactionStatement.config';
 import './TransactionStatement.scss';
 
 enum EFields {
@@ -27,21 +28,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
     operation_type: Yup.array<string>().required(t('This field is required')),
     filter: Yup.array<Moment>().required(t('This field is required')),
   });
-  const operationTypes = [
-    { label: t('Deposits'), value: 'deposits' },
-    { label: t('Withdrawals'), value: 'withdrawal' },
-    { label: t('Trades'), value: 'trades' },
-  ];
-  const recentTransactionsFilter = [
-    {
-      label: t('This Month Transactions'),
-      value: [moment().startOf('month'), moment()],
-    },
-    {
-      label: t('Last Month Transactions'),
-      value: [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')],
-    },
-  ];
+
   const monthlyTransactionsFilter = Array.apply(0, Array(12))
     .map((_, i) => moment().subtract(i + 1, 'months'))
     .map((_moment, idx) => ({
@@ -100,14 +87,22 @@ export const TransactionStatement = memo(function TransactionStatement() {
               {({ values, errors, resetForm }: FormikProps<any>) => {
                 return (
                   <Form className="transaction-statement__form">
-                    <MultiSelect placeholder="Account Type" options={operationTypes} name={EFields.operation_type} />
+                    <MultiSelect
+                      placeholder="Account Type"
+                      options={config.operationTypes}
+                      name={EFields.operation_type}
+                    />
                     <Tabs
                       className="statement__tabs"
                       alignNavigation="left"
                       onChange={() => resetForm({ values: { ...values, [EFields.filter]: '' } })}
                     >
                       <Tab anchor="recent" label={t('Recent')}>
-                        <Select label={t('Choose a filter')} options={recentTransactionsFilter} name={EFields.filter} />
+                        <Select
+                          label={t('Choose a filter')}
+                          options={config.recentTransactionsFilter}
+                          name={EFields.filter}
+                        />
                       </Tab>
                       <Tab anchor="monthly" label={t('Monthly')}>
                         <Select

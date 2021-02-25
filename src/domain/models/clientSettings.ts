@@ -41,7 +41,7 @@ export class MClientSettings {
   go_to_praxis?: boolean;
   edit_fake_account?: boolean;
   trading_central?: boolean;
-  min_deposit?: number;
+  min_deposit_amount?: number;
 
   constructor(props: IClientSettings | IClientProfile, castType = false) {
     if (castType) return this;
@@ -93,7 +93,7 @@ export class MClientSettings {
     this.go_to_praxis = props.go_to_praxis;
     this.edit_fake_account = props.edit_fake_account;
     this.trading_central = props.trading_central;
-    this.min_deposit = props.min_deposit;
+    this.min_deposit_amount = props.min_deposit;
   }
 
   getCurrenciesSelectList = (): typeof Currencies => {
