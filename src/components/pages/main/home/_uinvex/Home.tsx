@@ -3,7 +3,7 @@ import {
   MobileTradingSection,
   OpenLiveAccountBannerSection,
   PlatformTechnologySection,
-  SimpleToGetStartedSection
+  SimpleToGetStartedSection,
 } from '@components/sections';
 import { config } from '@pages/main/home';
 import { HomeTopSection, StockPricesSection, TradeProductsSection } from '@pages/main/home/components';

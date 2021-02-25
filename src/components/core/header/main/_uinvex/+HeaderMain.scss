@@ -1,0 +1,58 @@
+@import '~/variables';
+@import '~/mixin';
+
+.header.main {
+  .panel-menu {
+    &:before {
+      top: 0;
+    }
+
+    .menu {
+      height: 60px;
+
+      &__item {
+        a {
+          color: $dark-text;
+          font-family: $font-family1;
+
+          &:after {
+          }
+
+          &.active {
+            color: $blue !important;
+            font-weight: 600;
+
+            &:after {
+              background: $blue !important;
+            }
+          }
+        }
+      }
+    }
+
+    &.fixed {
+      .menu {
+        height: 60px;
+        margin-bottom: 0;
+      }
+    }
+
+    @media (max-width: $viewport-xl-w) {
+      .menu {
+        &__item {
+          a {
+            font-size: 16px;
+          }
+        }
+      }
+      .logo {
+        width: 115px;
+      }
+
+      .sign-in-btn,
+      .open-account-btn {
+        font-size: 16px;
+      }
+    }
+  }
+}
