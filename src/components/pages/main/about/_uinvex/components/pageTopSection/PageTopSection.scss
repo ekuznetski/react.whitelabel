@@ -5,8 +5,9 @@
   &__page-top {
     background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #eeeef1 100%);
     color: $dark-text;
-    padding: 210px 0 100px 0 !important;
+    padding: 170px 0 110px 0 !important;
     height: initial;
+    @include d-flex(center, start, row);
 
     .hands-img {
       z-index: 1;
@@ -26,7 +27,8 @@
         line-height: 64px;
         margin-bottom: sp(9) !important;
         svg {
-          // @include fillSvg($blue, white, $dark-blue);
+          @include fillLogo($blue, black, $dark-blue);
+          vertical-align: bottom;
         }
       }
 
@@ -44,8 +46,14 @@
     }
 
     button {
+      background: $dark-blue;
+      border-radius: $border-radius;
       width: 190px;
       height: $btn-size-md;
+      color: #fff;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
     }
 
     @media (max-width: $viewport-lg-w) {

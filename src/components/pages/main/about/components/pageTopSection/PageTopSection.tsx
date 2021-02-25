@@ -1,18 +1,10 @@
-import { Button, Img, LabelView, LocaleLink, SectionBg, Svg } from '@components/shared';
-import { ELabels, EPagePath } from '@domain/enums';
+import { Button, LocaleLink, SectionBg } from '@components/shared';
+import { EPagePath } from '@domain/enums';
 import { config, locale } from '@pages/main/about';
+import { useResponsive } from 'ahooks';
 import React, { memo } from 'react';
-import { configResponsive, useResponsive } from 'ahooks';
 import { useTranslation } from 'react-i18next';
 import './PageTopSection.scss';
-
-configResponsive({
-  xs: 375,
-  sm: 576,
-  md: 768,
-  lg: 992,
-  xl: 1200,
-});
 
 export const PageTopSection = memo(function PageTopSection() {
   const { t } = useTranslation();

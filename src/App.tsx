@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import { IStore, ac_updateRouteParams, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
+import { configResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { Suspense, useEffect, useMemo } from 'react';
 import { browserName, osName } from 'react-device-detect';
@@ -31,6 +32,15 @@ if (env.PRODUCTION) {
     });
   }
 }
+
+configResponsive({
+  xss: 0,
+  xs: 375,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+});
 
 function App() {
   return (

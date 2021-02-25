@@ -18,7 +18,7 @@ export const locale = {
       [ELabels.uinvex]: responsive.lg ? (
         <>
           {t('About Us Page Title')}
-          <Svg href="logo" _label={ELabels.uinvex} />
+          <Svg href="logo" _label={ELabels.uinvex} height={58} />
         </>
       ) : (
         <Trans i18nKey="About Us Page Title Without Logo">
@@ -30,9 +30,7 @@ export const locale = {
     '*': t('About Us Page Desc'),
     [ELabels.uinvex]: (
       <>
-        {t('About Us Page Desc:0')}
-        <br />
-        <br />
+        <div className="mb-10">{t('About Us Page Desc:0')}</div>
         <Trans i18nKey="About Us Page Desc:1">
           <strong>UINVEX</strong> is dedicated to providing a secure and intuitive trading experience for seasoned and
           new traders alike

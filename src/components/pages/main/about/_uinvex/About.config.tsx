@@ -8,6 +8,7 @@ const t = i18n.getLazyT;
 
 export const config = {
   ..._config,
+  pageTopSecondaryImg: (responsive: any) => (responsive.xs ? 'about-page-hands.png' : 'about-page-hands-mobile.png'),
   depositCards: [
     {
       wrapperClassName: 'card col-12 col-md-4 mb-9 mb-md-0',
