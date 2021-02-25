@@ -1,6 +1,6 @@
 import { env } from '@env';
 import { ELabels } from '@domain/enums';
-import * as asd from '@utils/hooks';
+import * as hooks from '@utils/hooks';
 import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
@@ -9,11 +9,11 @@ import { Trans } from 'react-i18next';
 const t = i18n.getLazyT;
 
 export const locale = {
-  pageTopRegisterBtn: asd.useLabelView({
+  pageTopRegisterBtn: hooks.useLabelView({
     '*': t('Open An Account'),
     [ELabels.bsfx]: t('Start Trading'),
   }),
-  trustedTitle: asd.useLabelView({
+  trustedTitle: hooks.useLabelView({
     '*': t('Trusted Section Title'),
     [ELabels.bsfx]: (
       <Trans i18nKey="Trusted Section Title">
@@ -21,7 +21,7 @@ export const locale = {
       </Trans>
     ),
   }),
-  trustedDescription: asd.useLabelView({
+  trustedDescription: hooks.useLabelView({
     '*': t('Trusted Section Desc'),
     [ELabels.bsfx]: (
       <Trans i18nKey="Trusted Section Desc">
@@ -33,7 +33,7 @@ export const locale = {
       </Trans>
     ),
   }),
-  depositTitle: asd.useLabelView({
+  depositTitle: hooks.useLabelView({
     '*': (
       <Trans i18nKey="Deposit and Withdrawal Information">
         Deposit & Withdrawal <br />
