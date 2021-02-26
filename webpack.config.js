@@ -438,7 +438,7 @@ module.exports = (_env, arguments) => {
                     removeUselessStrokeAndFill: false,
                     removeViewBox: false,
                     prefixIds: false,
-                    removeDimensions: true,
+                    // removeDimensions: true,
                     reusePaths: true,
                     removeOffCanvasPaths: true,
                     removeStyleElement: true,
