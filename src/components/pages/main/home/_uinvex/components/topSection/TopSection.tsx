@@ -13,7 +13,7 @@ export const TopSection = memo(function TopSection() {
       <SectionBg
         primary="header_bg.jpg"
         secondary={{
-          xs: 'header_bg_main_mobile.png',
+          xxs: 'header_bg_main_mobile.png',
           md: 'header_bg_main_tablet.png',
           lg: 'header_bg_main_desktop.png',
         }}

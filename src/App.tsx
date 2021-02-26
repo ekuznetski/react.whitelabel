@@ -34,8 +34,8 @@ if (env.PRODUCTION) {
 }
 
 configResponsive({
-  xss: 0,
-  xs: 375,
+  xxs: 0,
+  xs: 376,
   sm: 576,
   md: 768,
   lg: 992,

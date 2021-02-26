@@ -4,21 +4,10 @@
 .about-wrapper {
   &__page-top {
     background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #eeeef1 100%);
-    color: $dark-text;
-    padding: 170px 0 110px 0 !important;
-    height: initial;
     @include d-flex(center, start, row);
-
-    .hands-img {
-      z-index: 1;
-    }
-
-    img {
-      position: absolute;
-      left: 40%;
-      bottom: 0;
-      height: 560px;
-    }
+    color: $dark-text;
+    margin-top: 60px;
+    height: 608px;
 
     .page-top {
       &__title {
@@ -57,14 +46,11 @@
     }
 
     @media (max-width: $viewport-lg-w) {
-      padding: 120px 0 !important;
-      align-items: flex-end;
+      height: 627px;
+      align-items: flex-start;
 
-      img {
-        position: absolute;
-        left: 25%;
-        bottom: 0;
-        height: 460px;
+      .secondary-bg {
+        right: -90px;
       }
 
       .page-top {
@@ -95,29 +81,28 @@
 
     @media (max-width: $viewport-md-w) {
       @include d-flex(start, center, column);
+      height: 660px;
+      justify-content: flex-start;
+
+      .secondary-bg {
+        top: unset;
+        right: unset;
+        bottom: 0;
+      }
 
       .container {
         margin-left: 0;
       }
 
-      img {
-        position: absolute;
-        left: 15%;
-        bottom: 0;
-        height: 460px;
-      }
-
       .page-top {
         &__header {
-          flex: 0 0 colSizePrc(11);
-          max-width: colSizePrc(11);
+          flex: 0 0 colSizePrc(12);
+          max-width: colSizePrc(12);
         }
       }
     }
 
     @media (max-width: $viewport-sm-w) {
-      padding: 100px 0 300px 0 !important;
-
       .page-top {
         background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #eeeef1 100%);
         &__title {
@@ -126,7 +111,6 @@
           margin-bottom: sp(7) !important;
         }
         &__header {
-          padding: 0 20px;
           flex: 0 0 colSizePrc(12);
           max-width: colSizePrc(12);
         }
@@ -136,32 +120,17 @@
         }
       }
 
-      img {
-        position: absolute;
-        right: 0;
-        left: -40px;
-        bottom: 0;
-        top: unset;
-        width: 100%;
-        height: initial;
-      }
-
       button {
         width: 100%;
       }
     }
 
-    @media (max-width: $viewport-xs-w) {
-      padding: 100px 0 300px 0 !important;
+    @media (max-width: $viewport-xs-min-w) {
+      height: 660px;
 
-      img {
-        position: absolute;
-        right: 0;
-        left: 0;
-        top: unset;
+      .secondary-bg {
+        background-position-y: 100% !important;
         bottom: -130px;
-        width: 100%;
-        height: initial;
       }
     }
   }

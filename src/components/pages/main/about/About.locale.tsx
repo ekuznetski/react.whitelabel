@@ -1,4 +1,3 @@
-import { Svg } from '@components/shared';
 import { ELabels } from '@domain/enums';
 import i18n from '@i18next';
 import { useLabelView } from '@utils/hooks';
@@ -11,32 +10,6 @@ export const locale = {
   pageTopRegisterBtn: useLabelView({
     '*': t('Open An Account'),
     [(ELabels.bsfx, ELabels.uinvex)]: t('Start Trading'),
-  }),
-  pageTopTitle: (responsive: any) =>
-    useLabelView({
-      '*': t('About Us Page Title'),
-      [ELabels.uinvex]: responsive.lg ? (
-        <>
-          {t('About Us Page Title')}
-          <Svg href="logo" _label={ELabels.uinvex} height={58} />
-        </>
-      ) : (
-        <Trans i18nKey="About Us Page Title Without Logo">
-          Why choose <strong>Uinvex</strong>
-        </Trans>
-      ),
-    }),
-  pageTopDesc: useLabelView({
-    '*': t('About Us Page Desc'),
-    [ELabels.uinvex]: (
-      <>
-        <div className="mb-10">{t('About Us Page Desc:0')}</div>
-        <Trans i18nKey="About Us Page Desc:1">
-          <strong>UINVEX</strong> is dedicated to providing a secure and intuitive trading experience for seasoned and
-          new traders alike
-        </Trans>
-      </>
-    ),
   }),
   trustedTitle: useLabelView({
     '*': t('Trusted Section Title'),

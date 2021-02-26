@@ -6,7 +6,6 @@ import { MobileDepositTable } from './components';
 const t = i18n.getLazyT;
 
 export const config = {
-  pageTopSecondaryImg: undefined,
   tabsData: (responsive: any) => ({
     labels: [
       { value: t('Deposit'), anchor: 'deposit' },
