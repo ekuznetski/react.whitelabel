@@ -1,4 +1,4 @@
-import { MarketType } from '@domain/enums';
+import { EAssetClass } from '@domain/enums';
 import { Dispatch, SetStateAction } from 'react';
 export interface IPriceCarouselItem {
   name: string;
@@ -15,13 +15,13 @@ export interface IPriceTabInfo {
   desc: string;
   points: (string | React.ReactFragment)[];
   icon?: string;
-  anchor?: MarketType;
+  anchor?: EAssetClass;
 }
 
 export interface IPriceTabItem {
   name: string;
   icon: string;
-  anchor: MarketType;
+  anchor: EAssetClass;
   info: IPriceTabInfo;
   priceData: IPriceCarouselItem[];
 }

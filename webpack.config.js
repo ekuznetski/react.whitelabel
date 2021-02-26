@@ -438,6 +438,11 @@ module.exports = (_env, arguments) => {
                     removeUselessStrokeAndFill: false,
                     removeViewBox: false,
                     prefixIds: false,
+                    removeDimensions: true,
+                    reusePaths: true,
+                    removeOffCanvasPaths: true,
+                    removeStyleElement: true,
+                    removeScriptElement: true,
                   },
                 },
               },
@@ -502,8 +507,12 @@ module.exports = (_env, arguments) => {
           },
           {
             from: 'assets/(img|svg)/*',
-            flatten: true,
-            to: 'assets/',
+            to({ context, absoluteFilename }) {
+              return `${path.relative(context, absoluteFilename)
+                .replace(/[\\/]/g, '/')
+                .replace(new RegExp(`(img|svg)/`), '')
+                }`;
+            },
             globOptions: {
               ignore: [
                 ...excludeAssets.map((asset) => `**/${asset}/**`),
@@ -511,9 +520,14 @@ module.exports = (_env, arguments) => {
             },
           },
           {
-            from: `assets/${targetLabelFolder}/**/*`,
-            to: 'assets/',
-            flatten: true,
+            from: `assets/${targetLabelFolder}/(img|svg)/**/*`,
+            to({ context, absoluteFilename }) {
+              return `${path.relative(context, absoluteFilename)
+                .replace(/[\\/]/g, '/')
+                .replace(new RegExp(`${targetLabelFolder}/(img|svg)/`), '')
+                }`;
+            },
+            // flatten: true,
             force: true,
           },
           {
