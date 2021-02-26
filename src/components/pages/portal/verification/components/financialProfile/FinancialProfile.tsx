@@ -70,11 +70,13 @@ export const FinancialProfile = memo(function FinancialProfile() {
         questions: FPQuestions.filter((e) => e.step === __state.step + 1),
       };
     });
+
+    window.scrollTo(0, 0);
   }
 
   return (
     <div className="financial-profile form-wrapper py-10 px-9 col-xl-10 col-12 m-auto">
-      {clientStatus.fp_status.code === EClientStatusCode.submitted ? (
+      {clientStatus.fp_status.code !== EClientStatusCode.submitted ? (
         <div className="text-center my-15">
           <h3>{t('Financial Profile Completed')}</h3>
           <Svg className="mt-5" href="profile-completed" width={78} />
