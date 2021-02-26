@@ -1,0 +1,15 @@
+@import '~/variables';
+
+.dashboard-page-wrapper {
+  .trading-accounts {
+    &__tabs {
+      .common-tabs {
+        &__navigation {
+          .active-tab-line {
+            height: 52px;
+          }
+        }
+      }
+    }
+  }
+}
