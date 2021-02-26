@@ -34,7 +34,7 @@ export const config = {
     main: (
       <>
         <Col xs={12} className="context mb-lg-9 mb-7">
-          <b className="mr-2">{t('High Risk Investment Warning')}:</b>
+          <b className="mr-2">{t('High Risk Investment Warning')}</b>
           {t('High Risk Investment Warning Main Desc')}
         </Col>
         <Col xs={12} className="context mb-lg-9 mb-7">
@@ -45,7 +45,10 @@ export const config = {
           <b className="mr-2">{t('Regional Restrictions')}:</b>
           <Trans i18nKey="Regional Restrictions Desc">
             We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong,
-            Japan, the United States of America and some other regions. For more information please refer to our <a target="_blank" href={files.termsOfBusiness}>Terms of Business</a>
+            Japan, the United States of America and some other regions. For more information please refer to our{' '}
+            <a target="_blank" href={files.termsOfBusiness}>
+              Terms of Business
+            </a>
           </Trans>
         </Col>
       </>
