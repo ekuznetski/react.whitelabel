@@ -133,6 +133,7 @@ export function Registration() {
     }
     if (activeStep !== ERegSteps.step5) {
       setActiveStep(activeStep + 1);
+      window.scrollTo(0, 0);
     }
   }
   return (
