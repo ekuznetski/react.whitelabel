@@ -6,4 +6,8 @@ export default {
   'Trusted Section Desc': `Whether you’re interested in trading the $6 trillion-a-day forex (FX) industry or stocks movements, UINVEX has what you’re looking for. We offer a large range of products in 6 different asset classes: <1>$t(Forex)</1>, <3>$t(Stocks)</3>, <5>$t(Commodities)</5>, <7>$t(Indices)</7>, <9>$t(Cryptocurrencies)</9> and <11>ETFs</11>. Not only do we have a wide range of products but we provide competitive trading conditions 
   for our clients.`,
   'Base Currencies': 'Base Currencies',
+  'Home Page Top Title': 'Unparalleled trading with',
+  'Home Page Top Section Desc': 'An intuitive and secure experience for the discerning trader.',
+  'No Deposit Fees': 'No deposit fees',
+  'Deposit and Withdrawal Information': '<0>Deposit</0> & <2>withdrawal</2> information',
 };
