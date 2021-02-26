@@ -8,8 +8,6 @@
     }
 
     .menu {
-      height: 60px;
-
       &__item {
         a {
           color: $dark-text;
@@ -32,7 +30,6 @@
 
     &.fixed {
       .menu {
-        height: 60px;
         margin-bottom: 0;
       }
     }

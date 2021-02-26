@@ -12,7 +12,7 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { config } from './';
-import { HomeTopSection, StockPricesSection, TradeProductsSection } from './components';
+import { StockPricesSection, TopSection, TradeProductsSection } from './components';
 import './Home.scss';
 
 export function Home() {
@@ -20,7 +20,7 @@ export function Home() {
 
   return (
     <div className="home-wrapper">
-      <HomeTopSection />
+      <TopSection />
       <StockPricesSection className="p-0" />
       <PlatformTechnologySection {...config.platformTechnologySection} />
       <MobileTradingSection className="pt-0" {...config.mobileTradingSection} />

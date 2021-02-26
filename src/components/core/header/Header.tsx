@@ -13,7 +13,7 @@ export const Header = memo(function Header() {
     section: state.app.route.appSection,
   }));
   const _scroll = useScroll(document);
-  const fixHeader = _scroll.top > (section === EAppSection.portal ? 110 : 40);
+  const fixHeader = _scroll.top > (section === EAppSection.portal ? 110 : 30);
 
   return useMemo(() => {
     const header_class = classNames('header', section, fixHeader && 'fixed');

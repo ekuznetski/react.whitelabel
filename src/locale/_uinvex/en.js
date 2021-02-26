@@ -12,4 +12,8 @@ export default {
     'We are an online broker that utilizes cutting-edge technology to run a premier trading platform.',
     '<0>UINVEX</0> is dedicated to providing a secure and intuitive trading experience for seasoned and new traders alike',
   ],
+  'Home Page Top Title': 'Unparalleled trading with',
+  'Home Page Top Section Desc': 'An intuitive and secure experience for the discerning trader.',
+  'No Deposit Fees': 'No deposit fees',
+  'Deposit and Withdrawal Information': '<0>Deposit</0> & <2>withdrawal</2> information',
 };

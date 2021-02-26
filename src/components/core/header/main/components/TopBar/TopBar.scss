@@ -6,6 +6,17 @@
   background: #fff;
   z-index: 81;
 
+  &:before {
+    content: '';
+    background: #fff;
+    height: 100%;
+    width: 1000%;
+    left: -500%;
+    display: block;
+    position: absolute;
+    z-index: -1;
+  }
+
   &__links {
     @include d-flex(center, flex-end);
     height: 30px;
