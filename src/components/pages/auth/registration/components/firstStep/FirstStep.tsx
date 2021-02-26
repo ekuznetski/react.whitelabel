@@ -1,7 +1,7 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
 import { countries, ERegSteps } from '@domain/enums';
-import { locale as trans } from '@pages/auth/registration';
+import { locale } from '@pages/auth/registration';
 import { ac_userExists, EActionTypes, IAppStore, IDataStore, IStore } from '@store';
 import { getMarketingCookies } from '@utils/services';
 import { Form, Formik } from 'formik';
@@ -20,10 +20,10 @@ enum EFields {
 }
 
 export function FirstStep({ submitFn }: any) {
-  const { geoIp, locale } = useSelector<IStore, { geoIp: IDataStore['geoIp']; locale: IAppStore['route']['locale'] }>(
+  const { geoIp, route } = useSelector<IStore, { geoIp: IDataStore['geoIp']; route: IAppStore['route'] }>(
     (state) => ({
       geoIp: state.data.geoIp,
-      locale: state.app.route.locale,
+      route: state.app.route,
     }),
   );
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ export function FirstStep({ submitFn }: any) {
               phone_prefix: data.phone_prefix.phoneCode,
               phone_country_code: data.phone_prefix.code,
               mobile: 1,
-              language: locale,
+              language: route.locale,
               country: geoIp?.country ?? 'failed',
               passive_consent: geoIp?.passive_consent ?? 'failed',
               // TODO add campaign_id
@@ -85,7 +85,7 @@ export function FirstStep({ submitFn }: any) {
                 <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
               </div>
               {geoIp?.passive_consent && (
-                <p className="mb-7 fadeFromBottom-row__4">{trans.marketEventNotificationDesc()}</p>
+                <p className="mb-7 fadeFromBottom-row__4">{locale.marketEventNotificationDesc()}</p>
               )}
               <Button
                 type="submit"
