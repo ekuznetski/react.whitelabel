@@ -62,7 +62,7 @@ export default {
   ],
   'You opening account with': 'You are now opening an account with <1>Blue Square FX Limited</1>',
   'Request Partnership': 'Request <1>Partnership<1>',
-  'Accept Policy': 'I have read and accept the <2>Privacy Policy</2> of Blue Square FX',
+  'Accept Policy': 'I have read and accept the <1>Privacy Policy</1> of Blue Square FX',
   'Spreads from # pips': 'Spreads from <1>{{val}} pips</1>',
   'Thank You For Submitting Your Information':
     'Thank you for submitting your information. A member of the BSFX Team will be in touch shortly.',
