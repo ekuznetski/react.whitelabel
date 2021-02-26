@@ -6,7 +6,20 @@
   height: 100%;
 
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   z-index: 0;
+
+  .secondary-bg {
+    width: 100%;
+  }
+
+  .secondary-bg,
+  .secondary-img {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+  }
 }

@@ -23,4 +23,9 @@ body {
       }
     }
   }
+
+  button,
+  .btn {
+    min-height: $btn-size-sm;
+  }
 }
