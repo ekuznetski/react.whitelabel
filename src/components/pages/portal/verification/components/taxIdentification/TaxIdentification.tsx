@@ -157,7 +157,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                     <div className="d-flex justify-content-between" key={e?.taxCountry?.code + i}>
                       <Row className="tins-row">
                         <Col xs={6}>
-                          <CountrySelect label={t('Country')} name={`${EFields.tins}.${i}.${EFields.taxCountry}`} isDisabled={_isFieldDisabled} />
+                          <CountrySelect label={t('Country')} name={`${EFields.tins}.${i}.${EFields.taxCountry}`} disabled={_isFieldDisabled} />
                         </Col>
                         <Col xs={6}>
                           <Input

@@ -143,7 +143,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
                           account.accountId !== values?.accountFrom?.accountId,
                       )}
                       name={EFields.accountTo}
-                      isDisabled={!values?.accountFrom}
+                      disabled={!values?.accountFrom}
                     />
                     <Input
                       label={t('Amount')}
