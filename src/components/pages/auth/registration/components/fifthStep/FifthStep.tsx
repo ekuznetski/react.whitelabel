@@ -1,5 +1,4 @@
 import { Button, Checkbox } from '@components/shared';
-import { files } from '@domain';
 import { ERegSteps } from '@domain/enums';
 import { locale } from '@pages/auth/registration';
 import { EActionTypes, IDataStore, IStore } from '@store';
@@ -15,7 +14,7 @@ enum EFields {
 }
 
 export function FifthStep({ name, submitFn }: any) {
-  const { geoIp } = useSelector<IStore, IDataStore['geoIp']>((state) => ({
+  const { geoIp } = useSelector<IStore, { geoIp: IDataStore['geoIp'] }>((state) => ({
     geoIp: state.data.geoIp,
   }));
   const { t } = useTranslation();
@@ -48,15 +47,7 @@ export function FifthStep({ name, submitFn }: any) {
               </Checkbox>
               {!geoIp?.passive_consent && (
                 <Checkbox name={EFields.want_receive_email} className="mb-10">
-                  <Trans i18nKey="Market Event Notification Desc">
-                    To improve your trading experience, we would like to notify you of market events and extreme price
-                    movements. By signing up, you also declare you read, understood, and accept our
-                    <a target="_blank" href={files.privacyPolicy}>
-                      Privacy Policy
-                    </a>
-                    and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives
-                    via phone or e-mail. You can opt-out any time you wish to.
-                  </Trans>
+                  {locale.marketEventNotificationDesc()}
                 </Checkbox>
               )}
               <Button type="submit" loadingOnAction={[EActionTypes.login, EActionTypes.register]}>

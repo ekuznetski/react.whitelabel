@@ -1,11 +1,12 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
-import { CustomFieldValidators, FieldValidators, files } from '@domain';
-import { ERegSteps, countries } from '@domain/enums';
-import { EActionTypes, IStore, ac_userExists } from '@store';
+import { CustomFieldValidators, FieldValidators } from '@domain';
+import { countries, ERegSteps } from '@domain/enums';
+import { locale as trans } from '@pages/auth/registration';
+import { ac_userExists, EActionTypes, IAppStore, IDataStore, IStore } from '@store';
 import { getMarketingCookies } from '@utils/services';
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import './FirstStep.scss';
@@ -19,10 +20,12 @@ enum EFields {
 }
 
 export function FirstStep({ submitFn }: any) {
-  const { geoIp, locale } = useSelector<IStore, any>((state) => ({
-    geoIp: state.data.geoIp,
-    locale: state.app.route.locale,
-  }));
+  const { geoIp, locale } = useSelector<IStore, { geoIp: IDataStore['geoIp']; locale: IAppStore['route']['locale'] }>(
+    (state) => ({
+      geoIp: state.data.geoIp,
+      locale: state.app.route.locale,
+    }),
+  );
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -42,7 +45,7 @@ export function FirstStep({ submitFn }: any) {
               mobile: 1,
               language: locale,
               country: geoIp?.country ?? 'failed',
-              passive_consent: geoIp?.passive_consent ?? 'failed'
+              passive_consent: geoIp?.passive_consent ?? 'failed',
               // TODO add campaign_id
             },
           }),
@@ -82,17 +85,7 @@ export function FirstStep({ submitFn }: any) {
                 <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
               </div>
               {geoIp?.passive_consent && (
-                <p className="mb-7 fadeFromBottom-row__4">
-                <Trans i18nKey="Market Event Notification Desc">
-                  To improve your trading experience, we would like to notify you of market events and extreme price
-                  movements. By signing up, you also declare you read, understood, and accept our
-                  <a target="_blank" href={files.privacyPolicy}>
-                    Privacy Policy
-                  </a>
-                  and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives
-                  via phone or e-mail. You can opt-out any time you wish to.
-                </Trans>
-              </p>
+                <p className="mb-7 fadeFromBottom-row__4">{trans.marketEventNotificationDesc()}</p>
               )}
               <Button
                 type="submit"
