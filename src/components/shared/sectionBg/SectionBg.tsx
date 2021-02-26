@@ -28,8 +28,8 @@ export const SectionBg = memo(function SectionBg({ primary, secondary, secondary
         .filter((image) => !!image)[0];
     }
 
-    const _primaryImg = typeof primary == 'string' ? primary : primary ? responsiveImg(primary) : '';
-    const _secondaryImg = typeof secondary == 'string' ? secondary : secondary ? responsiveImg(secondary) : '';
+    const _primaryImg = primary ? typeof primary == 'string' ? primary : responsiveImg(primary) : '';
+    const _secondaryImg = secondary ? typeof secondary == 'string' ? secondary : responsiveImg(secondary) : '';
 
     if (primary && !_primaryImg) throw new Error('No Primary Image');
     if (secondary && !_secondaryImg) throw new Error('No Secondary Image');
