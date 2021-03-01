@@ -144,7 +144,6 @@ function declareProxyProps(req: express.Request, resp: express.Response, next: e
   next();
 }
 
-app.use(nocache());
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: DATA_LIMIT })); // for parsing application/x-www-form-urlencoded
 app.set('trust proxy', true);
@@ -153,7 +152,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(session(sessionOptions));
 
-app.use('/proxy', checkAuthenticationCookie, declareProxyProps, upload.any(), (req, resp) => {
+app.use('/proxy', nocache(), checkAuthenticationCookie, declareProxyProps, upload.any(), (req, resp) => {
   const _token = req.session?.CakePHPCookie;
   const xRealIP = (req.get('xrealip') || req.ip || req.ips[0] || req.clientIp)
     ?.replace('::ffff:', '')

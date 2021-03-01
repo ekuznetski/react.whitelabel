@@ -1,5 +1,5 @@
-import { LocaleLink, Svg } from '@components/shared';
-import { EPagePath, MarketType } from '@domain/enums';
+import { Img, LocaleLink, Svg } from '@components/shared';
+import { EAssetClass, ELabels, EPagePath } from '@domain/enums';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu, IPrices } from '@domain/interfaces';
 import { config } from '@pages/main/home';
 import { IStore, ac_fetchPrices } from '@store';
@@ -43,7 +43,7 @@ export const StockPricesSection = memo(function StockPricesSection(props: IStock
 
   function generatePriceTabs(): IPriceTabItem[] {
     return prices
-      ? config.initPriceTabs
+      ? config.priceSectionTabs
           .filter((item) => prices[item.anchor])
           .map((item) => {
             item.priceData = generatePriceData(prices[item.anchor]);
@@ -138,7 +138,7 @@ function StockPricesMenu({ items, activeTab, selectTab }: IPriceTabMenu) {
           <div
             key={i}
             className={classNames(
-              'stockPrices-menu__item',
+              'stock-prices-menu__item',
               i != items.length - 1 && 'mr-9',
               activeTab.anchor === item.anchor && 'active',
             )}
@@ -157,7 +157,7 @@ function StockPricesMenu({ items, activeTab, selectTab }: IPriceTabMenu) {
   );
 }
 
-function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & { currentAsset: MarketType }) {
+function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & { currentAsset: EAssetClass }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const _item = createRef<HTMLDivElement>();
   const wrapper = createRef<HTMLDivElement>();
@@ -219,12 +219,13 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
     <div className="carousel-item-wrapper" ref={ref}>
       <div className={classNames('carousel-item', props.className, props.active && 'active')}>
         <div className="carousel-item__header p-4">
+          {config.priceSectionChartSettings.showAssetIcon && (
+            <Img src={`assets/${props.name.replace(/\W/g, '')}.png`} className={'assets-icon'}/>
+          )}
           <div className="title mb-1">{props.name}</div>
           <div className="variation">
             <Svg
               href={props.variation >= 0 ? 'arrow_up' : 'arrow_down'}
-              width={20}
-              height={20}
               className={props.variation >= 0 ? 'up' : 'down'}
             />
             {props.variation}%
@@ -241,7 +242,13 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
           </div>
         </div>
         <div className="carousel-item__chart">
-          <AreaChart width={180} height={115} data={_data} margin={{ top: 40 }} baseValue={0}>
+          <AreaChart
+            width={config.priceSectionChartSettings.width}
+            height={config.priceSectionChartSettings.height}
+            margin={config.priceSectionChartSettings.margin}
+            data={_data}
+            baseValue={0}
+          >
             <defs>
               <linearGradient id={`color_${color}`} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={color} stopOpacity={0.8} />
