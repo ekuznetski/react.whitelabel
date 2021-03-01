@@ -73,6 +73,7 @@ export const config: IConfig = {
     },
   ],
   tabsData: {
+    alignNavigation: 'left',
     labels: [
       {
         value: (

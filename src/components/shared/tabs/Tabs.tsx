@@ -1,6 +1,6 @@
 import { ENotificationType } from '@domain/enums';
 import { useDeviceDetect } from '@utils/hooks';
-import { useResponsive } from 'ahooks';
+import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, memo, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +18,7 @@ export interface ITabs {
   className?: string;
   isVertical?: boolean;
   alignNavigation?: 'left' | 'center' | 'right';
+  disableMobileView: boolean;
   onChange?: (active: ActiveTab) => void;
 }
 
@@ -47,6 +48,7 @@ export function Tabs({
   disabledAll = false,
   isVertical = false,
   alignNavigation = 'center',
+  disableMobileView = false,
   onChange = undefined,
 }: ITabs) {
   const [activeTabProps, setActiveTabProps] = useState<TabsState['activeTabProps']>();
@@ -97,9 +99,17 @@ export function Tabs({
               navRef.current.scrollLeft =
                 activeNavTabLink.offsetLeft - navRef.current.offsetWidth / 2 + activeNavTabLink.offsetWidth / 2;
             }
-            setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
           }
         }, [activeTabProps?.anchor, viewportSize]);
+        useDebounceEffect(
+          () => {
+            if (activeNavTabLink) {
+              setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
+            }
+          },
+          [activeTabProps?.anchor, viewportSize],
+          { wait: 100 },
+        );
 
         function switchTab(anchor: string | number) {
           dispatch({ type: 'setActive', anchor });
@@ -128,13 +138,18 @@ export function Tabs({
             <div
               className={classNames('common-tabs', isVertical && 'vertical', 'show_' + state.mobileDisplay, className)}
             >
-              {lineProps && !isVertical && (
+              {lineProps && !isVertical && !disableMobileView && (
                 <div className="d-lg-none common-tabs__prev" onClick={() => selectPrevTab()}>
                   <Svg href={'chevron_left'} width={18} height={18} />
                 </div>
               )}
               <div
-                className={classNames('common-tabs__navigation', !isVertical && 'mb-9', !isVertical && 'mx-7 mx-lg-0')}
+                className={classNames(
+                  'common-tabs__navigation',
+                  !isVertical && 'mb-9',
+                  !isVertical && !disableMobileView && 'mx-9 mx-lg-0',
+                  disableMobileView && 'common-tabs__navigation--disable-mobile-view',
+                )}
                 ref={navRef}
               >
                 <div
@@ -178,7 +193,7 @@ export function Tabs({
                   )}
                 </div>
               </div>
-              {lineProps && !isVertical && (
+              {lineProps && !isVertical && !disableMobileView && (
                 <div className="d-lg-none common-tabs__next" onClick={() => selectNextTab()}>
                   <Svg href={'chevron_right'} width={18} height={18} />
                 </div>

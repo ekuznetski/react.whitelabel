@@ -18,21 +18,21 @@
     &__tabs {
       .common-tabs {
         &__navigation {
-          justify-content: start;
-          height: 52px;
-          @media (max-width: $viewport-sm-w) {
-            justify-content: center;
+          @media (min-width: $viewport-md-min-w) {
+            height: 52px;
           }
 
-          &:after {
-            z-index: 1;
-            height: 2px;
-            background: $grey;
+          &-wrapper {
+            &:after {
+              @media (min-width: $viewport-md-min-w) {
+                height: 2px;
+              }
+            }
           }
 
           .tab__link {
             &__label-title {
-              @media (max-width: $viewport-sm-w) {
+              @media (max-width: $viewport-lg-w) {
                 font-size: 16px;
                 line-height: 20px;
               }
@@ -52,7 +52,16 @@
           }
 
           .active-tab-line {
-            height: 2px;
+            @media (min-width: $viewport-md-min-w) {
+              height: 2px;
+            }
+          }
+        }
+
+        &__next,
+        &__prev {
+          @media (min-width: $viewport-md-min-w) {
+            height: 52px;
           }
         }
       }
