@@ -1,5 +1,5 @@
 import { LocaleNavLink, Svg } from '@components/shared';
-import { ETradingAccountType, ETradingPlatform, MarketType } from '@domain/enums';
+import { EAssetClass, ETradingAccountType, ETradingPlatform } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { HeaderTableTemplate } from './HeaderTemplate';
@@ -9,7 +9,7 @@ import { IDataStore, IStore } from '@store';
 import './MarketTable.scss';
 
 interface IMarketTable {
-  type: MarketType;
+  type: EAssetClass;
   preview: boolean;
   className?: string;
 }

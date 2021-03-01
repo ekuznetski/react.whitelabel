@@ -1,4 +1,4 @@
-import { ENotificationType, EResponseStatus, ETradingPlatform, MarketType } from '@domain/enums';
+import { EAssetClass, ENotificationType, EResponseStatus, ETradingPlatform } from '@domain/enums';
 import {
   IAddDepositResponse,
   IBankDetailsResponse,
@@ -335,7 +335,7 @@ export function* fetchPricesSaga() {
     yield put(
       Action.ac_savePrices(
         Object.keys(response).reduce((acc, e) => {
-          Object.assign(acc, { [e.toLowerCase() as keyof typeof MarketType]: response[e] });
+          Object.assign(acc, { [e.toLowerCase() as keyof typeof EAssetClass]: response[e] });
           return acc;
         }, {}),
       ),
