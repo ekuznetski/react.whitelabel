@@ -1,5 +1,5 @@
 import { Img, LocaleLink, Svg } from '@components/shared';
-import { EAssetClass, ELabels, EPagePath } from '@domain/enums';
+import { EAssetClass, EPagePath } from '@domain/enums';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu, IPrices } from '@domain/interfaces';
 import { config } from '@pages/main/home';
 import { IStore, ac_fetchPrices } from '@store';
@@ -59,7 +59,7 @@ export const StockPricesSection = memo(function StockPricesSection(props: IStock
           <Col xs={12}>
             <div className="stock-prices">
               <>
-                {responsive.lg && (
+                {config.priceSectionCarousel.showInfo(responsive) && (
                   <StockPricesInfo
                     {...(activePriceTab.info as IPriceTabInfo)}
                     anchor={activePriceTab.anchor}
@@ -68,7 +68,7 @@ export const StockPricesSection = memo(function StockPricesSection(props: IStock
                 )}
                 <div className="stock-prices__content py-0 py-lg-11">
                   <StockPricesMenu items={priceTabs} activeTab={activePriceTab} selectTab={setActivePriceTab} />
-                  {!responsive.lg && (
+                  {!config.priceSectionCarousel.showInfo(responsive) && (
                     <StockPricesInfo
                       {...(activePriceTab.info as IPriceTabInfo)}
                       anchor={activePriceTab.anchor}
@@ -172,7 +172,8 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
 
   useEffect(() => {
     if (wrapper.current && _item.current) {
-      wrapper.current.style.width = _item.current.clientWidth * (responsive.md ? 3 : responsive.sm ? 2 : 1) + 'px';
+      wrapper.current.style.width =
+        _item.current.clientWidth * config.priceSectionCarousel.slidesPerView(responsive) + 'px';
     }
   }, [responsive]);
 
@@ -220,7 +221,7 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
       <div className={classNames('carousel-item', props.className, props.active && 'active')}>
         <div className="carousel-item__header p-4">
           {config.priceSectionChartSettings.showAssetIcon && (
-            <Img src={`assets/${props.name.replace(/\W/g, '')}.png`} className={'assets-icon'}/>
+            <Img src={`assets/${props.name.replace(/\W/g, '')}.png`} className={'assets-icon'} />
           )}
           <div className="title mb-1">{props.name}</div>
           <div className="variation">
