@@ -5,8 +5,9 @@
     &__tabs {
       .common-tabs {
         &__navigation {
+          height: $tabs-navigation-height;
           .active-tab-line {
-            height: 52px;
+            height: $tabs-navigation-height;
           }
         }
       }

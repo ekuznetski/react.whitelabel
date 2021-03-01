@@ -38,6 +38,11 @@
 
         line-height: 17px;
         color: $grey;
+
+        svg {
+          height: 18px;
+          margin-right: 4px;
+        }
       }
 
       &.active {
@@ -49,7 +54,7 @@
     }
 
     .active-tab-line {
-      height: 38px;
+      height: $tabs-navigation-height;
       border: 1px solid $dark-blue;
       background: $light-blue;
       border-radius: 25px;
