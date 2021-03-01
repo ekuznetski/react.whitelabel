@@ -5,7 +5,7 @@ import { IFPState, ISubmitFPRequest, ISubmitFPRequestItem } from '@domain/interf
 import { MClientStatus } from '@domain/models';
 import { IStore, ac_showNotification, ac_submitFinancialProfile } from '@store';
 import classNames from 'classnames';
-import React, { memo, useState } from 'react';
+import React, { RefObject, memo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { FinancialProfileLastStep, FinancialProfileStepGenerator } from './components';
@@ -22,6 +22,7 @@ export const FinancialProfile = memo(function FinancialProfile() {
   });
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const formRef = useRef<any>();
   const progressPercent = (100 / (Object.keys(EFPSteps).length / 2)) * state.step;
 
   function submitFn(data: any) {
@@ -71,12 +72,12 @@ export const FinancialProfile = memo(function FinancialProfile() {
       };
     });
 
-    window.scrollTo(0, 0);
+    formRef.current.scrollIntoView();
   }
 
   return (
-    <div className="financial-profile form-wrapper py-10 px-9 col-xl-10 col-12 m-auto">
-      {clientStatus.fp_status.code !== EClientStatusCode.submitted ? (
+    <div className="financial-profile form-wrapper py-10 px-9 col-xl-10 col-12 m-auto" ref={formRef}>
+      {clientStatus.fp_status.code === EClientStatusCode.submitted ? (
         <div className="text-center my-15">
           <h3>{t('Financial Profile Completed')}</h3>
           <Svg className="mt-5" href="profile-completed" width={78} />
