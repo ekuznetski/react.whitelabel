@@ -19,7 +19,7 @@ export enum EAppSection {
   general = 'general',
 }
 
-export enum MarketType {
+export enum EAssetClass {
   forex = 'forex',
   stocks = 'stocks',
   indices = 'indices',

@@ -1,5 +1,5 @@
 import { assetsCharacteristics } from '@domain';
-import { EWorkshopType, MarketType } from '@domain/enums';
+import { EAssetClass, EWorkshopType } from '@domain/enums';
 import { IPriceTabItem } from '@domain/interfaces';
 import i18n from '@i18next';
 import React from 'react';
@@ -8,7 +8,7 @@ import { Trans } from 'react-i18next';
 const t = i18n.getLazyT;
 
 interface IConfig {
-  initPriceTabs: IPriceTabItem[];
+  priceSectionTabs: IPriceTabItem[];
   tradeProductsCards: {
     title: string;
     icon: string;
@@ -18,16 +18,16 @@ interface IConfig {
 }
 
 export const config: IConfig = {
-  initPriceTabs: [
+  priceSectionTabs: [
     {
       name: t('Forex'),
       icon: 'filter',
-      anchor: MarketType.forex,
+      anchor: EAssetClass.forex,
       info: {
         title: `40+ ${t('Forex')}`,
         desc: t('Product Section Forex Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.forex].leverage }}>
+          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.forex].leverage }}>
             Max. Leverage <b>1:200</b>
           </Trans>,
         ],
@@ -37,12 +37,12 @@ export const config: IConfig = {
     {
       name: t('Stocks'),
       icon: 'graph_bars',
-      anchor: MarketType.stocks,
+      anchor: EAssetClass.stocks,
       info: {
         title: `40+ ${t('Stocks')}`,
         desc: t('Product Section Stocks Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.stocks].leverage }}>
+          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.stocks].leverage }}>
             Max. Leverage <b>1:20</b>
           </Trans>,
         ],
@@ -52,12 +52,12 @@ export const config: IConfig = {
     {
       name: t('Indices'),
       icon: 'indices',
-      anchor: MarketType.indices,
+      anchor: EAssetClass.indices,
       info: {
         title: t('Indices'),
         desc: t('Product Section Indices Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.indices].leverage }}>
+          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.indices].leverage }}>
             Max. Leverage <b>1:200</b>
           </Trans>,
         ],
@@ -67,12 +67,12 @@ export const config: IConfig = {
     {
       name: t('Commodities'),
       icon: 'commodities',
-      anchor: MarketType.commodities,
+      anchor: EAssetClass.commodities,
       info: {
         title: t('Commodities'),
         desc: t('Product Section Commodities Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.commodities].leverage }}>
+          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.commodities].leverage }}>
             Max. Leverage <b>1:133</b>
           </Trans>,
         ],
@@ -82,12 +82,12 @@ export const config: IConfig = {
     {
       name: t('Cryptocurrencies'),
       icon: 'crypto',
-      anchor: MarketType.crypto,
+      anchor: EAssetClass.crypto,
       info: {
         title: t('Cryptocurrencies'),
         desc: t('Product Section Cryptocurrencies Desc'),
         points: [
-          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[MarketType.crypto].leverage }}>
+          <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.crypto].leverage }}>
             Max. Leverage <b>1:20</b>
           </Trans>,
         ],
@@ -95,6 +95,12 @@ export const config: IConfig = {
       priceData: [],
     },
   ],
+  priceSectionChartSettings: {
+    width: 180,
+    height: 115,
+    margin: { top: 40 },
+    showAssetIcon: false,
+  },
   takeControlItems: [
     {
       title: 'Trade With The Metatrader 5 Platform',
@@ -178,4 +184,6 @@ export const config: IConfig = {
       exchange: 'iShares, ProShares',
     },
   ],
+  platformTechnologySection: {},
+  mobileTradingSection: {},
 };

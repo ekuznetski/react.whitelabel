@@ -37,6 +37,11 @@
       right: 24px;
       top: 24px;
       cursor: pointer;
+
+      @media (max-width: $viewport-sm-w) {
+        right: 1px;
+        top: 12px;
+      }
     }
 
     &__content {

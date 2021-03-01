@@ -8,6 +8,9 @@ export class MWithdrawalHistoryItem {
   issueDate: moment.Moment;
   accountId: string;
   status: ETaskStatus;
+  reference: string;
+  cancelable: boolean;
+  subtotal: number;
   items:
     | {
         issueDate: moment.Moment;
@@ -20,6 +23,9 @@ export class MWithdrawalHistoryItem {
   constructor(props: IWithdrawalHistory) {
     this.amount = props.amount;
     this.accountId = props.account;
+    this.reference = props.reference;
+    this.cancelable = props.cancelable;
+    this.subtotal = props.subtotal;
 
     this.issueDate = moment(props.date);
     this.currency = ECurrencyCode[props.currency.toLowerCase() as keyof typeof ECurrencyCode] || ECurrencyCode.usd;

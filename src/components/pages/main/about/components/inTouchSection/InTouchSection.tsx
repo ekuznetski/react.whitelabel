@@ -9,7 +9,7 @@ export const InTouchSection = memo(function InTouchSection() {
 
   return (
     <section className="about-wrapper__in-touch">
-      <SectionBg img="in-touch-bg.jpg" />
+      <SectionBg primary="in-touch-bg.jpg" />
       <div className="container">
         <div className="row">
           <div className="col-lg-8 offset-lg-2 text-center">

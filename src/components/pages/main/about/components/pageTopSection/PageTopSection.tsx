@@ -10,7 +10,7 @@ export const PageTopSection = memo(function PageTopSection() {
 
   return (
     <section className="about-wrapper__page-top">
-      <SectionBg img="about-page-top.jpg" />
+      <SectionBg primary="about-page-top.jpg" />
       <div className="container">
         <div className="row">
           <div className="col-md-8 col-lg-7 page-top__header">

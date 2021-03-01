@@ -45,7 +45,7 @@ export const SubmitModal = React.memo(function SubmitModal({ type, data }: ISubm
             <Button className="red mr-5" onClick={() => dispatch(ac_hideModal())}>
               {t('Try Again')}
             </Button>
-            <Button className="red mr-5" noBg>
+            <Button className="red mr-5" secondary>
               <LocaleNavLink to={EPagePath.Dashboard}>{t('Back to Dashboard')}</LocaleNavLink>
             </Button>
           </>

@@ -46,8 +46,12 @@ export enum EActionTypes {
 
   // DATA - Accounts
   makeInternalTransfer = '[DATA - Account] Internal Transfer',
-  createLiveTradingAccount = '[DATA - Account] Create Live Trading Account',
-  createDemoTradingAccount = '[DATA - Account] Create Demo Trading Account',
+  createLiveTradingAccount = '[DATA - Account] Create Live Account',
+  createMt4LiveTradingAccount = '[DATA - Account] Create Mt4 Live Account',
+  createMt5LiveTradingAccount = '[DATA - Account] Create Mt5 Live Account',
+  createDemoTradingAccount = '[DATA - Account] Create Demo Account',
+  createMt4DemoTradingAccount = '[DATA - Account] Create Mt4 Demo Account',
+  createMt5DemoTradingAccount = '[DATA - Account] Create Mt5 Demo Account',
   changeAccountLeverage = '[DATA - Account] Change Account Leverage',
   changeAccountPassword = '[DATA - Account] Change Account Password',
   changeAccountSettings = '[DATA - Account] Change Account Settings',
@@ -57,7 +61,10 @@ export enum EActionTypes {
   saveWithdrawHistory = '[DATA - Withdrawal] Save History',
   fetchWithdrawLimit = '[DATA - Withdrawal] Fetch Account Limit',
   saveWithdrawLimit = '[DATA - Withdrawal] Save Account Limit',
-  withdrawFunds = '[DATA - Withdrawal] Withdrawal Funds',
+  withdrawFunds = '[DATA - Withdrawal] Withdraw Funds',
+  withdrawMt4Funds = '[DATA - Withdrawal] Withdraw Mt4 Funds',
+  withdrawMt5Funds = '[DATA - Withdrawal] Withdraw Mt5 Funds',
+  cancelWithdraw = '[DATA - Withdrawal] Cancel Task',
 
   //DATA - Authorization
   forgotPassword = '[DATA - Authorization] Forgot Password',

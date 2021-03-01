@@ -27,7 +27,11 @@ function filePathDestructor(filepath) {
  * @param {string} targetLabelFolder; target label folder name
  */
 function fileParentFolder(filepath, targetLabelFolder) {
-  return path.dirname(filepath).replace(`/${targetLabelFolder}`, '').split('/').pop();
+  const _path = path.dirname(filepath).replace(/[\\/]/g, '/').replace(`/${targetLabelFolder}`, '');
+  return {
+    parentFolderPath: _path,
+    parentFolderName: _path.split('/').pop()
+  };
 }
 
 /**
@@ -37,6 +41,55 @@ function fileParentFolder(filepath, targetLabelFolder) {
 function lowerCaseFirstLetter(str) {
   return str[0].toLowerCase() + str.substr(1);
 }
+
+// Replacing the import of hte files for the target label files
+function InlineImportsLabelResolver(props) {
+  /**
+   * @param { { fileParentFolderPath: { alias: labelAlias } } } alias: contains the map for target label files which need to be replaced
+   */
+  const alias = Object.keys(props).reduce((acc, __path__) => {
+    if (!__path__.includes('src')) return acc;
+
+    let [folderPath, filePath] = __path__.split('@#@');
+    folderPath = folderPath.replace('./src/', '');
+
+    return Object.assign(acc, {
+      [folderPath]: Object.assign({}, acc[folderPath], { [filePath]: props[__path__] })
+    });
+  }, {});
+  const aliasFoldersPath = Object.keys(alias);
+
+  // resolve the import of the files ( original import to target label file import )
+  return new function (source, target) {
+    this.source = source || 'resolve';
+    this.target = target || 'resolve';
+
+    this.apply = function (resolver) {
+      var target = resolver.ensureHook(this.target);
+      resolver.getHook(this.source).tapAsync('InlineImportsLabelResolver', function (request, resolveContext, callback) {
+        if (!request.path.includes('node_modules')) {
+          const targetAliasesKey = aliasFoldersPath.find((aliasFolderPath) => {
+            return request.path.search(new RegExp(`(${aliasFolderPath.replace(/\//g, '\\\\')}|${aliasFolderPath})$`)) !== -1;
+          });
+          const targetAliases = targetAliasesKey ? alias[targetAliasesKey] : false;
+
+          if (targetAliasesKey
+            && targetAliases
+            && targetAliases[request.request]
+          ) {
+            var obj = Object.assign({}, request, {
+              request: targetAliases[request.request],
+            });
+            return resolver.doResolve(target, obj, null, resolveContext, callback);
+          }
+        }
+
+        callback();
+      });
+    };
+  };
+}
+
 
 module.exports = (_env, arguments) => {
   const env = {
@@ -62,8 +115,9 @@ module.exports = (_env, arguments) => {
   let targetLabelComponentsAlias = {};
   let targetLabelComponentsKeys = [];
   let targetLabelPrototypesAlias = []; // enums , interfaces, models
-  let targetLabelScssAlias = [];
+  let targetLabelTsConfigAlias = [];
   let targetLabelEnvAlias = [];
+  let targetLabelUtilsAlias = [];
   let componentsFilepaths = [];
 
   let stylesFilenames = [];
@@ -71,6 +125,7 @@ module.exports = (_env, arguments) => {
   let prototypesFilenames = [];
   let environmentFilenames = [];
   let localeFilenames = [];
+  let utilsFilenames = [];
 
   // Generate map to replace files for different domain
   if (targetLabel) {
@@ -79,6 +134,7 @@ module.exports = (_env, arguments) => {
     labelFilenames = glob.sync(`./src/domain/${targetLabelFolder}/**/*.*`);
     prototypesFilenames = glob.sync(`./src/domain/${targetLabelFolder}/!(data)/**/*.*`);
     localeFilenames = glob.sync(`./src/locale/${targetLabel ? `${targetLabelFolder}/` : ''}*.js`);
+    utilsFilenames = glob.sync(`./src/utils/**/${targetLabelFolder}/*.*`);
 
     const componentsExtensionToHandle = ['tsx', 'ts', 'js', 'scss'];
     componentsFilepaths = glob
@@ -94,29 +150,29 @@ module.exports = (_env, arguments) => {
 
     targetLabelComponentsAlias = componentsFilepaths.reduce((acc, filePath) => {
       const { filenamePrefix, fileType, filename, extension, basename } = filePathDestructor(filePath);
-      const folderName = fileParentFolder(filePath, targetLabelFolder);
+      const { parentFolderPath, parentFolderName } = fileParentFolder(filePath, targetLabelFolder);
 
       if (filePath.match(/(components)/g).length > 1) {
         switch (extension) {
           case 'scss':
             return Object.assign(acc, {
-              [`./${filename}.${extension}`]: `../../${targetLabelFolder}/components/${folderName}/${basename}`,
+              [`${parentFolderPath}@#@./${filename}.${extension}`]: `../../${targetLabelFolder}/components/${parentFolderName}/${basename}`,
             });
           case 'ts':
             return Object.assign(acc, {
-              [`./${filename}`]: `../../${targetLabelFolder}/components/${folderName}/${filename}`,
+              [`${parentFolderPath}@#@./${filename}`]: `../../${targetLabelFolder}/components/${parentFolderName}/${filename}`,
             });
           default:
             switch (fileType) {
               case 'config':
               case 'locale':
                 return Object.assign(acc, {
-                  [`./${filename}`]: `../../${targetLabelFolder}/components/${folderName}/${filename}`,
+                  [`${parentFolderPath}@#@./${filename}`]: `../../${targetLabelFolder}/components/${parentFolderName}/${filename}`,
                 });
               default:
                 // FOR CHILDE COMPONENTS OF PAGE TYPE COMPONENT
                 return Object.assign(acc, {
-                  [`./${folderName}/${filename}`]: `../${targetLabelFolder}/components/${folderName}/${filenamePrefix}${filename}`,
+                  [`${parentFolderPath.replace(`/${parentFolderName}`, '')}@#@./${parentFolderName}/${filename}`]: `../${targetLabelFolder}/components/${parentFolderName}/${filenamePrefix}${filename}`,
                 });
             }
         }
@@ -124,23 +180,23 @@ module.exports = (_env, arguments) => {
         switch (extension) {
           case 'scss':
             return Object.assign(acc, {
-              [`./${filename}.${extension}`]: `./${targetLabelFolder}/${basename}`,
+              [`${parentFolderPath}@#@./${filename}.${extension}`]: `./${targetLabelFolder}/${basename}`,
             });
           case 'ts':
             return Object.assign(acc, {
-              [`./${filename}`]: `./${targetLabelFolder}/${filename}`,
+              [`${parentFolderPath}@#@./${filename}`]: `./${targetLabelFolder}/${filename}`,
             });
           default:
             switch (fileType) {
               case 'config':
               case 'locale':
                 return Object.assign(acc, {
-                  [`./${filename}`]: `./${targetLabelFolder}/${filename}`,
+                  [`${parentFolderPath}@#@./${filename}`]: `./${targetLabelFolder}/${filename}`,
                 });
               default:
                 // ONLY FOR PAGE TYPE COMPONENT REPLACEMENT
                 return Object.assign(acc, {
-                  [`./${folderName}/${filename}`]: `./${folderName}/${targetLabelFolder}/${filenamePrefix}${filename}`,
+                  [`${parentFolderPath.replace(`/${parentFolderName}`, '')}@#@./${parentFolderName}/${filename}`]: `./${parentFolderName}/${targetLabelFolder}/${filenamePrefix}${filename}`,
                 });
             }
         }
@@ -157,7 +213,7 @@ module.exports = (_env, arguments) => {
       const extensions = ['tsx', 'ts', 'js'];
       const { filename, extension, basename } = filePathDestructor(filePath);
       const file = extensions.includes(extension) ? filename : basename;
-      const parentFolder = fileParentFolder(filePath);
+      const { parentFolderPath, parentFolderName } = fileParentFolder(filePath);
 
       if (exceptions.includes(basename)) {
         switch (basename) {
@@ -168,13 +224,13 @@ module.exports = (_env, arguments) => {
           default:
             return acc;
         }
-      } else if (parentFolder === targetLabelFolder) {
+      } else if (parentFolderName === targetLabelFolder) {
         return Object.assign(acc, {
           [`./_default/${file}`]: `./${targetLabelFolder}/${file}`,
         });
       } else {
         return Object.assign(acc, {
-          [`./_default/${parentFolder}/${file}`]: `./${targetLabelFolder}/${parentFolder}/${file}`,
+          [`./_default/${parentFolderName}/${file}`]: `./${targetLabelFolder}/${parentFolderName}/${file}`,
         });
       }
     }, {});
@@ -184,11 +240,26 @@ module.exports = (_env, arguments) => {
       const { filename, extension, basename } = filePathDestructor(filePath);
       const file = extensions.includes(extension) ? filename : basename;
       const _path = filePath.replace(new RegExp(`.*${targetLabelFolder}\/(.+)\/([^\/]+)\/?$`), '$1');
+      const { parentFolderPath } = fileParentFolder(filePath, targetLabelFolder);
 
       return Object.assign(acc, {
         [`./${file}`]: path.join(__dirname, `src/domain/${targetLabelFolder}/${_path}/${file}`),
       });
     }, {});
+
+    targetLabelUtilsAlias = utilsFilenames.reduce((acc, filePath) => {
+      const extensions = ['tsx', 'ts', 'js'];
+      const { filename, extension, basename } = filePathDestructor(filePath);
+      const file = extensions.includes(extension) ? filename : basename;
+      const _path = filePath.replace(new RegExp(`.*/utils\/(.+)\/${targetLabelFolder}.*`), '$1');
+      const { parentFolderPath } = fileParentFolder(filePath, targetLabelFolder);
+
+      return Object.assign(acc, {
+        [`./${file}`]: path.join(__dirname, `src/utils/${_path}/${targetLabelFolder}/${file}`),
+      });
+    }, {});
+
+    // console.log(targetLabelUtilsAlias, utilsFilenames)
 
     targetLabelEnvAlias = environmentFilenames
       .map((filePath) => {
@@ -204,8 +275,10 @@ module.exports = (_env, arguments) => {
         {},
       );
 
-    targetLabelLocaleAlias = localeFilenames.reduce((acc, filepath) => {
-      const { filename } = filePathDestructor(filepath);
+    targetLabelLocaleAlias = localeFilenames.reduce((acc, filePath) => {
+      const { parentFolderPath } = fileParentFolder(filePath, targetLabelFolder);
+      const { filename } = filePathDestructor(filePath);
+
       return Object.assign(acc, {
         [`./locale/${filename}`]: `./locale/${targetLabelFolder}/${filename}`,
       });
@@ -214,7 +287,7 @@ module.exports = (_env, arguments) => {
     // console.log(targetLabelLocaleAlias, localeFilenames);
     // return;
 
-    targetLabelScssAlias = stylesFilenames.map((filePath) => {
+    targetLabelTsConfigAlias = stylesFilenames.map((filePath) => {
       const { filename } = filePathDestructor(filePath);
       return filename;
     });
@@ -223,8 +296,8 @@ module.exports = (_env, arguments) => {
     // return
   }
 
-  targetLabelScssAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
-    const _filename = targetLabelScssAlias.find((el) => pathKey.includes(el));
+  targetLabelTsConfigAlias = Object.keys(tsConfig.compilerOptions.paths).reduce((acc, pathKey) => {
+    const _filename = targetLabelTsConfigAlias.find((el) => pathKey.includes(el));
     let _path = tsConfig.compilerOptions.paths[pathKey][0].replace('/*', '');
     if (_filename) {
       _path = _path.replace(_filename, `${targetLabelFolder}/${_filename}`);
@@ -251,14 +324,17 @@ module.exports = (_env, arguments) => {
     mode: 'development',
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.json', '.sass', '.scss', '.css'],
+      plugins: [InlineImportsLabelResolver({
+        ...targetLabelComponentsAlias,
+      })],
       alias: {
         'react-dom': '@hot-loader/react-dom',
         ...targetLabelEnvAlias,
-        ...targetLabelScssAlias,
+        ...targetLabelTsConfigAlias,
         ...targetLabelLocaleAlias,
         ...targetLabelConfigsAlias,
-        ...targetLabelComponentsAlias,
         ...targetLabelPrototypesAlias,
+        ...targetLabelUtilsAlias
       },
     },
     devtool: 'inline-source-map',
@@ -315,9 +391,19 @@ module.exports = (_env, arguments) => {
                       newContent = newContent.replace(`~/${filename}`, relativePath);
                     });
 
+
                     const componentFile = componentsFilepaths.find((filePath) => {
                       const { filenamePrefix, filename: _filename, extension } = filePathDestructor(filePath);
-                      return filenamePrefix && _filename === filename && extension === 'scss';
+                      const { parentFolderPath } = fileParentFolder(filePath, targetLabelFolder);
+                      const { parentFolderPath: resourceFolderPath } = fileParentFolder(resourcePath, targetLabelFolder);
+
+                      return filenamePrefix
+                        && (
+                          resourceFolderPath.includes(parentFolderPath.replace('./src/', '').replace(/\//g, '\\'))
+                          || resourceFolderPath.includes(parentFolderPath.replace('./src/', ''))
+                        )
+                        && _filename === filename
+                        && extension === 'scss';
                     });
 
                     if (componentFile) {
@@ -352,6 +438,11 @@ module.exports = (_env, arguments) => {
                     removeUselessStrokeAndFill: false,
                     removeViewBox: false,
                     prefixIds: false,
+                    // removeDimensions: true,
+                    reusePaths: true,
+                    removeOffCanvasPaths: true,
+                    removeStyleElement: true,
+                    removeScriptElement: true,
                   },
                 },
               },
@@ -416,8 +507,12 @@ module.exports = (_env, arguments) => {
           },
           {
             from: 'assets/(img|svg)/*',
-            flatten: true,
-            to: 'assets/',
+            to({ context, absoluteFilename }) {
+              return `${path.relative(context, absoluteFilename)
+                .replace(/[\\/]/g, '/')
+                .replace(new RegExp(`(img|svg)/`), '')
+                }`;
+            },
             globOptions: {
               ignore: [
                 ...excludeAssets.map((asset) => `**/${asset}/**`),
@@ -425,9 +520,14 @@ module.exports = (_env, arguments) => {
             },
           },
           {
-            from: `assets/${targetLabelFolder}/**/*`,
-            to: 'assets/',
-            flatten: true,
+            from: `assets/${targetLabelFolder}/(img|svg)/**/*`,
+            to({ context, absoluteFilename }) {
+              return `${path.relative(context, absoluteFilename)
+                .replace(/[\\/]/g, '/')
+                .replace(new RegExp(`${targetLabelFolder}/(img|svg)/`), '')
+                }`;
+            },
+            // flatten: true,
             force: true,
           },
           {

@@ -61,7 +61,7 @@ export class MClientProfile {
     this.first_name = props.first_name;
     this.last_name = props.surname;
     this.full_name = `${props.first_name} ${props.surname}`;
-    this.initials = `${props.first_name[0]}${props.surname[0]}`;
+    this.initials = `${props.first_name[0]}${props.surname[0]}`.toUpperCase();
     this.country = countries.find((country) => country.name === props.country) || {
       name: undefined,
       code: undefined,
@@ -73,7 +73,7 @@ export class MClientProfile {
         .filter((country) => country.states)
         .find((country) => country.states?.find((state) => state.code === props.state))
     )?.states //@ts-ignore
-      ?.filter((state: any) => state.code === props.state) || {
+      ?.filter((state: any) => state.code === props.state)?.[0] || {
       name: '',
       code: '',
     };

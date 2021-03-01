@@ -106,6 +106,7 @@
     "@types/compression": "^1.7.0",
     "@types/connect-redis": "^0.0.16",
     "@types/cookie-parser": "^1.4.2",
+    "@types/core-js": "^2.5.4",
     "@types/cors": "^2.8.9",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",

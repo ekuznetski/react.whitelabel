@@ -166,7 +166,7 @@ export const MultipleUpload = memo(
           if (child.type == UploadFile) {
             const _id = `uf${idx}`;
             return (
-              <Col key={idx}>
+              <Col key={idx} sm={12} md={6}>
                 {React.cloneElement(child, {
                   accept: accept || child.props.accept,
                   maxFileSizeKb: maxFileSizeKb || child.props.maxFileSizeKb,
@@ -470,7 +470,7 @@ export const UploadWrapper = memo(function UploadWrapper({ children, documentsTy
                     <Button
                       className="upload-file__btn mt-9"
                       onClick={() => dispatch({ view: EUploadWrapperViewType.upload })}
-                      noBg
+                      secondary
                     >
                       {t('Upload another document')}
                     </Button>

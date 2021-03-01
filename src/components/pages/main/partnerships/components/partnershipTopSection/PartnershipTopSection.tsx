@@ -15,7 +15,7 @@ export const PartnershipTopSection = memo(function PartnershipTopSection() {
 
   return (
     <section className="partnership__page-top">
-      <SectionBg img="partnership-page-top.jpg" />
+      <SectionBg primary="partnership-page-top.jpg" />
       <Container>
         <Row>
           <Col xs={12} md={7} lg={6} xl={5} className="page-top__header mt-12 mt-lg-18">
