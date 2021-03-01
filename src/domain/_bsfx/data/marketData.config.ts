@@ -1,4 +1,4 @@
-import { ETradingPlatform, MarketType } from '@domain/enums';
+import { EAssetClass, ETradingPlatform } from '@domain/enums';
 import {
   accountTypePip as _accountTypePip,
   assetsCharacteristics as _assetsCharacteristics,
@@ -7,15 +7,15 @@ import {
 
 export const assetsCharacteristics = {
   ..._assetsCharacteristics,
-  [MarketType.forex]: {
+  [EAssetClass.forex]: {
     leverage: '1:500',
     spread: '1.4',
     margins: '0.20%',
   },
-  [MarketType.indices]: {
+  [EAssetClass.indices]: {
     leverage: '1:100',
   },
-  [MarketType.commodities]: {
+  [EAssetClass.commodities]: {
     leverage: '1:67',
   },
 };

@@ -1,3 +1,3 @@
 export * from './stockPricesSection/StockPricesSection';
-export * from './homeTopSection/HomeTopSection';
+export * from './topSection/TopSection';
 export * from './tradeProductsSection/TradeProductsSection';
