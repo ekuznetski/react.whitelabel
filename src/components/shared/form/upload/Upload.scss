@@ -203,6 +203,13 @@
     right: 0;
   }
 
+  @media (max-width: $viewport-sm-w) {
+    &__documents {
+      right: 0;
+      top: -20px;
+    }
+  }
+
   .select-document-type {
     @include d-flex(center, center, column);
     border-radius: $border-radius;
