@@ -8,6 +8,38 @@ const t = i18n.getLazyT;
 
 export const config = {
   ..._config,
+  inTouchCards: [
+    {
+      className: 'p-10',
+      header: (
+        <>
+          <span>{`<`}</span>12
+        </>
+      ),
+      content: t('Less Than 12ms Execution Time'),
+      uid: 1,
+    },
+    {
+      className: 'p-10',
+      header: (
+        <>
+          500<span>+</span>
+        </>
+      ),
+      content: t('Orders Executed per Day'),
+      uid: 2,
+    },
+    {
+      className: 'p-10',
+      header: (
+        <>
+          10<span>+</span>
+        </>
+      ),
+      content: t('Customer support in 10 languages'),
+      uid: 3,
+    },
+  ],
   depositCards: [
     {
       wrapperClassName: 'card col-12 col-md-4 mb-9 mb-md-0',
