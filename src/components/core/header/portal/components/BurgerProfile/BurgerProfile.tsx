@@ -5,14 +5,14 @@ import { portalProfileMenu } from '@utils/fn/portalProfileMenu';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import './ProfileMenuMobile.scss';
+import './BurgerProfile.scss';
 
-type IProfileMenuMobile = {
+type IBurgerProfile = {
   activeSubMenu: number;
   closeSubMenu: () => void;
 };
 
-export function ProfileMenuMobile({ activeSubMenu, closeSubMenu }: IProfileMenuMobile) {
+export function BurgerProfile({ activeSubMenu, closeSubMenu }: IBurgerProfile) {
   const { clientProfile } = useSelector<IStore, { clientProfile: MClientProfile }>((state) => ({
     clientProfile: state.data.client.profile,
   }));
@@ -32,17 +32,17 @@ export function ProfileMenuMobile({ activeSubMenu, closeSubMenu }: IProfileMenuM
   }
 
   return (
-    <div className={classNames('burger-profile-menu mt-7')}>
-      <div className="burger-profile-menu__info" onClick={toggleDropdownMenu}>
-        <div className="burger-profile-menu__info__facepile mr-4">{clientProfile.initials}</div>
-        <span className="burger-profile-menu__info__full-name">{clientProfile.full_name}</span>
+    <div className={classNames('burger-profile mt-7')}>
+      <div className="burger-profile__info" onClick={toggleDropdownMenu}>
+        <div className="burger-profile__info__facepile mr-4">{clientProfile.initials}</div>
+        <span className="burger-profile__info__full-name">{clientProfile.full_name}</span>
       </div>
       <div
-        className={classNames('burger-profile-menu__sub-menu', !isDropdownMenuOpen && 'closed')}
+        className={classNames('burger-profile__sub-menu', !isDropdownMenuOpen && 'closed')}
         style={{ height: portalProfileMenu().length * 50 }}
       >
         {portalProfileMenu().map((menuItem, index) => (
-          <div key={index} className="burger-profile-menu__sub-menu__item ml-6">
+          <div key={index} className="burger-profile__sub-menu__item ml-6">
             <LocaleNavLink exact to={menuItem.path}>
               {menuItem.icon?.length && <Svg href={menuItem.icon} height={20} className="mr-4" />}
               {menuItem.title}
