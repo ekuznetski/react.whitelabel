@@ -17,6 +17,7 @@ export interface ITabs {
   disabledAll?: boolean;
   className?: string;
   isVertical?: boolean;
+  showContent?: boolean;
   alignNavigation?: 'left' | 'center' | 'right';
   onChange?: (active: ActiveTab) => void;
 }
@@ -46,6 +47,7 @@ export function Tabs({
   className,
   disabledAll = false,
   isVertical = false,
+  showContent = false,
   alignNavigation = 'center',
   onChange = undefined,
 }: ITabs) {
@@ -88,6 +90,9 @@ export function Tabs({
           }
           if (disabledAll) {
             dispatch({ type: 'disabledAll', disabledAll });
+          }
+          if (showContent) {
+            dispatch({ type: 'setMobileDisplay', mobileDisplay: EMobileDisplay.content });
           }
         }, []);
 

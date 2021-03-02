@@ -3,7 +3,6 @@ import { AllowedCurrToMethodMap, ECurrencyCode, EDepositMethodCode, EDepositMeth
 import { IClientSettings } from '@domain/interfaces';
 import { env } from '@env';
 import { IAppStore, IStore } from '@store';
-import classNames from 'classnames';
 import React, { memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -46,95 +45,97 @@ export const Deposit = memo(function Deposit() {
                   <DepositSuccessFailure result={route.state.depositResult} />
                 ) : (
                   <>
-                    <Tabs
-                      activeTab={allowedMethods[0] ?? EDepositMethodCode.creditCard}
-                      isVertical={true}
-                      // disabledAll={isDisabled}
-                      className={classNames(state.isAmountSelected && 'd-none')}
-                      onChange={(e) => {
-                        if (dispatch && e.anchor) {
-                          dispatch?.(depositActionCreators.setMethod(e.anchor as any));
-                        }
-                      }}
-                    >
-                      {allowedMethods.includes(EDepositMethodCode.creditCard) && (
-                        <Tab
-                          label="Visa/MasterCard"
-                          subLabel={t('Instant')}
-                          labelIcon={EDepositMethodIcon[EDepositMethodCode.creditCard]}
-                          anchor={EDepositMethodCode.creditCard}
-                          disabled={
-                            !tradingAccountsCurrencies.some((currency) =>
-                              AllowedCurrToMethodMap[EDepositMethodCode.creditCard].includes(currency),
-                            )
+                    {!state.isAmountSelected && (
+                      <Tabs
+                        activeTab={state.method || (allowedMethods[0] ?? EDepositMethodCode.creditCard)}
+                        isVertical={true}
+                        showContent={!!state.amount}
+                        // disabledAll={isDisabled}
+                        onChange={(e) => {
+                          if (dispatch && e.anchor) {
+                            dispatch?.(depositActionCreators.setMethod(e.anchor as any));
                           }
-                        >
-                          <TabContentChooseAmount />
-                        </Tab>
-                      )}
-                      {allowedMethods.includes(EDepositMethodCode.neteller) && (
-                        <Tab
-                          label="Neteller"
-                          subLabel={t('Instant')}
-                          labelIcon={EDepositMethodIcon[EDepositMethodCode.neteller]}
-                          anchor={EDepositMethodCode.neteller}
-                          disabled={
-                            !tradingAccountsCurrencies.some((currency) =>
-                              AllowedCurrToMethodMap[EDepositMethodCode.neteller].includes(currency),
-                            )
-                          }
-                        >
-                          <TabContentChooseAmount />
-                        </Tab>
-                      )}
-                      {allowedMethods.includes(EDepositMethodCode.webmoney) && (
-                        <Tab
-                          label="Webmoney"
-                          subLabel={t('Instant')}
-                          labelIcon={EDepositMethodIcon[EDepositMethodCode.webmoney]}
-                          anchor={EDepositMethodCode.webmoney}
-                          disabled={
-                            !tradingAccountsCurrencies.some((currency) =>
-                              AllowedCurrToMethodMap[EDepositMethodCode.webmoney].includes(currency),
-                            )
-                          }
-                        >
-                          <TabContentChooseAmount />
-                        </Tab>
-                      )}
+                        }}
+                      >
+                        {allowedMethods.includes(EDepositMethodCode.creditCard) && (
+                          <Tab
+                            label="Visa/MasterCard"
+                            subLabel={t('Instant')}
+                            labelIcon={EDepositMethodIcon[EDepositMethodCode.creditCard]}
+                            anchor={EDepositMethodCode.creditCard}
+                            disabled={
+                              !tradingAccountsCurrencies.some((currency) =>
+                                AllowedCurrToMethodMap[EDepositMethodCode.creditCard].includes(currency),
+                              )
+                            }
+                          >
+                            <TabContentChooseAmount />
+                          </Tab>
+                        )}
+                        {allowedMethods.includes(EDepositMethodCode.neteller) && (
+                          <Tab
+                            label="Neteller"
+                            subLabel={t('Instant')}
+                            labelIcon={EDepositMethodIcon[EDepositMethodCode.neteller]}
+                            anchor={EDepositMethodCode.neteller}
+                            disabled={
+                              !tradingAccountsCurrencies.some((currency) =>
+                                AllowedCurrToMethodMap[EDepositMethodCode.neteller].includes(currency),
+                              )
+                            }
+                          >
+                            <TabContentChooseAmount />
+                          </Tab>
+                        )}
+                        {allowedMethods.includes(EDepositMethodCode.webmoney) && (
+                          <Tab
+                            label="Webmoney"
+                            subLabel={t('Instant')}
+                            labelIcon={EDepositMethodIcon[EDepositMethodCode.webmoney]}
+                            anchor={EDepositMethodCode.webmoney}
+                            disabled={
+                              !tradingAccountsCurrencies.some((currency) =>
+                                AllowedCurrToMethodMap[EDepositMethodCode.webmoney].includes(currency),
+                              )
+                            }
+                          >
+                            <TabContentChooseAmount />
+                          </Tab>
+                        )}
 
-                      {allowedMethods.includes(EDepositMethodCode.skrill) && (
-                        <Tab
-                          label="Skrill"
-                          subLabel={t('Instant')}
-                          labelIcon={EDepositMethodIcon[EDepositMethodCode.skrill]}
-                          anchor={EDepositMethodCode.skrill}
-                          disabled={
-                            !tradingAccountsCurrencies.some((currency) =>
-                              AllowedCurrToMethodMap[EDepositMethodCode.skrill].includes(currency),
-                            )
-                          }
-                        >
-                          <TabContentChooseAmount />
-                        </Tab>
-                      )}
+                        {allowedMethods.includes(EDepositMethodCode.skrill) && (
+                          <Tab
+                            label="Skrill"
+                            subLabel={t('Instant')}
+                            labelIcon={EDepositMethodIcon[EDepositMethodCode.skrill]}
+                            anchor={EDepositMethodCode.skrill}
+                            disabled={
+                              !tradingAccountsCurrencies.some((currency) =>
+                                AllowedCurrToMethodMap[EDepositMethodCode.skrill].includes(currency),
+                              )
+                            }
+                          >
+                            <TabContentChooseAmount />
+                          </Tab>
+                        )}
 
-                      {allowedMethods.includes(EDepositMethodCode.bankWire) && (
-                        <Tab
-                          label={t('Wire Bank Transfer')}
-                          subLabel={t('1 3 days')}
-                          labelIcon={EDepositMethodIcon[EDepositMethodCode.bankWire]}
-                          anchor={EDepositMethodCode.bankWire}
-                          disabled={
-                            !tradingAccountsCurrencies.some((currency) =>
-                              AllowedCurrToMethodMap[EDepositMethodCode.bankWire].includes(currency),
-                            )
-                          }
-                        >
-                          <TabContentBankWire />
-                        </Tab>
-                      )}
-                    </Tabs>
+                        {allowedMethods.includes(EDepositMethodCode.bankWire) && (
+                          <Tab
+                            label={t('Wire Bank Transfer')}
+                            subLabel={t('1 3 days')}
+                            labelIcon={EDepositMethodIcon[EDepositMethodCode.bankWire]}
+                            anchor={EDepositMethodCode.bankWire}
+                            disabled={
+                              !tradingAccountsCurrencies.some((currency) =>
+                                AllowedCurrToMethodMap[EDepositMethodCode.bankWire].includes(currency),
+                              )
+                            }
+                          >
+                            <TabContentBankWire />
+                          </Tab>
+                        )}
+                      </Tabs>
+                    )}
                     {state.isAmountSelected && <DetailsFormWrapper />}
                   </>
                 )}
