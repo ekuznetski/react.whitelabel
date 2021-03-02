@@ -3,7 +3,7 @@ import { ELabels, EPagePath } from '@domain/enums';
 import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { locale } from './';
 import './OpenLiveAccountBanner.scss';
