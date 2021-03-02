@@ -2,7 +2,7 @@ import { Button, Img, Svg } from '@components/shared';
 import { downloadLinks } from '@domain';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { config, locale } from './';
 import './MobileTrading.scss';
 

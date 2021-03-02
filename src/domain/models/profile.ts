@@ -79,7 +79,7 @@ export class MClientProfile {
     };
     this.street = props.street;
     this.city = props.city;
-    this.postcode = props.postcode;
+    this.postcode = props.postcode || '';
     this.phone_prefix_code = countries.find((country) => country.phoneCode === props.phone_prefix) || {
       name: undefined,
       code: undefined,

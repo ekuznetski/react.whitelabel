@@ -1,7 +1,7 @@
 import { files } from '@domain';
 import i18n from '@i18next';
 import React from 'react';
-import { Col } from 'react-bootstrap';
+import { Col } from '@components/shared';
 import { Trans } from 'react-i18next';
 const t = i18n.getLazyT;
 

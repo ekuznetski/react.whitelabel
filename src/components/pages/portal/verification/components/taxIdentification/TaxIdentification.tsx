@@ -6,7 +6,7 @@ import { MTins } from '@domain/models';
 import { EActionTypes, IStore, ac_showNotification, ac_updateTins } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -146,22 +146,24 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                   {t('Do you have Tax Identification Number?')}
                 </Col>
                 <Col xs={7}>
-                  <Radio name={EFields.choice} options={config.haveTinsNumber} />
+                  <Radio name={EFields.choice} options={config.haveTinsNumber} disabled={!!tins.tins.length} />
                 </Col>
                 <Col xs={12} className="form-breakline mt-10 mb-10" />
               </Row>
               {values.choice &&
                 values[EFields.tins].map((e: any, i: number) => {
+                  const _isFieldDisabled = i < tins.tins.length;
                   return (
                     <div className="d-flex justify-content-between" key={e?.taxCountry?.code + i}>
                       <Row className="tins-row">
                         <Col xs={6}>
-                          <CountrySelect label={t('Country')} name={`${EFields.tins}.${i}.${EFields.taxCountry}`} />
+                          <CountrySelect label={t('Country')} name={`${EFields.tins}.${i}.${EFields.taxCountry}`} disabled={_isFieldDisabled} />
                         </Col>
                         <Col xs={6}>
                           <Input
                             label={t('Tax Identification Number')}
                             name={`${EFields.tins}.${i}.${EFields.taxNumber}`}
+                            disabled={_isFieldDisabled}
                           />
                         </Col>
                       </Row>
@@ -169,7 +171,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                         type="button"
                         className="remove-tins-row"
                         onClick={() => removeTinsRow(i)}
-                        disabled={!isTinsRowValid(i)}
+                        disabled={!isTinsRowValid(i) || _isFieldDisabled}
                       >
                         -
                       </Button>

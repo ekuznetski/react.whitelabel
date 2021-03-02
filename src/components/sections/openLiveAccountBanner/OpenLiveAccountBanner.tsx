@@ -2,7 +2,7 @@ import { Button, LabelView, LocaleLink, SectionBg } from '@components/shared';
 import { ELabels, EPagePath } from '@domain/enums';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { Trans, useTranslation } from 'react-i18next';
 import './OpenLiveAccountBanner.scss';
 

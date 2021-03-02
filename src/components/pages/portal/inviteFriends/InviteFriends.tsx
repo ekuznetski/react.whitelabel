@@ -1,6 +1,6 @@
 import { Button, Img, Input, LocaleLink, PageTitle, Svg } from '@components/shared';
 import React, { memo, useRef } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';

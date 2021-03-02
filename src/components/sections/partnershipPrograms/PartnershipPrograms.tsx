@@ -2,7 +2,7 @@ import { Button, Card, CardContent, CardHeader, Cards, Svg } from '@components/s
 import { EPartnershipTabs, usePartnershipDispatch, usePartnershipState } from '@pages/main/partnerships';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { Trans, useTranslation } from 'react-i18next';
 import { config } from './PartnershipPrograms.config';
 import './PartnershipPrograms.scss';

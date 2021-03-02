@@ -2,7 +2,7 @@ import { Svg } from '@components/shared';
 import { config } from '@core/footer';
 import classNames from 'classnames';
 import React, { memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useIntercom } from 'react-use-intercom';
 import './FooterMain.scss';

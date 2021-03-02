@@ -7,7 +7,7 @@ import { FieldValidators } from '@domain';
 import { Form, Formik } from 'formik';
 import { EActionTypes, ac_changeAccountPassword, ac_hideModal, ac_showNotification } from '@store';
 import { useDispatch } from 'react-redux';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { IChangeAccountPasswordRequest } from '@domain/interfaces';
 import { ENotificationType } from '@domain/enums';
 import { ModalBody, ModalTitle } from '@components/core';
