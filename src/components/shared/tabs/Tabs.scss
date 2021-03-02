@@ -128,8 +128,12 @@
       height: 1px;
       background: $dark-blue;
       bottom: 0;
-      transition: all 0.5s;
+      transition: left 0.25s;
       z-index: 2;
+
+      @media (max-width: $viewport-lg-w) {
+        transition: all 0.6s;
+      }
     }
   }
 
