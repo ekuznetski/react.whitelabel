@@ -1,0 +1,6 @@
+@import '~/variables';
+
+:export {
+  DEVICE_SIZES: map-keys($grid-breakpoints);
+  FLUED_DEVICE_SIZES: map-keys($container-max-widths);
+}

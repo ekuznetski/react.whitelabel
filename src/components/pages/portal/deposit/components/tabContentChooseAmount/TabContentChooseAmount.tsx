@@ -7,7 +7,7 @@ import { useDeviceDetect } from '@utils/hooks';
 import classNames from 'classnames';
 import { Form, Formik, FormikProps, useFormikContext } from 'formik';
 import React, { useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';

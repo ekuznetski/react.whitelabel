@@ -1,8 +1,8 @@
 import { useResponsive, useSetState } from 'ahooks';
 import path from 'path';
 import React, { memo, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
 import { Img } from '../img/Img';
+import { Col, Container, Row } from '../layout';
 import './SectionBg.scss';
 
 type bg = string | { xxs?: string; xs?: string; sm?: string; md?: string; lg?: string; xl?: string };
@@ -28,8 +28,8 @@ export const SectionBg = memo(function SectionBg({ primary, secondary, secondary
         .filter((image) => !!image)[0];
     }
 
-    const _primaryImg = primary ? typeof primary == 'string' ? primary : responsiveImg(primary) : '';
-    const _secondaryImg = secondary ? typeof secondary == 'string' ? secondary : responsiveImg(secondary) : '';
+    const _primaryImg = primary ? (typeof primary == 'string' ? primary : responsiveImg(primary)) : '';
+    const _secondaryImg = secondary ? (typeof secondary == 'string' ? secondary : responsiveImg(secondary)) : '';
 
     return {
       primary: _primaryImg,

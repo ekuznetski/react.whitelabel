@@ -1,10 +1,10 @@
-import { LocaleLink, LocaleNavLink, Svg } from '@components/shared';
+import { Button, LocaleLink, LocaleNavLink, Svg } from '@components/shared';
 import { EPagePath } from '@domain/enums';
 import { IMenuConfig } from '@domain/interfaces';
 import { IAppStore, IStore } from '@store';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import './BurgerMenu.scss';

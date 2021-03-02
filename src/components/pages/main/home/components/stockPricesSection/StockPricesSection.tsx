@@ -1,12 +1,11 @@
-import { Img, LocaleLink, Svg } from '@components/shared';
+import { Col, Container, Img, LocaleLink, Row, Svg } from '@components/shared';
 import { EAssetClass, EPagePath } from '@domain/enums';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu, IPrices } from '@domain/interfaces';
 import { config } from '@pages/main/home';
 import { IStore, ac_fetchPrices } from '@store';
-import { useDebounceEffect, useResponsive } from 'ahooks';
+import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, memo, useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Area, AreaChart } from 'recharts';
@@ -117,19 +116,15 @@ function StockPricesMenu({ items, activeTab, selectTab }: IPriceTabMenu) {
   let activeMenuItemRef: any = createRef();
   const responsive = useResponsive();
 
-  useDebounceEffect(
-    () => {
-      if (activeMenuItemRef) {
-        if (menuRef.current) {
-          menuRef.current.scrollLeft =
-            activeMenuItemRef.offsetLeft - menuRef.current.offsetWidth / 2 + activeMenuItemRef.offsetWidth / 2;
-        }
-        setLineProps({ width: activeMenuItemRef.clientWidth, left: activeMenuItemRef.offsetLeft });
+  useEffect(() => {
+    if (activeMenuItemRef) {
+      if (menuRef.current) {
+        menuRef.current.scrollLeft =
+          activeMenuItemRef.offsetLeft - menuRef.current.offsetWidth / 2 + activeMenuItemRef.offsetWidth / 2;
       }
-    },
-    [activeTab.anchor, responsive],
-    { wait: 0 },
-  );
+      setLineProps({ width: activeMenuItemRef.clientWidth, left: activeMenuItemRef.offsetLeft });
+    }
+  }, [activeTab.anchor, responsive]);
 
   return (
     <div className="stock-prices-menu" ref={menuRef}>

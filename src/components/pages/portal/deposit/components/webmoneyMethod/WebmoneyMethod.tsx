@@ -4,7 +4,7 @@ import { IWebmoneyDepositRequest } from '@domain/interfaces';
 import { MClientProfile } from '@domain/models';
 import { ac_addDeposit, IStore } from '@store';
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { BillingDetailsModal, DetailsHeader } from '..';

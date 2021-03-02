@@ -4,7 +4,7 @@ import { IStore, ac_hideNotification } from '@store';
 import { useInterval } from 'ahooks';
 import classNames from 'classnames';
 import React, { memo, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useDispatch, useSelector } from 'react-redux';
 import './Notification.scss';
 

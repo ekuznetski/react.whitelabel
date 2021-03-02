@@ -2,18 +2,21 @@
 @import '~/mixin';
 
 .prestigious-platform-technology {
-  padding: 100px 0;
+  padding: 0 !important;
+  box-shadow: box-shadow(15, 0.1);
 
   &__context {
     @include col(
       (
         xs: 12,
-        lg: 6,
+        lg: 8,
       )
     );
 
     .context {
       &__title {
+        font-family: $font-family1;
+        font-weight: 600;
         font-size: 36px;
         line-height: 46px;
         color: $dark-text;
@@ -25,46 +28,27 @@
         color: $text;
       }
 
-      img {
-        height: 400px;
-      }
-
       button {
-        width: 225px;
+        width: 190px;
         height: $btn-size-lg;
-        background: $dark-blue;
+        background: $blue;
+        font-family: $font-family1;
         font-weight: 500;
         font-size: 16px;
-        line-height: 24px;
+        line-height: 20px;
         color: #ffffff;
       }
 
       @media (max-width: $viewport-lg-w) {
-        img {
-          height: 320px;
-          margin: 0 auto;
-          display: block;
-        }
-
         .row {
           flex-flow: column-reverse;
         }
       }
 
       @media (max-width: $viewport-md-w) {
-        &__title {
-          font-size: 24px;
-          line-height: 34px;
-        }
-
         &__description {
-          font-size: 16px;
-          line-height: 26px;
-        }
-
-        img {
-          width: 100%;
-          height: auto;
+          font-size: 14px;
+          line-height: 24px;
         }
 
         .row {
@@ -80,30 +64,6 @@
   }
 
   &__img {
-    @include col(
-      (
-        xs: 12,
-        lg: 6,
-      )
-    );
-
-    img {
-      height: 400px;
-    }
-
-    @media (max-width: $viewport-lg-w) {
-      img {
-        height: 320px;
-        margin: 0 auto;
-        display: block;
-      }
-    }
-
-    @media (max-width: $viewport-md-w) {
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
+    display: none;
   }
 }

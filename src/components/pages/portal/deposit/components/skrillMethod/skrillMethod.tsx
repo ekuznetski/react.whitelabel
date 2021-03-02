@@ -5,7 +5,7 @@ import { MClientProfile } from '@domain/models';
 import { IStore } from '@store';
 import { appendAndSubmitForm } from '@utils/fn';
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { BillingDetailsModal, DetailsHeader } from '..';
