@@ -85,7 +85,7 @@ export function FirstStep({ submitFn }: any) {
                 <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
               </div>
               {geoIp?.passive_consent && (
-                <p className="mb-7 fadeFromBottom-row__4">{locale.marketEventNotificationDesc()}</p>
+                <p className="mb-7 fadeFromBottom-row__4">{locale.marketEventNotificationDesc}</p>
               )}
               <Button
                 type="submit"

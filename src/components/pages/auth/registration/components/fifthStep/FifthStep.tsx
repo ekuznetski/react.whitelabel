@@ -47,7 +47,7 @@ export function FifthStep({ name, submitFn }: any) {
               </Checkbox>
               {!geoIp?.passive_consent && (
                 <Checkbox name={EFields.want_receive_email} className="mb-10">
-                  {locale.marketEventNotificationDesc()}
+                  {locale.marketEventNotificationDesc}
                 </Checkbox>
               )}
               <Button type="submit" loadingOnAction={[EActionTypes.login, EActionTypes.register]}>
