@@ -37,12 +37,6 @@ export const locale = {
       </Trans>
     ),
     [ELabels.uinvex]: (
-      // <Trans i18nKey="Trusted Section Desc">
-      //   Whether you’re interested in trading the $6 trillion-a-day forex (FX) industry or stocks movements, UINVEX has
-      //   what you’re looking for. We offer a large range of products in 6 different asset classes:
-      //   <b>Forex, Stocks, Commodities, Indices, Cryptocurrencies</b> and <b>ETFs</b>. Not only do we have a wide range
-      //   of products but we provide competitive trading conditions for our clients.
-      // </Trans>
       <Trans i18nKey="Trusted Section Desc">
         Whether you’re interested in trading the $6 trillion-a-day forex (FX) industry or stocks movements, UINVEX has
         what you’re looking for. We offer a large range of products in 6 different asset classes:
