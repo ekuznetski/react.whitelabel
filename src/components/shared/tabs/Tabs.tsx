@@ -2,7 +2,7 @@ import { ENotificationType } from '@domain/enums';
 import { useDeviceDetect } from '@utils/hooks';
 import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
-import React, { createRef, forwardRef, memo, useEffect, useMemo, useState } from 'react';
+import React, { forwardRef, memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../form/button/Button';
 import { Svg } from '../svg/Svg';
@@ -53,8 +53,8 @@ export function Tabs({
 }: ITabs) {
   const [activeTabProps, setActiveTabProps] = useState<TabsState['activeTabProps']>();
   const [lineProps, setLineProps] = useState<{ [k: string]: any }>();
-  const navRef = createRef<HTMLDivElement>();
-  const viewportSize = useResponsive();
+  const navRef = useRef<HTMLDivElement>(null);
+  const responsive = useResponsive();
   const tabsContentRef: { [k: string]: HTMLDivElement | null } = {};
   const { t } = useTranslation();
   const { isDesktop } = useDeviceDetect();
@@ -100,14 +100,14 @@ export function Tabs({
                 activeNavTabLink.offsetLeft - navRef.current.offsetWidth / 2 + activeNavTabLink.offsetWidth / 2;
             }
           }
-        }, [activeTabProps?.anchor, viewportSize]);
+        }, [activeTabProps?.anchor, responsive]);
         useDebounceEffect(
           () => {
             if (activeNavTabLink) {
               setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
             }
           },
-          [activeTabProps?.anchor, viewportSize],
+          [activeTabProps?.anchor, responsive],
           { wait: 100 },
         );
 
@@ -139,7 +139,7 @@ export function Tabs({
               className={classNames('common-tabs', isVertical && 'vertical', 'show_' + state.mobileDisplay, className)}
             >
               {lineProps && !isVertical && !disableMobileView && (
-                <div className="d-lg-none common-tabs__prev" onClick={() => selectPrevTab()}>
+                <div className="d-lg-none common-tabs__prev" onClick={selectPrevTab}>
                   <Svg href={'chevron_left'} width={18} height={18} />
                 </div>
               )}
@@ -194,7 +194,7 @@ export function Tabs({
                 </div>
               </div>
               {lineProps && !isVertical && !disableMobileView && (
-                <div className="d-lg-none common-tabs__next" onClick={() => selectNextTab()}>
+                <div className="d-lg-none common-tabs__next" onClick={selectNextTab}>
                   <Svg href={'chevron_right'} width={18} height={18} />
                 </div>
               )}
@@ -302,7 +302,7 @@ export const TabMobileBackButton = memo(function TabSubLabel(props: {
   onClick?: Function;
 }) {
   const dispatch = useTabsDispatch();
-  const viewportSize = useResponsive();
+  const responsive = useResponsive();
 
   useEffect(() => {
     dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: true });
@@ -310,9 +310,9 @@ export const TabMobileBackButton = memo(function TabSubLabel(props: {
   }, []);
 
   useEffect(() => {
-    if (!viewportSize.md && viewportSize.lg) dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: false });
+    if (!responsive.md && responsive.lg) dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: false });
     else dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: true });
-  }, [viewportSize]);
+  }, [responsive]);
 
   return React.cloneElement(props.children, {
     onClick: () => {
