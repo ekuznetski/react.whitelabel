@@ -4,6 +4,7 @@ import { Country, EDepositMethodCode, ETradingType, StaticAmounts } from '@domai
 import { IStore } from '@store';
 import { MClientProfile, MTradingAccount } from '@domain/models';
 import { useSelector } from 'react-redux';
+import { useDeviceDetect } from '@utils/hooks';
 
 export type IDepositState = Nullable<{
   amount: string;
@@ -105,6 +106,7 @@ export const DepositContext = React.createContext<{
 });
 
 export function DepositProvider({ children }: React.PropsWithChildren<any>) {
+  const { isDesktop } = useDeviceDetect();
   const { tradingAccounts, profile } = useSelector<
     IStore,
     { tradingAccounts: MTradingAccount[]; profile: MClientProfile }
@@ -122,7 +124,7 @@ export function DepositProvider({ children }: React.PropsWithChildren<any>) {
   const _staticAmounts = StaticAmounts[tradingAccounts[0].currency];
   const _depositStateInit = {
     ...depositStateInit,
-    amount: _staticAmounts[0].toString(),
+    amount: isDesktop ? _staticAmounts[0].toString() : '',
     staticAmounts: _staticAmounts,
     account: tradingAccounts[0],
     billingDetails: billingDetails,
