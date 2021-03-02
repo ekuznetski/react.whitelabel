@@ -84,7 +84,6 @@ export const AffiliateForm = memo(() => {
               acceptPolicy: false,
             }}
             validationSchema={validationSchema}
-            validateOnChange={false}
             onSubmit={Submit}
           >
             {(props: FormikProps<any>) => (
