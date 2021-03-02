@@ -3,7 +3,7 @@ import { EDepositMethodCode, EDepositMethodIcon, EPagePath, EResponseStatus } fr
 import { IClientSettings } from '@domain/interfaces';
 import { IStore } from '@store';
 import React, { memo } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useIntercom } from 'react-use-intercom';

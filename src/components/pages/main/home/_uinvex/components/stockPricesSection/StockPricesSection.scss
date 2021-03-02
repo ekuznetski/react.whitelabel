@@ -8,7 +8,7 @@
   .stock-prices-item {
     &__info {
       @include d-flex(start, start, column);
-      flex: 0 0 350px;
+      flex: 0 0 252px;
       height: 100%;
       box-shadow: box-shadow(10, 0.1);
       border-radius: $border-box-radius;
@@ -265,10 +265,10 @@
     }
   }
 
-  @media (min-width: $viewport-lg-w) and (max-width: $viewport-xl-w) {
+  @media (min-width: $viewport-lg-w) {
     .stock-prices-item {
       &__info {
-        flex: 0 0 252px;
+        flex: 0 0 350px;
       }
     }
   }

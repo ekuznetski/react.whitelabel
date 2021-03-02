@@ -1,7 +1,7 @@
 import React from 'react';
 import { ETradingType } from '@domain/enums';
 import { IStore } from '@store';
-import { Row } from 'react-bootstrap';
+import { Row } from '@components/shared';
 import { useSelector } from 'react-redux';
 import { useDeviceDetect } from '@utils/hooks';
 import { TradingAccountAddCard } from './AddCard/TradingAccountAddCard';

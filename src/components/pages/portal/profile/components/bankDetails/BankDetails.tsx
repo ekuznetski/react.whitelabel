@@ -5,7 +5,7 @@ import { MBankDetails } from '@domain/models';
 import { EActionTypes, IStore, ac_showNotification, ac_updateBankDetails } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';

@@ -4,7 +4,7 @@ import { EActionTypes, ac_forgotPassword, ac_showNotification, ac_userExists } f
 import { usePathLocale } from '@utils/hooks';
 import { Form, Formik, FormikHelpers } from 'formik';
 import React, { useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';

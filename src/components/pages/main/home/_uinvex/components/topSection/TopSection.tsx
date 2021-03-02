@@ -1,7 +1,7 @@
 import { LocaleLink, SectionBg, Svg } from '@components/shared';
 import { ELabels, EPagePath } from '@domain/enums';
 import React, { memo } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import './TopSection.scss';
 
@@ -13,7 +13,7 @@ export const TopSection = memo(function TopSection() {
       <SectionBg
         primary="header_bg.jpg"
         secondary={{
-          xs: 'header_bg_main_mobile.png',
+          xxs: 'header_bg_main_mobile.png',
           md: 'header_bg_main_tablet.png',
           lg: 'header_bg_main_desktop.png',
         }}

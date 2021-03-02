@@ -1,7 +1,6 @@
-import { env } from '@env';
 import { ELabels } from '@domain/enums';
-import { useLabelView } from '@utils/hooks';
 import i18n from '@i18next';
+import { useLabelView } from '@utils/hooks';
 import React from 'react';
 import { Trans } from 'react-i18next';
 
@@ -10,7 +9,7 @@ const t = i18n.getLazyT;
 export const locale = {
   pageTopRegisterBtn: useLabelView({
     '*': t('Open An Account'),
-    [ELabels.bsfx]: t('Start Trading'),
+    [(ELabels.bsfx, ELabels.uinvex)]: t('Start Trading'),
   }),
   trustedTitle: useLabelView({
     '*': t('Trusted Section Title'),
@@ -29,6 +28,25 @@ export const locale = {
         executives stationed globally to introduce clients to the BSFX platform and welcome them to a $6 trillion-a-day
         FX industry. We believe in giving back to the trading community, so we are1 involved in building training
         stations across the globe to provide an FX education.
+      </Trans>
+    ),
+  }),
+  inTouchSectionTitle: useLabelView({
+    '*': t('In Touch Section Title'),
+    [ELabels.uinvex]: (
+      <Trans i18nKey="In Touch Section Title">
+        Our <b>Mission</b>
+      </Trans>
+    ),
+  }),
+  inTouchSectionDescription: useLabelView({
+    '*': t('In Touch Section Desc'),
+    [ELabels.uinvex]: (
+      <Trans i18nKey="In Touch Section Desc">
+        <b>UINVEX</b> is dedicated to providing excellent trading conditions including great liquidity, low spreads, and
+        super-efficient trade executions, and access to not only forex, the world’s largest and most liquid market, but
+        a diverse range of products in 5 other asset classes. <b>UINVEX</b> is regulated and aims to maintain a secure
+        trading environment and an intuitive trading experience for its clients.
       </Trans>
     ),
   }),

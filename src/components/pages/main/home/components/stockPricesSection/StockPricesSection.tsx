@@ -1,12 +1,11 @@
-import { Img, LocaleLink, Svg } from '@components/shared';
-import { EAssetClass, ELabels, EPagePath } from '@domain/enums';
+import { Col, Container, Img, LocaleLink, Row, Svg } from '@components/shared';
+import { EAssetClass, EPagePath } from '@domain/enums';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu, IPrices } from '@domain/interfaces';
 import { config } from '@pages/main/home';
 import { IStore, ac_fetchPrices } from '@store';
-import { useDebounceEffect, useResponsive } from 'ahooks';
+import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, forwardRef, memo, useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Area, AreaChart } from 'recharts';
@@ -59,7 +58,7 @@ export const StockPricesSection = memo(function StockPricesSection(props: IStock
           <Col xs={12}>
             <div className="stock-prices">
               <>
-                {responsive.lg && (
+                {config.priceSectionCarousel.showInfo(responsive) && (
                   <StockPricesInfo
                     {...(activePriceTab.info as IPriceTabInfo)}
                     anchor={activePriceTab.anchor}
@@ -68,7 +67,7 @@ export const StockPricesSection = memo(function StockPricesSection(props: IStock
                 )}
                 <div className="stock-prices__content py-0 py-lg-11">
                   <StockPricesMenu items={priceTabs} activeTab={activePriceTab} selectTab={setActivePriceTab} />
-                  {!responsive.lg && (
+                  {!config.priceSectionCarousel.showInfo(responsive) && (
                     <StockPricesInfo
                       {...(activePriceTab.info as IPriceTabInfo)}
                       anchor={activePriceTab.anchor}
@@ -117,19 +116,15 @@ function StockPricesMenu({ items, activeTab, selectTab }: IPriceTabMenu) {
   let activeMenuItemRef: any = createRef();
   const responsive = useResponsive();
 
-  useDebounceEffect(
-    () => {
-      if (activeMenuItemRef) {
-        if (menuRef.current) {
-          menuRef.current.scrollLeft =
-            activeMenuItemRef.offsetLeft - menuRef.current.offsetWidth / 2 + activeMenuItemRef.offsetWidth / 2;
-        }
-        setLineProps({ width: activeMenuItemRef.clientWidth, left: activeMenuItemRef.offsetLeft });
+  useEffect(() => {
+    if (activeMenuItemRef) {
+      if (menuRef.current) {
+        menuRef.current.scrollLeft =
+          activeMenuItemRef.offsetLeft - menuRef.current.offsetWidth / 2 + activeMenuItemRef.offsetWidth / 2;
       }
-    },
-    [activeTab.anchor, responsive],
-    { wait: 0 },
-  );
+      setLineProps({ width: activeMenuItemRef.clientWidth, left: activeMenuItemRef.offsetLeft });
+    }
+  }, [activeTab.anchor, responsive]);
 
   return (
     <div className="stock-prices-menu" ref={menuRef}>
@@ -172,7 +167,8 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
 
   useEffect(() => {
     if (wrapper.current && _item.current) {
-      wrapper.current.style.width = _item.current.clientWidth * (responsive.md ? 3 : responsive.sm ? 2 : 1) + 'px';
+      wrapper.current.style.width =
+        _item.current.clientWidth * config.priceSectionCarousel.slidesPerView(responsive) + 'px';
     }
   }, [responsive]);
 
@@ -220,7 +216,7 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
       <div className={classNames('carousel-item', props.className, props.active && 'active')}>
         <div className="carousel-item__header p-4">
           {config.priceSectionChartSettings.showAssetIcon && (
-            <Img src={`assets/${props.name.replace(/\W/g, '')}.png`} className={'assets-icon'}/>
+            <Img src={`assets/${props.name.replace(/\W/g, '')}.png`} className={'assets-icon'} />
           )}
           <div className="title mb-1">{props.name}</div>
           <div className="variation">
