@@ -166,7 +166,7 @@ export const MultipleUpload = memo(
           if (child.type == UploadFile) {
             const _id = `uf${idx}`;
             return (
-              <Col key={idx}>
+              <Col key={idx} sm={12} md={6}>
                 {React.cloneElement(child, {
                   accept: accept || child.props.accept,
                   maxFileSizeKb: maxFileSizeKb || child.props.maxFileSizeKb,
