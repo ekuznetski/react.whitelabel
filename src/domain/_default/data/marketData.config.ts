@@ -1,26 +1,26 @@
-import { ETradingPlatform, MarketType } from '@domain/enums';
+import { EAssetClass, ETradingPlatform } from '@domain/enums';
 import { IMarketTableContent } from '@domain/interfaces';
 
 export const assetsCharacteristics = {
-  [MarketType.forex]: {
+  [EAssetClass.forex]: {
     leverage: '1:200',
     spread: '0.2',
     margins: '0.50%',
   },
-  [MarketType.stocks]: {
+  [EAssetClass.stocks]: {
     leverage: '1:20',
     margins: '5%',
   },
-  [MarketType.indices]: {
+  [EAssetClass.indices]: {
     leverage: '1:200',
   },
-  [MarketType.commodities]: {
+  [EAssetClass.commodities]: {
     leverage: '1:133',
   },
-  [MarketType.crypto]: {
+  [EAssetClass.crypto]: {
     leverage: '1:20',
   },
-  [MarketType.etfs]: {
+  [EAssetClass.etfs]: {
     leverage: '1:20',
   },
 };
@@ -31,7 +31,7 @@ export const accountTypePip = {
 };
 
 export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
-  [MarketType.forex]: [
+  [EAssetClass.forex]: [
     {
       instr: 'EURUSD',
       fixed: '1.8',
@@ -868,7 +868,7 @@ export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
     // {instr: 'GBPUSD-Futures'	,fixed:'25.0'	,classic:'25.0'	,raw:'17.0'   ,swap_l:'0.00%'    ,swap_s:'0.00%',	lotSize:'100,000 GBP'	,minTrade:'1.000 GBP'	,valuePerTick:'1 USD'	,platform: PlatformEnum.MT5},
     // {instr: 'JPYUSD-Futures'	,fixed:'23.0'	,classic:'20.0'	,raw:'12.0'	,swap_l:'0.00%'	    ,swap_s:'0.00%',	lotSize:'10,000,000 JPY',minTrade:'100.000 JPY'	,valuePerTick:'100 JPY'	,platform: PlatformEnum.MT5}
   ],
-  [MarketType.stocks]: [
+  [EAssetClass.stocks]: [
     {
       instr: 'American Express',
       fixed: '14',
@@ -1602,7 +1602,7 @@ export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
       platform: [ETradingPlatform.mt4, ETradingPlatform.mt5],
     },
   ],
-  [MarketType.indices]: [
+  [EAssetClass.indices]: [
     {
       instr: 'US 500 Index CFD',
       fixed: '0.5',
@@ -1940,7 +1940,7 @@ export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
       platform: [ETradingPlatform.mt5],
     },
   ],
-  [MarketType.crypto]: [
+  [EAssetClass.crypto]: [
     {
       instr: 'BTCUSD',
       fixed: '3500',
@@ -2878,7 +2878,7 @@ export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
       platform: [ETradingPlatform.mt5],
     },
   ],
-  [MarketType.commodities]: [
+  [EAssetClass.commodities]: [
     {
       instr: 'SPOT GOLD',
       fixed: '40',
@@ -3084,7 +3084,7 @@ export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
       platform: [ETradingPlatform.mt5],
     },
   ],
-  [MarketType.etfs]: [
+  [EAssetClass.etfs]: [
     {
       instr: 'VelocityShares 3x Inverse Crude Oil ETN',
       fixed: '6',

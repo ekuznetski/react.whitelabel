@@ -1,5 +1,5 @@
 import { Svg } from '@components/shared';
-import { MarketType } from '@domain/enums';
+import { EAssetClass } from '@domain/enums';
 import { useToggle } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
@@ -12,7 +12,7 @@ export interface ITableSection {
   title: string | React.ReactFragment;
   desc: string | React.ReactFragment;
   points: (string | React.ReactFragment)[];
-  tableType: MarketType;
+  tableType: EAssetClass;
   reversed?: boolean;
 }
 
