@@ -1,6 +1,6 @@
 import { ENotificationType } from '@domain/enums';
 import { useDeviceDetect } from '@utils/hooks';
-import { useDebounceEffect, useResponsive } from 'ahooks';
+import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -99,17 +99,9 @@ export function Tabs({
               navRef.current.scrollLeft =
                 activeNavTabLink.offsetLeft - navRef.current.offsetWidth / 2 + activeNavTabLink.offsetWidth / 2;
             }
+            setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
           }
         }, [activeTabProps?.anchor, responsive]);
-        useDebounceEffect(
-          () => {
-            if (activeNavTabLink) {
-              setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
-            }
-          },
-          [activeTabProps?.anchor, responsive],
-          { wait: 100 },
-        );
 
         function switchTab(anchor: string | number) {
           dispatch({ type: 'setActive', anchor });
