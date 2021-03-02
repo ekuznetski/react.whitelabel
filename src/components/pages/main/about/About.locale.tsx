@@ -10,7 +10,7 @@ const t = i18n.getLazyT;
 export const locale = {
   pageTopRegisterBtn: useLabelView({
     '*': t('Open An Account'),
-    [ELabels.bsfx]: t('Start Trading'),
+    [(ELabels.bsfx, ELabels.uinvex)]: t('Start Trading'),
   }),
   trustedTitle: useLabelView({
     '*': t('Trusted Section Title'),

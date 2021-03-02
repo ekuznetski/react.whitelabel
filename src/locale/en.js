@@ -26,7 +26,7 @@ export default {
   'Trusted Section Desc':
     'Entrepreneurs at heart, we have grown from a small fin-tech startup into a global company with 6 international offices and clients from 110 countries. AroFX offers flexible trading conditions suitable for all types of trading strategies and styles.',
   'Trusted Section Title': 'Trusted Around The World',
-  'Who Are We': 'Who Are We?',
+  'About Us Page Title': 'Who Are We?',
   'Deposit and Withdrawal Information': 'Deposit & Withdrawal <1/><2>Information</2>',
   'No Deposit Fees': 'No Deposit Fees',
   Fees: 'Fees',
