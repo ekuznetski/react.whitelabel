@@ -77,124 +77,124 @@
         }
       }
     }
-  }
-  @media (max-width: $viewport-md-w) {
-    .container {
-      max-width: 100%;
-      padding: 0 sp(5);
-    }
-
-    .row {
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    .common-tabs__container {
-      padding-left: sp(3) !important;
-      padding-right: sp(3) !important;
-    }
-
-    .deposit {
-      &__title {
-        font-size: 36px;
-        line-height: 46px;
+    @media (max-width: $viewport-md-w) {
+      .container {
+        max-width: 100%;
+        padding: 0 sp(5);
       }
-      &__cards {
-        margin-bottom: 58px !important;
 
-        &-container {
-          flex: 0 0 100%;
-          max-width: 100%;
+      .row {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .common-tabs__container {
+        padding-left: sp(3) !important;
+        padding-right: sp(3) !important;
+      }
+
+      .deposit {
+        &__title {
+          font-size: 36px;
+          line-height: 46px;
         }
+        &__cards {
+          margin-bottom: 58px !important;
 
-        .common-cards {
-          &__item {
-            &-content {
-              line-height: 30px;
-            }
+          &-container {
+            flex: 0 0 100%;
+            max-width: 100%;
           }
-          &__container {
-            &-content {
-              line-height: 30px;
 
-              small {
-                font-size: 14px;
-                line-height: 24px;
+          .common-cards {
+            &__item {
+              &-content {
+                line-height: 30px;
+              }
+            }
+            &__container {
+              &-content {
+                line-height: 30px;
+
+                small {
+                  font-size: 14px;
+                  line-height: 24px;
+                }
               }
             }
           }
-        }
 
-        .card {
-          padding-left: sp(3) !important;
-          padding-right: sp(3) !important;
-          flex: 0 0 colSizePrc(4);
-          max-width: colSizePrc(4);
+          .card {
+            padding-left: sp(3) !important;
+            padding-right: sp(3) !important;
+            flex: 0 0 colSizePrc(4);
+            max-width: colSizePrc(4);
+          }
         }
       }
     }
-  }
 
-  @media (max-width: $viewport-sm-w) {
-    .container {
-      padding: 0 sp(3);
-    }
-
-    .deposit {
-      &__title {
-        font-size: 32px;
-        line-height: 40px;
+    @media (max-width: $viewport-sm-w) {
+      .container {
         padding: 0 sp(3);
       }
-      &__cards {
-        .common-cards {
-          &__container {
-            flex-flow: row wrap;
-            justify-content: center;
 
-            .card {
-              flex: 0 0 100%;
-              max-width: 100%;
-              padding: 0 5px;
-            }
-          }
+      .deposit {
+        &__title {
+          font-size: 32px;
+          line-height: 40px;
+          padding: 0 sp(3);
+        }
+        &__cards {
+          .common-cards {
+            &__container {
+              flex-flow: row wrap;
+              justify-content: center;
 
-          &__item {
-            height: 100px;
-            align-items: flex-start;
-            flex-direction: row;
-            align-items: center;
-            padding: sp(7) sp(9);
-
-            &-header {
-              font-size: 48px;
-              line-height: 58px;
-              margin-bottom: sp(2);
-              &:after {
-                content: '';
-                position: relative;
-                right: 0;
-                display: block;
-                height: 68px;
-                width: 1px;
-                z-index: 1;
-                background: $border-grey;
-                margin: 0 sp(9);
-              }
-
-              svg {
-                margin-right: 8px;
+              .card {
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding: 0 5px;
               }
             }
 
-            &-content {
-              text-align: left;
-              font-size: 20px;
-              line-height: 28px;
+            &__item {
+              height: 100px;
+              align-items: flex-start;
+              flex-direction: row;
+              align-items: center;
+              padding: sp(7) sp(9);
 
-              small {
-                font-size: 14px;
-                line-height: 18px;
+              &-header {
+                font-size: 48px;
+                line-height: 58px;
+                margin-bottom: sp(2);
+                &:after {
+                  content: '';
+                  position: relative;
+                  right: 0;
+                  display: block;
+                  height: 68px;
+                  width: 1px;
+                  z-index: 1;
+                  background: $border-grey;
+                  margin: 0 sp(9);
+                }
+
+                svg {
+                  margin-right: 8px;
+                }
+              }
+
+              &-content {
+                text-align: left;
+                font-size: 20px;
+                line-height: 28px;
+
+                small {
+                  font-size: 14px;
+                  line-height: 18px;
+                }
               }
             }
           }
