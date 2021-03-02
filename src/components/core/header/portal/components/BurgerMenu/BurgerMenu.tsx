@@ -8,6 +8,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import './BurgerMenu.scss';
+import { ProfileMenuMobile } from './components/ProfileMenuMobile/ProfileMenuMobile';
 
 type IBurgerMenu = {
   menuConfig: IMenuConfig;
@@ -54,6 +55,7 @@ export function BurgerMenu({ menuConfig, closeBurgerMenu, className }: IBurgerMe
       <Container className="pt-16 h-100">
         <Row className="h-100 w-100 m-0">
           <Col xs={12} className="p-0">
+            <ProfileMenuMobile activeSubMenu={activeSubMenu} closeSubMenu={() => toggleDropdownMenu(-1)} />
             {menuConfig.map((menuItem, index) => (
               <div key={index} className="menu__item">
                 {menuItem.path ? (
