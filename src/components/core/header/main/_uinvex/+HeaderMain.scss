@@ -2,6 +2,8 @@
 @import '~/mixin';
 
 .header.main {
+  position: absolute;
+  
   .panel-menu {
     &:before {
       top: 0;
