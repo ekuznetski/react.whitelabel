@@ -51,7 +51,6 @@ export const TextArea = memo(
         isFocused: false,
         isFilled: !!e.target.value,
       });
-      helpers?.setTouched(true);
       onBlur?.(e, state);
     }
 
@@ -90,7 +89,7 @@ export const TextArea = memo(
           onChange={onChangeHandler}
           ref={ref}
         />
-        {meta && (field?.value || meta.touched || forceShowError) && !_disabled && meta.error ? (
+        {meta && (meta.touched || forceShowError) && !_disabled && meta.error ? (
           <div className="error">{meta.error}</div>
         ) : null}
       </div>

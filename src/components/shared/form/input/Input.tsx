@@ -50,7 +50,6 @@ export const Input = memo(
         isFocused: false,
         isFilled: !!e.target.value,
       });
-      helpers?.setTouched(true);
       onBlur?.(e, state);
     }
 
@@ -97,7 +96,7 @@ export const Input = memo(
           onAnimationStart={onAnimationStartHandler}
           ref={ref}
         />
-        {meta && (field?.value || meta.touched || forceShowError) && !_disabled && meta.error ? (
+        {meta && (meta.touched || forceShowError) && !_disabled && meta.error ? (
           <div className="error">{meta.error}</div>
         ) : null}
       </div>
