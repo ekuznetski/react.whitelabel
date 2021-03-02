@@ -2,6 +2,7 @@ import { Button, Checkbox, Input, PhoneCodeSelect, TextArea } from '@components/
 import { CustomFieldValidators, FieldValidators } from '@domain';
 import { ENotificationType, countries } from '@domain/enums';
 import { IPartnershipRegistrationRequest } from '@domain/interfaces';
+import { locale } from '@pages/main/partnerships';
 import { EActionTypes, IStore, ac_partnershipRegisterStandard, ac_showNotification } from '@store';
 import { useLabelName } from '@utils/hooks';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
@@ -95,7 +96,7 @@ export const AffiliateForm = memo(() => {
                 </div>
                 <TextArea label={t('Message')} name={EFields.message} rows={4} />
                 <Checkbox name={EFields.acceptPolicy} className="mb-10">
-                  {t('Accept Policy')}
+                  {locale.acceptPolicy}
                 </Checkbox>
                 <Button type="submit" loadingOnAction={EActionTypes.partnershipRegister}>
                   {t('Submit')}

@@ -19,6 +19,9 @@
 
     input {
       padding-top: 18px;
+      &:disabled {
+        background-color: $grey;
+      }
     }
   }
 

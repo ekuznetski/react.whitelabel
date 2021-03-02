@@ -419,7 +419,7 @@ export default {
     'Deposit now and <1>receive a 10% bonus</1> up to $5K instantly added to your account',
     'Fund Your Account with <1>$0 Fees</1>',
   ],
-  'Accept Policy': 'I have read and accept the Privacy Policy of WHITE_LABEL',
+  'Accept Policy': 'I have read and accept the <1>Privacy Policy</1> of WHITE_LABEL',
   Partnership: 'Partnership',
   Partnerships: 'Partnerships',
   'Custom Made For You': '<0>CUSTOM-MADE</0> FOR YOU',
