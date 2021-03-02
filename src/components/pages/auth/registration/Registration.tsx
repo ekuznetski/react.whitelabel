@@ -26,7 +26,7 @@ export function Registration() {
   const [continueReg, setContinueReg] = useState<boolean | null>(null);
   const [localStorageRegData, setLocalStorageRegData] = useSessionStorageState<IRegData>('regData');
   const { t } = useTranslation();
-  const formRef = useRef<any>();
+  const formRef = useRef<HTMLUListElement>(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -134,7 +134,7 @@ export function Registration() {
     }
     if (activeStep !== ERegSteps.step5) {
       setActiveStep(activeStep + 1);
-      formRef.current.scrollIntoView();
+      formRef?.current?.scrollIntoView();
     }
   }
   return (
