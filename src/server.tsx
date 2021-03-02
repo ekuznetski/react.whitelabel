@@ -2,7 +2,7 @@ import './i18n'; // Must be the imported before the App!
 import { Footer, Header, NotFound, PageLoader } from '@components/core';
 import { localesConfig } from '@domain';
 import { EAppSection, ELanguage } from '@domain/enums';
-import { AnyFunction, IRouteNavConfig } from '@domain/interfaces';
+import { IRouteNavConfig } from '@domain/interfaces';
 import { env } from '@env';
 import { routesInitialApiData, routesNavConfig } from '@routers';
 import { store } from '@store';
@@ -25,7 +25,6 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import redis from 'redis';
-import { Unsubscribe } from 'redux';
 import requestIp from 'request-ip';
 import { document, window } from 'ssr-window';
 import { v4 as uuidv4 } from 'uuid';

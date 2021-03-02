@@ -1,7 +1,8 @@
 import { assetsCharacteristics } from '@domain';
-import { EAssetClass, EWorkshopType } from '@domain/enums';
+import { EAssetClass, ELabels, EWorkshopType } from '@domain/enums';
 import { IPriceTabItem } from '@domain/interfaces';
 import i18n from '@i18next';
+import { useLabelView } from '@utils/hooks';
 import React from 'react';
 import { Trans } from 'react-i18next';
 
@@ -100,6 +101,19 @@ export const config: IConfig = {
     height: 115,
     margin: { top: 40 },
     showAssetIcon: false,
+  },
+  priceSectionCarousel: {
+    showInfo: (responsive: { [key: string]: boolean }) => {
+      return useLabelView({
+        '*': responsive.lg,
+      });
+    },
+    slidesPerView: (responsive: { [key: string]: boolean }) => {
+      return useLabelView({
+        '*': responsive.md ? 3 : responsive.sm ? 2 : 1,
+        [ELabels.uinvex]: responsive.lg ? 3 : responsive.md ? 2 : 2,
+      });
+    },
   },
   takeControlItems: [
     {

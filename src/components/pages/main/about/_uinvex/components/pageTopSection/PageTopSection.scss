@@ -1,0 +1,137 @@
+@import '~/variables';
+@import '~/mixin';
+
+.about-wrapper {
+  &__page-top {
+    background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #eeeef1 100%);
+    @include d-flex(center, start, row);
+    color: $dark-text;
+    margin-top: 60px;
+    height: 608px;
+
+    .page-top {
+      &__title {
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 64px;
+        margin-bottom: sp(9) !important;
+        svg {
+          @include fillLogo($blue, black, $dark-blue);
+          vertical-align: bottom;
+        }
+      }
+
+      &__description {
+        font-size: 22px;
+        line-height: 34px;
+        font-family: $font-family1;
+        margin-bottom: sp(11) !important;
+      }
+
+      &__header {
+        flex: 0 0 colSizePrc(6);
+        max-width: colSizePrc(6);
+      }
+    }
+
+    button {
+      background: $dark-blue;
+      border-radius: $border-radius;
+      width: 190px;
+      height: $btn-size-md;
+      color: #fff;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      height: 627px;
+      align-items: flex-start;
+
+      .secondary-bg {
+        right: -90px;
+      }
+
+      .page-top {
+        &__title {
+          font-size: 44px;
+          line-height: 64px;
+          color: $dark-text;
+        }
+
+        &__description {
+          font-size: 16px;
+          line-height: 26px;
+          max-width: colSizePrc(10);
+          margin-bottom: sp(10) !important;
+        }
+
+        &__header {
+          flex: 0 0 colSizePrc(8);
+          max-width: colSizePrc(8);
+        }
+      }
+
+      button {
+        height: 50px;
+        width: 255px;
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      @include d-flex(start, center, column);
+      height: 660px;
+      justify-content: flex-start;
+
+      .secondary-bg {
+        top: unset;
+        right: unset;
+        bottom: 0;
+      }
+
+      .container {
+        margin-left: 0;
+      }
+
+      .page-top {
+        &__header {
+          flex: 0 0 colSizePrc(12);
+          max-width: colSizePrc(12);
+        }
+      }
+    }
+
+    @media (max-width: $viewport-sm-w) {
+      .page-top {
+        background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #eeeef1 100%);
+        &__title {
+          font-size: 32px;
+          line-height: 40px;
+          margin-bottom: sp(7) !important;
+        }
+        &__header {
+          flex: 0 0 colSizePrc(12);
+          max-width: colSizePrc(12);
+        }
+        &__description {
+          line-height: 22px;
+          max-width: colSizePrc(12);
+        }
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: $viewport-xs-min-w) {
+      height: 660px;
+
+      .secondary-bg {
+        background-position-y: 100% !important;
+        bottom: -130px;
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import { LabelView, LocaleLink, SectionBg } from '@components/shared';
 import { ELabels, EPagePath } from '@domain/enums';
 import React, { memo } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from '@components/shared';
 import { Trans, useTranslation } from 'react-i18next';
 import './TopSection.scss';
 

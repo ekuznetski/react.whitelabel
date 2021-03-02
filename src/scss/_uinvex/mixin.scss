@@ -1,0 +1,13 @@
+@import '../mixin';
+
+@mixin fillLogo($base, $label, $labelIcon) {
+  fill: $base;
+
+  .label {
+    fill: $label;
+  }
+
+  .label-icon {
+    fill: $labelIcon;
+  }
+}

@@ -6,7 +6,7 @@ import { MClientProfile } from '@domain/models';
 import { EActionTypes, IStore, ac_editProfile, ac_showNotification } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -46,9 +46,11 @@ export const PersonalInfo = memo(
     });
 
     function Submit(data: FormikValues) {
+      const _data = { ...data };
+
       dispatch(
         ac_editProfile(
-          data as IEditProfileRequest,
+          _data as IEditProfileRequest,
           () =>
             dispatch(
               ac_showNotification({

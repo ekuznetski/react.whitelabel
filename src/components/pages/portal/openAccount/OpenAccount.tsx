@@ -5,7 +5,7 @@ import { ICreateTradingAccountRequest, ICreateTradingAccountResponse } from '@do
 import { EActionTypes, IAppStore, IStore, ac_createTradingAccount, ac_showModal } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { SubmitModal } from '@pages/portal/openAccount/components/submitModal/SubmitModal';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';

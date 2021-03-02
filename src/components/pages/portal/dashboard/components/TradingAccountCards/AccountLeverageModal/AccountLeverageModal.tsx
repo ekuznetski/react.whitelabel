@@ -7,7 +7,7 @@ import { FieldValidators } from '@domain';
 import { Form, Formik, FormikValues } from 'formik';
 import { EActionTypes, IStore, ac_changeAccountLeverage, ac_hideModal, ac_showNotification } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { MClientSettings } from '@domain/models';
 import { ENotificationType } from '@domain/enums';
 import { ModalBody, ModalTitle } from '@components/core';

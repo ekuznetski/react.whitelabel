@@ -63,12 +63,12 @@ export const TableSection = memo(
                 {preview ? (
                   <>
                     {t('See all products')}
-                    <Svg href="chevron" height={20} />
+                    <Svg href="chevron" className="ml-2" height={20} />
                   </>
                 ) : (
                   <>
                     {t('See less products')}
-                    <Svg href="chevron" className="up" height={20} />
+                    <Svg href="chevron" className="up ml-2" height={20} />
                   </>
                 )}
               </div>

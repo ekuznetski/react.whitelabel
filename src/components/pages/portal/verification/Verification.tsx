@@ -1,6 +1,6 @@
 import { PageTitle, Tab, Tabs } from '@components/shared';
 import React, { memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { AdditionalInformation, FinancialProfile, UploadDocuments } from './components';
 import './Verification.scss';
