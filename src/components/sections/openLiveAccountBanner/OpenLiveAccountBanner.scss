@@ -37,6 +37,10 @@
 
   .open-account {
     text-align: center;
+    .open-live-account-banner__title {
+      font-weight: bolder;
+    }
+
     button {
       margin: 0 auto;
     }

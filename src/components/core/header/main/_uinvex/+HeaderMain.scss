@@ -9,6 +9,12 @@
       top: 0;
     }
 
+    .logo {
+      svg {
+        @include fillLogo($blue, black, $dark-blue);
+      }
+    }
+
     .menu {
       &__item {
         a {
@@ -33,6 +39,12 @@
     &.fixed {
       .menu {
         margin-bottom: 0;
+      }
+
+      .logo {
+        svg {
+          @include fillLogo($blue, black, $dark-blue);
+        }
       }
     }
 
