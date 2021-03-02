@@ -3,7 +3,7 @@ import { AnyFunction } from '@domain/interfaces';
 import classNames from 'classnames';
 import { FastField, FastFieldAttributes, FormikContext, useField } from 'formik';
 import React, { memo, useContext } from 'react';
-import { Row } from 'react-bootstrap';
+import { Row } from '../../layout';
 import './Radio.scss';
 
 export interface IRadioItem {

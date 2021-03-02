@@ -3,7 +3,7 @@ import { ELabels, EPagePath } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
 import classNames from 'classnames';
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container } from '@components/shared';
 import './HeaderGeneral.scss';
 
 export function HeaderGeneral(props: IHeaderDefaultProps) {

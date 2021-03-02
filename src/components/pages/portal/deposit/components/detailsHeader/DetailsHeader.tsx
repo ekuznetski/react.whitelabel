@@ -1,14 +1,15 @@
 import { Svg } from '@components/shared';
 import { EDepositMethodCode } from '@domain/enums';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DepositContext, depositActionCreators } from '../../deposit.context';
+import { depositActionCreators, useDepositDispatch, useDepositState } from '../../deposit.context';
 import './DetailsHeader.scss';
 
 export function DetailsHeader() {
-  const { amount, account, method } = useContext(DepositContext).state;
-  const { dispatch } = useContext(DepositContext);
+  const { amount, account, method } = useDepositState();
+  const dispatch = useDepositDispatch();
   const { t } = useTranslation();
+
   return (
     <>
       <div className="details-header d-flex justify-content-between align-items-center mb-5">
@@ -21,7 +22,7 @@ export function DetailsHeader() {
               className="ml-7 change-amount"
               onClick={(e) => {
                 e.preventDefault();
-                dispatch?.(depositActionCreators.setIsAmountSelected(false));
+                dispatch(depositActionCreators.setIsAmountSelected(false));
               }}
             >
               {t('Change amount')}

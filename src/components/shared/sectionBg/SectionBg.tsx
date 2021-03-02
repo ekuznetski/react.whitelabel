@@ -1,8 +1,8 @@
 import { useResponsive, useSetState } from 'ahooks';
 import path from 'path';
 import React, { memo, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
 import { Img } from '../img/Img';
+import { Col, Container, Row } from '../layout';
 import './SectionBg.scss';
 
 type bg = string | { xxs?: string; xs?: string; sm?: string; md?: string; lg?: string; xl?: string };
@@ -28,11 +28,8 @@ export const SectionBg = memo(function SectionBg({ primary, secondary, secondary
         .filter((image) => !!image)[0];
     }
 
-    const _primaryImg = typeof primary == 'string' ? primary : primary ? responsiveImg(primary) : '';
-    const _secondaryImg = typeof secondary == 'string' ? secondary : secondary ? responsiveImg(secondary) : '';
-
-    if (primary && !_primaryImg) throw new Error('No Primary Image');
-    if (secondary && !_secondaryImg) throw new Error('No Secondary Image');
+    const _primaryImg = primary ? (typeof primary == 'string' ? primary : responsiveImg(primary)) : '';
+    const _secondaryImg = secondary ? (typeof secondary == 'string' ? secondary : responsiveImg(secondary)) : '';
 
     return {
       primary: _primaryImg,
@@ -45,7 +42,7 @@ export const SectionBg = memo(function SectionBg({ primary, secondary, secondary
       className="section-bg"
       style={{ background: `url(${`assets/${path.basename(images.primary)}`}) 50% 50% no-repeat` }}
     >
-      {!!secondary && secondaryType == 'bg' ? (
+      {!!images.secondary && secondaryType == 'bg' ? (
         <div
           className="secondary-bg"
           style={{ background: `url(${`assets/${path.basename(images.secondary)}`}) 50% 50% no-repeat` }}

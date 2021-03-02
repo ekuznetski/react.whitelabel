@@ -1,12 +1,12 @@
-import { Button, LabelView, LocaleLink, SectionBg, Svg } from '@components/shared';
+import { Button, LocaleLink, SectionBg, Svg } from '@components/shared';
 import { ELabels, EPagePath } from '@domain/enums';
 import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import './OpenLiveAccountBanner.scss';
 import { locale } from './';
+import './OpenLiveAccountBanner.scss';
 
 export const OpenLiveAccountBannerSection = memo(
   forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function OpenLiveAccountBannerSection(props, ref) {

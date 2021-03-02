@@ -2,7 +2,7 @@ import { Button, Img, Svg } from '@components/shared';
 import { EWorkshopType } from '@domain/enums';
 import { useInViewport } from 'ahooks';
 import React, { forwardRef, memo, useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import './WorkshopCards.scss';
 export interface IWorkshopCards {
