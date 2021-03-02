@@ -78,7 +78,7 @@ export const config: IConfig = {
       {
         value: (
           <>
-            <Svg href="filter" className="mr-2 d-none d-md-inline" /> {t('My Trading Accounts')}
+            <Svg href="filter" className="d-none d-md-inline" /> {t('My Trading Accounts')}
           </>
         ),
         anchor: 'tradingAccounts',
@@ -86,7 +86,7 @@ export const config: IConfig = {
       {
         value: (
           <>
-            <Svg href="filter" className="mr-2 d-none d-md-inline" /> {t('My Demo Accounts')}
+            <Svg href="filter" className="d-none d-md-inline" /> {t('My Demo Accounts')}
           </>
         ),
         anchor: 'demoAccounts',

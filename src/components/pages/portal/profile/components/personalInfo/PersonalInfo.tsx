@@ -46,9 +46,11 @@ export const PersonalInfo = memo(
     });
 
     function Submit(data: FormikValues) {
+      const _data = { ...data };
+
       dispatch(
         ac_editProfile(
-          data as IEditProfileRequest,
+          _data as IEditProfileRequest,
           () =>
             dispatch(
               ac_showNotification({

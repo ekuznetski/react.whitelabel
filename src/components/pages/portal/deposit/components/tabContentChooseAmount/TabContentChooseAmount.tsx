@@ -51,12 +51,17 @@ export function TabContentChooseAmount() {
     customAmount: Yup.number().test('isCustomAmount', '', function (value) {
       const { path, parent, createError } = this;
       const { account, amount }: { account: MTradingAccount; amount: string } = parent;
-      if (!!value && amount === 'custom' && settings.min_deposit_amount && value < settings.min_deposit_amount) {
+      if (
+        !!value &&
+        (amount === 'custom' || !isDesktop) &&
+        settings.min_deposit_amount &&
+        value < settings.min_deposit_amount
+      ) {
         return createError({
           path,
           message: `${t('Minimum amount is')} ${settings.min_deposit_amount}${account?.currencySymbol}`,
         });
-      } else if (!value && amount === 'custom') {
+      } else if (!value && (amount === 'custom' || !isDesktop)) {
         return createError({
           path,
           message: t('This field is required'),
