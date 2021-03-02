@@ -27,3 +27,6 @@ export * from './form/upload/Upload';
 export * from './labelView/LabelView';
 export * from './sectionBg/SectionBg';
 export * from './pageTitle/PageTitle';
+
+// Layout
+export * from './layout';

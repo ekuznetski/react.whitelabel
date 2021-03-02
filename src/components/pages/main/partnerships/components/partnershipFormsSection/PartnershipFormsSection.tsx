@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { Tabs } from '@components/shared';
 import { Trans } from 'react-i18next';
 import { config } from '@pages/main/partnerships';

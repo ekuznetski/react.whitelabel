@@ -4,7 +4,7 @@ import { ENotificationType } from '@domain/enums';
 import { EActionTypes, ac_changePassword, ac_showNotification } from '@store';
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';

@@ -3,7 +3,7 @@ import { IModalState } from '@domain/interfaces';
 import { IStore, ac_hideModal } from '@store';
 import classNames from 'classnames';
 import React, { memo, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useDispatch, useSelector } from 'react-redux';
 import './Modal.scss';
 

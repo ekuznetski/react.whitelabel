@@ -31,6 +31,25 @@ export const locale = {
       </Trans>
     ),
   }),
+  inTouchSectionTitle: useLabelView({
+    '*': t('In Touch Section Title'),
+    [ELabels.uinvex]: (
+      <Trans i18nKey="In Touch Section Title">
+        Our <b>Mission</b>
+      </Trans>
+    ),
+  }),
+  inTouchSectionDescription: useLabelView({
+    '*': t('In Touch Section Desc'),
+    [ELabels.uinvex]: (
+      <Trans i18nKey="In Touch Section Desc">
+        <b>UINVEX</b> is dedicated to providing excellent trading conditions including great liquidity, low spreads, and
+        super-efficient trade executions, and access to not only forex, the world’s largest and most liquid market, but
+        a diverse range of products in 5 other asset classes. <b>UINVEX</b> is regulated and aims to maintain a secure
+        trading environment and an intuitive trading experience for its clients.
+      </Trans>
+    ),
+  }),
   depositTitle: useLabelView({
     '*': (
       <Trans i18nKey="Deposit and Withdrawal Information">

@@ -9,7 +9,7 @@ import { Form, Formik, FormikValues } from 'formik';
 import { usePathLocale } from '@utils/hooks';
 import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -27,20 +27,20 @@ enum EFields {
 }
 
 export function CardMethod() {
+  const { profile, locale } = useSelector<IStore, { profile: MClientProfile; locale: ELanguage }>((state) => ({
+    profile: state.data.client.profile,
+    locale: state.app.route.locale,
+  }));
   const { account, amount, billingDetails }: IDepositState = useDepositState();
   const [isBillingDetailsModalOpen, setIsBillingDetailsModalOpen] = React.useState<boolean>(false);
   const [isCreditCardInfoModalOpen, setCreditCardInfoModalOpen] = React.useState<boolean>(false);
   const [cardType, setCardType] = useState<string | null>(null);
   const depositContextDispatch = useDepositDispatch();
   const dispatch = useDispatch();
-  const { localizePath } = usePathLocale();
   const history = useHistory();
+  const { localizePath } = usePathLocale();
   const { t } = useTranslation();
   const ref = React.createRef<HTMLInputElement>();
-  const { profile, locale } = useSelector<IStore, { profile: MClientProfile; locale: ELanguage }>((state) => ({
-    profile: state.data.client.profile,
-    locale: state.app.route.locale,
-  }));
   const currentYear = new Date().getFullYear();
 
   const validationSchema = Yup.object().shape({
@@ -105,7 +105,6 @@ export function CardMethod() {
 
   function Submit(data: FormikValues) {
     const _data = { ...data };
-    _data.cardNumber = _data.cardNumber.replaceAll(' ', '');
     const preparedData: ICreditCardDepositRequest = {
       amount: amount as string,
       paymentMethod: EDepositMethodCode.creditCard,
@@ -117,11 +116,12 @@ export function CardMethod() {
       countryCode: (billingDetails?.country?.code ?? profile.country.code) as string,
       street: billingDetails?.address ?? profile.street,
       nameOnCard: _data.cardholderName,
-      cardNumber: _data.cardNumber,
+      cardNumber: _data.cardNumber.replaceAll(' ', ''),
       expiryMonth: _data.month,
       expiryYear: _data.year.slice(-2),
       cvv: _data.cvc,
     };
+
     if (account && account?.type !== ETradingType.fake) {
       Object.assign(preparedData, {
         tradePlatform: account.platform,
@@ -145,7 +145,7 @@ export function CardMethod() {
       ),
     );
     depositContextDispatch(depositActionCreators.setDepositDetails(_data));
-    console.log(preparedData);
+    // console.log(preparedData);
   }
 
   return (
@@ -163,9 +163,7 @@ export function CardMethod() {
           validationSchema={validationSchema}
           onSubmit={Submit}
         >
-          {(props: any) => {
-            const { values, setFieldValue } = props;
-
+          {({ setFieldValue }) => {
             return (
               <Form className="m-auto form">
                 <Row>

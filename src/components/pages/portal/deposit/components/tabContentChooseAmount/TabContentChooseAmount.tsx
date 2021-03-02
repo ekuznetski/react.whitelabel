@@ -7,7 +7,7 @@ import { useDeviceDetect } from '@utils/hooks';
 import classNames from 'classnames';
 import { Form, Formik, FormikProps, useFormikContext } from 'formik';
 import React, { useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -51,12 +51,17 @@ export function TabContentChooseAmount() {
     customAmount: Yup.number().test('isCustomAmount', '', function (value) {
       const { path, parent, createError } = this;
       const { account, amount }: { account: MTradingAccount; amount: string } = parent;
-      if (!!value && amount === 'custom' && settings.min_deposit_amount && value < settings.min_deposit_amount) {
+      if (
+        !!value &&
+        (amount === 'custom' || !isDesktop) &&
+        settings.min_deposit_amount &&
+        value < settings.min_deposit_amount
+      ) {
         return createError({
           path,
           message: `${t('Minimum amount is')} ${settings.min_deposit_amount}${account?.currencySymbol}`,
         });
-      } else if (!value && amount === 'custom') {
+      } else if (!value && (amount === 'custom' || !isDesktop)) {
         return createError({
           path,
           message: t('This field is required'),
