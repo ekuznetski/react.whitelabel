@@ -75,7 +75,7 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
         <BurgerMenu
           menuConfig={_portalMenuConfig}
           closeBurgerMenu={() => setOpenBurgerMenu(false)}
-          className={isBurgerMenuOpen ? 'visible' : ''}
+          className={isBurgerMenuOpen ? 'open' : ''}
         />
       </div>
     </>

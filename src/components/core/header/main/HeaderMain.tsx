@@ -92,7 +92,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
           </div>
         </Container>
       </div>
-      <div className={classNames('burger-menu', isBurgerMenuOpen && 'visible')}>
+      <div className={classNames('burger-menu', isBurgerMenuOpen && 'open')}>
         <Container className="pt-16 h-100">
           <Row className="h-100">
             <Col xs={12}>

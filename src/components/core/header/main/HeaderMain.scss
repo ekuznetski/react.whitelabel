@@ -196,7 +196,7 @@
   }
 
   .burger-menu {
-    position: fixed;
+    position: absolute;
     display: table;
     background: #fff;
     width: 100%;
@@ -205,7 +205,8 @@
     transition: top 0.35s;
     left: 0;
 
-    &.visible {
+    &.open {
+      position: fixed;
       top: 0;
 
       button {
