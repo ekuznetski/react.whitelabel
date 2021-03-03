@@ -99,6 +99,7 @@ export function Registration() {
         }, {});
         preparedData['domain'] = 'com'; //TODO remove when new api will be ready
         preparedData['username'] = formData[ERegSteps.step1].email;
+        preparedData['want_receive_email'] = !!data?.[ERegSteps.step5]?.want_receive_email;
         delete preparedData['first_name'];
         delete preparedData['surname'];
         delete preparedData['email'];
