@@ -1,0 +1,57 @@
+@import '~/variables';
+
+.burger-profile {
+  &__info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 50px;
+    border-bottom: 1px solid $grey;
+
+    &__facepile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      text-align: center;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+
+    &__full-name {
+      text-transform: capitalize;
+    }
+  }
+
+  &__sub-menu {
+    overflow: hidden;
+    transition: height 0.3s;
+
+    &.closed {
+      height: 0 !important;
+    }
+
+    &__item {
+      display: flex;
+      align-items: center;
+      height: 50px;
+      border-bottom: 1px solid $grey;
+
+      a {
+        color: $dark-text;
+        text-decoration: none;
+
+        &:hover {
+          color: $dark-text;
+          text-decoration: none;
+        }
+      }
+
+      svg {
+        fill: $dark-blue;
+      }
+    }
+  }
+}
