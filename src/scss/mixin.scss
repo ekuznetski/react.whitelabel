@@ -25,7 +25,8 @@
 @mixin col($sizes) {
   @each $breakpoint, $size in $sizes {
     @include media-breakpoint-up($breakpoint) {
-      &, &.col {
+      &,
+      &.col {
         @if $size != auto {
           @include make-col($size, $grid-columns);
         } @else {
@@ -46,7 +47,92 @@
   @return $sp;
 }
 
+@function sp-n($spacerKey) {
+  $sp: map-get($spacers, $spacerKey);
+
+  @return -$sp;
+}
+
 @function colSizePrc($columnSize) {
   $sp: percentage($columnSize / $grid-columns);
   @return $sp;
+}
+
+@mixin offset($tag, $pos, $sizes) {
+  @each $breakpoint, $spacerKey in $sizes {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      $props: (
+        m: margin,
+        p: padding,
+      );
+      $positions: (
+        l: left,
+        r: right,
+        t: top,
+        b: bottom,
+      );
+
+      $prop: map-get($props, $tag);
+      $length: map-get($spacers, $spacerKey);
+
+      @if $pos == 'y' {
+        #{$prop}-top: #{$length};
+        #{$prop}-bottom: #{$length};
+      } @else if $pos == 'x' {
+        #{$prop}-left: #{$length};
+        #{$prop}-right: #{$length};
+      } @else {
+        #{$prop}-#{map-get($positions, $pos)}: #{$length};
+      }
+    }
+  }
+}
+
+@mixin mt($sizes) {
+  @include offset(m, t, $sizes);
+}
+
+@mixin mb($sizes) {
+  @include offset(m, b, $sizes);
+}
+
+@mixin ml($sizes) {
+  @include offset(m, l, $sizes);
+}
+
+@mixin mr($sizes) {
+  @include offset(m, r, $sizes);
+}
+
+@mixin my($sizes) {
+  @include offset(m, y, $sizes);
+}
+
+@mixin mx($sizes) {
+  @include offset(m, y, $sizes);
+}
+
+@mixin pt($sizes) {
+  @include offset(p, t, $sizes);
+}
+
+@mixin pb($sizes) {
+  @include offset(p, b, $sizes);
+}
+
+@mixin pl($sizes) {
+  @include offset(p, l, $sizes);
+}
+
+@mixin pr($sizes) {
+  @include offset(p, r, $sizes);
+}
+
+@mixin py($sizes) {
+  @include offset(p, y, $sizes);
+}
+
+@mixin px($sizes) {
+  @include offset(p, y, $sizes);
 }
