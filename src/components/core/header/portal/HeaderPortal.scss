@@ -4,10 +4,11 @@
 .header.portal {
   border-bottom: 1px solid $grey;
   box-sizing: content-box;
-  
+
   .header-wrapper {
     .panel {
-      .container {
+      .container,
+      .container-fluid {
         display: flex;
         align-items: center;
         position: relative;
@@ -72,7 +73,6 @@
 
         &:before {
           top: 0;
-          box-shadow: box-shadow(20, 0.15);
           transition: top 0.2s;
           z-index: 99;
         }

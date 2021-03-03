@@ -5,8 +5,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    height: 50px;
-    border-bottom: 1px solid $grey;
+    background-color: $grey;
 
     &__facepile {
       display: flex;
@@ -23,21 +22,24 @@
     &__full-name {
       text-transform: capitalize;
     }
+
+    &__chevron {
+      transform: rotate(180deg);
+      transition: transform 0.2s;
+      fill: $dark-grey;
+    }
   }
 
   &__sub-menu {
     overflow: hidden;
     transition: height 0.3s;
 
-    &.closed {
-      height: 0 !important;
-    }
-
     &__item {
       display: flex;
       align-items: center;
       height: 50px;
       border-bottom: 1px solid $grey;
+      width: calc(100% - 39px);
 
       a {
         color: $dark-text;
@@ -51,7 +53,19 @@
 
       svg {
         fill: $dark-blue;
+        width: 20px;
       }
+    }
+  }
+
+  &.closed {
+    .burger-profile__sub-menu {
+      height: 0 !important;
+    }
+
+    .burger-profile__info__chevron {
+      transform: rotate(0deg);
+      transition: transform 0.2s;
     }
   }
 }
