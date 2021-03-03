@@ -196,13 +196,13 @@
   }
 
   .burger-menu {
-    position: absolute;
+    position: fixed;
     display: table;
     background: #fff;
     width: 100%;
     height: 100%;
-    top: -100%;
-    transition: top 0.35s;
+    top: -200%;
+    transition: top 0.3s;
     left: 0;
 
     &.open {
