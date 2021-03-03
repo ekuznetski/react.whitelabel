@@ -4,18 +4,47 @@
 $border-box-radius: 6px;
 $border-radius: 4px;
 
+// Button
+$btn-size-lg: 48px;
+
 // Colors
-$bsfx-blue: #1722c6;
-$dark-blue: #444fed;
-$blue: #7e87ff;
+$dark-blue: #1111a3;
+$blue: #1144fa;
+$light-blue: #e4e9fb;
+$uinvex-blue: #46b0fd;
+
 $dark-text: #262a4b;
-$text: #6f6f6f;
-$grey-bg-light: #f8f8f9;
+$text: #5d6c92;
+$border-grey: #e1e4eb;
+
+$grey-bg-light: #fff;
 $grey-bg: #f5f6f8;
-$dark-grey: #cacfd5;
-$grey: #f1f2f2;
-$red: #ea3131;
-$green: #40d9a2;
+$dark-grey: #aeb6c8;
+$light-grey: #f5f6f8;
+$grey: #aeb6c8;
+
+$red: #ec464c;
+$light-red: #fef6f6;
+$green: #05b369;
+$light-green: #e6f7f0;
+$yellow: #f69427;
+$light-yellow: #fef3e8;
+
+// Button
+$btn-size-sm: 36px;
+$btn-size-md: 40px;
+$btn-size-lg: 48px;
+
+// Tabs
+$tabs-navigation-height: 40px;
+
+// Main Menu
+$menu-height-main-lg: 60px;
+$menu-height-main-md: 60px;
+$menu-height-main-sm: 58px;
+$menu-height-main-fixed-lg: 60px;
+$menu-height-main-fixed-md: 60px;
+$menu-height-main-fixed-sm: 58px;
 
 // Fonts
 $font-family: 'Mulish', sans-serif;

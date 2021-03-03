@@ -6,9 +6,9 @@ import { useCombinedRef } from '@utils/hooks';
 import { useSetState } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { Col, Row } from '../../layout';
 import { Button } from '../button/Button';
 import { UploadEmptyView, UploadReadyView } from './components';
 import { UploadWrapperProvider, useUploadWrapperDispatch } from './upload-wrapper.context';
@@ -19,14 +19,14 @@ import {
   UploadState,
   UploadText,
   UploadViewState,
-  useUploadDispatch,
+  useUploadDispatch
 } from './upload.context';
 import {
   DocsType,
   IDocumentsListProps,
   ISelectDocumentTypeProps,
   MultipleUploadProps,
-  UploadProps,
+  UploadProps
 } from './upload.interface';
 import './Upload.scss';
 
@@ -166,7 +166,7 @@ export const MultipleUpload = memo(
           if (child.type == UploadFile) {
             const _id = `uf${idx}`;
             return (
-              <Col key={idx}>
+              <Col key={idx} sm={12} md={6}>
                 {React.cloneElement(child, {
                   accept: accept || child.props.accept,
                   maxFileSizeKb: maxFileSizeKb || child.props.maxFileSizeKb,
@@ -470,7 +470,7 @@ export const UploadWrapper = memo(function UploadWrapper({ children, documentsTy
                     <Button
                       className="upload-file__btn mt-9"
                       onClick={() => dispatch({ view: EUploadWrapperViewType.upload })}
-                      noBg
+                      secondary
                     >
                       {t('Upload another document')}
                     </Button>

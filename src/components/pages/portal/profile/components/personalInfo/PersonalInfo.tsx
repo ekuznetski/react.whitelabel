@@ -6,7 +6,7 @@ import { MClientProfile } from '@domain/models';
 import { EActionTypes, IStore, ac_editProfile, ac_showNotification } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -46,9 +46,11 @@ export const PersonalInfo = memo(
     });
 
     function Submit(data: FormikValues) {
+      const _data = { ...data };
+
       dispatch(
         ac_editProfile(
-          data as IEditProfileRequest,
+          _data as IEditProfileRequest,
           () =>
             dispatch(
               ac_showNotification({
@@ -100,7 +102,7 @@ export const PersonalInfo = memo(
                         </Col>
                       </Row>
                       <div className="form-breakline mt-2 mb-10" />
-                      <CountrySelect label={t('Country')} name={EFields.country} />
+                      <CountrySelect label={t('Country')} disabled name={EFields.country} />
                       <Input label={t('City')} name={EFields.city} />
                       <Input label={t('Street name and number')} name={EFields.street} />
                       {values.country?.code !== ECountryCode.AE && (
@@ -111,7 +113,7 @@ export const PersonalInfo = memo(
                       )}
                       <div className="form-breakline mt-10 mb-10" />
                       <div className="phone-wrapper">
-                        <PhoneCodeSelect name={EFields.phone_prefix} />
+                        <PhoneCodeSelect name={EFields.phone_prefix} disabled />
                         <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
                       </div>
                       <Button type="submit" loadingOnAction={EActionTypes.editProfile}>

@@ -12,7 +12,7 @@ export const TrustedSection = memo(function TrustedSection() {
             <div className="trusted__title mb-9">{locale.trustedTitle}</div>
             <div className="trusted__description mb-13">{locale.trustedDescription}</div>
           </div>
-          <div className="col-12 col-sm-6 col-md-12 p-0 mx-sm-auto">
+          <div className="trusted__cards-container col-12 col-sm-6 col-md-12 p-0 mx-sm-auto">
             <Cards
               id="trustedCards"
               className="trusted__cards"

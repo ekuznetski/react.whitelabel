@@ -7,7 +7,7 @@ import { EActionTypes, IStore, ac_showNotification, ac_submitEdd } from '@store'
 import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo, useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -290,7 +290,7 @@ export const EddForm = memo(function EddForm() {
                 </Col>
                 <Col xs={12} md={6} className="d-lg-none">
                   <TabMobileBackButton>
-                    <Button type="button" isLoading={true} noBg>
+                    <Button type="button" isLoading={true} secondary>
                       {t('Back')}
                     </Button>
                   </TabMobileBackButton>

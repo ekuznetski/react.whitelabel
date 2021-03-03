@@ -1,6 +1,6 @@
 import { MWithdrawalHistoryItem } from '@domain/models';
 import React, { memo } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { WithdrawalHistoryItem } from '..';
 import './HistorySection.scss';

@@ -5,7 +5,7 @@ import { INetellerDepositRequest } from '@domain/interfaces';
 import { ac_addDeposit } from '@store';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';

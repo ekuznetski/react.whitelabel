@@ -1,4 +1,4 @@
-<svg viewBox="0 0 53 32">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 53 32">
     <path fill="#5090fc" style="fill: var(--color13, #5090fc)"
         d="M2.044 0h49.244c1.129 0 2.044 0.915 2.044 2.044v27.911c0 1.129-0.915 2.044-2.044 2.044h-49.244c-1.129 0-2.044-0.915-2.044-2.044v-27.911c0-1.129 0.915-2.044 2.044-2.044z" />
     <path fill="#fff" style="fill: var(--color8, #fff)"

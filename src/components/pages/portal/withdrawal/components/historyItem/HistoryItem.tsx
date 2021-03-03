@@ -59,7 +59,7 @@ export const WithdrawalHistoryItem = memo(function WithdrawalHistoryItem(props: 
         <div className="withdrawal-option p-6">
           {props.cancelable ? (
             <Button
-              noBg
+              secondary
               onClick={() =>
                 dispatch(
                   ac_showModal(

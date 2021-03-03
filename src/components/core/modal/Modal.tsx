@@ -3,7 +3,7 @@ import { IModalState } from '@domain/interfaces';
 import { IStore, ac_hideModal } from '@store';
 import classNames from 'classnames';
 import React, { memo, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useDispatch, useSelector } from 'react-redux';
 import './Modal.scss';
 
@@ -31,7 +31,7 @@ export const Modal = memo(function Modal() {
   return modalProps.visible ? (
     <div className={classNames('modal-wrapper', modalProps.modalWrapperClassName)}>
       <div className="modal-overlay" onClick={closeModal} />
-      <div className="common-modal p-9">
+      <div className="common-modal py-8 px-6 py-md-10 px-md-9">
         <Svg href="close" className="common-modal__close" height={18} onClick={closeModal} />
         <div className="common-modal__content">{React.createElement(modalProps.component, modalProps.props)}</div>
       </div>

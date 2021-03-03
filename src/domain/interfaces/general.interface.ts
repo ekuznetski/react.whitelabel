@@ -4,19 +4,26 @@ import { IStore } from '@store';
 export interface IHeaderDefaultProps {
   fixed: boolean;
 }
-export interface IBaseResponse {
+export interface IBaseResponse<T = any> {
   response?: {
     [key: string]: any;
+    response?: T;
     status?: EResponseStatus;
     messageCode?: number;
     error?: string;
   };
+  [key: string]: any;
 }
 
 export type WindowProps = {
   isSSR?: boolean;
   CakePHPCookie?: string;
-  __PRELOADED_STATE__?: Nullable<IStore['ssr']>;
+  __PRELOADED_STATE__?: {
+    rawData: {
+      url: string;
+      data: any;
+    }[];
+  };
   xRealIP?: string;
 };
 

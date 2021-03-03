@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { Col, ColProps } from 'react-bootstrap';
+import { Col, ColProps } from '../layout';
 import { Svg } from '../svg/Svg';
 import './Alert.scss';
 

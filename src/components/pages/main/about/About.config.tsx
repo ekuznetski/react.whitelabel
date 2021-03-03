@@ -1,10 +1,35 @@
-import { Img, Svg } from '@components/shared';
+import { Img, Svg, Table } from '@components/shared';
 import i18n from '@i18next';
 import React from 'react';
+import { MobileDepositTable } from './components';
 
 const t = i18n.getLazyT;
 
 export const config = {
+  tabsData: (responsive: any) => ({
+    labels: [
+      { value: t('Deposit'), anchor: 'deposit' },
+      { value: t('Withdrawals'), anchor: 'withdrawals' },
+    ],
+    content: [
+      {
+        value: responsive.md ? (
+          <Table {...config.tableData.deposit} />
+        ) : (
+          <MobileDepositTable {...config.tableData.deposit} />
+        ),
+        anchor: 'deposit',
+      },
+      {
+        value: responsive.md ? (
+          <Table {...config.tableData.withdrawals} />
+        ) : (
+          <MobileDepositTable {...config.tableData.withdrawals} />
+        ),
+        anchor: 'withdrawals',
+      },
+    ],
+  }),
   tableData: {
     deposit: {
       headers: [t('Method'), t('Minimum'), t('Currency'), t('Processing'), t('Fees')],
@@ -61,19 +86,19 @@ export const config = {
     {
       className: 'p-10',
       header: 6,
-      content: 'Offices in the world’s leading financial centres',
+      content: t('Offices in financial centres'),
       uid: 1,
     },
     {
       className: 'p-10',
       header: 140,
-      content: 'Service provision in over 140 countries',
+      content: t('Service provisions'),
       uid: 2,
     },
     {
       className: 'p-10',
       header: 10,
-      content: 'Customer support in 10 languages',
+      content: t('Customer support in 10 languages'),
       uid: 3,
     },
   ],

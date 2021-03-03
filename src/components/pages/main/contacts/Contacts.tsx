@@ -1,6 +1,6 @@
 import { Button, Cards, SectionBg, Svg } from '@components/shared';
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { config } from './';
 import './Contacts.scss';
@@ -11,7 +11,7 @@ export function Contacts() {
   return (
     <div className="contacts-wrapper">
       <section className="page-top">
-        <SectionBg img="contact-page-top.jpg" />
+        <SectionBg primary="contact-page-top.jpg" />
         <Container className="pt-14">
           <Row>
             <Col xs={12}>

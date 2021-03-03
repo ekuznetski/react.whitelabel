@@ -1,30 +1,4 @@
 @import '~/variables';
 
 .client-profile-page-wrapper {
-  .client-profile {
-    &__tabs {
-      .common-tabs {
-        &__navigation {
-          width: 720px;
-          align-self: center;
-
-          @media (max-width: $viewport-lg-w) {
-            width: 620px;
-          }
-
-          @media (max-width: $viewport-md-w) {
-            align-self: start;
-          }
-
-          @media (max-width: $viewport-sm-w) {
-            width: 100%;
-          }
-
-          // &:after {
-          // 	background: $dark-grey;
-          // }
-        }
-      }
-    }
-  }
 }

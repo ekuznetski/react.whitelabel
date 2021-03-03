@@ -12,8 +12,8 @@ import {
 } from '@store';
 import { useSessionStorageState } from 'ahooks';
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import React, { useEffect, useRef, useState } from 'react';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
@@ -26,6 +26,7 @@ export function Registration() {
   const [continueReg, setContinueReg] = useState<boolean | null>(null);
   const [localStorageRegData, setLocalStorageRegData] = useSessionStorageState<IRegData>('regData');
   const { t } = useTranslation();
+  const formRef = useRef<HTMLUListElement>(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -134,6 +135,7 @@ export function Registration() {
     }
     if (activeStep !== ERegSteps.step5) {
       setActiveStep(activeStep + 1);
+      formRef?.current?.scrollIntoView();
     }
   }
   return (
@@ -142,7 +144,7 @@ export function Registration() {
         <Row>
           <Col sm={9} md={7} lg={6} xl={5} className="m-auto">
             <PageTitle title={t('Open a Trading Account')} showBackButton={false} />
-            <ul className="steps-indicator">
+            <ul className="steps-indicator" ref={formRef}>
               {Array.from({ length: 5 }).map((_, i) => (
                 <li
                   key={i}

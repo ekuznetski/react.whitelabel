@@ -6,7 +6,7 @@ import { MClientStatus, MTradingAccount } from '@domain/models';
 import { EActionTypes, IStore, ac_makeInternalTransfer, ac_showNotification } from '@store';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -143,7 +143,7 @@ export const InternalTransfer = memo(function InternalTransfer() {
                           account.accountId !== values?.accountFrom?.accountId,
                       )}
                       name={EFields.accountTo}
-                      isDisabled={!values?.accountFrom}
+                      disabled={!values?.accountFrom}
                     />
                     <Input
                       label={t('Amount')}

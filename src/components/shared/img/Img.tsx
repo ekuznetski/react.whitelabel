@@ -9,5 +9,5 @@ export const Img = memo(function Img(props: { _label?: ELabels | boolean } & Img
   const innerProps = { ...props };
   delete innerProps._label;
 
-  return <img {...innerProps} src={`assets/${path.basename(props.src)}`} />;
+  return <img {...innerProps} src={`assets/${path.join(path.dirname(props.src), path.basename(props.src))}`} />;
 });

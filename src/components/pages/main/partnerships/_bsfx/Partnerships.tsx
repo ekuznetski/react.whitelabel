@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from 'react';
+import React, { memo } from 'react';
 import { PartnershipProvider } from '..';
 import { PartnershipFormSection, PartnershipPotentialSection, PartnershipTopSection } from '../components';
 import '../Partnerships.scss';

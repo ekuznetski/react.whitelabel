@@ -1,0 +1,69 @@
+@import '~/variables';
+@import '~/mixin';
+
+.header.main {
+  position: absolute;
+  
+  .panel-menu {
+    &:before {
+      top: 0;
+    }
+
+    .logo {
+      svg {
+        @include fillLogo($blue, black, $dark-blue);
+      }
+    }
+
+    .menu {
+      &__item {
+        a {
+          color: $dark-text;
+          font-family: $font-family1;
+
+          &:after {
+          }
+
+          &.active {
+            color: $blue !important;
+            font-weight: 600;
+
+            &:after {
+              background: $blue !important;
+            }
+          }
+        }
+      }
+    }
+
+    &.fixed {
+      .menu {
+        margin-bottom: 0;
+      }
+
+      .logo {
+        svg {
+          @include fillLogo($blue, black, $dark-blue);
+        }
+      }
+    }
+
+    @media (max-width: $viewport-xl-w) {
+      .menu {
+        &__item {
+          a {
+            font-size: 16px;
+          }
+        }
+      }
+      .logo {
+        width: 115px;
+      }
+
+      .sign-in-btn,
+      .open-account-btn {
+        font-size: 16px;
+      }
+    }
+  }
+}

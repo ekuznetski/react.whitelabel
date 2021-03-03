@@ -1,0 +1,110 @@
+@import '~/variables';
+
+.page-top {
+  margin-top: $menu-height-main-lg;
+
+  height: 608px;
+  display: flex;
+  align-items: center;
+  color: $dark-text;
+
+  &__title {
+    font-family: $font-family1;
+    font-size: 48px;
+    line-height: 64px;
+  }
+
+  &__description {
+    font-size: 22px;
+    line-height: 34px;
+  }
+
+  button {
+    height: $btn-size-lg;
+    font-family: $font-family1;
+    background: $blue;
+    width: 190px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  @media (max-width: $viewport-lg-w) {
+    margin-top: $menu-height-main-md;
+    height: 628px;
+    align-items: flex-start;
+
+    &__title {
+      font-size: 44px;
+      line-height: 64px;
+    }
+
+    &__description {
+      font-size: 22px;
+      line-height: 30px;
+    }
+
+    button {
+      width: 225px;
+    }
+
+    .section-bg {
+      .secondary-bg {
+        height: 696px;
+        right: -40px;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    height: 607px;
+    align-items: flex-start;
+
+    &__title {
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    &__description {
+      font-size: 20px;
+      line-height: 28px;
+    }
+
+    .section-bg {
+      .secondary-bg {
+        height: 625px;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-sm-w) {
+    margin-top: $menu-height-main-sm;
+
+    height: 570px;
+    align-items: flex-start;
+
+    &__title {
+      font-size: 28px;
+      line-height: 36px;
+    }
+
+    &__description {
+      font-size: 16px;
+      line-height: 22px;
+    }
+
+    button {
+      height: $btn-size-md;
+    }
+
+    .section-bg {
+      .secondary-bg {
+        background-position: 0 100% !important;
+        height: 588px;
+        right: auto;
+        left: 0;
+      }
+    }
+  }
+}

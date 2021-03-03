@@ -21,7 +21,7 @@ export const SubmitModal = React.memo(function SubmitModal({ type, data }: ISubm
       {type === EModalType.success ? (
         <ModalTitle title={t('Successful Submission')}>
           :
-          <small className="mt-1">
+          <small className="mt-1 text-center">
             {t('Demo Live trade account with ID')} <b>{data?.trade_account_id}</b> {t('added successfully')}
           </small>
         </ModalTitle>
@@ -45,7 +45,7 @@ export const SubmitModal = React.memo(function SubmitModal({ type, data }: ISubm
             <Button className="red mr-5" onClick={() => dispatch(ac_hideModal())}>
               {t('Try Again')}
             </Button>
-            <Button className="red mr-5" noBg>
+            <Button className="red mr-5" secondary>
               <LocaleNavLink to={EPagePath.Dashboard}>{t('Back to Dashboard')}</LocaleNavLink>
             </Button>
           </>

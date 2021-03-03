@@ -24,6 +24,7 @@ export interface IClientSettings {
   allowed_leverages: number[];
   allowed_account_types: string[];
   allowed_platforms: string[];
+  min_deposit: number;
   jurisdiction: string;
   allow_internal_transfer: boolean;
   enable_citioptions: boolean;

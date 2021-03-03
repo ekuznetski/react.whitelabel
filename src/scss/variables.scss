@@ -18,6 +18,9 @@ $border-shadow-color: rgb(38, 51, 75);
 // Form
 $form-elements-height: 48px;
 
+// Tabs
+$tabs-navigation-height: 38px;
+
 $input-height: $form-elements-height;
 $button-height: $form-elements-height;
 $datepicker-height: $form-elements-height;
@@ -28,6 +31,15 @@ $select-height: $form-elements-height;
 $btn-size-sm: 35px;
 $btn-size-md: 50px;
 $btn-size-lg: 65px;
+
+// Main Menu
+$menu-height-main-lg: 110px;
+$menu-height-main-md: 110px;
+$menu-height-main-sm: 60px;
+$menu-height-main-fixed-lg: 68px;
+$menu-height-main-fixed-md: 68px;
+$menu-height-main-fixed-sm: 60px;
+$top-panel-height-main: 30px;
 
 // Colors
 $dark-blue: #337fff;

@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { ERegSteps } from '@domain/enums';
 import { Form, Formik, FormikValues } from 'formik';
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 

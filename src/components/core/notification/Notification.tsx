@@ -4,7 +4,7 @@ import { IStore, ac_hideNotification } from '@store';
 import { useInterval } from 'ahooks';
 import classNames from 'classnames';
 import React, { memo, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useDispatch, useSelector } from 'react-redux';
 import './Notification.scss';
 
@@ -62,7 +62,7 @@ export const Notification = memo(function Notification(props: INotification) {
     >
       <Container>
         <Row>
-          <Col xs={12} className="notification-inner-wrapper px-7 px-sm-13">
+          <Col xs={12} className="notification-inner-wrapper pl-7 pr-10 px-sm-13">
             {notificationProps.visible ? notificationProps.message : null}
           </Col>
         </Row>

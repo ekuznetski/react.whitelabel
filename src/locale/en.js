@@ -26,7 +26,7 @@ export default {
   'Trusted Section Desc':
     'Entrepreneurs at heart, we have grown from a small fin-tech startup into a global company with 6 international offices and clients from 110 countries. AroFX offers flexible trading conditions suitable for all types of trading strategies and styles.',
   'Trusted Section Title': 'Trusted Around The World',
-  'Who Are We': 'Who Are We?',
+  'About Us Page Title': 'Who Are We?',
   'Deposit and Withdrawal Information': 'Deposit & Withdrawal <1/><2>Information</2>',
   'No Deposit Fees': 'No Deposit Fees',
   Fees: 'Fees',
@@ -69,6 +69,7 @@ export default {
   'Product Section Commodities Desc':
     'Trade commodities without owning the financial instrument on which the contract is based.',
   'Product Section ETFs Desc': 'Trade exchange-traded funds with AroFX.',
+  'Product Section Digital Assets Desc': 'Capitalise on the performance of Bitcoin, Ethereum and Litecoin without the need to buy them.',
   'Spreads from': 'Spreads from',
   'Spreads from #': 'Spreads from <1>{{val}}</1>',
   'Margins from just #': 'Margins from just <1>{{val}}</1>',
@@ -418,7 +419,7 @@ export default {
     'Deposit now and <1>receive a 10% bonus</1> up to $5K instantly added to your account',
     'Fund Your Account with <1>$0 Fees</1>',
   ],
-  'Accept Policy': 'I have read and accept the Privacy Policy of WHITE_LABEL',
+  'Accept Policy': 'I have read and accept the <1>Privacy Policy</1> of WHITE_LABEL',
   Partnership: 'Partnership',
   Partnerships: 'Partnerships',
   'Custom Made For You': '<0>CUSTOM-MADE</0> FOR YOU',

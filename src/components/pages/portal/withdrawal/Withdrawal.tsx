@@ -5,7 +5,7 @@ import { MClientStatus, MTradingAccount, MWithdrawalHistoryItem } from '@domain/
 import { EActionTypes, IStore, ac_fetchWithdrawLimit, ac_showNotification, ac_withdrawFunds } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -81,7 +81,7 @@ export const Withdrawal = memo(function Withdrawal() {
     }),
   });
 
-  function Submit(data: FormikValues) {
+  function Submit(data: FormikValues, { resetForm }: FormikProps<any>) {
     dispatch(
       ac_withdrawFunds(
         {
@@ -89,13 +89,15 @@ export const Withdrawal = memo(function Withdrawal() {
           trade_platform: data.account.platform,
           amount: data[EFields.amount],
         },
-        () =>
+        () => {
           dispatch(
             ac_showNotification({
               type: ENotificationType.success,
               message: t('Your Withdraw Request Added Successfully'),
             }),
-          ),
+          );
+          resetForm();
+        },
       ),
     );
   }

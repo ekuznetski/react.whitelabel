@@ -1,5 +1,5 @@
 import { Svg } from '@components/shared';
-import { MarketType } from '@domain/enums';
+import { EAssetClass } from '@domain/enums';
 import { useToggle } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
@@ -12,7 +12,7 @@ export interface ITableSection {
   title: string | React.ReactFragment;
   desc: string | React.ReactFragment;
   points: (string | React.ReactFragment)[];
-  tableType: MarketType;
+  tableType: EAssetClass;
   reversed?: boolean;
 }
 
@@ -63,12 +63,12 @@ export const TableSection = memo(
                 {preview ? (
                   <>
                     {t('See all products')}
-                    <Svg href="chevron" height={20} />
+                    <Svg href="chevron" className="ml-2" height={20} />
                   </>
                 ) : (
                   <>
                     {t('See less products')}
-                    <Svg href="chevron" className="up" height={20} />
+                    <Svg href="chevron" className="up ml-2" height={20} />
                   </>
                 )}
               </div>

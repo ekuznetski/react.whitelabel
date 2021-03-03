@@ -1,0 +1,18 @@
+@import '~/variables';
+@import '~/mixin';
+
+.header.main {
+  .header-profile-menu {
+    &__chevron {
+      fill: $dark-text;
+    }
+  }
+
+  &.fixed {
+    .header-profile-menu {
+      &__chevron {
+        fill: $dark-text;
+      }
+    }
+  }
+}

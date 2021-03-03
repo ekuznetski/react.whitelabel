@@ -1,7 +1,7 @@
 import { Img } from '@components/shared';
 import i18n from '@i18next';
-import React from 'react';
 import { config as _config } from '@pages/main/about/About.config';
+import React from 'react';
 
 const t = i18n.getLazyT;
 

@@ -7,7 +7,7 @@ import { useLockScroll } from '@utils/hooks';
 import { useDebounceFn, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useIntercom } from 'react-use-intercom';
 import { BurgerMenu, PanelMenu, ProfileMenu } from './components';

@@ -1,6 +1,6 @@
 import { OpenLiveAccountBannerSection } from '@components/sections';
 import { Button, SectionBg } from '@components/shared';
-import { MarketType } from '@domain/enums';
+import { EAssetClass } from '@domain/enums';
 import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -10,7 +10,7 @@ import './Products.scss';
 
 export function Products() {
   const [activeSection, selectedSection] = useState('forex');
-  const sectionRefs: { [key: string]: RefObject<any> } = Object.keys(MarketType).reduce(
+  const sectionRefs: { [key: string]: RefObject<any> } = Object.keys(EAssetClass).reduce(
     (acc, key) => Object.assign(acc, { [key]: useRef<HTMLDivElement>(null) }),
     {},
   );
@@ -28,7 +28,7 @@ export function Products() {
     }
   }, [location]);
 
-  function navigateToSection(type: MarketType) {
+  function navigateToSection(type: EAssetClass) {
     return (e?: any) => {
       selectedSection(type);
       sectionRefs[type].current.scrollIntoView({ behavior: 'smooth' });
@@ -38,7 +38,7 @@ export function Products() {
   return (
     <div className="product-wrapper">
       <section className="page-top">
-        <SectionBg img="product-page-top.jpg" />
+        <SectionBg primary="product-page-top.jpg" />
         <div className="container pt-17">
           <div className="row mb-10">
             <div className="col-lg-7">

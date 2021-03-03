@@ -1,13 +1,13 @@
 import { Button, IRadioItem, Input, Radio, Svg, TradingAccountsSelect } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { AllowedCurrToMethodMap, ETradingType } from '@domain/enums';
-import { MTradingAccount } from '@domain/models';
+import { MClientSettings, MTradingAccount } from '@domain/models';
 import { IStore } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
 import classNames from 'classnames';
 import { Form, Formik, FormikProps, useFormikContext } from 'formik';
 import React, { useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -23,7 +23,11 @@ enum EFields {
 
 export function TabContentChooseAmount() {
   const { amount, account, staticAmounts, method } = useDepositState();
-  const { tradingAccounts } = useSelector<IStore, { tradingAccounts: MTradingAccount[] }>((state) => ({
+  const { settings, tradingAccounts } = useSelector<
+    IStore,
+    { settings: MClientSettings; tradingAccounts: MTradingAccount[] }
+  >((state) => ({
+    settings: state.data.client.settings,
     tradingAccounts: state.data.tradingData.accounts.filter(
       (acc) => acc.type !== ETradingType.demo && AllowedCurrToMethodMap?.[method as string].includes(acc?.currency),
     ),
@@ -47,12 +51,17 @@ export function TabContentChooseAmount() {
     customAmount: Yup.number().test('isCustomAmount', '', function (value) {
       const { path, parent, createError } = this;
       const { account, amount }: { account: MTradingAccount; amount: string } = parent;
-      if (!!value && amount === 'custom' && !!account?.minDeposit && value < account.minDeposit) {
+      if (
+        !!value &&
+        (amount === 'custom' || !isDesktop) &&
+        settings.min_deposit_amount &&
+        value < settings.min_deposit_amount
+      ) {
         return createError({
           path,
-          message: `${t('Minimum amount is')} ${account?.minDeposit}${account?.currencySymbol}`,
+          message: `${t('Minimum amount is')} ${settings.min_deposit_amount}${account?.currencySymbol}`,
         });
-      } else if (!value && amount === 'custom') {
+      } else if (!value && (amount === 'custom' || !isDesktop)) {
         return createError({
           path,
           message: t('This field is required'),
@@ -74,7 +83,7 @@ export function TabContentChooseAmount() {
           onChange={(e: { target: { value: string } }) => {
             const value = e.target.value;
             if (/^\d{0,9}$/gm.test(value) || value === '') {
-              if (value !== '' && !!account?.minDeposit && parseInt(value, 10) >= account?.minDeposit) {
+              if (value !== '' && settings.min_deposit_amount && parseInt(value, 10) >= settings.min_deposit_amount) {
                 resetForm({
                   values: {
                     ...(values as object),

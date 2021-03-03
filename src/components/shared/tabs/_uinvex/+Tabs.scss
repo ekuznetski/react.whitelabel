@@ -1,0 +1,92 @@
+@import '~/variables';
+@import '~/mixin';
+
+.common-tabs {
+  &__navigation {
+    margin: 0 auto;
+    background-color: $grey-bg;
+    border-radius: 25px;
+    width: unset;
+
+    &:after {
+      content: none;
+    }
+
+    &.center {
+      margin-bottom: sp(11) !important;
+    }
+
+    .tab__link {
+      margin-right: 0 !important;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      padding: 0 sp(7);
+      cursor: pointer;
+      z-index: 1;
+
+      &:hover:not(.active) {
+        .tab__link__label-title {
+          color: $dark-blue;
+        }
+      }
+
+      &__label {
+        font-family: $font-family1;
+        font-size: 14px;
+        border-radius: 25px;
+
+        line-height: 17px;
+        color: $grey;
+
+        svg {
+          height: 18px;
+          margin-right: sp(2);
+        }
+      }
+
+      &.active {
+        box-sizing: border-box;
+        .tab__link__label {
+          color: $dark-blue;
+        }
+      }
+    }
+
+    .active-tab-line {
+      height: $tabs-navigation-height;
+      border: 1px solid $dark-blue;
+      background: $light-blue;
+      border-radius: 25px;
+      z-index: 0;
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    &__navigation {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+
+      .tab__link {
+        &.active {
+          .tab__link__label {
+            color: white;
+          }
+        }
+      }
+
+      .active-tab-line {
+        border: 1px solid $dark-blue;
+        background: $dark-blue;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-sm-w) {
+    &__navigation {
+      &.center {
+        margin-bottom: sp(9) !important;
+      }
+    }
+  }
+}

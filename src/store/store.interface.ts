@@ -49,17 +49,9 @@ export interface IAppStore {
   modal: IModalState;
 }
 
-export interface ISSRStore {
-  rawData: {
-    url: string;
-    data: any;
-  }[];
-}
-
 export interface IStore {
   data: IDataStore;
   app: IAppStore;
-  ssr?: ISSRStore;
 }
 
 export interface IAction<T = { [k: string]: any }> {

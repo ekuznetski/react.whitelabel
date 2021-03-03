@@ -2,7 +2,7 @@ import { WorkshopCards } from '@components/sections';
 import { LabelView, Svg, Tabs } from '@components/shared';
 import { ELabels } from '@domain/enums';
 import React, { memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { config } from './';
 import { BannerCard, UserProfileCard } from './components';

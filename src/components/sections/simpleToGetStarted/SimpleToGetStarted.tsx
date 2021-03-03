@@ -1,7 +1,7 @@
 import { SectionBg } from '@components/shared';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import './SimpleToGetStarted.scss';
 
@@ -11,7 +11,7 @@ export const SimpleToGetStartedSection = memo(
 
     return (
       <section className={classNames('simple-to-get-started', props.className)} ref={ref}>
-        <SectionBg img="simple-to-get-started.jpg" />
+        <SectionBg primary="simple-to-get-started.jpg" />
         <Container>
           <Row>
             <Col xs={12} lg={4} xl={3} className="mb-11 mb-lg-0">
