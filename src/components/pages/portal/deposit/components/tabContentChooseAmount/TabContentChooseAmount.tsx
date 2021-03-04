@@ -3,7 +3,6 @@ import { FieldValidators } from '@domain';
 import { AllowedCurrToMethodMap, ETradingType } from '@domain/enums';
 import { MClientSettings, MTradingAccount } from '@domain/models';
 import { IStore } from '@store';
-import { useDeviceDetect } from '@utils/hooks';
 import classNames from 'classnames';
 import { Form, Formik, FormikProps, useFormikContext } from 'formik';
 import React, { useEffect } from 'react';
@@ -14,6 +13,7 @@ import { useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { depositActionCreators, useDepositDispatch, useDepositState } from '../../deposit.context';
 import './TabContentChooseAmount.scss';
+import { useResponsive } from 'ahooks';
 
 enum EFields {
   'account' = 'account',
@@ -32,10 +32,10 @@ export function TabContentChooseAmount() {
       (acc) => acc.type !== ETradingType.demo && AllowedCurrToMethodMap?.[method as string].includes(acc?.currency),
     ),
   }));
-  const { isDesktop } = useDeviceDetect();
   const { state: locationState } = useLocation<{ accountId: string }>();
-  const { t } = useTranslation();
   const dispatch = useDepositDispatch();
+  const responsive = useResponsive();
+  const { t } = useTranslation();
   const ref = React.createRef<HTMLInputElement>();
 
   // @ts-ignore
@@ -47,13 +47,13 @@ export function TabContentChooseAmount() {
 
   const validationSchema = Yup.object().shape({
     account: Yup.object().required('This field is required'),
-    amount: isDesktop ? FieldValidators.requiredString : FieldValidators.notRequiredString,
+    amount: responsive.lg ? FieldValidators.requiredString : FieldValidators.notRequiredString,
     customAmount: Yup.number().test('isCustomAmount', '', function (value) {
       const { path, parent, createError } = this;
       const { account, amount }: { account: MTradingAccount; amount: string } = parent;
       if (
         !!value &&
-        (amount === 'custom' || !isDesktop) &&
+        (amount === 'custom' || !responsive.lg) &&
         settings.min_deposit_amount &&
         value < settings.min_deposit_amount
       ) {
@@ -61,7 +61,7 @@ export function TabContentChooseAmount() {
           path,
           message: `${t('Minimum amount is')} ${settings.min_deposit_amount}${account?.currencySymbol}`,
         });
-      } else if (!value && (amount === 'custom' || !isDesktop)) {
+      } else if (!value && (amount === 'custom' || !responsive.lg)) {
         return createError({
           path,
           message: t('This field is required'),
@@ -113,7 +113,8 @@ export function TabContentChooseAmount() {
     className: 'custom-amount-item mt-8',
   });
 
-  const preselectedAmount = isDesktop && amount ? (staticAmounts?.includes(parseInt(amount)) ? amount : 'custom') : '';
+  const preselectedAmount =
+    responsive.lg && amount ? (staticAmounts?.includes(parseInt(amount)) ? amount : 'custom') : '';
   const preselectedCustomAmount = amount && !staticAmounts?.includes(parseInt(amount)) ? amount : '';
 
   function formatAmount(amount: number) {
@@ -136,7 +137,7 @@ export function TabContentChooseAmount() {
         validationSchema={validationSchema}
         onSubmit={(data) => {
           const amount =
-            isDesktop && data[EFields.amount] !== 'custom' && !!data[EFields.amount]
+            responsive.lg && data[EFields.amount] !== 'custom' && !!data[EFields.amount]
               ? data[EFields.amount]
               : data[EFields.customAmount];
           dispatch(depositActionCreators.setAmount(amount));
@@ -147,7 +148,7 @@ export function TabContentChooseAmount() {
             <Col xs={8} md={7} xl={8} className="ml-auto">
               <div className="you-get-amount text-right text-lg-left">
                 <span className="you-get-amount__symbol pr-3">{values[EFields.account].currencySymbol}</span>
-                {(isDesktop && values[EFields.amount] !== 'custom' && formatAmount(values[EFields.amount])) ||
+                {(responsive.lg && values[EFields.amount] !== 'custom' && formatAmount(values[EFields.amount])) ||
                   formatAmount(values[EFields.customAmount]) ||
                   '0'}
               </div>
@@ -178,7 +179,7 @@ export function TabContentChooseAmount() {
                   </Col>
                 </Row>
               )}
-              {isDesktop && (
+              {responsive.lg && (
                 <Radio
                   optionClassName="col-4 pr-0"
                   className="mb-10 mr-0"
@@ -191,7 +192,7 @@ export function TabContentChooseAmount() {
                   }}
                 />
               )}
-              {!isDesktop && (
+              {!responsive.lg && (
                 <Input
                   inputMode="numeric"
                   type="number"
@@ -205,19 +206,19 @@ export function TabContentChooseAmount() {
                 <Col xs={4} className="you-get-title">
                   {t('You get')}
                 </Col>
-                {!isDesktop && amount}
-                {isDesktop && (
+                {!responsive.lg && amount}
+                {responsive.lg && (
                   <Col md={5} xl={4} className="d-none d-lg-flex ml-auto">
                     <Svg href="secure-payment" />
                   </Col>
                 )}
               </Row>
               <Row className="align-items-center">
-                {isDesktop && amount}
+                {responsive.lg && amount}
                 <Col md={5} xl={4}>
                   <Button type="submit">{t('Proceed to Payment')}</Button>
                 </Col>
-                {!isDesktop && (
+                {!responsive.lg && (
                   <Col md={5} xl={4} className="d-flex mt-9 mt-md-0 ml-md-auto">
                     <Svg href="secure-payment" height={40} className="m-auto" />
                   </Col>

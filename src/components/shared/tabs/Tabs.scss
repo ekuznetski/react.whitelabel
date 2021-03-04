@@ -167,8 +167,8 @@
   &.vertical {
     flex-direction: row;
 
-    .isMobile &,
-    .isTablet & {
+    .mobileView &,
+    .tabletView & {
       flex-direction: column;
 
       .common-tabs {
@@ -366,7 +366,7 @@
   }
 }
 
-.isDesktop {
+.desktopView {
   .common-tabs.vertical {
     .common-tabs__navigation {
       .tab__link {

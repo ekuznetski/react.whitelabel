@@ -7,10 +7,10 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import { IStore, ac_updateRouteParams, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
-import { configResponsive } from 'ahooks';
+import { configResponsive, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { Suspense, useEffect, useMemo } from 'react';
-import { browserName, osName } from 'react-device-detect';
+import { browserName, isBrowser, isMobileOnly, isTablet, osName } from 'react-device-detect';
 import TagManager from 'react-gtm-module';
 import { hot } from 'react-hot-loader/root';
 import { useTranslation } from 'react-i18next';
@@ -68,6 +68,7 @@ export function Main() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
   const device = useDeviceDetect();
+  const responsive = useResponsive();
 
   useEffect(() => {
     const _locale = pathname.split('/')[1] as ELanguage;
@@ -99,9 +100,12 @@ export function Main() {
             env.LABEL?.toLowerCase(),
             osName.toLowerCase(),
             browserName.toLowerCase().replace(/mobile|\s/g, ''),
+            !responsive.md && 'mobileView',
+            responsive.md && !responsive.lg && 'tabletView',
+            responsive.lg && 'desktopView',
             device.isMobile && 'isMobile',
             device.isTablet && 'isTablet',
-            device.isDesktop && 'isDesktop',
+            device.isBrowser && 'isBrowser',
           )}
         >
           <Router />

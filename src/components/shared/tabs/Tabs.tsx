@@ -59,7 +59,6 @@ export function Tabs({
   const responsive = useResponsive();
   const tabsContentRef: { [k: string]: HTMLDivElement | null } = {};
   const { t } = useTranslation();
-  const { isDesktop } = useDeviceDetect();
   let activeNavTabLink: HTMLDivElement | null = null;
 
   if (!children && !(labels && content)) {
@@ -206,7 +205,7 @@ export function Tabs({
                   ? state.contents.map((content, c) => <Tab key={c} anchor={content.anchor} content={content.value} />)
                   : children}
               </div>
-              {!isDesktop && isVertical ? (
+              {!responsive.lg && isVertical ? (
                 <div className={'common-tabs__nav mt-8'}>
                   {state.mobileDisplay === EMobileDisplay.labels && (
                     <Button onClick={() => switchMobileDisplay(EMobileDisplay.content)}>{t('Continue')}</Button>
