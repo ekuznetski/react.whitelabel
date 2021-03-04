@@ -93,7 +93,7 @@ export function BurgerMenu({ menuConfig, closeBurgerMenu, className }: IBurgerMe
               </div>
             ))}
           </Col>
-          <Button className="col mt-auto">
+          <Button className="col mt-auto mb-11">
             <LocaleLink to={EPagePath.Deposit} className="px-5">
               {t('Deposit')}
               <Svg href="coins" className="ml-5" />
