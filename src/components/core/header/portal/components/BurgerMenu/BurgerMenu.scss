@@ -19,13 +19,17 @@
     }
   }
 
+  &__wrapper {
+    padding-top: 70px;
+
+    @media (max-width: $viewport-lg-w) {
+      height: 68px;
+    }
+  }
+
   .sub-menu {
     overflow: hidden;
     transition: height 0.3s;
-
-    &.closed {
-      height: 0 !important;
-    }
   }
 
   .menu__item {
@@ -44,6 +48,22 @@
 
       svg {
         fill: $dark-blue;
+        width: 20px;
+
+        &.menu__item__chevron {
+          width: 13px;
+          fill: $dark-grey;
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &.closed {
+      .sub-menu {
+        height: 0 !important;
+      }
+      .menu__item__chevron {
+        transform: rotate(0deg);
       }
     }
   }

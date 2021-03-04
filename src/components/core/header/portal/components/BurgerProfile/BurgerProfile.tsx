@@ -32,17 +32,15 @@ export function BurgerProfile({ activeSubMenu, closeSubMenu }: IBurgerProfile) {
   }
 
   return (
-    <div className={classNames('burger-profile mt-7')}>
-      <div className="burger-profile__info" onClick={toggleDropdownMenu}>
+    <div className={classNames('burger-profile mb-7', !isDropdownMenuOpen && 'closed')}>
+      <div className="burger-profile__info px-6 py-5" onClick={toggleDropdownMenu}>
         <div className="burger-profile__info__facepile mr-4">{clientProfile.initials}</div>
         <span className="burger-profile__info__full-name">{clientProfile.full_name}</span>
+        <Svg href="chevron" width={13} className="burger-profile__info__chevron ml-auto" />
       </div>
-      <div
-        className={classNames('burger-profile__sub-menu', !isDropdownMenuOpen && 'closed')}
-        style={{ height: portalProfileMenu().length * 50 }}
-      >
+      <div className="burger-profile__sub-menu" style={{ height: portalProfileMenu().length * 50 }}>
         {portalProfileMenu().map((menuItem, index) => (
-          <div key={index} className="burger-profile__sub-menu__item ml-6">
+          <div key={index} className="burger-profile__sub-menu__item ml-8">
             <LocaleNavLink exact to={menuItem.path}>
               {menuItem.icon?.length && <Svg href={menuItem.icon} height={20} className="mr-4" />}
               {menuItem.title}
