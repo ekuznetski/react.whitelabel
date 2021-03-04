@@ -21,13 +21,11 @@ export const PlatformTechnologySection = memo(
     const { t } = useTranslation();
 
     return (
-      <section className="prestigious-platform-technology" ref={ref}>
+      <section className={classNames('prestigious-platform-technology', className)} ref={ref}>
         <Container>
           <Row>
             <Col className="prestigious-platform-technology__context">
-              <div className={classNames('context__title mb-7', className)}>
-                {title || locale.platformTechnologyTitle}
-              </div>
+              <div className="context__title mb-7">{title || locale.platformTechnologyTitle}</div>
               <div className="context__description mb-10">{description || locale.platformTechnologyDesc}</div>
               <Button>
                 <LocaleLink to={EPagePath.Registration}>{t('Open Live Account')}</LocaleLink>

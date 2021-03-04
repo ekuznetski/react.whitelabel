@@ -16,7 +16,7 @@ export function Home() {
       <TopSection />
       <StockPricesSection />
       <PlatformTechnologySection {...config.platformTechnologySection} />
-      <MobileTradingSection className="pt-0" {...config.mobileTradingSection} />
+      <MobileTradingSection {...config.mobileTradingSection} />
       <AccountTypesForTradingStylesSection />
       <OpenLiveAccountBannerSection />
       <TradeProductsSection />
