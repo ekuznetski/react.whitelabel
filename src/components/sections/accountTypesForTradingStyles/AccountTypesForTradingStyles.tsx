@@ -59,22 +59,6 @@ export const AccountTypesForTradingStylesSection = memo(
                     <span className="greyText">{t('No Commission')}</span>
                   </CardContent>
                 </Card>
-                <Card wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={2}>
-                  <CardHeader className="mb-7 header">
-                    <div>
-                      <Svg href="light" className="mr-5" />
-                      {t('Raw')}
-                    </div>
-                    <span>
-                      {accountTypePip.raw}
-                      <small>{t('pips')}</small>
-                    </span>
-                  </CardHeader>
-                  <CardContent className="text-left">
-                    <div className="mb-1">{t('Raw Spreads from')}</div>
-                    <span className="greyText">{t('No Commission')}</span>
-                  </CardContent>
-                </Card>
               </Cards>
             </div>
           </div>
