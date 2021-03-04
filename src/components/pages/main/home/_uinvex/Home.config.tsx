@@ -96,21 +96,21 @@ export const config = {
   }),
   platformTechnologySection: {
     title: (
-      <Trans i18nKey="Main Prestigious Platform Technology Title">
-        A <b>User Experience</b>
-        <br />
-        Like No Other
+      <Trans i18nKey="Prestigious Platform Technology Title">
+        <b>Harness the power</b>
+        <br /> of Metatrader
       </Trans>
     ),
     description: (
-      <Trans i18nKey="Main Prestigious Platform Technology Desc">
-        <p className="mb-6">
-          BSFX uses a simple, clean platform provided by Metatrader to ensure excellent user experience. By FX traders,
-          for FX traders.
+      <Trans i18nKey="Prestigious Platform Technology Desc">
+        <p className="mb-3 mb-md-6 mb-lg-9">
+          Metatrader is the financial industry's golden standard when it comes to leading platform technology. UINVEX’s
+          platform uses Metatrader 5 as a foundation to build an intuitive platform with a pleasant user interface,
+          ensuring an excellent user experience, every time.
         </p>
         <p>
-          Metatrader is considered the forex industry standard because of its <b>leading technology</b>. The platform is
-          suitable for all types of traders and features a mobile app, Expert Advisors, and advanced technical analysis.
+          The platform is suitable for all types of traders and features a mobile app, Expert Advisors, and advanced
+          technical analysis.
         </p>
       </Trans>
     ),

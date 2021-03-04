@@ -1,13 +1,27 @@
 import React from 'react';
 
+type CardElement = { elem: React.ReactNode; class?: string } | null;
 type CardUid = number | string;
-type Action = { type: 'scrollToCard' | 'addCard' | 'setActiveCard'; uid?: CardUid };
+type Action = {
+  type: 'scrollToCard' | 'addCard' | 'setActiveCard' | 'addTempHeader' | 'addTempContent';
+  uid?: CardUid;
+  header?: CardElement;
+  content?: CardElement;
+  tempHeader?: CardElement;
+  tempContent?: CardElement;
+};
 type Dispatch = (action: Action) => void;
 type State = {
-  cardsUid: CardUid[];
+  cards: {
+    header: CardElement;
+    content: CardElement;
+    uid: CardUid;
+  }[];
   scrollToUid?: CardUid;
   activeCardUid?: CardUid;
   cardsAmount?: number;
+  tempHeader: CardElement;
+  tempContent: CardElement;
 };
 type CardsProviderProps = { children: (state: State, action: Dispatch) => React.ReactNode };
 
@@ -22,20 +36,33 @@ function cardsReducer(state: State, action: Action) {
     case 'setActiveCard': {
       return { ...state, activeCardUid: action.uid };
     }
+    case 'addTempHeader': {
+      return { ...state, tempHeader: action.tempHeader || null };
+    }
+    case 'addTempContent': {
+      return { ...state, tempContent: action.tempContent || null };
+    }
     case 'addCard': {
-      const _cardsUid = state.cardsUid || [];
+      const _cards = state.cards || [];
       if (action.uid != null || action.uid != undefined) {
-        if (_cardsUid.indexOf(action.uid) != -1) {
-          throw new Error(`Card Uid must be unique. CardsUid List: ${_cardsUid.join('; ')}`);
+        if (_cards.findIndex((card) => card.uid === action.uid) != -1) {
+          throw new Error(`Card Uid must be unique. CardsUid List: ${_cards.join('; ')}`);
         }
-        _cardsUid.push(action.uid);
+
+        _cards.push({
+          header: Object.assign({}, state.tempHeader, action.header),
+          content: Object.assign({}, state.tempContent, action.content),
+          uid: action.uid,
+        });
       }
 
       return {
         ...state,
         cardsAmount: (state.cardsAmount || 0) + 1,
-        cardsUid: _cardsUid,
-        activeCardUid: _cardsUid[0],
+        cards: _cards,
+        activeCardUid: _cards[0].uid,
+        tempHeader: null,
+        tempContent: null,
       };
     }
     default: {
@@ -48,7 +75,9 @@ function CardsProvider({ children }: CardsProviderProps) {
   const [state, dispatch] = React.useReducer<React.Reducer<State, Action>>(cardsReducer, {
     cardsAmount: 0,
     activeCardUid: 0,
-    cardsUid: [],
+    cards: [],
+    tempHeader: null,
+    tempContent: null,
   });
 
   return (

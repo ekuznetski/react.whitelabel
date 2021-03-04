@@ -11,6 +11,17 @@
         lg: 6,
       )
     );
+    @include mt(
+      (
+        xs: 12,
+        md: 0,
+      )
+    );
+    @include mb(
+      (
+        xs: 12,
+      )
+    );
 
     .context {
       &__title {

@@ -110,7 +110,7 @@
 }
 
 @mixin mx($sizes) {
-  @include offset(m, y, $sizes);
+  @include offset(m, x, $sizes);
 }
 
 @mixin pt($sizes) {
@@ -134,5 +134,5 @@
 }
 
 @mixin px($sizes) {
-  @include offset(p, y, $sizes);
+  @include offset(p, x, $sizes);
 }

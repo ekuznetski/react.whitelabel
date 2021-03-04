@@ -24,7 +24,7 @@ export const PlatformTechnologySection = memo(
       <section className="prestigious-platform-technology" ref={ref}>
         <Container>
           <Row>
-            <Col className="prestigious-platform-technology__context mt-md-12 mt-lg-0 mb-12 mt-md-0">
+            <Col className="prestigious-platform-technology__context">
               <div className={classNames('context__title mb-7', className)}>
                 {title || locale.platformTechnologyTitle}
               </div>

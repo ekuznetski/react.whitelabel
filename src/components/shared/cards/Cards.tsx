@@ -6,9 +6,12 @@ import { CardsProvider, useCardsDispatch, useCardsState } from './cards.context'
 import './Cards.scss';
 
 export interface ISingleCard {
-  header?: string | React.ReactFragment;
-  content?: string | React.ReactFragment;
-  children?: React.ReactNode;
+  header?: string;
+  content?: string;
+  children?:
+    | React.ReactElement<typeof CardHeader>
+    | React.ReactElement<typeof CardContent>
+    | (React.ReactElement<typeof CardHeader> | React.ReactElement<typeof CardContent>)[];
   className?: string;
   wrapperClassName?: string;
   uid: number | string;
@@ -67,12 +70,20 @@ export const Cards = memo(
 export const Card = memo(
   forwardRef<HTMLDivElement, ISingleCard & React.Attributes>(function Card(props, ref) {
     const dispatch = useCardsDispatch();
-    const { activeCardUid } = useCardsState();
+    const { cards, activeCardUid } = useCardsState();
     const observerRef = React.createRef<HTMLDivElement>();
     const inView = useInViewport(observerRef);
     const responsive = useResponsive();
+    const currentCard = cards.find((card) => card.uid === props.uid);
 
-    useEffect(() => dispatch({ type: 'addCard', uid: props.uid }), []);
+    useEffect(() => {
+      dispatch({
+        type: 'addCard',
+        uid: props.uid,
+        header: props.header ? { elem: props.header } : null,
+        content: props.header ? { elem: props.content } : null,
+      });
+    }, []);
     useEffect(() => {
       if (inView) dispatch({ type: 'setActiveCard', uid: props.uid });
     }, [inView]);
@@ -83,17 +94,16 @@ export const Card = memo(
           className={classNames('common-cards__item', props.className, activeCardUid === props.uid && 'active')}
           ref={ref}
         >
-          {!props.children ? (
-            <>
-              <CardHeader>{props.header}</CardHeader>
-              <CardContent>{props.content}</CardContent>
-            </>
-          ) : (
-            <>
-              {props.header && <CardHeader>{props.header}</CardHeader>}
-              {props.children}
-              {props.content && <CardContent>{props.content}</CardContent>}
-            </>
+          {props.children}
+          {currentCard?.header && (
+            <div className={classNames('common-cards__item-header', currentCard?.header.class)}>
+              {currentCard?.header.elem}
+            </div>
+          )}
+          {currentCard?.content && (
+            <div className={classNames('common-cards__item-content', currentCard?.content.class)}>
+              {currentCard?.content.elem}
+            </div>
           )}
           {!responsive.md && <div className="common-cards__item-observer" ref={observerRef} />}
         </div>
@@ -107,40 +117,40 @@ export const CardsNavigation = memo(
     { ...props },
     ref,
   ) {
-    const { cardsUid, activeCardUid } = useCardsState();
+    const { cards, activeCardUid } = useCardsState();
 
     return (
-      <div className="cardsNav d-md-none">
-        {cardsUid.map((el, i) => (
-          <div key={i} className={classNames('cardsNav__item', activeCardUid === el && 'active')} />
+      <div className="cards-nav d-md-none">
+        {cards.map((el, i) => (
+          <div key={i} className={classNames('cards-nav__item', activeCardUid === el.uid && 'active')} />
         ))}
       </div>
     );
   }),
 );
 
-export const CardHeader = memo(
-  forwardRef<HTMLDivElement, { children?: React.ReactNode; className?: string }>(function CardHeader(
-    { ...props },
-    ref,
-  ) {
-    return (
-      <div className={classNames('common-cards__item-header', props.className)} ref={ref}>
-        {props.children}
-      </div>
-    );
-  }),
-);
+export const CardHeader = memo(function CardHeader(props: { children?: React.ReactNode; className?: string }) {
+  const dispatch = useCardsDispatch();
 
-export const CardContent = memo(
-  forwardRef<HTMLDivElement, { children?: React.ReactNode; className?: string }>(function CardContent(
-    { ...props },
-    ref,
-  ) {
-    return (
-      <div className={classNames('common-cards__item-content', props.className)} ref={ref}>
-        {props.children}
-      </div>
-    );
-  }),
-);
+  useEffect(() => {
+    dispatch({
+      type: 'addTempHeader',
+      tempHeader: { elem: props.children, class: props.className },
+    });
+  }, []);
+
+  return null;
+});
+
+export const CardContent = memo(function CardContent(props: { children?: React.ReactNode; className?: string }) {
+  const dispatch = useCardsDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: 'addTempContent',
+      tempContent: { elem: props.children, class: props.className },
+    });
+  }, []);
+
+  return null;
+});
