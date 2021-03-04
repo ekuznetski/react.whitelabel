@@ -1,10 +1,9 @@
-import { useResponsive } from 'ahooks';
+import { isBrowser, isMobileOnly, isTablet } from 'react-device-detect';
 
 export function useDeviceDetect() {
-  const responsive = useResponsive();
   return {
-    isMobile: !responsive.md,
-    isTablet: responsive.md && !responsive.lg,
-    isDesktop: responsive.lg,
+    isMobile: isMobileOnly,
+    isTablet: isTablet,
+    isBrowser: isBrowser,
   };
 }

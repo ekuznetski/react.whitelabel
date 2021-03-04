@@ -3,12 +3,12 @@ import { ETradingType } from '@domain/enums';
 import { IStore } from '@store';
 import { Row } from '@components/shared';
 import { useSelector } from 'react-redux';
-import { useDeviceDetect } from '@utils/hooks';
 import { TradingAccountAddCard } from './AddCard/TradingAccountAddCard';
 import { ITradingAccountSingleCard, TradingAccountSingleCard } from './SingleCard/TradingAccountSingleCard';
 import { TradingAccountsProvider } from './trading-accounts.context';
 import { MClientSettings } from '@domain/models';
 import './TradingAccountCards.scss';
+import { useResponsive } from 'ahooks';
 
 export function TradingAccountCards(props: { type: ETradingType[] }) {
   const { tradingAccountCards, clientSettings } = useSelector<
@@ -29,11 +29,12 @@ export function TradingAccountCards(props: { type: ETradingType[] }) {
       })),
     clientSettings: state.data.client.settings,
   }));
-  const { isMobile } = useDeviceDetect();
-  const inlineView = tradingAccountCards.length >= 3 && !isMobile;
+  const responsive = useResponsive();
+  const inlineView = tradingAccountCards.length >= 3 && responsive.md;
   const allowAddCard =
     (props.type.includes(ETradingType.demo) && clientSettings.allow_additional_demo_account) ||
     (props.type.includes(ETradingType.live) && clientSettings.allow_additional_live_account);
+
   return (
     <TradingAccountsProvider>
       {() => (
