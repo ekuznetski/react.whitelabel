@@ -1,5 +1,6 @@
 import { PageTitle, Tab, Tabs } from '@components/shared';
 import { AllowedCurrToMethodMap, ECurrencyCode, EDepositMethodCode, EDepositMethodIcon } from '@domain/enums';
+import { IClientSettings } from '@domain/interfaces';
 import { env } from '@env';
 import { IAppStore, IStore } from '@store';
 import React, { memo } from 'react';
@@ -9,7 +10,6 @@ import { useSelector } from 'react-redux';
 import { DepositSuccessFailure, DetailsFormWrapper, TabContentBankWire, TabContentChooseAmount } from './components';
 import { DepositProvider, IDepositAction, IDepositState, depositActionCreators } from './deposit.context';
 import './Deposit.scss';
-import { IClientSettings } from '@domain/interfaces';
 
 export const Deposit = memo(function Deposit() {
   const { allowed_deposit_methods: allowedMethods, route, tradingAccountsCurrencies } = useSelector<
@@ -47,8 +47,9 @@ export const Deposit = memo(function Deposit() {
                   <>
                     {!state.isAmountSelected && (
                       <Tabs
-                        activeTab={allowedMethods[0] ?? EDepositMethodCode.creditCard}
+                        activeTab={state.method || (allowedMethods[0] ?? EDepositMethodCode.creditCard)}
                         isVertical={true}
+                        showContent={!!state.amount}
                         // disabledAll={isDisabled}
                         onChange={(e) => {
                           if (dispatch && e.anchor) {

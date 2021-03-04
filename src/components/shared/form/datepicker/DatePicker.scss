@@ -34,7 +34,7 @@
   }
 
   .label {
-    color: $dark-grey;
+    color: $text;
     line-height: 24px;
     font-size: 14px;
     position: absolute;
@@ -113,7 +113,7 @@
 
     .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--selectedDay):not(.DayPicker-Day--outside) {
       background-color: rgba($blue, 0.1) !important;
-      color: $dark-blue;
+      color: $blue;
     }
 
     .DayPicker-Day--selectedDay {

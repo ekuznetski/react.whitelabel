@@ -16,7 +16,7 @@ export const Checkbox = memo(function Checkbox({ className = '', children, ...pr
         !className && 'mb-8',
         className,
         !!field?.value && 'checked',
-        !!meta?.error && 'field-error',
+        !!meta?.touched && !!meta?.error && 'field-error',
         _disabled && 'disabled',
       )}
     >
@@ -25,7 +25,7 @@ export const Checkbox = memo(function Checkbox({ className = '', children, ...pr
         <div className="checkbox-mark" />
         <div>{children}</div>
       </label>
-      {!_disabled && meta?.error ? <div className="error">{meta.error}</div> : null}
+      {!_disabled && !!meta?.touched && !!meta?.error ? <div className="error">{meta.error}</div> : null}
     </div>
   );
 });

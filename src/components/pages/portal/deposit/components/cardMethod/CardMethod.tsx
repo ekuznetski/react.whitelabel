@@ -223,7 +223,7 @@ export function CardMethod() {
                     <Input type="number" label="CVV/CVC" regex={/^\d{0,3}$/} name={EFields.cvc} />
                   </Col>
                   <Col xs={12} sm={6}>
-                    <Svg href="secure-payment" />
+                    <Svg className="mb-8 mb-sm-0" href="secure-payment" />
                   </Col>
                   <Col xs={12}>
                     <Button type="submit" className={'tests'} loadingOnAction={[EActionTypes.addDeposit]}>

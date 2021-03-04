@@ -2,7 +2,7 @@ import { ENotificationType } from '@domain/enums';
 import { useDeviceDetect } from '@utils/hooks';
 import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useEffect, useMemo, useState } from 'react';
+import React, { forwardRef, memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../form/button/Button';
 import { Svg } from '../svg/Svg';
@@ -17,7 +17,9 @@ export interface ITabs {
   disabledAll?: boolean;
   className?: string;
   isVertical?: boolean;
+  showContent?: boolean;
   alignNavigation?: 'left' | 'center' | 'right';
+  disableMobileView: boolean;
   onChange?: (active: ActiveTab) => void;
 }
 
@@ -46,12 +48,15 @@ export function Tabs({
   className,
   disabledAll = false,
   isVertical = false,
+  showContent = false,
   alignNavigation = 'center',
+  disableMobileView = false,
   onChange = undefined,
 }: ITabs) {
   const [activeTabProps, setActiveTabProps] = useState<TabsState['activeTabProps']>();
-  const [lineProps, setLineProps] = useState<TabsState['lineProps']>();
-  const viewportSize = useResponsive();
+  const [lineProps, setLineProps] = useState<{ [k: string]: any }>();
+  const navRef = useRef<HTMLDivElement>(null);
+  const responsive = useResponsive();
   const tabsContentRef: { [k: string]: HTMLDivElement | null } = {};
   const { t } = useTranslation();
   const { isDesktop } = useDeviceDetect();
@@ -60,20 +65,6 @@ export function Tabs({
   if (!children && !(labels && content)) {
     throw new Error('Tabs must have (props.children) or (labels && content)!');
   }
-
-  window.onload = function () {
-    setLineProps({
-      navLineWidth: activeNavTabLink?.clientWidth,
-      navLineLeft: activeNavTabLink?.offsetLeft,
-    });
-  };
-
-  useEffect(() => {
-    setLineProps({
-      navLineWidth: activeNavTabLink?.clientWidth,
-      navLineLeft: activeNavTabLink?.offsetLeft,
-    });
-  }, [activeTabProps?.anchor, viewportSize]);
 
   return (
     <TabsProvider>
@@ -88,6 +79,9 @@ export function Tabs({
           }
           if (disabledAll) {
             dispatch({ type: 'disabledAll', disabledAll });
+          }
+          if (showContent) {
+            dispatch({ type: 'setMobileDisplay', mobileDisplay: EMobileDisplay.content });
           }
         }, []);
 
@@ -104,6 +98,16 @@ export function Tabs({
           }
         }, [active]);
 
+        useEffect(() => {
+          if (activeNavTabLink) {
+            if (navRef.current) {
+              navRef.current.scrollLeft =
+                activeNavTabLink.offsetLeft - navRef.current.offsetWidth / 2 + activeNavTabLink.offsetWidth / 2;
+            }
+            setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
+          }
+        }, [activeTabProps?.anchor, responsive]);
+
         function switchTab(anchor: string | number) {
           dispatch({ type: 'setActive', anchor });
         }
@@ -112,48 +116,86 @@ export function Tabs({
           dispatch({ type: 'setMobileDisplay', mobileDisplay: setDisplay });
         }
 
+        function selectPrevTab() {
+          const _currentTabIdx = state.labels.findIndex((tab) => tab.anchor === activeTabProps?.anchor);
+          if (_currentTabIdx > 0) {
+            switchTab(state.labels[_currentTabIdx - 1].anchor);
+          }
+        }
+
+        function selectNextTab() {
+          const _currentTabIdx = state.labels.findIndex((tab) => tab.anchor === activeTabProps?.anchor);
+          if (_currentTabIdx + 1 < state.labels.length) {
+            switchTab(state.labels[_currentTabIdx + 1].anchor);
+          }
+        }
+
         return useMemo(() => {
           return (
             <div
               className={classNames('common-tabs', isVertical && 'vertical', 'show_' + state.mobileDisplay, className)}
             >
+              {lineProps && !isVertical && !disableMobileView && (
+                <div className="d-lg-none common-tabs__prev" onClick={selectPrevTab}>
+                  <Svg href={'chevron_left'} width={18} height={18} />
+                </div>
+              )}
               <div
-                className={classNames('common-tabs__navigation', !isVertical && alignNavigation, !isVertical && 'mb-9')}
-              >
-                {state.labels.map((label, l) => (
-                  <div
-                    key={l}
-                    className={classNames(
-                      'tab__link',
-                      label.status,
-                      label.disabled && 'disabled',
-                      !disabledAll && activeTabProps?.anchor === label.anchor && 'active',
-                      !isVertical && state.labels.length - 1 != l && 'mr-7',
-                    )}
-                    onClick={() => !label.disabled && switchTab(label.anchor)}
-                    ref={(ref) => activeTabProps?.anchor === label.anchor && (activeNavTabLink = ref)}
-                  >
-                    <div className={classNames('tab__link__label', isVertical && 'py-6 pl-12 pr-4')}>
-                      <div className="tab__link__label-title">{label.value}</div>
-                      {label.desc && <div className="tab__link__label-subtitle">{label.desc}</div>}
-                    </div>
-                    {label.icon && (
-                      <Svg
-                        className="tab__link__icon mr-9"
-                        href={label.icon}
-                        width={isVertical ? 40 : 24}
-                        height={24}
-                      />
-                    )}
-                  </div>
-                ))}
-                {activeTabProps && !isVertical && (
-                  <div
-                    className="active-tab-line"
-                    style={{ left: lineProps?.navLineLeft, width: lineProps?.navLineWidth }}
-                  />
+                className={classNames(
+                  'common-tabs__navigation',
+                  !isVertical && 'mb-9',
+                  !isVertical && !disableMobileView && 'mx-9 mx-lg-0',
+                  disableMobileView && 'common-tabs__navigation--disable-mobile-view',
                 )}
+                ref={navRef}
+              >
+                <div
+                  className={classNames(
+                    !isVertical && 'common-tabs__navigation-wrapper',
+                    !isVertical && alignNavigation,
+                  )}
+                >
+                  {state.labels.map((label, l) => (
+                    <div
+                      key={l}
+                      className={classNames(
+                        'tab__link',
+                        label.status,
+                        label.disabled && 'disabled',
+                        !disabledAll && activeTabProps?.anchor === label.anchor && 'active',
+                        !isVertical && state.labels.length - 1 != l && 'mr-7',
+                      )}
+                      onClick={() => !label.disabled && switchTab(label.anchor)}
+                      ref={(ref) => activeTabProps?.anchor === label.anchor && (activeNavTabLink = ref)}
+                    >
+                      <div className={classNames('tab__link__label', isVertical && 'py-6 pl-12 pr-4')}>
+                        <div className="tab__link__label-title">{label.value}</div>
+                        {label.desc && <div className="tab__link__label-subtitle">{label.desc}</div>}
+                      </div>
+                      {label.icon && (
+                        <Svg
+                          className="tab__link__icon mr-9"
+                          href={label.icon}
+                          width={isVertical ? 40 : 24}
+                          height={24}
+                        />
+                      )}
+                    </div>
+                  ))}
+                  {lineProps && !isVertical && (
+                    <div
+                      className="active-tab-line"
+                      style={{ left: lineProps?.left, width: lineProps?.width + 'px' }}
+                    />
+                  )}
+                </div>
               </div>
+              {lineProps && !isVertical && !disableMobileView && (
+                <div className="d-lg-none common-tabs__next" onClick={selectNextTab}>
+                  <Svg href={'chevron_right'} width={18} height={18} />
+                </div>
+              )}
+
               <div className={classNames('common-tabs__container', isVertical && 'py-8 px-6 py-md-10 px-md-9')}>
                 {!children
                   ? state.contents.map((content, c) => <Tab key={c} anchor={content.anchor} content={content.value} />)
@@ -257,7 +299,7 @@ export const TabMobileBackButton = memo(function TabSubLabel(props: {
   onClick?: Function;
 }) {
   const dispatch = useTabsDispatch();
-  const viewportSize = useResponsive();
+  const responsive = useResponsive();
 
   useEffect(() => {
     dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: true });
@@ -265,9 +307,9 @@ export const TabMobileBackButton = memo(function TabSubLabel(props: {
   }, []);
 
   useEffect(() => {
-    if (!viewportSize.md && viewportSize.lg) dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: false });
+    if (!responsive.md && responsive.lg) dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: false });
     else dispatch({ type: 'setCustomMobileBackBtn', customMobileBackBtn: true });
-  }, [viewportSize]);
+  }, [responsive]);
 
   return React.cloneElement(props.children, {
     onClick: () => {
