@@ -54,7 +54,6 @@
           width: 13px;
           fill: $dark-grey;
           transform: rotate(180deg);
-          transition: transform 0.2s;
         }
       }
     }
@@ -65,7 +64,6 @@
       }
       .menu__item__chevron {
         transform: rotate(0deg);
-        transition: transform 0.2s;
       }
     }
   }
