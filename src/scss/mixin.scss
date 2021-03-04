@@ -37,6 +37,14 @@
   }
 }
 
+@mixin offset($sizes) {
+  @each $breakpoint, $size in $sizes {
+    @include media-breakpoint-up($breakpoint) {
+      @include make-col-offset($size, $grid-columns);
+    }
+  }
+}
+
 @function box-shadow($size, $alpha) {
   @return 0px 3px #{$size}px rgba($border-shadow-color, $alpha);
 }
@@ -58,7 +66,7 @@
   @return $sp;
 }
 
-@mixin offset($tag, $pos, $sizes) {
+@mixin spacing($tag, $pos, $sizes) {
   @each $breakpoint, $spacerKey in $sizes {
     @include media-breakpoint-up($breakpoint) {
       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
@@ -90,49 +98,49 @@
 }
 
 @mixin mt($sizes) {
-  @include offset(m, t, $sizes);
+  @include spacing(m, t, $sizes);
 }
 
 @mixin mb($sizes) {
-  @include offset(m, b, $sizes);
+  @include spacing(m, b, $sizes);
 }
 
 @mixin ml($sizes) {
-  @include offset(m, l, $sizes);
+  @include spacing(m, l, $sizes);
 }
 
 @mixin mr($sizes) {
-  @include offset(m, r, $sizes);
+  @include spacing(m, r, $sizes);
 }
 
 @mixin my($sizes) {
-  @include offset(m, y, $sizes);
+  @include spacing(m, y, $sizes);
 }
 
 @mixin mx($sizes) {
-  @include offset(m, x, $sizes);
+  @include spacing(m, x, $sizes);
 }
 
 @mixin pt($sizes) {
-  @include offset(p, t, $sizes);
+  @include spacing(p, t, $sizes);
 }
 
 @mixin pb($sizes) {
-  @include offset(p, b, $sizes);
+  @include spacing(p, b, $sizes);
 }
 
 @mixin pl($sizes) {
-  @include offset(p, l, $sizes);
+  @include spacing(p, l, $sizes);
 }
 
 @mixin pr($sizes) {
-  @include offset(p, r, $sizes);
+  @include spacing(p, r, $sizes);
 }
 
 @mixin py($sizes) {
-  @include offset(p, y, $sizes);
+  @include spacing(p, y, $sizes);
 }
 
 @mixin px($sizes) {
-  @include offset(p, x, $sizes);
+  @include spacing(p, x, $sizes);
 }

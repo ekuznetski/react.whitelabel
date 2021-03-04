@@ -1,7 +1,11 @@
+import { downloadLinks } from '@domain';
 import React from 'react';
 import { Trans } from 'react-i18next';
 
-export const locale = {
+export const config = {
+  sideImg: 'mobile_trading.jpg',
+  appStoreLink: downloadLinks.mt5.appStore,
+  googlePlayLink: downloadLinks.mt5.googlePlay,
   mobileTradingTitle: (
     <Trans i18nKey="Mobile Trading Section Title">
       <b>Mobile Trading</b>

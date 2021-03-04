@@ -1,9 +1,8 @@
 import { Button, Img, Svg } from '@components/shared';
-import { downloadLinks } from '@domain';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { Col, Container, Row } from '@components/shared';
-import { config, locale } from './';
+import { config } from './';
 import './MobileTrading.scss';
 
 interface MobileTradingSectionProps {
@@ -21,19 +20,19 @@ export const MobileTradingSection = memo(
       <section className={classNames('mobile-trading', className)} ref={ref}>
         <Container>
           <Row>
-            <Col xs={12} lg={5} className="mb-12 mb-lg-0 mt-12 mb-md-0">
-              <Img src="mobile_trading.jpg" />
+            <Col className="mobile-trading__img">
+              <Img src={config.sideImg} />
             </Col>
-            <Col xs={12} lg={6} className="offset-lg-1 pt-lg-10 pr-lg-6">
-              <div className="mobile-trading__title mb-7">{title || locale.mobileTradingTitle}</div>
-              <div className="mobile-trading__description mb-10">{description || locale.mobileTradingDescription}</div>
-              <div className="store-links">
-                <Button className="mr-md-6 px-7 mb-7 mb-md-0">
+            <Col className="mobile-trading__content">
+              <div className="content__title mb-7">{title || config.mobileTradingTitle}</div>
+              <div className="content__description mb-10">{description || config.mobileTradingDescription}</div>
+              <div className="content__store-links">
+                <Button className="ios-store">
                   <a href={config.appStoreLink}>
                     <Svg href="app_store_logo" />
                   </a>
                 </Button>
-                <Button className="mr-md-6 px-7">
+                <Button className="google-store">
                   <a href={config.googlePlayLink}>
                     <Svg href="google_play_logo" />
                   </a>

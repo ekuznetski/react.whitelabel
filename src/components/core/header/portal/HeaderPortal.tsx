@@ -44,6 +44,7 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
             <Svg href="logo" className="mr-xl-9" _label height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-9" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-1" _label={ELabels.bsfx} height={!responsive.lg ? 48 : 60} />
+            <Svg href="logo" className="mr-xl-1" _label={ELabels.uinvex} height={32} />
           </LocaleLink>
           <PanelMenu menuConfig={_portalMenuConfig} />
           <Button className="ml-auto d-none d-md-block">
