@@ -6,13 +6,7 @@
         display: none;
     }
 
-    &__container {
-        flex-flow: row nowrap;
-    }
-
     &__item {
-        height: 200px;
-
         &-observer {
             display: none;
         }
@@ -20,24 +14,5 @@
         background: linear-gradient(180deg, #FFFFFF 0%, #F9F9FD 100%);
         box-shadow: box-shadow(15, 0.1);
         overflow: hidden;
-
-        &-header {
-            font-family: $font-family1;
-            font-weight: 700;
-            justify-content: center;
-        }
-
-        &-content {
-            text-align: center;
-        }
-    }
-}
-
-@media (max-width: $viewport-md-w) {
-    .common-cards {
-        &__container {
-            flex-flow: row wrap;
-            justify-content: center;
-        }
     }
 }

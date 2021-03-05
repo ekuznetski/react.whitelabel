@@ -35,8 +35,8 @@ export function Contacts() {
         <Container>
           <Row>
             <Cards id="contactsCards">
-              {config.contactsList.map((contact, index) => (
-                <Card uid={index} key={index} wrapperClassName="card col-12 col-sm-4 mb-9 mb-md-0">
+              {config.contactsList.map((contact, c) => (
+                <Card uid={c} key={c} wrapperClassName="card col-12 col-sm-4 mb-9 mb-md-0">
                   <CardHeader>
                     <div className="contacts__title mb-6">
                       {contact.title}
@@ -45,8 +45,8 @@ export function Contacts() {
                   </CardHeader>
                   <CardContent>
                     <div className="contacts__list">
-                      {contact.points.map((point, index) => (
-                        <div key={index} className="contacts__list-item mb-5">
+                      {contact.points.map((point, p) => (
+                        <div key={p} className="contacts__list-item mb-5">
                           <Svg href={point.icon} width={16} className="mr-3" _label={ELabels.uinvex} />
                           {point.label}
                         </div>
