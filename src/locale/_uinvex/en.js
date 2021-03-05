@@ -2,6 +2,8 @@ import _ from '../en';
 
 export default {
   ..._,
+  'Account Types Secure Title': '<0>Our transparency</0> will help you choose',
+  'Account Types Secure Desc': 'We show you the commissions and spreads upfront so you can open the perfect account for you.',
   'Mobile Trading Section Title': 'Trade <1>on the move</1>',
   'Mobile Trading Section Desc': '<0>Never be far away from your trades again!</0><1>Use a smartphone to manage your account, wherever you may be.</1><2>Download the Metatrader 5 app for your smartphone or tablet, available for both Android and iOS.</2>',
   'Prestigious Platform Technology Title': '<0>Harness the power</0><1 /> of Metatrader',

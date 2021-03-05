@@ -18,7 +18,7 @@ export interface ITabs {
   isVertical?: boolean;
   showContent?: boolean;
   alignNavigation?: 'left' | 'center' | 'right';
-  disableMobileView: boolean;
+  disableMobileView?: boolean;
   onChange?: (active: ActiveTab) => void;
 }
 

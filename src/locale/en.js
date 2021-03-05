@@ -101,7 +101,7 @@ export default {
   'No third party bridges': 'No third party bridges',
   '24 5 Trading': '24/5 Trading',
   'Account Types': 'Account Types',
-  'Account types for all trading styles': 'Account types for all trading styles',
+  'Account Types Secure Title': 'Account types for all trading styles',
   'Account Types Secure Desc':
     'How do you like your spreads? We offer both fixed and variable accounts, so the choice is yours!',
   Fixed: 'Fixed',

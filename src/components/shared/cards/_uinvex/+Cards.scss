@@ -1,0 +1,10 @@
+@import '~/variables';
+@import '~/mixin';
+
+.common-cards {
+  &__item {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F9F9FD 100%);
+    box-shadow: box-shadow(15, 0.1);
+    overflow: hidden;
+  }
+}
