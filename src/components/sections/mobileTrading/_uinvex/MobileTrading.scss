@@ -2,46 +2,53 @@
 @import '~/mixin';
 
 .mobile-trading {
+  padding: 0 !important;
+  
+  .row {
+    @include d-flex(center, center);
+    @include mx((xs:0));
+    height: 488px;
+
+    background: linear-gradient(0.35deg, #262A4B 0.29%, #44496D 99.67%);
+    box-shadow: box-shadow(15, 0.1);
+    border-radius: $border-box-radius;
+  }
+
   &__img {
     @include col((xs:12, lg:5));
-    @include mt((xs:12));
     @include mb((xs:12, md:0));
-  
-    img {
-      height: 400px;
-    }
+    @include mt((md:4));
   }
 
   &__content {
     @include col((xs:12, lg:6));
-    @include offset((lg:1));
-    @include pt((lg:10));
     @include pr((lg:6));
+    color: #fff;
 
     .content {
       &__title {
+        font-family: $font-family1;
         font-size: 36px;
         line-height: 46px;
-        color: $dark-text;
+
+        b {
+          color: $uinvex-blue
+        }
       }
 
       &__description {
         font-size: 16px;
         line-height: 26px;
-        color: $text;
       }
 
       &__store-links {
         display: flex;
 
         button {
-          background: #fff;
-          border-color: $dark-text;
-          color: $dark-text;
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 24px;
-          flex: 0 0 180px;
+          background: transparent;
+          border-color: #fff;
+          flex: 0 0 162px;
+          height: $btn-size-lg;
 
           &.ios-store {
             @include mr((md:6));
@@ -55,7 +62,7 @@
           }
 
           svg {
-            fill: $dark-text;
+            fill: #fff;
           }
         }
       }

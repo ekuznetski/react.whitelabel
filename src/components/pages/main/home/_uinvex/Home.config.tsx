@@ -117,19 +117,16 @@ export const config = {
   },
   mobileTradingSection: {
     title: (
-      <Trans i18nKey="Main Mobile Trading Section Title">
-        Trading <b>on the go</b>
+      <Trans i18nKey="Mobile Trading Section Title">
+        Trade <b>on the move</b>
       </Trans>
     ),
     description: (
-      <Trans i18nKey="Main Mobile Trading Section Desc">
-        <div className="mb-6">
-          Everything you need to trade in your pocket. Use your smartphone to open and close trading positions, and
-          manage your accounts.
-        </div>
-        <div className="mb-6">
-          Download the Metatrader app for your smartphone or tablet and trade wherever you are. Available for Android
-          and iOS.
+      <Trans i18nKey="Mobile Trading Section Desc">
+        <div className="mb-8">Never be far away from your trades again!</div>
+        <div className="mb-8">Use a smartphone to manage your account, wherever you may be.</div>
+        <div className="mb-8">
+          Download the Metatrader 5 app for your smartphone or tablet, available for both Android and iOS.
         </div>
       </Trans>
     ),

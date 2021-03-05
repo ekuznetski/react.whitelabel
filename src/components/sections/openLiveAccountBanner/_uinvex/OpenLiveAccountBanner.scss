@@ -23,18 +23,6 @@
     margin-bottom: 0 !important;
     flex: 0 0 colSizePrc(4);
     max-width: colSizePrc(4);
-    &:before {
-      content: '';
-      top: -500%;
-      left: -40px;
-      background: $blue;
-      position: absolute;
-      display: block;
-      opacity: 1;
-      height: 1000%;
-      z-index: -1;
-      width: calc(100% + 30px);
-    }
   }
 
   &__title {
