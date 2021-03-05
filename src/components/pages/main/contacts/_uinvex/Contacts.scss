@@ -5,7 +5,16 @@
   .page-top {
     height: 400px;
     display: flex;
-    background: rgb(92, 115, 131);
+
+    svg {
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+      border: 1px solid $border-grey;
+      padding: 13px;
+      border-radius: 26px;
+      background: white;
+      width: 50px;
+      height: 50px;
+    }
 
     &__title {
       font-size: 48px;
@@ -67,8 +76,8 @@
     &__title {
       font-size: 22px;
       line-height: 34px;
+      font-family: $font-family;
       color: $dark-text;
-      width: 200px;
 
       &-line {
         width: 75px;
@@ -77,17 +86,23 @@
       }
     }
 
-    &__item {
+    .common-cards__item {
       height: 200px;
-      flex: 0 0 365px;
-      max-width: 365px;
+      width: 350px;
+      align-items: center;
+
+      &-header {
+        justify-content: start;
+        width: 200px;
+      }
+
+      &-content {
+        text-align: left;
+        width: 200px;
+      }
     }
 
-    &__item-container {
-      @include d-flex(center, center, column);
-      background: linear-gradient(180deg, #FFFFFF 0%, #F3F3F8 100%);
-      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-      border-radius: 6px;
+    .card {
       height: 200px;
     }
 
@@ -103,17 +118,35 @@
       }
     }
 
+    @media (max-width: $viewport-xl-w) {
+      .common-cards__item {
+        width: 290px;
+      }
+
+    }
+
     @media (max-width: $viewport-lg-w) {
-      &__item {
-        flex: 0 0 248px;
-        max-width: 248px;
+      .common-cards__item {
+        width: 224px;
+      }
+
+      .card {
+        padding-left: 12px;
+        padding-right: 12px;
       }
     }
 
     @media (max-width: $viewport-md-w) {
-      &__item {
+      .common-cards__item {
+        width: 100%;
+        align-items: center;
+      }
+
+      .card {
         flex: 0 0 100%;
         max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
       }
 
       &__title {

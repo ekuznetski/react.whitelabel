@@ -14,6 +14,10 @@ export const Map = memo(function Map({
   const [map, setMap] = useState({});
   const [centerChanged, setCenterChanged] = useState(false);
 
+  if (!env.GOOGLE_MAP_KEY) {
+    return null;
+  }
+
   if (embed) {
     return (
       <iframe

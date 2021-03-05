@@ -1,4 +1,4 @@
-import { Map, SectionBg, Svg } from '@components/shared';
+import { Card, CardContent, CardHeader, Cards, Map, SectionBg, Svg } from '@components/shared';
 import { config } from '@pages/main/contacts/_uinvex/Contacts.config';
 import React from 'react';
 import { Col, Container, Row } from '@components/shared';
@@ -13,18 +13,18 @@ export function Contacts() {
     <div className="contacts-wrapper">
       <section className="page-top">
         <SectionBg
-          primary="contact-page-top.jpg"
+          primary="header_bg.jpg"
           secondary={{
             md: 'contact-page-top-desktop.png',
             xxs: 'contact-page-top-mobile.png',
           }}
         />
-        <Container className="pt-lg-17">
+        <Container>
           <Row>
             <Col xs={12} md={6} lg={12}>
-              <div className="page-top__title mb-9">{t('Contact Information')}</div>
+              <div className="page-top__title mb-10">{t('Contact Information')}</div>
               <div className="page-top__description">
-                <Svg href="phone" className="mr-5" _label={ELabels.uinvex} />
+                <Svg href="phone" className="mr-7" _label={ELabels.uinvex} />
                 +1 647 812 4901
               </div>
             </Col>
@@ -34,24 +34,28 @@ export function Contacts() {
       <section className="contacts">
         <Container>
           <Row>
-            {config.contactsList.map((contact, c) => (
-              <Col key={c} className="contacts__item mb-8">
-                <div className="contacts__item-container">
-                  <div className="contacts__title mb-6">
-                    {contact.title}
-                    <div className="contacts__title-line mt-6"></div>
-                  </div>
-                  <div className="contacts__list">
-                    {contact.points.map((point, p) => (
-                      <div key={p} className="contacts__list-item mb-5">
-                        <Svg href={point.icon} width={16} className="mr-3" _label={ELabels.uinvex} />
-                        {point.label}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </Col>
-            ))}
+            <Cards id="contactsCards">
+              {config.contactsList.map((contact, index) => (
+                <Card uid={index} key={index} wrapperClassName="card col-12 col-sm-4 mb-9 mb-md-0">
+                  <CardHeader>
+                    <div className="contacts__title mb-6">
+                      {contact.title}
+                      <div className="contacts__title-line mt-6"></div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="contacts__list">
+                      {contact.points.map((point, index) => (
+                        <div key={index} className="contacts__list-item mb-5">
+                          <Svg href={point.icon} width={16} className="mr-3" _label={ELabels.uinvex} />
+                          {point.label}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </Cards>
           </Row>
         </Container>
       </section>
