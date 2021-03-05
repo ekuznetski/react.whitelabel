@@ -20,11 +20,7 @@
   }
 
   &__wrapper {
-    padding-top: 70px;
-
-    @media (max-width: $viewport-lg-w) {
-      height: 68px;
-    }
+    padding-top: $menu-height-portal-fixed-md;
   }
 
   .sub-menu {
@@ -42,7 +38,7 @@
       text-decoration: none;
 
       &.active {
-        border-bottom-color: $dark-text;
+        border-bottom-color: $dark-grey;
         font-weight: 500;
       }
 
@@ -64,14 +60,6 @@
       }
       .menu__item__chevron {
         transform: rotate(0deg);
-      }
-    }
-  }
-
-  .sub-menu__item {
-    a {
-      svg {
-        fill: $blue;
       }
     }
   }

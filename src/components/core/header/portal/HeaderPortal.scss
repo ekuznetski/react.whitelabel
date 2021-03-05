@@ -4,6 +4,11 @@
 .header.portal {
   border-bottom: 1px solid $grey;
   box-sizing: content-box;
+  height: $menu-height-portal-lg;
+
+  @media (max-width: $viewport-lg-w) {
+    height: $menu-height-portal-md;
+  }
 
   .header-wrapper {
     .panel {
@@ -70,16 +75,12 @@
         z-index: 99;
         width: 100%;
         transition: position 0.2s 0;
+        height: $menu-height-portal-fixed-md;
 
         &:before {
           top: 0;
           transition: top 0.2s;
           z-index: 99;
-        }
-
-        .menu {
-          height: 68px;
-          margin-bottom: 2px;
         }
       }
     }
@@ -112,9 +113,5 @@
         }
       }
     }
-  }
-
-  @media (max-width: $viewport-lg-w) {
-    height: 70px;
   }
 }

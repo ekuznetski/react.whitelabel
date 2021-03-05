@@ -41,6 +41,11 @@
       border-bottom: 1px solid $grey;
       width: calc(100% - 39px);
 
+      &--active {
+        border-bottom-color: $dark-grey;
+        font-weight: 500;
+      }
+
       a {
         color: $dark-text;
         text-decoration: none;

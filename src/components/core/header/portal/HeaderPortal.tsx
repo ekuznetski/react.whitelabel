@@ -37,8 +37,8 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
 
   return (
     <>
-      <div className={classNames('panel', isBurgerMenuOpen && 'fixed')}>
-        <Container className="py-3 py-lg-0" fluid={!responsive.lg}>
+      <div className={classNames('panel', isBurgerMenuOpen && 'fixed', !isBurgerMenuOpen && 'h-100')}>
+        <Container className="py-3 py-lg-0 h-100" fluid={!responsive.lg}>
           <LocaleLink to={EPagePath.Home} className="logo">
             <Svg href="logo" className="mr-xl-9" _label height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-9" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />

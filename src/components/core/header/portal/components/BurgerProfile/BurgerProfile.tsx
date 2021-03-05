@@ -1,6 +1,6 @@
 import { LocaleNavLink, Svg } from '@components/shared';
 import { MClientProfile } from '@domain/models';
-import { IStore } from '@store';
+import { IAppStore, IStore } from '@store';
 import { portalProfileMenu } from '@utils/fn/portalProfileMenu';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
@@ -13,16 +13,30 @@ type IBurgerProfile = {
 };
 
 export function BurgerProfile({ activeSubMenu, closeSubMenu }: IBurgerProfile) {
-  const { clientProfile } = useSelector<IStore, { clientProfile: MClientProfile }>((state) => ({
+  const { clientProfile, route } = useSelector<IStore, { clientProfile: MClientProfile, route: IAppStore['route'] }>((state) => ({
     clientProfile: state.data.client.profile,
+    route: state.app.route,
   }));
   const [isDropdownMenuOpen, setDropdownMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(-1);
 
   useEffect(() => {
     if (activeSubMenu !== -1) {
       setDropdownMenuOpen(false);
     }
   }, [activeSubMenu]);
+
+  useEffect(() => {
+    const _activeMenu = portalProfileMenu().find((item) =>
+      item.path
+        ? item.path === route.path
+        : false
+    );
+
+    if (_activeMenu) {
+      setActiveMenu(portalProfileMenu().indexOf(_activeMenu));
+    }
+  }, [route.path]);
 
   function toggleDropdownMenu() {
     setDropdownMenuOpen(!isDropdownMenuOpen);
@@ -40,7 +54,7 @@ export function BurgerProfile({ activeSubMenu, closeSubMenu }: IBurgerProfile) {
       </div>
       <div className="burger-profile__sub-menu" style={{ height: portalProfileMenu().length * 50 }}>
         {portalProfileMenu().map((menuItem, index) => (
-          <div key={index} className="burger-profile__sub-menu__item ml-8">
+          <div key={index} className={classNames("burger-profile__sub-menu__item ml-8", index === activeMenu && 'burger-profile__sub-menu__item--active')}>
             <LocaleNavLink exact to={menuItem.path}>
               {menuItem.icon?.length && <Svg href={menuItem.icon} height={20} className="mr-4" />}
               {menuItem.title}
