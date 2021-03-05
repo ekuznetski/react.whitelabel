@@ -1,10 +1,9 @@
-import { Card, CardContent, CardHeader, Cards, LabelView, Svg } from '@components/shared';
+import { Card, CardContent, CardHeader, Cards, Svg } from '@components/shared';
+import { accountTypePip } from '@domain';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import './AccountTypesForTradingStyles.scss';
-import { accountTypePip } from '@domain';
-import { ELabels } from '@domain/enums';
 
 export const AccountTypesForTradingStylesSection = memo(
   forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function AccountTypesForTradingStylesSection(
@@ -19,7 +18,7 @@ export const AccountTypesForTradingStylesSection = memo(
           <div className="row">
             <div className="col-12">
               <div className="account-types-for-trading-styles-section__title mb-4">
-                {t('Account types for all trading styles')}
+                {t('Account Types Secure Title')}
               </div>
               <div className="account-types-for-trading-styles-section__description mb-13">
                 {t('Account Types Secure Desc')}

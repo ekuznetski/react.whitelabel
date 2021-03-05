@@ -23,7 +23,7 @@ export const assetsCharacteristics = {
 export const accountTypePip = {
   ..._accountTypePip,
   variable: 1.4,
-  raw: 0.2
+  raw: 0.2,
 };
 
 export const marketTableContent = Object.keys(_marketTableContent).reduce(

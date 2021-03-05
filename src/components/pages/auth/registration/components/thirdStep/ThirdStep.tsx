@@ -61,6 +61,20 @@ export function ThirdStep({ submitFn }: any) {
       ),
       value: ETradingAccountType.variable,
     },
+    {
+      label: (
+        <>
+          <div className="name">{t('Raw')}</div>
+          <div className="spread">
+            {t('Floating Spreads')}
+            <br />
+            {t('From #', { val: accountTypePip.raw })}
+          </div>
+          <div className="commission">{t('No commission')}</div>
+        </>
+      ),
+      value: ETradingAccountType.raw,
+    },
   ].filter((el) => clientSettings.allowed_account_types?.includes(el.value));
 
   const currencies = clientSettings.getCurrenciesSelectList();

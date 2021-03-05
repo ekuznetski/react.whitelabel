@@ -41,8 +41,8 @@
   }
 
   .open-account {
-    flex: 0 0 colSizePrc(4);
-    max-width: colSizePrc(4);
+    flex: 0 0 colSizePrc(5);
+    max-width: colSizePrc(5);
     @include d-flex(center, center, column);
     z-index: 1;
     padding: 0 65px;
