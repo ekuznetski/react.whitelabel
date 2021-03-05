@@ -1,5 +1,6 @@
 import { ENotificationType } from '@domain/enums';
-import { useResponsive } from 'ahooks';
+import { useDeviceDetect } from '@utils/hooks';
+import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +19,7 @@ export interface ITabs {
   isVertical?: boolean;
   showContent?: boolean;
   alignNavigation?: 'left' | 'center' | 'right';
-  disableMobileView: boolean;
+  disableMobileView?: boolean;
   onChange?: (active: ActiveTab) => void;
 }
 
@@ -96,15 +97,20 @@ export function Tabs({
           }
         }, [active]);
 
-        useEffect(() => {
-          if (activeNavTabLink) {
-            if (navRef.current) {
-              navRef.current.scrollLeft =
-                activeNavTabLink.offsetLeft - navRef.current.offsetWidth / 2 + activeNavTabLink.offsetWidth / 2;
+        //with useEffect we got wrong width of lines/buttons on render
+        useDebounceEffect(
+          () => {
+            if (activeNavTabLink) {
+              if (navRef.current) {
+                navRef.current.scrollLeft =
+                  activeNavTabLink.offsetLeft - navRef.current.offsetWidth / 2 + activeNavTabLink.offsetWidth / 2;
+              }
+              setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
             }
-            setLineProps({ width: activeNavTabLink.clientWidth, left: activeNavTabLink.offsetLeft });
-          }
-        }, [activeTabProps?.anchor, responsive]);
+          },
+          [activeTabProps?.anchor, responsive],
+          { wait: 100 },
+        );
 
         function switchTab(anchor: string | number) {
           dispatch({ type: 'setActive', anchor });

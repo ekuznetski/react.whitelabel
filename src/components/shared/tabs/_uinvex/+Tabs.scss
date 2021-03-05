@@ -3,17 +3,19 @@
 
 .common-tabs {
   &__navigation {
-    margin: 0 auto;
-    background-color: $grey-bg;
-    border-radius: 25px;
-    width: fit-content;
+    &-wrapper {
+      margin: 0 auto;
+      background-color: $grey-bg;
+      border-radius: 25px;
+      width: fit-content;
 
-    &:after {
-      content: none;
-    }
+      &:after {
+        content: none;
+      }
 
-    &.center {
-      margin-bottom: sp(11) !important;
+      &.center {
+        margin-bottom: sp(11) !important;
+      }
     }
 
     .tab__link {
@@ -63,6 +65,10 @@
   }
 
   @media (max-width: $viewport-md-w) {
+    &:not(.vertical):after {
+      content: none;
+    }
+
     &__navigation {
       padding-top: 0 !important;
       padding-bottom: 0 !important;
@@ -83,7 +89,7 @@
   }
 
   @media (max-width: $viewport-sm-w) {
-    &__navigation {
+    &__navigation-wrapper {
       &.center {
         margin-bottom: sp(9) !important;
       }
