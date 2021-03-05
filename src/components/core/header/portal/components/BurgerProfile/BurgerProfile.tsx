@@ -19,6 +19,7 @@ export function BurgerProfile({ activeSubMenu, closeSubMenu }: IBurgerProfile) {
   }));
   const [isDropdownMenuOpen, setDropdownMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(-1);
+  const _portalProfileMenu = portalProfileMenu();
 
   useEffect(() => {
     if (activeSubMenu !== -1) {
@@ -27,14 +28,14 @@ export function BurgerProfile({ activeSubMenu, closeSubMenu }: IBurgerProfile) {
   }, [activeSubMenu]);
 
   useEffect(() => {
-    const _activeMenu = portalProfileMenu().find((item) =>
+    const _activeMenu = _portalProfileMenu.find((item) =>
       item.path
         ? item.path === route.path
         : false
     );
 
     if (_activeMenu) {
-      setActiveMenu(portalProfileMenu().indexOf(_activeMenu));
+      setActiveMenu(_portalProfileMenu.indexOf(_activeMenu));
     }
   }, [route.path]);
 
@@ -52,8 +53,8 @@ export function BurgerProfile({ activeSubMenu, closeSubMenu }: IBurgerProfile) {
         <span className="burger-profile__info__full-name">{clientProfile.full_name}</span>
         <Svg href="chevron" width={13} className="burger-profile__info__chevron ml-auto" />
       </div>
-      <div className="burger-profile__sub-menu" style={{ height: portalProfileMenu().length * 50 }}>
-        {portalProfileMenu().map((menuItem, index) => (
+      <div className="burger-profile__sub-menu" style={{ height: _portalProfileMenu.length * 50 }}>
+        {_portalProfileMenu.map((menuItem, index) => (
           <div key={index} className={classNames("burger-profile__sub-menu__item ml-8", index === activeMenu && 'burger-profile__sub-menu__item--active')}>
             <LocaleNavLink exact to={menuItem.path}>
               {menuItem.icon?.length && <Svg href={menuItem.icon} height={20} className="mr-4" />}
