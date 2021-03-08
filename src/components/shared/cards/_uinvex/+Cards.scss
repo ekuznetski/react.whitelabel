@@ -2,13 +2,9 @@
 @import '~/mixin';
 
 .common-cards {
-    .cards-nav {
-        display: none;
-    }
-
     &__item {
-        &-observer {
-            display: none;
+        &-header {
+            font-family: $font-family1;
         }
 
         background: linear-gradient(180deg, #FFFFFF 0%, #F9F9FD 100%);
