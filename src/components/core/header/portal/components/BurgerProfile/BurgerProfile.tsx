@@ -28,14 +28,14 @@ export function BurgerProfile({ activeSubMenu, closeSubMenu }: IBurgerProfile) {
   }, [activeSubMenu]);
 
   useEffect(() => {
-    const _activeMenu = _portalProfileMenu.find((item) =>
+    const _activeMenuIdx = _portalProfileMenu.findIndex((item) =>
       item.path
         ? item.path === route.path
         : false
     );
 
-    if (_activeMenu) {
-      setActiveMenu(_portalProfileMenu.indexOf(_activeMenu));
+    if (_activeMenuIdx != -1) {
+      setActiveMenu(_activeMenuIdx);
     }
   }, [route.path]);
 
