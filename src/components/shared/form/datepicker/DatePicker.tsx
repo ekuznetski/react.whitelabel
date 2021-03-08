@@ -68,9 +68,11 @@ export const DatePicker = memo(
       setState({ ..._range });
     }
 
-    function onClickHandler(e: any) {
-      setState({ isFocused: true });
-      setOpen(true);
+    function onFocusHandler(e: any) {
+      if (!state.isFocused) {
+        setState({ isFocused: true });
+        setOpen(true);
+      }
     }
 
     function _value() {
@@ -99,7 +101,13 @@ export const DatePicker = memo(
           </label>
         )}
         <Svg href="calendar" height={28} />
-        <input value={_value()} onClick={onClickHandler} readOnly onChange={(e) => e.preventDefault()} />
+        <input
+          value={_value()}
+          onFocus={onFocusHandler}
+          onClick={onFocusHandler}
+          readOnly
+          onChange={(e) => e.preventDefault()}
+        />
         <DropDown
           className={classNames('datepicker', state.isFocused && 'focused')}
           parentRef={_ref}
