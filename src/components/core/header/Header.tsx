@@ -22,7 +22,7 @@ export const Header = memo(function Header() {
       <>
         {section === EAppSection.main && <TopBar />}
         <header className={header_class}>
-          <div className="header-wrapper">
+          <div className="header-wrapper h-100">
             {section === EAppSection.auth && <HeaderAuth fixed={fixHeader} />}
             {section === EAppSection.main && <HeaderMain fixed={fixHeader} />}
             {section === EAppSection.portal && <HeaderPortal fixed={fixHeader} />}

@@ -4,7 +4,6 @@ import { IMenuConfig } from '@domain/interfaces';
 import { IAppStore, IStore } from '@store';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { BurgerProfile } from '..';
@@ -52,55 +51,50 @@ export function BurgerMenu({ menuConfig, closeBurgerMenu, className }: IBurgerMe
 
   return (
     <div className={classNames('header-burger-menu', className)}>
-      <Container className="pt-16 h-100">
-        <Row className="h-100 w-100 m-0">
-          <Col xs={12} className="p-0">
-            <BurgerProfile activeSubMenu={activeSubMenu} closeSubMenu={() => toggleDropdownMenu(-1)} />
-            {menuConfig.map((menuItem, index) => (
-              <div key={index} className="menu__item">
-                {menuItem.path ? (
-                  <LocaleNavLink exact to={menuItem.path} onClick={onClose}>
+      <div className="header-burger-menu__wrapper d-flex flex-column h-100 w-100">
+        <BurgerProfile activeSubMenu={activeSubMenu} closeSubMenu={() => toggleDropdownMenu(-1)} />
+        <div className="h-100 px-6">
+          {menuConfig.map((menuItem, index) => (
+            <div key={index} className={classNames('menu__item', activeSubMenu != index && 'closed')}>
+              {menuItem.path ? (
+                <LocaleNavLink exact to={menuItem.path} onClick={onClose}>
+                  {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
+                  {menuItem.label}
+                </LocaleNavLink>
+              ) : menuItem.children ? (
+                <>
+                  <a onClick={() => toggleDropdownMenu(index)}>
                     {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
                     {menuItem.label}
-                  </LocaleNavLink>
-                ) : menuItem.children ? (
-                  <>
-                    <a onClick={() => toggleDropdownMenu(index)}>
-                      {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
-                      {menuItem.label}
-                    </a>
-                    <div
-                      key={index}
-                      className={classNames('sub-menu', activeSubMenu != index && 'closed')}
-                      style={{ height: menuItem.children.length * 50 }}
-                    >
-                      {menuItem.children.map((child, c_idx) => (
-                        <div key={c_idx} className="sub-menu__item ml-6">
-                          <LocaleNavLink exact to={child.path} onClick={onClose}>
-                            {child.icon?.length && <Svg href={child.icon} height={20} className="mr-4" />}
-                            {child.label}
-                          </LocaleNavLink>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <a onClick={onClose}>
-                    {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
-                    {menuItem.label}
+                    <Svg href="chevron" width={13} className="menu__item__chevron ml-auto" />
                   </a>
-                )}
-              </div>
-            ))}
-          </Col>
-          <Button className="col mt-auto mb-11">
-            <LocaleLink to={EPagePath.Deposit} className="px-5">
-              {t('Deposit')}
-              <Svg href="coins" className="ml-5" />
-            </LocaleLink>
-          </Button>
-        </Row>
-      </Container>
+                  <div key={index} className="sub-menu" style={{ height: menuItem.children.length * 50 }}>
+                    {menuItem.children.map((child, c_idx) => (
+                      <div key={c_idx} className="sub-menu__item ml-3">
+                        <LocaleNavLink exact to={child.path} onClick={onClose}>
+                          {child.icon?.length && <Svg href={child.icon} height={20} className="mr-4" />}
+                          {child.label}
+                        </LocaleNavLink>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <a onClick={onClose}>
+                  {menuItem.icon?.length && <Svg href={menuItem.icon} className="mr-4" />}
+                  {menuItem.label}
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+        <Button className="col mt-auto w-100">
+          <LocaleLink to={EPagePath.Deposit} className="px-5">
+            {t('Deposit')}
+            <Svg href="coins" className="ml-5" />
+          </LocaleLink>
+        </Button>
+      </div>
     </div>
   );
 }

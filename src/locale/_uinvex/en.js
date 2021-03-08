@@ -2,6 +2,7 @@ import _ from '../en';
 
 export default {
   ..._,
+  'and much more': 'and much more',
   'Account Types Secure Title': '<0>Our transparency</0> will help you choose',
   'Account Types Secure Desc': 'We show you the commissions and spreads upfront so you can open the perfect account for you.',
   'Mobile Trading Section Title': 'Trade <1>on the move</1>',
