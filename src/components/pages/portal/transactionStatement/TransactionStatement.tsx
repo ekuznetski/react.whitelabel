@@ -88,7 +88,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                 return (
                   <Form className="transaction-statement__form">
                     <MultiSelect
-                      placeholder="Account Type"
+                      placeholder={t('Operation Type')}
                       options={config.operationTypes}
                       name={EFields.operation_type}
                     />
