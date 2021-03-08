@@ -94,14 +94,10 @@
 }
 
 .common-dropdown.datepicker {
-  padding: 1px;
   background-color: #fff;
 
   &.open {
-    &.focused {
-      border: 1px solid $blue;
-      padding: 0;
-    }
+    border: 1px solid $blue;
   }
 
   .common-dropdown-wrapper {
