@@ -1,4 +1,5 @@
 @import '~/variables';
+@import '~/mixin';
 
 .burger-profile {
   &__info {
@@ -8,9 +9,7 @@
     background-color: $grey;
 
     &__facepile {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      @include d-flex(center, center, row);
       flex: 0 0 36px;
       height: 36px;
       text-align: center;
