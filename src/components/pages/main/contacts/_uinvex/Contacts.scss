@@ -86,70 +86,91 @@
       }
     }
 
-    .common-cards__item {
-      height: 200px;
-      width: 350px;
-      align-items: center;
-
-      &-header {
-        justify-content: start;
-        width: 200px;
+    .common-cards {
+      .cards-nav {
+        display: none;
       }
 
-      &-content {
-        text-align: left;
-        width: 200px;
+      &__container {
+        flex-flow: row nowrap;
       }
-    }
 
-    .card {
-      height: 200px;
-    }
+      &__item {
+        height: 200px;
+        width: 350px;
+        align-items: center;
 
-    &__list {
-      &-item {
-        font-size: 16px;
-        line-height: 26px;
-        color: $text;
+        &-observer {
+          display: none;
+        }
 
-        svg {
-          fill: $blue;
+        &-header {
+          justify-content: start;
+          width: 200px;
+        }
+
+        &-content {
+          text-align: left;
+          width: 200px;
         }
       }
-    }
-
-    @media (max-width: $viewport-xl-w) {
-      .common-cards__item {
-        width: 290px;
-      }
-
-    }
-
-    @media (max-width: $viewport-lg-w) {
-      .common-cards__item {
-        width: 224px;
-      }
 
       .card {
-        @include py((xs: 4));
-      }
-    }
-
-    @media (max-width: $viewport-md-w) {
-      .common-cards__item {
-        width: 100%;
-        align-items: center;
+        height: 200px;
       }
 
-      .card {
-        @include py((xs: 7));
-        flex: 0 0 100%;
-        max-width: 100%;
+      &__list {
+        &-item {
+          font-size: 16px;
+          line-height: 26px;
+          color: $text;
+
+          svg {
+            fill: $blue;
+          }
+        }
       }
 
-      &__title {
-        font-size: 20;
-        line-height: 28px;
+      @media (max-width: $viewport-xl-w) {
+        .common-cards__item {
+          width: 290px;
+        }
+
+      }
+
+      @media (max-width: $viewport-lg-w) {
+        .common-cards__item {
+          width: 224px;
+        }
+
+        .card {
+          @include py((xs: 4));
+        }
+      }
+
+      @media (max-width: $viewport-md-w) {
+        .common-cards {
+          &__container {
+            flex-flow: row wrap;
+            justify-content: center;
+          }
+
+          &__item {
+            width: 100%;
+            align-items: center;
+          }
+        }
+
+        .card {
+          @include py((xs: 7));
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+
+        &__title {
+          font-size: 20;
+          line-height: 28px;
+        }
       }
     }
   }
