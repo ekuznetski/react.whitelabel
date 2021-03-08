@@ -19,13 +19,13 @@
     }
   }
 
+  &__wrapper {
+    padding-top: $menu-height-portal-fixed-md;
+  }
+
   .sub-menu {
     overflow: hidden;
     transition: height 0.3s;
-
-    &.closed {
-      height: 0 !important;
-    }
   }
 
   .menu__item {
@@ -38,20 +38,28 @@
       text-decoration: none;
 
       &.active {
-        border-bottom-color: $dark-text;
+        border-bottom-color: $dark-grey;
         font-weight: 500;
       }
 
       svg {
         fill: $dark-blue;
+        width: 20px;
+
+        &.menu__item__chevron {
+          width: 13px;
+          fill: $dark-grey;
+          transform: rotate(180deg);
+        }
       }
     }
-  }
 
-  .sub-menu__item {
-    a {
-      svg {
-        fill: $blue;
+    &.closed {
+      .sub-menu {
+        height: 0 !important;
+      }
+      .menu__item__chevron {
+        transform: rotate(0deg);
       }
     }
   }
