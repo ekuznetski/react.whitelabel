@@ -1,0 +1,9 @@
+@import '~/variables';
+@import '~/mixin';
+
+.burger-profile {
+  
+  &__info {
+    background-color: $light-grey;
+  }
+}
