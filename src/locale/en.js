@@ -69,8 +69,11 @@ export default {
   'Product Section Commodities Desc':
     'Trade commodities without owning the financial instrument on which the contract is based.',
   'Product Section ETFs Desc': 'Trade exchange-traded funds with AroFX.',
+  'Product Section Digital Assets Desc':
+    'Capitalise on the performance of Bitcoin, Ethereum and Litecoin without the need to buy them.',
   'Spreads from': 'Spreads from',
   'Spreads from #': 'Spreads from <1>{{val}}</1>',
+  'Spreads from # pips': 'Spreads from <1>{{val}}</1> pips',
   'Margins from just #': 'Margins from just <1>{{val}}</1>',
   'Most Popular Indices Worldwide': 'Most Popular Indices Worldwide',
   'Main Cryptocurrencies': 'Main Cryptocurrencies',
