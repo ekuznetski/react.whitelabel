@@ -13,6 +13,7 @@
   .section-bg {
     top: 40px;
     height: 440px;
+    background-repeat: repeat;
   }
 
   .open-live-account-banner__column {
@@ -40,6 +41,11 @@
     }
   }
 
+  &__description {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
   .open-account {
     flex: 0 0 colSizePrc(5);
     max-width: colSizePrc(5);
@@ -48,6 +54,8 @@
     padding: 0 65px;
     padding-top: 10px;
     margin-top: -40px !important;
+    margin-left: auto;
+    margin-right: sp(5);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     background: linear-gradient(0.35deg, #262a4b 0.29%, #44486c 99.67%);
@@ -66,6 +74,7 @@
           @include fillLogo($uinvex-blue, white, $blue);
         }
       }
+
       &__description {
         margin: 15px 0 40px 0 !important;
         font-size: 22px;
@@ -76,6 +85,7 @@
 
     .open-account {
       text-align: center;
+
       .open-live-account-banner__title {
         font-weight: bolder;
       }
@@ -94,6 +104,7 @@
       font-weight: 500;
       font-size: 16px;
       line-height: 24px;
+
       a {
         color: $blue;
       }
@@ -116,17 +127,20 @@
 
     .open-live-account-banner__column {
       height: 400px;
-      justify-content: flex-start;
+      justify-content: center;
+
       &:before {
         width: 70%;
       }
+
       flex: 0 0 colSizePrc(6);
       max-width: colSizePrc(6);
       margin-bottom: 0 !important;
 
-      .open-live-account-banner__title {
-        padding-top: 48px;
-        margin-bottom: sp(11) !important;
+      .open-live-account-banner {
+        &__title {
+          margin-bottom: sp(12) !important;
+        }
       }
     }
 
@@ -146,14 +160,14 @@
 
       flex: 0 0 colSizePrc(5);
       max-width: colSizePrc(5);
-      padding: 20px 60px;
-      margin-left: sp(3);
+      padding: 0 60px;
       height: 400px;
 
       .open-live-account-banner {
         &__title {
           font-size: 36px;
         }
+
         &__description {
           font-size: 16px;
           line-height: 26px;
@@ -165,6 +179,7 @@
         height: calc(100% + 50px);
         left: -15px;
       }
+
       button {
         align-self: center;
         margin: 0;
@@ -187,14 +202,14 @@
       height: initial;
       align-items: center;
       flex: unset;
-      margin-bottom: 50px !important;
+      margin-bottom: sp(10) !important;
       text-align: center;
 
       &:before {
         content: none;
       }
+
       max-width: 100%;
-      padding: 0 20px;
 
       .open-live-account-banner {
         &__title {
@@ -204,6 +219,7 @@
           padding-top: 0;
           margin-bottom: sp(7) !important;
         }
+
         &__description {
           line-height: 22px;
         }
@@ -217,18 +233,24 @@
     .open-account {
       margin-top: 0 !important;
       margin-bottom: 0;
-      padding: 0 16px;
       align-items: center;
       height: 330px;
+      padding: 0 30px;
 
       flex: unset;
-      max-width: colSizePrc(10);
-      margin-left: colSizePrc(1);
+      max-width: 100%;
+      width: unset;
+      margin-left: sp(5);
+      margin-right: sp(5);
 
       .open-live-account-banner {
         &__title {
           line-height: 44px;
           padding-top: 0;
+        }
+
+        &__description {
+          line-height: 22px;
         }
       }
 
