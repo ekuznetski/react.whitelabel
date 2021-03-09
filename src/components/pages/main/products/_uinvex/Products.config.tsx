@@ -1,27 +1,19 @@
-import { EAssetClass } from '@domain/enums';
 import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
+import { config as _config } from '../Products.config';
+import { EAssetClass } from '@domain/enums';
 import { assetsCharacteristics } from '@domain';
-import { ITableSection } from './components';
-
-interface IConfig {
-  headerNavigation: { label: string; anchor: EAssetClass }[];
-  pageTopTitle: string;
-  tableSections: ITableSection[];
-}
 
 const t = i18n.getLazyT;
 
-export const config: IConfig = {
-  headerNavigation: [
-    { label: t('Forex'), anchor: EAssetClass.forex },
-    { label: t('Stocks'), anchor: EAssetClass.stocks },
-    { label: t('Indices'), anchor: EAssetClass.indices },
-    { label: t('Commodities'), anchor: EAssetClass.commodities },
-    { label: t('Digital Assets'), anchor: EAssetClass.crypto },
-  ],
-  pageTopTitle: t('Range of Markets'),
+export const config = {
+  ..._config,
+  pageTopTitle: (
+    <Trans i18nKey="Range of Markets">
+      <span>Orders</span> executed every day
+    </Trans>
+  ),
   tableSections: [
     {
       id: EAssetClass.forex,
@@ -29,14 +21,11 @@ export const config: IConfig = {
       desc: t('Product Section Forex Desc'),
       tableType: EAssetClass.forex,
       points: [
-        <Trans i18nKey="Spreads from #" values={{ val: assetsCharacteristics[EAssetClass.forex].spread }}>
+        <Trans i18nKey="Spreads from # pips" values={{ val: assetsCharacteristics[EAssetClass.forex].spread }}>
           Spreads from <b>0.2</b>
         </Trans>,
         <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.forex].leverage }}>
           Max. Leverage <b>1:200</b>
-        </Trans>,
-        <Trans i18nKey="Margins from just #" values={{ val: assetsCharacteristics[EAssetClass.forex].margins }}>
-          Margins from just <b>0.50%</b>
         </Trans>,
       ],
     },
@@ -62,7 +51,7 @@ export const config: IConfig = {
       tableType: EAssetClass.indices,
       points: [
         <>
-          <b>15+</b> {t('Most Popular Indices Worldwide')}
+          <b>25+</b> {t('Most Popular Indices Worldwide')}
         </>,
         <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.indices].leverage }}>
           Max. Leverage <b>1:200</b>
@@ -70,25 +59,11 @@ export const config: IConfig = {
       ],
     },
     {
-      id: EAssetClass.crypto,
-      title: t('Cryptocurrencies'),
-      desc: t('Product Section Cryptocurrencies Desc'),
-      tableType: EAssetClass.crypto,
-      reversed: true,
-      points: [
-        <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.crypto].leverage }}>
-          Max. Leverage <b>1:20</b>
-        </Trans>,
-        <>
-          <b>5</b> {t('Main Cryptocurrencies')}
-        </>,
-      ],
-    },
-    {
       id: EAssetClass.commodities,
       title: t('Commodities'),
       desc: t('Product Section Commodities Desc'),
       tableType: EAssetClass.commodities,
+      reversed: true,
       points: [
         <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.commodities].leverage }}>
           Max. Leverage <b>1:133</b>
@@ -96,15 +71,17 @@ export const config: IConfig = {
       ],
     },
     {
-      id: EAssetClass.etfs,
-      title: t('ETFs'),
-      desc: t('Product Section ETFs Desc'),
-      tableType: EAssetClass.etfs,
-      reversed: true,
+      id: EAssetClass.crypto,
+      title: t('Digital Assets'),
+      desc: t('Product Section Digital Assets Desc'),
+      tableType: EAssetClass.crypto,
       points: [
-        <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.etfs].leverage }}>
-          Max. Leverage <b>1:20</b>
-        </Trans>,
+        <>
+          <b>5</b> {t('Main Cryptocurrencies')}
+        </>,
+        <>
+          <b>60+</b> {t('Cryptocurrencies')}
+        </>,
       ],
     },
   ],
