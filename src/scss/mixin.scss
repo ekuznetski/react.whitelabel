@@ -78,7 +78,8 @@
 
 @mixin spacing($tag, $pos, $sizes) {
 
-  @each $breakpoint, $spacerKey in $sizes {
+  @each $breakpoint,
+  $spacerKey in $sizes {
     @include media-breakpoint-up($breakpoint) {
       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
       $props: (m: margin,
@@ -93,21 +94,36 @@
       $prop: map-get($props, $tag);
       $length: map-get($spacers, $spacerKey);
 
-      @if $spacerKey == auto {
+      @if $spacerKey==auto {
         $length: $spacerKey;
       }
 
       @if $pos=='y' {
         #{$prop}-top: #{$length};
         #{$prop}-bottom: #{$length};
-      } @else if $pos=='x' {
+      }
+
+      @else if $pos=='x' {
         #{$prop}-left: #{$length};
         #{$prop}-right: #{$length};
-      } @else {
+      }
+
+      @else if $pos=='' {
+        #{$prop}-top: #{$length};
+        #{$prop}-right: #{$length};
+        #{$prop}-bottom: #{$length};
+        #{$prop}-left: #{$length};
+      }
+
+      @else {
         #{$prop}-#{map-get($positions, $pos)}: #{$length};
       }
     }
   }
+}
+
+@mixin m($sizes) {
+  @include spacing(m, '', $sizes);
 }
 
 @mixin mt($sizes) {
@@ -132,6 +148,10 @@
 
 @mixin mx($sizes) {
   @include spacing(m, x, $sizes);
+}
+
+@mixin p($sizes) {
+  @include spacing(p, '', $sizes);
 }
 
 @mixin pt($sizes) {

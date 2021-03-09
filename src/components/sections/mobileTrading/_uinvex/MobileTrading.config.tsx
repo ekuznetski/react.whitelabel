@@ -7,9 +7,7 @@ export const config = {
   sideImg: 'mobile_trading.png',
   mobileTradingTitle: (
     <Trans i18nKey="Mobile Trading Section Title">
-      <b>Mobile Trading</b>
-      <br />
-      With MT5
+      Trade <b>on the move</b>
     </Trans>
   ),
   mobileTradingDescription: (

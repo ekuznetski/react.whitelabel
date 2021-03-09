@@ -32,4 +32,9 @@ export default {
   'Home Page Top Section Desc': 'An intuitive and secure experience for the discerning trader.',
   'No Deposit Fees': 'No deposit fees',
   'Deposit and Withdrawal Information': '<0>Deposit</0> & <2>withdrawal</2> information',
+  'Leverage Information': '<0>Leverage</0> Information',
+  'Leverage Page Top Desc':
+    '<0>UINVEX</0> offers clients the ability to trade using leverage, allowing them to manage larger trades.',
+  'Leverage Page Top Note': '*leverage ratio up to a maximum of 1:500',
+  'Leverage Ratios Desc': 'Define your leverage ratio up to a maximum of <1>1:500</1> (Dynamic)',
 };
