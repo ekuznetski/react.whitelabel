@@ -57,14 +57,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
     dispatch(
       ac_fetchTransactionalStatements(
         data,
-        () => {
-          dispatch(
-            ac_showNotification({
-              type: ENotificationType.success,
-              message: t('Requested statements are successfully loaded'),
-            }),
-          );
-        },
+        null,
         () => {
           dispatch(
             ac_showNotification({
