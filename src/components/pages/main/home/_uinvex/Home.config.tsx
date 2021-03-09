@@ -71,7 +71,7 @@ export const config = {
       anchor: EAssetClass.crypto,
       info: {
         title: t('Digital assets'),
-        desc: t('Product Section Digital Assets Desc'),
+        desc: t('Product Section Cryptocurrencies Desc'),
         points: [
           <Trans i18nKey="Max Leverage #" values={{ val: assetsCharacteristics[EAssetClass.crypto].leverage }}>
             Max. Leverage <b>1:20</b>

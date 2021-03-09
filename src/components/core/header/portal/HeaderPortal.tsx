@@ -1,4 +1,4 @@
-import { Button, LocaleLink, Svg } from '@components/shared';
+import { Button, Container, LocaleLink, Svg } from '@components/shared';
 import { EAppSection, ELabels, EPagePath } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
 import { env } from '@env';
@@ -7,7 +7,6 @@ import { useLockScroll } from '@utils/hooks';
 import { useDebounceFn, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Container } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useIntercom } from 'react-use-intercom';
 import { BurgerMenu, PanelMenu, ProfileMenu } from './components';
@@ -38,8 +37,8 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
 
   return (
     <>
-      <div className={classNames('panel', isBurgerMenuOpen && 'fixed')}>
-        <Container className="py-3 py-lg-0">
+      <div className={classNames('panel', isBurgerMenuOpen ? 'fixed' : 'h-100')}>
+        <Container className="py-3 py-lg-0 h-100" fluid={!responsive.lg}>
           <LocaleLink to={EPagePath.Home} className="logo">
             <Svg href="logo" className="mr-xl-9" _label height={!responsive.md ? 28 : 37} />
             <Svg href="logo" className="mr-xl-9" _label={ELabels.arofx} height={!responsive.md ? 28 : 37} />

@@ -6,8 +6,8 @@ import { CardsProvider, useCardsDispatch, useCardsState } from './cards.context'
 import './Cards.scss';
 
 export interface ISingleCard {
-  header?: string;
-  content?: string;
+  header?: React.ReactNode;
+  content?: React.ReactNode;
   children?:
     | React.ReactElement<typeof CardHeader>
     | React.ReactElement<typeof CardContent>
@@ -31,7 +31,7 @@ export const Cards = memo(
 
     return (
       <CardsProvider>
-        {(state, dispatch) => {
+        {() => {
           // useEffect(() => {
           // 	if (containerRef.current && state.cardsAmount) {
           // 		containerRef.current.scrollLeft = state.activeCardUid

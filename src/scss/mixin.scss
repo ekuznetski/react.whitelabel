@@ -7,8 +7,11 @@
   padding-bottom: 10px;
   margin-top: -10px;
   margin-bottom: -10px;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+
+  /* Firefox */
   &::-webkit-scrollbar {
     //Chrome, Safari, Opera
     display: none;
@@ -23,13 +26,18 @@
 }
 
 @mixin col($sizes) {
-  @each $breakpoint, $size in $sizes {
+
+  @each $breakpoint,
+  $size in $sizes {
     @include media-breakpoint-up($breakpoint) {
+
       &,
       &.col {
-        @if $size != auto {
+        @if $size !=auto {
           @include make-col($size, $grid-columns);
-        } @else {
+        }
+
+        @else {
           @include make-col-auto();
         }
       }
@@ -38,7 +46,9 @@
 }
 
 @mixin offset($sizes) {
-  @each $breakpoint, $size in $sizes {
+
+  @each $breakpoint,
+  $size in $sizes {
     @include media-breakpoint-up($breakpoint) {
       @include make-col-offset($size, $grid-columns);
     }
@@ -67,27 +77,30 @@
 }
 
 @mixin spacing($tag, $pos, $sizes) {
+
   @each $breakpoint, $spacerKey in $sizes {
     @include media-breakpoint-up($breakpoint) {
       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-      $props: (
-        m: margin,
-        p: padding,
-      );
-      $positions: (
-        l: left,
-        r: right,
-        t: top,
-        b: bottom,
-      );
+      $props: (m: margin,
+          p: padding,
+        );
+      $positions: (l: left,
+          r: right,
+          t: top,
+          b: bottom,
+        );
 
       $prop: map-get($props, $tag);
       $length: map-get($spacers, $spacerKey);
 
-      @if $pos == 'y' {
+      @if $spacerKey == auto {
+        $length: $spacerKey;
+      }
+
+      @if $pos=='y' {
         #{$prop}-top: #{$length};
         #{$prop}-bottom: #{$length};
-      } @else if $pos == 'x' {
+      } @else if $pos=='x' {
         #{$prop}-left: #{$length};
         #{$prop}-right: #{$length};
       } @else {

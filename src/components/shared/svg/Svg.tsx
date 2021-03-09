@@ -6,8 +6,7 @@ const path = require('path');
 
 export const Svg = memo((props: { isIcon?: boolean; _label?: ELabels | boolean } & SVGProps<SVGSVGElement>) => {
   if (!props.href || !useCheckLabel(props._label)) return null;
-  const labelFolder =
-    props._label !== undefined && props._label !== null && useCheckLabel(props._label) ? useLabelFolder() : '';
+  const labelFolder = useLabelFolder();
 
   const innerProps = { ...props };
   if (innerProps.isIcon) {
@@ -19,13 +18,17 @@ export const Svg = memo((props: { isIcon?: boolean; _label?: ELabels | boolean }
 
   return useMemo(() => {
     try {
-      const SvgComponent = require(`../../../assets${labelFolder}/svg/${path
+      const LabelSvgComponent = require(`../../../assets${labelFolder}/svg/${path
         .join(path.dirname(props.href), path.basename(props.href))
         .replace('.svg', '')}.svg`);
-      return <SvgComponent.ReactComponent {...innerProps} />;
+
+      return <LabelSvgComponent.ReactComponent {...innerProps} />;
     } catch (e) {
-      console.error(e);
-      return null;
+      const SvgComponent = require(`../../../assets/svg/${path
+        .join(path.dirname(props.href), path.basename(props.href))
+        .replace('.svg', '')}.svg`);
+
+      return <SvgComponent.ReactComponent {...innerProps} />;
     }
   }, [labelFolder, props]);
 });

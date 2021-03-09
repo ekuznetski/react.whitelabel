@@ -35,6 +35,14 @@ $btn-size-lg: 48px;
 // Tabs
 $tabs-navigation-height: 40px;
 
+$grid-gutter-width: 26.66px;
+$container-max-widths: (sm: 544px,
+  md: 748px,
+  lg: 964px,
+  xl: 1126.66px,
+);
+
+
 // Main Menu
 $menu-height-main-lg: 60px;
 $menu-height-main-md: 60px;
@@ -43,9 +51,19 @@ $menu-height-main-fixed-lg: 60px;
 $menu-height-main-fixed-md: 60px;
 $menu-height-main-fixed-sm: 58px;
 
+// Portal Menu
+$menu-height-portal-lg: 80px;
+$menu-height-portal-md: 70px;
+$menu-height-portal-sm: 70px;
+$menu-height-portal-fixed-lg: 80px;
+$menu-height-portal-fixed-md: 70px;
+$menu-height-portal-fixed-sm: 70px;
+
 // Fonts
-$font-family: 'Mulish', sans-serif;
-$font-family1: 'Montserrat', sans-serif;
+$font-family: 'Mulish',
+sans-serif;
+$font-family1: 'Montserrat',
+sans-serif;
 // Overload bootstrap fonts variables
 $font-family-base: $font-family;
 $headings-font-family: $font-family1;

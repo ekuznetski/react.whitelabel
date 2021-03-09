@@ -28,6 +28,7 @@ export const assetsCharacteristics = {
 export const accountTypePip = {
   fixed: 1.8,
   variable: 1.2,
+  raw: 0.2,
 };
 
 export const marketTableContent: { [key: string]: IMarketTableContent[] } = {
