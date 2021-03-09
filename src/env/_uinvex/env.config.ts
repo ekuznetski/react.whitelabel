@@ -8,7 +8,7 @@ const dev = {
   PRICES_URL: 'https://prices.bluesquarefx.com',
   GTM_ID: '',
   INTERCOM_ID: '',
-  GOOGLE_MAP_KEY: '',
+  GOOGLE_MAP_KEY: 'AIzaSyC4Imq2uw0xAsCISIqxBCGvhxh9aXv85XQ',
   SENTRY_PUBLIC_DSN: '',
 };
 
