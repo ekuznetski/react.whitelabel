@@ -27,6 +27,13 @@
       width: fit-content;
       background: white;
       border-radius: 25px;
+      @media (min-width: 768px) {
+        justify-content: center;
+      }
+      @media (max-width: 767px) {
+        justify-content: space-between;
+        max-width: 75vw;
+      }
 
       .col {
         flex-grow: 0;

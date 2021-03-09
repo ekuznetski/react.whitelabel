@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './TopSection.scss';
 import classNames from 'classnames';
+import { useDeviceDetect } from '@utils/hooks';
 
 export interface IProductsTopSectionProps {
   sectionRefs: { [key: string]: RefObject<any> };
@@ -13,7 +14,7 @@ export interface IProductsTopSectionProps {
 
 export function TopSection({ sectionRefs }: IProductsTopSectionProps) {
   const [activeSection, selectedSection] = useState('forex');
-
+  const device = useDeviceDetect();
   let { location, replace }: any = useHistory();
   const { t } = useTranslation();
 
@@ -49,18 +50,48 @@ export function TopSection({ sectionRefs }: IProductsTopSectionProps) {
             <div className="page-top__title">{config.pageTopTitle}</div>
           </div>
         </div>
-        <div className="nav-buttons row no-gutters mx-auto justify-content-center">
-          {config.headerNavigation.map((navBtn, n) => (
-            <div key={n} className="col">
-              <Button
-                className={classNames('px-8', navBtn.anchor === activeSection && 'active')}
-                onClick={navigateToSection(navBtn.anchor)}
-              >
-                {navBtn.label}
-              </Button>
+        {!device.isMobile && (
+          <div className="nav-buttons row no-gutters mx-auto">
+            {config.headerNavigation.map((navBtn, n) => (
+              <div key={n} className="col">
+                <Button
+                  className={classNames('px-8', navBtn.anchor === activeSection && 'active')}
+                  onClick={navigateToSection(navBtn.anchor)}
+                >
+                  {navBtn.label}
+                </Button>
+              </div>
+            ))}
+          </div>
+        )}
+        {device.isMobile && (
+          <>
+            <div className="nav-buttons row no-gutters mx-auto mb-10">
+              {config.headerNavigation.slice(0, 3).map((navBtn, n) => (
+                <div key={n} className="col">
+                  <Button
+                    className={classNames('px-8', navBtn.anchor === activeSection && 'active')}
+                    onClick={navigateToSection(navBtn.anchor)}
+                  >
+                    {navBtn.label}
+                  </Button>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+            <div className="nav-buttons row no-gutters mx-auto">
+              {config.headerNavigation.slice(3, 5).map((navBtn, n) => (
+                <div key={n} className="col">
+                  <Button
+                    className={classNames('px-8', navBtn.anchor === activeSection && 'active')}
+                    onClick={navigateToSection(navBtn.anchor)}
+                  >
+                    {navBtn.label}
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
