@@ -50,7 +50,7 @@ export const AccountTypesForTradingStylesSection = memo(
             <Col xs={12} className="account-types-for-trading-styles-section__content p-0">
               <Cards id="accountTypesForTradingStylesSectionCards">
                 {cards.map((card, idx) => (
-                  <Card wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={idx}>
+                  <Card key={idx} wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={idx}>
                     <CardHeader className="mb-4 header">
                       {card.title}
                       <div className="icon ml-auto">
