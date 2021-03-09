@@ -42,7 +42,13 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
       const _stateSettings = state.client.settings;
       const _payload = action.payload
         ? Object.keys(action.payload).reduce(
-            (acc, key) => Object.assign(acc, action.payload?.[key] !== null && action.payload?.[key] !== undefined ? { [key]: action.payload[key] } : {}),
+            (acc, key) =>
+              Object.assign(
+                acc,
+                action.payload?.[key] !== null && action.payload?.[key] !== undefined
+                  ? { [key]: action.payload[key] }
+                  : {},
+              ),
             {},
           )
         : {};
@@ -54,6 +60,9 @@ export function dataStoreReducer(state = initDataStore as IDataStore, action: IA
 
     case EActionTypes.saveTransactionalStatements:
       return { ...state, client: { ...state.client, statements: action.payload } };
+
+    case EActionTypes.clearTransactionalStatements:
+      return { ...state, client: { ...state.client, statements: null } };
 
     case EActionTypes.saveDocuments:
       return { ...state, client: { ...state.client, documents: action.payload } };

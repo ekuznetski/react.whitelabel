@@ -515,4 +515,5 @@ export default {
     `No processing fees apply on deposits from WHITE_LABEL's side, but there is a set % of commission and exchange rate
   charged by Neteller. For more information, please contact Neteller.`,
   ],
+  'No title found for the defined period': 'No {{title}} found for the defined period',
 };

@@ -1,15 +1,21 @@
-import { Button, DatePicker, MultiSelect, PageTitle, Select, Svg, Tab, Tabs } from '@components/shared';
+import { Button, Col, Container, DatePicker, MultiSelect, PageTitle, Row, Select, Tab, Tabs } from '@components/shared';
 import { ENotificationType } from '@domain/enums';
-import { EActionTypes, IDataStore, IStore, ac_fetchTransactionalStatements, ac_showNotification } from '@store';
+import {
+  ac_clearTransactionalStatements,
+  ac_fetchTransactionalStatements,
+  ac_showNotification,
+  EActionTypes,
+  IDataStore,
+  IStore,
+} from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
-import React, { memo } from 'react';
-import { Col, Container, Row } from '@components/shared';
+import React, { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
+import { config, ETransactionTypes } from './';
 import { StatementSearchResultSection } from './components';
-import { config } from './';
 import './TransactionStatement.scss';
 
 enum EFields {
@@ -23,6 +29,11 @@ export const TransactionStatement = memo(function TransactionStatement() {
   }));
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [transactions, setTransactions] = useState<ETransactionTypes[]>([]);
+
+  useEffect(() => {
+    dispatch(ac_clearTransactionalStatements());
+  }, [transactions]);
 
   const validationSchema = Yup.object().shape({
     operation_type: Yup.array<string>().required(t('This field is required')),
@@ -91,6 +102,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                       placeholder={t('Operation Type')}
                       options={config.operationTypes}
                       name={EFields.operation_type}
+                      onChange={(e: ETransactionTypes[]) => setTransactions(e)}
                     />
                     <Tabs
                       className="statement__tabs"
@@ -136,24 +148,26 @@ export const TransactionStatement = memo(function TransactionStatement() {
         </Col>
         <Col xs={12} lg={10} xl={8} className="px-0">
           <div className="statement text-center">
-            {statements && (statements.deposits.length || statements.trades.length || statements.withdrawals.length) ? (
+            {statements && (
               <Col>
-                <StatementSearchResultSection className="mb-9" title={t('Deposits')} statements={statements.deposits} />
-                <StatementSearchResultSection
-                  className="mb-9"
-                  title={t('Withdrawals')}
-                  statements={statements.withdrawals}
-                />
-                <StatementSearchResultSection className="mb-9" title={t('Trades')} statements={statements.trades} />
+                {transactions.includes(ETransactionTypes.deposits) && (
+                  <StatementSearchResultSection
+                    className="mb-9"
+                    title={t('Deposits')}
+                    statements={statements.deposits}
+                  />
+                )}
+                {transactions.includes(ETransactionTypes.withdrawal) && (
+                  <StatementSearchResultSection
+                    className="mb-9"
+                    title={t('Withdrawals')}
+                    statements={statements.withdrawals}
+                  />
+                )}
+                {transactions.includes(ETransactionTypes.trades) && (
+                  <StatementSearchResultSection className="mb-9" title={t('Trades')} statements={statements.trades} />
+                )}
               </Col>
-            ) : (
-              <Svg
-                href="no-filter"
-                width={160}
-                height={160}
-                style={{ fill: '#b0b4b9' }}
-                className="d-block mx-auto mt-10"
-              />
             )}
           </div>
         </Col>

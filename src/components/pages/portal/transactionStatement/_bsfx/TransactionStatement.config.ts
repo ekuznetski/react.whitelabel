@@ -1,8 +1,13 @@
 import i18n from '@i18next';
+import {
+  config as _config,
+  ETransactionTypes as _ETransactionTypes,
+} from '@pages/portal/transactionStatement/TransactionStatement.config';
 import moment from 'moment';
-import { config as _config } from '@pages/portal/transactionStatement/TransactionStatement.config';
 
 const t = i18n.getLazyT;
+
+export const ETransactionTypes = _ETransactionTypes;
 
 export const config = {
   ..._config,
