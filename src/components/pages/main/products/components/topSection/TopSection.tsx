@@ -35,7 +35,7 @@ export function TopSection({ sectionRefs }: IProductsTopSectionProps) {
   }
   return (
     <section className="page-top">
-      <SectionBg primary={'product-page-top.jpg'} />
+      <SectionBg primary='product-page-top.jpg' />
       <div className="container pt-17">
         <div className="row mb-10">
           <div className="col-lg-7">
