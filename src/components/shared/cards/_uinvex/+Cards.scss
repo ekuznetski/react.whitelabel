@@ -2,9 +2,13 @@
 @import '~/mixin';
 
 .common-cards {
-  &__item {
-    background: linear-gradient(180deg, #FFFFFF 0%, #F9F9FD 100%);
-    box-shadow: box-shadow(15, 0.1);
-    overflow: hidden;
-  }
+    &__item {
+        &-header {
+            font-family: $font-family1;
+        }
+
+        background: linear-gradient(180deg, #FFFFFF 0%, #F9F9FD 100%);
+        box-shadow: box-shadow(15, 0.1);
+        overflow: hidden;
+    }
 }

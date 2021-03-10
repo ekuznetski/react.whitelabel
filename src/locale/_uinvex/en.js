@@ -4,7 +4,8 @@ export default {
   ..._,
   'and much more': 'and much more',
   'Account Types Secure Title': '<0>Our transparency</0> will help you choose',
-  'Account Types Secure Desc': 'We show you the commissions and spreads upfront so you can open the perfect account for you.',
+  'Account Types Secure Desc':
+    'We show you the commissions and spreads upfront so you can open the perfect account for you.',
   'Mobile Trading Section Title': 'Trade <1>on the move</1>',
   'Mobile Trading Section Desc':
     '<0>Never be far away from your trades again!</0><1>Use a smartphone to manage your account, wherever you may be.</1><2>Download the Metatrader 5 app for your smartphone or tablet, available for both Android and iOS.</2>',
@@ -39,6 +40,7 @@ export default {
     '<0>UINVEX</0> offers clients the ability to trade using leverage, allowing them to manage larger trades.',
   'Leverage Page Top Note': '*leverage ratio up to a maximum of 1:500',
   'Leverage Ratios Desc': 'Define your leverage ratio up to a maximum of <1>1:500</1> (Dynamic)',
+  'Contact Information': 'Contact Information',
   'Range of Markets': '<0>Orders</0> executed every day',
   'Product Section Forex Desc':
     'Choose a currency pair from our large range and trade in the world’s largest financial market.',
