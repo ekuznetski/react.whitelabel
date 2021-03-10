@@ -96,7 +96,7 @@
         padding: sp(12) sp(10);
 
             background: linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: box-shadow(15, 0.1);
 
             svg {
               fill: $blue;
