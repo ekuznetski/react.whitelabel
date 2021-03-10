@@ -36,10 +36,6 @@
     @media (max-width: $viewport-lg-w) {
       height: 288px;
 
-      button {
-        width: 162px;
-      }
-
       .page-top {
         &__title {
           font-size: 44px;
@@ -50,10 +46,6 @@
     @media (max-width: $viewport-md-w) {
       height: 400px;
       padding: 48px 0 !important;
-
-      button {
-        width: 158px;
-      }
 
       .full-height {
         height: 100%;
@@ -70,6 +62,18 @@
           color: $dark-text;
         }
       }
+    }
+  }
+
+  @media (max-width: $viewport-lg-w) {
+    button {
+      width: 162px;
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    button {
+      width: 158px;
     }
   }
 }

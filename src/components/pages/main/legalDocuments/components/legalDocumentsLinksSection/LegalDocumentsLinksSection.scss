@@ -9,7 +9,7 @@
 
     .links {
       &__cards {
-        @include mb((xs:10, md: 11, lg: 0));
+        @include mb((xs:4, lg: 0));
 
         .cards-nav {
           display: none;
@@ -20,10 +20,17 @@
             .card {
               @include col((xs: 12, md: 6));
               @include mb((xs:7, md: 9));
+
+              &:last-child,
+              &:nth-last-child(2) {
+                @include mb((lg: 0));
+              }
             }
           }
 
           &__item {
+            text-align: left;
+
             &-observer {
               display: none;
             }
@@ -39,20 +46,21 @@
             &-header {
               color: $dark-text;
               font-size: 16px;
+              font-weight: 400;
               line-height: 26px;
               justify-content: center;
               margin-bottom: 0;
 
               .svg-container {
                 @include mr((xs: 4));
-                height: 40px;
-                width: 40px;
+                height: 42px;
+                width: 42px;
                 padding: 10px 12px;
                 background: #FFFFFF;
 
                 border: 1px solid #E1E4EB;
                 box-sizing: border-box;
-                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+                box-shadow: box-shadow(10, .05);
                 border-radius: 26px;
 
                 svg {
@@ -66,7 +74,7 @@
               @include d-flex(center, center, row);
               background: $light-blue;
               border-radius: $border-radius;
-              width: 160px;
+              flex: 0 0 160px;
               height: 40px;
 
               a {
@@ -105,7 +113,7 @@
 
               &-content {
                 height: unset;
-                width: unset;
+                flex: unset;
                 display: inline-block;
                 background: transparent;
                 border-radius: unset;
@@ -113,6 +121,7 @@
                 a {
                   font-size: 16px;
                   line-height: 20px;
+                  font-weight: 600;
                   text-decoration: underline;
                 }
               }
@@ -121,11 +130,6 @@
             &__container {
               &-content {
                 line-height: 30px;
-
-                small {
-                  font-size: 14px;
-                  line-height: 24px;
-                }
               }
             }
           }
@@ -144,16 +148,6 @@
 
             &__item {
               height: 160px;
-
-              &-header {
-                text-align: left;
-              }
-
-              &-content {
-                text-align: left;
-                font-size: 20px;
-                line-height: 28px;
-              }
             }
           }
         }
