@@ -170,7 +170,7 @@ export function* getBankDetailsSaga() {
     EActionTypes.fetchBankDetails,
     function* () {
       const { response }: IBankDetailsResponse = yield call(Request[EActionTypes.fetchBankDetails]());
-      yield put(Action.ac_saveBankDetails(response.message));
+      yield put(Action.ac_saveBankDetails(new Model.MBankDetails(response.message)));
       return response;
     },
     'data.bankDetails',
@@ -180,7 +180,7 @@ export function* getBankDetailsSaga() {
 export function* updateBankDetailsSaga() {
   yield $$(EActionTypes.updateBankDetails, function* ({ payload }: IAction) {
     const { response }: IBankDetailsResponse = yield call(Request[EActionTypes.updateBankDetails](), payload);
-    yield put(Action.ac_saveBankDetails(response.data));
+    yield put(Action.ac_saveBankDetails(new Model.MBankDetails(response.data)));
     return response;
   });
 }
