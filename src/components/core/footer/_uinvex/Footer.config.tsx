@@ -1,71 +1,46 @@
-import { files } from '@domain';
 import i18n from '@i18next';
 import React from 'react';
-import { Col } from '@components/shared';
+import { Col, Img } from '@components/shared';
 import { Trans } from 'react-i18next';
+import { ELabels, EPagePath } from '@domain/enums';
+import { config as _config } from '@core/footer/Footer.config';
 const t = i18n.getLazyT;
 
 export const config = {
-  socialMediaLinks: [
-    {
-      name: 'Facebook',
-      icon: 'facebook',
-      link: '',
-    },
-    {
-      name: 'Twitter',
-      icon: 'twitter',
-      link: '',
-    },
-    {
-      name: 'LinkedIn',
-      icon: 'linkedin',
-      link: '',
-    },
-    {
-      name: 'Instagram',
-      icon: 'instagram',
-      link: '',
-    },
-    {
-      name: 'YouTube',
-      icon: 'youtube',
-      link: '',
-    },
-  ],
+  ..._config,
   documents: [
     {
       name: t('Legal Forms and Documents'),
-      link: '',
+      link: EPagePath.LegalFormsDocuments,
     },
     {
       name: t('Risk Warnings'),
-      link: files.riskWarning,
+      link: '',
     },
     {
       name: t('Cookies Policy'),
-      link: files.cookiePolicy,
+      link: '',
     },
   ],
   context: {
     auth: (
       <Col xs={12} className="context">
-        <b className="mr-2">{t('High Risk Investment Warning')}</b>
+        <span className="mr-2">{t('High Risk Investment Warning')}</span>
         {t('High Risk Investment Warning Portal Desc')}
       </Col>
     ),
     main: (
       <>
         <Col xs={12} className="context mb-lg-9 mb-7">
-          <b className="mr-2">{t('High Risk Investment Warning')}</b>
+          <span className="mr-2">{t('High Risk Investment Warning')}</span>
           {t('High Risk Investment Warning Main Desc')}
         </Col>
         <Col xs={12} className="context mb-lg-9 mb-7">
-          <b className="mr-2">{t('Disclaimer')}:</b>
+          <span className="mr-2">{t('Disclaimer')}:</span>
           {t('Disclaimer Desc')}
         </Col>
         <Col xs={12} className="context mb-lg-9 mb-7">
-          <b className="mr-2">{t('Regional Restrictions')}:</b>
+          <span className="mr-2">{t('Regional Restrictions')}:</span>
           <Trans i18nKey="Regional Restrictions Desc">
             Regional Restrictions Desc
             <a className="ml-2">{t('Help Center')}</a>
@@ -75,14 +50,29 @@ export const config = {
     ),
     portal: (
       <Col xs={12} className="context">
-        <b className="mr-2">{t('High Risk Investment Warning')}</b>
+        <span className="mr-2">{t('High Risk Investment Warning')}</span>
         {t('High Risk Investment Warning Portal Desc')}
       </Col>
     ),
   },
   copyright: {
-    auth: <Col xs={12}>{t('Label Copyright')}</Col>,
-    main: <Col xs={12}>{t('Label Copyright')}</Col>,
-    portal: <Col xs={12}>{t('Label Copyright')}</Col>,
+    auth: (
+      <Col xs={12}>
+        <Img src="CJ.png" _label={ELabels.uinvex} />
+        {t('Footer Authorized')}
+      </Col>
+    ),
+    main: (
+      <Col xs={12}>
+        <Img src="CJ.png" _label={ELabels.uinvex} />
+        {t('Footer Authorized')}
+      </Col>
+    ),
+    portal: (
+      <Col xs={12}>
+        <Img src="CJ.png" _label={ELabels.uinvex} />
+        {t('Footer Authorized')}
+      </Col>
+    ),
   },
 };

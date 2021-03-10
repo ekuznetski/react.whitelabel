@@ -1,29 +1,13 @@
 @import '~/variables';
 
 .footer.main {
-  background: #1a1b1c;
-  color: #fff;
+  background: #fff;
+  color: $dark-text;
 
   a {
-    color: #fff !important;
     position: relative;
-    text-decoration: none !important;
-
-    &:after {
-      content: '';
-      position: absolute;
-      width: 75%;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.7);
-      bottom: 0px;
-      left: 0;
-    }
-
-    &.noUnderLine {
-      &:after {
-        display: none;
-      }
-    }
+    color: $dark-text !important;
+    text-decoration: underline !important;
   }
 
   .outer-links-container {
@@ -37,23 +21,24 @@
       &-item {
         font-size: 16px;
         line-height: 26px;
-        color: #ffffff;
+        color: $blue;
       }
 
       &-divider {
         width: 1px;
         height: 20px;
-        background: rgba(255, 255, 255, 0.2);
+        background: $dark-text;
+        opacity: 0.3;
         margin: 0 16px;
       }
     }
   }
 
   .context {
-    color: #888;
+    color: $dark-text;
 
     b {
-      color: #fff;
+      color: $dark-text;
     }
   }
 
@@ -64,18 +49,24 @@
   .social-links,
   .live-chat {
     svg {
-      fill: rgba(255, 255, 255, 0.7);
+      fill: $blue;
+      height: 26px;
     }
   }
 
   .copyright {
-    color: #888;
+    color: $dark-text;
+
+    img {
+      margin-right: 15px;
+      vertical-align: bottom;
+    }
   }
 
   hr {
     border: 0;
     height: 1px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(174, 182, 200, 0.3);
   }
 
   @media (max-width: $viewport-lg-w) {
