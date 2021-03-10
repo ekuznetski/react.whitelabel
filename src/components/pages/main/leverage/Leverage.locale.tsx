@@ -3,8 +3,8 @@ import i18n from '@i18next';
 const t = i18n.getLazyT;
 
 export const locale = {
-  leveragePageTopTitle: t('Leverage Information'),
-  leveragePageTopDesc: t('Leverage Page Top Desc'),
-  leverageRatiosTitle: t('Leverage Ratios'),
-  leverageRatiosDesc: t('Leverage Page Top Desc'),
+  pageTopTitle: t('Leverage Information'),
+  pageTopDesc: t('Leverage Page Top Desc'),
+  ratiosTitle: t('Leverage Ratios'),
+  ratiosDesc: t('Leverage Page Top Desc'),
 };
