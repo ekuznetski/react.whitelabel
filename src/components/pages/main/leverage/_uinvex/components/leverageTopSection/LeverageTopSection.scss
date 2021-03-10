@@ -21,17 +21,17 @@
       }
 
       &__title {
+        @include mb((xs: 7, md: 9));
+        @include pr((lg: 4));
         font-family: $font-family1;
         font-size: 48px;
         line-height: 64px;
-        @include mb((xs: 7, md: 9));
-        @include pr((lg: 4));
       }
 
       &__description {
+        @include mb((xs: 11));
         font-size: 22px;
         line-height: 34px;
-        @include mb((xs: 11));
       }
     }
 

@@ -17,7 +17,7 @@ export const config = {
         </>
       ),
       uid: 1,
-      content: <>{t('No Deposit Fees')}</>,
+      content: t('No Deposit Fees'),
     },
     {
       wrapperClassName: 'card col-12 col-md-4 mb-9 mb-md-0',
