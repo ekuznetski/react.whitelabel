@@ -1,0 +1,13 @@
+@import '~/variables';
+
+.page-top {
+  &__title {
+    font-weight: 600;
+    @media (max-width: $viewport-md-w) {
+      margin-bottom: 176px;
+    }
+    @media (min-width: $viewport-md-min-w) {
+      margin-bottom: 40px;
+    }
+  }
+}

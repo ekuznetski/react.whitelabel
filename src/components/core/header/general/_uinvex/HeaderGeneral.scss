@@ -1,0 +1,23 @@
+@import '~/variables';
+@import '~/mixin';
+
+.header.general {
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 60px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    width: 155px;
+    font-weight: 500;
+    font-size: 24px;
+    svg {
+      @include fillLogo($blue, black, $dark-blue);
+    }
+  }
+}
