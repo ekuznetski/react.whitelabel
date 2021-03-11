@@ -2,13 +2,17 @@ import _ from '../en';
 
 export default {
   ..._,
+  'Trade our products': '<0>Discover</0> our products',
   'and much more': 'and much more',
   'Account Types Secure Title': '<0>Our transparency</0> will help you choose',
-  'Account Types Secure Desc': 'We show you the commissions and spreads upfront so you can open the perfect account for you.',
+  'Account Types Secure Desc':
+    'We show you the commissions and spreads upfront so you can open the perfect account for you.',
   'Mobile Trading Section Title': 'Trade <1>on the move</1>',
-  'Mobile Trading Section Desc': '<0>Never be far away from your trades again!</0><1>Use a smartphone to manage your account, wherever you may be.</1><2>Download the Metatrader 5 app for your smartphone or tablet, available for both Android and iOS.</2>',
+  'Mobile Trading Section Desc':
+    '<0>Never be far away from your trades again!</0><1>Use a smartphone to manage your account, wherever you may be.</1><2>Download the Metatrader 5 app for your smartphone or tablet, available for both Android and iOS.</2>',
   'Prestigious Platform Technology Title': '<0>Harness the power</0><1 /> of Metatrader',
-  'Prestigious Platform Technology Desc': '<0>Metatrader is the financial industry\'s golden standard when it comes to leading platform technology.UINVEX’s platform uses Metatrader 5 as a foundation to build an intuitive platform with a pleasant user interface, ensuring an excellent user experience, every time.</0>< 1 > The platform is suitable for all types of traders and features a mobile app, Expert Advisors, and advanced technical analysis.</1>',
+  'Prestigious Platform Technology Desc':
+    "<0>Metatrader is the financial industry's golden standard when it comes to leading platform technology.UINVEX’s platform uses Metatrader 5 as a foundation to build an intuitive platform with a pleasant user interface, ensuring an excellent user experience, every time.</0>< 1 > The platform is suitable for all types of traders and features a mobile app, Expert Advisors, and advanced technical analysis.</1>",
   'Trusted Section Title': 'Define <1>your own</1> trading path',
   'Trusted Section Desc': `Whether you’re interested in trading the $6 trillion-a-day forex (FX) industry or stocks movements, UINVEX has what you’re looking for. We offer a large range of products in 6 different asset classes: <1>$t(Forex)</1>, <3>$t(Stocks)</3>, <5>$t(Commodities)</5>, <7>$t(Indices)</7>, <9>$t(Cryptocurrencies)</9> and <11>ETFs</11>. Not only do we have a wide range of products but we provide competitive trading conditions 
   for our clients.`,

@@ -42,6 +42,7 @@ export default {
   Method: 'Method',
   Minimum: 'Minimum',
   Currency: 'Currency',
+  'Trade our products': '<0>Trade</0> our products',
   '1 to 7 working days': '1 to 7 working days',
   'Up to 1 hour': 'Up to 1 hour',
   'In Touch Section Title': 'Always In Touch',
