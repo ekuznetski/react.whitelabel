@@ -1,4 +1,4 @@
-import { Svg } from '@components/shared';
+import { Row, Svg } from '@components/shared';
 import { EAssetClass } from '@domain/enums';
 import { useToggle } from 'ahooks';
 import classNames from 'classnames';
@@ -19,15 +19,15 @@ export interface ITableSection {
 export const TableSection = memo(
   forwardRef((props: ITableSection, ref: any) => {
     const [preview, togglePreview] = useToggle(true);
-    const rowClass = classNames('row', props.reversed && preview ? 'reversed' : '');
+    const rowClass = classNames('row no-gutters', props.reversed && preview ? 'reversed' : '');
     const infoColClass = classNames(
-      'py-4',
+      'infoCol',
       preview ? 'col-12 col-lg-4 mb-7' : 'col-12',
       props.reversed && preview ? 'offset-xl-1' : '',
     );
     const tableColClass = classNames(
       'tableCol',
-      preview ? 'col-12 col-lg-8 col-xl-7' : 'col-12',
+      preview ? 'col-12 col-lg-8 col-xl-7 offset-xl-1' : 'col-12',
       props.reversed && preview ? 'offset-lg-1 offset-xl-0' : '',
     );
     const { t } = useTranslation();
@@ -42,7 +42,7 @@ export const TableSection = memo(
     return (
       <section className={classNames('table-section', preview && 'full')} id="tableType" ref={ref}>
         <div className="container">
-          <div className={rowClass}>
+          <div className={rowClass + ' tableWrapper'}>
             <div className={infoColClass}>
               {!preview ? <Svg href="close" className="close" onClick={toggleTableView(false)} /> : null}
               <div className="table-section__title mb-7">{props.title}</div>
@@ -50,7 +50,7 @@ export const TableSection = memo(
               {preview ? (
                 <div className="table-section__key-points">
                   {props.points.map((point, i) => (
-                    <div key={i} className="table-section__key-points__item">
+                    <div key={i} className={'table-section__key-points__item'}>
                       {point}
                     </div>
                   ))}
@@ -58,7 +58,12 @@ export const TableSection = memo(
               ) : null}
             </div>
             <div className={tableColClass}>
-              <MarketTable className="mb-6" type={props.tableType} preview={preview} />
+              <MarketTable type={props.tableType} preview={preview} />
+            </div>
+          </div>
+          <div className={rowClass + ' seeAll mt-6'}>
+            <div className={infoColClass} />
+            <div className={tableColClass}>
               <div className="table-section__toggleTableSize" onClick={toggleTableView(!preview)}>
                 {preview ? (
                   <>

@@ -23,14 +23,14 @@ export const CreditCardVerification = memo(function CreditCardVerification() {
         <UploadFile
           fileType={EDocumentsType.CCFront}
           fieldName={t('Face Side')}
-          description="Please cover the 6 middle digits as shown below"
+          description={t('Please cover the 6 middle digits as shown below')}
           icon="upload_card_front_drop"
           iconWidth={120}
         />
         <UploadFile
           fileType={EDocumentsType.CCBack}
           fieldName={t('Back Side')}
-          description="Please cover the 6 middle digits as shown below"
+          description={t('Please cover the CVV digits as shown below')}
           icon="upload_card_back_drop"
           iconWidth={120}
           optional={true}

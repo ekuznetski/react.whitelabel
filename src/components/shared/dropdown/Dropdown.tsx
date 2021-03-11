@@ -50,7 +50,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
   noArrow = false,
   ...props
 }) {
-  if(window.isSSR) return null;
+  if (window.isSSR) return null;
 
   const { route } = useSelector<IStore, Partial<IAppStore>>((state) => ({
     route: state.app.route,
@@ -103,7 +103,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
       <div
         className={classNames('common-dropdown', className, position, isOpen && 'open', noArrow && 'noArrow')}
         style={{
-          width: typeof width === 'number' ? width : width,
+          width,
           height: _height,
           left: parentBCR
             ? position === 'center'
