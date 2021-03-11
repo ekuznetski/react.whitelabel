@@ -36,10 +36,6 @@
     .deposit__cards {
       @include mt((xs: 12, md: 14, lg: 17));
 
-      .cards-nav {
-        display: none;
-      }
-
       .common-cards {
         &__container {
           flex-flow: row nowrap;
@@ -56,10 +52,6 @@
         }
 
         &__item {
-          &-observer {
-            display: none;
-          }
-
           height: 200px;
           text-align: center;
           justify-content: flex-start;

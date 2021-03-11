@@ -1,5 +1,6 @@
 export * from './_default/locales.config';
 export * from './_default/validation.config';
+export * from './_default/theme.config';
 export * from './_default/data/marketData.config';
 export * from './_default/data/downloadLinks.config';
 export * from './_default/data/profileMenu.config';
