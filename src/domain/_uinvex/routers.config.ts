@@ -130,6 +130,14 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
+      title: meta_t('Economic calendar:title'),
+    },
+    path: EPagePath.EconomicCalendar,
+    component: Page.EconomicCalendar,
+    appSection: EAppSection.main,
+  },
+  {
+    meta: {
       title: meta_t('Login:title'),
     },
     path: EPagePath.Login,

@@ -1,0 +1,34 @@
+@import '~/variables';
+@import '~/mixin';
+
+.economic-calendar-wrapper {
+  &__page-top {
+    @include d-flex(center, start);
+    @include height((xs:540px, md: 628px, lg: 608px));
+    @include mt((xs: 13));
+    color: $dark-text;
+
+    .page-top {
+      &__header {
+        @include col((xs: 12, md: 8, lg: 6));
+      }
+
+      &__title {
+        @include col((xs: 12, sm: 10, md: 12));
+        @include font-size((xs: 32px, md: 44px, lg: 48px));
+        @include line-height((xs: 40px, md: 64px));
+        @include mb((xs: 7, md: 9));
+        font-family: $font-family1;
+      }
+
+      &__description {
+        @include font-size((xs: 20px, md: 22px));
+        @include line-height((xs: 28px, md: 30px, lg: 34px));
+      }
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      align-items: flex-start;
+    }
+  }
+}

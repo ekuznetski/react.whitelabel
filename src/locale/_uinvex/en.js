@@ -48,4 +48,7 @@ export default {
   'Digital Assets': 'Digital Assets',
   'Product Section Digital Assets Desc':
     'Capitalise on the performance of Bitcoin, Ethereum and Litecoin without the need to buy them.',
+  'Economic Calendar': '<0>Economic</0> calendar',
+  'Economic Calendar Desc':
+    'Keep track of forex-related news and events with our reliable, user-friendly economic calendar.',
 };

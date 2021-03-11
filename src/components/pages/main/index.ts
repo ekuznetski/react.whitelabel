@@ -5,3 +5,4 @@ export * from './platform/Platform';
 export * from './products/Products';
 export * from './partnerships/Partnerships';
 export * from './leverage/Leverage';
+export * from './economicCalendar/EconomicCalendar';
