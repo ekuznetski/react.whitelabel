@@ -8,57 +8,73 @@
   @media (max-width: $viewport-md-w) {
     padding-top: 50px;
   }
-
-  .row > div {
-    margin-bottom: 28px;
+  .common-cards__container {
+    flex-flow: row wrap;
   }
-
-  .document-wrapper {
+  .cards-nav {
+    display: none;
+  }
+  .common-cards__item {
     height: 106px;
     padding: 28px;
-    box-shadow: box-shadow(15, 0.1);
-    display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    @media (min-width: $viewport-lg-min-w) {
+      flex-direction: row;
+    }
     @media (max-width: $viewport-lg-w) {
       height: 160px;
       align-items: start;
+    }
+  }
+  .common-cards__item-header {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    @media (max-width: $viewport-lg-w) {
+      align-items: start;
       flex-direction: column;
     }
-
-    .document-title {
-      @include d-flex(center, center, row);
-
-      .document-icon {
-        border-radius: 50%;
-        border: 1px solid $border-grey;
-        box-shadow: box-shadow(10, 0.1);
-        min-height: 40px;
-        min-width: 40px;
-        margin-right: 8px;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-      }
+  }
+  .document-title {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+    text-align: left;
+    @media (max-width: $viewport-lg-w) {
+      font-size: 20px;
     }
+    @include d-flex(center, center, row);
+    .document-icon {
+      border-radius: 50%;
+      border: 1px solid $border-grey;
+      box-shadow: box-shadow(10, 0.1);
+      min-height: 40px;
+      min-width: 40px;
+      margin-right: 8px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 
-    .document-button {
-      font-size: 14px;
-      line-height: 17px;
-      white-space: nowrap;
-      text-decoration: underline;
-      @media (min-width: $viewport-lg-min-w) {
-        text-decoration: none;
-        height: 40px;
-        border-radius: 4px;
-        background-color: #e4e9fb;
-        padding: 12px 32px;
-      }
-      svg {
-        margin-right: 8px;
-        height: 14px;
-        margin-top: -5px;
-      }
+  .document-button {
+    font-size: 14px;
+    line-height: 17px;
+    white-space: nowrap;
+    font-weight: 400;
+    text-decoration: underline;
+    @media (min-width: $viewport-lg-min-w) {
+      text-decoration: none;
+      height: 40px;
+      border-radius: 4px;
+      background-color: #e4e9fb;
+      padding: 12px 32px;
+    }
+    svg {
+      margin-right: 8px;
+      height: 14px;
+      margin-top: -5px;
     }
   }
 }
