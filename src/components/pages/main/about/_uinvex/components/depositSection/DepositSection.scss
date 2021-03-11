@@ -7,7 +7,12 @@
     align-items: center;
 
     .deposit {
+      &__header {
+        @include p((xs: 0));
+      }
+
       &__title {
+        @include mb((xs: 12));
         font-size: 44px;
         line-height: 52px;
         text-align: center;
@@ -18,19 +23,29 @@
       }
 
       &__cards {
+        @include mb((xs: 16));
+
         .cards-nav {
           display: none;
         }
 
         &-container {
-          padding-left: 0;
-          padding-right: 0;
+          @include col((xs: 12, sm: 8, md: 12));
+          @include mx((xs: auto));
+          @include px((xs: 0));
+        }
+
+        .card {
+          @include col((xs: 12, sm: 4));
+          @include mb((xs: 9, md: 0));
+          @include px((xs: 1, sm: 3));
         }
 
         .common-cards {
           &__container {
             flex-flow: row nowrap;
           }
+
           &__item {
             &-observer {
               display: none;
@@ -76,7 +91,13 @@
           }
         }
       }
+
+      &__tabs-container {
+        @include col((xs: 12));
+        @include px((xs: 0, md: 5));
+      }
     }
+
     @media (max-width: $viewport-md-w) {
       .container {
         max-width: 100%;
@@ -98,6 +119,7 @@
           font-size: 36px;
           line-height: 46px;
         }
+
         &__cards {
           margin-bottom: 58px !important;
 
@@ -112,6 +134,7 @@
                 line-height: 30px;
               }
             }
+
             &__container {
               &-content {
                 line-height: 30px;
@@ -122,13 +145,6 @@
                 }
               }
             }
-          }
-
-          .card {
-            padding-left: sp(3) !important;
-            padding-right: sp(3) !important;
-            flex: 0 0 colSizePrc(4);
-            max-width: colSizePrc(4);
           }
         }
       }
@@ -145,17 +161,12 @@
           line-height: 40px;
           padding: 0 sp(3);
         }
+
         &__cards {
           .common-cards {
             &__container {
               flex-flow: row wrap;
               justify-content: center;
-
-              .card {
-                flex: 0 0 100%;
-                max-width: 100%;
-                padding: 0 5px;
-              }
             }
 
             &__item {
@@ -169,6 +180,7 @@
                 font-size: 48px;
                 line-height: 58px;
                 margin-bottom: sp(2);
+
                 &:after {
                   content: '';
                   position: relative;

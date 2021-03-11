@@ -20,8 +20,8 @@ export const LeverageTopSection = memo(function LeverageTopSection() {
       <div className="container">
         <div className="row">
           <div className="col page-top__header">
-            <div className="page-top__title">{locale.leveragePageTopTitle}</div>
-            <div className="page-top__description">{locale.leveragePageTopDesc}</div>
+            <div className="page-top__title">{locale.pageTopTitle}</div>
+            <div className="page-top__description">{locale.pageTopDesc}</div>
             <div className="note">{t('Leverage Page Top Note')}</div>
           </div>
         </div>

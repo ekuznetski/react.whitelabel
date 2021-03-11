@@ -1,4 +1,5 @@
 @import '~/variables';
+@import '~/mixin';
 
 .about-wrapper {
   &__deposit {
@@ -6,7 +7,12 @@
     align-items: center;
 
     .deposit {
+      &__header {
+        @include p((xs: 0));
+      }
+
       &__title {
+        @include mb((xs: 12));
         font-size: 36px;
         line-height: 46px;
         text-align: center;
@@ -17,6 +23,18 @@
       }
 
       &__cards {
+        @include mb((xs: 16));
+
+        &-container {
+          @include col((xs: 12, sm: 8, md: 12));
+          @include mx((xs: auto));
+        }
+
+        .card {
+          @include col((xs: 12, md: 4));
+          @include mb((xs: 9, md: 0));
+        }
+
         .common-cards__item {
           height: 200px;
           text-align: center;
@@ -35,6 +53,11 @@
             }
           }
         }
+      }
+
+      &__tabs-container {
+        @include col((xs: 12));
+        @include px((xs: 0, md: 5));
       }
     }
   }

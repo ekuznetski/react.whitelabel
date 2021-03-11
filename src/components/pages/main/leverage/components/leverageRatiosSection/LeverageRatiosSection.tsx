@@ -1,4 +1,5 @@
-import { Cards, Table } from '@components/shared';
+import { Table } from '@components/shared';
+import { DepositSection } from '@pages/main/about/components';
 import { config, locale } from '@pages/main/leverage';
 import React, { memo } from 'react';
 import './LeverageRatiosSection.scss';
@@ -9,15 +10,10 @@ export const LeverageRatiosSection = memo(function LeverageRatiosSection() {
       <div className="container">
         <div className="row">
           <div className="col ratios__container">
-            <div className="ratios__title">{locale.leverageRatiosTitle}</div>
-            <div className="ratios__subTitle">{locale.leverageRatiosDesc}</div>
+            <div className="ratios__title">{locale.ratiosTitle}</div>
+            <div className="ratios__subTitle">{locale.ratiosDesc}</div>
             <Table {...config.tableData} />
-            <Cards
-              id="leverageRatiosCards"
-              className="ratios__cards"
-              cardWrapperClass="card col"
-              cards={config.leverageRatiosCards}
-            />
+            <DepositSection showOnlyCards />
           </div>
         </div>
       </div>

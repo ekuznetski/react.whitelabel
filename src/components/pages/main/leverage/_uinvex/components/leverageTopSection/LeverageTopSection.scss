@@ -3,11 +3,10 @@
 
 .leverage-wrapper {
   &__page-top {
+    @include d-flex(center, start, row);
+    @include mt((xs: 16));
     height: 608px;
-    display: flex;
-    align-items: center;
     color: $dark-text;
-    margin-top: 60px;
 
     .page-top {
       &__header {
