@@ -1,8 +1,8 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { countries, ERegSteps } from '@domain/enums';
+import { ERegSteps, countries } from '@domain/enums';
 import { locale } from '@pages/auth/registration';
-import { ac_userExists, EActionTypes, IAppStore, IDataStore, IStore } from '@store';
+import { EActionTypes, IAppStore, IDataStore, IStore, ac_userExists } from '@store';
 import { getMarketingCookies } from '@utils/services';
 import { Form, Formik } from 'formik';
 import React from 'react';
@@ -20,12 +20,10 @@ enum EFields {
 }
 
 export function FirstStep({ submitFn }: any) {
-  const { geoIp, route } = useSelector<IStore, { geoIp: IDataStore['geoIp']; route: IAppStore['route'] }>(
-    (state) => ({
-      geoIp: state.data.geoIp,
-      route: state.app.route,
-    }),
-  );
+  const { geoIp, route } = useSelector<IStore, { geoIp: IDataStore['geoIp']; route: IAppStore['route'] }>((state) => ({
+    geoIp: state.data.geoIp,
+    route: state.app.route,
+  }));
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -82,7 +80,7 @@ export function FirstStep({ submitFn }: any) {
               <Input className="fadeFromBottom-row__2" label={t('Email')} name={EFields.email} />
               <div className="phone-wrapper fadeFromBottom-row__3">
                 <PhoneCodeSelect placeholder={t('Prefix')} name={EFields.phone_prefix} />
-                <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
+                <Input label={t('Phone')} type="tel" name={EFields.phone} regex={/^\d*$/gm} />
               </div>
               {geoIp?.passive_consent && (
                 <p className="mb-7 fadeFromBottom-row__4">{locale.marketEventNotificationDesc}</p>
