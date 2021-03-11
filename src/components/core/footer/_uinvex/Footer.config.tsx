@@ -11,7 +11,7 @@ export const config = {
   documents: [
     {
       name: t('Legal Forms and Documents'),
-      link: EPagePath.LegalFormsDocuments,
+      link: '',
     },
     {
       name: t('Risk Warnings'),

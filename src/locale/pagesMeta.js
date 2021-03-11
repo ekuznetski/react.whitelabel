@@ -98,8 +98,4 @@ export default {
     title: 'Not Found',
     desc: '',
   },
-  'Legal Documents': {
-    title: 'Legal Forms & Documents',
-    desc: '',
-  },
 };

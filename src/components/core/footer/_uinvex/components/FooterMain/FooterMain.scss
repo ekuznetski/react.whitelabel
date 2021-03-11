@@ -1,7 +1,8 @@
 @import '~/variables';
+@import '~/mixin';
 
 .footer.main {
-  background: #fff;
+  background: white;
   color: $dark-text;
 
   a {
@@ -11,12 +12,12 @@
   }
 
   .outer-links-container {
-    display: flex;
-    align-items: center;
+    @include d-flex(center, start, row);
+    flex-wrap: wrap;
 
     .links {
-      display: flex;
-      align-items: center;
+      @include d-flex(center, start, row);
+      @include col((xs: 12, md: 6));
 
       &-item {
         font-size: 16px;
@@ -25,11 +26,11 @@
       }
 
       &-divider {
+        @include mx((xs: 6));
         width: 1px;
         height: 20px;
         background: $dark-text;
         opacity: 0.3;
-        margin: 0 16px;
       }
     }
   }
@@ -43,14 +44,21 @@
   }
 
   .social-links {
-    display: flex;
-  }
+    @include d-flex(center, flex-end, row);
+    @include mt((xs: 10, md: 0));
+    @include col((xs: 12, md: 6));
 
-  .social-links,
-  .live-chat {
     svg {
       fill: $blue;
+      height: 36px;
+      width: 36px;
+    }
+  }
+
+  .live-chat {
+    svg {
       height: 26px;
+      width: 27px;
     }
   }
 
@@ -58,7 +66,7 @@
     color: $dark-text;
 
     img {
-      margin-right: 15px;
+      @include mr((xs: 6));
       vertical-align: bottom;
     }
   }
@@ -70,10 +78,6 @@
   }
 
   @media (max-width: $viewport-lg-w) {
-    .outer-links-container {
-      display: block;
-    }
-
     a {
       &:after {
         display: none;
@@ -83,15 +87,18 @@
 
   @media (max-width: $viewport-md-w) {
     .social-links {
-      justify-content: space-between;
+      justify-content: flex-start;
     }
 
     .outer-links-container {
       .links {
         &-item {
-          text-align: center;
-          font-size: 12px;
-          line-height: 20px;
+          text-align: left;
+          line-height: 24px;
+        }
+
+        &-divider {
+          height: 40px;
         }
       }
     }

@@ -378,14 +378,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     path: EPagePath.Invite,
     component: null,
     appSection: EAppSection.general,
-  },
-  {
-    meta: {
-      title: meta_t('Legal Documents:title'),
-    },
-    path: EPagePath.LegalFormsDocuments,
-    component: Page.LegalDocuments,
-    appSection: EAppSection.main,
+    activators: [inviteGuard],
   },
 ];
 
