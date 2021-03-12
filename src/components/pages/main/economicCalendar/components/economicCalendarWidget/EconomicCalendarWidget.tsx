@@ -1,9 +1,13 @@
-import { useTranslation } from 'react-i18next';
+import { ELanguage } from '@domain/enums';
+import { IAppStore, IStore } from '@store';
 import React, { createRef, memo, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './EconomicCalendarWidget.scss';
 
 export const EconomicCalendarWidget = memo(function EconomicCalendarWidget() {
-  const { t } = useTranslation();
+  const { locale } = useSelector<IStore, { locale: ELanguage }>((state) => ({
+    locale: state.app.route.locale,
+  }));
   const widgetContainerRef = createRef<HTMLDivElement>();
 
   useEffect(() => {
@@ -15,28 +19,18 @@ export const EconomicCalendarWidget = memo(function EconomicCalendarWidget() {
       isTransparent: false,
       width: '100%',
       height: '100%',
-      locale: 'en',
+      locale: locale,
       importanceFilter: '-1,0,1',
     });
     widgetContainerRef.current?.appendChild(script);
   }, []);
 
   return (
-    <section className="economic-calendar-wrapper__ratios">
+    <section className="economic-calendar-wrapper__widget">
       <div className="container">
         <div className="row">
           <div className="tradingview-widget-container col">
             <div className="tradingview-widget-container__widget" ref={widgetContainerRef}></div>
-            <div className="tradingview-widget-copyright">
-              <a
-                href="https://www.tradingview.com/markets/currencies/economic-calendar/"
-                rel="noopener"
-                target="_blank"
-              >
-                <span className="blue-text">Economic Calendar </span>
-              </a>
-              by TradingView
-            </div>
           </div>
         </div>
       </div>
