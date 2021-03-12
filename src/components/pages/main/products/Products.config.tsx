@@ -7,6 +7,7 @@ import { ITableSection } from './components';
 
 interface IConfig {
   headerNavigation: { label: string; anchor: EAssetClass }[];
+  pageTopTitle: string;
   tableSections: ITableSection[];
 }
 
@@ -17,10 +18,10 @@ export const config: IConfig = {
     { label: t('Forex'), anchor: EAssetClass.forex },
     { label: t('Stocks'), anchor: EAssetClass.stocks },
     { label: t('Indices'), anchor: EAssetClass.indices },
-    { label: t('Cryptocurrencies'), anchor: EAssetClass.crypto },
     { label: t('Commodities'), anchor: EAssetClass.commodities },
-    { label: t('ETFs'), anchor: EAssetClass.etfs },
+    { label: t('Digital Assets'), anchor: EAssetClass.crypto },
   ],
+  pageTopTitle: t('Range of Markets'),
   tableSections: [
     {
       id: EAssetClass.forex,

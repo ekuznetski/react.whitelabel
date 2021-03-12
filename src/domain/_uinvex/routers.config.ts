@@ -15,6 +15,9 @@ import {
   openLiveAccountGuard,
   withdrawGuard,
 } from '@utils/guards';
+import { Cookies } from '@pages/main/cookies/Cookies';
+import { RiskWarnings } from '@pages/main/riskWarnings/RiskWarnings';
+import { LegalForms } from '@pages/main/legalForms/LegalForms';
 
 const t = i18n.getLazyT;
 const meta_t = i18n.getFixedT(i18n.language, 'meta');
@@ -379,6 +382,33 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: null,
     appSection: EAppSection.general,
     activators: [inviteGuard],
+  },
+  {
+    meta: {
+      title: meta_t('Cookies:title'),
+      desc: meta_t('Cookies:desc'),
+    },
+    path: EPagePath.Cookies,
+    component: Cookies,
+    appSection: EAppSection.general,
+  },
+  {
+    meta: {
+      title: meta_t('Risk Warning & Disclosure:title'),
+      desc: meta_t('Risk Warning & Disclosure:desc'),
+    },
+    path: EPagePath.RiskWarnings,
+    component: RiskWarnings,
+    appSection: EAppSection.general,
+  },
+  {
+    meta: {
+      title: meta_t('Legal Forms & Documents:title'),
+      desc: meta_t('Legal Forms & Documents:desc'),
+    },
+    path: EPagePath.LegalForms,
+    component: LegalForms,
+    appSection: EAppSection.general,
   },
 ];
 

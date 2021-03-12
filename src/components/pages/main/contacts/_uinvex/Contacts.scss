@@ -1,0 +1,181 @@
+@import '~/variables';
+@import '~/mixin';
+
+.contacts-wrapper {
+  .page-top {
+    height: 400px;
+    display: flex;
+
+    svg {
+      box-shadow: box-shadow(10, .05);
+      border: 1px solid $border-grey;
+      padding: 13px;
+      border-radius: 26px;
+      background: white;
+      width: 50px;
+      height: 50px;
+    }
+
+    &__title {
+      font-size: 48px;
+      font-weight: 600;
+      font-family: $font-family1;
+      line-height: 64px;
+      color: $dark-text;
+    }
+
+    &__description {
+      font-size: 18px;
+      line-height: 30px;
+      color: $dark-text;
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      height: 400px;
+
+      &__title {
+        font-size: 44px;
+        line-height: 64px;
+      }
+
+      &__description {
+        font-size: 22px;
+      }
+
+      .section-bg .secondary-bg {
+        height: 400px;
+        right: 0;
+        background-position-x: 65% !important;
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      height: 400px;
+
+      &__title {
+        font-size: 32px;
+        line-height: 40px;
+      }
+
+      &__description {
+        font-size: 20px;
+        line-height: 28px;
+      }
+    }
+
+    @media (max-width: $viewport-sm-w) {
+      height: 572px;
+
+      .section-bg .secondary-bg {
+        height: 572px;
+      }
+    }
+  }
+
+  .contacts {
+    &__title {
+      font-family: $font-family;
+      font-size: 22px;
+      line-height: 34px;
+      color: $dark-text;
+
+      &-line {
+        width: 75px;
+        height: 2px;
+        background: $blue;
+      }
+    }
+
+    .common-cards {
+      .cards-nav {
+        display: none;
+      }
+
+      &__container {
+        flex-flow: row nowrap;
+      }
+
+      &__item {
+        height: 200px;
+        width: 350px;
+        align-items: center;
+
+        &-observer {
+          display: none;
+        }
+
+        &-header {
+          justify-content: start;
+          width: 200px;
+        }
+
+        &-content {
+          text-align: left;
+          width: 200px;
+        }
+      }
+
+      .card {
+        height: 200px;
+      }
+
+      &__list {
+        &-item {
+          font-size: 16px;
+          line-height: 26px;
+          color: $text;
+
+          svg {
+            fill: $blue;
+          }
+        }
+      }
+
+      @media (max-width: $viewport-xl-w) {
+        .common-cards__item {
+          width: 290px;
+        }
+
+      }
+
+      @media (max-width: $viewport-lg-w) {
+        .common-cards__item {
+          width: 224px;
+        }
+
+        .card {
+          @include py((xs: 4));
+        }
+      }
+
+      @media (max-width: $viewport-md-w) {
+        .common-cards {
+          &__container {
+            flex-flow: row wrap;
+            justify-content: center;
+          }
+
+          &__item {
+            width: 100%;
+            align-items: center;
+          }
+        }
+
+        .card {
+          @include py((xs: 7));
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+
+        &__title {
+          font-size: 20;
+          line-height: 28px;
+        }
+      }
+    }
+  }
+
+  .map {
+    line-height: 0;
+  }
+}

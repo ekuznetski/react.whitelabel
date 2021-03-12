@@ -76,84 +76,206 @@
   @return $sp;
 }
 
-@mixin spacing($tag, $pos, $sizes) {
+@mixin mediaTag($tag, $pos, $sizes) {
 
-  @each $breakpoint, $spacerKey in $sizes {
+  @each $breakpoint,
+  $spacer in $sizes {
     @include media-breakpoint-up($breakpoint) {
       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
       $props: (m: margin,
           p: padding,
+          r: right,
+          l: left,
+          t: top,
+          b: bottom,
+          w: width,
+          h: height,
+          ft: font,
+          ln: line,
+          d: display,
+          jtfy: justify,
+          align: align,
+          txt: text,
         );
       $positions: (l: left,
           r: right,
           t: top,
           b: bottom,
+          s: size,
+          h: height,
+          wg:weight,
+          cont: content,
+          items: items,
+          align:align,
         );
 
       $prop: map-get($props, $tag);
-      $length: map-get($spacers, $spacerKey);
+      $rem_size: map-get($spacers, $spacer);
+      $length: $spacer;
 
-      @if $spacerKey == auto {
-        $length: $spacerKey;
+      @if $rem_size {
+        $length: $rem_size;
       }
+
 
       @if $pos=='y' {
         #{$prop}-top: #{$length};
         #{$prop}-bottom: #{$length};
-      } @else if $pos=='x' {
+      }
+
+      @else if $pos=='x' {
         #{$prop}-left: #{$length};
         #{$prop}-right: #{$length};
-      } @else {
+      }
+
+      @else if $pos=='' {
+        #{$prop}: #{$length};
+      }
+
+      @else {
         #{$prop}-#{map-get($positions, $pos)}: #{$length};
       }
     }
   }
 }
 
+
+// justify-content
+@mixin text-align($sizes) {
+  @include mediaTag(txt, align, $sizes);
+}
+
+// justify-content
+@mixin justify-content($sizes) {
+  @include mediaTag(jtfy, Cont, $sizes);
+}
+
+//  align-content
+@mixin align-content($sizes) {
+  @include mediaTag(align, Cont, $sizes);
+}
+
+//  align-items
+@mixin align-items($sizes) {
+  @include mediaTag(align, items, $sizes);
+}
+
+// display
+@mixin display($sizes) {
+  @include mediaTag(d, '', $sizes);
+}
+
+// font-size
+@mixin font-size($sizes) {
+  @include mediaTag(ft, s, $sizes);
+}
+
+// line-height
+@mixin line-height($sizes) {
+  @include mediaTag(ln, h, $sizes);
+}
+
+// font-weight
+@mixin font-weight($sizes) {
+  @include mediaTag(ft, wg, $sizes);
+}
+
+// width
+@mixin width($sizes) {
+  @include mediaTag(w, '', $sizes);
+}
+
+// height
+@mixin height($sizes) {
+  @include mediaTag(h, '', $sizes);
+}
+
+// top
+@mixin top($sizes) {
+  @include mediaTag(t, '', $sizes);
+}
+
+// bottom
+@mixin bottom($sizes) {
+  @include mediaTag(b, '', $sizes);
+}
+
+// right
+@mixin right($sizes) {
+  @include mediaTag(r, '', $sizes);
+}
+
+//left
+@mixin left($sizes) {
+  @include mediaTag(p, '', $sizes);
+}
+
+// margin
+@mixin m($sizes) {
+  @include mediaTag(m, '', $sizes);
+}
+
+// padding
+@mixin p($sizes) {
+  @include mediaTag(p, '', $sizes);
+}
+
+// margin-top
 @mixin mt($sizes) {
-  @include spacing(m, t, $sizes);
+  @include mediaTag(m, t, $sizes);
 }
 
+// margin-bottom
 @mixin mb($sizes) {
-  @include spacing(m, b, $sizes);
+  @include mediaTag(m, b, $sizes);
 }
 
+// margin-left
 @mixin ml($sizes) {
-  @include spacing(m, l, $sizes);
+  @include mediaTag(m, l, $sizes);
 }
 
+// margin-right
 @mixin mr($sizes) {
-  @include spacing(m, r, $sizes);
+  @include mediaTag(m, r, $sizes);
 }
 
+// margin top + margin-bottom
 @mixin my($sizes) {
-  @include spacing(m, y, $sizes);
+  @include mediaTag(m, y, $sizes);
 }
 
+// margin-left + margin-right
 @mixin mx($sizes) {
-  @include spacing(m, x, $sizes);
+  @include mediaTag(m, x, $sizes);
 }
 
+// padding-top
 @mixin pt($sizes) {
-  @include spacing(p, t, $sizes);
+  @include mediaTag(p, t, $sizes);
 }
 
+// padding-bottom
 @mixin pb($sizes) {
-  @include spacing(p, b, $sizes);
+  @include mediaTag(p, b, $sizes);
 }
 
+// padding-left
 @mixin pl($sizes) {
-  @include spacing(p, l, $sizes);
+  @include mediaTag(p, l, $sizes);
 }
 
+// padding-right
 @mixin pr($sizes) {
-  @include spacing(p, r, $sizes);
+  @include mediaTag(p, r, $sizes);
 }
 
+// padding top + padding-bottom
 @mixin py($sizes) {
-  @include spacing(p, y, $sizes);
+  @include mediaTag(p, y, $sizes);
 }
 
+// padding-left + padding-right
 @mixin px($sizes) {
-  @include spacing(p, x, $sizes);
+  @include mediaTag(p, x, $sizes);
 }
