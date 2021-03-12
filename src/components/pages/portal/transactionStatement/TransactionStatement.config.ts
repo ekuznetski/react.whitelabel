@@ -1,13 +1,8 @@
+import { ETransactionTypes } from '@domain/enums';
 import i18n from '@i18next';
 import moment from 'moment';
 
 const t = i18n.getLazyT;
-
-export enum ETransactionTypes {
-  deposits = 'deposits',
-  trades = 'trades',
-  withdrawal = 'withdrawal',
-}
 
 export const config = {
   operationTypes: [

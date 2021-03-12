@@ -1,8 +1,6 @@
+import { ETransactionTypes as _ETransactionTypes } from '@domain/enums';
 import i18n from '@i18next';
-import {
-  config as _config,
-  ETransactionTypes as _ETransactionTypes,
-} from '@pages/portal/transactionStatement/TransactionStatement.config';
+import { config as _config } from '@pages/portal/transactionStatement/TransactionStatement.config';
 import moment from 'moment';
 
 const t = i18n.getLazyT;
