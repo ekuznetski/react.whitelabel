@@ -37,7 +37,7 @@ export default {
   'No Deposit Fees': 'No deposit fees',
   'Deposit and Withdrawal Information': '<0>Deposit</0> & <2>withdrawal</2> information',
   'Contact Information': 'Contact Information',
-  'Range of Markets': 'Range of Markets',
+  'Range of Markets': '<0>Orders</0> executed every day',
   'Product Section Forex Desc':
     'Choose a currency pair from our large range and trade in the world’s largest financial market.',
   'Product Section Stocks Desc':
@@ -48,5 +48,5 @@ export default {
   'Digital Assets': 'Digital Assets',
   'Product Section Digital Assets Desc':
     'Capitalise on the performance of Bitcoin, Ethereum and Litecoin without the need to buy them.',
-  'Range of Markets Page Title': '<0>Orders</0> executed every day',
+  'Range of Products': 'Range of Products',
 };

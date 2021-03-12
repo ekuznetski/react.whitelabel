@@ -10,7 +10,7 @@ const t = i18n.getLazyT;
 export const config = {
   ..._config,
   pageTopTitle: (
-    <Trans i18nKey="Range of Markets Page Title">
+    <Trans i18nKey="Range of Markets">
       <span>Orders</span> executed every day
     </Trans>
   ),
