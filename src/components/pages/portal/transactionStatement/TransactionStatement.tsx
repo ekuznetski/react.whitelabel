@@ -61,7 +61,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
       dispatch(
         ac_showNotification({
           type: ENotificationType.warning,
-          message: t('No title found for the defined period', { title: t('Statement') }),
+          message: t('No statement found for the defined period', { statementType: t('Statement') }),
         }),
       );
     }

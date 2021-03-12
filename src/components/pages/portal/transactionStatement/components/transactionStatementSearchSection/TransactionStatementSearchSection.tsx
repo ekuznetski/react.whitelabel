@@ -24,7 +24,7 @@ export const StatementSearchResultSection = memo(function StatementSearchResultS
       {statements.length ? (
         statements.map((statement) => <TransactionStatementSearchItem {...statement} />)
       ) : (
-        <div className="search-result__info mb-6">{t('No title found for the defined period', { title })}</div>
+        <div className="search-result__info mb-6">{t('No statement found for the defined period', { statementType: title })}</div>
       )}
     </div>
   );
