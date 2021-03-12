@@ -1,7 +1,7 @@
 export enum EPagePath {
   Home = '',
   About = '/about',
-  Products = '/products',
+  Products = '/range-of-markets',
   Platform = '/platform',
   Contacts = '/contacts',
   Partnerships = '/partnerships',
