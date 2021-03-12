@@ -5,8 +5,6 @@ import moment from 'moment';
 
 const t = i18n.getLazyT;
 
-export const ETransactionTypes = _ETransactionTypes;
-
 export const config = {
   ..._config,
   recentTransactionsFilter: [
