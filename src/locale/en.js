@@ -142,7 +142,7 @@ export default {
   Register: 'Register',
   Trade: 'Trade',
   'Our Products': 'Our Products',
-  "It's Simple to get started": ["It's Simple", 'to Get Started'],
+  "It's Simple to get started": "It's Simple <1>to Get Started</1>",
   'Start Trading In 3 Easy Steps': 'Start Trading In 3 Easy Steps.',
   'Sign Up': 'Sign Up',
   'Explore The Platform': 'Explore The Platform',

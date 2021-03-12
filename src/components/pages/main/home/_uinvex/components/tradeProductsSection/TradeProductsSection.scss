@@ -3,9 +3,9 @@
 
 .trade-products {
   &__title {
-    @include font-size((xs:32px, md:36px, xl:44px));
-    @include line-height((xs:40px, md:46px, xl:46px));
-    @include text-align((xs: center, md: left));
+    @include fontSize((xs:32px, md:36px, xl:44px));
+    @include lineHeight((xs:40px, md:46px, xl:46px));
+    @include textAlign((xs: center, md: left));
     font-family: $font-family1;
     color: $dark-text;
 
@@ -37,15 +37,15 @@
       justify-content: start;
 
       &-header {
-        @include font-size((xs:44px, md:22px, xl:24px));
-        @include line-height((xs:34px, md:30px, xl:34px));
+        @include fontSize((xs:44px, md:22px, xl:24px));
+        @include lineHeight((xs:34px, md:30px, xl:34px));
         font-family: $font-family1;
         font-weight: 600;
       }
 
       &-content {
-        @include font-size((xs:16px, md:14px, xl:16px));
-        @include line-height((xs:30px, md:30px, xl:30px));
+        @include fontSize((xs:16px, md:14px, xl:16px));
+        @include lineHeight((xs:30px, md:30px, xl:30px));
         font-weight: 700;
 
         .icons {
