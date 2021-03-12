@@ -1,12 +1,18 @@
 @import '~/variables';
+@import '~/mixin';
 
-.cookies-wrapper {
-  @media (min-width: $viewport-md-min-w) {
-    padding-top: 100px;
+.cookies-policy-wrapper {
+  .common-button {
+    height: $btn-size-lg;
+
+    svg {
+      height: 12px;
+      margin-left: sp(2, n);
+    }
   }
 
-  @media (max-width: $viewport-md-w) {
-    padding-top: 50px;
+  .back-button-wrapper {
+    @include mt((xs:11, md:13, lg:16));
   }
 
   .common-table-wrapper table.common-table {
@@ -30,7 +36,6 @@
       font-weight: 400;
       line-height: 26px;
       border-right: 1px solid #e1e4eb;
-      height: auto;
       padding: 0;
     }
 
@@ -38,6 +43,7 @@
       align-items: center;
     }
   }
+
   ul {
     padding-left: 15px;
     list-style-type: none;
@@ -51,6 +57,7 @@
       margin-left: -1em;
     }
   }
+
   a {
     text-decoration: underline;
   }

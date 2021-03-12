@@ -5,7 +5,7 @@ import './SimplePageTopSection.scss';
 
 export function SimplePageTopSection({ title }: { title: string }) {
   return (
-    <section>
+    <section className="simple-page-top-section">
       <SectionBg
         primary="header_bg.jpg"
         secondary={{

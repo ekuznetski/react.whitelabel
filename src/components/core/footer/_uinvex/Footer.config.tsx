@@ -17,6 +17,7 @@ function FooterAuthorized() {
 
 export const config = {
   ..._config,
+  socialMediaLinks: [],
   documents: [
     {
       name: t('Legal Forms and Documents'),
