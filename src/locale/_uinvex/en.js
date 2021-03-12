@@ -2,6 +2,7 @@ import _ from '../en';
 
 export default {
   ..._,
+  'Trade our products': '<0>Discover</0> our products',
   'and much more': 'and much more',
   'Account Types Secure Title': '<0>Our transparency</0> will help you choose',
   'Account Types Secure Desc':

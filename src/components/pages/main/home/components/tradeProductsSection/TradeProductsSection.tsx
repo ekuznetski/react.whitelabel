@@ -3,7 +3,7 @@ import { ELabels } from '@domain/enums';
 import { config } from '@pages/main/home';
 import React, { memo } from 'react';
 import { Col, Container, Row } from '@components/shared';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import './TradeProductsSection.scss';
 
 export const TradeProductsSection = memo(function TradeProductsSection() {
@@ -15,7 +15,9 @@ export const TradeProductsSection = memo(function TradeProductsSection() {
         <Row>
           <Col xs={12} className="mb-11">
             <div className="trade-products__title">
-              <b>{t('Trade')}</b> {t('Our Products')}
+              <Trans i18nKey="Trade our products">
+                <b>Trade</b> Our Products
+              </Trans>
             </div>
           </Col>
           <Col xs={12} className="p-0">

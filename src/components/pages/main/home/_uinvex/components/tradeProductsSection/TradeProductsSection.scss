@@ -1,41 +1,72 @@
 @import '~/variables';
+@import '~/mixin';
 
 .trade-products {
   &__title {
-    font-size: 36px;
-    line-height: 46px;
+    @include font-size((xs:32px, md:36px, xl:44px));
+    @include line-height((xs:40px, md:46px, xl:46px));
+    @include text-align((xs: center, md: left));
+    font-family: $font-family1;
     color: $dark-text;
+
+    b {
+      @include display((xs: block, md: inline));
+    }
   }
 
   .common-cards {
-    svg {
-      padding: 13px;
-      border-radius: $border-radius;
-      background: $grey-bg;
-      min-width: 50px;
-      height: 50px;
-      fill: $blue;
+    .icon {
+      @include width((xs:40px, lg:36px, xl:40px));
+      @include height((xs:40px, lg:36px, xl:40px));
+      @include d-flex(center, center);
+      border: 1px solid $border-grey;
+      border-radius: 50%;
+      background: #fff;
+
+      svg {
+        @include height((xs:20px, lg:16px, xl:20px));
+        fill: $blue;
+      }
     }
 
     &__item {
-      height: 200px;
-      padding: 30px;
+      @include py((md:9, lg:8, xl:9));
+      @include px((md:9, lg:7, xl:9));
+      @include height((xs:200px, lg:180px, xl:200px));
+      position: relative;
+      justify-content: start;
 
       &-header {
-        span {
-          font-weight: 300;
-          font-size: 40px;
-          text-align: right;
-          color: $blue;
-          margin-left: auto;
-          display: flex;
-        }
+        @include font-size((xs:44px, md:22px, xl:24px));
+        @include line-height((xs:34px, md:30px, xl:34px));
+        font-family: $font-family1;
+        font-weight: 600;
       }
 
       &-content {
+        @include font-size((xs:16px, md:14px, xl:16px));
+        @include line-height((xs:30px, md:30px, xl:30px));
+        font-weight: 700;
+
+        .icons {
+          @include top((xs:9, lg:8, xl:9));
+          @include right((xs:9, lg:6, xl:9));
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+
+
+          img {
+            @include width((xs:36px, lg:30px, xl:36px));
+            @include height((xs:36px, lg:30px, xl:36px));
+            @include mb((xs:6, lg:7, xl:6));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+          }
+        }
+
         .greyText {
-          font-size: 16px;
-          line-height: 26px;
+          font-weight: 400;
           color: $text;
         }
       }

@@ -1,9 +1,7 @@
-import { Card, CardContent, CardHeader, Cards, LabelView, Svg } from '@components/shared';
-import { ELabels } from '@domain/enums';
+import { Card, CardContent, CardHeader, Cards, Col, Container, Img, Row, Svg } from '@components/shared';
 import { config } from '@pages/main/home';
 import React, { memo } from 'react';
-import { Col, Container, Row } from '@components/shared';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import './TradeProductsSection.scss';
 
 export const TradeProductsSection = memo(function TradeProductsSection() {
@@ -15,22 +13,31 @@ export const TradeProductsSection = memo(function TradeProductsSection() {
         <Row>
           <Col xs={12} className="mb-11">
             <div className="trade-products__title">
-              <b>{t('Trade')}</b> {t('Our Products')}
+              <Trans i18nKey="Trade our products">
+                <b>Discover</b> our products
+              </Trans>
             </div>
           </Col>
           <Col xs={12} className="p-0">
             <Cards id="tradeProductsCards">
               {config.tradeProductsCards.map((card, c) => (
                 <Card key={c} wrapperClassName="col-12 col-md-6 col-lg-4 mb-9" uid={c}>
-                  <CardHeader className="mb-7">
-                    <Svg href={card.icon} className="mr-5" />
+                  <CardHeader className="mb-8">
+                    <div className="icon mr-5">
+                      <Svg href={card.icon} />
+                    </div>
                     {card.title}
                   </CardHeader>
                   <CardContent className="text-left">
-                    <div className="mb-1">
-                      <b>{t('and much more')}</b>
-                    </div>
-                    <span className="greyText">{card.exchange}</span>
+                    {card.sideIcons && (
+                      <div className="icons">
+                        {card.sideIcons.map((icon, i) => (
+                          <Img key={i} src={`assets/${icon}`} />
+                        ))}
+                      </div>
+                    )}
+                    <div className="mb-1">{card.exchange}</div>
+                    <div className="greyText">{t('and much more')}</div>
                   </CardContent>
                 </Card>
               ))}
