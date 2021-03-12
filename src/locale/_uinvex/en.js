@@ -54,4 +54,6 @@ export default {
     'Browse trading opportunities',
     "Invest in the world's largest markets",
   ],
+  'Footer Authorized':
+    'Uinvex Ltd is authorized and regulated under the Cayman Islands Monetary Authority under reference number 1442313',
 };

@@ -1,0 +1,19 @@
+@import '~/variables';
+@import '~/mixin';
+
+.risk-warnings-wrapper {
+  @media (max-width: $viewport-md-w) {
+    padding-top: 100px;
+  }
+  @media (min-width: $viewport-sm-min-w) {
+    padding-top: 48px;
+  }
+  .back-button-wrapper {
+    @include mt(
+      (
+        md: 12,
+        lg: 16,
+      )
+    );
+  }
+}

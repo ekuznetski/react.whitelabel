@@ -1,0 +1,57 @@
+@import '~/variables';
+
+.cookies-wrapper {
+  @media (min-width: $viewport-md-min-w) {
+    padding-top: 100px;
+  }
+
+  @media (max-width: $viewport-md-w) {
+    padding-top: 50px;
+  }
+
+  .common-table-wrapper table.common-table {
+    thead th {
+      text-align: start !important;
+      color: $text;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 26px;
+      border-right: 1px solid #e1e4eb;
+      border-top: 1px solid #e1e4eb;
+      border-bottom: 1px solid #e1e4eb;
+
+      &:first-child {
+        border-left: 1px solid #e1e4eb;
+      }
+    }
+
+    tbody tr td {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 26px;
+      border-right: 1px solid #e1e4eb;
+      height: auto;
+      padding: 0;
+    }
+
+    tbody tr td:first-child {
+      align-items: center;
+    }
+  }
+  ul {
+    padding-left: 15px;
+    list-style-type: none;
+
+    li:before {
+      content: '\2022';
+      color: $blue;
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+  }
+  a {
+    text-decoration: underline;
+  }
+}
