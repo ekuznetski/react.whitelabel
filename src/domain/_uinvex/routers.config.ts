@@ -80,7 +80,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Products,
     appSection: EAppSection.main,
     menuItem: {
-      label: t('Products'),
+      label: t('Range of Markets'),
     },
   },
   {
