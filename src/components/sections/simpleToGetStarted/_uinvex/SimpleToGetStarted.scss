@@ -7,9 +7,14 @@
 
   &__header {
     @include display((xs: block, lg: flex));
-    @include col((xs:12, lg:4, xl:3));
-    @include mb((xs:10, lg:0));
+    @include col((xs:12, lg:3));
     flex-direction: column;
+
+    &.col {
+      @include mb((xs:10, lg:0));
+      @include pr((xs:0));
+    }
+
 
     .header {
       &__title {
@@ -33,7 +38,7 @@
 
 
   &__steps {
-    @include col((xs:12, lg:9));
+    @include col((xs:12, lg: 9));
     @include mr((xs: sp(9, n)));
 
     .row {
@@ -45,7 +50,7 @@
       &__item {
         @include col((xs:12, md:4));
         @include mb((xs:7, lg:0));
-        @include px((xs: 10));
+        @include px((xs: 10, lg:8, xl: 10));
 
         &:last-child {
           @include mb((xs:0));
@@ -55,8 +60,8 @@
           @include height((xs: 128px, md: 216px));
           @include mt((xs:0, md:8));
           @include p((xs: 7, xl:9));
-          @include pt((xs: 7, md:12, lg: 13));
-          @include pl((xs: 17, md:11, lg:12));
+          @include pt((xs: 7, md:12, xl:13));
+          @include pl((xs: 17, md:10, xl:12));
 
           background: #fff;
           position: relative;
