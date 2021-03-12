@@ -12,11 +12,10 @@
       @include p((xs: 9));
 
       &-content {
-        @include d-flex();
         @include alignItems((xs:start, lg: center));
         @include justifyContent((xs:space-between, lg: start));
         @include flexDirection((xs: column, lg: row));
-
+        display: flex;
         height: 100%;
       }
 
