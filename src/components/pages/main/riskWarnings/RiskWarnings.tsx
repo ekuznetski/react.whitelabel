@@ -63,7 +63,7 @@ export function RiskWarnings() {
             </Trans>
           </Col>
         </Row>
-        <Row>
+        <Row className="back-button-wrapper">
           <Col>
             <BackButton />
           </Col>
