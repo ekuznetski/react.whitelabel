@@ -9,7 +9,7 @@ const t = i18n.getLazyT;
 function FooterAuthorized() {
   return (
     <Col xs={12}>
-      <Img src="st_vincent_flag.png" _label={ELabels.uinvex} />
+      <Img src="st_vincent_flag.png" _label={ELabels.uinvex} className="mr-2" />
       {t('Footer Authorized')}
     </Col>
   );
