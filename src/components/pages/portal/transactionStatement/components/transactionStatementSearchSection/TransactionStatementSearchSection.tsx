@@ -21,11 +21,11 @@ export const StatementSearchResultSection = memo(function StatementSearchResultS
   return (
     <div className={classNames('statement-search-result-section', className)}>
       <div className="search-result__title mb-6">{title}</div>
-      {statements.length ? (
-        statements.map((statement) => <TransactionStatementSearchItem {...statement} />)
-      ) : (
-        <div className="search-result__info mb-6">{t('No statement found for the defined period', { statementType: title })}</div>
-      )}
+      <div className="search-result__info">
+        {statements.length
+          ? statements.map((statement) => <TransactionStatementSearchItem {...statement} />)
+          : t('No statement found for the defined period', { statementType: title })}
+      </div>
     </div>
   );
 });

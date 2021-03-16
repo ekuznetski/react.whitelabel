@@ -44,7 +44,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
   const [transactionsFilter, setTransactionsFilter] = useState<ETransactionTypes[]>([]);
 
   useEffect(() => {
-    return function cleanup() {
+    return () => {
       dispatch(ac_clearTransactionalStatements());
     };
   }, []);
@@ -80,7 +80,6 @@ export const TransactionStatement = memo(function TransactionStatement() {
     }));
 
   function Submit(values: FormikValues) {
-    setTransactionsFilter(values.operation_type);
     const data = {
       from: values.filter[0].startOf('day').format('YYYY-MM-DD HH:mm:ss'),
       to: values.filter[1].endOf('day').format('YYYY-MM-DD HH:mm:ss'),
@@ -90,7 +89,9 @@ export const TransactionStatement = memo(function TransactionStatement() {
     dispatch(
       ac_fetchTransactionalStatements(
         data,
-        null,
+        () => {
+          setTransactionsFilter(values.operation_type);
+        },
         () => {
           dispatch(
             ac_showNotification({
