@@ -59,16 +59,14 @@
   @return 0px 3px #{$size}px rgba($border-shadow-color, $alpha);
 }
 
-@function sp($spacerKey) {
-  $sp: map-get($spacers, $spacerKey);
+@function sp($spacer, $negative: false) {
+  $sp: map-get($spacers, $spacer);
+
+  @if $negative or $negative==n {
+    $sp: -#{$sp};
+  }
 
   @return $sp;
-}
-
-@function sp-n($spacerKey) {
-  $sp: map-get($spacers, $spacerKey);
-
-  @return -$sp;
 }
 
 @function colSizePrc($columnSize) {
@@ -76,104 +74,203 @@
   @return $sp;
 }
 
-@mixin spacing($tag, $pos, $sizes) {
+@mixin mediaTag($tag, $prop, $sizes, $negative: false) {
 
-  @each $breakpoint,
-  $spacerKey in $sizes {
-    @include media-breakpoint-up($breakpoint) {
-      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-      $props: (m: margin,
-          p: padding,
-        );
-      $positions: (l: left,
-          r: right,
-          t: top,
-          b: bottom,
-        );
+  @if type-of($sizes) !='map' {
+    @debug "mediaTeg generator mixin error: #{$tag}, #{$prop}, #{$sizes}";
+  }
 
-      $prop: map-get($props, $tag);
-      $length: map-get($spacers, $spacerKey);
+  @else {
 
-      @if $spacerKey==auto {
-        $length: $spacerKey;
+    $sortedSizes: (xs: null, sm: null, md: null, lg: null, xl: null);
+
+    @each $key in map-keys($sortedSizes) {
+      $sortedSizes: map-merge($sortedSizes, ($key: map-get($sizes, $key)));
+
+      @if map-get($sortedSizes, $key)==null {
+        $sortedSizes: map-remove($sortedSizes, $key);
       }
+    }
 
-      @if $pos=='y' {
-        #{$prop}-top: #{$length};
-        #{$prop}-bottom: #{$length};
-      }
+    @each $breakpoint,
+    $spacer in $sortedSizes {
+      @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-      @else if $pos=='x' {
-        #{$prop}-left: #{$length};
-        #{$prop}-right: #{$length};
-      }
+        $rem_size: map-get($spacers, $spacer);
+        $length: $spacer;
 
-      @else if $pos=='' {
-        #{$prop}-top: #{$length};
-        #{$prop}-right: #{$length};
-        #{$prop}-bottom: #{$length};
-        #{$prop}-left: #{$length};
-      }
+        @if $rem_size {
+          $length: $rem_size;
+        }
 
-      @else {
-        #{$prop}-#{map-get($positions, $pos)}: #{$length};
+        @if $negative or $negative==n {
+          $length: -$length;
+        }
+
+        @if $prop==vertical {
+          #{$tag}-top: #{$length};
+          #{$tag}-bottom: #{$length};
+        }
+
+        @else if $prop==horizontal {
+          #{$tag}-left: #{$length};
+          #{$tag}-right: #{$length};
+        }
+
+        @else if $prop==null {
+          #{$tag}: #{$length};
+        }
+
+        @else {
+          #{$tag}-#{$prop}: #{$length};
+        }
       }
     }
   }
 }
 
-@mixin m($sizes) {
-  @include spacing(m, '', $sizes);
+// flex-direction
+@mixin flexDirection($sizes, $negative: false) {
+  @include mediaTag(flex, direction, $sizes, $negative);
 }
 
-@mixin mt($sizes) {
-  @include spacing(m, t, $sizes);
+// text-align
+@mixin textAlign($sizes, $negative: false) {
+  @include mediaTag(text, align, $sizes, $negative);
 }
 
-@mixin mb($sizes) {
-  @include spacing(m, b, $sizes);
+// justify-content
+@mixin justifyContent($sizes, $negative: false) {
+  @include mediaTag(justify, content, $sizes, $negative);
 }
 
-@mixin ml($sizes) {
-  @include spacing(m, l, $sizes);
+//  align-content
+@mixin alignContent($sizes, $negative: false) {
+  @include mediaTag(align, content, $sizes, $negative);
 }
 
-@mixin mr($sizes) {
-  @include spacing(m, r, $sizes);
+//  align-items
+@mixin alignItems($sizes, $negative: false) {
+  @include mediaTag(align, items, $sizes, $negative);
 }
 
-@mixin my($sizes) {
-  @include spacing(m, y, $sizes);
+// display
+@mixin display($sizes, $negative: false) {
+  @include mediaTag(display, null, $sizes, $negative);
 }
 
-@mixin mx($sizes) {
-  @include spacing(m, x, $sizes);
+// font-size
+@mixin fontSize($sizes, $negative: false) {
+  @include mediaTag(font, size, $sizes, $negative);
 }
 
-@mixin p($sizes) {
-  @include spacing(p, '', $sizes);
+// line-height
+@mixin lineHeight($sizes, $negative: false) {
+  @include mediaTag(line, height, $sizes, $negative);
 }
 
-@mixin pt($sizes) {
-  @include spacing(p, t, $sizes);
+// font-weight
+@mixin fontWeight($sizes, $negative: false) {
+  @include mediaTag(font, weight, $sizes, $negative);
 }
 
-@mixin pb($sizes) {
-  @include spacing(p, b, $sizes);
+// width
+@mixin width($sizes, $negative: false) {
+  @include mediaTag(width, null, $sizes, $negative);
 }
 
-@mixin pl($sizes) {
-  @include spacing(p, l, $sizes);
+// height
+@mixin height($sizes, $negative: false) {
+  @include mediaTag(height, null, $sizes, $negative);
 }
 
-@mixin pr($sizes) {
-  @include spacing(p, r, $sizes);
+// top
+@mixin top($sizes, $negative: false) {
+  @include mediaTag(top, null, $sizes, $negative);
 }
 
-@mixin py($sizes) {
-  @include spacing(p, y, $sizes);
+// bottom
+@mixin bottom($sizes, $negative: false) {
+  @include mediaTag(bottom, null, $sizes, $negative);
 }
 
-@mixin px($sizes) {
-  @include spacing(p, x, $sizes);
+// right
+@mixin right($sizes, $negative: false) {
+  @include mediaTag(right, null, $sizes, $negative);
+}
+
+//left
+@mixin left($sizes, $negative: false) {
+  @include mediaTag(left, null, $sizes, $negative);
+}
+
+// margin
+@mixin m($sizes, $negative: false) {
+  @include mediaTag(margin, null, $sizes, $negative);
+}
+
+// padding
+@mixin p($sizes, $negative: false) {
+  @include mediaTag(padding, null, $sizes, $negative);
+}
+
+// margin-top
+@mixin mt($sizes, $negative: false) {
+  @include mediaTag(margin, top, $sizes, $negative);
+}
+
+// margin-bottom
+@mixin mb($sizes, $negative: false) {
+  @include mediaTag(margin, bottom, $sizes, $negative);
+}
+
+// margin-left
+@mixin ml($sizes, $negative: false) {
+  @include mediaTag(margin, left, $sizes, $negative);
+}
+
+// margin-right
+@mixin mr($sizes, $negative: false) {
+  @include mediaTag(margin, right, $sizes, $negative);
+}
+
+// margin top + margin-bottom
+@mixin my($sizes, $negative: false) {
+  @include mediaTag(margin, vertical, $sizes, $negative);
+}
+
+// margin-left + margin-right
+@mixin mx($sizes, $negative: false) {
+  @include mediaTag(margin, horizontal, $sizes, $negative);
+}
+
+// padding-top
+@mixin pt($sizes, $negative: false) {
+  @include mediaTag(padding, top, $sizes, $negative);
+}
+
+// padding-bottom
+@mixin pb($sizes, $negative: false) {
+  @include mediaTag(padding, bottom, $sizes, $negative);
+}
+
+// padding-left
+@mixin pl($sizes, $negative: false) {
+  @include mediaTag(padding, left, $sizes, $negative);
+}
+
+// padding-right
+@mixin pr($sizes, $negative: false) {
+  @include mediaTag(padding, right, $sizes, $negative);
+}
+
+// padding top + padding-bottom
+@mixin py($sizes, $negative: false) {
+  @include mediaTag(padding, vertical, $sizes, $negative);
+}
+
+// padding-left + padding-right
+@mixin px($sizes, $negative: false) {
+  @include mediaTag(padding, horizontal, $sizes, $negative);
 }

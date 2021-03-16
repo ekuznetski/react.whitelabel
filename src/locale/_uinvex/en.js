@@ -2,6 +2,7 @@ import _ from '../en';
 
 export default {
   ..._,
+  'Trade our products': '<0>Discover</0> our products',
   'and much more': 'and much more',
   'Account Types Secure Title': '<0>Our transparency</0> will help you choose',
   'Account Types Secure Desc':
@@ -52,4 +53,12 @@ export default {
   'Digital Assets': 'Digital Assets',
   'Product Section Digital Assets Desc':
     'Capitalise on the performance of Bitcoin, Ethereum and Litecoin without the need to buy them.',
+  "It's Simple to get started": 'Easy <1/> as <3>1</3>-<5>2</5>-<7>3</7>',
+  'Start Trading Steps Desc': [
+    'Open a free trading account',
+    'Browse trading opportunities',
+    "Invest in the world's largest markets",
+  ],
+  'Footer Authorized':
+    'Uinvex Ltd is authorized and regulated under the Cayman Islands Monetary Authority under reference number 1442313',
 };

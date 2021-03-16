@@ -1,0 +1,26 @@
+@import '~/variables';
+@import '~/mixin';
+
+.simple-page-top-section {
+  @include height((xs: 400px, md: 288px, lg:280px));
+
+  .container,
+  .row {
+    height: 100%;
+  }
+
+  .page-top {
+
+    &__header {
+      @include d-flex(start, start, column);
+    }
+
+    &__title {
+      font-weight: 600;
+    }
+
+    &__button {
+      margin-top: auto;
+    }
+  }
+}

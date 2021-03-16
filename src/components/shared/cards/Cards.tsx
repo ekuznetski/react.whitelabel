@@ -100,12 +100,12 @@ export const Card = memo(
           ref={ref}
         >
           {props.children}
-          {currentCard?.header && (
+          {!!currentCard?.header?.elem && (
             <div className={classNames('common-cards__item-header', currentCard?.header.class)}>
               {currentCard?.header.elem}
             </div>
           )}
-          {currentCard?.content && (
+          {!!currentCard?.content?.elem && (
             <div className={classNames('common-cards__item-content', currentCard?.content.class)}>
               {currentCard?.content.elem}
             </div>

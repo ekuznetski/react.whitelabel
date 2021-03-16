@@ -14,6 +14,7 @@ interface IConfig {
     title: string;
     icon: string;
     exchange: string;
+    sideIcons?: string[];
   }[];
   [k: string]: any;
 }

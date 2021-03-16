@@ -87,13 +87,6 @@ export const config = {
     margin: { top: 40 },
     showAssetIcon: true,
   },
-  tradeProductsCards: _config.tradeProductsCards.map((product) => {
-    if (product.title === 'Cryptocurrencies') {
-      return { ...product, exchange: 'BTCUSD, LTCUSD, ETHUSD, XRPUSD' };
-    } else {
-      return product;
-    }
-  }),
   platformTechnologySection: {
     title: (
       <Trans i18nKey="Prestigious Platform Technology Title">
@@ -131,4 +124,42 @@ export const config = {
       </Trans>
     ),
   },
+  tradeProductsCards: [
+    {
+      title: 'Forex',
+      icon: 'filter',
+      exchange: 'EUR/USD, GBP/USD, USD/JPY',
+      sideIcons: ['EURUSD.png', 'GBPUSD.png', 'USDJPY.png'],
+    },
+    {
+      title: 'Stocks',
+      icon: 'graph_bars',
+      exchange: 'Apple, Amazon, Facebook',
+      sideIcons: ['CFD_AAPL.png', 'CFD_AMZN.png', 'CFD_FB.png'],
+    },
+    {
+      title: 'Indices',
+      icon: 'indices',
+      exchange: 'US500, UK100, Japan225',
+      sideIcons: ['US100.png', 'UK100.png', 'JPN225.png'],
+    },
+    {
+      title: 'Digital assets',
+      icon: 'crypto',
+      exchange: 'BTC/USD, LTC/USD, ETH/USD',
+      sideIcons: ['BTCUSD.png', 'LTCUSD.png', 'ETHUSD.png'],
+    },
+    {
+      title: 'Commodities',
+      icon: 'commodities',
+      exchange: 'Cocoa, Cotton, Sugar',
+      sideIcons: ['USCOC.png', 'USCOT.png', 'USSUG.png'],
+    },
+    {
+      title: 'ETFs',
+      icon: 'etfs',
+      exchange: 'iShares, ProShares',
+      sideIcons: ['ETF_EWT.png', 'ETF_EWY.png', 'ETF_SPY.png'],
+    },
+  ],
 };

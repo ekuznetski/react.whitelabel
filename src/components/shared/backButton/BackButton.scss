@@ -1,0 +1,11 @@
+@import '~/variables';
+
+button.back-button {
+  width: 190px;
+  background: $blue;
+  svg {
+    width: 16px;
+    fill: white;
+    margin-right: 10px;
+  }
+}
