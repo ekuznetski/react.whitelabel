@@ -1,15 +1,31 @@
 @import '~/variables';
 
 .tax-identification {
-  .tins-row {
-    width: calc(100% - 50px);
-  }
   .remove-tins-row {
     width: 50px;
+    flex-shrink: 0;
   }
   &__col-title {
     font-size: 14px;
     line-height: 22px;
     font-weight: 500;
+  }
+
+  &__field-wrap {
+    width: 50%;
+    margin-right: 30px;
+
+    &--country {
+      @media (max-width: $viewport-md-w) {
+        width: 100%;
+        margin-right: 0;
+      }
+    }
+    &--number {
+      @media (max-width: $viewport-md-w) {
+        width: calc(100% - 70px);
+        margin-right: 15px;
+      }
+    }
   }
 }

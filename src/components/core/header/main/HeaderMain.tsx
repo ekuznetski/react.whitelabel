@@ -22,7 +22,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
   const _mainRoutesConfig = routesNavConfig.filter((route) => route.menuItem && route.appSection === EAppSection.main);
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const { setScrollLock } = useLockScroll();
-  const { shutdown, boot } = useIntercom();
+  const { hide, show } = useIntercom();
   const responsive = useResponsive();
   const { t } = useTranslation();
 
@@ -37,7 +37,7 @@ export function HeaderMain(props: IHeaderDefaultProps) {
   useEffect(() => {
     setScrollLock(isBurgerMenuOpen, 300);
     if (env.PRODUCTION) {
-      isBurgerMenuOpen ? shutdown() : boot();
+      isBurgerMenuOpen ? hide() : show();
     }
   }, [isBurgerMenuOpen]);
 

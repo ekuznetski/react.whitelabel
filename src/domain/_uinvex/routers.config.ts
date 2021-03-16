@@ -79,13 +79,13 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Products,
     appSection: EAppSection.main,
     menuItem: {
-      label: t('Products'),
+      label: t('Range of Products'),
     },
   },
   {
     meta: {
-      title: meta_t('Platforms:title'),
-      desc: meta_t('Platforms:desc'),
+      title: meta_t('Platform:title'),
+      desc: meta_t('Platform:desc'),
     },
     path: EPagePath.Platform,
     component: Page.Platform,
@@ -94,7 +94,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     appSection: EAppSection.main,
     menuItem: {
-      label: t('Platforms'),
+      label: t('Platform'),
     },
   },
   {

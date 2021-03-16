@@ -158,6 +158,7 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
   const wrapper = createRef<HTMLDivElement>();
   const container = createRef<HTMLDivElement>();
   const responsive = useResponsive();
+  const _slidesPerView = config.priceSectionCarousel.slidesPerView(responsive);
 
   useEffect(() => {
     if (container.current && _item.current) {
@@ -168,7 +169,7 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
   useEffect(() => {
     if (wrapper.current && _item.current) {
       wrapper.current.style.width =
-        _item.current.clientWidth * config.priceSectionCarousel.slidesPerView(responsive) + 'px';
+        _item.current.clientWidth * _slidesPerView + 'px';
     }
   }, [responsive]);
 
@@ -191,14 +192,14 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
               {...carousel}
               key={c}
               ref={c === 0 ? _item : null}
-              active={c >= activeIndex && c < activeIndex + 3}
+              active={c >= activeIndex && c < activeIndex + _slidesPerView}
             />
           ))}
         </div>
       </div>
       <div
-        className={classNames('carousel-right', activeIndex == priceData.length - 3 && 'disabled')}
-        onClick={() => activeIndex < priceData.length - 3 && setActiveIndex(activeIndex + 1)}
+        className={classNames('carousel-right', activeIndex == priceData.length - _slidesPerView && 'disabled')}
+        onClick={() => activeIndex < priceData.length - _slidesPerView && setActiveIndex(activeIndex + 1)}
       >
         <Svg href="chevron_right" width={30} height={30} />
       </div>
