@@ -16,7 +16,7 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
   const _portalMenuConfig = useMemo(() => getAppSectionMenu(EAppSection.portal), []);
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const { setScrollLock } = useLockScroll();
-  const { shutdown, boot } = useIntercom();
+  const { hide, show } = useIntercom();
   const responsive = useResponsive();
   const { t } = useTranslation();
 
@@ -31,7 +31,7 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
   useEffect(() => {
     setScrollLock(isBurgerMenuOpen, 300);
     if (env.PRODUCTION) {
-      isBurgerMenuOpen ? shutdown() : boot();
+      isBurgerMenuOpen ? hide() : show();
     }
   }, [isBurgerMenuOpen]);
 
