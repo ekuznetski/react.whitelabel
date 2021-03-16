@@ -20,6 +20,10 @@
             align-items: center;
             line-height: 26px;
 
+            &:first-child {
+              display: table-cell;
+            }
+
             &:last-child {
               text-align: right;
             }
