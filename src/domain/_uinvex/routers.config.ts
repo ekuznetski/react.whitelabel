@@ -1,6 +1,5 @@
 import * as Action from '@store';
 import * as Page from '@components/pages';
-import { NotFound } from '@core/404/404';
 import i18n from '@i18next';
 import { EAppSection, EPagePath, EResponseStatus, ETradingType } from '@domain/enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '@domain/interfaces';
@@ -15,9 +14,6 @@ import {
   openLiveAccountGuard,
   withdrawGuard,
 } from '@utils/guards';
-import { Cookies } from '@pages/main/cookies/Cookies';
-import { RiskWarnings } from '@pages/main/riskWarnings/RiskWarnings';
-import { LegalForms } from '@pages/main/legalForms/LegalForms';
 
 const t = i18n.getLazyT;
 const meta_t = i18n.getFixedT(i18n.language, 'meta');
@@ -83,13 +79,13 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: Page.Products,
     appSection: EAppSection.main,
     menuItem: {
-      label: t('Products'),
+      label: t('Range of Products'),
     },
   },
   {
     meta: {
-      title: meta_t('Platforms:title'),
-      desc: meta_t('Platforms:desc'),
+      title: meta_t('Platform:title'),
+      desc: meta_t('Platform:desc'),
     },
     path: EPagePath.Platform,
     component: Page.Platform,
@@ -98,7 +94,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
     },
     appSection: EAppSection.main,
     menuItem: {
-      label: t('Platforms'),
+      label: t('Platform'),
     },
   },
   {
@@ -370,7 +366,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       title: meta_t('Not Found:title'),
     },
     path: EPagePath.NotFound,
-    component: NotFound,
+    component: Page.NotFound,
     appSection: EAppSection.general,
   },
   {
@@ -389,7 +385,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       desc: meta_t('Cookies:desc'),
     },
     path: EPagePath.Cookies,
-    component: Cookies,
+    component: Page.CookiesPolicy,
     appSection: EAppSection.general,
   },
   {
@@ -398,7 +394,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       desc: meta_t('Risk Warning & Disclosure:desc'),
     },
     path: EPagePath.RiskWarnings,
-    component: RiskWarnings,
+    component: Page.RiskWarnings,
     appSection: EAppSection.general,
   },
   {
@@ -407,7 +403,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       desc: meta_t('Legal Forms & Documents:desc'),
     },
     path: EPagePath.LegalForms,
-    component: LegalForms,
+    component: Page.LegalForms,
     appSection: EAppSection.general,
   },
 ];

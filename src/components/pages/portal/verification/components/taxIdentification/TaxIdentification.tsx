@@ -1,12 +1,11 @@
-import { Button, CountrySelect, Input, Radio } from '@components/shared';
+import { Button, Col, CountrySelect, Input, Radio, Row } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { EFormStatus, ENotificationType } from '@domain/enums';
 import { ITins } from '@domain/interfaces';
 import { MTins } from '@domain/models';
-import { EActionTypes, IStore, ac_showNotification, ac_updateTins } from '@store';
+import { ac_showNotification, ac_updateTins, EActionTypes, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { useEffect } from 'react';
-import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -145,7 +144,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                 <Col xs={12} className="tax-identification__col-title mt-n2 mb-2">
                   {t('Do you have Tax Identification Number?')}
                 </Col>
-                <Col xs={7}>
+                <Col sm={7}>
                   <Radio name={EFields.choice} options={config.haveTinsNumber} disabled={!!tins.tins.length} />
                 </Col>
                 <Col xs={12} className="form-breakline mt-10 mb-10" />
@@ -154,19 +153,24 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                 values[EFields.tins].map((e: any, i: number) => {
                   const _isFieldDisabled = i < tins.tins.length;
                   return (
-                    <div className="d-flex justify-content-between" key={e?.taxCountry?.code + i}>
-                      <Row className="tins-row">
-                        <Col xs={6}>
-                          <CountrySelect label={t('Country')} name={`${EFields.tins}.${i}.${EFields.taxCountry}`} disabled={_isFieldDisabled} />
-                        </Col>
-                        <Col xs={6}>
-                          <Input
-                            label={t('Tax Identification Number')}
-                            name={`${EFields.tins}.${i}.${EFields.taxNumber}`}
-                            disabled={_isFieldDisabled}
-                          />
-                        </Col>
-                      </Row>
+                    <div
+                      className="d-flex justify-content-between flex-wrap flex-md-nowrap"
+                      key={e?.taxCountry?.code + i}
+                    >
+                      <div className="tax-identification__field-wrap tax-identification__field-wrap--country">
+                        <CountrySelect
+                          label={t('Country')}
+                          name={`${EFields.tins}.${i}.${EFields.taxCountry}`}
+                          disabled={_isFieldDisabled}
+                        />
+                      </div>
+                      <div className="tax-identification__field-wrap tax-identification__field-wrap--number">
+                        <Input
+                          label={t('Tax Identification Number')}
+                          name={`${EFields.tins}.${i}.${EFields.taxNumber}`}
+                          disabled={_isFieldDisabled}
+                        />
+                      </div>
                       <Button
                         type="button"
                         className="remove-tins-row"
@@ -181,7 +185,12 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
               {!values.choice && (
                 <Row>
                   <Col xs={12}>
-                    <Radio className="mb-8" name={EFields.reason} options={config.chooseReason} />
+                    <Radio
+                      className="mb-8"
+                      optionClassName="col-12 col-sm-6"
+                      name={EFields.reason}
+                      options={config.chooseReason}
+                    />
                   </Col>
                 </Row>
               )}

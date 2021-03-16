@@ -4,4 +4,3 @@ export * from './router/Router';
 export * from './pageLoader/PageLoader';
 export * from './notification/Notification';
 export * from './modal/Modal';
-export * from './404/404';

@@ -57,7 +57,7 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
             {headers.map((headerCell, h) => (
               <th
                 key={h}
-                className={`text-center col${h + 1} px-2`}
+                className={`col${h + 1}`}
                 style={{ width: colPct[h] || 'auto', minWidth: colPx[h] || 'auto' }}
               >
                 {headerCell}
@@ -69,9 +69,7 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
           {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) => (
             <tr key={r}>
               {row.slice(0, headers.length).map((cell, c) => (
-                <td key={c} className="px-2">
-                  {cell}
-                </td>
+                <td key={c}>{cell}</td>
               ))}
             </tr>
           ))}

@@ -50,6 +50,20 @@ export const Radio = memo(function Radio({
     return val;
   }
 
+  function computeMargin(idx: number) {
+    if (options.length % 2 == 0) {
+      if (idx < options.length - 2) {
+        return 'mb-8';
+      } else if (idx < options.length - 1 && optionClassName !== 'col') {
+        return 'mb-8 mb-sm-0';
+      }
+    } else {
+      if (idx < options.length - 1) {
+        return 'mb-8';
+      }
+    }
+  }
+
   return (
     <Row
       className={classNames(
@@ -60,15 +74,7 @@ export const Radio = memo(function Radio({
       )}
     >
       {options.map((el: IRadioItem, idx) => (
-        <div
-          key={idx}
-          className={classNames(
-            'radio-item',
-            (options.length % 2 == 0 ? idx < options.length - 2 : idx < options.length - 1) && 'mb-8',
-            optionClassName,
-            el.className,
-          )}
-        >
+        <div key={idx} className={classNames('radio-item', computeMargin(idx), optionClassName, el.className)}>
           <label
             className={classNames(
               'radio-label',

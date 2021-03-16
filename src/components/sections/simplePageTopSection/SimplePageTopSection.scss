@@ -1,13 +1,26 @@
 @import '~/variables';
+@import '~/mixin';
 
-.page-top {
-  &__title {
-    font-weight: 600;
-    @media (max-width: $viewport-md-w) {
-      margin-bottom: 176px;
+.simple-page-top-section {
+  @include height((xs: 400px, md: 288px, lg:280px));
+
+  .container,
+  .row {
+    height: 100%;
+  }
+
+  .page-top {
+
+    &__header {
+      @include d-flex(start, start, column);
     }
-    @media (min-width: $viewport-md-min-w) {
-      margin-bottom: 40px;
+
+    &__title {
+      font-weight: 600;
+    }
+
+    &__button {
+      margin-top: auto;
     }
   }
 }

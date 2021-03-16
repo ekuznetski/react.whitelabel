@@ -36,6 +36,11 @@ export default {
   'Home Page Top Section Desc': 'An intuitive and secure experience for the discerning trader.',
   'No Deposit Fees': 'No deposit fees',
   'Deposit and Withdrawal Information': '<0>Deposit</0> & <2>withdrawal</2> information',
+  'Leverage Information': '<0>Leverage</0> Information',
+  'Leverage Page Top Desc':
+    '<0>UINVEX</0> offers clients the ability to trade using leverage, allowing them to manage larger trades.',
+  'Leverage Page Top Note': '*leverage ratio up to a maximum of 1:500',
+  'Leverage Ratios Desc': 'Define your leverage ratio up to a maximum of <1>1:500</1> (Dynamic)',
   'Contact Information': 'Contact Information',
   'Range of Markets': '<0>Orders</0> executed every day',
   'Product Section Forex Desc':
@@ -48,6 +53,33 @@ export default {
   'Digital Assets': 'Digital Assets',
   'Product Section Digital Assets Desc':
     'Capitalise on the performance of Bitcoin, Ethereum and Litecoin without the need to buy them.',
+  'Range of Products': 'Range of Products',
+  "It's Simple to get started": 'Easy <1/> as <3>1</3>-<5>2</5>-<7>3</7>',
+  'Start Trading Steps Desc': [
+    'Open a free trading account',
+    'Browse trading opportunities',
+    "Invest in the world's largest markets",
+  ],
+  'High Risk Investment Warning Main Desc':
+    'Contracts for Difference (‘CFDs’) are complex financial products that are traded on margin. Trading CFDs carries a high degree of risk. It is possible to lose all your capital. These products may not be suitable for everyone and you should ensure that you understand the risks involved. Seek independent expert advice if necessary and speculate only with funds that you can afford to lose. Please think carefully whether such trading suits you, taking into consideration all the relevant circumstances as well as your personal resources. We do not recommend clients posting their entire account balance to meet margin requirements.Clients can minimize their level of exposure by requesting a change in leverage limit.For more information please refer to Uinvex’s Risk Disclosure.',
+  'Disclaimer Desc':
+    'The content of this page is for information purposes only and it is not intended as a recommendation or advice. Any indication of past performance or simulated past performance included in advertisements published by Uinvex is not a reliable indicator of future results. The customer carries the sole responsibility for all the businesses or investments that are carried out at Uinvex.',
   'Footer Authorized':
     'Uinvex Ltd is authorized and regulated under the Cayman Islands Monetary Authority under reference number 1442313',
+  'Forex (Major)': '<0>Forex</0> (Major)',
+  'Forex (Minor)': '<0>Forex</0> (Minor)',
+  'Forex (Exotic)': '<0>Forex</0> (Exotic)',
+  'Metals (Spot And Future)': '<0>Metals</0> (Spot And Future)',
+  'Indices Cash (US Indices)': '<0>Indices Cash</0> (US Indices)',
+  'Indices Cash (Others)': '<0>Indices Cash</0> (Others)',
+  'Indices Future (US Indices)': '<0>Indices Future</0> (US Indices)',
+  'Indices Future (EU,JP and HK)': '<0>Indices Future</0> (EU,JP and HK)',
+  'Indices Future (India and China)': '<0>Indices Future</0> (India and China)',
+  'Commodities (Natgas)': '<0>Commodities</0> (Natgas)',
+  'Commodities (US oil and Brent)': '<0>Commodities</0> (US oil and Brent)',
+  'Commodities (Soft)': '<0>Commodities</0> (Soft)',
+  'Stocks (France)': '<0>Stocks</0> (France)',
+  'Stocks (Germany)': '<0>Stocks</0> (Germany)',
+  'Stocks (Spain)': '<0>Stocks</0> (Spain)',
+  'Stocks (US)': '<0>Stocks</0> (US)',
 };
