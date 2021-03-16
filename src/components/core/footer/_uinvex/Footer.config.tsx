@@ -6,20 +6,30 @@ import { ELabels, EPagePath } from '@domain/enums';
 import { config as _config } from '@core/footer/Footer.config';
 const t = i18n.getLazyT;
 
+function FooterAuthorized() {
+  return (
+    <Col xs={12}>
+      <Img src="st_vincent_flag.png" _label={ELabels.uinvex} />
+      {t('Footer Authorized')}
+    </Col>
+  );
+}
+
 export const config = {
   ..._config,
+  socialMediaLinks: [],
   documents: [
     {
       name: t('Legal Forms and Documents'),
-      link: '',
+      link: EPagePath.LegalForms,
     },
     {
       name: t('Risk Warnings'),
-      link: '',
+      link: EPagePath.RiskWarnings,
     },
     {
       name: t('Cookies Policy'),
-      link: '',
+      link: EPagePath.Cookies,
     },
   ],
   context: {
@@ -56,23 +66,8 @@ export const config = {
     ),
   },
   copyright: {
-    auth: (
-      <Col xs={12}>
-        <Img src="CJ.png" _label={ELabels.uinvex} />
-        {t('Footer Authorized')}
-      </Col>
-    ),
-    main: (
-      <Col xs={12}>
-        <Img src="CJ.png" _label={ELabels.uinvex} />
-        {t('Footer Authorized')}
-      </Col>
-    ),
-    portal: (
-      <Col xs={12}>
-        <Img src="CJ.png" _label={ELabels.uinvex} />
-        {t('Footer Authorized')}
-      </Col>
-    ),
+    auth: <FooterAuthorized />,
+    main: <FooterAuthorized />,
+    portal: <FooterAuthorized />,
   },
 };

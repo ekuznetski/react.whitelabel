@@ -26,4 +26,7 @@ export enum EPagePath {
   InviteFriends = '/invite-friends',
   Invite = '/invite/:ref_id',
   NotFound = '/404',
+  Cookies = '/cookies',
+  LegalForms = '/legal-forms',
+  RiskWarnings = '/risk-warnings',
 }

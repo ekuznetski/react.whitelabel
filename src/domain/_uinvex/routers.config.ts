@@ -1,6 +1,5 @@
 import * as Action from '@store';
 import * as Page from '@components/pages';
-import { NotFound } from '@core/404/404';
 import i18n from '@i18next';
 import { EAppSection, EPagePath, EResponseStatus, ETradingType } from '@domain/enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '@domain/interfaces';
@@ -367,7 +366,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       title: meta_t('Not Found:title'),
     },
     path: EPagePath.NotFound,
-    component: NotFound,
+    component: Page.NotFound,
     appSection: EAppSection.general,
   },
   {
@@ -379,6 +378,33 @@ export const routesNavConfig: IRouteNavConfig[] = [
     component: null,
     appSection: EAppSection.general,
     activators: [inviteGuard],
+  },
+  {
+    meta: {
+      title: meta_t('Cookies:title'),
+      desc: meta_t('Cookies:desc'),
+    },
+    path: EPagePath.Cookies,
+    component: Page.CookiesPolicy,
+    appSection: EAppSection.general,
+  },
+  {
+    meta: {
+      title: meta_t('Risk Warning & Disclosure:title'),
+      desc: meta_t('Risk Warning & Disclosure:desc'),
+    },
+    path: EPagePath.RiskWarnings,
+    component: Page.RiskWarnings,
+    appSection: EAppSection.general,
+  },
+  {
+    meta: {
+      title: meta_t('Legal Forms & Documents:title'),
+      desc: meta_t('Legal Forms & Documents:desc'),
+    },
+    path: EPagePath.LegalForms,
+    component: Page.LegalForms,
+    appSection: EAppSection.general,
   },
 ];
 

@@ -1,4 +1,4 @@
-import { LocaleNavLink, Svg } from '@components/shared';
+import { LocaleLink, Svg } from '@components/shared';
 import { config } from '@core/footer';
 import classNames from 'classnames';
 import React, { memo } from 'react';
@@ -23,10 +23,10 @@ export const FooterMain = memo(function FooterMain() {
           <div className="links">
             {config?.documents?.map((documents, index) => (
               <React.Fragment key={index}>
-                <LocaleNavLink exact to={documents.link} className="links-item">
+                <LocaleLink to={documents.link} className="links-item">
                   {documents.name}
-                </LocaleNavLink>
-                {index + 1 != config.documents.length && <div className="links-divider"></div>}
+                </LocaleLink>
+                {index + 1 != config.documents.length && <div className="links-divider" />}
               </React.Fragment>
             ))}
           </div>
