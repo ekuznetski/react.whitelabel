@@ -35,7 +35,7 @@
             @include d-flex(center, center);
             @include mr((xs: 2, lg: 3));
             border-radius: 50%;
-            border: 1px solid $border-grey;
+            border: 1px solid $dark-grey;
             box-shadow: box-shadow(10, 0.1);
             min-height: 40px;
             min-width: 40px;
