@@ -36,6 +36,11 @@ export default {
   'Home Page Top Section Desc': 'An intuitive and secure experience for the discerning trader.',
   'No Deposit Fees': 'No deposit fees',
   'Deposit and Withdrawal Information': '<0>Deposit</0> & <2>withdrawal</2> information',
+  'Leverage Information': '<0>Leverage</0> Information',
+  'Leverage Page Top Desc':
+    '<0>UINVEX</0> offers clients the ability to trade using leverage, allowing them to manage larger trades.',
+  'Leverage Page Top Note': '*leverage ratio up to a maximum of 1:500',
+  'Leverage Ratios Desc': 'Define your leverage ratio up to a maximum of <1>1:500</1> (Dynamic)',
   'Contact Information': 'Contact Information',
   'Range of Markets': '<0>Orders</0> executed every day',
   'Product Section Forex Desc':
@@ -61,4 +66,20 @@ export default {
     'The content of this page is for information purposes only and it is not intended as a recommendation or advice. Any indication of past performance or simulated past performance included in advertisements published by Uinvex is not a reliable indicator of future results. The customer carries the sole responsibility for all the businesses or investments that are carried out at Uinvex.',
   'Footer Authorized':
     'Uinvex Ltd is authorized and regulated under the Cayman Islands Monetary Authority under reference number 1442313',
+  'Forex (Major)': '<0>Forex</0> (Major)',
+  'Forex (Minor)': '<0>Forex</0> (Minor)',
+  'Forex (Exotic)': '<0>Forex</0> (Exotic)',
+  'Metals (Spot And Future)': '<0>Metals</0> (Spot And Future)',
+  'Indices Cash (US Indices)': '<0>Indices Cash</0> (US Indices)',
+  'Indices Cash (Others)': '<0>Indices Cash</0> (Others)',
+  'Indices Future (US Indices)': '<0>Indices Future</0> (US Indices)',
+  'Indices Future (EU,JP and HK)': '<0>Indices Future</0> (EU,JP and HK)',
+  'Indices Future (India and China)': '<0>Indices Future</0> (India and China)',
+  'Commodities (Natgas)': '<0>Commodities</0> (Natgas)',
+  'Commodities (US oil and Brent)': '<0>Commodities</0> (US oil and Brent)',
+  'Commodities (Soft)': '<0>Commodities</0> (Soft)',
+  'Stocks (France)': '<0>Stocks</0> (France)',
+  'Stocks (Germany)': '<0>Stocks</0> (Germany)',
+  'Stocks (Spain)': '<0>Stocks</0> (Spain)',
+  'Stocks (US)': '<0>Stocks</0> (US)',
 };
