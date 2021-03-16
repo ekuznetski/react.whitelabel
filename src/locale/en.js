@@ -525,4 +525,6 @@ export default {
   ],
   'Upload Debit/Credit Card Desc Front': 'Please cover the 6 middle digits as shown below',
   'Upload Debit/Credit Card Desc Back': 'Please cover the CVV digits as shown below',
+  'My country of residence does not issue Tax IDs': 'My country of residence does not issue Tax IDs',
+  'I`m not required to register for a Tax ID': 'I`m not required to register for a Tax ID',
 };
