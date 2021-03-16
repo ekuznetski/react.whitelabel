@@ -543,4 +543,6 @@ export default {
   'Stocks (Spain)': 'Stocks (Spain)',
   'Stocks (US)': 'Stocks (US)',
   Dynamic: 'Dynamic',
+  'My country of residence does not issue Tax IDs': 'My country of residence does not issue Tax IDs',
+  'I`m not required to register for a Tax ID': 'I`m not required to register for a Tax ID',
 };

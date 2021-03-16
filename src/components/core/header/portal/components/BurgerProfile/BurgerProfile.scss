@@ -34,18 +34,17 @@
     transition: height 0.3s;
 
     &__item {
-      display: flex;
-      align-items: center;
-      height: 50px;
-      border-bottom: 1px solid $grey;
-      width: calc(100% - 39px);
-
       &--active {
         border-bottom-color: $dark-grey;
         font-weight: 500;
       }
 
       a {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        border-bottom: 1px solid $grey;
+        width: calc(100% - 39px);
         color: $dark-text;
         text-decoration: none;
 

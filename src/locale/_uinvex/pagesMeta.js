@@ -5,7 +5,7 @@ export default {
       'UINVEX is a regulated broker providing online access to a wide range of global markets and account types for every kind of trader. Experience unparalleled trading conditions within an intuitive and secure trading platform.',
   },
   About: {
-    title: 'About us - UINVEX',
+    title: 'About Us - UINVEX',
     desc:
       "UINVEX is dedicated to providing a secure trading experience for seasoned and new traders alike, offering great liquidity, low spreads, super-efficient executions, and access to the world's largest markets.",
   },
@@ -26,21 +26,18 @@ export default {
   },
   Partnership: {
     title: 'Partnership - UINVEX',
-    desc:
-      'UINVEX is a leading provider of online foreign exchange (FX) trading. UINVEX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure an excellent user experience.',
+    desc: '',
   },
   Leverage: {
     title: 'Leverage - UINVEX',
-    desc:
-      'UINVEX is a leading provider of online foreign exchange (FX) trading. UINVEX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure an excellent user experience.',
+    desc: '',
   },
   Login: {
     title: 'Login - UINVEX',
   },
   Registration: {
     title: 'Registration - UINVEX',
-    desc:
-      'UINVEX is a leading provider of online foreign exchange (FX) trading. UINVEX provides a quicker, simpler, cleaner system, designed by FX traders for FX traders, to ensure an excellent user experience.',
+    desc: '',
   },
   'Forgot Password': {
     title: 'Forgot Password - UINVEX',
