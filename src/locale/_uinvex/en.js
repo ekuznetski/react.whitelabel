@@ -49,4 +49,12 @@ export default {
   'Product Section Digital Assets Desc':
     'Capitalise on the performance of Bitcoin, Ethereum and Litecoin without the need to buy them.',
   'Range of Products': 'Range of Products',
+  "It's Simple to get started": 'Easy <1/> as <3>1</3>-<5>2</5>-<7>3</7>',
+  'Start Trading Steps Desc': [
+    'Open a free trading account',
+    'Browse trading opportunities',
+    "Invest in the world's largest markets",
+  ],
+  'Footer Authorized':
+    'Uinvex Ltd is authorized and regulated under the Cayman Islands Monetary Authority under reference number 1442313',
 };
