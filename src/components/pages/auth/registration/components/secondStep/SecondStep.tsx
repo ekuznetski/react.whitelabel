@@ -1,6 +1,6 @@
 import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { Country, ERegSteps, countries } from '@domain/enums';
+import { Country, ECountryName, ERegSteps, countries } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';
@@ -29,6 +29,7 @@ export function SecondStep({ submitFn }: any) {
     geoIp: state.data.geoIp,
   }));
   const { t } = useTranslation();
+  let postalCodeLabel = t('Postal Code') + ' ' + t('Optional');
 
   const months = moment
     .localeData('en')
@@ -68,7 +69,15 @@ export function SecondStep({ submitFn }: any) {
       .max(new Date().getFullYear(), t('Invalid value')),
     street: FieldValidators.street,
     city: FieldValidators.city,
-    postcode: FieldValidators.postcode,
+    postcode: FieldValidators.postcode.when('country', (country: Country, schema: Yup.StringSchema) => {
+      if (country?.name === ECountryName['Canada']) {
+        postalCodeLabel = t('Postal Code');
+        return schema.required('This field is required');
+      } else {
+        postalCodeLabel = t('Postal Code') + ' ' + t('Optional');
+        return schema;
+      }
+    }),
   });
 
   function Submit(data: FormikValues): void {
@@ -151,7 +160,7 @@ export function SecondStep({ submitFn }: any) {
               <h4 className="section-title">{t('Address')}</h4>
               <Input label={t('Street name and number')} name={EFields.street} />
               <Input label={t('City')} name={EFields.city} />
-              <Input label={t('Postal Code') + ' ' + t('Optional')} name={EFields.postcode} />
+              <Input label={postalCodeLabel} name={EFields.postcode} />
               <Button type="submit">{t('Next')}</Button>
             </Form>
           );
