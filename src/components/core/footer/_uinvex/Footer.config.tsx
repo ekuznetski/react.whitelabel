@@ -1,9 +1,8 @@
+import { Col } from '@components/shared';
+import { config as _config } from '@core/footer/Footer.config';
+import { EPagePath } from '@domain/enums';
 import i18n from '@i18next';
 import React from 'react';
-import { Col, Img } from '@components/shared';
-import { Trans } from 'react-i18next';
-import { ELabels, EPagePath } from '@domain/enums';
-import { config as _config } from '@core/footer/Footer.config';
 const t = i18n.getLazyT;
 
 export const config = {
@@ -26,54 +25,68 @@ export const config = {
   context: {
     auth: (
       <Col xs={12} className="context">
-        <span className="mr-2">{t('High Risk Investment Warning')}</span>
+        <b className="mr-2">{t('High Risk Investment Warning')}</b>
         {t('High Risk Investment Warning Portal Desc')}
       </Col>
     ),
     main: (
       <>
         <Col xs={12} className="context mb-lg-9 mb-7">
-          <span className="mr-2">{t('High Risk Investment Warning')}</span>
+          <b className="mr-2">{t('High Risk Investment Warning')}</b>
           {t('High Risk Investment Warning Main Desc')}
         </Col>
         <Col xs={12} className="context mb-lg-9 mb-7">
-          <span className="mr-2">{t('Disclaimer')}:</span>
+          <b className="mr-2">{t('Disclaimer')}:</b>
           {t('Disclaimer Desc')}
-        </Col>
-        <Col xs={12} className="context mb-lg-9 mb-7">
-          <span className="mr-2">{t('Regional Restrictions')}:</span>
-          <Trans i18nKey="Regional Restrictions Desc">
-            Regional Restrictions Desc
-            <a className="ml-2">{t('Help Center')}</a>
-          </Trans>
         </Col>
       </>
     ),
     portal: (
       <Col xs={12} className="context">
-        <span className="mr-2">{t('High Risk Investment Warning')}</span>
+        <b className="mr-2">{t('High Risk Investment Warning')}</b>
         {t('High Risk Investment Warning Portal Desc')}
       </Col>
     ),
   },
   copyright: {
     auth: (
-      <Col xs={12}>
-        <Img src="st_vincent_flag.png" _label={ELabels.uinvex} />
-        {t('Footer Authorized')}
-      </Col>
+      <>
+        <Col xs={12} className="mb-lg-9 mb-7">
+          {t('Footer Authorized:0')}
+        </Col>
+        <Col xs={12} className="mb-lg-9 mb-7">
+          {t('Footer Authorized:1')}
+        </Col>
+        <Col xs={12} className="mb-lg-9 mb-7">
+          {t('Footer Authorized:2')}
+        </Col>
+      </>
     ),
     main: (
-      <Col xs={12}>
-        <Img src="st_vincent_flag.png" _label={ELabels.uinvex} />
-        {t('Footer Authorized')}
-      </Col>
+      <>
+        <Col xs={12} className="mb-lg-9 mb-7">
+          {t('Footer Authorized:0')}
+        </Col>
+        <Col xs={12} className="mb-lg-9 mb-7">
+          {t('Footer Authorized:1')}
+        </Col>
+        <Col xs={12} className="mb-lg-9 mb-7">
+          {t('Footer Authorized:2')}
+        </Col>
+      </>
     ),
     portal: (
-      <Col xs={12}>
-        <Img src="st_vincent_flag.png" _label={ELabels.uinvex} />
-        {t('Footer Authorized')}
-      </Col>
+      <>
+        <Col xs={12} className="mb-lg-9 mb-7">
+          {t('Footer Authorized:0')}
+        </Col>
+        <Col xs={12} className="mb-lg-9 mb-7">
+          {t('Footer Authorized:1')}
+        </Col>
+        <Col xs={12} className="mb-lg-9 mb-7">
+          {t('Footer Authorized:2')}
+        </Col>
+      </>
     ),
   },
 };
