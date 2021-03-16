@@ -57,7 +57,7 @@ export const config = {
     main: (
       <>
         <Col xs={12} className="context mb-lg-9 mb-7">
-          <b className="mr-2">{t('High Risk Investment Warning')}:</b>
+          <b className="mr-2">{t('High Risk Investment Warning')}</b>
           {t('High Risk Investment Warning Main Desc')}
         </Col>
         <Col xs={12} className="context mb-lg-9 mb-7">
