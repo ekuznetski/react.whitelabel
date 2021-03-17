@@ -59,11 +59,15 @@
   @return 0px 3px #{$size}px rgba($border-shadow-color, $alpha);
 }
 
-@function sp($spacer, $negative: false) {
+@function sp($spacer, $effect: null) {
   $sp: map-get($spacers, $spacer);
 
-  @if $negative or $negative==n {
+  @if $effect==n {
     $sp: -#{$sp};
+  }
+
+  @if $effect==i {
+    $sp: $sp !important;
   }
 
   @return $sp;
@@ -74,7 +78,7 @@
   @return $sp;
 }
 
-@mixin mediaTag($tag, $prop, $sizes, $negative: false) {
+@mixin mediaTag($tag, $prop, $sizes, $effect: null) {
 
   @if type-of($sizes) !='map' {
     @debug "mediaTeg generator mixin error: #{$tag}, #{$prop}, #{$sizes}";
@@ -102,8 +106,12 @@
           $length: $rem_size;
         }
 
-        @if $negative or $negative==n {
+        @if $effect==n {
           $length: -$length;
+        }
+
+        @if $effect==i {
+          $length: $length !important;
         }
 
         @if $prop==vertical {
@@ -130,151 +138,151 @@
 
 
 // flex
-@mixin flex($sizes, $negative: false) {
-  @include mediaTag(flex, null, $sizes, $negative);
+@mixin flex($sizes, $effect: null) {
+  @include mediaTag(flex, null, $sizes, $effect);
 }
 
 // flex-direction
-@mixin flexDirection($sizes, $negative: false) {
-  @include mediaTag(flex, direction, $sizes, $negative);
+@mixin flexDirection($sizes, $effect: null) {
+  @include mediaTag(flex, direction, $sizes, $effect);
 }
 
 // text-align
-@mixin textAlign($sizes, $negative: false) {
-  @include mediaTag(text, align, $sizes, $negative);
+@mixin textAlign($sizes, $effect: null) {
+  @include mediaTag(text, align, $sizes, $effect);
 }
 
 // justify-content
-@mixin justifyContent($sizes, $negative: false) {
-  @include mediaTag(justify, content, $sizes, $negative);
+@mixin justifyContent($sizes, $effect: null) {
+  @include mediaTag(justify, content, $sizes, $effect);
 }
 
 //  align-content
-@mixin alignContent($sizes, $negative: false) {
-  @include mediaTag(align, content, $sizes, $negative);
+@mixin alignContent($sizes, $effect: null) {
+  @include mediaTag(align, content, $sizes, $effect);
 }
 
 //  align-items
-@mixin alignItems($sizes, $negative: false) {
-  @include mediaTag(align, items, $sizes, $negative);
+@mixin alignItems($sizes, $effect: null) {
+  @include mediaTag(align, items, $sizes, $effect);
 }
 
 // display
-@mixin display($sizes, $negative: false) {
-  @include mediaTag(display, null, $sizes, $negative);
+@mixin display($sizes, $effect: null) {
+  @include mediaTag(display, null, $sizes, $effect);
 }
 
 // font-size
-@mixin fontSize($sizes, $negative: false) {
-  @include mediaTag(font, size, $sizes, $negative);
+@mixin fontSize($sizes, $effect: null) {
+  @include mediaTag(font, size, $sizes, $effect);
 }
 
 // line-height
-@mixin lineHeight($sizes, $negative: false) {
-  @include mediaTag(line, height, $sizes, $negative);
+@mixin lineHeight($sizes, $effect: null) {
+  @include mediaTag(line, height, $sizes, $effect);
 }
 
 // font-weight
-@mixin fontWeight($sizes, $negative: false) {
-  @include mediaTag(font, weight, $sizes, $negative);
+@mixin fontWeight($sizes, $effect: null) {
+  @include mediaTag(font, weight, $sizes, $effect);
 }
 
 // width
-@mixin width($sizes, $negative: false) {
-  @include mediaTag(width, null, $sizes, $negative);
+@mixin width($sizes, $effect: null) {
+  @include mediaTag(width, null, $sizes, $effect);
 }
 
 // height
-@mixin height($sizes, $negative: false) {
-  @include mediaTag(height, null, $sizes, $negative);
+@mixin height($sizes, $effect: null) {
+  @include mediaTag(height, null, $sizes, $effect);
 }
 
 // top
-@mixin top($sizes, $negative: false) {
-  @include mediaTag(top, null, $sizes, $negative);
+@mixin top($sizes, $effect: null) {
+  @include mediaTag(top, null, $sizes, $effect);
 }
 
 // bottom
-@mixin bottom($sizes, $negative: false) {
-  @include mediaTag(bottom, null, $sizes, $negative);
+@mixin bottom($sizes, $effect: null) {
+  @include mediaTag(bottom, null, $sizes, $effect);
 }
 
 // right
-@mixin right($sizes, $negative: false) {
-  @include mediaTag(right, null, $sizes, $negative);
+@mixin right($sizes, $effect: null) {
+  @include mediaTag(right, null, $sizes, $effect);
 }
 
 //left
-@mixin left($sizes, $negative: false) {
-  @include mediaTag(left, null, $sizes, $negative);
+@mixin left($sizes, $effect: null) {
+  @include mediaTag(left, null, $sizes, $effect);
 }
 
 // margin
-@mixin m($sizes, $negative: false) {
-  @include mediaTag(margin, null, $sizes, $negative);
+@mixin m($sizes, $effect: null) {
+  @include mediaTag(margin, null, $sizes, $effect);
 }
 
 // padding
-@mixin p($sizes, $negative: false) {
-  @include mediaTag(padding, null, $sizes, $negative);
+@mixin p($sizes, $effect: null) {
+  @include mediaTag(padding, null, $sizes, $effect);
 }
 
 // margin-top
-@mixin mt($sizes, $negative: false) {
-  @include mediaTag(margin, top, $sizes, $negative);
+@mixin mt($sizes, $effect: null) {
+  @include mediaTag(margin, top, $sizes, $effect);
 }
 
 // margin-bottom
-@mixin mb($sizes, $negative: false) {
-  @include mediaTag(margin, bottom, $sizes, $negative);
+@mixin mb($sizes, $effect: null) {
+  @include mediaTag(margin, bottom, $sizes, $effect);
 }
 
 // margin-left
-@mixin ml($sizes, $negative: false) {
-  @include mediaTag(margin, left, $sizes, $negative);
+@mixin ml($sizes, $effect: null) {
+  @include mediaTag(margin, left, $sizes, $effect);
 }
 
 // margin-right
-@mixin mr($sizes, $negative: false) {
-  @include mediaTag(margin, right, $sizes, $negative);
+@mixin mr($sizes, $effect: null) {
+  @include mediaTag(margin, right, $sizes, $effect);
 }
 
 // margin top + margin-bottom
-@mixin my($sizes, $negative: false) {
-  @include mediaTag(margin, vertical, $sizes, $negative);
+@mixin my($sizes, $effect: null) {
+  @include mediaTag(margin, vertical, $sizes, $effect);
 }
 
 // margin-left + margin-right
-@mixin mx($sizes, $negative: false) {
-  @include mediaTag(margin, horizontal, $sizes, $negative);
+@mixin mx($sizes, $effect: null) {
+  @include mediaTag(margin, horizontal, $sizes, $effect);
 }
 
 // padding-top
-@mixin pt($sizes, $negative: false) {
-  @include mediaTag(padding, top, $sizes, $negative);
+@mixin pt($sizes, $effect: null) {
+  @include mediaTag(padding, top, $sizes, $effect);
 }
 
 // padding-bottom
-@mixin pb($sizes, $negative: false) {
-  @include mediaTag(padding, bottom, $sizes, $negative);
+@mixin pb($sizes, $effect: null) {
+  @include mediaTag(padding, bottom, $sizes, $effect);
 }
 
 // padding-left
-@mixin pl($sizes, $negative: false) {
-  @include mediaTag(padding, left, $sizes, $negative);
+@mixin pl($sizes, $effect: null) {
+  @include mediaTag(padding, left, $sizes, $effect);
 }
 
 // padding-right
-@mixin pr($sizes, $negative: false) {
-  @include mediaTag(padding, right, $sizes, $negative);
+@mixin pr($sizes, $effect: null) {
+  @include mediaTag(padding, right, $sizes, $effect);
 }
 
 // padding top + padding-bottom
-@mixin py($sizes, $negative: false) {
-  @include mediaTag(padding, vertical, $sizes, $negative);
+@mixin py($sizes, $effect: null) {
+  @include mediaTag(padding, vertical, $sizes, $effect);
 }
 
 // padding-left + padding-right
-@mixin px($sizes, $negative: false) {
-  @include mediaTag(padding, horizontal, $sizes, $negative);
+@mixin px($sizes, $effect: null) {
+  @include mediaTag(padding, horizontal, $sizes, $effect);
 }

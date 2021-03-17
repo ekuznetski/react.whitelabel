@@ -41,6 +41,7 @@ export function TopSection({ sectionRefs }: IProductsTopSectionProps) {
         primary="header_bg.jpg"
         secondary={{
           xxs: 'products-page-top-mobile.png',
+          md: 'products-page-top-tablet.png',
           lg: 'products-page-top-desktop.png',
         }}
       />
