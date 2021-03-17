@@ -8,10 +8,10 @@ import './Table.scss';
 export interface ITable {
   headers: (string | React.ReactFragment)[];
   rows: (string | React.ReactFragment)[][];
-  // in percentage, use null for auto sizes, where colN is class name according to col number that start with 1
-  colsPctSize?: (number | null)[] | { [colN: string]: number };
-  // in pixels, use null for auto sizes, if object {colN: number} where N is col number that start with 1
-  colsPxSize?: (number | null)[] | { [colN: string]: number };
+  // in percentage, where colN is class name according to col number that start with 1
+  colsPctSize?: number[] | { [colN: string]: number };
+  // in pixels, if object {colN: number} where N is col number that start with 1
+  colsPxSize?: number[] | { [colN: string]: number };
   className?: string;
   preview?: boolean;
   previewAmount?: number;
@@ -51,30 +51,32 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
 
   return (
     <div className="common-table-wrapper">
-      <table className={classNames('common-table', className)}>
-        <thead>
-          <tr>
+      <div className={classNames('common-table', className)}>
+        <div className="thead">
+          <div className="tr">
             {headers.map((headerCell, h) => (
-              <th
+              <div
                 key={h}
-                className={`col${h + 1}`}
+                className={`th col${h + 1}`}
                 style={{ width: colPct[h] || 'auto', minWidth: colPx[h] || 'auto' }}
               >
                 {headerCell}
-              </th>
+              </div>
             ))}
-          </tr>
-        </thead>
-        <tbody>
+          </div>
+        </div>
+        <div className="tbody">
           {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) => (
-            <tr key={r}>
+            <div className="tr" key={r}>
               {row.slice(0, headers.length).map((cell, c) => (
-                <td key={c}>{cell}</td>
+                <div className="td" key={c} style={{ width: colPct[c] || 'auto', minWidth: colPx[c] || 'auto' }}>
+                  {cell}
+                </div>
               ))}
-            </tr>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
       {preview && (
         <div className="toggleTableView mt-4" onClick={toggleTableView}>
           {previewValue ? (

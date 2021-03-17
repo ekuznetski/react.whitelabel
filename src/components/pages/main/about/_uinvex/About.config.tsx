@@ -117,7 +117,7 @@ export const config = {
         [<Img src="wiretransfer.svg" height={40} />, '$250', 'USD, EUR, GBP, AED', t('1 to 7 working days'), '$0'],
         [<Img src="visaMastercard.svg" height={40} />, '$20', 'USD, EUR, GBP, RUB, AED, CAD', t('Up to 1 hour'), '$0'],
       ],
-      colsPctSize: [20, 10, 30, null, 10],
+      colsPctSize: [20, 20, 30, 20, 10],
     },
     withdrawals: {
       headers: [t('Method'), t('Minimum'), t('Currency'), t('Processing'), t('Fees')],
@@ -125,7 +125,7 @@ export const config = {
         [<Img src="wiretransfer.svg" height={40} />, '$300', 'USD, EUR, GBP, AED', t('1 working day'), '$0'],
         [<Img src="visaMastercard.svg" height={40} />, '$20', 'USD, EUR, GBP, RUB, AED, CAD', t('1 working day'), '$0'],
       ],
-      colsPctSize: [20, 10, 30, null, 10],
+      colsPctSize: [20, 20, 30, 20, 10],
     },
   },
 };

@@ -6,6 +6,23 @@
     display: flex;
     align-items: center;
 
+    .common-table {
+      .tr {
+        @include px((xs: 7, sm: 9, lg: 10));
+      }
+
+      .thead .th,
+      .tbody .td {
+        &:first-child {
+          justify-content: flex-start;
+        }
+
+        &:last-child {
+          justify-content: flex-end;
+        }
+      }
+    }
+
     .ratios {
       &__container {
         @include p((xs: 0));
@@ -92,12 +109,12 @@
   }
 
   @media (max-width: $viewport-lg-w) {
-    table.common-table thead th {
+    .common-table .thead .th {
       font-size: 12px;
       line-height: 20px;
     }
 
-    table.common-table tbody tr td {
+    .common-table .tbody .tr .td {
       font-size: 14px;
       line-height: 22px;
     }

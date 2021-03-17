@@ -2,31 +2,42 @@
 @import '~/mixin';
 
 .common-table-wrapper {
-  table.common-table {
+  .common-table {
     width: 100%;
+    border-collapse: collapse;
     border-radius: $border-box-radius;
     box-shadow: box-shadow(15, 0.1);
 
-    th,
-    td {
+
+    .th,
+    .td {
       @include px((xs: 2));
+      @include d-flex(center, center);
+      flex-wrap: wrap;
     }
 
-    thead {
+    .tr {
+      width: 100%;
+      @include d-flex(start, space-between);
+    }
+
+    .thead {
+      display: flex;
       box-shadow: box-shadow(15, 0.066);
 
-      th {
+      .th {
         height: 70px;
         font-weight: normal;
-        text-align: center;
         font-size: 14px;
         line-height: 24px;
         color: $text;
       }
     }
 
-    tbody {
-      tr {
+    .tbody {
+      @include d-flex(start, start, column);
+
+      .tr {
         border-bottom: 1px solid $grey;
         box-sizing: border-box;
         transition: background 0.3s;
@@ -35,26 +46,25 @@
           background: $grey-bg;
         }
 
-        td {
+        .td {
           height: 70px;
           font-weight: 500;
           font-size: 16px;
           line-height: 24px;
           color: $dark-text;
-          text-align: center;
         }
       }
     }
   }
 
   .toggleTableView {
+    @include d-flex(center);
+
     cursor: pointer;
     font-weight: 500;
     font-size: 14px;
     line-height: 21px;
     color: $dark-blue;
-    display: flex;
-    align-items: center;
 
     &:hover {
       text-decoration: underline;

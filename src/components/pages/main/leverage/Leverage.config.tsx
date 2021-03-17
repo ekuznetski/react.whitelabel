@@ -27,7 +27,7 @@ export const config = {
       [t('Stocks (US)'), '1:20'],
       ['Etfs', '1:20'],
     ],
-    colsPctSize: [null, null],
+    colsPctSize: [50, 50],
   },
   leverageRatiosCards: [
     {
