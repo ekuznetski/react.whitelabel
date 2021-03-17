@@ -95,8 +95,6 @@
     @each $breakpoint,
     $spacer in $sortedSizes {
       @include media-breakpoint-up($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
         $rem_size: map-get($spacers, $spacer);
         $length: $spacer;
 

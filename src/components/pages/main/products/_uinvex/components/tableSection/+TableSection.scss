@@ -5,24 +5,29 @@
   .table-section {
     &__key-points__item {
       padding-bottom: 20px;
+
       &:before {
         display: none;
       }
+
       b {
         color: $blue;
         font-size: 22px;
         font-weight: 800;
       }
     }
+
     .tableWrapper {
       background: white;
       box-shadow: box-shadow(10, 0.1);
       border-radius: 6px;
       overflow: hidden;
+
       .market-table {
         box-shadow: none;
       }
     }
+
     &.full .tableWrapper {
       @media (min-width: $viewport-xl-min-w) {
         .tableCol {
@@ -36,15 +41,18 @@
         }
       }
     }
+
     .infoCol {
       padding: 40px 0 0 40px;
       margin-bottom: 0 !important;
+
       svg {
         height: 16px;
         width: 16px;
         margin: 36px;
       }
     }
+
     .seeAll {
       .infoCol {
         display: none;
@@ -61,6 +69,7 @@
         margin: auto;
         color: $blue;
         text-decoration: underline;
+
         svg {
           fill: white;
           background: $blue;
@@ -88,18 +97,22 @@
         border-top: 1px solid $border-grey;
         box-shadow: none;
         color: $text;
+
         .tr {
           height: 80px;
           font-weight: 300;
+
           * {
             font-size: 14px;
           }
-          > .td {
+
+          >.td {
             &.grouped .sub-row {
               border-top: 1px solid $border-grey;
               margin-top: 8px;
               height: 40px;
             }
+
             &.fullViewParam.full {
               padding: 15px;
             }
@@ -117,9 +130,12 @@
         border-bottom: 1px solid $border-grey;
         border-right: 1px solid $border-grey;
         border-left: 1px solid $border-grey;
-        > .td {
+
+        >.td {
           border: none;
+
           &.grouped {
+
             .td:nth-child(1),
             .td:nth-child(3),
             .sub-row .col0,
@@ -130,20 +146,24 @@
               color: $dark-text;
               background: rgba($light-blue, 0.3);
             }
+
             .sub-row .col1 {
               background: white;
               color: $dark-text;
             }
           }
+
           &:first-child {
             border-right: 1px solid $border-grey;
           }
+
           &:last-child {
             border-left: 1px solid $border-grey;
           }
         }
       }
     }
+
     .reversed .market-table {
       .tbody {
         .tr:last-child {
