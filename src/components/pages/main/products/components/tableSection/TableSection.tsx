@@ -32,9 +32,9 @@ export const TableSection = memo(
     }
 
     return (
-      <section className={classNames('table-section', preview && 'full')} id="tableType" ref={ref}>
+      <section className={classNames('table-section', !preview && 'full')} id="tableType" ref={ref}>
         <Container>
-          <Row className={rowClass + ' tableWrapper'}>
+          <Row className={rowClass + ' table-wrapper'}>
             <Col className={infoColClass}>
               {!preview ? <Svg href="close" className="close" onClick={toggleTableView(false)} /> : null}
               <div className="info-col__title">{props.title}</div>

@@ -1,12 +1,12 @@
-import React, { RefObject, useEffect, useState } from 'react';
 import { Button, SectionBg } from '@components/shared';
-import { config } from '@pages/main/products';
 import { EAssetClass } from '@domain/enums';
-import { useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import './TopSection.scss';
-import classNames from 'classnames';
+import { config } from '@pages/main/products';
 import { useDeviceDetect } from '@utils/hooks';
+import classNames from 'classnames';
+import React, { RefObject, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import './TopSection.scss';
 
 export interface IProductsTopSectionProps {
   sectionRefs: { [key: string]: RefObject<any> };

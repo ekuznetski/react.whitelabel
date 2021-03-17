@@ -128,6 +128,12 @@
   }
 }
 
+
+// flex
+@mixin flex($sizes, $negative: false) {
+  @include mediaTag(flex, null, $sizes, $negative);
+}
+
 // flex-direction
 @mixin flexDirection($sizes, $negative: false) {
   @include mediaTag(flex, direction, $sizes, $negative);
