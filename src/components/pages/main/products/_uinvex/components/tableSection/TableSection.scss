@@ -19,7 +19,8 @@
 
         &.preview {
           @include col((md: 4, lg:5));
-          @include py((xs: 7, md:9, lg:11));
+          @include pt((xs: 7, md:9, lg:11));
+          @include pb((xs: 0));
         }
 
         &__title {
