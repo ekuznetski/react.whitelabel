@@ -3,7 +3,7 @@
 
 .leverage-wrapper {
   &__ratios {
-    @include d-flex(center, start, row);
+    @include d-flex(center);
 
     .common-table-wrapper {
       @include mx((xl: 18));

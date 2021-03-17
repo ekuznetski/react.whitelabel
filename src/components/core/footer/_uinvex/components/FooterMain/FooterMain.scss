@@ -12,7 +12,7 @@
   }
 
   .outer-links-container {
-    @include d-flex(center, start, row);
+    @include d-flex(center);
     flex-wrap: wrap;
 
     .links {
@@ -44,7 +44,7 @@
   }
 
   .social-links {
-    @include d-flex(center, flex-end, row);
+    @include d-flex(center, flex-end);
     @include mt((xs: 10, md: 0));
     @include col((xs: 12, md: auto));
 

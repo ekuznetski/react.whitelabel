@@ -3,7 +3,7 @@
 
 .leverage-wrapper {
   &__page-top {
-    @include d-flex(center, start, row);
+    @include d-flex(center);
     @include mt((xs: 14));
     height: 608px;
     color: $dark-text;
