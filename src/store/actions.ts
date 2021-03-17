@@ -402,7 +402,7 @@ export function ac_makeInternalTransfer(
 
 export function ac_fetchTransactionalStatements(
   payload: ITransactionalStatementsRequestData,
-  onSuccess?: AnyFunction,
+  onSuccess: AnyFunction,
   onFailure?: AnyFunction,
 ): IAction {
   return {
