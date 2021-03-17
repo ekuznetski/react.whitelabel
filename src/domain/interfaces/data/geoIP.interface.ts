@@ -11,5 +11,4 @@ export interface IGeoIp {
   redirect_popup: boolean;
   redirect_url: string;
   redirect_url_full: string;
-  passive_consent: boolean;
 }
