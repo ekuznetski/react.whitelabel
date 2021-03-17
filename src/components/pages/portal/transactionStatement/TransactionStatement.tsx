@@ -12,6 +12,7 @@ import {
   Tabs,
 } from '@components/shared';
 import { ENotificationType, ETransactionTypes } from '@domain/enums';
+import { ITransactionalStatementsResponse } from '@domain/interfaces';
 import {
   ac_clearTransactionalStatements,
   ac_fetchTransactionalStatements,
@@ -49,24 +50,6 @@ export const TransactionStatement = memo(function TransactionStatement() {
     };
   }, []);
 
-  useEffect(() => {
-    if (statements && (statements.deposits.length || statements.trades.length || statements.withdrawals.length)) {
-      dispatch(
-        ac_showNotification({
-          type: ENotificationType.success,
-          message: t('Requested statements are successfully loaded'),
-        }),
-      );
-    } else if (statements) {
-      dispatch(
-        ac_showNotification({
-          type: ENotificationType.warning,
-          message: t('No statement found for the defined period', { statementType: t('Statement') }),
-        }),
-      );
-    }
-  }, [statements]);
-
   const validationSchema = Yup.object().shape({
     operation_type: Yup.array<string>().required(t('This field is required')),
     filter: Yup.array<Moment>().required(t('This field is required')),
@@ -89,7 +72,25 @@ export const TransactionStatement = memo(function TransactionStatement() {
     dispatch(
       ac_fetchTransactionalStatements(
         data,
-        () => {
+        (_res: ITransactionalStatementsResponse) => {
+          if (
+            _res?.data &&
+            (_res?.data?.deposits.length || _res?.data?.trades.length || _res?.data?.withdrawals.length)
+          ) {
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.success,
+                message: t('Requested statements are successfully loaded'),
+              }),
+            );
+          } else if (_res?.data) {
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.warning,
+                message: t('No statement found for the defined period', { statementType: t('Statement') }),
+              }),
+            );
+          }
           setTransactionsFilter(values.operation_type);
         },
         () => {

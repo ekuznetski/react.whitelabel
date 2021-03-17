@@ -28,8 +28,8 @@ export const TransactionStatementSearchItem = memo(function TransactionStatement
 
   return (
     <div className="transaction-statement-search-item mb-10">
-      {cells.map((cell) => (
-        <div className={classNames('search-item__cell px-6', cell.name)}>
+      {cells.map((cell, idx) => (
+        <div className={classNames('search-item__cell px-6', cell.name)} key={idx}>
           <div className="search-item__title mb-0 mb-md-2">{cell.title}</div>
           <div className="search-item__context">{cell.context}</div>
         </div>
