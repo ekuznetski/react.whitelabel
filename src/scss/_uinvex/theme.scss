@@ -11,8 +11,9 @@ body {
     &.general {
       section {
         position: relative;
+        padding: 100px 0;
 
-        @media (min-width: $viewport-md-min-w) {
+        @media (max-width: $viewport-lg-w) {
           padding: 68px 0;
         }
 
