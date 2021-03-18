@@ -104,6 +104,6 @@ export const config = {
       ],
       [<b>{t('Etfs')}</b>, '1:20'],
     ],
-    colsPctSize: [50, 50],
+    colsPctSize: [null, null],
   },
 };

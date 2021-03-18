@@ -1,3 +1,4 @@
+import { cps } from '@redux-saga/core/effects';
 import { useToggle } from 'ahooks';
 import classNames from 'classnames';
 import React from 'react';
@@ -8,10 +9,10 @@ import './Table.scss';
 export interface ITable {
   headers: (string | React.ReactFragment)[];
   rows: (string | React.ReactFragment)[][];
-  // in percentage, where colN is class name according to col number that start with 1
-  colsPctSize?: number[] | { [colN: string]: number };
-  // in pixels, if object {colN: number} where N is col number that start with 1
-  colsPxSize?: number[] | { [colN: string]: number };
+  // in percentage, use null for auto sizes, where colN is class name according to col number that start with 1
+  colsPctSize?: (number | null)[] | { [colN: string]: number };
+  // in pixels, use null for auto sizes, if object {colN: number} where N is col number that start with 1
+  colsPxSize?: (number | null)[] | { [colN: string]: number };
   className?: string;
   preview?: boolean;
   previewAmount?: number;
@@ -26,22 +27,24 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
   let colPct: string[] = new Array(headers.length);
   let colPx: string[] = new Array(headers.length);
 
-  if (Array.isArray(colsPctSize)) colPct = [...colsPctSize].map((item) => `${item}%`);
-  if (Array.isArray(colsPxSize)) colPx = [...colsPxSize].map((item) => `${item}px`);
+  if (Array.isArray(colsPctSize)) colPct = [...colsPctSize].map((item) => (item ? `${item}%` : 'auto'));
+  if (Array.isArray(colsPxSize)) colPx = [...colsPxSize].map((item) => (item ? `${item}px` : 'auto'));
 
   if (isObject(colsPctSize)) {
     Object.keys(colsPctSize as Record<string, unknown>).forEach((key) => {
       const _key = Number(key.replace(/\D*/, ''));
+
       // @ts-ignore
-      colPct[_key] = `${colsPctSize[key]}%`;
+      colPct[_key] = colsPctSize[key] ? `${colsPctSize[key]}%` : 'auto';
     });
   }
 
   if (isObject(colsPxSize)) {
     Object.keys(colsPxSize as Record<string, unknown>).forEach((key) => {
       const _key = Number(key.replace(/\D*/, '')) - 1;
+
       // @ts-ignore
-      colPx[_key] = `${colsPxSize[key]}px`;
+      colPx[_key] = colsPxSize[key] ? `${colsPxSize[key]}px` : 'auto';
     });
   }
 
@@ -52,29 +55,29 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
   return (
     <div className="common-table-wrapper">
       <div className={classNames('common-table', className)}>
-        <div className="thead">
-          <div className="tr">
-            {headers.map((headerCell, h) => (
-              <div
-                key={h}
-                className={`th col${h + 1}`}
-                style={{ width: colPct[h] || 'auto', minWidth: colPx[h] || 'auto' }}
-              >
-                {headerCell}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="tbody">
-          {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) => (
-            <div className="tr" key={r}>
-              {row.slice(0, headers.length).map((cell, c) => (
-                <div className="td" key={c} style={{ width: colPct[c] || 'auto', minWidth: colPx[c] || 'auto' }}>
-                  {cell}
-                </div>
-              ))}
+        <div className="thead" style={{ gridTemplateColumns: !!colPx[0] ? colPx.join(' ') : colPct.join(' ') }}>
+          {headers.map((headerCell, h) => (
+            <div key={h} className={classNames('th', `col${h + 1}`, h + 1 === headers.length && 'lastCol')}>
+              {headerCell}
             </div>
           ))}
+        </div>
+        <div className="tbody" style={{ gridTemplateColumns: !!colPx[0] ? colPx.join(' ') : colPct.join(' ') }}>
+          {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) =>
+            row.slice(0, headers.length).map((cell, c) => (
+              <div
+                className={classNames(
+                  'td',
+                  `col${c + 1}`,
+                  r + 1 === rows.length && 'lastRow',
+                  c + 1 === headers.length && 'lastCol',
+                )}
+                key={c}
+              >
+                {cell}
+              </div>
+            )),
+          )}
         </div>
       </div>
       {preview && (

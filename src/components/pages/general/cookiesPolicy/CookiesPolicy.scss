@@ -26,12 +26,12 @@
       border-top: 1px solid #e1e4eb;
       border-bottom: 1px solid #e1e4eb;
 
-      &:first-child {
+      &.col1 {
         border-left: 1px solid #e1e4eb;
       }
     }
 
-    .tbody .tr .td {
+    .tbody .td {
       font-size: 16px;
       font-weight: 400;
       line-height: 26px;
@@ -39,7 +39,7 @@
       padding: 0;
     }
 
-    .tbody .tr .td:first-child {
+    .tbody .td.col1 {
       align-items: center;
     }
   }

@@ -13,19 +13,16 @@
           justify-content: flex-start;
         }
 
-        .tr {
-          .td {
-            height: 80px;
-            align-items: center;
-            line-height: 26px;
+        .td {
+          align-items: center;
+          line-height: 26px;
 
-            &:first-child {
-              display: flex;
-            }
+          &.col1 {
+            display: flex;
+          }
 
-            &:last-child {
-              justify-content: flex-end;
-            }
+          &.lastCol {
+            justify-content: flex-end;
           }
         }
 
@@ -148,10 +145,8 @@
 
     @media (max-width: $viewport-lg-w) {
       .common-table-wrapper {
-        .common-table {
-          .tr>.td {
-            height: 60px;
-          }
+        .tbody {
+          grid-auto-rows: 60px;
         }
       }
     }
@@ -230,19 +225,15 @@
           width: 100%;
 
 
-          .th:first-child,
-          .td:first-child {
+          .th.col1,
+          .td.col1 {
             position: relative;
             left: unset;
             box-shadow: none;
           }
 
-          .th {
-            height: 60px;
-          }
-
-          .td {
-            width: 50%;
+          .thead {
+            grid-auto-rows: 60px;
           }
         }
       }

@@ -7,18 +7,17 @@
     align-items: center;
 
     .common-table {
-      .tr {
-        @include px((xs: 7, sm: 9, lg: 10));
-      }
 
       .thead .th,
       .tbody .td {
-        &:first-child {
+        &.col1 {
           justify-content: flex-start;
+          @include pl((xs: 7, sm: 9, lg: 10));
         }
 
-        &:last-child {
+        &.lastCol {
           justify-content: flex-end;
+          @include pr((xs: 7, sm: 9, lg: 10));
         }
       }
     }

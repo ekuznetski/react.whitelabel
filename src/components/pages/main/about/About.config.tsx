@@ -40,7 +40,7 @@ export const config = {
         [<Img src="neteller.png" height={40} />, '$20', 'USD, EUR', t('Up to 1 hour'), '$0'],
         [<Img src="skrill.png" height={40} />, '$20', 'USD, EUR', t('Up to 1 hour'), '$0'],
       ],
-      colsPctSize: [20, 20, 30, 20, 10],
+      colsPctSize: [20, 10, 30, null, 10],
     },
     withdrawals: {
       headers: [t('Method'), t('Minimum'), t('Currency'), t('Processing'), t('Fees')],
@@ -57,7 +57,7 @@ export const config = {
         [<Img src="neteller.png" height={40} />, '$20', 'USD, EUR', t('1 working day'), '$0'],
         [<Img src="skrill.png" height={40} />, '$20', 'USD, EUR', t('1 working day'), '$0'],
       ],
-      colsPctSize: [20, 20, 30, 20, 10],
+      colsPctSize: [20, 10, 30, null, 10],
     },
   },
   trustedCards: [

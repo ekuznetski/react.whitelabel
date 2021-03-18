@@ -19,20 +19,19 @@
       .th {
         background-color: $grey-bg;
 
-        &:first-child {
+        &.col1 {
           border-left: 1px solid $grey-bg;
           border-top-left-radius: $border-box-radius;
         }
 
-        &:last-child {
+        &.lastCol {
           border-top-right-radius: $border-box-radius;
         }
 
-        &:not(:first-child) {
+        &:not(.col1) {
           justify-content: flex-start;
         }
 
-        height: 40px;
         font-family: $font-family1;
         line-height: 17px;
         color: $grey;
@@ -44,10 +43,13 @@
       border-left: none;
       border-top: none;
 
-      .tr {
-        border-bottom: 1px solid $border-grey;
 
-        &:last-child {
+      .td {
+        border-bottom: 1px solid $border-grey;
+        background-color: white;
+        justify-content: flex-start;
+
+        &.lastRow {
           border-bottom: none;
         }
 
@@ -55,16 +57,11 @@
           background: transparent;
         }
 
-        .td {
-          background-color: white;
-          justify-content: flex-start;
+        &.col1 {
+          border-left: 1px solid $border-grey;
 
-          &:first-child {
-            border-left: 1px solid $border-grey;
-
-            img {
-              margin: auto;
-            }
+          img {
+            margin: auto;
           }
         }
       }
@@ -77,19 +74,22 @@
     .common-table {
       width: 570px;
 
-      .th:first-child,
-      .td:first-child {
+      .th.col1,
+      .td.col1 {
         position: sticky;
         left: 0;
         box-shadow: box-shadow(15, 0.1);
       }
 
-      .th {
-        height: 40px;
+      .thead {
+        grid-auto-rows: 40px;
+      }
+
+      .tbody {
+        grid-auto-rows: 60px;
       }
 
       .tbody .tr .td {
-        height: 60px;
         line-height: 22px;
         justify-content: flex-start;
       }
