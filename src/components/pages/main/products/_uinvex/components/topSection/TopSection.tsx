@@ -1,10 +1,9 @@
-import { Button, SectionBg } from '@components/shared';
+import { Button, Col, Container, Row, SectionBg } from '@components/shared';
 import { EAssetClass } from '@domain/enums';
 import { config } from '@pages/main/products';
-import { useDeviceDetect } from '@utils/hooks';
+import { useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { RefObject, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import './TopSection.scss';
 
@@ -14,9 +13,8 @@ export interface IProductsTopSectionProps {
 
 export function TopSection({ sectionRefs }: IProductsTopSectionProps) {
   const [activeSection, selectedSection] = useState('forex');
-  const device = useDeviceDetect();
+  const responsive = useResponsive();
   let { location, replace }: any = useHistory();
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (location.state?.scrollTo) {
@@ -35,6 +33,7 @@ export function TopSection({ sectionRefs }: IProductsTopSectionProps) {
       sectionRefs[type].current.scrollIntoView({ behavior: 'smooth' });
     };
   }
+
   return (
     <section className="page-top">
       <SectionBg
@@ -45,55 +44,54 @@ export function TopSection({ sectionRefs }: IProductsTopSectionProps) {
           lg: 'products-page-top-desktop.png',
         }}
       />
-      <div className="container">
-        <div className="row mb-9">
-          <div className="col text-center">
+      <Container>
+        <Row className="mb-9">
+          <Col className="text-center">
             <div className="page-top__title">{config.pageTopTitle}</div>
-          </div>
-        </div>
-        {!device.isMobile && (
-          <div className="nav-buttons row no-gutters mx-auto">
+          </Col>
+        </Row>
+        {responsive.md ? (
+          <Row className="nav-buttons no-gutters mx-auto">
             {config.headerNavigation.map((navBtn, n) => (
-              <div key={n} className="col">
+              <Col key={n}>
                 <Button
                   className={classNames('px-8', navBtn.anchor === activeSection && 'active')}
                   onClick={navigateToSection(navBtn.anchor)}
                 >
                   {navBtn.label}
                 </Button>
-              </div>
+              </Col>
             ))}
-          </div>
-        )}
-        {device.isMobile && (
+          </Row>
+        ) : (
           <>
-            <div className="nav-buttons row no-gutters mx-auto mb-10">
+            <Row className="nav-buttons no-gutters mx-auto mb-10">
               {config.headerNavigation.slice(0, 3).map((navBtn, n) => (
-                <div key={n} className="col">
+                <Col key={n}>
                   <Button
                     className={classNames('px-8', navBtn.anchor === activeSection && 'active')}
                     onClick={navigateToSection(navBtn.anchor)}
                   >
                     {navBtn.label}
                   </Button>
-                </div>
+                </Col>
               ))}
-            </div>
-            <div className="nav-buttons row no-gutters mx-auto">
+            </Row>
+            <Row className="nav-buttons no-gutters mx-auto">
               {config.headerNavigation.slice(3, 5).map((navBtn, n) => (
-                <div key={n} className="col">
+                <Col key={n}>
                   <Button
                     className={classNames('px-8', navBtn.anchor === activeSection && 'active')}
                     onClick={navigateToSection(navBtn.anchor)}
                   >
                     {navBtn.label}
                   </Button>
-                </div>
+                </Col>
               ))}
-            </div>
+            </Row>
           </>
         )}
-      </div>
+      </Container>
     </section>
   );
 }
