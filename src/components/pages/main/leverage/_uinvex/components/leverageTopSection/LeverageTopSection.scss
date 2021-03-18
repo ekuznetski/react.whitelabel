@@ -4,7 +4,7 @@
 .leverage-wrapper {
   &__page-top {
     @include d-flex(center);
-    margin-top: $menu-height-main-lg;
+   @include mt((xs: $menu-height-main-sm, md: $menu-height-main-md, lg: $menu-height-main-lg));
     height: 608px;
     color: $dark-text;
 
@@ -75,7 +75,6 @@
     }
 
     @media (max-width: $viewport-md-w) {
-      margin-top: $menu-height-main-md;
       height: 540px;
 
       .header {
@@ -107,10 +106,6 @@
           }
         }
       }
-    }
-
-    @media (max-width: $viewport-sm-w) {
-      margin-top: $menu-height-main-sm;
     }
   }
 }
