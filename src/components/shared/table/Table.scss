@@ -3,6 +3,9 @@
 
 .common-table-wrapper {
   .common-table {
+    display: grid;
+    grid-template-rows: 70px;
+    grid-auto-rows: 70px;
     width: 100%;
     border-collapse: collapse;
     border-radius: $border-box-radius;
@@ -18,35 +21,28 @@
       flex-wrap: wrap;
     }
 
-    .thead {
+    .th {
       box-shadow: box-shadow(15, 0.066);
-      display: grid;
-      grid-auto-rows: 70px;
 
-      .th {
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 24px;
-        color: $text;
-      }
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 24px;
+      color: $text;
     }
 
-    .tbody {
-      display: grid;
-      grid-auto-rows: 70px;
 
-      .td {
-        border-bottom: 1px solid $grey;
-        box-sizing: border-box;
-        transition: background 0.3s;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 24px;
-        color: $dark-text;
 
-        &:hover {
-          background: $grey-bg;
-        }
+    .td {
+      border-bottom: 1px solid $grey;
+      box-sizing: border-box;
+      transition: background 0.3s;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: $dark-text;
+
+      &:hover {
+        background: $grey-bg;
       }
     }
   }

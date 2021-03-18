@@ -6,64 +6,53 @@
   border-top-right-radius: $border-box-radius;
 
   .common-table {
+    grid-template-rows: 40px;
+    grid-auto-rows: 70px;
     box-shadow: none;
 
-    .thead {
+    .th {
       background-color: $grey-bg;
-      border: solid 1px $grey-bg;
-      border-top-left-radius: $border-box-radius;
-      border-top-right-radius: $border-box-radius;
-      border-left: none;
       box-shadow: none;
+      border-top: solid 1px $grey-bg;
 
-      .th {
-        background-color: $grey-bg;
-
-        &.col1 {
-          border-left: 1px solid $grey-bg;
-          border-top-left-radius: $border-box-radius;
-        }
-
-        &.lastCol {
-          border-top-right-radius: $border-box-radius;
-        }
-
-        &:not(.col1) {
-          justify-content: flex-start;
-        }
-
-        font-family: $font-family1;
-        line-height: 17px;
-        color: $grey;
+      &.col1 {
+        border-left: 1px solid $grey-bg;
+        border-top-left-radius: $border-box-radius;
       }
+
+      &.lastCol {
+        border-top-right-radius: $border-box-radius;
+      }
+
+      &:not(.col1) {
+        justify-content: flex-start;
+      }
+
+      font-family: $font-family1;
+      line-height: 17px;
+      color: $grey;
     }
 
-    .tbody {
-      border: 1px solid $border-grey;
-      border-left: none;
-      border-top: none;
 
+    .td {
+      border-bottom: 1px solid $border-grey;
+      background-color: white;
+      justify-content: flex-start;
 
-      .td {
-        border-bottom: 1px solid $border-grey;
-        background-color: white;
-        justify-content: flex-start;
+      &:hover {
+        background: transparent;
+      }
 
-        &.lastRow {
-          border-bottom: none;
+      &.col1 {
+        border-left: 1px solid $border-grey;
+
+        img {
+          margin: auto;
         }
+      }
 
-        &:hover {
-          background: transparent;
-        }
-
-        &.col1 {
-          border-left: 1px solid $border-grey;
-
-          img {
-            margin: auto;
-          }
-        }
+      &.lastCol {
+        border-right: 1px solid $border-grey;
       }
     }
   }
@@ -73,6 +62,8 @@
 
     .common-table {
       width: 570px;
+      grid-template-rows: 40px;
+      grid-auto-rows: 60px;
 
       .th.col1,
       .td.col1 {
@@ -81,15 +72,7 @@
         box-shadow: box-shadow(15, 0.1);
       }
 
-      .thead {
-        grid-auto-rows: 40px;
-      }
-
-      .tbody {
-        grid-auto-rows: 60px;
-      }
-
-      .tbody .tr .td {
+      .tr .td {
         line-height: 22px;
         justify-content: flex-start;
       }

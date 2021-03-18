@@ -145,7 +145,7 @@
 
     @media (max-width: $viewport-lg-w) {
       .common-table-wrapper {
-        .tbody {
+        .common-table {
           grid-auto-rows: 60px;
         }
       }
@@ -223,6 +223,7 @@
 
         .common-table {
           width: 100%;
+          grid-template-rows: 60px;
 
 
           .th.col1,
@@ -230,10 +231,6 @@
             position: relative;
             left: unset;
             box-shadow: none;
-          }
-
-          .thead {
-            grid-auto-rows: 60px;
           }
         }
       }

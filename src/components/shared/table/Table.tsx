@@ -54,31 +54,30 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
 
   return (
     <div className="common-table-wrapper">
-      <div className={classNames('common-table', className)}>
-        <div className="thead" style={{ gridTemplateColumns: !!colPx[0] ? colPx.join(' ') : colPct.join(' ') }}>
-          {headers.map((headerCell, h) => (
-            <div key={h} className={classNames('th', `col${h + 1}`, h + 1 === headers.length && 'lastCol')}>
-              {headerCell}
+      <div
+        className={classNames('common-table', className)}
+        style={{ gridTemplateColumns: !!colPx[0] ? colPx.join(' ') : colPct.join(' ') }}
+      >
+        {headers.map((headerCell, h) => (
+          <div key={h} className={classNames('th', `col${h + 1}`, h + 1 === headers.length && 'lastCol')}>
+            {headerCell}
+          </div>
+        ))}
+        {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) =>
+          row.slice(0, headers.length).map((cell, c) => (
+            <div
+              className={classNames(
+                'td',
+                `col${c + 1}`,
+                r + 1 === rows.length && 'lastRow',
+                c + 1 === headers.length && 'lastCol',
+              )}
+              key={c}
+            >
+              {cell}
             </div>
-          ))}
-        </div>
-        <div className="tbody" style={{ gridTemplateColumns: !!colPx[0] ? colPx.join(' ') : colPct.join(' ') }}>
-          {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) =>
-            row.slice(0, headers.length).map((cell, c) => (
-              <div
-                className={classNames(
-                  'td',
-                  `col${c + 1}`,
-                  r + 1 === rows.length && 'lastRow',
-                  c + 1 === headers.length && 'lastCol',
-                )}
-                key={c}
-              >
-                {cell}
-              </div>
-            )),
-          )}
-        </div>
+          )),
+        )}
       </div>
       {preview && (
         <div className="toggleTableView mt-4" onClick={toggleTableView}>
