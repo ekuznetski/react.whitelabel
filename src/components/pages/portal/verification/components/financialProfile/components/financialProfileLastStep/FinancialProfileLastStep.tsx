@@ -25,7 +25,6 @@ export const FinancialProfileLastStep = memo(function FinancialProfileStep({ sub
       }}
     >
       {(props) => {
-        console.log(props);
         return (
           <>
             <div className="financial-profile__step-title mb-10">{t('Declarations and Acknowledgement of Risks')}</div>

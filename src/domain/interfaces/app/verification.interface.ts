@@ -1,3 +1,4 @@
+import { EAddInfoTabs, EUploadDocumentsTabs, EVerificationTabs } from '@domain/enums';
 import { IBaseResponse } from '../general.interface';
 
 export interface IEdd {
@@ -29,3 +30,8 @@ export interface IEdd {
 export type IEddResponse = {
   response: IEdd;
 } & IBaseResponse;
+
+export interface IGetFirstUnverifiedTab {
+  mainTab: EVerificationTabs;
+  subTab?: EUploadDocumentsTabs | EAddInfoTabs;
+}

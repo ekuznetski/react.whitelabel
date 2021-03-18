@@ -4,9 +4,12 @@ import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { AdditionalInformation, FinancialProfile, UploadDocuments } from './components';
 import './Verification.scss';
+import { getFirstUnverifiedTab } from '@utils/fn';
 
 export const Verification = memo(function Verification() {
   const { t } = useTranslation();
+
+  const initialActiveTab = getFirstUnverifiedTab();
 
   return (
     <Container className="client-verification-page-wrapper">
@@ -17,7 +20,7 @@ export const Verification = memo(function Verification() {
       </Row>
       <Row className="justify-content-center">
         <Col xs={12}>
-          <Tabs className="client-verification__tabs" activeTab="financialProfile">
+          <Tabs className="client-verification__tabs" activeTab={initialActiveTab.mainTab}>
             <Tab label={t('Financial Profile')} anchor="financialProfile">
               <FinancialProfile />
             </Tab>
