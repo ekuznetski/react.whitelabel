@@ -20,6 +20,7 @@ export default {
   'Banner Section Title': 'Trusted. <1/>Transparent.',
   'Banner Section Desc': `Take advantage of our unrivalled trading technologies and access the world's largest financial markets.`,
   'Discover Trading Tools': 'An intuitive and secure experience for the discerning trader.',
+  'Explore Our Products': 'Explore our wide range of products and use our trading tools.',
   'Live Account': 'account',
   'About Us Page Title': 'Why choose ',
   'About Us Page Title Without Logo': 'Why choose <1>Uinvex</1>',
@@ -82,4 +83,5 @@ export default {
   'Stocks (Germany)': '<0>Stocks</0> (Germany)',
   'Stocks (Spain)': '<0>Stocks</0> (Spain)',
   'Stocks (US)': '<0>Stocks</0> (US)',
+  'Leverage Open Live Section Title': 'Cutting-edge trading technology',
 };

@@ -4,13 +4,13 @@
 .leverage-wrapper {
   &__page-top {
     @include d-flex(center);
-    @include mt((xs: 14));
+    margin-top: $menu-height-main-lg;
     height: 608px;
     color: $dark-text;
 
     .page-top {
       &__header {
-        @include col((md: 9, lg: 6));
+        @include col((md: 9, lg:5, xl: 6));
 
         .note {
           font-size: 14px;
@@ -25,6 +25,10 @@
         font-family: $font-family1;
         font-size: 48px;
         line-height: 64px;
+
+        b {
+          font-weight: 600;
+        }
       }
 
       &__description {
@@ -34,9 +38,19 @@
       }
     }
 
+    @media (max-width: $viewport-xl-w) {
+      .secondary-bg {
+        background-position-x: 60% !important;
+      }
+    }
+
     @media (max-width: $viewport-lg-w) {
       height: 628px;
       align-items: flex-start;
+
+      .secondary-bg {
+        background-position-x: 50% !important;
+      }
 
       .page-top {
         &__header {
@@ -61,7 +75,16 @@
     }
 
     @media (max-width: $viewport-md-w) {
+      margin-top: $menu-height-main-md;
       height: 540px;
+
+      .header {
+
+        &-container,
+        &-row {
+          height: 100%;
+        }
+      }
 
       .page-top {
         &__title {
@@ -76,14 +99,18 @@
 
         &__header {
           .note {
-            position: relative;
+            position: absolute;
             right: unset;
-            bottom: unset;
-            top: 190px;
+            bottom: 0;
             text-align: center;
+            width: 100%;
           }
         }
       }
+    }
+
+    @media (max-width: $viewport-sm-w) {
+      margin-top: $menu-height-main-sm;
     }
   }
 }

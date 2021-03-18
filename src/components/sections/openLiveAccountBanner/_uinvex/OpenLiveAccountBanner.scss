@@ -2,9 +2,9 @@
 @import '~/mixin';
 
 .open-live-account-banner {
+  @include d-flex(flex-end);
   overflow: visible;
   padding: 0 !important;
-  @include d-flex(flex-end, start, row);
   background: transparent;
   color: white;
   position: relative;
@@ -17,9 +17,9 @@
   }
 
   .open-live-account-banner__column {
+    @include d-flex(start, center, column);
     height: 440px;
     overflow: hidden;
-    @include d-flex(start, center, column);
     z-index: 1;
     margin-bottom: 0 !important;
     flex: 0 0 colSizePrc(4);
@@ -47,11 +47,10 @@
   }
 
   .open-account {
+    @include d-flex(center, center, column);
     flex: 0 0 colSizePrc(5);
     max-width: colSizePrc(5);
-    @include d-flex(center, center, column);
     z-index: 1;
-    padding: 0 65px;
     padding-top: 10px;
     margin-top: -40px !important;
     margin-left: auto;
@@ -80,6 +79,7 @@
         font-size: 22px;
         line-height: 34px;
         text-align: center;
+        width: 285px;
       }
     }
 
@@ -96,7 +96,7 @@
     }
 
     button {
-      background-color: white;
+      background-color: $light-blue;
       border-radius: $border-radius;
       width: 190px;
       height: $btn-size-lg;
@@ -108,12 +108,6 @@
       a {
         color: $blue;
       }
-    }
-  }
-
-  @media (max-width: $viewport-xl-w) {
-    .open-account {
-      padding: 0 40px;
     }
   }
 
@@ -158,9 +152,8 @@
       text-align: left;
       justify-content: center;
 
-      flex: 0 0 colSizePrc(5);
-      max-width: colSizePrc(5);
-      padding: 0 60px;
+      flex: 0 0 48%;
+      max-width: 48%;
       height: 400px;
 
       .open-live-account-banner {
@@ -169,6 +162,7 @@
         }
 
         &__description {
+          width: 200px;
           font-size: 16px;
           line-height: 26px;
         }
@@ -235,7 +229,6 @@
       margin-bottom: 0;
       align-items: center;
       height: 330px;
-      padding: 0 30px;
 
       flex: unset;
       max-width: 100%;
@@ -250,6 +243,7 @@
         }
 
         &__description {
+          width: 100%;
           line-height: 22px;
         }
       }

@@ -6,5 +6,7 @@ export const locale = {
   pageTopTitle: t('Leverage Information'),
   pageTopDesc: t('Leverage Page Top Desc'),
   ratiosTitle: t('Leverage Ratios'),
-  ratiosDesc: t('Leverage Page Top Desc'),
+  ratiosDesc: t('Leverage Ratios Desc'),
+  openLiveSectionTitle: undefined,
+  openAccountDesc: undefined,
 };

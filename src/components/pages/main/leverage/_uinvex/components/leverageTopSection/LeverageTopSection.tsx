@@ -17,8 +17,8 @@ export const LeverageTopSection = memo(function LeverageTopSection() {
           lg: 'leverage-page-top-desktop.png',
         }}
       />
-      <div className="container">
-        <div className="row">
+      <div className="container header-container">
+        <div className="row header-row">
           <div className="col page-top__header">
             <div className="page-top__title">{locale.pageTopTitle}</div>
             <div className="page-top__description">{locale.pageTopDesc}</div>
