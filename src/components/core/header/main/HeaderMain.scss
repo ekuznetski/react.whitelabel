@@ -68,6 +68,8 @@
     }
 
     .burger-toggle {
+      display: flex;
+      
       svg {
         transition: all 0.3s;
 
