@@ -51,7 +51,7 @@
             @include d-flex(center);
             @include mb((xs:0, md:3));
             @include mb((xs:0, md:3));
-            @include mt((xs:1), true);
+            @include mt((xs:1), n);
 
             @include fontSize((xs: 18px, md:16px, lg:18px));
             @include lineHeight((xs: 28px, md:24px, lg:28px));
@@ -60,7 +60,7 @@
 
             &-number {
               @include mr((xs:5));
-              @include ml((xs:3), true);
+              @include ml((xs:3), n);
 
               @include fontSize((xs: 55px, lg:65px));
               font-weight: 300;

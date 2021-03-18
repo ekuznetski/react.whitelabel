@@ -1,0 +1,186 @@
+@import '~/variables';
+@import '~/mixin';
+
+.product-wrapper {
+  .table-section {
+    &:nth-child(odd) {
+      background: $grey-bg;
+    }
+
+    .table-wrapper {
+      background: white;
+      box-shadow: box-shadow(10, 0.1);
+      border-radius: $border-box-radius;
+      overflow: hidden;
+
+      .info-col {
+        @include col((xs: 12));
+        @include p((xs: 7, lg:11));
+
+        &.preview {
+          @include col((md: 4, lg:5));
+          @include pt((xs: 7, md:9, lg:11));
+          @include pb((xs: 0));
+        }
+
+        &__title {
+          @include mb((xs: 7));
+          @include fontSize((xs: 36px, md: 30px, lg: 36px, xl: 44px));
+          @include lineHeight((xs: 44px, md: 36px, lg: 44px, xl: 52px));
+          font-family: $font-family1;
+          font-weight: 700;
+          color: $blue;
+        }
+
+        &__desc {
+          @include mb((xs: 8));
+          font-size: 16px;
+          line-height: 26px;
+          color: $text;
+        }
+
+        &__key-points {
+          &__item {
+            @include mb((xs: 1, md:3, lg:7));
+            font-size: 16px;
+            line-height: 30px;
+            color: $dark-text;
+
+            b {
+              color: $blue;
+              font-size: 22px;
+              font-weight: 800;
+            }
+          }
+        }
+
+        .close {
+          position: absolute;
+          right: 42px;
+          top: 42px;
+          height: 18px;
+          width: 18px;
+          cursor: pointer;
+          fill: $text;
+        }
+      }
+
+      .table-col {
+        @include col((xs: 12));
+
+        &.preview {
+          @include col((md: 8, lg: 7));
+          @include ml((xs: auto));
+        }
+
+        &__toggle-table-size {
+          cursor: pointer;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 21px;
+          color: $dark-blue;
+          display: table;
+
+          &:hover {
+            text-decoration: underline;
+          }
+
+          svg {
+            @include ml((xs:2));
+            fill: $dark-blue;
+            margin-top: -2px;
+
+            &.less {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+
+      &.reversed {
+        &:not(.preview) {
+          flex-flow: row-reverse;
+        }
+
+        .table-col {
+          @include offset((lg:1, xl:0));
+
+          @media (min-width: $viewport-md-min-w) {
+            .market-table {
+
+              .thead,
+              .tr:last-child,
+              .tr:last-child .td:first-child {
+                border-radius: $border-box-radius 0 0 0;
+              }
+
+              .tbody {
+
+                .tr:last-child,
+                .tr:last-child .td:first-child {
+                  border-radius: 0 0 0 $border-box-radius;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .seeAll {
+      @include mt((xs:6));
+
+      .info-col {
+        display: none;
+      }
+
+      .table-col {
+        &.preview {
+          @include col((xs: 12));
+        }
+
+        &__toggle-table-size {
+          display: table;
+          margin: auto;
+          color: $blue;
+          text-decoration: underline;
+
+          svg {
+            fill: white;
+            background: $blue;
+            padding: sp(1);
+            margin-left: sp(1);
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+
+    &.full {
+      .table-col {
+        .market-table {
+
+          .thead,
+          .tr:last-child,
+          .tr:last-child .td:last-child {
+            border-radius: 0;
+          }
+
+          .tbody {
+            .tr:last-child {
+              border-radius: 0 0 $border-box-radius $border-box-radius;
+            }
+          }
+        }
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      .row.reversed:not(.preview) {
+        flex-flow: wrap;
+      }
+    }
+  }
+}

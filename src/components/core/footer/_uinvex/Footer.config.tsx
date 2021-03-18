@@ -6,15 +6,6 @@ import { ELabels, EPagePath } from '@domain/enums';
 import { config as _config } from '@core/footer/Footer.config';
 const t = i18n.getLazyT;
 
-function FooterAuthorized() {
-  return (
-    <Col xs={12}>
-      <Img src="st_vincent_flag.png" _label={ELabels.uinvex} className="mr-2" />
-      {t('Footer Authorized')}
-    </Col>
-  );
-}
-
 export const config = {
   ..._config,
   socialMediaLinks: [],
@@ -66,8 +57,23 @@ export const config = {
     ),
   },
   copyright: {
-    auth: <FooterAuthorized />,
-    main: <FooterAuthorized />,
-    portal: <FooterAuthorized />,
+    auth: (
+      <Col xs={12}>
+        <Img src="st_vincent_flag.png" _label={ELabels.uinvex} />
+        {t('Footer Authorized')}
+      </Col>
+    ),
+    main: (
+      <Col xs={12}>
+        <Img src="st_vincent_flag.png" _label={ELabels.uinvex} />
+        {t('Footer Authorized')}
+      </Col>
+    ),
+    portal: (
+      <Col xs={12}>
+        <Img src="st_vincent_flag.png" _label={ELabels.uinvex} />
+        {t('Footer Authorized')}
+      </Col>
+    ),
   },
 };
