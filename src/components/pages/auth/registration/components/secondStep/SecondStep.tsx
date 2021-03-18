@@ -29,7 +29,6 @@ export function SecondStep({ submitFn }: any) {
     geoIp: state.data.geoIp,
   }));
   const { t } = useTranslation();
-  let postalCodeLabel = t('Postal Code') + ' ' + t('Optional');
 
   const months = moment
     .localeData('en')
@@ -71,10 +70,8 @@ export function SecondStep({ submitFn }: any) {
     city: FieldValidators.city,
     postcode: FieldValidators.postcode.when('country', (country: Country, schema: Yup.StringSchema) => {
       if (country?.name === ECountryName['Canada']) {
-        postalCodeLabel = t('Postal Code');
         return schema.required('This field is required');
       } else {
-        postalCodeLabel = t('Postal Code') + ' ' + t('Optional');
         return schema;
       }
     }),
@@ -123,6 +120,10 @@ export function SecondStep({ submitFn }: any) {
       >
         {({ values, setFieldValue, setFieldTouched }) => {
           const _showCountryState = !!values.country && hasState(values.country as Country);
+          const postalCodeLabel =
+            !!values.country && (values.country as Country).name === ECountryName['Canada']
+              ? t('Postal Code')
+              : t('Postal Code') + ' ' + t('Optional');
 
           useEffect(() => {
             setFieldValue('state', '');
