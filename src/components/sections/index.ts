@@ -8,3 +8,4 @@ export * from './workshopCards/WorkshopCards';
 export * from './simpleToGetStarted/SimpleToGetStarted';
 export * from './partnershipPrograms/PartnershipPrograms';
 export * from './simplePageTopSection/SimplePageTopSection';
+export * from './depositSectionCards/DepositSectionCards';
