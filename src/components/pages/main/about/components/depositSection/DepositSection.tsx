@@ -1,6 +1,6 @@
 import { Cards, Tabs } from '@components/shared';
 import { config, locale } from '@pages/main/about';
-import { DepositSectionCards } from '@components/sections';
+import { DepositCards } from '@components/shared';
 import { useResponsive } from 'ahooks';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +16,7 @@ export const DepositSection = memo(function DepositSection() {
         <div className="row">
           <div className="deposit__header col">
             <div className="deposit__title">{locale.depositTitle}</div>
-            <DepositSectionCards />
+            <DepositCards />
           </div>
           <div className="deposit__tabs-container col">
             <Tabs className="deposit__tabs" {...config.tabsData(responsive)} />

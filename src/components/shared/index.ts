@@ -23,6 +23,7 @@ export * from './authAlreadyRegisteredLink/AuthAlreadyRegisteredLink';
 export * from './intercomChat/IntercomChat';
 export * from './map/Map';
 export * from './form/upload/Upload';
+export * from './depositCards/DepositCards';
 
 // Elements
 export * from './labelView/LabelView';

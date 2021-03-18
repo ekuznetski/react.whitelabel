@@ -72,12 +72,12 @@ export const locale = {
     '*': (
       <Trans i18nKey="Deposit and Withdrawal Information">
         Deposit & Withdrawal <br />
-        <strong>Information</strong>
+        <b>Information</b>
       </Trans>
     ),
     [ELabels.uinvex]: (
       <Trans i18nKey="Deposit and Withdrawal Information">
-        <strong>Deposit</strong> & <strong>Withdrawal</strong> Information
+        <b>Deposit</b> & <b>Withdrawal</b> Information
       </Trans>
     ),
   }),

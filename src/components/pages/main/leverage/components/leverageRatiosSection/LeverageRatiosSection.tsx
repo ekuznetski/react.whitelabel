@@ -1,4 +1,4 @@
-import { DepositSectionCards } from '@components/sections';
+import { DepositCards } from '@components/shared';
 import { Table } from '@components/shared';
 import { config, locale } from '@pages/main/leverage';
 import React, { memo } from 'react';
@@ -13,7 +13,7 @@ export const LeverageRatiosSection = memo(function LeverageRatiosSection() {
             <div className="ratios__title">{locale.ratiosTitle}</div>
             <div className="ratios__subTitle">{locale.ratiosDesc}</div>
             <Table {...config.tableData} />
-            <DepositSectionCards />
+            <DepositCards />
           </div>
         </div>
       </div>
