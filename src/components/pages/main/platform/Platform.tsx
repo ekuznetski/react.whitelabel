@@ -3,7 +3,7 @@ import {
   MobileTradingSection,
   OpenLiveAccountBannerSection,
   OurOfferBannerSection,
-  PlatformTechnologySection
+  PlatformTechnologySection,
 } from '@components/sections';
 import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import { downloadLinks } from '@domain';
@@ -14,57 +14,29 @@ import { capitalize } from '@utils/fn';
 import React, { useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { TopSection } from './components';
 import './Platform.scss';
 
 export function Platform() {
-  const { t } = useTranslation();
   const { prices } = useSelector<IStore, { prices: IPrices }>((state) => ({
     prices: state.data.prices,
   }));
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchPricesInterval = setInterval(() => {
       dispatch(ac_fetchPrices());
     }, 5000);
-    return function () {
+
+    return () => {
       clearInterval(fetchPricesInterval);
     };
   }, []);
 
   return (
     <div className="platform-wrapper">
-      <section className="page-top">
-        <SectionBg primary="platform-page-top.jpg" />
-        <div className="container pt-15">
-          <div className="row">
-            <div className="col-lg-7">
-              <div className="page-top__title mb-7">
-                <div>{t('World-Leading MetaTrader Platform:0')}</div>
-                <div>{t('World-Leading MetaTrader Platform:1')}</div>
-                <div>
-                  <strong>{t('Platform Page Top Subtitle')}</strong>
-                </div>
-              </div>
-              <div className="col-12 col-lg-9 col-xl-8 download-buttons row">
-                <Button className="desktop-button mr-6 px-7">
-                  <a href={downloadLinks.mt5.desktop}>{t('Download Desktop Version')}</a>
-                </Button>
-                <Button className="mr-6 px-7 store-link">
-                  <a href={downloadLinks.mt5.appStore}>
-                    <Svg href="app_store_logo" />
-                  </a>
-                </Button>
-                <Button className="px-7 store-link">
-                  <a href={downloadLinks.mt5.googlePlay}>
-                    <Svg href="google_play_logo" />
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <TopSection />
       <section className="assets">
         <div className="container">
           <div className="row justify-content-center">
