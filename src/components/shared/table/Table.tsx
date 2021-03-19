@@ -59,7 +59,7 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
         style={{ gridTemplateColumns: !!colPx[0] ? colPx.join(' ') : colPct.join(' ') }}
       >
         {headers.map((headerCell, h) => (
-          <div key={h} className={classNames('th', `col${h + 1}`, h + 1 === headers.length && 'lastCol')}>
+          <div key={h} className={classNames('th', `col${h + 1}`, h + 1 === headers.length && 'col--last')}>
             {headerCell}
           </div>
         ))}
@@ -69,8 +69,8 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
               className={classNames(
                 'td',
                 `col${c + 1}`,
-                r + 1 === rows.length && 'lastRow',
-                c + 1 === headers.length && 'lastCol',
+                r + 1 === rows.length && 'row--last',
+                c + 1 === headers.length && 'col--last',
               )}
               key={c}
             >

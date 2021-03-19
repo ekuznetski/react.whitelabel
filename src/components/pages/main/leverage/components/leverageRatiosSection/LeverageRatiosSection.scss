@@ -15,7 +15,7 @@
           @include pl((xs: 7, sm: 9, lg: 10));
         }
 
-        &.lastCol {
+        &.col--last {
           justify-content: flex-end;
           @include pr((xs: 7, sm: 9, lg: 10));
         }

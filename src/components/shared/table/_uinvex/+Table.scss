@@ -20,7 +20,7 @@
         border-top-left-radius: $border-box-radius;
       }
 
-      &.lastCol {
+      &.col--last {
         border-top-right-radius: $border-box-radius;
       }
 
@@ -51,7 +51,7 @@
         }
       }
 
-      &.lastCol {
+      &.col--last {
         border-right: 1px solid $border-grey;
       }
     }
