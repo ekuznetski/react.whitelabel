@@ -3,11 +3,6 @@
 
 .leverage-wrapper {
     .open-live-account-banner__column {
-        @include col((md: 6, lg: 5));
-        
-        @media (max-width: $viewport-md-w) {
-            flex: unset;
-            max-width: unset;
-        }
+        @include col((xs: unset, md: 6, lg: 5));
     }
 }
