@@ -23,9 +23,9 @@ export * from './authAlreadyRegisteredLink/AuthAlreadyRegisteredLink';
 export * from './intercomChat/IntercomChat';
 export * from './map/Map';
 export * from './form/upload/Upload';
-export * from './depositCards/DepositCards';
 
 // Elements
+export * from './depositCards/DepositCards';
 export * from './labelView/LabelView';
 export * from './sectionBg/SectionBg';
 export * from './pageTitle/PageTitle';
