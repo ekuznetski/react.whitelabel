@@ -60,6 +60,8 @@ export default {
     'Browse trading opportunities',
     "Invest in the world's largest markets",
   ],
+  'High Risk Investment Warning Portal Desc':
+    'CFDs are leveraged products and can result in the loss of all invested capital. Please consider our Risk Disclosure Notice. UINVEX Limited is an International Business Company registered in Saint Vincent and the Grenadines with registration number 25228 (IBC 2018). Other subsidiaries of Henyep Group are regulated by the CySEC, FCA and DFSA.',
   'High Risk Investment Warning Main Desc':
     'Contracts for Difference (‘CFDs’) are complex financial products that are traded on margin. Trading CFDs carries a high degree of risk. It is possible to lose all your capital. These products may not be suitable for everyone and you should ensure that you understand the risks involved. Seek independent expert advice if necessary and speculate only with funds that you can afford to lose. Please think carefully whether such trading suits you, taking into consideration all the relevant circumstances as well as your personal resources. We do not recommend clients posting their entire account balance to meet margin requirements.Clients can minimize their level of exposure by requesting a change in leverage limit.For more information please refer to UINVEX’s Risk Disclosure.',
   'Disclaimer Desc':
