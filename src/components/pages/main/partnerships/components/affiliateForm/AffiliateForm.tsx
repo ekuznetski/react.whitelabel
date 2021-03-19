@@ -35,7 +35,7 @@ export const AffiliateForm = memo(() => {
     [EFields.email]: FieldValidators.email,
     [EFields.phone_prefix]: CustomFieldValidators.country,
     [EFields.phone]: FieldValidators.phone,
-    [EFields.message]: FieldValidators.name,
+    [EFields.message]: FieldValidators.requiredString,
     [EFields.acceptPolicy]: Yup.bool().oneOf([true], t('This field is required')),
   });
 
