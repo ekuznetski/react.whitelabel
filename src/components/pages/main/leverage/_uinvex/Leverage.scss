@@ -4,10 +4,8 @@
 .leverage-wrapper {
     .open-live-account-banner__column {
         @include col((md: 6, lg: 5));
-    }
-
-    @media (max-width: $viewport-md-w) {
-        .open-live-account-banner__column {
+        
+        @media (max-width: $viewport-md-w) {
             flex: unset;
             max-width: unset;
         }
