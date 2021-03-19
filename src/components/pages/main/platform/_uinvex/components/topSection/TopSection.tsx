@@ -7,13 +7,6 @@ import './TopSection.scss';
 export const TopSection = memo(function TopSection() {
   const { t } = useTranslation();
 
-  const a = (
-    <div>
-      powered by <b className="d-lg-none">Uinvex</b>
-      <Svg href="logo" className="d-none d-lg-inline" height={58} />
-    </div>
-  );
-  console.log(a);
   return (
     <section className="page-top">
       <SectionBg
@@ -43,11 +36,11 @@ export const TopSection = memo(function TopSection() {
         </Row>
         <Row>
           <Col md={5} xl={8} className="download-buttons">
-            <Button className="desktop-button mr-6">
+            <Button className="desktop-button">
               <Svg href="download" height={20} className="mr-2" />
               <a href={downloadLinks.mt5.desktop}>{t('Download Desktop Version')}</a>
             </Button>
-            <Button className="store-link mr-6">
+            <Button className="store-link">
               <a href={downloadLinks.mt5.appStore}>
                 <Svg href="app_store_logo" />
               </a>

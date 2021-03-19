@@ -5,8 +5,7 @@ import {
   OurOfferBannerSection,
   PlatformTechnologySection,
 } from '@components/sections';
-import { Button, LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
-import { downloadLinks } from '@domain';
+import { LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
 import { EPagePath } from '@domain/enums';
 import { IPrices } from '@domain/interfaces';
 import { IStore, ac_fetchPrices } from '@store';

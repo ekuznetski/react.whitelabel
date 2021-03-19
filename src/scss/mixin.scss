@@ -147,6 +147,10 @@
   @include mediaTag(flex, null, $sizes, $effect);
 }
 
+// flex-wrap
+@mixin flexWrap($sizes, $effect: null) {
+  @include mediaTag(flex, wrap, $sizes, $effect);
+}
 // flex-direction
 @mixin flexDirection($sizes, $effect: null) {
   @include mediaTag(flex, direction, $sizes, $effect);
