@@ -1,0 +1,58 @@
+@import '~/variables';
+@import '~/mixin';
+
+.platform-wrapper {
+  .page-top {
+    @include mt((xs: $menu-height-main-sm, md: $menu-height-main-md, lg: $menu-height-main-lg));
+    @include height((xs: 640px, md: 627px, lg: 608px));
+    @include d-flex(center);
+    color: $dark-text;
+
+    &__title {
+      @include fontSize((xs: 32px, md: 44px, lg: 48px));
+      @include lineHeight((xs: 40px, md: 64px, lg: 64px));
+      @include mb((xs: 10, md: 12, xl: 16));
+      @include mt((xs: 0, lg: sp(10, n)));
+      font-family: $font-family1;
+    }
+
+    .download-buttons {
+      @include flexDirection((md: column, xl: row));
+      display: flex;
+
+      button {
+        @include mb((xs: 7, md: 10, xl: 0));
+        height: $btn-size-lg;
+        background: transparent;
+        color: $dark-text;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        width: 100%;
+
+        a {
+          width: auto;
+        }
+
+        &:first-child {
+          @include flex((xs: 0 0 50px, xl: 0 0 190px));
+          background: $blue;
+
+          svg {
+            fill: #fff;
+          }
+        }
+
+        &.store-link {
+          @include flex((xs: 0 0 50px, xl: 0 0 162px));
+          border-color: $dark-text;
+
+          svg {
+            fill: $dark-text;
+          }
+
+        }
+      }
+    }
+  }
+}

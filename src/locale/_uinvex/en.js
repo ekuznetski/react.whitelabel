@@ -84,4 +84,7 @@ export default {
   'Stocks (Spain)': '<0>Stocks</0> (Spain)',
   'Stocks (US)': '<0>Stocks</0> (US)',
   'Leverage Open Live Section Title': 'Cutting-edge trading technology',
+  'Download Desktop Version': 'MT5 for Desktop',
+  'Platform Page Top Title':
+    '<0>Cutting edge</0><1><0>MetaTrader 5</0> platform</1><2>powered by <1>UINVEX</1><2/></2>',
 };
