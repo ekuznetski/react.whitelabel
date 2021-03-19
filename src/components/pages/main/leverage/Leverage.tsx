@@ -9,7 +9,7 @@ export function Leverage() {
     <div className="leverage-wrapper">
       <LeverageTopSection />
       <LeverageRatiosSection />
-      <OpenLiveAccountBannerSection title={locale.openLiveSectionTitle} openAccountDesc={locale.openAccountDesc} />
+      <OpenLiveAccountBannerSection title={locale.openLiveSectionTitle} secondaryDesc={locale.openAccountDesc} />
     </div>
   );
 }
