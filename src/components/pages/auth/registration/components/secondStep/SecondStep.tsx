@@ -121,9 +121,9 @@ export function SecondStep({ submitFn }: any) {
         {({ values, setFieldValue, setFieldTouched }) => {
           const _showCountryState = !!values.country && hasState(values.country as Country);
           const postalCodeLabel =
-            !!values.country && (values.country as Country).name === ECountryName['Canada']
-              ? t('Postal Code')
-              : t('Postal Code') + ' ' + t('Optional');
+            t('Postal Code') + !!values.country && (values.country as Country).name === ECountryName['Canada']
+              ? ''
+              : t('Optional');
 
           useEffect(() => {
             setFieldValue('state', '');
