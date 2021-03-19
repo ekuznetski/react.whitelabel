@@ -1,5 +1,4 @@
 import { EResponseStatus } from '@domain/enums';
-import { IStore } from '@store';
 
 export interface IHeaderDefaultProps {
   fixed: boolean;
@@ -8,6 +7,7 @@ export interface IBaseResponse<T = any> {
   response?: {
     [key: string]: any;
     response?: T;
+    data?: T;
     status?: EResponseStatus;
     messageCode?: number;
     error?: string;

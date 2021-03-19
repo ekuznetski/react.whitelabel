@@ -4,7 +4,7 @@
 .product-wrapper {
   .page-top {
     @include mt((xs: $menu-height-main-sm, md: $menu-height-main-md, lg: $menu-height-main-lg));
-    @include height((md:336px, lg:344px));
+    @include height((xs: 422px, md:336px, lg:344px));
     @include pt((md: 50px, lg: 90px), i);
     display: flex;
     align-items: center;
@@ -12,10 +12,13 @@
     color: #fff;
 
     .section-bg .secondary-bg {
-      @include height((md:421px, lg:436px));
+      @include height((xs: 495px, md:421px, lg:436px));
+      background-position: calc(50% + 8px) 50% !important;
     }
 
     &__title {
+      @include width((xs: 330px, md: auto));
+      @include mx((xs: auto));
       font-size: 40px;
       line-height: 50px;
       color: $dark-text;
@@ -30,15 +33,6 @@
       width: fit-content;
       background: white;
       border-radius: 25px;
-
-      @media (min-width: $viewport-md-min-w) {
-        justify-content: center;
-      }
-
-      @media (max-width: $viewport-md-w) {
-        justify-content: space-between;
-        max-width: 75vw;
-      }
 
       .col {
         flex-grow: 0;

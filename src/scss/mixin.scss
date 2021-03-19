@@ -33,7 +33,12 @@
 
       &,
       &.col {
-        @if $size !=auto {
+        @if $size == unset {
+          flex: unset;
+          max-width: unset;
+        }
+
+        @else if $size !=auto {
           @include make-col($size, $grid-columns);
         }
 
