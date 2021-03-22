@@ -10,7 +10,7 @@
 
       .th,
       .td {
-        &.col1 {
+        &.col--first {
           justify-content: flex-start;
           @include pl((xs: 7, sm: 9, lg: 10));
         }

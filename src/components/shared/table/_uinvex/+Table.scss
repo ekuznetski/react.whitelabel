@@ -15,7 +15,7 @@
       box-shadow: none;
       border-top: solid 1px $grey-bg;
 
-      &.col1 {
+      &.col--first {
         border-left: 1px solid $grey-bg;
         border-top-left-radius: $border-box-radius;
       }
@@ -24,7 +24,7 @@
         border-top-right-radius: $border-box-radius;
       }
 
-      &:not(.col1) {
+      &:not(.col--first) {
         justify-content: flex-start;
       }
 
@@ -43,7 +43,7 @@
         background: transparent;
       }
 
-      &.col1 {
+      &.col--first {
         border-left: 1px solid $border-grey;
 
         img {
@@ -65,8 +65,8 @@
       grid-template-rows: 40px;
       grid-auto-rows: 60px;
 
-      .th.col1,
-      .td.col1 {
+      .th.col--first,
+      .td.col--first {
         position: sticky;
         left: 0;
         box-shadow: box-shadow(15, 0.1);

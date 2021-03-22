@@ -17,7 +17,7 @@
           align-items: center;
           line-height: 26px;
 
-          &.col1 {
+          &.col--first {
             display: flex;
           }
 
@@ -173,8 +173,8 @@
         grid-template-rows: 60px;
 
 
-        .th.col1,
-        .td.col1 {
+        .th.col--first,
+        .td.col--first {
           position: relative;
           left: unset;
           box-shadow: none;
