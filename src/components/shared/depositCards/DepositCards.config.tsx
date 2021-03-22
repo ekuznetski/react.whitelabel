@@ -1,5 +1,4 @@
-import { Svg } from '@components/shared';
-import { ELabels } from '@domain/enums';
+import { Svg } from '../svg/Svg';
 import i18n from '@i18next';
 import React from 'react';
 

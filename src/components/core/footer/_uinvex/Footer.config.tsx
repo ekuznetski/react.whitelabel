@@ -51,39 +51,27 @@ export const config = {
   copyright: {
     auth: (
       <>
-        <Col xs={12} className="mb-lg-9 mb-7">
-          {t('Footer Authorized:0')}
-        </Col>
-        <Col xs={12} className="mb-lg-9 mb-7">
-          {t('Footer Authorized:1')}
-        </Col>
-        <Col xs={12} className="mb-lg-9 mb-7">
+        <Col xs={12}>{t('Footer Authorized:0')}</Col>
+        <Col xs={12}>{t('Footer Authorized:1')}</Col>
+        <Col xs={12} className="mt-7">
           {t('Footer Authorized:2')}
         </Col>
       </>
     ),
     main: (
       <>
-        <Col xs={12} className="mb-lg-9 mb-7">
-          {t('Footer Authorized:0')}
-        </Col>
-        <Col xs={12} className="mb-lg-9 mb-7">
-          {t('Footer Authorized:1')}
-        </Col>
-        <Col xs={12} className="mb-lg-9 mb-7">
+        <Col xs={12}>{t('Footer Authorized:0')}</Col>
+        <Col xs={12}>{t('Footer Authorized:1')}</Col>
+        <Col xs={12} className="mt-7">
           {t('Footer Authorized:2')}
         </Col>
       </>
     ),
     portal: (
       <>
-        <Col xs={12} className="mb-lg-9 mb-7">
-          {t('Footer Authorized:0')}
-        </Col>
-        <Col xs={12} className="mb-lg-9 mb-7">
-          {t('Footer Authorized:1')}
-        </Col>
-        <Col xs={12} className="mb-lg-9 mb-7">
+        <Col xs={12}>{t('Footer Authorized:0')}</Col>
+        <Col xs={12}>{t('Footer Authorized:1')}</Col>
+        <Col xs={12} className="mt-7">
           {t('Footer Authorized:2')}
         </Col>
       </>

@@ -201,9 +201,29 @@
   @include mediaTag(width, null, $sizes, $effect);
 }
 
+// max-width
+@mixin maxWidth($sizes, $effect: null) {
+  @include mediaTag(max, width, $sizes, $effect);
+}
+
+// min-width
+@mixin minWidth($sizes, $effect: null) {
+  @include mediaTag(min, width, $sizes, $effect);
+}
+
 // height
 @mixin height($sizes, $effect: null) {
   @include mediaTag(height, null, $sizes, $effect);
+}
+
+// max-height
+@mixin maxHeight($sizes, $effect: null) {
+  @include mediaTag(max, height, $sizes, $effect);
+}
+
+// min-height
+@mixin minHeight($sizes, $effect: null) {
+  @include mediaTag(min, height, $sizes, $effect);
 }
 
 // top

@@ -3,18 +3,24 @@
 
 .about-wrapper {
   &__page-top {
-    background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #eeeef1 100%);
-    @include d-flex(center, start, row);
+    @include height((xs: 660px, md: 627px, lg: 608px));
+    @include flexDirection((xs: column, md: row));
+    @include alignItems((xs: start, lg: center));
+    @include justifyContent((xs: start));
+    display: flex;
     color: $dark-text;
     margin-top: 60px;
-    height: 608px;
 
     .page-top {
+      &__header {
+        @include col((xs: 12, md: 8, lg: 7, xl: 6));
+      }
+
       &__title {
+        @include fontSize((xs: 32px, md: 44px, lg:48px));
+        @include lineHeight((xs: 40px, md: 64px, lg: 64px));
+        @include mb((xs: sp(7, i), sm: sp(9, i)));
         font-weight: 400;
-        font-size: 48px;
-        line-height: 64px;
-        margin-bottom: sp(9) !important;
 
         svg {
           @include fillLogo($blue, black, $dark-blue);
@@ -23,21 +29,17 @@
       }
 
       &__description {
-        font-size: 22px;
-        line-height: 34px;
-        margin-bottom: sp(11) !important;
-      }
-
-      &__header {
-        flex: 0 0 colSizePrc(6);
-        max-width: colSizePrc(6);
+        @include col((xs: 12, md: 10, lg: 12));
+        @include fontSize((xs: 16px, md: 16px, lg:22px));
+        @include lineHeight((xs: 22px, md: 26px, lg: 34px));
+        @include mb((xs: sp(10, i), sm: sp(11, i)));
       }
     }
 
     button {
+      @include width((xs: 100%, md: 255px, lg: 190px));
       background: $blue;
       border-radius: $border-radius;
-      width: 190px;
       height: $btn-size-lg;
       color: #fff;
       font-weight: 500;
@@ -46,87 +48,20 @@
     }
 
     @media (max-width: $viewport-lg-w) {
-      height: 627px;
-      align-items: flex-start;
-
       .secondary-bg {
         right: -90px;
-      }
-
-      .page-top {
-        &__title {
-          font-size: 44px;
-          line-height: 64px;
-          color: $dark-text;
-        }
-
-        &__description {
-          font-size: 16px;
-          line-height: 26px;
-          max-width: colSizePrc(10);
-          margin-bottom: sp(10) !important;
-        }
-
-        &__header {
-          flex: 0 0 colSizePrc(8);
-          max-width: colSizePrc(8);
-        }
-      }
-
-      button {
-        height: 50px;
-        width: 255px;
       }
     }
 
     @media (max-width: $viewport-md-w) {
-      @include d-flex(start, center, column);
-      height: 660px;
-      justify-content: flex-start;
-
       .secondary-bg {
         top: unset;
         right: unset;
         bottom: 0;
       }
-
-      .page-top {
-        &__header {
-          flex: 0 0 colSizePrc(12);
-          max-width: colSizePrc(12);
-        }
-      }
-    }
-
-    @media (max-width: $viewport-sm-w) {
-      .page-top {
-        background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #eeeef1 100%);
-
-        &__title {
-          font-size: 32px;
-          line-height: 40px;
-          margin-bottom: sp(7) !important;
-        }
-
-        &__header {
-          flex: 0 0 colSizePrc(12);
-          max-width: colSizePrc(12);
-        }
-
-        &__description {
-          line-height: 22px;
-          max-width: colSizePrc(12);
-        }
-      }
-
-      button {
-        width: 100%;
-      }
     }
 
     @media (max-width: $viewport-xs-min-w) {
-      height: 660px;
-
       .secondary-bg {
         background-position-y: 100% !important;
         bottom: -130px;

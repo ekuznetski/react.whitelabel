@@ -1,5 +1,4 @@
-import { Svg } from '@components/shared';
-import { ELabels } from '@domain/enums';
+import { Svg } from '../../svg/Svg';
 import i18n from '@i18next';
 import React from 'react';
 
@@ -19,7 +18,7 @@ export const config = {
     },
     {
       wrapperClassName: 'card col-12 col-md-4 mb-9 mb-md-0',
-      header: <Svg href="secured" _label={ELabels.uinvex} height={52} width={52} />,
+      header: <Svg href="secured" height={48} />,
       uid: 2,
       content: (
         <>
@@ -29,7 +28,7 @@ export const config = {
     },
     {
       wrapperClassName: 'card col-12 col-md-4 mb-9 mb-md-0',
-      header: <Svg href="timer" _label={ELabels.uinvex} height={52} width={52} />,
+      header: <Svg href="timer" height={48} />,
       uid: 3,
       content: (
         <>
