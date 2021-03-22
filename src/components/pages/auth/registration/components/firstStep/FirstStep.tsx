@@ -1,8 +1,8 @@
 import { AuthAlreadyRegisteredLink, Button, Input, PhoneCodeSelect } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { ERegSteps, countries } from '@domain/enums';
+import { countries, ERegSteps } from '@domain/enums';
 import { locale } from '@pages/auth/registration';
-import { EActionTypes, IAppStore, IDataStore, IStore, ac_userExists } from '@store';
+import { ac_userExists, EActionTypes, IAppStore, IDataStore, IStore } from '@store';
 import { getMarketingCookies } from '@utils/services';
 import { Form, Formik } from 'formik';
 import React from 'react';
@@ -43,7 +43,6 @@ export function FirstStep({ submitFn }: any) {
               mobile: 1,
               language: route.locale,
               country: geoIp?.country ?? 'failed',
-              passive_consent: geoIp?.passive_consent ?? 'failed',
               // TODO add campaign_id
             },
           }),
@@ -82,9 +81,7 @@ export function FirstStep({ submitFn }: any) {
                 <PhoneCodeSelect placeholder={t('Prefix')} name={EFields.phone_prefix} />
                 <Input label={t('Phone')} type="tel" name={EFields.phone} regex={/^\d*$/gm} />
               </div>
-              {geoIp?.passive_consent && (
-                <p className="mb-7 fadeFromBottom-row__4">{locale.marketEventNotificationDesc}</p>
-              )}
+              <p className="mb-7 fadeFromBottom-row__4">{locale.marketEventNotificationDesc}</p>
               <Button
                 type="submit"
                 className="fadeFromBottom-row__5"
