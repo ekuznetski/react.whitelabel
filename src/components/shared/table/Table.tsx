@@ -1,3 +1,4 @@
+import { cps } from '@redux-saga/core/effects';
 import { useToggle } from 'ahooks';
 import classNames from 'classnames';
 import React from 'react';
@@ -26,22 +27,24 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
   let colPct: string[] = new Array(headers.length);
   let colPx: string[] = new Array(headers.length);
 
-  if (Array.isArray(colsPctSize)) colPct = [...colsPctSize].map((item) => `${item}%`);
-  if (Array.isArray(colsPxSize)) colPx = [...colsPxSize].map((item) => `${item}px`);
+  if (Array.isArray(colsPctSize)) colPct = [...colsPctSize].map((item) => (item ? `${item}%` : 'auto'));
+  if (Array.isArray(colsPxSize)) colPx = [...colsPxSize].map((item) => (item ? `${item}px` : 'auto'));
 
   if (isObject(colsPctSize)) {
     Object.keys(colsPctSize as Record<string, unknown>).forEach((key) => {
       const _key = Number(key.replace(/\D*/, ''));
+
       // @ts-ignore
-      colPct[_key] = `${colsPctSize[key]}%`;
+      colPct[_key] = colsPctSize[key] ? `${colsPctSize[key]}%` : 'auto';
     });
   }
 
   if (isObject(colsPxSize)) {
     Object.keys(colsPxSize as Record<string, unknown>).forEach((key) => {
       const _key = Number(key.replace(/\D*/, '')) - 1;
+
       // @ts-ignore
-      colPx[_key] = `${colsPxSize[key]}px`;
+      colPx[_key] = colsPxSize[key] ? `${colsPxSize[key]}px` : 'auto';
     });
   }
 
@@ -51,30 +54,35 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
 
   return (
     <div className="common-table-wrapper">
-      <table className={classNames('common-table', className)}>
-        <thead>
-          <tr>
-            {headers.map((headerCell, h) => (
-              <th
-                key={h}
-                className={`col${h + 1}`}
-                style={{ width: colPct[h] || 'auto', minWidth: colPx[h] || 'auto' }}
-              >
-                {headerCell}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) => (
-            <tr key={r}>
-              {row.slice(0, headers.length).map((cell, c) => (
-                <td key={c}>{cell}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div
+        className={classNames('common-table', className)}
+        style={{ gridTemplateColumns: !!colPx[0] ? colPx.join(' ') : colPct.join(' ') }}
+      >
+        {headers.map((headerCell, h) => (
+          <div
+            key={h}
+            className={classNames('th', `col${h + 1}`, !h && 'col--first', h + 1 === headers.length && 'col--last')}
+          >
+            {headerCell}
+          </div>
+        ))}
+        {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) =>
+          row.slice(0, headers.length).map((cell, c) => (
+            <div
+              className={classNames(
+                'td',
+                `col${c + 1}`,
+                !c && 'col--first',
+                r + 1 === rows.length && 'row--last',
+                c + 1 === headers.length && 'col--last',
+              )}
+              key={c}
+            >
+              {cell}
+            </div>
+          )),
+        )}
+      </div>
       {preview && (
         <div className="toggleTableView mt-4" onClick={toggleTableView}>
           {previewValue ? (
