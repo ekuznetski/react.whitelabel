@@ -1,5 +1,5 @@
 import { Tab, Tabs } from '@components/shared';
-import { EDocumentsType } from '@domain/enums';
+import { EClientStatusCode, EDocumentsType, EUploadDocumentsTabs } from '@domain/enums';
 import { MDocuments } from '@domain/models';
 import { IStore } from '@store';
 import React, { memo } from 'react';
@@ -8,18 +8,24 @@ import { useSelector } from 'react-redux';
 import { AddressVerification, IdentityVerification } from '..';
 import './UploadDocuments.scss';
 
-enum EUploadDocumentsTabs {
-  Identity = 'Identity',
-  Address = 'Address',
-}
-
 export const UploadDocuments = memo(function UploadDocuments() {
   const { documents } = useSelector<IStore, { documents: MDocuments }>((state) => ({
     documents: state.data.client.documents,
   }));
   const { t } = useTranslation();
+  const initialActiveTab = _getFirstUnverifiedTab();
 
-  const initialActiveTab = EUploadDocumentsTabs.Identity;
+  function _getFirstUnverifiedTab(): EUploadDocumentsTabs {
+    if (documents.getDocumentByType(EDocumentsType.ID).code !== EClientStatusCode.submitted) {
+      return EUploadDocumentsTabs.Identity;
+    }
+
+    if (documents.getDocumentByType(EDocumentsType.PoR).code !== EClientStatusCode.submitted) {
+      return EUploadDocumentsTabs.Address;
+    }
+
+    return EUploadDocumentsTabs.Identity;
+  }
 
   return (
     <div className="upload-documents">
