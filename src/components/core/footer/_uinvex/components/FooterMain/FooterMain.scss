@@ -16,7 +16,7 @@
     flex-wrap: wrap;
 
     .links {
-      @include d-flex(center, start, row);
+      @include d-flex(center);
       @include col((xs: 12, md: auto));
 
       &-item {
