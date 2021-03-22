@@ -1,8 +1,7 @@
 import { Tab, Tabs } from '@components/shared';
-import { EDocumentsType, EUploadDocumentsTabs } from '@domain/enums';
+import { EClientStatusCode, EDocumentsType, EUploadDocumentsTabs } from '@domain/enums';
 import { MDocuments } from '@domain/models';
 import { IStore } from '@store';
-import { getFirstUnverifiedTab } from '@utils/fn';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -14,12 +13,23 @@ export const UploadDocuments = memo(function UploadDocuments() {
     documents: state.data.client.documents,
   }));
   const { t } = useTranslation();
+  const initialActiveTab = _getFirstUnverifiedTab();
 
-  const initialActiveTab = getFirstUnverifiedTab();
+  function _getFirstUnverifiedTab(): EUploadDocumentsTabs {
+    if (documents.getDocumentByType(EDocumentsType.ID).code !== EClientStatusCode.submitted) {
+      return EUploadDocumentsTabs.Identity;
+    }
+
+    if (documents.getDocumentByType(EDocumentsType.PoR).code !== EClientStatusCode.submitted) {
+      return EUploadDocumentsTabs.Address;
+    }
+
+    return EUploadDocumentsTabs.Identity;
+  }
 
   return (
     <div className="upload-documents">
-      <Tabs className="client-upload-documents__tabs" isVertical={true} activeTab={initialActiveTab.subTab}>
+      <Tabs className="client-upload-documents__tabs" isVertical={true} activeTab={initialActiveTab}>
         <Tab
           status={documents.getDocumentByType(EDocumentsType.ID).notificationType}
           label={t('Identity Verification')}

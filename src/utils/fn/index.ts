@@ -5,7 +5,6 @@ export * from './deepDifference';
 export * from './deepFreeze';
 export * from './formatNumberWithCommas';
 export * from './getCcFilesStatus';
-export * from './getFirstUnverifiedTab';
 // export * from './routeFetchData';
 export * from './getMetaTraderWebTerminalLink';
 export * from './parseUrl';

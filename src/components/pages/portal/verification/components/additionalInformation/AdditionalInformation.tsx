@@ -2,7 +2,7 @@ import { Tab, Tabs } from '@components/shared';
 import { EAddInfoTabs, EClientStatusCode, EDocumentsType } from '@domain/enums';
 import { MClientStatus, MDocuments } from '@domain/models';
 import { IStore } from '@store';
-import { getCcFilesStatus, getFirstUnverifiedTab } from '@utils/fn';
+import { getCcFilesStatus } from '@utils/fn';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -17,8 +17,6 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
     }),
   );
   const { t } = useTranslation();
-
-  const initialActiveTab = getFirstUnverifiedTab();
   const ccFilesStatus = getCcFilesStatus(
     [
       EDocumentsType.CCCopy1,
@@ -29,10 +27,27 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
     ],
     documents,
   );
+  const initialActiveTab = _getFirstUnverifiedTab();
+
+  function _getFirstUnverifiedTab(): EAddInfoTabs {
+    if (EClientStatusCode.required === clientStatus.edd_status.code) {
+      return EAddInfoTabs.edd;
+    }
+
+    if (EClientStatusCode.required === clientStatus.tins_status.code) {
+      return EAddInfoTabs.tins;
+    }
+
+    if (ccFilesStatus.code !== EClientStatusCode.submitted) {
+      return EAddInfoTabs.card;
+    }
+
+    return EAddInfoTabs.card;
+  }
 
   return (
     <div className="additional-information">
-      <Tabs className="client-additional-information__tabs" isVertical={true} activeTab={initialActiveTab.subTab}>
+      <Tabs className="client-additional-information__tabs" isVertical={true} activeTab={initialActiveTab}>
         {![EClientStatusCode.notApplicable, EClientStatusCode.notRequested].includes(clientStatus.edd_status.code) && (
           <Tab
             status={clientStatus.edd_status.notificationType}
