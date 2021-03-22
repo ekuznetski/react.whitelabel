@@ -21,7 +21,9 @@ export function FourthStep({ submitFn }: any) {
     uscitizen: FieldValidators.requiredString,
     pep: FieldValidators.requiredString,
     password: FieldValidators.password,
-    confirmPassword: FieldValidators.password.oneOf([Yup.ref('password'), ''], t('Passwords must match')),
+    confirmPassword: FieldValidators.password
+      .required(t('Please repeat your password'))
+      .oneOf([Yup.ref('password'), ''], t('Passwords must match')),
   });
 
   function Submit(data: FormikValues) {

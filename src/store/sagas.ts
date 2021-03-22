@@ -135,7 +135,7 @@ export function* getProfileSaga() {
       const { response }: IClientProfileResponse = yield call(Request[EActionTypes.fetchProfile]());
       yield put(Action.ac_saveProfile(new Model.MClientProfile(response.message)));
       yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response.message)));
-      return response;
+      return response.message;
     },
     'data.client.profile',
   );
@@ -145,7 +145,7 @@ export function* getClientSettingsSaga() {
   yield $$(EActionTypes.fetchClientSettings, function* ({ payload }: IAction) {
     const { response }: IClientSettingsResponse = yield call(Request[EActionTypes.fetchClientSettings](), payload);
     yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response.message)));
-    return response;
+    return response.message;
   });
 }
 
@@ -154,7 +154,7 @@ export function* editProfileSaga() {
     const { response }: IEditProfileResponse = yield call(Request[EActionTypes.editProfile](), payload);
     yield put(Action.ac_saveProfile(new Model.MClientProfile(response.data)));
     yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response.data)));
-    return response;
+    return response.data;
   });
 }
 
@@ -171,7 +171,7 @@ export function* getBankDetailsSaga() {
     function* () {
       const { response }: IBankDetailsResponse = yield call(Request[EActionTypes.fetchBankDetails]());
       yield put(Action.ac_saveBankDetails(new Model.MBankDetails(response.message)));
-      return response;
+      return response.message;
     },
     'data.bankDetails',
   );
@@ -181,7 +181,7 @@ export function* updateBankDetailsSaga() {
   yield $$(EActionTypes.updateBankDetails, function* ({ payload }: IAction) {
     const { response }: IBankDetailsResponse = yield call(Request[EActionTypes.updateBankDetails](), payload);
     yield put(Action.ac_saveBankDetails(new Model.MBankDetails(response.data)));
-    return response;
+    return response.data;
   });
 }
 
@@ -256,7 +256,7 @@ export function* getWithdrawHistorySaga() {
     const { response }: IWithdrawalHistoryResponse = yield call(Request[EActionTypes.fetchWithdrawHistory]());
     const payload = response.message.map((item) => new Model.MWithdrawalHistoryItem(item));
     yield put(Action.ac_saveWithdrawHistory(payload));
-    return response;
+    return response.message;
   });
 }
 
@@ -275,7 +275,7 @@ export function* getWithdrawLimitSaga() {
     function* ({ payload }: IAction) {
       const { response }: IWithdrawalLimitResponse = yield call(Request[EActionTypes.fetchWithdrawLimit](), payload);
       yield put(Action.ac_saveWithdrawLimit({ limit: response.data }));
-      return response;
+      return response.data;
     },
     null,
     function* ({ payload }: IAction) {
@@ -308,7 +308,7 @@ export function* updateTinsSaga() {
     const { response }: ITinsResponse = yield call(Request[EActionTypes.updateTins](), payload);
     yield put(Action.ac_saveTins(new Model.MTins(response.message)));
     yield put(Action.ac_fetchClientData({ force: true }));
-    return response;
+    return response.message;
   });
 }
 
@@ -407,7 +407,7 @@ export function* fetchTransactionalStatementsSaga() {
       payload,
     );
     yield put(Action.ac_saveTransactionalStatements(new Model.MTransactionalStatementData(response.data)));
-    return response;
+    return response.data;
   });
 }
 

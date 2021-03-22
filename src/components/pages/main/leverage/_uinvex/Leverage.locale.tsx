@@ -22,4 +22,6 @@ export const locale = {
       Define your leverage ratio up to a maximum of <b>1:500</b> (Dynamic)
     </Trans>
   ),
+  openLiveSectionTitle: t('Leverage Open Live Section Title'),
+  openAccountDesc: t('Explore Our Products'),
 };

@@ -57,37 +57,13 @@
       .common-cards {
         &__container {
           .card {
-            @include col((xs: 12, md: 4));
             @include mb((xs: 9, md: 0));
-            border-right: 1px solid #f1f2f2;
-
-            &:last-child {
-              border-right: none;
-            }
           }
         }
 
-        &__item {
-          height: 150px;
-          text-align: center;
-          box-shadow: none;
-          padding: 0;
-
-          svg {
-            fill: $dark-blue;
-          }
-
-          &-header,
-          &-content {
-            justify-content: center;
-            text-align: center;
-
-            small {
-              display: block;
-            }
-          }
-        }
       }
+
+
     }
   }
 

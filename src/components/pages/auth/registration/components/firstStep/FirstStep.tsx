@@ -51,11 +51,11 @@ export function FirstStep({ submitFn }: any) {
   }
 
   const validationSchema = Yup.object().shape({
-    first_name: FieldValidators.name,
-    surname: FieldValidators.name,
+    first_name: FieldValidators.firstName,
+    surname: FieldValidators.lastName,
     email: FieldValidators.email,
     phone_prefix: CustomFieldValidators.country,
-    phone: FieldValidators.numbers,
+    phone: FieldValidators.phone,
   });
 
   return (
