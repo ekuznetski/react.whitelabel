@@ -6,6 +6,22 @@
     display: flex;
     align-items: center;
 
+    .common-table {
+
+      .th,
+      .td {
+        &.col--first {
+          justify-content: flex-start;
+          @include pl((xs: 7, sm: 9, lg: 10));
+        }
+
+        &.col--last {
+          justify-content: flex-end;
+          @include pr((xs: 7, sm: 9, lg: 10));
+        }
+      }
+    }
+
     .ratios {
       &__container {
         @include p((xs: 0));
@@ -57,49 +73,27 @@
       .common-cards {
         &__container {
           .card {
-            @include col((xs: 12, md: 4));
             @include mb((xs: 9, md: 0));
-            border-right: 1px solid #f1f2f2;
-
-            &:last-child {
-              border-right: none;
-            }
           }
         }
 
-        &__item {
-          height: 150px;
-          text-align: center;
-          box-shadow: none;
-          padding: 0;
-
-          svg {
-            fill: $dark-blue;
-          }
-
-          &-header,
-          &-content {
-            justify-content: center;
-            text-align: center;
-
-            small {
-              display: block;
-            }
-          }
-        }
       }
+
+
     }
   }
 
   @media (max-width: $viewport-lg-w) {
-    table.common-table thead th {
-      font-size: 12px;
-      line-height: 20px;
-    }
+    .common-table {
+      .th {
+        font-size: 12px;
+        line-height: 20px;
+      }
 
-    table.common-table tbody tr td {
-      font-size: 14px;
-      line-height: 22px;
+      .td {
+        font-size: 14px;
+        line-height: 22px;
+      }
     }
   }
 }

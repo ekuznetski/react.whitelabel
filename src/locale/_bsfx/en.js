@@ -20,7 +20,7 @@ export default {
   'Regional Restrictions Desc':
     'We do not offer our services to residents of certain jurisdictions such as Afghanistan, Belgium, Hong Kong, Japan, the United States of America and some other regions. For more information please refer to our <1>Terms of Business</1>',
   'Powered by BSFX': 'Powered by BSFX',
-  'Platform Page Top Subtitle': '$t(Powered by BSFX)',
+  'Platform Page Top Title': '<0>World-Leading</0><1>MetaTrader Platform</1><2>Powered by BSFX</2>',
   'Prestigious Platform Technology Title': '$t(Prestigious MT5)<1/><3>$t(Platform Technology)</3>',
   'Prestigious Platform Technology Desc':
     '<0>Metatrader is the most popular electronic trading platforms and has long been considered the <1>forex industry standard</1> because of its innovative technology.</0><1>The platform is suitable for traders of all levels and expertise, offering flexible trading systems, a mobile app, Expert Advisors, and advanced technical analysis.</1><2>Compared to its predecessor, MT5 has <1>additional features</1> including 6 types of pending orders, 21 timeframes to choose from, and an integrated fundamental economic calendar.</2>',

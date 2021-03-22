@@ -1,19 +1,13 @@
 import { Tab, Tabs } from '@components/shared';
-import { EClientStatusCode, EDocumentsType } from '@domain/enums';
+import { EAddInfoTabs, EClientStatusCode, EDocumentsType } from '@domain/enums';
 import { MClientStatus, MDocuments } from '@domain/models';
 import { IStore } from '@store';
-import { generateStatus } from '@utils/fn/generateStatus';
+import { getCcFilesStatus } from '@utils/fn';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { CreditCardVerification, EddForm, TaxIdentification } from '..';
 import './AdditionalInformation.scss';
-
-enum EAddInfoTabs {
-  edd = 'edd',
-  tins = 'tins',
-  card = 'card',
-}
 
 export const AdditionalInformation = memo(function AdditionalInformation() {
   const { clientStatus, documents } = useSelector<IStore, { clientStatus: MClientStatus; documents: MDocuments }>(
@@ -23,26 +17,24 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
     }),
   );
   const { t } = useTranslation();
+  const ccFilesStatus = getCcFilesStatus(documents);
+  const initialActiveTab = _getFirstUnverifiedTab();
 
-  const initialActiveTab =
-    (EClientStatusCode.required === clientStatus.edd_status.code && EAddInfoTabs.edd) ||
-    (EClientStatusCode.required === clientStatus.tins_status.code && EAddInfoTabs.tins) ||
-    EAddInfoTabs.card;
-  const ccFilesStatus = documents
-    .getAllDocumentsOfTypes([
-      EDocumentsType.CCCopy1,
-      EDocumentsType.CCCopy2,
-      EDocumentsType.CCCopy3,
-      EDocumentsType.CCCopy4,
-      EDocumentsType.CCCopy5,
-    ])
-    .map((file) => file.code)
-    .reduce((a, c, i, arr) => {
-      if (arr.includes(EClientStatusCode.rejected) && arr.splice(1))
-        // if arr includes rejected code, enforce arr to be the size of 1, so the .reduce() has only 1 iteration
-        return generateStatus(EClientStatusCode.rejected);
-      return generateStatus(EClientStatusCode.submitted);
-    }, generateStatus(EClientStatusCode.notSubmitted));
+  function _getFirstUnverifiedTab(): EAddInfoTabs {
+    if (EClientStatusCode.required === clientStatus.edd_status.code) {
+      return EAddInfoTabs.edd;
+    }
+
+    if (EClientStatusCode.required === clientStatus.tins_status.code) {
+      return EAddInfoTabs.tins;
+    }
+
+    if (ccFilesStatus.code !== EClientStatusCode.submitted) {
+      return EAddInfoTabs.card;
+    }
+
+    return EAddInfoTabs.card;
+  }
 
   return (
     <div className="additional-information">

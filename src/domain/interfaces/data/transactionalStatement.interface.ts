@@ -1,7 +1,9 @@
 import { IBaseResponse } from '../general.interface';
 
 export type ITransactionalStatementsResponse = {
-  response: ITransactionalStatements;
+  response: {
+    data: ITransactionalStatements;
+  };
 } & IBaseResponse;
 
 export interface ITransactionalStatements {

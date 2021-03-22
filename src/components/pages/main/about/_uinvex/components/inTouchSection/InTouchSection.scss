@@ -22,7 +22,7 @@
       &__header {
         flex: 0 0 colSizePrc(9);
         max-width: colSizePrc(9);
-        padding: 0 sp(11);
+        padding: 0 sp(6);
         margin: auto;
       }
 
@@ -59,7 +59,7 @@
               font-family: $font-family1;
 
               span {
-                color: $blue;
+                color: $uinvex-blue;
                 font-weight: 400;
               }
             }

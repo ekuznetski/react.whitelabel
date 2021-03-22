@@ -3,7 +3,7 @@ import { FieldValidators } from '@domain';
 import { EFormStatus, ENotificationType } from '@domain/enums';
 import { ITins } from '@domain/interfaces';
 import { MTins } from '@domain/models';
-import { ac_showNotification, ac_updateTins, EActionTypes, IStore } from '@store';
+import { EActionTypes, IStore, ac_showNotification, ac_updateTins } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -62,8 +62,8 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
             ),
             [EFields.taxNumber]: Yup.lazy(() =>
               !!values[EFields.tins].filter((el) => !!(el?.[EFields.taxCountry] && el?.[EFields.taxNumber])).length
-                ? FieldValidators.notRequiredString
-                : FieldValidators.requiredString,
+                ? FieldValidators.notRequiredString.max(20, t('Maximum length symbols'))
+                : Yup.string().required(t('Please enter Tax Number')).max(20, t('Maximum length symbols')),
             ),
           }),
         ).min(2, t('At least one Tax ID should be added')),

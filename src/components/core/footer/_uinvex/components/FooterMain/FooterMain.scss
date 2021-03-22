@@ -17,7 +17,7 @@
 
     .links {
       @include d-flex(center);
-      @include col((xs: 12, md: 6));
+      @include col((xs: 12, md: auto));
 
       &-item {
         font-size: 16px;
@@ -46,7 +46,7 @@
   .social-links {
     @include d-flex(center, flex-end);
     @include mt((xs: 10, md: 0));
-    @include col((xs: 12, md: 6));
+    @include col((xs: 12, md: auto));
 
     svg {
       fill: $blue;

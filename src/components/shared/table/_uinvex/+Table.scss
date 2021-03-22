@@ -2,49 +2,57 @@
 @import '~/mixin';
 
 .common-table-wrapper {
-  table.common-table {
+  border-top-left-radius: $border-box-radius;
+  border-top-right-radius: $border-box-radius;
+
+  .common-table {
+    grid-template-rows: 40px;
+    grid-auto-rows: 70px;
     box-shadow: none;
-    border-radius: $border-box-radius;
 
-    thead {
+    .th {
+      background-color: $grey-bg;
       box-shadow: none;
+      border-top: solid 1px $grey-bg;
 
-      th {
-        &:not(:first-child) {
-          text-align: left !important;
-        }
-        height: 40px;
-        font-family: $font-family1;
-        line-height: 17px;
-        color: $grey;
-        background-color: $grey-bg;
+      &.col--first {
+        border-left: 1px solid $grey-bg;
+        border-top-left-radius: $border-box-radius;
       }
+
+      &.col--last {
+        border-top-right-radius: $border-box-radius;
+      }
+
+      &:not(.col--first) {
+        justify-content: flex-start;
+      }
+
+      font-family: $font-family1;
+      line-height: 17px;
+      color: $grey;
     }
 
-    tbody {
-      border: 1px solid $border-grey;
-      border-left: none;
-      border-top: none;
 
-      tr {
-        border-bottom: 1px solid $border-grey;
+    .td {
+      border-bottom: 1px solid $border-grey;
+      background-color: white;
+      justify-content: flex-start;
 
-        &:hover {
-          background: transparent;
+      &:hover {
+        background: transparent;
+      }
+
+      &.col--first {
+        border-left: 1px solid $border-grey;
+
+        img {
+          margin: auto;
         }
+      }
 
-        td {
-          background-color: white;
-          text-align: left;
-          &:first-child {
-            display: flex;
-            border-left: 1px solid $border-grey;
-
-            img {
-              margin: auto;
-            }
-          }
-        }
+      &.col--last {
+        border-right: 1px solid $border-grey;
       }
     }
   }
@@ -52,23 +60,21 @@
   @media (max-width: $viewport-sm-w) {
     overflow-x: auto;
 
-    table.common-table {
+    .common-table {
       width: 570px;
-      th:first-child,
-      td:first-child {
+      grid-template-rows: 40px;
+      grid-auto-rows: 60px;
+
+      .th.col--first,
+      .td.col--first {
         position: sticky;
         left: 0;
         box-shadow: box-shadow(15, 0.1);
       }
 
-      th {
-        height: 40px;
-      }
-
-      tbody tr td {
-        height: 60px;
+      .tr .td {
         line-height: 22px;
-        text-align: left;
+        justify-content: flex-start;
       }
     }
   }

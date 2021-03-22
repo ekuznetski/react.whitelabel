@@ -8,94 +8,33 @@
     .common-table-wrapper {
       @include mx((xl: 18));
 
-      table.common-table {
-
-        th {
-          text-align: left;
+      .common-table {
+        .th {
+          justify-content: flex-start;
         }
 
-        tr {
-          td {
-            height: 80px;
-            align-items: center;
-            line-height: 26px;
+        .td {
+          align-items: center;
+          line-height: 26px;
 
-            &:first-child {
-              display: table-cell;
-            }
+          &.col--first {
+            display: flex;
+          }
 
-            &:last-child {
-              text-align: right;
-            }
+          &.col--last {
+            justify-content: flex-end;
           }
         }
 
-        td,
-        th {
-          @include px((sm: 7, md: 11, lg: 18));
+        .td,
+        .th {
+          @include px((sm: 7, md: 11, lg: 14));
         }
       }
     }
 
     .deposit__cards {
       @include mt((xs: 12, md: 14, lg: 17));
-
-      .common-cards {
-        &__container {
-          flex-flow: row nowrap;
-
-          .card {
-            &:first-child {
-              @include pl((md: 0))
-            }
-
-            &:last-child {
-              @include pr((md: 0))
-            }
-          }
-        }
-
-        &__item {
-          height: 200px;
-          text-align: center;
-          justify-content: flex-start;
-          padding: sp(12) sp(10);
-
-          background: linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
-          box-shadow: box-shadow(15, 0.1);
-
-          svg {
-            fill: $blue;
-          }
-
-          &-header {
-            color: $blue;
-            font-family: $font-family1;
-            font-weight: 700;
-            font-size: 44px;
-            line-height: 52px;
-            text-align: center;
-            justify-content: center;
-
-            span {
-              font-weight: 400;
-            }
-          }
-
-          &-content {
-            justify-content: center;
-            text-align: center;
-            font-size: 22px;
-            line-height: 34px;
-
-            small {
-              display: block;
-              font-size: 16px;
-              line-height: 26px;
-            }
-          }
-        }
-      }
     }
 
     .ratios {
@@ -104,12 +43,13 @@
         @include mb((xs: 7, sm: 9));
         font-family: $font-family1;
         font-size: 44px;
+        font-weight: 600;
         line-height: 66px;
         text-align: center;
       }
 
       &__subTitle {
-        @include col((xs: 12, md: 6, lg: 12));
+        @include col((xs: 12, md: 5, lg: 12));
         @include mx((xs: auto));
         @include mb((xs: 10, md: 11, lg: 14));
         font-size: 16px;
@@ -141,20 +81,21 @@
         }
 
         &__subTitle {
+          font-size: 16px;
           line-height: 22px;
         }
       }
     }
 
-    @media (max-width: $viewport-md-w) {
+    @media (max-width: $viewport-lg-w) {
       .common-table-wrapper {
-        table.common-table {
-          tr>td {
-            height: 60px;
-          }
+        .common-table {
+          grid-auto-rows: 60px;
         }
       }
+    }
 
+    @media (max-width: $viewport-md-w) {
       .deposit__cards {
         .common-cards {
           &__container {
@@ -209,34 +150,34 @@
               text-align: left;
               font-size: 20px;
               line-height: 28px;
-
-              small {
-                font-size: 14px;
-                line-height: 18px;
-              }
             }
           }
         }
       }
     }
 
-    @media (max-width: $viewport-sm-w) {
+    @media (max-width: $viewport-md-w) {
       .common-table-wrapper {
-        overflow-x: hidden;
-
         table.common-table {
-          width: 100%;
-
-          th:first-child,
-          td:first-child {
-            position: relative;
-            left: unset;
-            box-shadow: none;
-          }
-
-          th {
+          tr>td {
             height: 60px;
           }
+        }
+      }
+    }
+
+    @media (max-width: $viewport-sm-w) {
+
+      .common-table {
+        width: 100%;
+        grid-template-rows: 60px;
+
+
+        .th.col--first,
+        .td.col--first {
+          position: relative;
+          left: unset;
+          box-shadow: none;
         }
       }
     }

@@ -21,7 +21,7 @@
       @include d-flex(center, center, column);
       border: 1px dashed $blue;
       border-radius: $border-box-radius;
-      background: rgba(lighten($blue, 10%), 0.06) resolve('dots-bg.png');
+      background: rgba(lighten($blue, 10%), 0.06) url('assets/dots-bg.png');
       overflow: hidden;
       flex: 0 0 300px;
       min-height: 300px;
@@ -246,9 +246,11 @@
         }
       }
     }
+
     @media (max-width: $viewport-sm-w) {
       justify-content: flex-start;
       height: 500px;
+
       &__list {
         flex-direction: column;
         justify-content: space-between;

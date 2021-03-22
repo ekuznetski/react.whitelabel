@@ -1,0 +1,8 @@
+@import '~/variables';
+@import '~/mixin';
+
+.leverage-wrapper {
+    .open-live-account-banner__column {
+        @include col((xs: unset, md: 6, lg: 5));
+    }
+}

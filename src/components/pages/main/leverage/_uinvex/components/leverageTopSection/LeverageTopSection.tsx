@@ -1,4 +1,4 @@
-import { SectionBg } from '@components/shared';
+import { Col, Container, Row, SectionBg } from '@components/shared';
 import { locale } from '@pages/main/leverage';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,15 +17,15 @@ export const LeverageTopSection = memo(function LeverageTopSection() {
           lg: 'leverage-page-top-desktop.png',
         }}
       />
-      <div className="container">
-        <div className="row">
-          <div className="col page-top__header">
+      <Container className="header-container">
+        <Row className="header-row">
+          <Col className="page-top__header">
             <div className="page-top__title">{locale.pageTopTitle}</div>
             <div className="page-top__description">{locale.pageTopDesc}</div>
             <div className="note">{t('Leverage Page Top Note')}</div>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </section>
   );
 });
