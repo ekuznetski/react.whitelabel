@@ -17,16 +17,7 @@ export const AdditionalInformation = memo(function AdditionalInformation() {
     }),
   );
   const { t } = useTranslation();
-  const ccFilesStatus = getCcFilesStatus(
-    [
-      EDocumentsType.CCCopy1,
-      EDocumentsType.CCCopy2,
-      EDocumentsType.CCCopy3,
-      EDocumentsType.CCCopy4,
-      EDocumentsType.CCCopy5,
-    ],
-    documents,
-  );
+  const ccFilesStatus = getCcFilesStatus(documents);
   const initialActiveTab = _getFirstUnverifiedTab();
 
   function _getFirstUnverifiedTab(): EAddInfoTabs {

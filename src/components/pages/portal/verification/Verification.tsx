@@ -31,16 +31,7 @@ export const Verification = memo(function Verification() {
       return EVerificationTabs.UploadDocuments;
     }
 
-    const ccFilesStatus = getCcFilesStatus(
-      [
-        EDocumentsType.CCCopy1,
-        EDocumentsType.CCCopy2,
-        EDocumentsType.CCCopy3,
-        EDocumentsType.CCCopy4,
-        EDocumentsType.CCCopy5,
-      ],
-      documents,
-    );
+    const ccFilesStatus = getCcFilesStatus(documents);
     if (
       ![EClientStatusCode.notApplicable, EClientStatusCode.notRequested].includes(clientStatus.edd_status.code) ||
       ![EClientStatusCode.notApplicable, EClientStatusCode.notRequested].includes(clientStatus.tins_status.code) ||

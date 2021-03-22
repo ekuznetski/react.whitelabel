@@ -3,9 +3,15 @@ import { TClientStatus } from '@domain/interfaces';
 import { MDocuments } from '@domain/models';
 import { generateStatus } from './generateStatus';
 
-export function getCcFilesStatus(filesList: EDocumentsType[], documents: MDocuments): TClientStatus {
+export function getCcFilesStatus(documents: MDocuments): TClientStatus {
   return documents
-    .getAllDocumentsOfTypes(filesList)
+    .getAllDocumentsOfTypes([
+      EDocumentsType.CCCopy1,
+      EDocumentsType.CCCopy2,
+      EDocumentsType.CCCopy3,
+      EDocumentsType.CCCopy4,
+      EDocumentsType.CCCopy5,
+    ])
     .map((file) => file.code)
     .reduce((a, c, i, arr) => {
       if (arr.includes(EClientStatusCode.rejected) && arr.splice(1))
