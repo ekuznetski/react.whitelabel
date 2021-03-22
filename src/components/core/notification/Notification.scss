@@ -62,6 +62,19 @@
     }
   }
 
+  &.warning {
+    background: linear-gradient(0, rgba($orange, 0.4), rgba($orange, 0.4)), linear-gradient(0, #fff, #fff);
+    color: $orange;
+
+    .notification-progress {
+      background: rgba($orange, 0.5);
+    }
+
+    .notification-close {
+      fill: $orange;
+    }
+  }
+
   .notification-inner-wrapper {
     @include d-flex(center, center);
   }

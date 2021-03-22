@@ -564,6 +564,7 @@ export default {
     `No processing fees apply on deposits from WHITE_LABEL's side, but there is a set % of commission and exchange rate
   charged by Neteller. For more information, please contact Neteller.`,
   ],
+  'No statement found for the defined period': 'No {{statementType}} found for the defined period',
   'Upload Debit/Credit Card Desc Front': 'Please cover the 6 middle digits as shown below',
   'Upload Debit/Credit Card Desc Back': 'Please cover the CVV digits as shown below',
   'Forex (Major)': 'Forex (Major)',

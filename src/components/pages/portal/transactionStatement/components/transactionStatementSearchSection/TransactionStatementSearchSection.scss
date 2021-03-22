@@ -1,0 +1,11 @@
+@import '~/variables';
+@import '~/mixin';
+
+.statement-search-result-section {
+  .search-result {
+
+    &__title {
+      font-size: 22px;
+    }
+  }
+}

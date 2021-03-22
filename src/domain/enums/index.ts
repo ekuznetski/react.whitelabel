@@ -10,5 +10,6 @@ export * from './general.enum';
 export * from './language.enum';
 export * from './pagePath.enum';
 export * from './registration.enum';
+export * from './transactions.enum';
 export * from './verification.enum';
 export * from './withdrawals.enum';
