@@ -33,7 +33,12 @@
 
       &,
       &.col {
-        @if $size !=auto {
+        @if $size == unset {
+          flex: unset;
+          max-width: unset;
+        }
+
+        @else if $size !=auto {
           @include make-col($size, $grid-columns);
         }
 
@@ -142,6 +147,10 @@
   @include mediaTag(flex, null, $sizes, $effect);
 }
 
+// flex-wrap
+@mixin flexWrap($sizes, $effect: null) {
+  @include mediaTag(flex, wrap, $sizes, $effect);
+}
 // flex-direction
 @mixin flexDirection($sizes, $effect: null) {
   @include mediaTag(flex, direction, $sizes, $effect);
