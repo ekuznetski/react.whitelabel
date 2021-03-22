@@ -68,7 +68,8 @@ $green: #1ac485;
 $yellow: #ffba3a;
 
 // Fonts
-$font-family: 'Poppins', sans-serif;
+$font-family: 'Poppins',
+sans-serif;
 // Overload bootstrap fonts variables
 $font-family-base: $font-family;
 $headings-font-family: $font-family;
@@ -76,84 +77,60 @@ $headings-font-family: $font-family;
 // Grid
 $grid-columns: 12;
 $grid-gutter-width: 28px !default;
-$grid-breakpoints: (
-  xs: 0,
+$grid-breakpoints: (xs: 0,
   sm: 576px,
   md: 768px,
   lg: 992px,
   xl: 1200px,
 );
 
-$container-max-widths: (
-  sm: 544px,
+$container-max-widths: (sm: 544px,
   md: 750px,
   lg: 964px,
   xl: 1172px,
 );
 
 $spacer: 1rem; // ~16px;
-$spacers: (
-  0: (
-    $spacer * 0,
+$spacers: (0: ($spacer * 0,
   ),
-  1: (
-    $spacer * 0.25,
+  1: ($spacer * 0.25,
   ),
-  2: (
-    $spacer * 0.5,
+  2: ($spacer * 0.5,
   ),
-  3: (
-    $spacer * 0.625,
+  3: ($spacer * 0.625,
   ),
-  4: (
-    $spacer * 0.75,
+  4: ($spacer * 0.75,
   ),
-  5: (
-    $spacer * 0.876,
+  5: ($spacer * 0.876,
   ),
-  6: (
-    $spacer * 1,
+  6: ($spacer * 1,
   ),
-  7: (
-    $spacer * 1.25,
+  7: ($spacer * 1.25,
   ),
-  8: (
-    $spacer * 1.5,
+  8: ($spacer * 1.5,
   ),
-  9: (
-    $spacer * 1.75,
+  9: ($spacer * 1.75,
   ),
-  10: (
-    $spacer * 2,
+  10: ($spacer * 2,
   ),
-  11: (
-    $spacer * 2.5,
+  11: ($spacer * 2.5,
   ),
-  12: (
-    $spacer * 3,
+  12: ($spacer * 3,
   ),
-  13: (
-    $spacer * 3.5,
+  13: ($spacer * 3.5,
   ),
-  14: (
-    $spacer * 4,
+  14: ($spacer * 4,
   ),
-  15: (
-    $spacer * 4.5,
+  15: ($spacer * 4.5,
   ),
-  16: (
-    $spacer * 5,
+  16: ($spacer * 5,
   ),
-  17: (
-    $spacer * 6,
+  17: ($spacer * 6,
   ),
-  18: (
-    $spacer * 7,
+  18: ($spacer * 7,
   ),
-  19: (
-    $spacer * 8,
+  19: ($spacer * 8,
   ),
-  20: (
-    $spacer * 9,
+  20: ($spacer * 9,
   ),
 );
