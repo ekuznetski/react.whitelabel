@@ -173,10 +173,7 @@ module.exports = (_env, arguments) => {
               default:
                 // FOR CHILDE COMPONENTS OF PAGE TYPE COMPONENT
                 return Object.assign(acc, {
-                  [`${parentFolderPath.replace(
-                    `/${parentFolderName}`,
-                    '',
-                  )}@#@./${parentFolderName}/${filename}`]: `../${targetLabelFolder}/components/${parentFolderName}/${filenamePrefix}${filename}`,
+                  [`${parentFolderPath.replace(`/${parentFolderName}`,'',)}@#@./${parentFolderName}/${filename}`]: `../${targetLabelFolder}/components/${parentFolderName}/${filenamePrefix}${filename}`,
                 });
             }
         }
@@ -200,10 +197,7 @@ module.exports = (_env, arguments) => {
               default:
                 // ONLY FOR PAGE TYPE COMPONENT REPLACEMENT
                 return Object.assign(acc, {
-                  [`${parentFolderPath.replace(
-                    `/${parentFolderName}`,
-                    '',
-                  )}@#@./${parentFolderName}/${filename}`]: `./${parentFolderName}/${targetLabelFolder}/${filenamePrefix}${filename}`,
+                  [`${parentFolderPath.replace(`/${parentFolderName}`,'',)}@#@./${parentFolderName}/${filename}`]: `./${parentFolderName}/${targetLabelFolder}/${filenamePrefix}${filename}`,
                 });
             }
         }
@@ -538,7 +532,7 @@ module.exports = (_env, arguments) => {
       new CssMinimizerPlugin({
         minimizerOptions: {
           preset: [
-            'default',
+            'advanced',
             {
               discardComments: { removeAll: true },
             },
