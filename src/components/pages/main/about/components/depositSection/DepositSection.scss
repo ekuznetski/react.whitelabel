@@ -22,39 +22,6 @@
         }
       }
 
-      &__cards {
-        @include mb((xs: 16));
-
-        &-container {
-          @include col((xs: 12, sm: 8, md: 12));
-          @include mx((xs: auto));
-        }
-
-        .card {
-          @include col((xs: 12, md: 4));
-          @include mb((xs: 9, md: 0));
-        }
-
-        .common-cards__item {
-          height: 200px;
-          text-align: center;
-
-          svg {
-            fill: $blue;
-          }
-
-          &-header,
-          &-content {
-            justify-content: center;
-            text-align: center;
-
-            small {
-              display: block;
-            }
-          }
-        }
-      }
-
       &__tabs-container {
         @include col((xs: 12));
         @include px((xs: 0, md: 5));
