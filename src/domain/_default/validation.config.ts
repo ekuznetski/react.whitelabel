@@ -5,7 +5,7 @@ import { isBrowser } from 'react-device-detect';
 const t = i18n.getLazyT;
 
 export const RegexValidators = Object.freeze({
-  address: /^[0-9a-zA-Zôç\.,\-#\'/ ]*$/,
+  address: /^[0-9a-zA-Z\.,\-#\'/ ]*$/,
   city: /^[A-Za-z\ ]+$/,
   email: /^([A-Za-z_\-.]|\d)+@([A-Za-z\-]|\d)+(\.[A-Za-z\d]+)+$/,
   loginAndEmail: /^([A-Za-z_\-.]|\d)+$|^([A-Za-z_\-.]|\d)+@([A-Za-z\-]|\d)+(\.[A-Za-z]+)+$/,
