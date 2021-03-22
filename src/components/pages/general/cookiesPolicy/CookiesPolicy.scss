@@ -15,9 +15,9 @@
     @include mt((xs:11, md:13, lg:16));
   }
 
-  .common-table-wrapper table.common-table {
-    thead th {
-      text-align: start !important;
+  .common-table-wrapper .common-table {
+    .th {
+      justify-content: flex-start;
       color: $text;
       font-size: 16px;
       font-weight: 400;
@@ -26,12 +26,12 @@
       border-top: 1px solid #e1e4eb;
       border-bottom: 1px solid #e1e4eb;
 
-      &:first-child {
+      &.col--first {
         border-left: 1px solid #e1e4eb;
       }
     }
 
-    tbody tr td {
+    .td {
       font-size: 16px;
       font-weight: 400;
       line-height: 26px;
@@ -39,7 +39,7 @@
       padding: 0;
     }
 
-    tbody tr td:first-child {
+    .td.col--first {
       align-items: center;
     }
   }

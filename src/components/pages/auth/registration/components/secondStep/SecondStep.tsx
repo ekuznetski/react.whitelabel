@@ -1,11 +1,10 @@
-import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shared';
+import { Button, Checkbox, Col, CountrySelect, Input, Row, Select } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
-import { Country, ERegSteps, countries } from '@domain/enums';
+import { Country, ECountryName, ERegSteps, countries } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';
 import React, { useEffect } from 'react';
-import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -48,27 +47,59 @@ export function SecondStep({ submitFn }: any) {
       .max(31, t('Day Limit'))
       .when([EFields.monthOfBirth, EFields.yearOfBirth], {
         is: (monthOfBirth, yearOfBirth) => !!monthOfBirth && !!yearOfBirth,
-        then: FieldValidators.requiredNumber.min(1, t('Invalid value')).test('max', '', function (value) {
-          const { path, parent, createError } = this;
-          const { monthOfBirth, yearOfBirth } = parent;
-          const maxDay = new Date(yearOfBirth, monthOfBirth, 0).getDate();
-          if (value && value > maxDay) {
-            return createError({
-              path,
-              message: t(`Day Limit`).replace('${max}', maxDay.toString()),
-            });
-          }
-          return true;
-        }),
-        otherwise: FieldValidators.requiredNumber.min(1, t('Invalid value')).max(31, t('Day Limit')),
+        then: FieldValidators.requiredNumber
+          .required(t('Please enter day of birth'))
+          .min(1, t('Invalid value'))
+          .test('max', '', function (value) {
+            const { path, parent, createError } = this;
+            const { monthOfBirth, yearOfBirth } = parent;
+            const maxDay = new Date(yearOfBirth, monthOfBirth, 0).getDate();
+            if (value && value > maxDay) {
+              return createError({
+                path,
+                message: t(`Day Limit`).replace('${max}', maxDay.toString()),
+              });
+            }
+            return true;
+          }),
+        otherwise: FieldValidators.requiredNumber
+          .required(t('Please enter day of birth'))
+          .min(1, t('Invalid value'))
+          .max(31, t('Day Limit')),
       }),
-    monthOfBirth: FieldValidators.requiredNumber.min(1, t('Invalid value')).max(12, 'Invalid value'),
+    monthOfBirth: FieldValidators.requiredNumber
+      .required(t('Please enter month of birth'))
+      .min(1, t('Invalid value'))
+      .max(12, 'Invalid value'),
     yearOfBirth: FieldValidators.requiredNumber
+      .required(t('Please enter year of birth'))
       .min(1920, t('Invalid value'))
-      .max(new Date().getFullYear(), t('Invalid value')),
+      .test('max', '', function (value) {
+        const { path, createError } = this;
+        const currentYear = new Date().getFullYear();
+        const maxYear = currentYear - 18;
+        if (value && value >= currentYear) {
+          return createError({
+            path,
+            message: t('Invalid value'),
+          });
+        } else if (value && value > maxYear) {
+          return createError({
+            path,
+            message: t('Year Limit'),
+          });
+        }
+        return true;
+      }),
     street: FieldValidators.street,
     city: FieldValidators.city,
-    postcode: FieldValidators.postcode,
+    postcode: FieldValidators.postcode.when('country', (country: Country, schema: Yup.StringSchema) => {
+      if (country?.name === ECountryName['Canada']) {
+        return schema.required(t('Please enter postal code'));
+      } else {
+        return schema;
+      }
+    }),
   });
 
   function Submit(data: FormikValues): void {
@@ -114,6 +145,10 @@ export function SecondStep({ submitFn }: any) {
       >
         {({ values, setFieldValue, setFieldTouched }) => {
           const _showCountryState = !!values.country && hasState(values.country as Country);
+          const postalCodeLabel =
+            !!values.country && (values.country as Country).name === ECountryName['Canada']
+              ? t('Postal Code')
+              : t('Postal Code') + ' ' + t('Optional');
 
           useEffect(() => {
             setFieldValue('state', '');
@@ -151,7 +186,7 @@ export function SecondStep({ submitFn }: any) {
               <h4 className="section-title">{t('Address')}</h4>
               <Input label={t('Street name and number')} name={EFields.street} />
               <Input label={t('City')} name={EFields.city} />
-              <Input label={t('Postal Code') + ' ' + t('Optional')} name={EFields.postcode} />
+              <Input label={postalCodeLabel} name={EFields.postcode} />
               <Button type="submit">{t('Next')}</Button>
             </Form>
           );

@@ -49,15 +49,16 @@
 
       &.active {
         box-sizing: border-box;
+
         .tab__link__label {
-          color: $dark-blue;
+          color: $blue;
         }
       }
     }
 
     .active-tab-line {
       height: $tabs-navigation-height;
-      border: 1px solid $dark-blue;
+      border: 1px solid $blue;
       background: $light-blue;
       border-radius: 25px;
       z-index: 0;
@@ -82,8 +83,8 @@
       }
 
       .active-tab-line {
-        border: 1px solid $dark-blue;
-        background: $dark-blue;
+        border: 1px solid $blue;
+        background: $blue;
       }
     }
   }

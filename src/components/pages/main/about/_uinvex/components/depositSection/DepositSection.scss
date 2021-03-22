@@ -7,84 +7,21 @@
     align-items: center;
 
     .deposit {
-      &__header {
-        @include p((xs: 0));
-      }
-
       &__title {
         @include mb((xs: 12));
+        font-family: $font-family1;
         font-size: 44px;
         line-height: 52px;
         text-align: center;
 
         b {
-          display: block;
-        }
-      }
-
-      &__cards {
-        @include mb((xs: 16));
-
-        &-container {
-          @include col((xs: 12, sm: 8, md: 12));
-          @include mx((xs: auto));
-          @include px((xs: 0));
+          font-weight: 600;
         }
 
-        .card {
-          @include col((xs: 12, sm: 4));
-          @include mb((xs: 9, md: 0));
-          @include px((xs: 1, sm: 3));
-        }
-
-        .common-cards {
-          &__container {
-            flex-flow: row nowrap;
-          }
-
-          &__item {
-            height: 200px;
-            text-align: center;
-            justify-content: flex-start;
-            padding: 40px 32px;
-            background: linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-
-            svg {
-              fill: $dark-blue;
-            }
-
-            &-header {
-              color: $dark-blue;
-              font-family: $font-family1;
-              font-weight: 700;
-              font-size: 44px;
-              line-height: 52px;
-              text-align: center;
-              justify-content: center;
-
-              span {
-                font-weight: 400;
-              }
-            }
-
-            &-content {
-              justify-content: center;
-              text-align: center;
-              font-size: 22px;
-              line-height: 34px;
-
-              small {
-                display: block;
-                font-size: 16px;
-                line-height: 26px;
-              }
-            }
-          }
-        }
       }
 
       &__tabs-container {
+        @include mt((xs: 13, md: 14, lg: 16));
         @include col((xs: 12));
         @include px((xs: 0, md: 5));
       }
@@ -111,34 +48,6 @@
           font-size: 36px;
           line-height: 46px;
         }
-
-        &__cards {
-          margin-bottom: 58px !important;
-
-          &-container {
-            flex: 0 0 100%;
-            max-width: 100%;
-          }
-
-          .common-cards {
-            &__item {
-              &-content {
-                line-height: 30px;
-              }
-            }
-
-            &__container {
-              &-content {
-                line-height: 30px;
-
-                small {
-                  font-size: 14px;
-                  line-height: 24px;
-                }
-              }
-            }
-          }
-        }
       }
     }
 
@@ -152,56 +61,6 @@
           font-size: 32px;
           line-height: 40px;
           padding: 0 sp(3);
-        }
-
-        &__cards {
-          .common-cards {
-            &__container {
-              flex-flow: row wrap;
-              justify-content: center;
-            }
-
-            &__item {
-              height: 100px;
-              align-items: flex-start;
-              flex-direction: row;
-              align-items: center;
-              padding: sp(7) sp(9);
-
-              &-header {
-                font-size: 48px;
-                line-height: 58px;
-                margin-bottom: sp(2);
-
-                &:after {
-                  content: '';
-                  position: relative;
-                  right: 0;
-                  display: block;
-                  height: 68px;
-                  width: 1px;
-                  z-index: 1;
-                  background: $border-grey;
-                  margin: 0 sp(9);
-                }
-
-                svg {
-                  margin-right: 8px;
-                }
-              }
-
-              &-content {
-                text-align: left;
-                font-size: 20px;
-                line-height: 28px;
-
-                small {
-                  font-size: 14px;
-                  line-height: 18px;
-                }
-              }
-            }
-          }
         }
       }
     }

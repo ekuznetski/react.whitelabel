@@ -8,7 +8,6 @@ import { useDebounceFn, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useIntercom } from 'react-use-intercom';
 import { BurgerMenu, PanelMenu, ProfileMenu } from './components';
 import './HeaderPortal.scss';
 
@@ -16,7 +15,6 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
   const _portalMenuConfig = useMemo(() => getAppSectionMenu(EAppSection.portal), []);
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const { setScrollLock } = useLockScroll();
-  const { hide, show } = useIntercom();
   const responsive = useResponsive();
   const { t } = useTranslation();
 
@@ -30,9 +28,6 @@ export function HeaderPortal(props: IHeaderDefaultProps) {
 
   useEffect(() => {
     setScrollLock(isBurgerMenuOpen, 300);
-    if (env.PRODUCTION) {
-      isBurgerMenuOpen ? hide() : show();
-    }
   }, [isBurgerMenuOpen]);
 
   return (

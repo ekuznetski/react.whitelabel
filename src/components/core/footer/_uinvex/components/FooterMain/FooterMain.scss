@@ -12,12 +12,12 @@
   }
 
   .outer-links-container {
-    @include d-flex(center, start, row);
+    @include d-flex(center);
     flex-wrap: wrap;
 
     .links {
-      @include d-flex(center, start, row);
-      @include col((xs: 12, md: 6));
+      @include d-flex(center);
+      @include col((xs: 12, md: auto));
 
       &-item {
         font-size: 16px;
@@ -44,9 +44,9 @@
   }
 
   .social-links {
-    @include d-flex(center, flex-end, row);
+    @include d-flex(center, flex-end);
     @include mt((xs: 10, md: 0));
-    @include col((xs: 12, md: 6));
+    @include col((xs: 12, md: auto));
 
     svg {
       fill: $blue;
