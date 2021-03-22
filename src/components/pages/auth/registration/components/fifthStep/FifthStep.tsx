@@ -20,7 +20,7 @@ export function FifthStep({ name, submitFn }: any) {
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
-    declaration: Yup.bool().oneOf([true], t('This field is required')),
+    declaration: Yup.bool().oneOf([true], t('You must check the declaration')),
     want_receive_email: Yup.bool(),
   });
 

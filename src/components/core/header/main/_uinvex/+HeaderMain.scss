@@ -3,7 +3,7 @@
 
 .header.main {
   position: absolute;
-  
+
   .panel-menu {
     &:before {
       top: 0;
@@ -15,14 +15,17 @@
       }
     }
 
+    .burger-toggle {
+      svg {
+        stroke: $dark-text;
+      }
+    }
+
     .menu {
       &__item {
         a {
           color: $dark-text;
           font-family: $font-family1;
-
-          &:after {
-          }
 
           &.active {
             color: $blue !important;
@@ -56,6 +59,7 @@
           }
         }
       }
+
       .logo {
         width: 115px;
       }
