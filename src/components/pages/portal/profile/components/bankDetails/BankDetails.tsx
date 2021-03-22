@@ -1,23 +1,22 @@
-import { Button, Input } from '@components/shared';
+import { Button, Col, Container, Input, Row } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ENotificationType } from '@domain/enums';
 import { MBankDetails } from '@domain/models';
 import { EActionTypes, IStore, ac_showNotification, ac_updateBankDetails } from '@store';
+import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
-import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { useDeviceDetect } from '@utils/hooks';
 
 export const BankDetails = memo(function BankDetails() {
   const { bankDetails } = useSelector<IStore, { bankDetails: MBankDetails }>((state) => ({
     bankDetails: state.data.bankDetails,
   }));
+  const responsive = useResponsive();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { isBrowser } = useDeviceDetect();
 
   const validationSchema = Yup.object().shape({
     beneficiary_name: FieldValidators.beneficiaryName,
@@ -27,10 +26,10 @@ export const BankDetails = memo(function BankDetails() {
     iban: FieldValidators.iban,
     branch_name: FieldValidators.branch
       .required(t('Please enter branch name'))
-      .max(100, isBrowser ? t('Bank Branch Name characters count restriction') : t('Maximum length symbols')),
+      .max(100, responsive.lg ? t('Bank Branch Name characters count restriction') : t('Maximum length symbols')),
     branch_address: FieldValidators.branch
       .required(t('Please enter branch address'))
-      .max(100, isBrowser ? t('Bank Branch Address characters count restriction') : t('Maximum length symbols')),
+      .max(100, responsive.lg ? t('Bank Branch Address characters count restriction') : t('Maximum length symbols')),
   });
 
   function Submit(data: FormikValues) {

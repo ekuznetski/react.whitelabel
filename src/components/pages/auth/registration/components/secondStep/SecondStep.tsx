@@ -1,16 +1,14 @@
-import { Button, Checkbox, CountrySelect, Input, Select } from '@components/shared';
-import { CustomFieldValidators, FieldValidators, RegexValidators } from '@domain';
+import { Button, Checkbox, Col, CountrySelect, Input, Row, Select } from '@components/shared';
+import { CustomFieldValidators, FieldValidators } from '@domain';
 import { Country, ECountryName, ERegSteps, countries } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import moment from 'moment';
 import React, { useEffect } from 'react';
-import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import './SecondStep.scss';
-import { isMobile, isTablet } from 'react-device-detect';
 
 enum EFields {
   'tax_checkbox' = 'tax_checkbox',
