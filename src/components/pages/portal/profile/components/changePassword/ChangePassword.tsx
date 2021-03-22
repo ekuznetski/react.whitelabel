@@ -24,22 +24,26 @@ export const ChangePassword = memo(
       currentPassword: FieldValidators.password,
       newPassword: Yup.string().when('currentPassword', {
         is: (val: string) => val?.length > 0,
-        then: FieldValidators.password.test('muchOlpPassword', '', function (value) {
-          const { path, parent, createError } = this;
-          const { currentPassword }: { currentPassword: string } = parent;
-          if (value && value === currentPassword) {
-            return createError({
-              path,
-              message: t('Your New Password can`t be the same as your Current Password'),
-            });
-          }
-          return true;
-        }),
+        then: FieldValidators.password
+          .required(t('Please enter new password'))
+          .test('muchOlpPassword', '', function (value) {
+            const { path, parent, createError } = this;
+            const { currentPassword }: { currentPassword: string } = parent;
+            if (value && value === currentPassword) {
+              return createError({
+                path,
+                message: t('Your New Password can`t be the same as your Current Password'),
+              });
+            }
+            return true;
+          }),
         otherwise: Yup.string(),
       }),
       repeatNewPassword: Yup.string().when('currentPassword', {
         is: (val: string) => val?.length > 0,
-        then: FieldValidators.password.oneOf([Yup.ref('newPassword'), ''], t('Passwords must match')),
+        then: FieldValidators.password
+          .required(t('Please repeat your password'))
+          .oneOf([Yup.ref('newPassword'), ''], t('Passwords must match')),
         otherwise: Yup.string(),
       }),
     });
