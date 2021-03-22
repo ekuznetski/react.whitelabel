@@ -5,21 +5,15 @@ import {
   OurOfferBannerSection,
   PlatformTechnologySection,
 } from '@components/sections';
-import { LocaleLink, SectionBg, Svg, Tab, Table, Tabs } from '@components/shared';
-import { EPagePath } from '@domain/enums';
-import { IPrices } from '@domain/interfaces';
-import { IStore, ac_fetchPrices } from '@store';
-import { capitalize } from '@utils/fn';
+import { SectionBg, Svg } from '@components/shared';
+import { ac_fetchPrices } from '@store';
 import React, { useEffect } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { TopSection } from './components';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { AssetsSection, TopSection } from './components';
 import './Platform.scss';
 
 export function Platform() {
-  const { prices } = useSelector<IStore, { prices: IPrices }>((state) => ({
-    prices: state.data.prices,
-  }));
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -36,69 +30,7 @@ export function Platform() {
   return (
     <div className="platform-wrapper">
       <TopSection />
-      <section className="assets">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-12 col-lg-9">
-              <div className="assets__title mb-7">
-                <Trans i18nKey="Assets Title">
-                  <strong>6</strong> Asset Classes, <strong>150+</strong> Instruments
-                </Trans>
-              </div>
-              <div className="assets__description mb-md-13">
-                <Trans
-                  i18nKey="Assets SubTitle"
-                  values={{
-                    currencies: '$t(Currencies)',
-                    stocks: '$t(Stocks)',
-                    indices: '$t(Indices)',
-                    commodities: '$t(Commodities)',
-                    cryptocurrencies: '$t(Cryptocurrencies)',
-                  }}
-                >
-                  CFD for
-                  <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'currencies' } }}>
-                    Currencies
-                  </LocaleLink>
-                  ,<LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'stocks' } }}>Stocks</LocaleLink>,
-                  <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'indices' } }}>Indices</LocaleLink>
-                  ,
-                  <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'commodities' } }}>
-                    Commodities
-                  </LocaleLink>{' '}
-                  <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'crypto' } }}>
-                    Cryptocurrencies
-                  </LocaleLink>{' '}
-                  at your service on one trading account. Monitor and trade the world’s largest financial markets!
-                </Trans>
-              </div>
-            </div>
-            <div className="col-12 col-lg-9">
-              <Tabs>
-                {!prices && <div>Prices can't be loaded</div>}
-                {prices &&
-                  Object.keys(prices)?.map((asset) => {
-                    const rowData = Object.keys(prices[asset]).map((item) =>
-                      // @ts-ignore
-                      Object.values(prices[asset][item].details),
-                    );
-                    return (
-                      <Tab key={asset} label={t(capitalize(asset))} anchor={asset}>
-                        <Table
-                          key={asset}
-                          headers={[t('Instrument'), t('Sell'), t('Buy'), t('Change percent')]}
-                          rows={rowData as string[][]}
-                          colsPctSize={[30, 20, 20, 20]}
-                          preview
-                        />
-                      </Tab>
-                    );
-                  })}
-              </Tabs>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AssetsSection />
       <OurOfferBannerSection />
       <PlatformTechnologySection />
       <section className="perfect">

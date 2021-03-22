@@ -1,5 +1,5 @@
 import { Col, Container, Img, LocaleLink, Row, Svg } from '@components/shared';
-import { EAssetClass, EPagePath } from '@domain/enums';
+import { EAssetClass, EAssetsIcons, EPagePath } from '@domain/enums';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu, IPrices } from '@domain/interfaces';
 import { config } from '@pages/main/home';
 import { IStore, ac_fetchPrices } from '@store';
@@ -168,8 +168,7 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
 
   useEffect(() => {
     if (wrapper.current && _item.current) {
-      wrapper.current.style.width =
-        _item.current.clientWidth * _slidesPerView + 'px';
+      wrapper.current.style.width = _item.current.clientWidth * _slidesPerView + 'px';
     }
   }, [responsive]);
 
@@ -217,7 +216,10 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
       <div className={classNames('carousel-item', props.className, props.active && 'active')}>
         <div className="carousel-item__header p-4">
           {config.priceSectionChartSettings.showAssetIcon && (
-            <Img src={`assets/${props.name.replace(/\W/g, '')}.png`} className={'assets-icon'} />
+            <Img
+              src={`assets/${EAssetsIcons[(props.name.trim() as unknown) as number]}.png`}
+              className={'assets-icon'}
+            />
           )}
           <div className="title mb-1">{props.name}</div>
           <div className="variation">

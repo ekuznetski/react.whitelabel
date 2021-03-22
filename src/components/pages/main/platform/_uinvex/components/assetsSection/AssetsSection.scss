@@ -1,0 +1,31 @@
+@import '~/variables';
+@import '~/mixin';
+
+.platform-wrapper__assets {
+  .assets {
+    &__title {
+      @include fontSize((xs: 24px, md: 36px));
+      @include lineHeight((xs: 34px, md: 50px));
+      font-weight: 400;
+      text-align: center;
+      color: $dark-text;
+    }
+
+    &__description {
+      @include fontSize((xs: 16px, md: 18px));
+      @include lineHeight((xs: 26px, md: 30px));
+      text-align: center;
+      color: $dark-text;
+    }
+  }
+
+  .common-table {
+    &-wrapper {
+
+      .th,
+      .td {
+        justify-content: center !important;
+      }
+    }
+  }
+}

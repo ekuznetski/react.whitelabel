@@ -13,3 +13,4 @@ export * from './registration.enum';
 export * from './transactions.enum';
 export * from './verification.enum';
 export * from './withdrawals.enum';
+export * from './uncategorized.enum';

@@ -1,7 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const fs = require('fs');
@@ -534,16 +533,6 @@ module.exports = (_env, arguments) => {
       new CaseSensitivePathsPlugin(),
       new MiniCssExtractPlugin({
         filename: 'style.css',
-      }),
-      new CssMinimizerPlugin({
-        minimizerOptions: {
-          preset: [
-            'advanced',
-            {
-              discardComments: { removeAll: true },
-            },
-          ],
-        },
       }),
       new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: ['**/*', '!server.js'],

@@ -92,4 +92,7 @@ export default {
   'Download Desktop Version': 'MT5 for Desktop',
   'Platform Page Top Title':
     '<0>Cutting edge</0><1><0>MetaTrader 5</0> platform</1><2>powered by <1>UINVEX</1><2/></2>',
+  'Assets Title': '<0>5</0> Asset Classes, <2>300+</2> instruments',
+  'Assets SubTitle':
+    'Use our platform to monitor and trade <1>CFD</1>s for the global financial markets including <3>Forex</3>, <5>Stocks</5>, <7>Commodities</7>, <9>Indices</9> and <11>Digital assets</11>.',
 };
