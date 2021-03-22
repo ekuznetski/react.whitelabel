@@ -72,11 +72,8 @@ export const TransactionStatement = memo(function TransactionStatement() {
     dispatch(
       ac_fetchTransactionalStatements(
         data,
-        (_res: ITransactionalStatementsResponse) => {
-          if (
-            _res?.data &&
-            (_res?.data?.deposits.length || _res?.data?.trades.length || _res?.data?.withdrawals.length)
-          ) {
+        (_res: ITransactionalStatements) => {
+          if (_res.deposits.length || _res.trades.length || _res.withdrawals.length) {
             dispatch(
               ac_showNotification({
                 type: ENotificationType.success,
