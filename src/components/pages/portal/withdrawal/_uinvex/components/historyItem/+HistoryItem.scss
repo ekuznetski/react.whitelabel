@@ -4,8 +4,13 @@
     .withdrawal {
         &-option {
             .common-button {
-                border-color: $light-blue;
-                color: $blue;
+                background-color: $light-red;
+                border-color: $light-red;
+
+                &:hover {
+                    background-color: $red;
+                    border-color: $red;
+                }
             }
         }
     }
