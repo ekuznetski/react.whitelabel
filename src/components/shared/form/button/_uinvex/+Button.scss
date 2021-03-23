@@ -38,4 +38,20 @@
         }
     }
 
+    &.disabled {
+        background: $light-grey;
+        color: $dark-grey;
+
+        a {
+            color: $dark-grey;
+        }
+
+        svg {
+            fill: $dark-grey;
+        }
+
+        &.secondary {
+            border-color: $light-grey;
+        }
+    }
 }
