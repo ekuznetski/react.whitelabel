@@ -3,10 +3,9 @@
 
 .common-dropdown {
   &-context {
-    .item {
+    .item-container {
 
-      a,
-      >div {
+      .item {
         &:hover {
           text-decoration: underline;
         }
