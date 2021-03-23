@@ -104,8 +104,6 @@
             color: $text;
           }
 
-          &.content {}
-
           &.footer {
             @include d-flex(center, center);
           }

@@ -1,6 +1,7 @@
 .common-button {
     background: $blue;
     height: $btn-size-lg;
+    transition: box-shadow 0.25s, background 0.25s, border-color 0.25s;
 
     &:hover:not(.disabled) {
         background: $dark-blue;
