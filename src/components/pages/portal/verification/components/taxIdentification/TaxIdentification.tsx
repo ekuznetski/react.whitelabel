@@ -1,9 +1,9 @@
 import { Button, Col, CountrySelect, Input, Radio, Row } from '@components/shared';
 import { FieldValidators } from '@domain';
-import { EFormStatus, ENotificationType } from '@domain/enums';
+import { EClientStatusCode, EFormStatus, ENotificationType } from '@domain/enums';
 import { ITins } from '@domain/interfaces';
-import { MTins } from '@domain/models';
-import { EActionTypes, IStore, ac_showNotification, ac_updateTins } from '@store';
+import { MClientStatus, MTins } from '@domain/models';
+import { ac_showNotification, ac_updateTins, EActionTypes, IStore } from '@store';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,15 +21,16 @@ enum EFields {
 }
 
 export const TaxIdentification = React.memo(function TaxIdentification() {
-  const { tins } = useSelector<IStore, { tins: MTins }>((state) => ({
+  const { tins, clientStatus } = useSelector<IStore, { tins: MTins; clientStatus: MClientStatus }>((state) => ({
     tins: state.data.client.tins,
+    clientStatus: state.data.client.status,
   }));
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const initialValues = {
-    [EFields.choice]: tins.choice ? tins.choice : true,
-    [EFields.reason]: tins.reason ? tins.reason : '',
+    [EFields.choice]: tins.choice ?? true,
+    [EFields.reason]: tins.reason ? Number(tins.reason) - 1 : '',
     [EFields.tins]: tins.tins
       ? tins.tins.map((e) => ({
           [EFields.taxCountry]: e.country,
@@ -74,7 +75,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
 
   function Submit(data: FormikValues) {
     const values = { ...data };
-    values.reason = null;
+    values.reason = Number(values.reason) + 1;
     values.choice = values.choice.toString();
     values.tins = JSON.stringify(
       values.tins
@@ -145,7 +146,11 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                   {t('Do you have Tax Identification Number?')}
                 </Col>
                 <Col sm={7}>
-                  <Radio name={EFields.choice} options={config.haveTinsNumber} disabled={!!tins.tins.length} />
+                  <Radio
+                    name={EFields.choice}
+                    options={config.haveTinsNumber}
+                    disabled={clientStatus.tins_status.code === EClientStatusCode.submitted}
+                  />
                 </Col>
                 <Col xs={12} className="form-breakline mt-10 mb-10" />
               </Row>
@@ -190,6 +195,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                       optionClassName="col-12 col-sm-6"
                       name={EFields.reason}
                       options={config.chooseReason}
+                      disabled={clientStatus.tins_status.code === EClientStatusCode.submitted}
                     />
                   </Col>
                 </Row>
