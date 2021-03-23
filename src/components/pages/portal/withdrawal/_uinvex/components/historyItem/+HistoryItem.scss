@@ -1,0 +1,12 @@
+@import '~/variables';
+
+.withdrawal-history-item {
+    .withdrawal {
+        &-option {
+            .common-button {
+                border-color: $light-blue;
+                color: $blue;
+            }
+        }
+    }
+}

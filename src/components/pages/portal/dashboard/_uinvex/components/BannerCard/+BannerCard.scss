@@ -1,0 +1,18 @@
+@import '~/variables';
+@import '~/mixin';
+
+.banner-card {
+    &__options {
+        .banner-options {
+            &__btn {
+                .common-button {
+                    color: $blue;
+
+                    a {
+                        color: $blue;
+                    }
+                }
+            }
+        }
+    }
+}

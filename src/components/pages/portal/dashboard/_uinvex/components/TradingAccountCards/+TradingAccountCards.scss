@@ -1,0 +1,27 @@
+@import '~/variables';
+
+.trading-account-cards {
+    .trading-account-single-card {
+        .trading-account-card-wrapper {
+            .account-card {
+                &__options {
+                    .common-button {
+                        &.fund {
+                            &:hover:not(.disabled) {
+                                border-color: $blue;
+
+                                a {
+                                    color: white;
+
+                                    svg {
+                                        fill: white;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

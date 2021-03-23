@@ -2,8 +2,7 @@
 @import '~/mixin';
 
 .common-table-wrapper {
-  border-top-left-radius: $border-box-radius;
-  border-top-right-radius: $border-box-radius;
+  border-radius: $border-box-radius;
 
   .common-table {
     grid-template-rows: 40px;
@@ -53,6 +52,14 @@
 
       &.col--last {
         border-right: 1px solid $border-grey;
+      }
+
+      &.col--first.row--last {
+        border-bottom-left-radius: $border-box-radius;
+      }
+
+      &.col--last.row--last {
+        border-bottom-right-radius: $border-box-radius;
       }
     }
   }

@@ -11,7 +11,6 @@ import {
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import './TradingAccountSingleCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { IStore, ac_showModal } from '@store';
 import { MClientSettings } from '@domain/models';

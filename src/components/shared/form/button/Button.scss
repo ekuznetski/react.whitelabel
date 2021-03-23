@@ -74,12 +74,12 @@
 
     a {
       color: rgba(#000, 0.3);
-
-      svg {
-        fill: rgba(#000, 0.3);
-      }
     }
-  
+
+    svg {
+      fill: rgba(#000, 0.3);
+    }
+
     &.secondary {
       border-color: $dark-grey;
     }

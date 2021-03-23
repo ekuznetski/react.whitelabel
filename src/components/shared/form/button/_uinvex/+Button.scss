@@ -1,0 +1,41 @@
+.common-button {
+    background: $blue;
+    height: $btn-size-lg;
+
+    &:hover:not(.disabled) {
+        background: $dark-blue;
+    }
+
+    &:active {
+        background: lighten($blue, 5%);
+    }
+
+    &.secondary:not(.disabled) {
+        color: $blue;
+        border-color: $light-blue;
+        background: $light-blue;
+
+        a {
+            color: $blue;
+
+            svg {
+                fill: $blue;
+            }
+        }
+
+        &:hover {
+            color: white;
+            border-color: $blue;
+            background: $blue;
+
+            a {
+                color: white;
+
+                svg {
+                    fill: white;
+                }
+            }
+        }
+    }
+
+}
