@@ -1,0 +1,40 @@
+@import '~/variables';
+
+.header-panel-menu {
+    &__item {
+        &-link {
+            a {
+                color: $text !important;
+            }
+
+            &-link {
+                a {
+                    color: $text;
+                }
+            }
+        }
+    }
+
+    &__dropdown {
+        &-itemsList {
+            .item {
+                a {
+                    color: $dark-text;
+
+                    &:hover {
+                        color: $blue;
+                        text-decoration: underline;
+                    }
+                }
+
+                svg {
+                    fill: $blue;
+                }
+            }
+        }
+    }
+
+    svg {
+        fill: $text;
+    }
+}

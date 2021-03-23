@@ -29,7 +29,11 @@
 
       &:hover:not(.active) {
         .tab__link__label-title {
-          color: $dark-blue;
+          svg {
+            fill: $blue;
+          }
+
+          color: $blue;
         }
       }
 

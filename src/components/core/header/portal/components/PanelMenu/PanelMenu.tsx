@@ -1,4 +1,5 @@
 import { LabelView, LocaleNavLink, Svg } from '@components/shared';
+import { theme } from '@domain';
 import { ELabels } from '@domain/enums';
 import { IChildrenMenuConfig, IMenuConfig } from '@domain/interfaces';
 import { useDebounceEffect } from 'ahooks';
@@ -7,7 +8,7 @@ import React, { createRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './PanelMenu.scss';
 
-const DROPDOWN_MENU_ELEMENTS_HEIGHT = { item: 50, footer: 28, padding: 16 };
+const DROPDOWN_MENU_ELEMENTS_HEIGHT = { item: 50, footer: theme.panelMenuFooter ? 28 : 0, padding: 16 };
 type IDropdownMenuConfig = { items: IChildrenMenuConfig; visible: boolean; posY: number };
 
 export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
@@ -89,19 +90,21 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
               </div>
             ))}
           </div>
-          <div className="header-panel-menu__dropdown-footer px-7">
-            <LabelView>
-              {{
-                '*': (
-                  <>
-                    <Svg href="logo" _label height={12} />
-                    <span>{t('Est since 1977')}</span>
-                  </>
-                ),
-                [ELabels.bsfx]: <Svg href="label_name_logo" _label={ELabels.bsfx} width={38} />,
-              }}
-            </LabelView>
-          </div>
+          {theme.panelMenuFooter && (
+            <div className="header-panel-menu__dropdown-footer px-7">
+              <LabelView>
+                {{
+                  '*': (
+                    <>
+                      <Svg href="logo" _label height={12} />
+                      <span>{t('Est since 1977')}</span>
+                    </>
+                  ),
+                  [ELabels.bsfx]: <Svg href="label_name_logo" _label={ELabels.bsfx} width={38} />,
+                }}
+              </LabelView>
+            </div>
+          )}
         </div>
       </div>
     </div>
