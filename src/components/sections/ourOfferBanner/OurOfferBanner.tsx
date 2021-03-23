@@ -15,12 +15,12 @@ export const OurOfferBannerSection = memo(
       <section className={classNames('our-offer-banner-section', props.className)} ref={ref}>
         <Container>
           <Row>
-            <Col xs={12} md={4} className="py-8">
-              <Svg href="zero_pct" height={48} className="mr-5 mb-md-4 mb-lg-0" />
+            <Col className="our-offer__item">
+              <Svg href="zero_pct" height={48} />
               {t('Zero Deposit Fees')}
             </Col>
-            <Col xs={12} md={4} className="py-8">
-              <Svg href="graph" height={48} className="mr-5 mb-md-4 mb-lg-0" />
+            <Col className="our-offer__item">
+              <Svg href="graph" height={48} />
               <LabelView>
                 {{
                   '*': (
@@ -32,8 +32,8 @@ export const OurOfferBannerSection = memo(
                 }}
               </LabelView>
             </Col>
-            <Col xs={12} md={4} className="py-8">
-              <Svg href="gear_24hr" height={48} className="mr-5 mb-md-4 mb-lg-0" />
+            <Col className="our-offer__item">
+              <Svg href="gear_24hr" height={48} />
               {t('24 5 Customer Support')}
             </Col>
           </Row>

@@ -47,7 +47,10 @@ export const Cards = memo(
 
           return (
             <div className={classNames('common-cards', className)} ref={ref}>
-              <div className="common-cards__container" ref={containerRef}>
+              <div
+                className={classNames('common-cards__container', mobileNavigation && 'scrollable')}
+                ref={containerRef}
+              >
                 {!children && cards
                   ? cards?.map((card, c) => (
                       <Card
@@ -94,7 +97,7 @@ export const Card = memo(
     }, [inView]);
 
     return (
-      <div className={props.wrapperClassName}>
+      <div className={classNames('common-cards__wrapper', props.wrapperClassName)}>
         <div
           className={classNames('common-cards__item', props.className, activeCardUid === props.uid && 'active')}
           ref={ref}

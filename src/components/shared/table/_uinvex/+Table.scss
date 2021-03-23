@@ -5,6 +5,11 @@
   border-top-left-radius: $border-box-radius;
   border-top-right-radius: $border-box-radius;
 
+  .common-table-container {
+    @include hideScrollbar();
+    overflow-x: auto;
+  }
+
   .common-table {
     grid-template-rows: 40px;
     grid-auto-rows: 70px;
@@ -57,11 +62,9 @@
     }
   }
 
-  @media (max-width: $viewport-sm-w) {
-    overflow-x: auto;
-
+  @media (max-width: $viewport-md-w) {
     .common-table {
-      width: 570px;
+      width: 640px;
       grid-template-rows: 40px;
       grid-auto-rows: 60px;
 
