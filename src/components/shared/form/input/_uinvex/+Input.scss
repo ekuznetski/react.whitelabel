@@ -1,0 +1,20 @@
+@import '~/variables';
+
+.field.input {
+    &.disabled {
+        background: $light-grey;
+        border-color: $grey;
+
+        .label {
+            color: $grey;
+        }
+    }
+
+    &.with-label {
+        input {
+            &:disabled {
+                background-color: $light-grey;
+            }
+        }
+    }
+}

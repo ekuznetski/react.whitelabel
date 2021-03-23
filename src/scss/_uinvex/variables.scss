@@ -42,6 +42,14 @@ $container-max-widths: (sm: 544px,
   xl: 1126.66px,
 );
 
+// Form Elements
+$form-elements-height: 48px;
+
+$input-height: $form-elements-height;
+$button-height: $form-elements-height;
+$datepicker-height: $form-elements-height;
+$radio-height: $form-elements-height;
+$select-height: 46px;
 
 // Main Menu
 $menu-height-main-lg: 60px;

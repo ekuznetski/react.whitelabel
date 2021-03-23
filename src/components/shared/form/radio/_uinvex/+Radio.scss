@@ -1,0 +1,9 @@
+@import '~/variables';
+
+.radio-wrapper {
+    &.disabled {
+        .radio-label {
+            background: $light-grey;
+        }
+    }
+}
