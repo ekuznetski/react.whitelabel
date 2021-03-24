@@ -268,7 +268,7 @@
 
   &.disabled {
     .label {
-      color: rgba(#000, 0.3);
+      color: $dark-grey;
     }
 
     div[class$='-container'] {
@@ -276,7 +276,7 @@
         background: $grey;
 
         div[class$='-placeholder'] {
-          color: rgba(#000, 0.3);
+          color: $dark-grey;
         }
 
         div[class$='-IndicatorsContainer'] {

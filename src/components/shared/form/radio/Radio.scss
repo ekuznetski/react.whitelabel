@@ -62,7 +62,7 @@
     .radio-label {
       border-color: $dark-grey;
       background: $grey;
-      color: rgba(#000, 0.3);
+      color: $dark-grey;
       cursor: default;
 
       &.selected {

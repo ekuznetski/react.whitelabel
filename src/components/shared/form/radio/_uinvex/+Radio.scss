@@ -1,10 +1,12 @@
 @import '~/variables';
 
 .radio-wrapper {
+    border-color: $border-grey;
+
     &.disabled {
         .radio-label {
+            border-color: $border-grey;
             background: $light-grey;
-            color: $dark-grey;
         }
     }
 }

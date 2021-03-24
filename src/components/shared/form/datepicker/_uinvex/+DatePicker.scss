@@ -1,6 +1,8 @@
 @import '~/variables';
 
 .field.datepicker {
+  border-color: $border-grey;
+
   input {
     &:disabled {
       background-color: $light-grey;
@@ -9,10 +11,6 @@
 
   &.disabled {
     background: $light-grey;
-
-    .label {
-      color: $dark-grey;
-    }
 
     svg {
       fill: $dark-grey;
