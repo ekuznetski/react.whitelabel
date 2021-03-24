@@ -182,7 +182,7 @@
 
   &.multi-select {
     height: auto;
-    min-height: 48px;
+    min-height: $select-height;
   }
 
   &.phoneCode-select {
@@ -245,8 +245,6 @@
             font-size: 10px;
             text-transform: uppercase;
           }
-
-          &__number {}
 
           &__spacer {
             height: 1px;

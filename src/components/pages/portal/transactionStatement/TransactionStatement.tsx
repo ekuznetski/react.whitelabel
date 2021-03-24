@@ -149,7 +149,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                         />
                       </Tab>
                       <Tab anchor="range" label={t('Range')}>
-                        <DatePicker label={t('Choose date range')} name={EFields.filter} range={true} disabled />
+                        <DatePicker label={t('Choose date range')} name={EFields.filter} range={true} />
                       </Tab>
                     </Tabs>
                     <Button type="submit" loadingOnAction={EActionTypes.fetchTransactionalStatements}>
