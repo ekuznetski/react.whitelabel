@@ -1,4 +1,4 @@
-import { ITabs, Svg } from '@components/shared';
+import { Svg } from '@components/shared';
 import { EPagePath, ETradingType, EWorkshopType } from '@domain/enums';
 import { IDashboardConfig } from '@domain/interfaces';
 import i18n from '@i18next';
@@ -107,7 +107,7 @@ export const config: IDashboardConfig = {
       type: 'blue',
       bg_img: 'client_banner_2.jpg',
       bg_color: '#eff1f3',
-      link: { path: '/deposit', text: t('Deposit Now') },
+      link: { path: EPagePath.Deposit, text: t('Deposit Now') },
       text: (
         <Trans i18nKey="Promotional Cards Texts:3">
           Deposit now and <span>receive a 10% bonus</span> up to $5K instantly added to your account
@@ -121,7 +121,7 @@ export const config: IDashboardConfig = {
       type: 'blue',
       bg_img: 'client_banner_2.jpg',
       bg_color: '#eff1f3',
-      link: { path: '/deposit', text: t('Deposit Now') },
+      link: { path: EPagePath.Deposit, text: t('Deposit Now') },
       text: (
         <Trans i18nKey="Promotional Cards Texts:4">
           Fund Your Account with <span>$0 Fees</span>
