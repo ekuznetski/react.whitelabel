@@ -75,7 +75,6 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
 
   function Submit(data: FormikValues) {
     const values = { ...data };
-    values.reason = values.reason;
     values.choice = values.choice.toString();
     values.tins = JSON.stringify(
       values.tins
