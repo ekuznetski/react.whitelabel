@@ -10,6 +10,8 @@
   width: 100%;
 
   &.with-label {
+    overflow: hidden;
+
     .label {
       transform: translate3d(10px, 50%, 0);
       transform-origin: left top;
@@ -18,7 +20,6 @@
     }
 
     input {
-      border-radius: $border-radius;
       padding-top: 18px;
 
       &:disabled {

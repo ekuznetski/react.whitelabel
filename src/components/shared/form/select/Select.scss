@@ -6,7 +6,6 @@
   border-radius: $border-radius;
   border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
-  min-height: $select-height;
   width: 100%;
 
   &.focused {
@@ -276,7 +275,6 @@
 
     div[class$='-container'] {
       div[class$='-control'] {
-        border-radius: $border-radius;
         background: $grey;
 
         div[class$='-placeholder'] {

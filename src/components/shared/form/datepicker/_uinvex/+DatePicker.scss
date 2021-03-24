@@ -1,0 +1,13 @@
+@import '~/variables';
+
+.field.datepicker {
+  input {
+    &:disabled {
+      background-color: $light-grey;
+    }
+  }
+
+  &.disabled {
+    background: $grey;
+  }
+}
