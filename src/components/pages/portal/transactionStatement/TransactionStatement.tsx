@@ -12,7 +12,7 @@ import {
   Tabs,
 } from '@components/shared';
 import { ENotificationType, ETransactionTypes } from '@domain/enums';
-import { ITransactionalStatementsResponse } from '@domain/interfaces';
+import { ITransactionalStatements, ITransactionalStatementsResponse } from '@domain/interfaces';
 import {
   ac_clearTransactionalStatements,
   ac_fetchTransactionalStatements,
@@ -80,7 +80,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                 message: t('Requested statements are successfully loaded'),
               }),
             );
-          } else if (_res?.data) {
+          } else if (_res) {
             dispatch(
               ac_showNotification({
                 type: ENotificationType.warning,
