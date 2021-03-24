@@ -1,0 +1,78 @@
+@import '~/variables';
+@import '~/mixin';
+
+.platform-wrapper {
+  .prestigious-platform-technology {
+    background: linear-gradient(0.35deg, #262A4B 0.29%, #44496D 99.67%);
+    background-size: contain;
+    z-index: 1;
+
+    .row {
+      @include flexFlow((xs: column, lg: row-reverse));
+      height: auto;
+      background: none;
+      box-shadow: none;
+      border-radius: 0;
+    }
+
+    &__context {
+      @include col((xs: auto, lg: 7, xl: 6));
+      padding: 0 sp(5, i);
+
+      .context {
+        &__title {
+          color: #fff;
+
+          span {
+            color: $uinvex-blue;
+          }
+        }
+
+        &__description {
+          color: #fff;
+
+          span {
+            font-weight: 700;
+            color: $uinvex-blue;
+          }
+        }
+      }
+
+      button {
+        @include width((xs: 100%, md: 255px, lg: 190px));
+      }
+    }
+
+    &__img {
+      @include height((xs:auto, lg: 500px));
+      @include col((xs: auto));
+      display: block;
+
+      .common-img {
+        display: flex;
+
+        img {
+          @include width((xs: 310px, sm: 375px, md: 644px, lg:761px));
+          @include mr((xs: auto, md: sp(19, n), lg: 0));
+          @include mt((xs: 9, md: sp(14, n), lg: sp(7, n)));
+          @include mb((xs: sp(20, n), md: -230px, lg: 0));
+          margin-left: auto;
+        }
+      }
+    }
+
+    button {
+      background: $uinvex-blue;
+    }
+
+
+    @media (max-width: $viewport-lg-w) {
+      .context {
+        &__description {
+          font-size: 14px;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+}

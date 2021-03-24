@@ -1,0 +1,38 @@
+@import '~/variables';
+@import '~/mixin';
+
+.platform-perfect-wrapper {
+  background: $grey-bg;
+  color: $dark-text;
+
+  .section-bg {
+    opacity: 0.3;
+  }
+
+  .perfect {
+
+    &__title {
+      font-family: $font-family1;
+      font-weight: 400;
+    }
+
+    &__description {
+      color: $text;
+    }
+
+    &__items {
+      display: flex;
+      align-items: center;
+    }
+
+    &__item {
+      &:not(:last-child) {
+        border-right-color: $border-grey;
+      }
+
+      svg {
+        width: 89px;
+      }
+    }
+  }
+}

@@ -24,6 +24,12 @@
         @include mt((xs: 13, md: 14, lg: 16));
         @include col((xs: 12));
         @include px((xs: 0, md: 5));
+
+        .common-table {
+          .common-img {
+            margin: auto;
+          }
+        }
       }
     }
 

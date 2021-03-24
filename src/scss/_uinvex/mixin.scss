@@ -11,3 +11,19 @@
     fill: $labelIcon;
   }
 }
+
+@mixin imageUnderShadow {
+  position: relative;
+  z-index: 1;
+
+  &:before{
+    content: '';
+    display: block;
+    position: absolute;
+    z-index:-1;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    box-shadow: box-shadow(20, 0.3);
+  }
+}

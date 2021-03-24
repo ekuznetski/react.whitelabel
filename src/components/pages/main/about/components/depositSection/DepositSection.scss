@@ -25,6 +25,12 @@
       &__tabs-container {
         @include col((xs: 12));
         @include px((xs: 0, md: 5));
+
+        .common-table {
+          .common-img {
+            margin: auto;
+          }
+        }
       }
     }
   }

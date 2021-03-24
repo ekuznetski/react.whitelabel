@@ -2,15 +2,12 @@
 @import '~/mixin';
 
 .prestigious-platform-technology {
-  padding: 0 !important;
-
   .row {
     box-shadow: box-shadow(15, 0.1);
     border-radius: $border-box-radius;
-    background: url('assets/platform_devices.png'), linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
+    background: url('assets/platform_devices_bg.png'), linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
     height: 560px;
     @include mx((xs: 0));
-    @include mb((xs: 12, md: 13, lg: 14));
   }
 
   &__context {

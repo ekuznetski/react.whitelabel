@@ -18,12 +18,10 @@
 
   .open-live-account-banner__column {
     @include d-flex(start, center, column);
+    @include col((xs: 12, sm:6, xl: 5));
     height: 440px;
-    overflow: hidden;
     z-index: 1;
     margin-bottom: 0 !important;
-    flex: 0 0 colSizePrc(4);
-    max-width: colSizePrc(4);
   }
 
   &__title {
@@ -36,7 +34,7 @@
       display: block;
     }
 
-    svg {
+    .common-svg {
       display: block;
     }
   }
@@ -48,14 +46,14 @@
 
   .open-account {
     @include d-flex(center, center, column);
+    @include ml((xs: 5, md: sp(5, n), lg: auto));
     flex: 0 0 colSizePrc(5);
     max-width: colSizePrc(5);
     z-index: 1;
     padding-top: 10px;
     margin-top: -40px !important;
-    @include ml((xs: 5, md: sp(5, n), lg: auto));
-    box-shadow: box-shadow(15, 0.1);
     border-radius: 6px;
+    box-shadow: box-shadow(15, 0.1);
     background: linear-gradient(0.35deg, #262a4b 0.29%, #44486c 99.67%);
     height: 440px;
 

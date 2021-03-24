@@ -3,7 +3,7 @@
 
 .platform-wrapper__assets {
   margin-bottom: sp(7, n);
-  
+
   .assets {
     &__title {
       @include fontSize((xs: 24px, md: 36px));
@@ -35,6 +35,7 @@
       .th,
       .td {
         .assets-icon {
+          @include imageUnderShadow();
           width: 38px;
           height: 38px;
         }

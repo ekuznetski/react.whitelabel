@@ -94,6 +94,10 @@
         font-weight: 500;
         text-transform: capitalize;
 
+        &-title {
+          @include d-flex(center, center);
+        }
+
         svg {
           margin-right: sp(9);
         }
