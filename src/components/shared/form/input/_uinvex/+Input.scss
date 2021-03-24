@@ -3,18 +3,16 @@
 .field.input {
     &.disabled {
         background: $light-grey;
-        border-color: $grey;
+        border-color: $dark-grey;
 
         .label {
-            color: $grey;
+            color: $dark-grey;
         }
     }
 
-    &.with-label {
-        input {
-            &:disabled {
-                background-color: $light-grey;
-            }
+    input {
+        &:disabled {
+            background-color: $light-grey;
         }
     }
 }

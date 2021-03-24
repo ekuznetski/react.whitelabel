@@ -7,10 +7,10 @@
   border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
   height: $datepicker-height;
+  overflow: hidden;
   width: 100%;
 
   &.with-label {
-    overflow: hidden;
 
     .label {
       transform: translate3d(10px, 50%, 0);

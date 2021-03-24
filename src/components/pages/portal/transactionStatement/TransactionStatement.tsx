@@ -14,12 +14,12 @@ import {
 import { ENotificationType, ETransactionTypes } from '@domain/enums';
 import { ITransactionalStatementsResponse } from '@domain/interfaces';
 import {
-  ac_clearTransactionalStatements,
-  ac_fetchTransactionalStatements,
-  ac_showNotification,
   EActionTypes,
   IDataStore,
   IStore,
+  ac_clearTransactionalStatements,
+  ac_fetchTransactionalStatements,
+  ac_showNotification,
 } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
@@ -149,7 +149,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                         />
                       </Tab>
                       <Tab anchor="range" label={t('Range')}>
-                        <DatePicker label={t('Choose date range')} name={EFields.filter} range={true} />
+                        <DatePicker label={t('Choose date range')} name={EFields.filter} range={true} disabled />
                       </Tab>
                     </Tabs>
                     <Button type="submit" loadingOnAction={EActionTypes.fetchTransactionalStatements}>

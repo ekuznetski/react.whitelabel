@@ -7,10 +7,16 @@
   border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
   height: $input-height;
+  overflow: hidden;
   width: 100%;
 
+  input {
+    &:disabled {
+      background-color: $grey;
+    }
+  }
+
   &.with-label {
-    overflow: hidden;
 
     .label {
       transform: translate3d(10px, 50%, 0);
@@ -21,10 +27,6 @@
 
     input {
       padding-top: 18px;
-
-      &:disabled {
-        background-color: $grey;
-      }
     }
   }
 

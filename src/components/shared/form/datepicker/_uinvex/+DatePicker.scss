@@ -9,5 +9,13 @@
 
   &.disabled {
     background: $grey;
+
+    .label {
+      color: $dark-grey;
+    }
+
+    svg {
+      fill: $dark-grey;
+    }
   }
 }
