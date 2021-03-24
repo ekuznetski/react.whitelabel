@@ -47,8 +47,9 @@
     }
   }
 
-  .toggleTableView {
-    @include d-flex(center);
+  .toggle-table-view {
+    display: inline-flex;
+    align-items: center;
 
     cursor: pointer;
     font-weight: 500;

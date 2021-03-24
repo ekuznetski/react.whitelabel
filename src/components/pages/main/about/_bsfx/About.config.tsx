@@ -39,7 +39,7 @@ export const config = {
         [<Img src="bank_wire.png" height={40} />, '$250', t('1 to 7 working days'), '$0'],
         [<Img src="visa_mastercard.png" height={40} />, '$20', t('Up to 1 hour'), '$0'],
       ],
-      colsPctSize: [20, 20, null, 20],
+      colsSize: ['20%', '20%', null, '20%'],
     },
     withdrawals: {
       headers: [t('Method'), t('Minimum'), t('Processing'), t('Fees')],
@@ -47,7 +47,7 @@ export const config = {
         [<Img src="bank_wire.png" height={40} />, '$300', t('1 working day'), '$0'],
         [<Img src="visa_mastercard.png" height={40} />, '$20', t('1 working day'), '$0'],
       ],
-      colsPctSize: [20, 20, null, 20],
+      colsSize: ['20%', '20%', null, '20%'],
     },
   },
   trustedCards: [
