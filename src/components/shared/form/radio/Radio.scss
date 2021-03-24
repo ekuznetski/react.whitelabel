@@ -62,6 +62,7 @@
     .radio-label {
       border-color: $dark-grey;
       background: $grey;
+      pointer-events: none;
 
       &.selected {
         .mark {

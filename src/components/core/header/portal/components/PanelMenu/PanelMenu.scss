@@ -42,7 +42,7 @@
           cursor: pointer;
 
           &:hover {
-            & + .menu-dropdown {
+            &+.menu-dropdown {
               transition: all 0.35s 0.5s;
             }
           }

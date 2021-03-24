@@ -21,7 +21,7 @@ export const RegexValidators = Object.freeze({
   yearCard: /^(19|[2-9]\d)$/,
   bankName: /^[0-9a-zA-Z\.,\-\/\(\)/ ]*$/,
   pin: /^\d{4}$/,
-  swift: /^([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?$/,
+  swift: /^([a-zA-Z]){6}(([0-9a-zA-Z]){2}|([0-9a-zA-Z]){5})$/,
 });
 
 export const FieldValidators = {
