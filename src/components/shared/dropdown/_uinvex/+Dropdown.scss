@@ -1,0 +1,19 @@
+@import '~/variables';
+@import '~/mixin';
+
+.common-dropdown {
+  &-context {
+    .item-container {
+
+      .item {
+        &:hover {
+          text-decoration: underline;
+        }
+
+        svg {
+          fill: $blue;
+        }
+      }
+    }
+  }
+}

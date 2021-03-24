@@ -74,10 +74,18 @@
 
   @media (max-width: $viewport-md-w) {
     &__container {
-      flex-wrap: unset;
-      overflow-x: scroll;
+      &.scrollable {
+        flex-wrap: unset;
+        overflow-x: scroll;
 
-      @include hideScrollbar;
+        @include hideScrollbar;
+      }
+
+      &:not(.scrollable) {
+        .common-cards__wrapper:not(:last-child) {
+          margin-bottom: sp(7);
+        }
+      }
     }
   }
 }

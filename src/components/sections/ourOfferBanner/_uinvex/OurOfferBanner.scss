@@ -1,0 +1,44 @@
+@import '~/variables';
+@import '~/mixin';
+
+.our-offer-banner-section {
+  @include d-flex(center);
+  padding-top: 0 !important;
+  overflow: hidden;
+  color: $dark-text;
+
+  .our-offer {
+    &__cards {
+      width: 100%;
+    }
+
+    &__card {
+      @include col((xs: 12, md: 4));
+      @include px((xs: 5));
+
+      .common-cards__item {
+        @include height((xs: 150px, md: 200px));
+        @include px((xs: 0));
+
+        &-header {
+          font-family: $font-family1;
+          font-weight: bold;
+          font-size: 44px;
+          line-height: 52px;
+          color: $blue;
+        }
+
+        &-content {
+          font-size: 22px;
+          line-height: 34px;
+        }
+
+        &-header,
+        &-content {
+          @include d-flex(center, center);
+          text-align: center;
+        }
+      }
+    }
+  }
+}

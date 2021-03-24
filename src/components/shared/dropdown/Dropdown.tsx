@@ -127,7 +127,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
                     props.isOpenDispatcher(false);
                     child.onclick?.(e);
                   },
-                  className: 'px-7',
+                  className: 'item px-7',
                 };
                 function Children() {
                   return (
@@ -138,7 +138,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
                   );
                 }
                 return (
-                  <div key={child.id || c} className="item">
+                  <div key={child.id || c} className="item-container">
                     {child.path ? (
                       <LocaleNavLink
                         {...attrs}

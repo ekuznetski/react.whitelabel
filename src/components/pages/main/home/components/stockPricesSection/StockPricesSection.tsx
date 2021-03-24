@@ -206,7 +206,7 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
   );
 }
 
-const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref: any) => {
+const StockPricesChartCarouselItem = forwardRef(function StockPricesChartCarouselItem(props: IPriceCarouselItem, ref: any) {
   const { t } = useTranslation();
   const color = props.variation >= 0 ? '#40D9A2' : '#EC3838';
   const _data = props.points.map((p) => ({ p: p / 1 }));

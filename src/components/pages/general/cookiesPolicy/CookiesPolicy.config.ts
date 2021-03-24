@@ -82,5 +82,5 @@ export const cookiesTable = {
     ['yandexuid', '3rd Party', '10 years', 'Advertising Tracker'],
     ['yp', '3rd Party', '10 years', 'Advertising Tracker'],
   ],
-  colsPctSize: [null, null, null, null],
+  colsSize: [null, null, null, null],
 };
