@@ -7,10 +7,6 @@
         background: $dark-blue;
     }
 
-    &:active {
-        background: lighten($blue, 5%);
-    }
-
     &.secondary:not(.disabled) {
         color: $blue;
         border-color: $light-blue;

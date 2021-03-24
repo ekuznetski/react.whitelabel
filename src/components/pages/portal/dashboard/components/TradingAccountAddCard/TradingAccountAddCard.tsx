@@ -3,6 +3,8 @@ import { ETradingType } from '@domain/enums';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import './TradingAccountAddCard.scss';
+
 export interface ITradingAccountAddCard {
   type: ETradingType[];
   inline?: boolean;

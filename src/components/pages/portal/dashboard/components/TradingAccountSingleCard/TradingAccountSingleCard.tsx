@@ -15,9 +15,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IStore, ac_showModal } from '@store';
 import { MClientSettings } from '@domain/models';
 import { getMetaTraderWebTerminalLink } from '@utils/fn';
-import { AccountSettingsModal } from '@pages/portal/dashboard/components/TradingAccountCards/AccountSettingsModal/AccountSettingsModal';
-import { AccountPasswordModal } from '@pages/portal/dashboard/components/TradingAccountCards/AccountPasswordModal/AccountPasswordModal';
-import { AccountLeverageModal } from '@pages/portal/dashboard/components/TradingAccountCards/AccountLeverageModal/AccountLeverageModal';
+import {
+  TradingAccountLeverageModal,
+  TradingAccountPasswordModal,
+  TradingAccountSettingsModal,
+} from '@pages/portal/dashboard/components';
+import './TradingAccountSingleCard.scss';
 
 export interface ITradingAccountSingleCard {
   platform: ETradingPlatform;
@@ -72,7 +75,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
         id: 'password',
         icon: 'password',
         title: t('Change Password'),
-        onclick: () => dispatch(ac_showModal(AccountPasswordModal, { tradingAccount })),
+        onclick: () => dispatch(ac_showModal(TradingAccountPasswordModal, { tradingAccount })),
       },
       {
         id: 'statement',
@@ -86,7 +89,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
         id: 'leverage',
         icon: 'coins',
         title: t('Change Leverage'),
-        onclick: () => dispatch(ac_showModal(AccountLeverageModal, { tradingAccount })),
+        onclick: () => dispatch(ac_showModal(TradingAccountLeverageModal, { tradingAccount })),
       });
     }
   }
@@ -95,7 +98,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
       id: 'settings',
       icon: 'change-account-settings',
       title: t('Change Account Settings'),
-      onclick: () => dispatch(ac_showModal(AccountSettingsModal, { tradingAccount })),
+      onclick: () => dispatch(ac_showModal(TradingAccountSettingsModal, { tradingAccount })),
     });
   }
 

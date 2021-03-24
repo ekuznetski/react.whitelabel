@@ -2,39 +2,48 @@
 @import '~/mixin';
 
 .common-table-wrapper {
-  border-radius: $border-box-radius;
 
   .common-table-container {
     @include hideScrollbar();
+    border-radius: $border-box-radius;
+    border: 1px solid $border-grey;
+    overflow-y: hidden;
     overflow-x: auto;
+    padding: 0;
   }
 
   .common-table {
+    display: grid;
     grid-template-rows: 40px;
     grid-auto-rows: 70px;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: $border-box-radius;
     box-shadow: none;
+
+    .th,
+    .td {
+      @include px((xs: 2));
+      height: 100%;
+      width: 100%;
+      @include d-flex(center, center);
+      flex-wrap: wrap;
+    }
 
     .th {
       background-color: $grey-bg;
       box-shadow: none;
-      border-top: solid 1px $grey-bg;
 
-      &.col--first {
-        border-left: 1px solid $grey-bg;
-        border-top-left-radius: $border-box-radius;
-      }
-
-      &.col--last {
-        border-top-right-radius: $border-box-radius;
-      }
+      font-family: $font-family1;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 17px;
+      color: $text;
 
       &:not(.col--first) {
         justify-content: flex-start;
       }
 
-      font-family: $font-family1;
-      line-height: 17px;
-      color: $grey;
     }
 
 
@@ -42,29 +51,50 @@
       border-bottom: 1px solid $border-grey;
       background-color: white;
       justify-content: flex-start;
+      box-sizing: border-box;
+      transition: background 0.3s;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: $dark-text;
+
+
 
       &:hover {
         background: transparent;
       }
 
       &.col--first {
-        border-left: 1px solid $border-grey;
-
         img {
           margin: auto;
         }
       }
 
-      &.col--last {
-        border-right: 1px solid $border-grey;
+      &.row--last {
+        border-bottom: none;
       }
+    }
+  }
 
-      &.col--first.row--last {
-        border-bottom-left-radius: $border-box-radius;
-      }
+  .toggle-table-view {
+    display: inline-flex;
+    align-items: center;
 
-      &.col--last.row--last {
-        border-bottom-right-radius: $border-box-radius;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: $dark-blue;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    svg {
+      fill: $dark-blue;
+
+      &.up {
+        transform: rotate(180deg);
       }
     }
   }

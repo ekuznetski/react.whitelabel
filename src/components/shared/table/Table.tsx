@@ -17,6 +17,7 @@ export interface ITable {
 export const Table = memo(
   function Table({ headers, rows, colsSize, className, preview, previewAmount = 4 }: ITable) {
     const [previewValue, togglePreview] = useToggle(true);
+    const previewRows = rows.slice(0, previewAmount);
     const { t } = useTranslation();
 
     let col: string[] = new Array(headers.length);
@@ -49,14 +50,14 @@ export const Table = memo(
                 {headerCell}
               </div>
             ))}
-            {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) =>
+            {(preview && previewValue ? previewRows : rows).map((row, r) =>
               row.slice(0, headers.length).map((cell, c) => (
                 <div
                   className={classNames(
                     'td',
                     `col${c + 1}`,
                     !c && 'col--first',
-                    r + 1 === rows.length && 'row--last',
+                    r + 1 === (previewValue ? previewRows.length : rows.length) && 'row--last',
                     c + 1 === headers.length && 'col--last',
                   )}
                   key={c}
