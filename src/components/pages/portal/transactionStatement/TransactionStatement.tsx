@@ -12,7 +12,7 @@ import {
   Tabs,
 } from '@components/shared';
 import { ENotificationType, ETransactionTypes } from '@domain/enums';
-import { ITransactionalStatements, ITransactionalStatementsResponse } from '@domain/interfaces';
+import { ITransactionalStatements } from '@domain/interfaces';
 import {
   ac_clearTransactionalStatements,
   ac_fetchTransactionalStatements,
