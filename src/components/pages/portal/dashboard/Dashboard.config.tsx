@@ -6,7 +6,7 @@ import React from 'react';
 import { Trans } from 'react-i18next';
 import { TradingAccountCards } from './components';
 
-interface IConfig {
+export interface IConfig {
   workshopsData: {
     type: EWorkshopType;
     author: {
