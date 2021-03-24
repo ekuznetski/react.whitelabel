@@ -51,17 +51,13 @@ export const AssetsSection = memo(function AssetsSection() {
                     // @ts-ignore
                     Object.values(prices[asset][item].details),
                   );
-                  // <Img
-                  //   src={`assets/${EAssetsIcons[(props.name.trim() as unknown) as number]}.png`}
-                  //   className={'assets-icon'}
-                  // />;
                   return (
                     <Tab key={asset} label={t(capitalize(asset))} anchor={asset}>
                       <Table
                         key={asset}
                         headers={[t('Instrument'), t('Sell'), t('Buy'), t('Change percent')]}
                         rows={rowData as string[][]}
-                        colsPctSize={[30, 20, 20, 20]}
+                        colsSize={['30%', '20%', '20%', '20%']}
                         preview
                       />
                     </Tab>

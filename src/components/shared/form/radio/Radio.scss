@@ -64,6 +64,7 @@
       background: $grey;
       color: $dark-grey;
       cursor: default;
+      pointer-events: none;
 
       &.selected {
         .mark {
