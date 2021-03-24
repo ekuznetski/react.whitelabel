@@ -1,44 +1,14 @@
 import { ITabs, Svg } from '@components/shared';
 import { EPagePath, ETradingType, EWorkshopType } from '@domain/enums';
-import { IClientBannerCard } from '@domain/interfaces';
+import { IDashboardConfig } from '@domain/interfaces';
 import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
 import { TradingAccountCards } from './components';
 
-export interface IConfig {
-  workshopsData: {
-    type: EWorkshopType;
-    author: {
-      img: string;
-      name: string;
-      title: string;
-    };
-    schedule: {
-      day: string;
-      time: string;
-    };
-    info: {
-      title: string;
-      description: string;
-    };
-  }[];
-  tabsData: ITabs;
-  promotion_cards: IClientBannerCard[];
-  bonus_cards: IClientBannerCard[];
-  profileStatusTemplates: {
-    [k in 'danger' | 'warning' | 'success']: {
-      url: string | null;
-      status: string;
-      icon: string;
-      text: string;
-    };
-  };
-}
-
 const t = i18n.getLazyT;
 
-export const config: IConfig = {
+export const config: IDashboardConfig = {
   workshopsData: [
     {
       type: EWorkshopType.webinar,

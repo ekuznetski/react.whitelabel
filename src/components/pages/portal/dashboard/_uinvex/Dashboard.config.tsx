@@ -1,11 +1,12 @@
 import i18n from '@i18next';
 import React from 'react';
 import { Trans } from 'react-i18next';
-import { IConfig, config as _config } from '../Dashboard.config';
+import { IDashboardConfig } from '@domain/interfaces';
+import { config as _config } from '../Dashboard.config';
 
 const t = i18n.getLazyT;
 
-export const config: IConfig = {
+export const config: IDashboardConfig = {
   ..._config,
   bonus_cards: [
     {
