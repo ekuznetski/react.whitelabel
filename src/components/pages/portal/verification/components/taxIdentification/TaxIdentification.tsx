@@ -58,7 +58,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
             [EFields.taxCountry]: Yup.lazy(() =>
               !!values[EFields.tins].filter((el) => !!(el?.[EFields.taxCountry] && el?.[EFields.taxNumber])).length
                 ? FieldValidators.notRequiredString
-                : FieldValidators.requiredString,
+                : Yup.string().required(t('Please enter country')),
             ),
             [EFields.taxNumber]: Yup.lazy(() =>
               !!values[EFields.tins].filter((el) => !!(el?.[EFields.taxCountry] && el?.[EFields.taxNumber])).length
