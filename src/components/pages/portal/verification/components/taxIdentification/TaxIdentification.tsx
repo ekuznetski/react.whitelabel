@@ -30,7 +30,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
 
   const initialValues = {
     [EFields.choice]: tins.choice ?? true,
-    [EFields.reason]: tins.reason ? Number(tins.reason) - 1 : '',
+    [EFields.reason]: tins.reason ? tins.reason : '',
     [EFields.tins]: tins.tins
       ? tins.tins.map((e) => ({
           [EFields.taxCountry]: e.country,
@@ -75,7 +75,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
 
   function Submit(data: FormikValues) {
     const values = { ...data };
-    values.reason = Number(values.reason) + 1;
+    values.reason = values.reason;
     values.choice = values.choice.toString();
     values.tins = JSON.stringify(
       values.tins
