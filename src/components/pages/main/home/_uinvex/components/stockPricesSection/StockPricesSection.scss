@@ -134,7 +134,7 @@
           }
 
           &__header {
-            @include d-flex(start, center, column);
+            @include d-flex(center, center, column);
             align-self: center;
             height: 100%;
             padding-top: 32px !important;
