@@ -43,7 +43,6 @@
 
     .common-dropdown {
       &-wrapper {
-        margin-top: 16px;
 
         &:before {
           content: '';
@@ -109,8 +108,13 @@
 
     .common-dropdown {
       &-wrapper {
-        &:before {
+        &--arrow-up:before {
           top: -16px;
+        }
+        &--arrow-down:before {
+          top: auto;
+          bottom: -16px;
+          transform: rotate(180deg);
         }
       }
     }

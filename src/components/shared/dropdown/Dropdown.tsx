@@ -69,11 +69,17 @@ export const DropDown = memo<IDropdown>(function DropDown({
     : isOpen
     ? height
     : 0;
+  const shouldOpenDropdownUp = parentBCR && typeof initialHeight === 'number' && window.innerHeight < (parentBCR?.bottom + initialHeight);
+  let topPosition = _getTopPosition();
 
   useEffect(() => {
     setInitialHeight(
       props.items ? props.items.length * itemHeight + offsetY + (noArrow ? 0 : ARROW_VERTICAL_OFFSET) : height,
     );
+
+    return () => {
+      setInitialHeight(0);
+    }
   }, []);
 
   useEffect(() => {
@@ -93,10 +99,14 @@ export const DropDown = memo<IDropdown>(function DropDown({
   useClickAway(() => {
     if (isOpen) props.isOpenDispatcher(false);
   }, [props.parentRef, dropdownRef]);
-  let topPosition = parentBCR ? parentBCR.bottom + (noArrow ? 2 : 0) : 0;
-  // if (typeof _height === 'number' && parentBCR?.bottom && window.innerHeight > parentBCR?.bottom + _height) {
-  //   topPosition = parentBCR.top - _height - (noArrow ? 2 : 0);
-  // }
+
+  function _getTopPosition(): number {
+    if (shouldOpenDropdownUp && parentBCR && typeof initialHeight === 'number') {
+      return parentBCR.top - initialHeight - (noArrow ? 0 : 16);
+    }
+    return parentBCR ? parentBCR.bottom + (noArrow ? 2 : 16) : 0;
+  }
+
   return (
     TARGET_CONTAINER &&
     ReactDOM.createPortal(
@@ -118,7 +128,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
         }}
         ref={dropdownRef}
       >
-        <div className="common-dropdown-wrapper">
+        <div className={classNames('common-dropdown-wrapper', shouldOpenDropdownUp ? 'common-dropdown-wrapper--arrow-down' : 'common-dropdown-wrapper--arrow-up')}>
           <div className="common-dropdown-context" style={{ top: offsetY - 1 }}>
             {props.items &&
               props.items.map((child, c) => {
