@@ -80,7 +80,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                 message: t('Requested statements are successfully loaded'),
               }),
             );
-          } else if (_res) {
+          } else {
             dispatch(
               ac_showNotification({
                 type: ENotificationType.warning,
