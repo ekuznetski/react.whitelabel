@@ -62,7 +62,24 @@ export function Platform() {
       <PerfectSection />
       <AccountTypesForTradingStylesSection />
       <OpenLiveAccountBannerSection title={t('Cutting-edge trading technology')} />
-      <MobileTradingSection />
+      <MobileTradingSection
+        title={
+          <Trans i18nKey="Mobile Trading Section Title Platform Page">
+            Mobile trading with <span>MT5</span>
+          </Trans>
+        }
+        description={
+          <Trans i18nKey="Mobile Trading Section Desc Platform Page">
+            <div className="mb-8">
+              Carry the functionality of Metatrader with you as you open, manage and close trading positions with ease
+              from your smartphone or tablet.
+            </div>
+            <div className="mb-8">
+              MetaTrader 5 for Android or iOS and trade Forex anytime and anywhere in the world!
+            </div>
+          </Trans>
+        }
+      />
     </div>
   );
 }

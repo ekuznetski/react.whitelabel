@@ -61,11 +61,14 @@
       text-decoration: underline;
     }
 
-    svg {
-      fill: $dark-blue;
-
+    .common-svg {
       &.up {
         transform: rotate(180deg);
+        transform-origin: 50% 50%;
+      }
+
+      svg {
+        fill: $dark-blue;
       }
     }
   }

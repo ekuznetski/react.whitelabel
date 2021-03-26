@@ -9,4 +9,8 @@
       @include mb((xs: 12, md: 13, lg: 14));
     }
   }
+
+  .mobile-trading {
+    padding: 0 !important;
+  }
 }

@@ -1,10 +1,18 @@
 @import '~/variables';
 @import '~/mixin';
 
+@function _bg($url, $color) {
+  @return (url($url) 50% 50% no-repeat, $color);
+}
+
 .platform-wrapper {
   .prestigious-platform-technology {
-    background: linear-gradient(0.35deg, #262A4B 0.29%, #44496D 99.67%);
-    background-size: contain;
+    $bg_color: linear-gradient(0.35deg, #262A4B 0.29%, #44496D 99.67%);
+    @include background((xs: _bg('assets/platform_devices_bg1_mobile.png', $bg_color),
+        md:_bg('assets/platform_devices_bg1_tablet.png', $bg_color),
+        lg:_bg('assets/platform_devices_bg1_desktop.png', $bg_color),
+      ));
+    background-size: auto 100% !important;
     z-index: 1;
 
     .row {
@@ -22,6 +30,10 @@
       .context {
         &__title {
           color: #fff;
+
+          b {
+            font-weight: 600;
+          }
 
           span {
             color: $uinvex-blue;
@@ -65,6 +77,98 @@
       background: $uinvex-blue;
     }
 
+
+    @media (max-width: $viewport-lg-w) {
+      .context {
+        &__description {
+          font-size: 14px;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+
+  .platform-perfect-wrapper {
+    .container {
+      @include mt((xs: sp(16), md: sp(18), lg: 0));
+    }
+
+    .row {
+      @include textAlign((xs: center));
+    }
+
+    .header__title {
+      b {
+        @include display((xs: block, sm: inline));
+      }
+    }
+
+    .content__item {
+      @include display((xs: block, md: flex));
+      @include py((xs: 7, sm:7, md:0));
+      border-right-color: $border-grey !important;
+      border-bottom-color: $border-grey !important;
+      max-width: 60%;
+
+      .common-svg {
+        @include display((xs: block, md: inline-flex));
+        @include mb((xs: 3, md: 0));
+      }
+    }
+  }
+
+  .mobile-trading {
+    @include background((xs: _bg('assets/mobile_trading_bg_mobile.png', $grey_bg),
+        md:_bg('assets/mobile_trading_bg_tablet.png', $grey_bg),
+        lg:_bg('assets/mobile_trading_bg_desktop.png', $grey_bg),
+      ));
+    @include height((xs:820px, md:518px, lg:564px));
+    background-size: auto 100% !important;
+    z-index: 1;
+
+    .container {
+      @include mt((xs: sp(19), md:0));
+    }
+
+    .row {
+      @include flexFlow((xs: column, lg: row));
+      height: auto;
+      background: none;
+      box-shadow: none;
+      border-radius: 0;
+    }
+
+    &__content {
+      @include col((xs: auto, md: 6, lg: 5));
+      @include ml((xs: 0, md: colSizePrc(6)));
+      margin-right: auto;
+
+      .content {
+        &__title {
+          color: $dark-text;
+
+          span {
+            color: $blue;
+          }
+        }
+
+        &__description {
+          color: $dark-text;
+        }
+      }
+
+      .common-button {
+        border-color: $dark-text;
+
+        svg {
+          fill: $dark-text;
+        }
+      }
+    }
+
+    &__img {
+      display: none;
+    }
 
     @media (max-width: $viewport-lg-w) {
       .context {

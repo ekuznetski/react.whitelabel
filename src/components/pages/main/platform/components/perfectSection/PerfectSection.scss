@@ -2,66 +2,72 @@
 @import '~/mixin';
 
 .platform-perfect-wrapper {
+  @include textAlign((xs: left, md: center));
   background: #1a1b1c;
   color: #ffffff;
-  text-align: center;
 
-  .perfect {
+  .platform-perfect {
+    &__header {
+      @include col((xs: 12));
 
-    &__title {
-      font-weight: 600;
-      font-size: 36px;
-      line-height: 46px;
-    }
+      .header {
+        &__title {
+          @include mb((xs: 4));
+          @include fontSize((xs:24px, md: 36px));
+          @include lineHeight((xs:34px, md: 46px));
+          font-weight: 600;
+        }
 
-    &__description {
-      font-size: 18px;
-      line-height: 30px;
-    }
-
-    &__items {
-      display: flex;
-      align-items: center;
-    }
-
-    &__item {
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 24px;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      align-items: center;
-
-      &:not(:last-child) {
-        border-right: 1px solid rgba(250, 250, 250, 0.4);
+        &__description {
+          @include mb((xs: 13));
+          @include fontSize((xs:16px, md: 18px));
+          @include lineHeight((xs:26px, md: 30px));
+        }
       }
     }
 
-    @media (max-width: $viewport-md-w) {
-      text-align: left;
+    &__content {
+      @include col((xs: 12, lg: 8));
+      @include d-flex(center);
+      @include flexDirection((xs:column, md: row));
+      @include mx((xs: auto));
 
-      &__title {
-        font-size: 24px;
-        line-height: 34px;
+      .content {
+        &__item {
+          @include d-flex(center);
+          @include flexDirection((xs:row, md: column));
+          @include py((xs: 7, md: 0));
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          width: 100%;
+
+          &:first-child {
+            padding-top: 0;
+          }
+
+          &:last-child {
+            padding-bottom: 0;
+          }
+
+          &:not(:last-child) {
+            border-right: 1px solid rgba(250, 250, 250, 0.4);
+          }
+        }
       }
+    }
+  }
 
-      &__description {
-        font-size: 16px;
-        line-height: 26px;
-      }
-
-      &__items {
-        flex-direction: column;
-      }
-
-      &__item {
-        flex-direction: row;
-        align-items: center;
-
-        &:not(:last-child) {
-          border-right: 0;
-          border-bottom: 1px solid rgba(250, 250, 250, 0.4);
+  @media (max-width: $viewport-md-w) {
+    .platform-perfect {
+      &__content {
+        .content {
+          &__item {
+            &:not(:last-child) {
+              border-right: 0;
+              border-bottom: 1px solid rgba(250, 250, 250, 0.4);
+            }
+          }
         }
       }
     }

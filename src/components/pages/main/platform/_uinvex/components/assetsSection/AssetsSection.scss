@@ -63,4 +63,20 @@
       }
     }
   }
+
+  .toggle-table-view {
+    color: $blue;
+    text-decoration: underline;
+
+    .common-svg {
+      svg {
+        width: 16px;
+        height: 16px;
+        padding: sp(1);
+        border-radius: 50%;
+        background: $blue;
+        fill: #fff;
+      }
+    }
+  }
 }

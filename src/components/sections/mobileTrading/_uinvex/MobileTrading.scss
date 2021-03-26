@@ -2,8 +2,6 @@
 @import '~/mixin';
 
 .mobile-trading {
-  padding: 0 !important;
-
   .row {
     @include d-flex(center, center);
     @include mx((xs:0));

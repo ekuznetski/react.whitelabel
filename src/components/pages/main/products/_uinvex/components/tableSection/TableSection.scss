@@ -140,7 +140,9 @@
         }
 
         &__toggle-table-size {
-          display: table;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
           margin: auto;
           color: $blue;
           text-decoration: underline;
@@ -150,8 +152,8 @@
             background: $blue;
             padding: sp(1);
             margin-left: sp(1);
-            height: 15px;
-            width: 15px;
+            height: 16px;
+            width: 16px;
             border-radius: 50%;
           }
         }
