@@ -1,5 +1,5 @@
+import { theme } from '@domain';
 import { ENotificationType } from '@domain/enums';
-import { useDeviceDetect } from '@utils/hooks';
 import { useDebounceEffect, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect, useMemo, useRef, useState } from 'react';
@@ -50,7 +50,7 @@ export function Tabs({
   isVertical = false,
   showContent = false,
   alignNavigation = 'center',
-  disableMobileView = false,
+  disableMobileView = !theme.tabsMobileNavigation,
   onChange = undefined,
 }: ITabs) {
   const [activeTabProps, setActiveTabProps] = useState<TabsState['activeTabProps']>();
