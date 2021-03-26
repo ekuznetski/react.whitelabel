@@ -17,10 +17,16 @@
       }
 
       &__title {
+        @include d-flex(center);
         @include fontSize((xs: 32px, md: 44px, lg:48px));
         @include lineHeight((xs: 40px, md: 64px, lg: 64px));
         @include mb((xs: sp(7, i), sm: sp(9, i)));
         font-weight: 400;
+
+        svg,
+        strong {
+          @include ml((xs: 2, md: 3, lg:4));
+        }
 
         svg {
           @include fillLogo($blue, black, $dark-blue);
