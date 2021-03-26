@@ -31,6 +31,11 @@
       padding: 30px;
 
       &-header {
+        div {
+          display: flex;
+          align-items: center;
+        }
+
         span {
           font-weight: 300;
           font-size: 40px;

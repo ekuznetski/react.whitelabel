@@ -82,7 +82,7 @@ export const config: IConfig = {
             <Svg href="filter" className="d-none d-md-inline" /> {t('My Trading Accounts')}
           </>
         ),
-        anchor: 'tradingAccounts',
+        anchor: ETradingType.live,
       },
       {
         value: (
@@ -90,12 +90,12 @@ export const config: IConfig = {
             <Svg href="filter" className="d-none d-md-inline" /> {t('My Demo Accounts')}
           </>
         ),
-        anchor: 'demoAccounts',
+        anchor: ETradingType.demo,
       },
     ],
     content: [
-      { value: <TradingAccountCards type={[ETradingType.live, ETradingType.fake]} />, anchor: 'tradingAccounts' },
-      { value: <TradingAccountCards type={[ETradingType.demo]} />, anchor: 'demoAccounts' },
+      { value: <TradingAccountCards type={[ETradingType.live, ETradingType.fake]} />, anchor: ETradingType.live },
+      { value: <TradingAccountCards type={[ETradingType.demo]} />, anchor: ETradingType.demo },
     ],
   },
   promotion_cards: [
