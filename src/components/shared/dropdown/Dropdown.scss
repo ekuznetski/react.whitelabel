@@ -108,10 +108,10 @@
 
     .common-dropdown {
       &-wrapper {
-        &--arrow-up:before {
+        &.open-down:before {
           top: -16px;
         }
-        &--arrow-down:before {
+        &.open-up:before {
           top: auto;
           bottom: -16px;
           transform: rotate(180deg);

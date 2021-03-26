@@ -76,10 +76,6 @@ export const DropDown = memo<IDropdown>(function DropDown({
     setInitialHeight(
       props.items ? props.items.length * itemHeight + offsetY + (noArrow ? 0 : ARROW_VERTICAL_OFFSET) : height,
     );
-
-    return () => {
-      setInitialHeight(0);
-    }
   }, []);
 
   useEffect(() => {
@@ -128,7 +124,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
         }}
         ref={dropdownRef}
       >
-        <div className={classNames('common-dropdown-wrapper', shouldOpenDropdownUp ? 'common-dropdown-wrapper--arrow-down' : 'common-dropdown-wrapper--arrow-up')}>
+        <div className={classNames('common-dropdown-wrapper', shouldOpenDropdownUp ? 'open-up' : 'open-down')}>
           <div className="common-dropdown-context" style={{ top: offsetY - 1 }}>
             {props.items &&
               props.items.map((child, c) => {
