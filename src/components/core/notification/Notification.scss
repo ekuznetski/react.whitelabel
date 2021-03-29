@@ -107,11 +107,11 @@
 }
 
 .header.main {
-  & + .notification-wrapper {
-    top: 140px;
+  &+.notification-wrapper {
+    @include top((xs: $menu-height-main-sm + 30px, md: $menu-height-main-md - 12px, lg: $menu-height-main-lg + 30px));
   }
 
-  &.fixed + .notification-wrapper {
-    top: 70px;
+  &.fixed+.notification-wrapper {
+    @include top((xs: $menu-height-main-fixed-sm + 8px, md: $menu-height-main-fixed-md, lg: $menu-height-main-fixed-lg));
   }
 }
