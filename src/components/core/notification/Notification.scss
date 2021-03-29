@@ -108,10 +108,10 @@
 
 .header.main {
   &+.notification-wrapper {
-    @include top((xs: $menu-height-main-sm + 30px, md: $menu-height-main-md - 12px, lg: $menu-height-main-lg + 30px));
+    @include top((xs: $notification-top-main-sm, md: $notification-top-main-md, lg: $notification-top-main-lg));
   }
 
   &.fixed+.notification-wrapper {
-    @include top((xs: $menu-height-main-fixed-sm + 8px, md: $menu-height-main-fixed-md, lg: $menu-height-main-fixed-lg));
+    @include top((xs: $notification-top-main-fixed-sm, md: $notification-top-main-fixed-md, lg: $notification-top-main-fixed-lg));
   }
 }
