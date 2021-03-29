@@ -56,10 +56,11 @@
           flex-direction: column;
 
 
-          img {
+          .common-img {
             @include width((xs:36px, lg:30px, xl:36px));
             @include height((xs:36px, lg:30px, xl:36px));
             @include mb((xs:6, lg:7, xl:6));
+            @include imageUnderShadow();
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
           }

@@ -23,7 +23,7 @@
         color: $blue;
         margin-bottom: 24px;
 
-        svg {
+        .common-svg {
           display: none;
         }
       }
@@ -69,6 +69,7 @@
 
     &__carousel {
       @include d-flex(center, space-evenly);
+
       .carousel {
         @include d-flex();
 
@@ -133,12 +134,14 @@
           }
 
           &__header {
-            @include d-flex(start, center, column);
+            @include d-flex(center, center, column);
             align-self: center;
             height: 100%;
             padding-top: 32px !important;
 
             .assets-icon {
+              @include imageUnderShadow();
+
               display: flex;
               height: 44px;
               width: 44px;
@@ -162,7 +165,6 @@
               svg {
                 height: 20px;
                 width: 20px;
-                padding: 5px;
                 border-radius: 50%;
                 margin-right: 8px;
               }
@@ -178,7 +180,7 @@
             width: 100%;
             order: 2;
 
-            > div {
+            >div {
               @include d-flex(center, center, column);
               flex: 0 0 50%;
               height: 100%;

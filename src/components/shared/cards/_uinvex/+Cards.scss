@@ -7,8 +7,14 @@
             font-family: $font-family1;
         }
 
-        background: linear-gradient(180deg, #FFFFFF 0%, #F9F9FD 100%);
+        background: linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
         box-shadow: box-shadow(15, 0.1);
         overflow: hidden;
+    }
+
+    .common-cards__container {
+        .common-cards__wrapper:not(:last-child) {
+            @include mb((xs: 9, lg: 0), i);
+        }
     }
 }

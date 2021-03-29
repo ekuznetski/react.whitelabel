@@ -1,18 +1,46 @@
 @import '~/variables';
-@import '~/mixin';
 
 .banner-card {
-    &__options {
-        .banner-options {
-            &__btn {
-                .common-button {
-                    color: $blue;
-
-                    a {
-                        color: $blue;
-                    }
-                }
-            }
+  &__context {
+    .context-card {
+      &__title {
+        &.blue {
+          font-family: $font-family1;
+          color: $dark-text;
         }
+      }
+
+      &__text {
+        color: $text;
+
+        &.blue {
+          span {
+            color: $blue;
+          }
+        }
+      }
     }
+  }
+
+  &__options {
+    .banner-options {
+      &__nav {
+        .common-button {
+          svg {
+            fill: $blue;
+          }
+        }
+      }
+
+      &__btn {
+        .common-button {
+          color: $blue;
+
+          a {
+            color: $blue;
+          }
+        }
+      }
+    }
+  }
 }

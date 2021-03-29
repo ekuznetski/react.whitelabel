@@ -27,6 +27,7 @@
     }
 
     &__description {
+      @include d-flex(center);
       font-size: 18px;
       line-height: 30px;
       color: $dark-text;

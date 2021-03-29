@@ -64,8 +64,8 @@
         @include col((xs: 12));
 
         &.preview {
-          @include col((lg: 8, xl: 7));
-          @include offset((xl:1));
+          @include col((lg: 7));
+          @include offset((lg:1));
         }
 
         &__toggle-table-size {
@@ -98,11 +98,11 @@
         }
 
         .info-col {
-          @include offset((xl:1));
+          @include offset((lg:1));
         }
 
         .table-col {
-          @include offset((lg:1, xl:0));
+          @include offset((lg: 0));
         }
       }
 

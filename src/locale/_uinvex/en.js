@@ -10,9 +10,15 @@ export default {
   'Mobile Trading Section Title': 'Trade <1>on the move</1>',
   'Mobile Trading Section Desc':
     '<0>Never be far away from your trades again!</0><1>Use a smartphone to manage your account, wherever you may be.</1><2>Download the Metatrader 5 app for your smartphone or tablet, available for both Android and iOS.</2>',
+  'Mobile Trading Section Title Platform Page': 'Mobile trading with <1>MT5</1>',
+  'Mobile Trading Section Desc Platform Page':
+    '<0>Carry the functionality of Metatrader with you as you open, manage and close trading positions with ease from your smartphone or tablet.</0><1>MetaTrader 5 for Android or iOS and trade Forex anytime and anywhere in the world!</1>',
   'Prestigious Platform Technology Title': '<0>Harness the power</0><1 /> of Metatrader',
   'Prestigious Platform Technology Desc':
     "<0>Metatrader is the financial industry's golden standard when it comes to leading platform technology.UINVEX’s platform uses Metatrader 5 as a foundation to build an intuitive platform with a pleasant user interface, ensuring an excellent user experience, every time.</0>< 1 > The platform is suitable for all types of traders and features a mobile app, Expert Advisors, and advanced technical analysis.</1>",
+  'Prestigious Platform Technology Title Platform Page': '<0>Innovative <1>MT5 Platform</1></0><1/> technology',
+  'Prestigious Platform Technology Desc Platform Page':
+    "<0>MetaTrader is the most widely-used electronic trading platform and is considered the <1>golden standard of the financial industry</1> thanks to its cutting-edge technology and functionality for traders of all levels.</0><1>MT5 is a powerful multi-asset platform featuring advanced technical analysis, fundamental analysis, flexible trading systems, and a mobile app. It is compatible with automated trading applications such as trading robots and Expert Advisors.</1><2>Compared to its predecessor, MT5 offers <1>additional timeframes and services</1>, including 21 timeframes, 6 types of pending orders, and an integrated fundamental economic calendar.</2>",
   'Trusted Section Title': 'Define <1>your own</1> trading path',
   'Trusted Section Desc': `Whether you’re interested in trading the $6 trillion-a-day forex (FX) industry or stocks movements, UINVEX has what you’re looking for. We offer a large range of products in 6 different asset classes: <1>$t(Forex)</1>, <3>$t(Stocks)</3>, <5>$t(Commodities)</5>, <7>$t(Indices)</7> and <9>$t(Digital Assets)</9>. Not only do we have a wide range of products but we provide competitive trading conditions 
   for our clients.`,
@@ -72,6 +78,8 @@ export default {
     'UINVEX is the trading name of SafeCapital Ltd. www.uinvex.com is operated by SafeCapital Ltd.',
     'Copyright © 2021 SafeCapital Ltd.',
   ],
+  'Perfect For EAs': '<0>The perfect match</0> for your EA',
+  'Automate your trading strategies': 'Automate your trading strategies using Expert Advisors',
   'Forex (Major)': '<0>Forex</0> (Major)',
   'Forex (Minor)': '<0>Forex</0> (Minor)',
   'Forex (Exotic)': '<0>Forex</0> (Exotic)',

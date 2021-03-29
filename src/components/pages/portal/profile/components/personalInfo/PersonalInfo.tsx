@@ -1,5 +1,5 @@
 import { Button, CountrySelect, Input, PhoneCodeSelect } from '@components/shared';
-import { FieldValidators } from '@domain';
+import { CustomFieldValidators, FieldValidators } from '@domain';
 import { ECountryCode, ENotificationType } from '@domain/enums';
 import { IEditProfileRequest } from '@domain/interfaces';
 import { MClientProfile } from '@domain/models';
@@ -32,17 +32,19 @@ export const PersonalInfo = memo(
     const { t } = useTranslation();
 
     const validationSchema = Yup.object().shape({
-      email: FieldValidators.email.max(100, t('Name characters count restriction')),
-      first_name: FieldValidators.name.max(100, t('Bank Name characters count restriction')),
-      surname: FieldValidators.name.max(100, t('Bank Account Number count restriction')),
-      country: Yup.mixed().required(),
-      city: FieldValidators.city.max(50, t('City characters count restriction')),
-      street: FieldValidators.street.max(100, t('Bank Branch Name characters count restriction')),
+      email: FieldValidators.email,
+      first_name: FieldValidators.firstName,
+      surname: FieldValidators.lastName,
+      country: CustomFieldValidators.country,
+      city: FieldValidators.city,
+      street: FieldValidators.street,
       postcode: Yup.string().when('country', {
         is: (val) => val !== 'AE',
         then: FieldValidators.postcode.max(20, t('Postcode characters count restriction')),
         overwise: Yup.string(),
       }),
+      phone_prefix: CustomFieldValidators.country,
+      phone: FieldValidators.phone,
     });
 
     function Submit(data: FormikValues) {

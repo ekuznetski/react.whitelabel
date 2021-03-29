@@ -9,6 +9,10 @@
     line-height: 46px;
     color: $dark-text;
     text-align: center;
+
+    b {
+      font-weight: 600;
+    }
   }
 
   &__description {
@@ -82,13 +86,29 @@
 
   @media (max-width: $viewport-md-w) {
     &__title {
-      font-size: 24px;
-      line-height: 34px;
-      text-align: left;
+      font-size: 36px;
+      line-height: 46px;
     }
 
     &__description {
-      text-align: left;
+      font-size: 16px;
+      line-height: 26px;
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    &__title {
+      font-size: 32px;
+      line-height: 40px;
+
+      b {
+        display: block;
+      }
+    }
+
+    &__description {
+      font-size: 20px;
+      line-height: 28px;
     }
   }
 }

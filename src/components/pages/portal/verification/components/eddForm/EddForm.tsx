@@ -1,5 +1,5 @@
 import { Alert, Button, CountrySelect, Input, Radio, Select, TabMobileBackButton } from '@components/shared';
-import { FieldValidators } from '@domain';
+import { CustomFieldValidators, FieldValidators } from '@domain';
 import { EClientStatusCode, ENotificationType } from '@domain/enums';
 import { IEdd } from '@domain/interfaces';
 import { MClientProfile, MClientStatus } from '@domain/models';
@@ -30,7 +30,7 @@ export const EddForm = memo(function EddForm() {
     then: Yup.string().required(),
   });
   const validationSchema = Yup.object().shape({
-    nationality: Yup.mixed().required(),
+    nationality: CustomFieldValidators.country,
     own_property: Yup.string().required(),
     address: FieldValidators.street.required(),
     years_address: Yup.number().required(),

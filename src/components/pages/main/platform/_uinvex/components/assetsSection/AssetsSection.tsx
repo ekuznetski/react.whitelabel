@@ -3,7 +3,8 @@ import { EAssetsIcons, EPagePath } from '@domain/enums';
 import { IPrices } from '@domain/interfaces';
 import { IStore } from '@store';
 import { capitalize } from '@utils/fn';
-import React, { memo } from 'react';
+import { useResponsive } from 'ahooks';
+import React, { memo, useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Area, AreaChart } from 'recharts';
@@ -13,7 +14,16 @@ export const AssetsSection = memo(function AssetsSection() {
   const { prices } = useSelector<IStore, { prices: IPrices }>((state) => ({
     prices: state.data.prices,
   }));
+  const [colSize, setColSize] = useState<string[]>();
+  const responsive = useResponsive();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (responsive.lg) setColSize(['120px', 'auto', '17%', '17%', '15%', '140px']);
+    else if (responsive.md) setColSize(['80px', 'auto', '17%', '17%', '15%', '120px']);
+    else if (responsive.sm) setColSize(['80px', 'auto', '110px', '110px', '120px', '120px']);
+    else setColSize(['60px', '140px', 'auto', '110px', '120px', '120px']);
+  }, [responsive]);
 
   return (
     <section className="platform-wrapper__assets">
@@ -25,7 +35,7 @@ export const AssetsSection = memo(function AssetsSection() {
                 <strong>6</strong> Asset Classes, <strong>150+</strong> Instruments
               </Trans>
             </div>
-            <div className="assets__description mb-md-13">
+            <div className="assets__description mb-9 mb-md-13">
               <Trans i18nKey="Assets SubTitle">
                 Use our platform to monitor and trade <b>CFD</b>s for the global financial markets including
                 <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'currencies' } }}>Forex</LocaleLink>,
@@ -96,7 +106,7 @@ export const AssetsSection = memo(function AssetsSection() {
                         key={asset}
                         headers={['', t('Instrument'), t('Sell'), t('Buy'), t('Change percent'), '']}
                         rows={rowData}
-                        colsSize={['80px', 'auto', '17%', '17%', '15%', '140px']}
+                        colsSize={colSize}
                         preview
                       />
                     </Tab>

@@ -57,7 +57,7 @@ export const AssetsSection = memo(function AssetsSection() {
                         key={asset}
                         headers={[t('Instrument'), t('Sell'), t('Buy'), t('Change percent')]}
                         rows={rowData as string[][]}
-                        colsSize={['30%', '20%', '20%', '20%']}
+                        colsSize={['30%', '25%', '25%', '20%']}
                         preview
                       />
                     </Tab>

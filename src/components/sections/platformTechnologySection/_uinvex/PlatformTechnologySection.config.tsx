@@ -1,14 +1,15 @@
 import React from 'react';
 import { Trans } from 'react-i18next';
 
-export const locale = {
-  platformTechnologyTitle: (
+export const config = {
+  image: 'platform_devices.png',
+  title: (
     <Trans i18nKey="Prestigious Platform Technology Title">
       <b>Harness the power</b>
       <br /> of Metatrader
     </Trans>
   ),
-  platformTechnologyDesc: (
+  desc: (
     <Trans i18nKey="Prestigious Platform Technology Desc">
       <p className="mb-3 mb-md-6 mb-lg-9">
         Metatrader is the financial industry's golden standard when it comes to leading platform technology. UINVEX’s

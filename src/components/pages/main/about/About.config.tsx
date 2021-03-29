@@ -70,8 +70,8 @@ export const config = {
       content: t('Trading Instruments'),
       uid: 1,
     },
-    { header: 6, content: t('Asset Classes'), uid: 2 },
-    { header: 0, content: t('Deposit Fees'), uid: 3 },
+    { header: '6', content: t('Asset Classes'), uid: 2 },
+    { header: '0', content: t('Deposit Fees'), uid: 3 },
     {
       header: (
         <>

@@ -142,6 +142,11 @@
 }
 
 
+// background
+@mixin background($sizes, $effect: null) {
+  @include mediaTag(background, null, $sizes, $effect);
+}
+
 // flex
 @mixin flex($sizes, $effect: null) {
   @include mediaTag(flex, null, $sizes, $effect);
@@ -151,6 +156,12 @@
 @mixin flexWrap($sizes, $effect: null) {
   @include mediaTag(flex, wrap, $sizes, $effect);
 }
+
+// flex-flow
+@mixin flexFlow($sizes, $effect: null) {
+  @include mediaTag(flex, flow, $sizes, $effect);
+}
+
 // flex-direction
 @mixin flexDirection($sizes, $effect: null) {
   @include mediaTag(flex, direction, $sizes, $effect);

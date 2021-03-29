@@ -37,7 +37,7 @@ export const AccountTypesForTradingStylesSection = memo(
       <section className={classNames('account-types-for-trading-styles-section', props.className)} ref={ref}>
         <Container>
           <Row>
-            <Col xs={12} className="account-types-for-trading-styles-section__title mb-10">
+            <Col xs={12} className="account-types-for-trading-styles-section__title mb-7 mb-md-10">
               <Trans i18nKey="Account Types Secure Title">
                 <b>Our transparency</b> will help you choose
               </Trans>

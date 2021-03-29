@@ -278,7 +278,7 @@ export default {
     'WHITE_LABEL prides itself in transparent and efficient withdrawal policies. These procedures can be completed online and are designed with your security in mind. Your funds will normally be transferred back to the original source you used to fund your account. Otherwise, we will transfer the funds to your identified bank account.',
   'Assets Title': '<0>6</0> Asset Classes, <2>150+</2> Instruments',
   'Assets SubTitle':
-    'CFD for <1>{{currencies}}</1>, <3>{{stocks}}</3>, <5>{{indices}}</5>, <7>{{commodities}}</7> and <9>{{cryptocurrencies}}</9> at your service on one trading account. Monitor and trade the world’s largest financial markets!',
+    'CFD for <1>Currencies</1>, <3>Stocks</3>, <5>Indices</5>, <7>Commodities</7> and <9>Cryptocurrencies</9> at your service on one trading account. Monitor and trade the world’s largest financial markets!',
   'Trading Amount': 'Trading Amount',
   'Trading Account': 'Trading Account',
   'Country of tax': 'Country of tax',
