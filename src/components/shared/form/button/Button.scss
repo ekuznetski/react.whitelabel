@@ -101,18 +101,37 @@
   &.disabled {
     // border-color: $dark-grey;
     background: $grey;
-    color: rgba(#000, 0.3);
+    color: $dark-grey;
 
     a {
-      color: rgba(#000, 0.3);
-    }
+      color: $dark-grey;
 
-    svg {
-      fill: rgba(#000, 0.3);
+      svg {
+        fill: $dark-grey;
+      }
     }
 
     &.secondary {
       border-color: $dark-grey;
+    }
+  }
+
+  a,
+  a:hover {
+    color: #ffffff;
+    text-decoration: none;
+
+    height: 100%;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    transition: color 0.2s;
+
+    svg {
+      transition: all 0.2s;
+      fill: #ffffff;
     }
   }
 }

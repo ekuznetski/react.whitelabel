@@ -6,10 +6,12 @@
   border-radius: $border-radius;
   border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
-  height: 50px;
+  height: $datepicker-height;
+  overflow: hidden;
   width: 100%;
 
   &.with-label {
+
     .label {
       transform: translate3d(10px, 50%, 0);
       transform-origin: left top;
@@ -58,6 +60,10 @@
     font-size: 14px;
     border: none;
     outline: transparent;
+
+    &:disabled {
+      background-color: $grey;
+    }
   }
 
   input:-webkit-autofill,
@@ -84,7 +90,7 @@
     background: $grey;
 
     .label {
-      color: rgba(#000, 0.3);
+      color: $dark-grey;
     }
 
     svg {

@@ -102,6 +102,7 @@ export const DatePicker = memo(
         )}
         <Svg href="calendar" height={28} />
         <input
+          disabled={_disabled}
           value={_value()}
           onFocus={onFocusHandler}
           onClick={onFocusHandler}

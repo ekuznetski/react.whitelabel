@@ -1,0 +1,16 @@
+@import '~/variables';
+
+.field.textarea {
+    border-color: $border-grey;
+
+    &.disabled {
+        background: $light-grey;
+        border-color: $border-grey;
+    }
+
+    input {
+        &:disabled {
+            background-color: $light-grey;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+@import '~/variables';
+
+.field.select-wrapper {
+    border-color: $border-grey;
+
+    &.disabled {
+        div[class$='-container'] {
+            div[class$='-control'] {
+                background: $light-grey;
+            }
+        }
+    }
+}

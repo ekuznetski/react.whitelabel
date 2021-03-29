@@ -42,7 +42,7 @@ export const mockData = {
           allowed_currencies: ['CAD', 'EUR', 'USD', 'GBP', 'AED', 'RUB'],
           allowed_leverages: [100, 200, 300, 400, 500],
           allowed_account_types: ['fixed', 'classic', 'raw'],
-          allowed_platforms: ['mt4', 'mt5'],
+          allowed_platforms: ['mt5'],
           allow_withdrawal: true,
           allow_internal_transfer: true,
           edit_fake_account: true,
