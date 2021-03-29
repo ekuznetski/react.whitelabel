@@ -1,0 +1,39 @@
+@import '~/variables';
+
+.user-profile-card {
+  &__context {
+    border-bottom: 1px solid $border-grey;
+
+    .profile-context {
+      &__facepile {
+        svg {
+          .bg {
+            fill: white;
+          }
+
+          .text {
+            font-family: $font-family1;
+          }
+        }
+      }
+
+      &__info {
+        .profile-info {
+          &__name {
+            font-family: $font-family1;
+          }
+
+          &__status {
+            a {
+              text-decoration: underline;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

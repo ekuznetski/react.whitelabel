@@ -12,14 +12,14 @@ import {
   Tabs,
 } from '@components/shared';
 import { ENotificationType, ETransactionTypes } from '@domain/enums';
-import { ITransactionalStatementsResponse } from '@domain/interfaces';
+import { ITransactionalStatements } from '@domain/interfaces';
 import {
-  ac_clearTransactionalStatements,
-  ac_fetchTransactionalStatements,
-  ac_showNotification,
   EActionTypes,
   IDataStore,
   IStore,
+  ac_clearTransactionalStatements,
+  ac_fetchTransactionalStatements,
+  ac_showNotification,
 } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
@@ -80,7 +80,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                 message: t('Requested statements are successfully loaded'),
               }),
             );
-          } else if (_res?.data) {
+          } else {
             dispatch(
               ac_showNotification({
                 type: ENotificationType.warning,
