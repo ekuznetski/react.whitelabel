@@ -70,16 +70,16 @@
   &.disabled {
     // border-color: $dark-grey;
     background: $grey;
-    color: rgba(#000, 0.3);
+    color: $dark-grey;
 
     a {
-      color: rgba(#000, 0.3);
+      color: $dark-grey;
 
       svg {
-        fill: rgba(#000, 0.3);
+        fill: $dark-grey;
       }
     }
-  
+
     &.secondary {
       border-color: $dark-grey;
     }

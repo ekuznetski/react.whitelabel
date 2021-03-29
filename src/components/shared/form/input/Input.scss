@@ -6,10 +6,18 @@
   border-radius: $border-radius;
   border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
-  height: 50px;
+  height: $input-height;
+  overflow: hidden;
   width: 100%;
 
+  input {
+    &:disabled {
+      background-color: $grey;
+    }
+  }
+
   &.with-label {
+
     .label {
       transform: translate3d(10px, 50%, 0);
       transform-origin: left top;
@@ -19,9 +27,6 @@
 
     input {
       padding-top: 18px;
-      &:disabled {
-        background-color: $grey;
-      }
     }
   }
 
@@ -71,8 +76,7 @@
     -webkit-box-shadow: 0 0 0 1000px #fff inset;
   }
 
-  @keyframes onAutoFillStart {
-  }
+  @keyframes onAutoFillStart {}
 
   input:-webkit-autofill::first-line {
     font-family: $font-family;
@@ -95,7 +99,7 @@
     background: $grey;
 
     .label {
-      color: rgba(#000, 0.3);
+      color: $dark-grey;
     }
   }
 }

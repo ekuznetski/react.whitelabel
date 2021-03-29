@@ -15,7 +15,7 @@
     .checkbox-mark {
       @include d-flex(center, center);
       border: 1px solid $dark-grey;
-      border-radius: $border-radius; 
+      border-radius: $border-radius;
       background-color: transparent;
       width: 16px;
       height: 16px;
@@ -63,7 +63,7 @@
 
   &.disabled {
     .label {
-      color: rgba(#000, 0.3);
+      color: $dark-grey;
     }
   }
 

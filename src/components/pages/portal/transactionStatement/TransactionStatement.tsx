@@ -14,12 +14,12 @@ import {
 import { ENotificationType, ETransactionTypes } from '@domain/enums';
 import { ITransactionalStatements } from '@domain/interfaces';
 import {
-  ac_clearTransactionalStatements,
-  ac_fetchTransactionalStatements,
-  ac_showNotification,
   EActionTypes,
   IDataStore,
   IStore,
+  ac_clearTransactionalStatements,
+  ac_fetchTransactionalStatements,
+  ac_showNotification,
 } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
