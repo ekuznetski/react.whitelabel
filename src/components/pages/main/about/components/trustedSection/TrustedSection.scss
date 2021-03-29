@@ -1,40 +1,63 @@
 @import '~/variables';
+@import '~/mixin';
 
 .about-wrapper {
   &__trusted {
-    display: flex;
-    align-items: center;
+    @include d-flex(center);
 
     .trusted {
+      &__text {
+        @include col((xs: 12, lg: 8));
+        @include mx((xs: auto));
+        text-align: center;
+      }
+
       &__title {
+        @include mb((xs: 9));
         font-size: 36px;
         line-height: 50px;
         text-align: center;
       }
 
       &__description {
+        @include mb((xs: 13));
         font-size: 18px;
         line-height: 30px;
       }
 
       &__cards {
-        .common-cards__item {
-          height: 140px;
+        &-container {
+          @include col((xs: 12, sm:6, md:12));
+          @include mx((sm: auto));
+          padding: 0;
+        }
 
-          &-header {
-            font-weight: 300;
-            font-size: 40px;
-            color: $blue;
-            justify-content: center;
+        .common-cards {
+          &__item {
+            height: 140px;
 
-            small {
-              margin-left: 10px;
-              font-size: 18px;
+            &-header {
+              font-weight: 300;
+              font-size: 40px;
+              color: $blue;
+              justify-content: center;
+
+              small {
+                margin-left: sp(3);
+                font-size: 18px;
+              }
+            }
+
+            &-content {
+              text-align: center;
             }
           }
 
-          &-content {
-            text-align: center;
+          &__container {
+            .card {
+              @include col((xs: 12, md:6, lg:3));
+              @include mb((xs: 9, lg:0));
+            }
           }
         }
       }

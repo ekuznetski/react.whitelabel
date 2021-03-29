@@ -13,8 +13,10 @@
     }
 
     .common-cards__container {
-        .common-cards__wrapper:not(:last-child) {
-            @include mb((xs: 9, lg: 0), i);
+        &.scollable {
+            .common-cards__wrapper:not(:last-child) {
+                @include mb((xs: 9, lg: 0), i);
+            }
         }
     }
 }

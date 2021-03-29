@@ -43,9 +43,9 @@ export const locale = {
         <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'forex' } }}>Forex</LocaleLink>,
         <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'stocks' } }}>Stocks</LocaleLink>,
         <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'commodities' } }}>Commodities</LocaleLink>,
-        <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'indices' } }}>Indices</LocaleLink>,
-        <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'crypto' } }}>Cryptocurrencies</LocaleLink>,
-        and <b>ETFs</b>. Not only do we have a wide range of products but we provide competitive trading conditions
+        <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'indices' } }}>Indices</LocaleLink> and
+        <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'crypto' } }}>Digital Assets</LocaleLink>.
+        Not only do we have a wide range of products but we provide competitive trading conditions
       </Trans>
     ),
   }),
