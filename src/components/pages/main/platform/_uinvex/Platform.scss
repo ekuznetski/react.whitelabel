@@ -1,16 +1,16 @@
 @import '~/variables';
 @import '~/mixin';
 
-@function _bg($url, $color) {
+@function bgImgColor($url, $color) {
   @return (url($url) 50% 50% no-repeat, $color);
 }
 
 .platform-wrapper {
   .prestigious-platform-technology {
     $bg_color: linear-gradient(0.35deg, #262A4B 0.29%, #44496D 99.67%);
-    @include background((xs: _bg('assets/platform_devices_bg1_mobile.png', $bg_color),
-        md:_bg('assets/platform_devices_bg1_tablet.png', $bg_color),
-        lg:_bg('assets/platform_devices_bg1_desktop.png', $bg_color),
+    @include background((xs: bgImgColor('assets/platform_devices_bg1_mobile.png', $bg_color),
+        md: bgImgColor('assets/platform_devices_bg1_tablet.png', $bg_color),
+        lg: bgImgColor('assets/platform_devices_bg1_desktop.png', $bg_color),
       ));
     background-size: auto 100% !important;
     z-index: 1;
@@ -118,9 +118,9 @@
   }
 
   .mobile-trading {
-    @include background((xs: _bg('assets/mobile_trading_bg_mobile.png', $grey_bg),
-        md:_bg('assets/mobile_trading_bg_tablet.png', $grey_bg),
-        lg:_bg('assets/mobile_trading_bg_desktop.png', $grey_bg),
+    @include background((xs: bgImgColor('assets/mobile_trading_bg_mobile.png', $grey_bg),
+        md: bgImgColor('assets/mobile_trading_bg_tablet.png', $grey_bg),
+        lg: bgImgColor('assets/mobile_trading_bg_desktop.png', $grey_bg),
       ));
     @include height((xs:820px, md:518px, lg:564px));
     background-size: auto 100% !important;

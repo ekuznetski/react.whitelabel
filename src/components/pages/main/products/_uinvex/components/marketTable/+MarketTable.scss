@@ -68,17 +68,17 @@
 
         .td:nth-child(1),
         .td:nth-child(3),
-        .sub-row .col0,
-        .sub-row .col1,
-        .sub-row .col2 {
+        .sub-row span.col0,
+        .sub-row span.col1,
+        .sub-row span.col2 {
           @include d-flex(center, center);
           height: 100%;
           color: $dark-text;
-          background: rgba($light-blue, 0.3);
+          background: rgba($light-blue, 0.3) !important;
         }
 
-        .sub-row .col1 {
-          background: white;
+        .sub-row span.col1 {
+          background: white !important;
           color: $dark-text;
         }
       }

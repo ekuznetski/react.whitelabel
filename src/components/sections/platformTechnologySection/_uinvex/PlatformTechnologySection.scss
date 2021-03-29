@@ -1,18 +1,29 @@
 @import '~/variables';
 @import '~/mixin';
 
+@function bgImgColor($url, $color) {
+  @return (url($url) 50% 0 no-repeat, $color);
+}
+
 .prestigious-platform-technology {
   .row {
-    box-shadow: box-shadow(15, 0.1);
-    border-radius: $border-box-radius;
-    background: url('assets/platform_devices_bg.png'), linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
-    height: 560px;
+    $bg_color: linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
+
+    @include height((xs:783px, sm: 650px, md: 530px, xl: 560px));
+    @include p((xs:5, lg: 11, xl:14), i);
     @include mx((xs: 0));
+    @include alignItems((xs: flex-end, md: center));
+    @include backgroundSize((xs: contain, md: cover), i);
+    @include background((xs: bgImgColor('assets/platform_devices_bg_mobile.png', $bg_color),
+        sm: bgImgColor('assets/platform_devices_bg_tablet.png', $bg_color),
+        md: bgImgColor('assets/platform_devices_bg_desktop.png', $bg_color),
+      ));
+    border-radius: $border-box-radius;
+    box-shadow: box-shadow(15, 0.1);
   }
 
   &__context {
-    @include col((xs: 12, md: 10, lg: 8, xl: 6));
-    padding: 72px 64px !important;
+    @include col((xs: 12, md:8, lg: 7, xl: 6));
 
     .context {
       &__title {
@@ -23,14 +34,15 @@
       }
 
       &__description {
-        font-size: 16px;
-        line-height: 26px;
+        @include fontSize((xs:16px, md: 14px, lg: 16px));
+        @include lineHeight((xs: 22px, md: 24px, lg: 26px));
         color: $text;
       }
     }
 
     button {
-      width: 190px;
+      @include width((xs: 100%, lg: 190px));
+      @include mb((xs: 7, md: 0));
       height: $btn-size-lg;
       background: $blue;
       font-family: $font-family1;
@@ -38,30 +50,6 @@
       font-size: 16px;
       line-height: 20px;
       color: #ffffff;
-    }
-
-    @media (max-width: $viewport-lg-w) {
-      .row {
-        flex-flow: column-reverse;
-      }
-    }
-
-    @media (max-width: $viewport-md-w) {
-      .context {
-        &__description {
-          font-size: 14px;
-          line-height: 24px;
-        }
-      }
-
-      .row {
-        flex-flow: column;
-      }
-
-      button {
-        width: 100%;
-        height: 50px;
-      }
     }
   }
 

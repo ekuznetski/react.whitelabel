@@ -24,8 +24,8 @@ export const MobileTradingSection = memo(
               <Img src={config.sideImg} />
             </Col>
             <Col className="mobile-trading__content">
-              <div className="content__title mb-7">{title || config.title}</div>
-              <div className="content__description mb-10">{description || config.description}</div>
+              <div className="content__title">{title || config.title}</div>
+              <div className="content__description">{description || config.description}</div>
               <div className="content__store-links">
                 <Button className="ios-store">
                   <a href={config.appStoreLink}>

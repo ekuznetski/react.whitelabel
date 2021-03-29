@@ -2,6 +2,8 @@
 @import '~/mixin';
 
 .trade-products {
+  @include mt((xs: 13, md: 0));
+
   &__title {
     @include fontSize((xs:32px, md:36px, xl:44px));
     @include lineHeight((xs:40px, md:46px, xl:46px));
