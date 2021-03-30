@@ -66,19 +66,17 @@ export const Input = memo(
     }
 
     return (
-      <div
-        className={classNames(
-          'field input',
-          !inline && 'mb-8',
-          !!label && 'with-label',
-          meta?.touched && meta?.error && 'field-error',
-          state.isFocused && 'focused',
-          state.isFilled && 'filled',
-          _disabled && 'disabled',
-          className,
-        )}
-      >
-        <div className="input-wrapper">
+      <div className={classNames('field input', !inline && 'mb-8', className)}>
+        <div
+          className={classNames(
+            'input-wrapper',
+            !!label && 'with-label',
+            meta?.touched && meta?.error && 'field-error',
+            state.isFocused && 'focused',
+            state.isFilled && 'filled',
+            _disabled && 'disabled',
+          )}
+        >
           {!!label && (
             <label className="label" htmlFor={props.name}>
               {label}

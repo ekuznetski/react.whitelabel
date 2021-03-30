@@ -1,19 +1,21 @@
 @import '~/variables';
 
 .field.datepicker {
-  border-color: $border-grey;
+  .datepicker-wrapper {
+    border-color: $border-grey;
 
-  input {
-    &:disabled {
-      background-color: $light-grey;
+    input {
+      &:disabled {
+        background-color: $light-grey;
+      }
     }
-  }
 
-  &.disabled {
-    background: $light-grey;
+    &.disabled {
+      background: $light-grey;
 
-    svg {
-      fill: $dark-grey;
+      svg {
+        fill: $dark-grey;
+      }
     }
   }
 }

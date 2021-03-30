@@ -1,16 +1,18 @@
 @import '~/variables';
 
 .field.input {
-    border-color: $border-grey;
-
-    &.disabled {
-        background: $light-grey;
+    .input-wrapper {
         border-color: $border-grey;
-    }
 
-    input {
-        &:disabled {
-            background-color: $light-grey;
+        &.disabled {
+            background: $light-grey;
+            border-color: $border-grey;
+        }
+
+        input {
+            &:disabled {
+                background-color: $light-grey;
+            }
         }
     }
 }
