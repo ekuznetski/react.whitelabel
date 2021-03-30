@@ -38,7 +38,7 @@
         @include col((xs: 12, md: 10, lg: 12));
         @include fontSize((xs: 16px, md: 16px, lg:22px));
         @include lineHeight((xs: 22px, md: 26px, lg: 34px));
-        @include mb((xs: sp(10, i), sm: sp(11, i)));
+        @include mb((xs: sp(10, i), md: sp(9, i), lg: sp(11, i)));
       }
     }
 
