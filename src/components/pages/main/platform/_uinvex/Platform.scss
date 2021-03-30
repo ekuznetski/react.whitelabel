@@ -17,6 +17,7 @@
 
     .row {
       @include flexFlow((xs: column, lg: row-reverse));
+      padding: 0 !important;
       height: auto;
       background: none;
       box-shadow: none;
@@ -64,9 +65,9 @@
         display: flex;
 
         img {
-          @include width((xs: 310px, sm: 375px, md: 644px, lg:761px));
+          @include width((xs: 310px, sm: 375px, md: 614px, lg:761px));
           @include mr((xs: auto, md: sp(19, n), lg: 0));
-          @include mt((xs: 9, md: sp(14, n), lg: sp(7, n)));
+          @include mt((xs: 9, md: sp(11, n), lg: sp(7, n)));
           @include mb((xs: sp(20, n), md: -230px, lg: 0));
           margin-left: auto;
         }
@@ -122,7 +123,7 @@
         md: bgImgColor('assets/mobile_trading_bg_tablet.png', $grey_bg),
         lg: bgImgColor('assets/mobile_trading_bg_desktop.png', $grey_bg),
       ));
-    @include height((xs:820px, md:518px, lg:564px));
+    @include height((xs: 900px, sm:820px, md:518px, lg:564px));
     background-size: auto 100% !important;
     z-index: 1;
 
@@ -132,6 +133,8 @@
 
     .row {
       @include flexFlow((xs: column, lg: row));
+      @include mx((xs: 5), n);
+      @include p((xs: 0));
       height: auto;
       background: none;
       box-shadow: none;
@@ -139,13 +142,17 @@
     }
 
     &__content {
+      @include d-flex(start, start, column);
       @include col((xs: auto, md: 6, lg: 5));
       @include ml((xs: 0, md: colSizePrc(6)));
       margin-right: auto;
 
       .content {
         &__title {
+          @include maxWidth((lg:320px));
+          @include mb((xs: 7, md: 9));
           color: $dark-text;
+          text-align: left;
 
           span {
             color: $blue;
@@ -153,15 +160,25 @@
         }
 
         &__description {
+          @include col((xs: auto));
+          @include mb((xs: 0, md: 2));
+          @include ml((xs: 0));
           color: $dark-text;
         }
-      }
 
-      .common-button {
-        border-color: $dark-text;
+        &__store-links {
+          flex-direction: row;
 
-        svg {
-          fill: $dark-text;
+          .common-button {
+            @include width((xs: 160px, lg: 180px));
+            @include mr((xs: 6));
+            flex: unset;
+            border-color: $dark-text;
+
+            svg {
+              fill: $dark-text;
+            }
+          }
         }
       }
     }
