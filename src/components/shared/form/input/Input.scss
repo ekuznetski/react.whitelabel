@@ -7,8 +7,12 @@
   border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
   height: $input-height;
-  overflow: hidden;
   width: 100%;
+
+  .input-wrapper {
+    overflow: hidden;
+    border-radius: $border-radius;
+  }
 
   input {
     &:disabled {

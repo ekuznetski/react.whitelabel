@@ -8,11 +8,13 @@
           &__container {
             .card {
               border-right: 1px solid $grey;
+
               &:last-child {
                 border-right: none;
               }
             }
           }
+
           &__item {
             height: 140px;
             box-shadow: none;
@@ -53,8 +55,8 @@
 
       @media (min-width: $viewport-lg-min-w) {
         &__text {
-          flex: 0 0 91.66667%;
-          max-width: 91.66667%;
+          flex: 0 0 91.66667% !important;
+          max-width: 91.66667% !important;
         }
       }
 
@@ -63,6 +65,7 @@
           font-size: 24px;
           line-height: 34px;
         }
+
         &__description {
           font-size: 16px;
           line-height: 26px;
@@ -73,6 +76,7 @@
         &__cards {
           .card {
             border-right: 1px solid $grey;
+
             &:first-child {
               border-left: 1px solid $grey;
             }
