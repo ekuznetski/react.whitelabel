@@ -8,7 +8,7 @@
   .stock-prices-item {
     &__info {
       @include d-flex(start, start, column);
-      flex: 0 0 252px;
+      @include flex((xs:0 0 252px, lg:0 0 300px, xl:0 0 350px));
       height: 100%;
       box-shadow: box-shadow(10, 0.1);
       border-radius: $border-box-radius;
@@ -76,6 +76,7 @@
         &-left,
         &-right {
           user-select: none;
+          z-index: 9;
 
           svg {
             cursor: pointer;
@@ -264,14 +265,6 @@
           height: 100%;
           border-radius: 25px;
         }
-      }
-    }
-  }
-
-  @media (min-width: $viewport-lg-w) {
-    .stock-prices-item {
-      &__info {
-        flex: 0 0 350px;
       }
     }
   }

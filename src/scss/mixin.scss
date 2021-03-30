@@ -147,6 +147,11 @@
   @include mediaTag(background, null, $sizes, $effect);
 }
 
+// background-size
+@mixin backgroundSize($sizes, $effect: null) {
+  @include mediaTag(background, size, $sizes, $effect);
+}
+
 // flex
 @mixin flex($sizes, $effect: null) {
   @include mediaTag(flex, null, $sizes, $effect);

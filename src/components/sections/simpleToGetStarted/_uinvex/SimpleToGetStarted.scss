@@ -12,16 +12,21 @@
 
     &.col {
       @include mb((xs:10, lg:0));
-      @include pr((xs:0));
+      @include pr((lg:0));
     }
 
 
     .header {
       &__title {
-        @include fontSize((xs: 60px));
-        @include lineHeight((xs: 80px));
+        @include textAlign((xs: center, lg: left));
+        @include fontSize((xs: 48px, lg: 60px));
+        @include lineHeight((xs: 58px, lg: 80px));
         font-family: $font-family1;
         font-weight: 700;
+
+        br {
+          @include display((xs: none, lg: block));
+        }
 
         b {
           font-weight: 700;
@@ -31,7 +36,8 @@
       }
 
       &__description {
-        @include mt((xs: auto));
+        @include textAlign((xs: center, lg: left));
+        @include mt((xs: 7, lg: auto));
       }
     }
   }
@@ -42,15 +48,16 @@
     @include mr((xs: sp(9, n)));
 
     .row {
-      @include ml((lg: 9));
-      @include mr((lg: sp(10, n)));
+      @include ml((md: sp(8, n), lg: 9));
+      @include mr((md: 0, lg: 6, xl: 4), n);
     }
 
     .steps {
       &__item {
         @include col((xs:12, md:4));
         @include mb((xs:7, lg:0));
-        @include px((xs: 10, lg:8, xl: 10));
+        @include pl((xs: 8, lg:8, xl: 10));
+        @include pr((xs: 5, md: 0, lg:6, xl: 4));
 
         &:last-child {
           @include mb((xs:0));

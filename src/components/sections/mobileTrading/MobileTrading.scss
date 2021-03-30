@@ -6,7 +6,7 @@
     @include col((xs:12, lg:5));
     @include mt((xs:12));
     @include mb((xs:12, md:0));
-  
+
     img {
       height: 400px;
     }
@@ -20,15 +20,18 @@
 
     .content {
       &__title {
+        @include mb((xs: 7));
         font-size: 36px;
         line-height: 46px;
         color: $dark-text;
       }
 
       &__description {
+        @include mb((xs: 10));
         font-size: 16px;
         line-height: 26px;
         color: $text;
+
       }
 
       &__store-links {
