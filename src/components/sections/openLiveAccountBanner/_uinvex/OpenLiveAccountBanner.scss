@@ -22,7 +22,7 @@
     @include d-flex(start, center, column);
     @include height((xs: initial, md: 400px, lg: 440px));
     @include alignItems((xs: center, md: start));
-    @include col((xs: 12, md:6, lg: 5));
+    @include col((xs: 12, md:6, xl: 5));
     @include mb((xs:10, md: 0));
     @include textAlign((xs: center, md: unset));
     z-index: 1;
