@@ -1,17 +1,16 @@
+import { ModalBody, ModalTitle } from '@components/core';
+import { Button, Col, CurrencySelect, Radio, Row, Select } from '@components/shared';
+import { FieldValidators } from '@domain';
+import { ENotificationType } from '@domain/enums';
+import { IChangeAccountSettingsRequest } from '@domain/interfaces';
+import { MClientSettings } from '@domain/models';
+import { ITradingAccountSingleCard } from '@pages/portal/dashboard/components';
+import { EActionTypes, IStore, ac_changeAccountSettings, ac_hideModal, ac_showNotification } from '@store';
+import { Form, Formik } from 'formik';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, CurrencySelect, Radio, Select } from '@components/shared';
-import { ITradingAccountSingleCard } from '@pages/portal/dashboard/components/TradingAccountCards/SingleCard/TradingAccountSingleCard';
-import * as Yup from 'yup';
-import { FieldValidators } from '@domain';
-import { Form, Formik } from 'formik';
-import { EActionTypes, IStore, ac_changeAccountSettings, ac_hideModal, ac_showNotification } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
-import { Col, Row } from '@components/shared';
-import { MClientSettings } from '@domain/models';
-import { IChangeAccountSettingsRequest } from '@domain/interfaces';
-import { ENotificationType } from '@domain/enums';
-import { ModalBody, ModalTitle } from '@components/core';
+import * as Yup from 'yup';
 
 interface IAccountSettingsModalProps {
   tradingAccount: ITradingAccountSingleCard;
@@ -23,7 +22,9 @@ enum EFields {
   'currency' = 'currency',
   'leverage' = 'leverage',
 }
-export const AccountSettingsModal = memo(function AccountSettingsModal({ tradingAccount }: IAccountSettingsModalProps) {
+export const TradingAccountSettingsModal = memo(function TradingAccountSettingsModal({
+  tradingAccount,
+}: IAccountSettingsModalProps) {
   const { clientSettings } = useSelector<IStore, { clientSettings: MClientSettings }>((state) => ({
     clientSettings: state.data.client.settings,
   }));

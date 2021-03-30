@@ -20,7 +20,8 @@ export default {
   'Prestigious Platform Technology Desc Platform Page':
     '<0>MetaTrader is the most widely-used electronic trading platform and is considered the <1>golden standard of the financial industry</1> thanks to its cutting-edge technology and functionality for traders of all levels.</0><1>MT5 is a powerful multi-asset platform featuring advanced technical analysis, fundamental analysis, flexible trading systems, and a mobile app. It is compatible with automated trading applications such as trading robots and Expert Advisors.</1><2>Compared to its predecessor, MT5 offers <1>additional timeframes and services</1>, including 21 timeframes, 6 types of pending orders, and an integrated fundamental economic calendar.</2>',
   'Trusted Section Title': 'Define <1>your own</1> trading path',
-  'Trusted Section Desc': `Whether you’re interested in trading the $6 trillion-a-day forex (FX) industry or stocks movements, UINVEX has what you’re looking for. We offer a large range of products in 6 different asset classes: <1>$t(Forex)</1>, <3>$t(Stocks)</3>, <5>$t(Commodities)</5>, <7>$t(Indices)</7> and <9>$t(Digital Assets)</9>. Not only do we have a wide range of products but we provide competitive trading conditions`,
+  'Trusted Section Desc': `Whether you’re interested in trading the $6 trillion-a-day forex (FX) industry or stocks movements, UINVEX has what you’re looking for. We offer a large range of products in 6 different asset classes: <1>$t(Forex)</1>, <3>$t(Stocks)</3>, <5>$t(Commodities)</5>, <7>$t(Indices)</7> and <9>$t(Digital Assets)</9>. Not only do we have a wide range of products but we provide competitive trading conditions 
+  for our clients.`,
   'Base Currencies': 'Base Currencies',
   'Banner Section Title': 'Trusted. <1/>Transparent.',
   'Banner Section Desc': `Take advantage of our unrivalled trading technologies and access the world's largest financial markets.`,

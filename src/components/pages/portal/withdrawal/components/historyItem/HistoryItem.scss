@@ -19,6 +19,7 @@
       border-radius: $border-box-radius;
 
       .withdrawal-item {
+
         &__icon,
         &__status,
         &__date,
@@ -101,9 +102,6 @@
             font-size: 12px;
             line-height: 20px;
             color: $text;
-          }
-
-          &.content {
           }
 
           &.footer {
@@ -200,6 +198,7 @@
         height: 100%;
 
         .withdrawal-item {
+
           &__date,
           &__accountId,
           &__amount,
@@ -224,6 +223,7 @@
                 line-height: 20px;
                 color: $dark-grey;
               }
+
               flex: 0 0 60px;
               border-right: none;
 

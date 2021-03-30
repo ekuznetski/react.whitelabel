@@ -1,16 +1,15 @@
+import { ModalBody, ModalTitle } from '@components/core';
+import { Button, Col, Input, Row } from '@components/shared';
+import { FieldValidators } from '@domain';
+import { ENotificationType } from '@domain/enums';
+import { IChangeAccountPasswordRequest } from '@domain/interfaces';
+import { ITradingAccountSingleCard } from '@pages/portal/dashboard/components';
+import { EActionTypes, ac_changeAccountPassword, ac_hideModal, ac_showNotification } from '@store';
+import { Form, Formik } from 'formik';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Input } from '@components/shared';
-import { ITradingAccountSingleCard } from '@pages/portal/dashboard/components/TradingAccountCards/SingleCard/TradingAccountSingleCard';
-import * as Yup from 'yup';
-import { FieldValidators } from '@domain';
-import { Form, Formik } from 'formik';
-import { EActionTypes, ac_changeAccountPassword, ac_hideModal, ac_showNotification } from '@store';
 import { useDispatch } from 'react-redux';
-import { Col, Row } from '@components/shared';
-import { IChangeAccountPasswordRequest } from '@domain/interfaces';
-import { ENotificationType } from '@domain/enums';
-import { ModalBody, ModalTitle } from '@components/core';
+import * as Yup from 'yup';
 
 interface IAccountPasswordModalProps {
   tradingAccount: ITradingAccountSingleCard;
@@ -21,7 +20,9 @@ enum EFields {
   'confirmPassword' = 'confirmPassword',
 }
 
-export const AccountPasswordModal = memo(function AccountPasswordModal({ tradingAccount }: IAccountPasswordModalProps) {
+export const TradingAccountPasswordModal = memo(function TradingAccountPasswordModal({
+  tradingAccount,
+}: IAccountPasswordModalProps) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -59,7 +60,7 @@ export const AccountPasswordModal = memo(function AccountPasswordModal({ trading
 
   return (
     <>
-      <ModalTitle title={t('Change Password')} className="mb-7"/>
+      <ModalTitle title={t('Change Password')} className="mb-7" />
       <ModalBody>
         <Formik
           initialValues={{

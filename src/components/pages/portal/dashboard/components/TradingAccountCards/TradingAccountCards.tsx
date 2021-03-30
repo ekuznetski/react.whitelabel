@@ -1,14 +1,17 @@
-import React from 'react';
-import { ETradingType } from '@domain/enums';
-import { IStore } from '@store';
 import { Row } from '@components/shared';
-import { useSelector } from 'react-redux';
-import { TradingAccountAddCard } from './AddCard/TradingAccountAddCard';
-import { ITradingAccountSingleCard, TradingAccountSingleCard } from './SingleCard/TradingAccountSingleCard';
-import { TradingAccountsProvider } from './trading-accounts.context';
+import { ETradingType } from '@domain/enums';
 import { MClientSettings } from '@domain/models';
-import './TradingAccountCards.scss';
+import {
+  ITradingAccountSingleCard,
+  TradingAccountAddCard,
+  TradingAccountSingleCard
+} from '@pages/portal/dashboard/components';
+import { IStore } from '@store';
 import { useResponsive } from 'ahooks';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { TradingAccountsProvider } from './trading-accounts.context';
+import './TradingAccountCards.scss';
 
 export function TradingAccountCards(props: { type: ETradingType[] }) {
   const { tradingAccountCards, clientSettings } = useSelector<

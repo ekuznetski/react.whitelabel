@@ -31,6 +31,16 @@
           }
         }
       }
+
+      &__btn {
+        .common-button {
+          color: $blue;
+
+          a {
+            color: $blue;
+          }
+        }
+      }
     }
   }
 }

@@ -1,16 +1,15 @@
+import { ModalBody, ModalTitle } from '@components/core';
+import { Button, Col, Row, Select } from '@components/shared';
+import { FieldValidators } from '@domain';
+import { ENotificationType } from '@domain/enums';
+import { MClientSettings } from '@domain/models';
+import { ITradingAccountSingleCard } from '@pages/portal/dashboard/components';
+import { EActionTypes, IStore, ac_changeAccountLeverage, ac_hideModal, ac_showNotification } from '@store';
+import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Select } from '@components/shared';
-import { ITradingAccountSingleCard } from '@pages/portal/dashboard/components/TradingAccountCards/SingleCard/TradingAccountSingleCard';
-import * as Yup from 'yup';
-import { FieldValidators } from '@domain';
-import { Form, Formik, FormikValues } from 'formik';
-import { EActionTypes, IStore, ac_changeAccountLeverage, ac_hideModal, ac_showNotification } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
-import { Col, Row } from '@components/shared';
-import { MClientSettings } from '@domain/models';
-import { ENotificationType } from '@domain/enums';
-import { ModalBody, ModalTitle } from '@components/core';
+import * as Yup from 'yup';
 
 interface IAccountLeverageModalProps {
   tradingAccount: ITradingAccountSingleCard;
@@ -20,7 +19,9 @@ enum EFields {
   'leverage' = 'leverage',
 }
 
-export const AccountLeverageModal = memo(function AccountLeverageModal({ tradingAccount }: IAccountLeverageModalProps) {
+export const TradingAccountLeverageModal = memo(function TradingAccountLeverageModal({
+  tradingAccount,
+}: IAccountLeverageModalProps) {
   const { clientSettings } = useSelector<IStore, { clientSettings: MClientSettings }>((state) => ({
     clientSettings: state.data.client.settings,
   }));
