@@ -3,9 +3,9 @@
 
 .open-live-account-banner {
   @include d-flex();
+  @include alignItems((xs: flex-start, md: flex-end));
   @include height((xs: 630px, md: 440px, lg: 480px));
   @include p((xs: sp(12) 0 0 0, md: 0), i);
-  @include alignItems((xs: flex-start, md: flex-end));
   @include mb((xs: sp(11, n), md: unset));
   overflow: visible;
   background: transparent;
