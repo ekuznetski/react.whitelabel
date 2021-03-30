@@ -8,7 +8,7 @@ import './TopBar.scss';
 export const TopBar = memo(function TopBar() {
   const { t } = useTranslation();
 
-  return (
+  return config.topBarLinks.length ? (
     <Container className="top-header">
       <Row>
         <Col className="top-header__links ml-auto">
@@ -21,5 +21,5 @@ export const TopBar = memo(function TopBar() {
         </Col>
       </Row>
     </Container>
-  );
+  ) : null;
 });

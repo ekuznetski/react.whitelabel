@@ -105,5 +105,6 @@ export const config = {
       [<b>{t('Etfs')}</b>, '1:20'],
     ],
     colsSize: [null, null],
+    mobileScroll: false,
   },
 };
