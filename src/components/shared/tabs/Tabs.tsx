@@ -151,13 +151,13 @@ export function Tabs({
                   !isVertical && !disableMobileView && 'mx-9 mx-lg-0',
                   disableMobileView && 'common-tabs__navigation--disable-mobile-view',
                 )}
+                ref={navRef}
               >
                 <div
                   className={classNames(
                     !isVertical && 'common-tabs__navigation-wrapper',
                     !isVertical && alignNavigation,
                   )}
-                  ref={navRef}
                 >
                   {state.labels.map((label, l) => (
                     <div
