@@ -7,6 +7,7 @@
 
     .common-table-wrapper {
       @include mx((xl: 18));
+      padding: 0 sp(5);
 
       .common-table {
         .th {
@@ -38,6 +39,9 @@
     }
 
     .ratios {
+      &__container {
+        padding: 0;
+      }
 
       &__title {
         @include mb((xs: 7, sm: 9));
@@ -105,7 +109,7 @@
             .card {
               flex: 0 0 100%;
               max-width: 100%;
-              padding: 10px 0;
+              padding: 0 sp(5);
 
               &:first-child {
                 padding-top: 0;

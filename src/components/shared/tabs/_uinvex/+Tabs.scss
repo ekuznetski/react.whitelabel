@@ -3,6 +3,8 @@
 
 .common-tabs {
   &__navigation {
+    overflow-y: hidden;
+
     &-wrapper {
       margin: 0 auto;
       background-color: $grey-bg;
