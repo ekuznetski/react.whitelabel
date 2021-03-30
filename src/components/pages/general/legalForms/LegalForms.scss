@@ -43,6 +43,7 @@
         }
 
         &-button {
+          @include d-flex(center, center);
           @include ml((xs: 0, lg: auto));
           font-size: 14px;
           line-height: 17px;
@@ -51,17 +52,17 @@
           text-decoration: underline;
 
           @media (min-width: $viewport-lg-min-w) {
+            width: 160px;
             text-decoration: none;
             height: 40px;
             border-radius: 4px;
             background-color: #e4e9fb;
-            padding: 12px 32px;
           }
 
           svg {
+            fill: $blue;
             margin-right: 8px;
             height: 14px;
-            margin-top: -5px;
           }
         }
       }
