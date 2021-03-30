@@ -2,31 +2,39 @@
 @import '~/mixin';
 
 .open-live-account-banner {
-  @include d-flex(flex-end);
+  @include d-flex();
+  @include alignItems((xs: flex-start, md: flex-end));
+  @include height((xs: 630px, md: 440px, lg: 480px));
+  @include p((xs: sp(12) 0 0 0, md: 0), i);
+  @include mb((xs: sp(11, n), md: unset));
   overflow: visible;
-  padding: 0 !important;
   background: transparent;
   color: white;
   position: relative;
-  height: 480px;
 
   .section-bg {
-    top: 40px;
-    height: 440px;
+    @include height((xs: 530px, md: 400px, lg: 440px));
+    @include top((xs: 0, md: 11));
     background-repeat: repeat;
   }
 
-  .open-live-account-banner__column {
+  &__column {
     @include d-flex(start, center, column);
-    @include col((xs: 12, sm:6, xl: 5));
-    height: 440px;
+    @include height((xs: initial, md: 400px, lg: 440px));
+    @include alignItems((xs: center, md: start));
+    @include col((xs: 12, md:6, xl: 5));
+    @include mb((xs:10, md: 0));
+    @include textAlign((xs: center, md: unset));
     z-index: 1;
-    margin-bottom: 0 !important;
+
+    .open-live-account-banner__title {
+      @include mb((xs: 7, md: 12, lg: 9));
+    }
   }
 
   &__title {
-    font-size: 56px;
-    line-height: 66px;
+    @include fontSize((xs: 48px, lg: 56px));
+    @include lineHeight((xs: 58px, lg: 66px));
     font-weight: 700;
     font-family: $font-family1;
 
@@ -40,18 +48,17 @@
   }
 
   &__description {
-    font-size: 18px;
-    line-height: 30px;
+    @include fontSize((xs:16px, lg: 18px));
+    @include lineHeight((xs: 22px, md: 26px, lg: 30px));
   }
 
   .open-account {
     @include d-flex(center, center, column);
+    @include height((xs: 330px, md: 400px, lg: 440px));
+    @include col((xs: unset, md: 6, lg: 5));
     @include ml((lg: auto));
-    flex: 0 0 colSizePrc(5);
-    max-width: colSizePrc(5);
+    @include mt((xs: 0, md: sp(11, n)));
     z-index: 1;
-    margin-top: -40px !important;
-    height: 440px;
 
     &:before {
       content: '';
@@ -67,9 +74,9 @@
 
     .open-live-account-banner {
       &__title {
+        @include fontSize((xs:36px, lg: 42px));
+        @include lineHeight((xs: 44px, md: 52px));
         font-family: $font-family1;
-        font-size: 42px;
-        line-height: 52px;
 
         font-weight: normal;
         text-align: center;
@@ -80,19 +87,26 @@
       }
 
       &__description {
+        @include fontSize((xs: 16px, lg: 22px));
+        @include lineHeight((xs: 22px, md: 26px, lg: 34px));
+        @include width((xs: 300px, md: 200px, lg: 285px));
         margin: 15px 0 40px 0 !important;
-        font-size: 22px;
-        line-height: 34px;
         text-align: center;
-        width: 285px;
       }
     }
 
     .open-account {
       text-align: center;
 
-      .open-live-account-banner__title {
-        font-weight: bolder;
+      .open-live-account-banner {
+        &__title {
+          margin-bottom: sp(7);
+          font-weight: bolder;
+        }
+
+        &__description {
+          @include mb((xs:10, md: 11));
+        }
       }
 
       button {
@@ -113,28 +127,16 @@
       a {
         color: $blue;
       }
+
+      &:hover {
+        background-color: $light-blue;
+      }
     }
   }
 
   @media (max-width: $viewport-lg-w) {
-    padding: 0 !important;
-    height: 440px;
-
-    .section-bg {
-      height: 400px;
-    }
-
     .open-live-account-banner__column {
-      height: 400px;
       justify-content: center;
-
-      &:before {
-        width: 70%;
-      }
-
-      flex: 0 0 colSizePrc(6);
-      max-width: colSizePrc(6);
-      margin-bottom: 0 !important;
 
       .open-live-account-banner {
         &__title {
@@ -143,35 +145,9 @@
       }
     }
 
-    &__title {
-      font-size: 48px;
-      line-height: 58px;
-    }
-
-    &__description {
-      font-size: 16px;
-      line-height: 26px;
-    }
-
     .open-account {
       text-align: left;
       justify-content: center;
-
-      flex: 0 0 colSizePrc(6);
-      max-width: colSizePrc(6);
-      height: 400px;
-
-      .open-live-account-banner {
-        &__title {
-          font-size: 36px;
-        }
-
-        &__description {
-          width: 200px;
-          font-size: 16px;
-          line-height: 26px;
-        }
-      }
 
       button {
         align-self: center;
@@ -181,71 +157,35 @@
   }
 
   @media (max-width: $viewport-md-w) {
-    padding: 48px 0 0 0 !important;
-    height: 630px;
-    align-items: flex-start;
-    margin-bottom: -100px;
     z-index: 10;
 
     .section-bg {
-      height: 530px;
       background: $blue !important;
-      top: 0;
     }
 
     .open-live-account-banner__column {
-      height: initial;
-      align-items: center;
-      flex: unset;
-      margin-bottom: sp(10) !important;
-      text-align: center;
-      max-width: 100%;
-
       .open-live-account-banner {
         &__title {
           width: 350px;
-          font-size: 48px;
-          line-height: 58px;
           text-align: center;
           padding-top: 0;
           margin-bottom: sp(7) !important;
         }
-
-        &__description {
-          line-height: 22px;
-        }
       }
     }
 
-    .row {
+    &__row {
       flex-direction: column;
     }
 
     .open-account {
-      margin-top: 0 !important;
       margin-bottom: 0;
       align-items: center;
-      height: 330px;
-
-      flex: unset;
-      max-width: 100%;
-      width: unset;
-      margin-right: sp(5);
 
       .open-live-account-banner {
         &__title {
-          line-height: 44px;
           padding-top: 0;
         }
-
-        &__description {
-          width: 300px;
-          line-height: 22px;
-        }
-      }
-
-      button {
-        width: 190px;
       }
     }
   }

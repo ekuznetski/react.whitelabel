@@ -1,29 +1,39 @@
 @import '~/variables';
+@import '~/mixin';
 
 .open-live-account-banner {
-  padding: 100px 0;
-  display: flex;
-  align-items: center;
+  @include p((xs: sp(12) 0, md: sp(15) 0, lg: 17));
+  @include d-flex(center);
   background: #1a1b1c;
   color: #fff;
   overflow: hidden;
   position: relative;
 
   &:before {
+    @include top((xs: 0, lg: unset));
+    @include left((xs: 0, lg: -52.5%));
+    @include height((xs: 50%, lg: 2000%));
     position: absolute;
     content: '';
     display: block;
     background: $dark-text;
     width: 100%;
-    left: -52.5%;
-    height: 2000%;
     transform: rotate(20deg);
     opacity: 0.5;
   }
 
+  &__column {
+    @include col((xs: 12, lg: 5));
+    @include mb((xs:12, lg: 0));
+
+    .open-live-account-banner__title {
+      margin-bottom: sp(7);
+    }
+  }
+
   &__title {
-    font-size: 36px;
-    line-height: 46px;
+    @include fontSize((xs: 24px, md: 36px));
+    @include lineHeight((xs: 32px, md: 46px));
 
     b {
       display: block;
@@ -31,26 +41,37 @@
   }
 
   &__description {
-    font-size: 18px;
-    line-height: 30px;
+    @include fontSize((xs: 16px, md: 18px));
+    @include lineHeight((xs: 26px, md: 30px));
   }
 
   .open-account {
-    text-align: center;
-    .open-live-account-banner__title {
-      font-weight: bolder;
+    @include col((xs:12, lg:4, xl: 3));
+    @include mt((xs: 12, lg: 0));
+    @include offset((lg: 3));
+    @include textAlign((xs: left, lg: center));
+
+    .open-live-account-banner {
+      &__title {
+        margin-bottom: sp(3);
+        font-weight: bolder;
+      }
+
+      &__description {
+        @include mb((xs:8, md:6));
+      }
     }
 
     button {
-      margin: 0 auto;
+      @include m((xs: 0, lg: 0 auto));
     }
   }
 
   button {
+    @include width((xs: 100%, md: 235px));
+    @include height((xs: 50px, md: $btn-size-lg));
     background: $dark-blue;
     border-radius: $border-radius;
-    width: 235px;
-    height: $btn-size-lg;
     color: #fff;
     font-weight: 500;
     font-size: 16px;
@@ -58,41 +79,9 @@
   }
 
   @media (max-width: $viewport-lg-w) {
-    padding: 70px 0;
 
     &:before {
-      top: 0;
-      left: 0;
-      height: 50%;
       transform: rotate(0deg);
-    }
-
-    .open-account {
-      text-align: left;
-      button {
-        margin: 0;
-      }
-    }
-  }
-
-  @media (max-width: $viewport-md-w) {
-    padding: 50px 0;
-
-    &__title {
-      font-size: 24px;
-      line-height: 32px;
-    }
-
-    &__description {
-      font-size: 16px;
-      line-height: 26px;
-    }
-
-    .open-account {
-      button {
-        width: 100%;
-        height: 50px;
-      }
     }
   }
 }
