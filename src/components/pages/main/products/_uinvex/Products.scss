@@ -1,0 +1,8 @@
+@import '~/variables';
+@import '~/mixin';
+
+.product-wrapper {
+  .open-live-account-banner {
+    @include mb((xs: sp(9, n), md: 0));
+  }
+}

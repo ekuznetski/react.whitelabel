@@ -56,6 +56,7 @@ export const Table = memo(function Table({ headers, rows, colsSize, className, p
                   'td',
                   `col${c + 1}`,
                   !c && 'col--first',
+                  !r && 'row--first',
                   r + 1 === (previewValue ? previewRows.length : rows.length) && 'row--last',
                   c + 1 === headers.length && 'col--last',
                 )}
@@ -68,7 +69,7 @@ export const Table = memo(function Table({ headers, rows, colsSize, className, p
         </div>
       </div>
       {preview && (
-        <div className="toggle-table-view mt-4" onClick={toggleTableView}>
+        <div className="toggle-table-view" onClick={toggleTableView}>
           {previewValue ? (
             <>
               {t('Show more')}

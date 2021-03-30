@@ -3,15 +3,19 @@
 
 .about-wrapper {
   &__deposit {
-    display: flex;
-    align-items: center;
+    @include d-flex(center);
 
     .deposit {
+      &__header {
+        @include px((xs: 0));
+      }
+
       &__title {
-        @include mb((xs: 12));
+        @include mb((xs: 11, lg: 13));
+        @include p((xs: 0 sp(3), md: unset));
+        @include fontSize((xs: 32px, md: 36px, lg: 44px));
+        @include lineHeight((xs: 40px, md: 46px, lg: 52px));
         font-family: $font-family1;
-        font-size: 44px;
-        line-height: 52px;
         text-align: center;
 
         b {
@@ -21,52 +25,13 @@
       }
 
       &__tabs-container {
-        @include mt((xs: 13, md: 14, lg: 16));
+        @include mt((xs: 12, md: 14, lg: 17));
         @include col((xs: 12));
-        @include px((xs: 0, md: 5));
 
         .common-table {
           .common-img {
             margin: auto;
           }
-        }
-      }
-    }
-
-    @media (max-width: $viewport-md-w) {
-      .container {
-        max-width: 100%;
-        padding: 0 sp(5);
-      }
-
-      .row {
-        margin-left: 0;
-        margin-right: 0;
-      }
-
-      .common-tabs__container {
-        padding-left: sp(3) !important;
-        padding-right: sp(3) !important;
-      }
-
-      .deposit {
-        &__title {
-          font-size: 36px;
-          line-height: 46px;
-        }
-      }
-    }
-
-    @media (max-width: $viewport-sm-w) {
-      .container {
-        padding: 0 sp(3);
-      }
-
-      .deposit {
-        &__title {
-          font-size: 32px;
-          line-height: 40px;
-          padding: 0 sp(3);
         }
       }
     }

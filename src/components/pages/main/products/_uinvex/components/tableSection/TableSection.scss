@@ -20,7 +20,7 @@
         &.preview {
           @include col((md: 4, lg:5));
           @include pt((xs: 7, md:9, lg:11));
-          @include pb((xs: 0));
+          @include pb((xs: 7, md: 0));
         }
 
         &__title {
@@ -140,12 +140,11 @@
         }
 
         &__toggle-table-size {
-          cursor: pointer;
-          display: flex;
-          align-items: center;
+          @include d-flex(center, center);
           margin: auto;
           color: $blue;
           text-decoration: underline;
+          cursor: pointer;
 
           svg {
             fill: white;
@@ -163,7 +162,6 @@
     &.full {
       .table-col {
         .market-table {
-
           .thead,
           .tr:last-child,
           .tr:last-child .td:last-child {

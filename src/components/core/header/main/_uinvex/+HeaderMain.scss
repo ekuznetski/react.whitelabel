@@ -10,6 +10,8 @@
     }
 
     .logo {
+      @include mr((lg: 10, xl:0));
+
       svg {
         @include fillLogo($blue, black, $dark-blue);
       }

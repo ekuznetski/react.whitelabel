@@ -5,7 +5,6 @@
   .page-top {
     @include mt((xs: $menu-height-main-sm, md: $menu-height-main-md, lg: $menu-height-main-lg));
     @include height((xs: 422px, md:336px, lg:344px));
-    @include pt((md: 50px, lg: 90px), i);
     display: flex;
     align-items: center;
     background: #1a1b1c;
@@ -16,11 +15,15 @@
       background-position: calc(50% + 8px) 50% !important;
     }
 
+    .container {
+      @include mt((md: 40px, lg: 20px), n);
+    }
+
     &__title {
+      @include fontSize((xs: 32px, md: 44px, lg: 48px));
+      @include lineHeight((xs: 40px, md: 64px, lg: 64px));
       @include width((xs: 330px, md: auto));
       @include mx((xs: auto));
-      font-size: 40px;
-      line-height: 50px;
       color: $dark-text;
 
       span {
@@ -40,6 +43,7 @@
 
         button {
           width: 100%;
+          height: $btn-size-md;
           color: $text;
           font-size: 14px;
           background: transparent;
