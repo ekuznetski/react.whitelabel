@@ -3,34 +3,21 @@
 
 .deposit__cards-wrapper {
     .deposit__cards {
-        &-container {
-            @include col((xs: 12, sm: 8, md: 12));
-            @include mx((xs: auto));
-            @include px((xs: 0));
-        }
-
         .card {
             @include col((xs: 12, sm: 4));
-
-            &:first-child {
-                @include pl((md: 0))
-            }
-
-            &:last-child {
-                @include pr((md: 0))
-            }
+            @include p((xs: 0 sp(5)))
         }
 
         .common-cards {
             &__container {
-                flex-flow: row nowrap;
+                @include flexFlow((xs: row wrap, md: row nowrap));
             }
 
             &__item {
-                height: 200px;
+                @include height((xs: 100px, sm: 200px));
+                @include p((xs: 0, md: sp(11) sp(10)));
+                justify-content: center;
                 text-align: center;
-                justify-content: flex-start;
-                padding: sp(11) sp(10);
                 background: linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
                 box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 
@@ -39,13 +26,13 @@
                 }
 
                 &-header {
-                    color: $blue;
+                    @include fontSize((xs: 48px, md: 44px));
+                    @include lineHeight((xs: 58px, md: 64px, lg: 52px));
+                    justify-content: center;
                     font-family: $font-family1;
                     font-weight: 700;
-                    font-size: 44px;
-                    line-height: 52px;
                     text-align: center;
-                    justify-content: center;
+                    color: $blue;
 
                     span {
                         font-weight: 400;
@@ -53,34 +40,15 @@
                 }
 
                 &-content {
+                    @include fontSize((xs: 20px, md: 22px));
+                    @include lineHeight((xs: 28px, md: 30px, lg: 34px));
+                    @include textAlign((xs: left, sm: center));
                     justify-content: center;
-                    text-align: center;
-                    font-size: 22px;
-                    line-height: 34px;
 
                     small {
+                        @include fontSize((xs: 14px, md: 16px));
+                        @include lineHeight((xs: 18px, md: 26px));
                         display: block;
-                        font-size: 16px;
-                        line-height: 26px;
-                    }
-                }
-            }
-        }
-
-        @media (max-width: $viewport-md-w) {
-            &-container {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-
-            .common-cards {
-                &-header {
-                    line-height: 64px;
-                }
-
-                &__item {
-                    &-content {
-                        line-height: 30px;
                     }
                 }
             }
@@ -88,8 +56,6 @@
 
         @media (max-width: $viewport-sm-w) {
             .card {
-                padding: 10px 0;
-
                 &:first-child {
                     padding-top: 0;
                 }
@@ -101,32 +67,19 @@
 
             .common-cards {
                 &__container {
-                    flex-flow: row wrap;
                     justify-content: center;
                 }
 
                 &__item {
-                    height: 100px;
                     flex-direction: row;
                     align-items: center;
-                    padding: sp(7) sp(9);
 
                     &-header {
-                        font-size: 48px;
-                        line-height: 58px;
-                        margin: auto;
-
-                        &:after {
-                            content: '';
-                            position: relative;
-                            right: 0;
-                            display: block;
-                            height: 68px;
-                            width: 1px;
-                            z-index: 1;
-                            background: $border-grey;
-                            margin: 0 sp(9);
-                        }
+                        @include d-flex(center, center);
+                        width: 120px;
+                        min-width: 120px;
+                        margin-bottom: 0;
+                        border-right: solid 1px $border-grey;
 
                         svg {
                             margin-right: 8px;
@@ -134,14 +87,7 @@
                     }
 
                     &-content {
-                        text-align: left;
-                        font-size: 20px;
-                        line-height: 28px;
-
-                        small {
-                            font-size: 14px;
-                            line-height: 18px;
-                        }
+                        margin-left: sp(9);
                     }
                 }
             }
