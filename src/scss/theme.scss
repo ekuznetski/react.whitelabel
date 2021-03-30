@@ -7,7 +7,7 @@ body {
   margin: 0;
   overflow-y: scroll;
   overflow-x: hidden;
-  min-width: $viewport-xs-w;
+  min-width: 320px;
 
   &.lock {
     overflow: hidden;
