@@ -112,7 +112,7 @@
       &-container {
         &.mobile-scroll {
           .common-table {
-            width: 640px;
+            min-width: 640px;
           }
 
           .th.col--first,
