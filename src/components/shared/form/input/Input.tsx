@@ -66,36 +66,36 @@ export const Input = memo(
     }
 
     return (
-      <div
-        className={classNames(
-          'field input',
-          !inline && 'mb-8',
-          !!label && 'with-label',
-          meta?.touched && meta?.error && 'field-error',
-          state.isFocused && 'focused',
-          state.isFilled && 'filled',
-          _disabled && 'disabled',
-          className,
-        )}
-      >
-        {!!label && (
-          <label className="label" htmlFor={props.name}>
-            {label}
-          </label>
-        )}
-        {isLoading && <Loader className="input-loader" />}
-        <input
-          inputMode={type === 'number' ? 'tel' : type}
-          {...field}
-          {...inputProps}
-          type={type === 'number' ? 'text' : type}
-          disabled={_disabled}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-          onChange={onChangeHandler}
-          onAnimationStart={onAnimationStartHandler}
-          ref={ref}
-        />
+      <div className={classNames('field input', !inline && 'mb-8', className)}>
+        <div
+          className={classNames(
+            'input-wrapper',
+            !!label && 'with-label',
+            meta?.touched && meta?.error && 'field-error',
+            state.isFocused && 'focused',
+            state.isFilled && 'filled',
+            _disabled && 'disabled',
+          )}
+        >
+          {!!label && (
+            <label className="label" htmlFor={props.name}>
+              {label}
+            </label>
+          )}
+          {isLoading && <Loader className="input-loader" />}
+          <input
+            inputMode={type === 'number' ? 'tel' : type}
+            {...field}
+            {...inputProps}
+            type={type === 'number' ? 'text' : type}
+            disabled={_disabled}
+            onFocus={onFocusHandler}
+            onBlur={onBlurHandler}
+            onChange={onChangeHandler}
+            onAnimationStart={onAnimationStartHandler}
+            ref={ref}
+          />
+        </div>
         {meta && (meta.touched || forceShowError) && !_disabled && meta.error ? (
           <div className="error">{meta.error}</div>
         ) : null}

@@ -63,32 +63,33 @@ export const TextArea = memo(
     }
 
     return (
-      <div
-        className={classNames(
-          'field textarea mb-8',
-          !!label && 'with-label',
-          meta?.touched && meta?.error && 'field-error',
-          state.isFocused && 'focused',
-          state.isFilled && 'filled',
-          _disabled && 'disabled',
-          className,
-        )}
-      >
-        {!!label && !hideLabel && (
-          <label className="label" htmlFor={props.name}>
-            {label}
-          </label>
-        )}
-        {isLoading && <Loader className="input-loader" />}
-        <textarea
-          {...field}
-          {...inputProps}
-          disabled={_disabled}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-          onChange={onChangeHandler}
-          ref={ref}
-        />
+      <div className={classNames('field textarea mb-8', className)}>
+        <div
+          className={classNames(
+            'textarea-wrapper',
+            !!label && 'with-label',
+            meta?.touched && meta?.error && 'field-error',
+            state.isFocused && 'focused',
+            state.isFilled && 'filled',
+            _disabled && 'disabled',
+          )}
+        >
+          {!!label && !hideLabel && (
+            <label className="label" htmlFor={props.name}>
+              {label}
+            </label>
+          )}
+          {isLoading && <Loader className="input-loader" />}
+          <textarea
+            {...field}
+            {...inputProps}
+            disabled={_disabled}
+            onFocus={onFocusHandler}
+            onBlur={onBlurHandler}
+            onChange={onChangeHandler}
+            ref={ref}
+          />
+        </div>
         {meta && (meta.touched || forceShowError) && !_disabled && meta.error ? (
           <div className="error">{meta.error}</div>
         ) : null}

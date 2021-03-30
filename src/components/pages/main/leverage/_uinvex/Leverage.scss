@@ -2,7 +2,11 @@
 @import '~/mixin';
 
 .leverage-wrapper {
-    .open-live-account-banner__column {
-        @include col((xs: unset, md: 6, lg: 5));
+    .open-live-account-banner {
+        @include mb((xs: 10, sm: 12, md: 0));
+
+        &__column {
+            @include col((xs: unset, md: 6, lg: 5));
+        }
     }
 }

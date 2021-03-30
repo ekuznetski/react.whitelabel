@@ -1,4 +1,4 @@
-import { Cards, SectionBg } from '@components/shared';
+import { Cards, Col, Container, Row, SectionBg } from '@components/shared';
 import { config } from '@pages/main/about';
 import React, { memo } from 'react';
 import { locale } from '@pages/main/about';
@@ -11,22 +11,22 @@ export const InTouchSection = memo(function InTouchSection() {
   return (
     <section className="about-wrapper__in-touch">
       <SectionBg primary="in-touch-bg.jpg" />
-      <div className="container">
-        <div className="row">
-          <div className="in-touch__header col-lg-8 offset-lg-2 text-center">
-            <div className="in-touch__title mb-7">{locale.inTouchSectionTitle}</div>
-            <div className="in-touch__description mb-13">{locale.inTouchSectionDescription}</div>
-          </div>
-          <div className="in-touch__cards-container col-12 col-sm-8 col-md-12 mx-sm-auto">
+      <Container>
+        <Row>
+          <Col className="in-touch__header">
+            <div className="in-touch__title">{locale.inTouchSectionTitle}</div>
+            <div className="in-touch__description">{locale.inTouchSectionDescription}</div>
+          </Col>
+          <Col className="in-touch__cards-container">
             <Cards
               id="inTouchCards"
               className="in-touch__cards"
               cards={config.inTouchCards}
-              cardWrapperClass="card col-12 col-md-4 mb-9 mb-md-0"
+              cardWrapperClass="card col"
             />
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </section>
   );
 });

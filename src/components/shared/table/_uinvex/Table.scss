@@ -4,12 +4,16 @@
 .common-table-wrapper {
 
   .common-table-container {
-    @include hideScrollbar();
     border-radius: $border-box-radius;
     border: 1px solid $border-grey;
-    overflow-y: hidden;
-    overflow-x: auto;
-    padding: 0;
+    overflow: hidden;
+
+    &.mobile-scroll {
+      @include hideScrollbar();
+      padding: 0;
+      overflow-y: hidden;
+      overflow-x: auto;
+    }
   }
 
   .common-table {
@@ -68,8 +72,6 @@
         img {
           margin: auto;
         }
-
-        border-left: 1px solid $border-grey;
       }
 
       &.row--last {
@@ -104,15 +106,22 @@
 
   @media (max-width: $viewport-md-w) {
     .common-table {
-      width: 640px;
       grid-template-rows: 40px;
       grid-auto-rows: 60px;
 
-      .th.col--first,
-      .td.col--first {
-        position: sticky;
-        left: 0;
-        box-shadow: box-shadow(15, 0.1);
+      &-container {
+        &.mobile-scroll {
+          .common-table {
+            min-width: 640px;
+          }
+
+          .th.col--first,
+          .td.col--first {
+            position: sticky;
+            left: 0;
+            box-shadow: box-shadow(15, 0.1);
+          }
+        }
       }
 
       .tr .td {
