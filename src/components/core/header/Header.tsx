@@ -7,13 +7,25 @@ import { useSelector } from 'react-redux';
 import { Notification } from '..';
 import { HeaderAuth, HeaderGeneral, HeaderMain, HeaderPortal } from './';
 import { TopBar } from './main/components';
+import { config } from './main';
 
 export const Header = memo(function Header() {
   const { section } = useSelector<IStore, { section: EAppSection }>((state) => ({
     section: state.app.route.appSection,
   }));
   const _scroll = useScroll(document);
-  const fixHeader = _scroll.top > (section === EAppSection.portal ? 110 : 30);
+  let fixHeader: boolean;
+
+  switch (section) {
+    case EAppSection.portal:
+      fixHeader = _scroll.top > 110;
+      break;
+    case EAppSection.main:
+      fixHeader = config.topBarLinks.length ? _scroll.top > 30 : true;
+      break;
+    default:
+      fixHeader = true;
+  }
 
   return useMemo(() => {
     const header_class = classNames('header', section, fixHeader && 'fixed');

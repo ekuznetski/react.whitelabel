@@ -100,67 +100,6 @@
     }
 
     @media (max-width: $viewport-md-w) {
-      .deposit__cards {
-        .common-cards {
-          &__container {
-            flex-flow: row wrap;
-            justify-content: center;
-
-            .card {
-              flex: 0 0 100%;
-              max-width: 100%;
-              padding: 0 sp(5);
-
-              &:first-child {
-                padding-top: 0;
-              }
-
-              &:last-child {
-                padding-bottom: 0;
-              }
-            }
-          }
-
-          &__item {
-            height: 100px;
-            align-items: flex-start;
-            flex-direction: row;
-            align-items: center;
-            padding: sp(7) sp(9);
-
-            &-header {
-              font-size: 48px;
-              line-height: 58px;
-              margin-bottom: sp(2);
-
-              &:after {
-                content: '';
-                position: relative;
-                right: 0;
-                display: block;
-                height: 68px;
-                width: 1px;
-                z-index: 1;
-                background: $border-grey;
-                margin: 0 sp(9);
-              }
-
-              svg {
-                margin-right: 8px;
-              }
-            }
-
-            &-content {
-              text-align: left;
-              font-size: 20px;
-              line-height: 28px;
-            }
-          }
-        }
-      }
-    }
-
-    @media (max-width: $viewport-md-w) {
       .common-table-wrapper {
         table.common-table {
           tr>td {
@@ -173,16 +112,7 @@
     @media (max-width: $viewport-sm-w) {
 
       .common-table {
-        width: 100%;
         grid-template-rows: 60px;
-
-
-        .th.col--first,
-        .td.col--first {
-          position: relative;
-          left: unset;
-          box-shadow: none;
-        }
       }
     }
   }

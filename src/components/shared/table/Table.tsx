@@ -1,5 +1,6 @@
 import { useToggle } from 'ahooks';
 import classNames from 'classnames';
+import { theme } from '@domain';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Svg } from '..';
@@ -12,9 +13,18 @@ export interface ITable {
   className?: string;
   preview?: boolean;
   previewAmount?: number;
+  mobileScroll?: boolean;
 }
 
-export const Table = memo(function Table({ headers, rows, colsSize, className, preview, previewAmount = 4 }: ITable) {
+export const Table = memo(function Table({
+  headers,
+  rows,
+  colsSize,
+  className,
+  preview,
+  previewAmount = 4,
+  mobileScroll = theme.tableMobileScroll,
+}: ITable) {
   const [previewValue, togglePreview] = useToggle(true);
   const previewRows = rows.slice(0, previewAmount);
   const { t } = useTranslation();
@@ -39,7 +49,7 @@ export const Table = memo(function Table({ headers, rows, colsSize, className, p
 
   return (
     <div className="common-table-wrapper">
-      <div className="common-table-container">
+      <div className={classNames('common-table-container', mobileScroll && 'mobile-scroll')}>
         <div className={classNames('common-table', className)} style={{ gridTemplateColumns: col.join(' ') }}>
           {headers.map((headerCell, h) => (
             <div
@@ -57,7 +67,7 @@ export const Table = memo(function Table({ headers, rows, colsSize, className, p
                   `col${c + 1}`,
                   !c && 'col--first',
                   !r && 'row--first',
-                  r + 1 === (previewValue ? previewRows.length : rows.length) && 'row--last',
+                  r + 1 === (preview && previewValue ? previewRows.length : rows.length) && 'row--last',
                   c + 1 === headers.length && 'col--last',
                 )}
                 key={c}
