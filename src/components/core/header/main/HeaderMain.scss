@@ -4,7 +4,7 @@
 .header.main {
   position: absolute;
   // top: 30px;
-  z-index: 99;
+  z-index: 80;
   width: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.5), transparent);
   box-shadow: box-shadow(50, 0.05);
@@ -69,7 +69,7 @@
 
     .burger-toggle {
       display: flex;
-      
+
       svg {
         transition: all 0.3s;
 
@@ -164,8 +164,10 @@
       .burger-toggle {
         svg {
           fill: $dark-text;
+        }
 
-          &.burger-icon {
+        .burger-icon {
+          svg {
             stroke: $dark-text;
           }
         }
