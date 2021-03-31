@@ -1,0 +1,35 @@
+@import '~/variables';
+@import '~/mixin';
+
+.deposit__cards-wrapper {
+    @include col((xs: 12, sm: 8, md: 12));
+    @include mx((xs: auto));
+
+    .deposit__cards {
+        @include mb((xs: 16));
+
+        .card {
+            @include col((xs: 12, md: 4));
+            @include mb((xs: 9, md: 0));
+        }
+
+        .common-cards__item {
+            height: 200px;
+            text-align: center;
+
+            svg {
+                fill: $blue;
+            }
+
+            &-header,
+            &-content {
+                justify-content: center;
+                text-align: center;
+
+                small {
+                    display: block;
+                }
+            }
+        }
+    }
+}

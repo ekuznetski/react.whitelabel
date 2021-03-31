@@ -68,6 +68,8 @@
     }
 
     .burger-toggle {
+      display: flex;
+
       svg {
         transition: all 0.3s;
 
@@ -162,8 +164,10 @@
       .burger-toggle {
         svg {
           fill: $dark-text;
+        }
 
-          &.burger-icon {
+        .burger-icon {
+          svg {
             stroke: $dark-text;
           }
         }
@@ -202,10 +206,11 @@
     width: 100%;
     height: 100%;
     top: -200%;
-    transition: top 0.3s;
+    transition: top 0.5s;
     left: 0;
 
     &.open {
+      transition: top 0.3s;
       position: fixed;
       top: 0;
 
@@ -260,7 +265,7 @@
       }
 
       &:before {
-        transition: top 0.2s 0.1s;
+        transition: top 0.2s;
       }
     }
   }

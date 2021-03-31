@@ -1,0 +1,119 @@
+@import '~/variables';
+@import '~/mixin';
+
+.leverage-wrapper {
+  &__ratios {
+    @include d-flex(center);
+
+    .common-table-wrapper {
+      @include mx((xl: 18));
+      padding: 0 sp(5);
+
+      .common-table {
+        .th {
+          justify-content: flex-start;
+        }
+
+        .td {
+          align-items: center;
+          line-height: 26px;
+
+          &.col--first {
+            display: flex;
+          }
+
+          &.col--last {
+            justify-content: flex-end;
+          }
+        }
+
+        .td,
+        .th {
+          @include px((sm: 7, md: 11, lg: 14));
+        }
+      }
+    }
+
+    .deposit__cards {
+      @include mt((xs: 12, md: 14, lg: 17));
+    }
+
+    .ratios {
+      &__container {
+        padding: 0;
+      }
+
+      &__title {
+        @include mb((xs: 7, sm: 9));
+        font-family: $font-family1;
+        font-size: 44px;
+        font-weight: 600;
+        line-height: 66px;
+        text-align: center;
+      }
+
+      &__subTitle {
+        @include col((xs: 12, md: 5, lg: 12));
+        @include mx((xs: auto));
+        @include mb((xs: 10, md: 11, lg: 14));
+        font-size: 16px;
+        line-height: 26px;
+        color: $text;
+        text-align: center;
+
+        b {
+          color: $blue
+        }
+      }
+
+      @media (max-width: $viewport-lg-w) {
+        &__title {
+          line-height: 64px;
+        }
+
+        &__subTitle {
+          font-size: 14px;
+          line-height: 24px;
+        }
+
+      }
+
+      @media (max-width: $viewport-md-w) {
+        &__title {
+          font-size: 32px;
+          line-height: 40px;
+        }
+
+        &__subTitle {
+          font-size: 16px;
+          line-height: 22px;
+        }
+      }
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      .common-table-wrapper {
+        .common-table {
+          grid-auto-rows: 60px;
+        }
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      .common-table-wrapper {
+        table.common-table {
+          tr>td {
+            height: 60px;
+          }
+        }
+      }
+    }
+
+    @media (max-width: $viewport-sm-w) {
+
+      .common-table {
+        grid-template-rows: 60px;
+      }
+    }
+  }
+}

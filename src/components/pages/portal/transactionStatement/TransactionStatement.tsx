@@ -1,15 +1,34 @@
-import { Button, DatePicker, MultiSelect, PageTitle, Select, Svg, Tab, Tabs } from '@components/shared';
-import { ENotificationType } from '@domain/enums';
-import { EActionTypes, IDataStore, IStore, ac_fetchTransactionalStatements, ac_showNotification } from '@store';
+import {
+  Button,
+  Col,
+  Container,
+  DatePicker,
+  MultiSelect,
+  PageTitle,
+  Row,
+  Select,
+  Svg,
+  Tab,
+  Tabs,
+} from '@components/shared';
+import { ENotificationType, ETransactionTypes } from '@domain/enums';
+import { ITransactionalStatements } from '@domain/interfaces';
+import {
+  EActionTypes,
+  IDataStore,
+  IStore,
+  ac_clearTransactionalStatements,
+  ac_fetchTransactionalStatements,
+  ac_showNotification,
+} from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import moment, { Moment } from 'moment';
-import React, { memo } from 'react';
-import { Col, Container, Row } from '@components/shared';
+import React, { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { StatementSearchResultSection } from './components';
 import { config } from './';
+import { StatementSearchResultSection } from './components';
 import './TransactionStatement.scss';
 
 enum EFields {
@@ -23,6 +42,13 @@ export const TransactionStatement = memo(function TransactionStatement() {
   }));
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [transactionsFilter, setTransactionsFilter] = useState<ETransactionTypes[]>([]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(ac_clearTransactionalStatements());
+    };
+  }, []);
 
   const validationSchema = Yup.object().shape({
     operation_type: Yup.array<string>().required(t('This field is required')),
@@ -46,13 +72,23 @@ export const TransactionStatement = memo(function TransactionStatement() {
     dispatch(
       ac_fetchTransactionalStatements(
         data,
-        () => {
-          dispatch(
-            ac_showNotification({
-              type: ENotificationType.success,
-              message: t('Requested statements are successfully loaded'),
-            }),
-          );
+        (_res: ITransactionalStatements) => {
+          if (_res.deposits.length || _res.trades.length || _res.withdrawals.length) {
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.success,
+                message: t('Requested statements are successfully loaded'),
+              }),
+            );
+          } else {
+            dispatch(
+              ac_showNotification({
+                type: ENotificationType.warning,
+                message: t('No statement found for the defined period', { statementType: t('Statement') }),
+              }),
+            );
+          }
+          setTransactionsFilter(values.operation_type);
         },
         () => {
           dispatch(
@@ -138,13 +174,23 @@ export const TransactionStatement = memo(function TransactionStatement() {
           <div className="statement text-center">
             {statements && (statements.deposits.length || statements.trades.length || statements.withdrawals.length) ? (
               <Col>
-                <StatementSearchResultSection className="mb-9" title={t('Deposits')} statements={statements.deposits} />
-                <StatementSearchResultSection
-                  className="mb-9"
-                  title={t('Withdrawals')}
-                  statements={statements.withdrawals}
-                />
-                <StatementSearchResultSection className="mb-9" title={t('Trades')} statements={statements.trades} />
+                {transactionsFilter.includes(ETransactionTypes.deposits) && (
+                  <StatementSearchResultSection
+                    className="mb-9"
+                    title={t('Deposits')}
+                    statements={statements.deposits}
+                  />
+                )}
+                {transactionsFilter.includes(ETransactionTypes.withdrawal) && (
+                  <StatementSearchResultSection
+                    className="mb-9"
+                    title={t('Withdrawals')}
+                    statements={statements.withdrawals}
+                  />
+                )}
+                {transactionsFilter.includes(ETransactionTypes.trades) && (
+                  <StatementSearchResultSection className="mb-9" title={t('Trades')} statements={statements.trades} />
+                )}
               </Col>
             ) : (
               <Svg

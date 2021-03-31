@@ -48,7 +48,7 @@
       align-items: center;
       z-index: 3;
 
-      @media (max-width: 767px) {
+      @media (max-width: $viewport-md-w) {
         justify-content: flex-start;
         top: 40px;
       }

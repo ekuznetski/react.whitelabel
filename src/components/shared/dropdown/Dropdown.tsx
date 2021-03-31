@@ -69,6 +69,8 @@ export const DropDown = memo<IDropdown>(function DropDown({
     : isOpen
     ? height
     : 0;
+  const shouldOpenDropdownUp = parentBCR && typeof initialHeight === 'number' && window.innerHeight < (parentBCR?.bottom + initialHeight);
+  let topPosition = _getTopPosition();
 
   useEffect(() => {
     setInitialHeight(
@@ -93,10 +95,14 @@ export const DropDown = memo<IDropdown>(function DropDown({
   useClickAway(() => {
     if (isOpen) props.isOpenDispatcher(false);
   }, [props.parentRef, dropdownRef]);
-  let topPosition = parentBCR ? parentBCR.bottom + (noArrow ? 2 : 0) : 0;
-  // if (typeof _height === 'number' && parentBCR?.bottom && window.innerHeight > parentBCR?.bottom + _height) {
-  //   topPosition = parentBCR.top - _height - (noArrow ? 2 : 0);
-  // }
+
+  function _getTopPosition(): number {
+    if (shouldOpenDropdownUp && parentBCR && typeof initialHeight === 'number') {
+      return parentBCR.top - initialHeight - (noArrow ? 0 : 16);
+    }
+    return parentBCR ? parentBCR.bottom + (noArrow ? 2 : 16) : 0;
+  }
+
   return (
     TARGET_CONTAINER &&
     ReactDOM.createPortal(
@@ -118,7 +124,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
         }}
         ref={dropdownRef}
       >
-        <div className="common-dropdown-wrapper">
+        <div className={classNames('common-dropdown-wrapper', shouldOpenDropdownUp ? 'open-up' : 'open-down')}>
           <div className="common-dropdown-context" style={{ top: offsetY - 1 }}>
             {props.items &&
               props.items.map((child, c) => {
@@ -127,7 +133,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
                     props.isOpenDispatcher(false);
                     child.onclick?.(e);
                   },
-                  className: 'px-7',
+                  className: 'item px-7',
                 };
                 function Children() {
                   return (
@@ -138,7 +144,7 @@ export const DropDown = memo<IDropdown>(function DropDown({
                   );
                 }
                 return (
-                  <div key={child.id || c} className="item">
+                  <div key={child.id || c} className="item-container">
                     {child.path ? (
                       <LocaleNavLink
                         {...attrs}

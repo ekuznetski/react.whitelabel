@@ -1,6 +1,8 @@
 import { ELabels } from '@domain/enums';
 import { useCheckLabel, useLabelFolder } from '@utils/hooks';
+import classNames from 'classnames';
 import React, { SVGProps, memo, useMemo } from 'react';
+import './Svg.scss';
 
 const path = require('path');
 
@@ -15,20 +17,23 @@ export const Svg = memo((props: { isIcon?: boolean; _label?: ELabels | boolean }
   }
   delete innerProps.isIcon;
   delete innerProps._label;
+  delete innerProps.className;
 
   return useMemo(() => {
+    let _iconComponent;
     try {
       const LabelSvgComponent = require(`../../../assets${labelFolder}/svg/${path
         .join(path.dirname(props.href), path.basename(props.href))
         .replace('.svg', '')}.svg`);
 
-      return <LabelSvgComponent.ReactComponent {...innerProps} />;
+      _iconComponent = <LabelSvgComponent.ReactComponent {...innerProps} />;
     } catch (e) {
       const SvgComponent = require(`../../../assets/svg/${path
         .join(path.dirname(props.href), path.basename(props.href))
         .replace('.svg', '')}.svg`);
 
-      return <SvgComponent.ReactComponent {...innerProps} />;
+      _iconComponent = <SvgComponent.ReactComponent {...innerProps} />;
     }
+    return <div className={classNames('common-svg', props.className)}>{_iconComponent}</div>;
   }, [labelFolder, props]);
 });

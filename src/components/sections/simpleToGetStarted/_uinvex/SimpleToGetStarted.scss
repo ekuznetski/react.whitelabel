@@ -1,0 +1,128 @@
+@import '~/variables';
+@import '~/mixin';
+
+.simple-to-get-started {
+  background: $grey-bg;
+  color: $dark-text;
+
+  &__header {
+    @include display((xs: block, lg: flex));
+    @include col((xs:12, lg:3));
+    flex-direction: column;
+
+    &.col {
+      @include mb((xs:10, lg:0));
+      @include pr((lg:0));
+    }
+
+
+    .header {
+      &__title {
+        @include textAlign((xs: center, lg: left));
+        @include fontSize((xs: 48px, lg: 60px));
+        @include lineHeight((xs: 58px, lg: 80px));
+        font-family: $font-family1;
+        font-weight: 700;
+
+        br {
+          @include display((xs: none, lg: block));
+        }
+
+        b {
+          font-weight: 700;
+          display: inline;
+          color: $blue;
+        }
+      }
+
+      &__description {
+        @include textAlign((xs: center, lg: left));
+        @include mt((xs: 7, lg: auto));
+      }
+    }
+  }
+
+
+  &__steps {
+    @include col((xs:12, lg: 9));
+    @include mr((xs: sp(9, n)));
+
+    .row {
+      @include ml((md: sp(8, n), lg: 9));
+      @include mr((md: 0, lg: 6, xl: 4), n);
+    }
+
+    .steps {
+      &__item {
+        @include col((xs:12, md:4));
+        @include mb((xs:7, lg:0));
+        @include pl((xs: 8, lg:8, xl: 10));
+        @include pr((xs: 5, md: 0, lg:6, xl: 4));
+
+        &:last-child {
+          @include mb((xs:0));
+        }
+
+        .step {
+          @include height((xs: 128px, md: 216px));
+          @include mt((xs:0, md:8));
+          @include p((xs: 7, xl:9));
+          @include pt((xs: 7, md:12, xl:13));
+          @include pl((xs: 17, md:10, xl:12));
+
+          background: #fff;
+          position: relative;
+
+          &-title {
+            @include d-flex();
+            @include mb((xs:2, md:7));
+
+            @include fontSize((xs: 18px));
+            @include lineHeight((xs: 28px));
+            font-family: $font-family1;
+            font-weight: 700;
+
+            &-number {
+              @include d-flex(center);
+
+              @include mr((xs:5));
+              @include ml((xs:3), n);
+
+              @include fontSize((xs: 60px));
+              @include lineHeight((xs: 65px));
+              font-weight: 900;
+              color: $blue;
+
+              @include top((xs: sp(12), md: sp(9, n)));
+              @include left((xs: sp(3, n)));
+              position: absolute;
+
+              &:before {
+                content: '';
+                display: inline-block;
+                width: 46px;
+                height: 58px;
+                background: url('assets/logo_X.png') 50% 50% no-repeat;
+                background-size: cover;
+                margin-right: sp(4);
+              }
+            }
+          }
+
+          &-context {
+            @include fontSize((xs: 16px, md:16px));
+            @include lineHeight((xs: 22px, md:26px));
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    &__steps {
+      .step {
+        @include d-flex(start, center, column);
+      }
+    }
+  }
+}

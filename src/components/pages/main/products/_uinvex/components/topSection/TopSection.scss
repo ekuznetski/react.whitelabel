@@ -1,39 +1,41 @@
 @import '~/variables';
+@import '~/mixin';
 
 .product-wrapper {
   .page-top {
-    height: 344px;
-    padding-top: 92px !important;
+    @include mt((xs: $menu-height-main-sm, md: $menu-height-main-md, lg: $menu-height-main-lg));
+    @include height((xs: 422px, md:336px, lg:344px));
     display: flex;
     align-items: center;
     background: #1a1b1c;
     color: #fff;
 
     .section-bg .secondary-bg {
-      height: 436px;
+      @include height((xs: 495px, md:421px, lg:436px));
+      background-position: calc(50% + 8px) 50% !important;
+    }
+
+    .container {
+      @include mt((md: 40px, lg: 20px), n);
     }
 
     &__title {
-      font-size: 40px;
-      line-height: 50px;
+      @include fontSize((xs: 32px, md: 44px, lg: 48px));
+      @include lineHeight((xs: 40px, md: 64px, lg: 64px));
+      @include width((xs: 330px, md: auto));
+      @include mx((xs: auto));
       color: $dark-text;
 
       span {
         font-weight: bold;
       }
     }
+
     .nav-buttons {
       position: relative;
       width: fit-content;
       background: white;
       border-radius: 25px;
-      @media (min-width: 768px) {
-        justify-content: center;
-      }
-      @media (max-width: 767px) {
-        justify-content: space-between;
-        max-width: 75vw;
-      }
 
       .col {
         flex-grow: 0;
@@ -41,11 +43,13 @@
 
         button {
           width: 100%;
+          height: $btn-size-md;
           color: $text;
           font-size: 14px;
           background: transparent;
           transition: color 0.2s;
           white-space: nowrap;
+
           &:hover {
             color: $dark-text;
             box-shadow: none;
@@ -59,10 +63,6 @@
           }
         }
       }
-    }
-
-    @media (max-width: $viewport-lg-w) {
-      height: 500px;
     }
 
     @media (max-width: $viewport-md-w) {

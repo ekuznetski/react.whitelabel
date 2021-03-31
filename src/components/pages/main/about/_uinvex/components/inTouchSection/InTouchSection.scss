@@ -3,9 +3,9 @@
 
 .about-wrapper {
   &__in-touch {
+    @include d-flex(center);
     background: $grey-bg;
     color: $dark-text;
-    @include d-flex(center, start, row);
     padding: 140px 0;
 
     .section-bg {
@@ -14,152 +14,72 @@
 
     .in-touch {
       &__title {
-        font-size: 44px;
-        line-height: 52px;
+        @include fontSize((xs: 32px, sm: 36px, lg: 44px));
+        @include lineHeight((xs: 40px, sm: 46px, lg: 52px));
+        @include mb((xs: 7, md: 9));
         font-family: $font-family1;
       }
 
       &__header {
-        flex: 0 0 colSizePrc(9);
-        max-width: colSizePrc(9);
-        padding: 0 sp(11);
+        @include col((xs: 12, lg: 9));
+        @include p((xs: 0 sp(5), sm: 0 sp(10), lg: 0 sp(6)));
+        @include textAlign((xs: left, sm: center));
         margin: auto;
       }
 
       &__description {
+        @include lineHeight((xs: 22px, sm: 26px));
+        @include mb((xs: 9, md: 11, lg: 13));
         font-size: 16px;
-        line-height: 26px;
       }
 
       &__cards {
+        &-container {
+          @include col((xs: 12));
+          @include p((xs: 0));
+        }
+
         .common-cards {
           &__container {
+            @include flexFlow((xs: row wrap, sm: wrap));
+            @include justifyContent((xs: center, sm: unset));
+
             .card {
-              flex: 0 0 colSizePrc(4);
-              max-width: colSizePrc(4);
-              padding: 0 10px;
+              @include col((xs: 12, sm: 4));
             }
           }
+
           &__item {
+            @include d-flex(center, flex-start, column);
+            @include justifyContent((xs: center, md: flex-start));
+            @include alignItems((xs: flex-start, sm: center));
+            @include height((xs: initial, sm: 170px, md: 200px));
+            @include p((xs: sp(8) sp(11), sm: sp(11) sp(3)));
             background: linear-gradient(0.35deg, #262a4b 0.29%, #44486c 99.67%);
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
             border-radius: 6px;
-            height: 200px;
-            @include d-flex(center, center, column);
-            padding: sp(11) sp(9);
 
             &-header {
+              @include fontSize((xs: 48px, sm: 36px, lg: 44px));
+              @include lineHeight((xs: 58px, sm: 46px, lg: 52px));
+              @include mb((xs: sp(2), sm: sp(7)));
               font-weight: 700;
-              font-size: 44px;
-              line-height: 52px;
               text-transform: capitalize;
               color: #ffffff;
-              margin-bottom: 20px;
               font-family: $font-family1;
 
               span {
-                color: $blue;
+                color: $uinvex-blue;
                 font-weight: 400;
               }
             }
 
             &-content {
+              @include lineHeight((xs: 22px, sm: 26px));
+              @include textAlign((xs: left, sm: center));
               font-size: 16px;
               line-height: 26px;
               color: #ffffff;
-              text-align: center;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  @media (max-width: $viewport-lg-w) {
-    &__in-touch {
-      .in-touch {
-        &__title {
-          font-size: 36px;
-          line-height: 46px;
-        }
-
-        &__header {
-          flex: 0 0 colSizePrc(12);
-          max-width: colSizePrc(12);
-          padding: 0 sp(10);
-        }
-
-        &__cards {
-          .cards-nav {
-            display: none;
-          }
-
-          &-container {
-            flex: 0 0 100%;
-            max-width: 100%;
-          }
-
-          .common-cards {
-            &__item {
-              &-observer {
-                display: none;
-              }
-
-              &-header {
-                font-size: 36px;
-                line-height: 46px;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  @media (max-width: $viewport-sm-w) {
-    .in-touch {
-      &__title {
-        font-size: 32px;
-        line-height: 40px;
-      }
-
-      &__header {
-        padding: 0 sp(7);
-        text-align: left !important;
-      }
-
-      &__description {
-        line-height: 22px;
-        margin-bottom: sp(9) !important;
-      }
-
-      &__cards {
-        .common-cards {
-          &__container {
-            flex-flow: row wrap;
-            justify-content: center;
-
-            .card {
-              flex: 0 0 100%;
-              max-width: 100%;
-              padding: 0 5px;
-            }
-          }
-
-          &__item {
-            height: initial;
-            align-items: flex-start;
-            padding: sp(8) sp(11);
-
-            &-header {
-              font-size: 48px;
-              line-height: 58px;
-              margin-bottom: sp(2);
-            }
-
-            &-content {
-              text-align: left;
-              line-height: 22px;
             }
           }
         }

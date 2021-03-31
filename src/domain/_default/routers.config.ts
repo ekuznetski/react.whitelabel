@@ -1,6 +1,5 @@
 import * as Action from '@store';
 import * as Page from '@components/pages';
-import { NotFound } from '@core/404/404';
 import i18n from '@i18next';
 import { EAppSection, EPagePath, EResponseStatus, ETradingType } from '@domain/enums';
 import { IRouteNavConfig, IRouteRedirectConfig, IRoutesInitialApiData } from '@domain/interfaces';
@@ -367,7 +366,7 @@ export const routesNavConfig: IRouteNavConfig[] = [
       title: meta_t('Not Found:title'),
     },
     path: EPagePath.NotFound,
-    component: NotFound,
+    component: Page.NotFound,
     appSection: EAppSection.general,
   },
   {

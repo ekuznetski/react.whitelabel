@@ -18,7 +18,6 @@ $grey-bg-light: #fff;
 $grey-bg: #f5f6f8;
 $dark-grey: #aeb6c8;
 $light-grey: #f5f6f8;
-$grey: #aeb6c8;
 
 $red: #ec464c;
 $light-red: #fef6f6;
@@ -42,6 +41,14 @@ $container-max-widths: (sm: 544px,
   xl: 1126.66px,
 );
 
+// Form Elements
+$form-elements-height: 48px;
+
+$input-height: $form-elements-height;
+$button-height: $form-elements-height;
+$datepicker-height: $form-elements-height;
+$radio-height: $form-elements-height;
+$select-height: 46px;
 
 // Main Menu
 $menu-height-main-lg: 60px;
@@ -51,6 +58,14 @@ $menu-height-main-fixed-lg: 60px;
 $menu-height-main-fixed-md: 60px;
 $menu-height-main-fixed-sm: 58px;
 
+// Notification
+$notification-top-main-lg: 90px;
+$notification-top-main-md: 48px;
+$notification-top-main-sm: 88px;
+$notification-top-main-fixed-lg: 68px;
+$notification-top-main-fixed-md: 60px;
+$notification-top-main-fixed-sm: 58px;
+
 // Portal Menu
 $menu-height-portal-lg: 80px;
 $menu-height-portal-md: 70px;
@@ -58,6 +73,9 @@ $menu-height-portal-sm: 70px;
 $menu-height-portal-fixed-lg: 80px;
 $menu-height-portal-fixed-md: 70px;
 $menu-height-portal-fixed-sm: 70px;
+
+// Portal Desktop Dropdown Menu
+$menu-dropdown-height-portal: 75px;
 
 // Fonts
 $font-family: 'Mulish',

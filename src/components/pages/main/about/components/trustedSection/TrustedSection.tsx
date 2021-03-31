@@ -1,4 +1,4 @@
-import { Cards } from '@components/shared';
+import { Cards, Col, Container, Row } from '@components/shared';
 import { config, locale } from '@pages/main/about';
 import React, { memo } from 'react';
 import './TrustedSection.scss';
@@ -6,22 +6,22 @@ import './TrustedSection.scss';
 export const TrustedSection = memo(function TrustedSection() {
   return (
     <section className="about-wrapper__trusted">
-      <div className="container">
-        <div className="row">
-          <div className="trusted__text col-lg-8 mx-auto text-center">
-            <div className="trusted__title mb-9">{locale.trustedTitle}</div>
-            <div className="trusted__description mb-13">{locale.trustedDescription}</div>
-          </div>
-          <div className="trusted__cards-container col-12 col-sm-6 col-md-12 p-0 mx-sm-auto">
+      <Container>
+        <Row>
+          <Col className="trusted__text">
+            <div className="trusted__title">{locale.trustedTitle}</div>
+            <div className="trusted__description">{locale.trustedDescription}</div>
+          </Col>
+          <Col className="trusted__cards-container">
             <Cards
               id="trustedCards"
               className="trusted__cards"
               cards={config.trustedCards}
-              cardWrapperClass="card col-12 col-md-6 col-lg-3 mb-9 mb-lg-0"
+              cardWrapperClass="card col"
             />
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </section>
   );
 });

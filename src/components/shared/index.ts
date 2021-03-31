@@ -1,4 +1,5 @@
 // Components Kit
+export * from './backButton/BackButton';
 export * from './img/Img';
 export * from './svg/Svg';
 export * from './form/select/Select';
@@ -24,6 +25,7 @@ export * from './map/Map';
 export * from './form/upload/Upload';
 
 // Elements
+export * from './depositCards/DepositCards';
 export * from './labelView/LabelView';
 export * from './sectionBg/SectionBg';
 export * from './pageTitle/PageTitle';

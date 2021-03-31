@@ -1,5 +1,5 @@
 import { Col, Container, Img, LocaleLink, Row, Svg } from '@components/shared';
-import { EAssetClass, EPagePath } from '@domain/enums';
+import { EAssetClass, EAssetsIcons, EPagePath } from '@domain/enums';
 import { IPriceCarouselItem, IPriceTabInfo, IPriceTabItem, IPriceTabMenu, IPrices } from '@domain/interfaces';
 import { config } from '@pages/main/home';
 import { IStore, ac_fetchPrices } from '@store';
@@ -158,6 +158,7 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
   const wrapper = createRef<HTMLDivElement>();
   const container = createRef<HTMLDivElement>();
   const responsive = useResponsive();
+  const _slidesPerView = config.priceSectionCarousel.slidesPerView(responsive);
 
   useEffect(() => {
     if (container.current && _item.current) {
@@ -167,8 +168,7 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
 
   useEffect(() => {
     if (wrapper.current && _item.current) {
-      wrapper.current.style.width =
-        _item.current.clientWidth * config.priceSectionCarousel.slidesPerView(responsive) + 'px';
+      wrapper.current.style.width = _item.current.clientWidth * _slidesPerView + 'px';
     }
   }, [responsive]);
 
@@ -191,14 +191,14 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
               {...carousel}
               key={c}
               ref={c === 0 ? _item : null}
-              active={c >= activeIndex && c < activeIndex + 3}
+              active={c >= activeIndex && c < activeIndex + _slidesPerView}
             />
           ))}
         </div>
       </div>
       <div
-        className={classNames('carousel-right', activeIndex == priceData.length - 3 && 'disabled')}
-        onClick={() => activeIndex < priceData.length - 3 && setActiveIndex(activeIndex + 1)}
+        className={classNames('carousel-right', activeIndex == priceData.length - _slidesPerView && 'disabled')}
+        onClick={() => activeIndex < priceData.length - _slidesPerView && setActiveIndex(activeIndex + 1)}
       >
         <Svg href="chevron_right" width={30} height={30} />
       </div>
@@ -206,7 +206,7 @@ function StockPricesChartCarousel({ priceData, currentAsset }: IPriceTabItem & {
   );
 }
 
-const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref: any) => {
+const StockPricesChartCarouselItem = forwardRef(function StockPricesChartCarouselItem(props: IPriceCarouselItem, ref: any) {
   const { t } = useTranslation();
   const color = props.variation >= 0 ? '#40D9A2' : '#EC3838';
   const _data = props.points.map((p) => ({ p: p / 1 }));
@@ -216,7 +216,10 @@ const StockPricesChartCarouselItem = forwardRef((props: IPriceCarouselItem, ref:
       <div className={classNames('carousel-item', props.className, props.active && 'active')}>
         <div className="carousel-item__header p-4">
           {config.priceSectionChartSettings.showAssetIcon && (
-            <Img src={`assets/${props.name.replace(/\W/g, '')}.png`} className={'assets-icon'} />
+            <Img
+              src={`assets/${EAssetsIcons[(props.name.trim() as unknown) as number]}.png`}
+              className={'assets-icon'}
+            />
           )}
           <div className="title mb-1">{props.name}</div>
           <div className="variation">

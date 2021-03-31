@@ -37,21 +37,21 @@ export const AccountTypesForTradingStylesSection = memo(
       <section className={classNames('account-types-for-trading-styles-section', props.className)} ref={ref}>
         <Container>
           <Row>
-            <Col xs={12} className="account-types-for-trading-styles-section__title mb-10">
+            <Col xs={12} className="account-types-for-trading-styles-section__title mb-7 mb-md-10">
               <Trans i18nKey="Account Types Secure Title">
                 <b>Our transparency</b> will help you choose
               </Trans>
             </Col>
-            <Col xs={12} md={8} lg={7} className="account-types-for-trading-styles-section__description mb-10 mx-auto">
+            <Col xs={12} md={9} lg={7} className="account-types-for-trading-styles-section__description mb-10 mx-auto">
               {t('Account Types Secure Desc')}
             </Col>
           </Row>
           <Row>
             <Col xs={12} className="account-types-for-trading-styles-section__content p-0">
-              <Cards id="accountTypesForTradingStylesSectionCards">
+              <Cards id="accountTypesForTradingStylesSectionCards" mobileNavigation>
                 {cards.map((card, idx) => (
-                  <Card key={idx} wrapperClassName="col-12 col-md-6 col-lg-5 col-xl-4 mb-7 mb-md-0" uid={idx}>
-                    <CardHeader className="mb-4 header">
+                  <Card key={idx} wrapperClassName="col" uid={idx}>
+                    <CardHeader className="header">
                       {card.title}
                       <div className="icon ml-auto">
                         <Svg href={card.icon} />

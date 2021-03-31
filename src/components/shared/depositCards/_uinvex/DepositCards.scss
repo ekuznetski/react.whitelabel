@@ -1,0 +1,96 @@
+@import '~/variables';
+@import '~/mixin';
+
+.deposit__cards-wrapper {
+    .deposit__cards {
+        .card {
+            @include col((xs: 12, sm: 4));
+            @include p((xs: 0 sp(5)))
+        }
+
+        .common-cards {
+            &__container {
+                @include flexFlow((xs: row wrap, md: row nowrap));
+            }
+
+            &__item {
+                @include height((xs: 100px, sm: 170px, md: 200px));
+                @include p((xs: 0, sm: 0 sp(2), md: sp(11) sp(10)));
+                justify-content: center;
+                text-align: center;
+                background: linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
+                box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+
+                svg {
+                    fill: $blue;
+                }
+
+                &-header {
+                    @include fontSize((xs: 48px, md: 44px));
+                    @include lineHeight((xs: 58px, md: 64px, lg: 52px));
+                    justify-content: center;
+                    font-family: $font-family1;
+                    font-weight: 700;
+                    text-align: center;
+                    color: $blue;
+
+                    span {
+                        font-weight: 400;
+                    }
+                }
+
+                &-content {
+                    @include fontSize((xs: 20px, md: 22px));
+                    @include lineHeight((xs: 28px, md: 30px, lg: 34px));
+                    @include textAlign((xs: left, sm: center));
+                    justify-content: center;
+
+                    small {
+                        @include fontSize((xs: 14px, md: 16px));
+                        @include lineHeight((xs: 18px, md: 26px));
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        @media (max-width: $viewport-sm-w) {
+            .card {
+                &:first-child {
+                    padding-top: 0;
+                }
+
+                &:last-child {
+                    padding-bottom: 0;
+                }
+            }
+
+            .common-cards {
+                &__container {
+                    justify-content: center;
+                }
+
+                &__item {
+                    flex-direction: row;
+                    align-items: center;
+
+                    &-header {
+                        @include d-flex(center, center);
+                        width: 120px;
+                        min-width: 120px;
+                        margin-bottom: 0;
+                        border-right: solid 1px $border-grey;
+
+                        svg {
+                            margin-right: 8px;
+                        }
+                    }
+
+                    &-content {
+                        margin-left: sp(9);
+                    }
+                }
+            }
+        }
+    }
+}

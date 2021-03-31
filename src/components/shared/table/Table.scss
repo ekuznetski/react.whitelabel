@@ -2,63 +2,75 @@
 @import '~/mixin';
 
 .common-table-wrapper {
-  table.common-table {
+  .common-table {
+    display: grid;
+    grid-template-rows: 70px;
+    grid-auto-rows: 70px;
     width: 100%;
+    border-collapse: collapse;
     border-radius: $border-box-radius;
     box-shadow: box-shadow(15, 0.1);
 
-    thead {
-      box-shadow: box-shadow(15, 0.066);
 
-      th {
-        height: 70px;
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 24px;
-        color: $text;
-      }
+    .th,
+    .td {
+      @include px((xs: 2));
+      height: 100%;
+      width: 100%;
+      @include d-flex(center, center);
+      flex-wrap: wrap;
     }
 
-    tbody {
-      tr {
-        border-bottom: 1px solid $grey;
-        box-sizing: border-box;
-        transition: background 0.3s;
+    .th {
+      box-shadow: box-shadow(15, 0.066);
+      clip-path: inset(0 0px -15px 0px);
 
-        &:hover {
-          background: $grey-bg;
-        }
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 24px;
+      color: $text;
+    }
 
-        td {
-          height: 70px;
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 24px;
-          color: $dark-text;
-          text-align: center;
-        }
+
+
+    .td {
+      border-bottom: 1px solid $grey;
+      box-sizing: border-box;
+      transition: background 0.3s;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: $dark-text;
+
+      &:hover {
+        background: $grey-bg;
       }
     }
   }
 
-  .toggleTableView {
+  .toggle-table-view {
+    margin-top: sp(8);
+    display: inline-flex;
+    align-items: center;
+
     cursor: pointer;
     font-weight: 500;
     font-size: 14px;
     line-height: 21px;
     color: $dark-blue;
-    display: flex;
-    align-items: center;
 
     &:hover {
       text-decoration: underline;
     }
 
-    svg {
-      fill: $dark-blue;
-
+    .common-svg {
       &.up {
         transform: rotate(180deg);
+        transform-origin: 50% 50%;
+      }
+
+      svg {
+        fill: $dark-blue;
       }
     }
   }

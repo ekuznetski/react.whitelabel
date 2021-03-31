@@ -1,13 +1,11 @@
-import { Button, Checkbox, CountrySelect, Input, PhoneCodeSelect } from '@components/shared';
+import { Button, Checkbox, Col, Container, CountrySelect, Input, PhoneCodeSelect, Row } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
 import { ENotificationType, countries } from '@domain/enums';
 import { IPartnershipIBRegistrationRequest } from '@domain/interfaces';
 import { EActionTypes, IStore, ac_partnershipRegisterIB, ac_showNotification } from '@store';
-import { useLabelName } from '@utils/hooks';
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import React, { memo } from 'react';
-import { Col, Container, Row } from '@components/shared';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
@@ -29,14 +27,13 @@ export const BrokersForm = memo(function BrokersForm() {
   }));
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const labelName = useLabelName();
 
   const validationSchema = Yup.object().shape({
-    [EFields.firstName]: FieldValidators.name,
-    [EFields.surName]: FieldValidators.name,
+    [EFields.firstName]: FieldValidators.firstName,
+    [EFields.surName]: FieldValidators.lastName,
     [EFields.email]: FieldValidators.email,
     [EFields.company]: FieldValidators.company,
-    [EFields.phone]: FieldValidators.numbers,
+    [EFields.phone]: FieldValidators.phone,
     [EFields.phone_prefix]: CustomFieldValidators.country,
     [EFields.country]: Yup.mixed().required(),
     [EFields.address]: FieldValidators.street,

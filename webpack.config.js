@@ -7,7 +7,6 @@ const fs = require('fs');
 const glob = require('glob');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const tsConfig = require('./tsconfig.json');
-const postcssAssets = require('postcss-assets');
 const webpack = require('webpack');
 
 /**
@@ -30,7 +29,7 @@ function fileParentFolder(filepath, targetLabelFolder) {
   const _path = path.dirname(filepath).replace(/[\\/]/g, '/').replace(`/${targetLabelFolder}`, '');
   return {
     parentFolderPath: _path,
-    parentFolderName: _path.split('/').pop()
+    parentFolderName: _path.split('/').pop(),
   };
 }
 
@@ -54,42 +53,43 @@ function InlineImportsLabelResolver(props) {
     folderPath = folderPath.replace('./src/', '');
 
     return Object.assign(acc, {
-      [folderPath]: Object.assign({}, acc[folderPath], { [filePath]: props[__path__] })
+      [folderPath]: Object.assign({}, acc[folderPath], { [filePath]: props[__path__] }),
     });
   }, {});
   const aliasFoldersPath = Object.keys(alias);
 
   // resolve the import of the files ( original import to target label file import )
-  return new function (source, target) {
+  return new (function (source, target) {
     this.source = source || 'resolve';
     this.target = target || 'resolve';
 
     this.apply = function (resolver) {
       var target = resolver.ensureHook(this.target);
-      resolver.getHook(this.source).tapAsync('InlineImportsLabelResolver', function (request, resolveContext, callback) {
-        if (!request.path.includes('node_modules')) {
-          const targetAliasesKey = aliasFoldersPath.find((aliasFolderPath) => {
-            return request.path.search(new RegExp(`(${aliasFolderPath.replace(/\//g, '\\\\')}|${aliasFolderPath})$`)) !== -1;
-          });
-          const targetAliases = targetAliasesKey ? alias[targetAliasesKey] : false;
-
-          if (targetAliasesKey
-            && targetAliases
-            && targetAliases[request.request]
-          ) {
-            var obj = Object.assign({}, request, {
-              request: targetAliases[request.request],
+      resolver
+        .getHook(this.source)
+        .tapAsync('InlineImportsLabelResolver', function (request, resolveContext, callback) {
+          if (!request.path.includes('node_modules')) {
+            const targetAliasesKey = aliasFoldersPath.find((aliasFolderPath) => {
+              return (
+                request.path.search(new RegExp(`(${aliasFolderPath.replace(/\//g, '\\\\')}|${aliasFolderPath})$`)) !==
+                -1
+              );
             });
-            return resolver.doResolve(target, obj, null, resolveContext, callback);
+            const targetAliases = targetAliasesKey ? alias[targetAliasesKey] : false;
+
+            if (targetAliasesKey && targetAliases && targetAliases[request.request]) {
+              var obj = Object.assign({}, request, {
+                request: targetAliases[request.request],
+              });
+              return resolver.doResolve(target, obj, null, resolveContext, callback);
+            }
           }
-        }
 
-        callback();
-      });
+          callback();
+        });
     };
-  };
+  })();
 }
-
 
 module.exports = (_env, arguments) => {
   const env = {
@@ -172,7 +172,10 @@ module.exports = (_env, arguments) => {
               default:
                 // FOR CHILDE COMPONENTS OF PAGE TYPE COMPONENT
                 return Object.assign(acc, {
-                  [`${parentFolderPath.replace(`/${parentFolderName}`, '')}@#@./${parentFolderName}/${filename}`]: `../${targetLabelFolder}/components/${parentFolderName}/${filenamePrefix}${filename}`,
+                  [`${parentFolderPath.replace(
+                    `/${parentFolderName}`,
+                    '',
+                  )}@#@./${parentFolderName}/${filename}`]: `../${targetLabelFolder}/components/${parentFolderName}/${filenamePrefix}${filename}`,
                 });
             }
         }
@@ -196,7 +199,10 @@ module.exports = (_env, arguments) => {
               default:
                 // ONLY FOR PAGE TYPE COMPONENT REPLACEMENT
                 return Object.assign(acc, {
-                  [`${parentFolderPath.replace(`/${parentFolderName}`, '')}@#@./${parentFolderName}/${filename}`]: `./${parentFolderName}/${targetLabelFolder}/${filenamePrefix}${filename}`,
+                  [`${parentFolderPath.replace(
+                    `/${parentFolderName}`,
+                    '',
+                  )}@#@./${parentFolderName}/${filename}`]: `./${parentFolderName}/${targetLabelFolder}/${filenamePrefix}${filename}`,
                 });
             }
         }
@@ -324,9 +330,11 @@ module.exports = (_env, arguments) => {
     mode: 'development',
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.json', '.sass', '.scss', '.css'],
-      plugins: [InlineImportsLabelResolver({
-        ...targetLabelComponentsAlias,
-      })],
+      plugins: [
+        InlineImportsLabelResolver({
+          ...targetLabelComponentsAlias,
+        }),
+      ],
       alias: {
         'react-dom': '@hot-loader/react-dom',
         ...targetLabelEnvAlias,
@@ -334,7 +342,7 @@ module.exports = (_env, arguments) => {
         ...targetLabelLocaleAlias,
         ...targetLabelConfigsAlias,
         ...targetLabelPrototypesAlias,
-        ...targetLabelUtilsAlias
+        ...targetLabelUtilsAlias,
       },
     },
     devtool: 'inline-source-map',
@@ -349,25 +357,10 @@ module.exports = (_env, arguments) => {
                 hmr: !env.PRODUCTION,
               },
             },
-            'css-loader',
             {
-              loader: 'postcss-loader',
+              loader: 'css-loader',
               options: {
-                postcssOptions: {
-                  plugins: [
-                    [
-                      postcssAssets({
-                        basePath: path.join(__dirname, 'src/'),
-                        loadPaths: [
-                          'assets/img/',
-                          'assets/svg/',
-                          `assets/${targetLabelFolder}/img/`,
-                          `assets/${targetLabelFolder}/svg/`,
-                        ],
-                      }),
-                    ],
-                  ],
-                },
+                url: false,
               },
             },
             {
@@ -391,19 +384,21 @@ module.exports = (_env, arguments) => {
                       newContent = newContent.replace(`~/${filename}`, relativePath);
                     });
 
-
                     const componentFile = componentsFilepaths.find((filePath) => {
                       const { filenamePrefix, filename: _filename, extension } = filePathDestructor(filePath);
                       const { parentFolderPath } = fileParentFolder(filePath, targetLabelFolder);
-                      const { parentFolderPath: resourceFolderPath } = fileParentFolder(resourcePath, targetLabelFolder);
+                      const { parentFolderPath: resourceFolderPath } = fileParentFolder(
+                        resourcePath,
+                        targetLabelFolder,
+                      );
 
-                      return filenamePrefix
-                        && (
-                          resourceFolderPath.includes(parentFolderPath.replace('./src/', '').replace(/\//g, '\\'))
-                          || resourceFolderPath.includes(parentFolderPath.replace('./src/', ''))
-                        )
-                        && _filename === filename
-                        && extension === 'scss';
+                      return (
+                        filenamePrefix &&
+                        (resourceFolderPath.includes(parentFolderPath.replace('./src/', '').replace(/\//g, '\\')) ||
+                          resourceFolderPath.includes(parentFolderPath.replace('./src/', ''))) &&
+                        _filename === filename &&
+                        extension === 'scss'
+                      );
                     });
 
                     if (componentFile) {
@@ -465,13 +460,13 @@ module.exports = (_env, arguments) => {
                     '@babel/preset-env',
                     !env.PRODUCTION
                       ? {
-                        modules: false,
-                      }
+                          modules: false,
+                        }
                       : {
-                        targets: {
-                          node: 'current',
+                          targets: {
+                            node: 'current',
+                          },
                         },
-                      },
                   ],
                   '@babel/preset-react',
                   '@babel/preset-typescript',
@@ -500,32 +495,28 @@ module.exports = (_env, arguments) => {
             flatten: true,
             to: 'assets/',
             globOptions: {
-              ignore: [
-                ...excludeAssets.map((asset) => `**/${asset}/**`),
-              ],
+              ignore: [...excludeAssets.map((asset) => `**/${asset}/**`)],
             },
           },
           {
             from: 'assets/(img|svg)/*',
             to({ context, absoluteFilename }) {
-              return `${path.relative(context, absoluteFilename)
+              return `${path
+                .relative(context, absoluteFilename)
                 .replace(/[\\/]/g, '/')
-                .replace(new RegExp(`(img|svg)/`), '')
-                }`;
+                .replace(new RegExp(`(img|svg)/`), '')}`;
             },
             globOptions: {
-              ignore: [
-                ...excludeAssets.map((asset) => `**/${asset}/**`),
-              ],
+              ignore: [...excludeAssets.map((asset) => `**/${asset}/**`)],
             },
           },
           {
             from: `assets/${targetLabelFolder}/(img|svg)/**/*`,
             to({ context, absoluteFilename }) {
-              return `${path.relative(context, absoluteFilename)
+              return `${path
+                .relative(context, absoluteFilename)
                 .replace(/[\\/]/g, '/')
-                .replace(new RegExp(`${targetLabelFolder}/(img|svg)/`), '')
-                }`;
+                .replace(new RegExp(`${targetLabelFolder}/(img|svg)/`), '')}`;
             },
             // flatten: true,
             force: true,

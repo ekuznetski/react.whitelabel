@@ -83,48 +83,49 @@ export const DatePicker = memo(
     }
 
     return (
-      <div
-        className={classNames(
-          'field datepicker mb-8',
-          !!label && 'with-label',
-          className,
-          meta?.touched && meta?.error && 'field-error',
-          state.isFocused && 'focused',
-          state.isFilled && 'filled',
-          _disabled && 'disabled',
-        )}
-        ref={_ref}
-      >
-        {!!label && (
-          <label className="label" htmlFor={props.name}>
-            {label}
-          </label>
-        )}
-        <Svg href="calendar" height={28} />
-        <input
-          value={_value()}
-          onFocus={onFocusHandler}
-          onClick={onFocusHandler}
-          readOnly
-          onChange={(e) => e.preventDefault()}
-        />
-        <DropDown
-          className={classNames('datepicker', state.isFocused && 'focused')}
-          parentRef={_ref}
-          isOpen={isOpen}
-          isOpenDispatcher={setOpen}
-          width={range ? state.dropDownWidth : 255}
-          noArrow={true}
-          alignToParentLeft={false}
+      <div className={classNames('field datepicker mb-8', className)} ref={_ref}>
+        <div
+          className={classNames(
+            'datepicker-wrapper',
+            !!label && 'with-label',
+            meta?.touched && meta?.error && 'field-error',
+            state.isFocused && 'focused',
+            state.isFilled && 'filled',
+            _disabled && 'disabled',
+          )}
         >
-          <DayPicker
-            className={range ? 'range' : ''}
-            numberOfMonths={range && responsive.sm ? 2 : 1}
-            selectedDays={range ? [state.from, { from: state.from, to: state.to }] : state.from}
-            modifiers={range ? { start: state.from, end: state.to } : { selectedDay: state.from }}
-            onDayClick={handleDayClick}
+          {!!label && (
+            <label className="label" htmlFor={props.name}>
+              {label}
+            </label>
+          )}
+          <Svg href="calendar" height={28} />
+          <input
+            disabled={_disabled}
+            value={_value()}
+            onFocus={onFocusHandler}
+            onClick={onFocusHandler}
+            readOnly
+            onChange={(e) => e.preventDefault()}
           />
-        </DropDown>
+          <DropDown
+            className={classNames('datepicker', state.isFocused && 'focused')}
+            parentRef={_ref}
+            isOpen={isOpen}
+            isOpenDispatcher={setOpen}
+            width={range ? state.dropDownWidth : 255}
+            noArrow={true}
+            alignToParentLeft={false}
+          >
+            <DayPicker
+              className={range ? 'range' : ''}
+              numberOfMonths={range && responsive.sm ? 2 : 1}
+              selectedDays={range ? [state.from, { from: state.from, to: state.to }] : state.from}
+              modifiers={range ? { start: state.from, end: state.to } : { selectedDay: state.from }}
+              onDayClick={handleDayClick}
+            />
+          </DropDown>
+        </div>
         {meta?.touched && meta?.error ? <div className="error">{meta.error}</div> : null}
       </div>
     );

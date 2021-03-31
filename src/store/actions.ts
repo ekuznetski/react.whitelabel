@@ -413,6 +413,12 @@ export function ac_fetchTransactionalStatements(
   };
 }
 
+export function ac_clearTransactionalStatements(): IAction {
+  return {
+    type: EActionTypes.clearTransactionalStatements,
+  };
+}
+
 export function ac_saveTransactionalStatements(payload: MTransactionalStatementData): IAction {
   return {
     type: EActionTypes.saveTransactionalStatements,

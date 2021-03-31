@@ -1,28 +1,46 @@
 @import '~/variables';
+@import '~/mixin';
 
 .about-wrapper {
   &__in-touch {
-    display: flex;
-    align-items: center;
+    @include d-flex(center);
     background: #1a1b1c;
-    color: #fff;
     padding: 140px 0;
+    color: #fff;
 
     .in-touch {
+      &__header {
+        @include col((lg: 8));
+        @include offset((lg: 2));
+        text-align: center;
+      }
+
       &__title {
+        @include mb((xs:7));
         font-size: 36px;
         line-height: 46px;
       }
 
       &__description {
+        @include mb((xs:13));
         font-size: 18px;
         line-height: 30px;
       }
 
       &__cards {
+        .card {
+          @include col((xs: 12, md: 4));
+          @include mb((xs: 9, md: 0));
+        }
+
+        &-container {
+          @include col((xs: 12, sm: 8, md: 12));
+          @include mx((sm: auto));
+        }
+
         .common-cards__item {
+          @include height((xs: 200px, lg: 180px));
           background: rgba(255, 255, 255, 0.05);
-          height: 180px;
           justify-content: flex-start;
 
           &-header {
@@ -31,19 +49,13 @@
             line-height: 50px;
             text-transform: capitalize;
             color: $blue;
-            margin-bottom: 20px;
+            margin-bottom: sp(7);
           }
 
           &-content {
             font-size: 16px;
             line-height: 26px;
             color: #ffffff;
-          }
-        }
-
-        @media (max-width: $viewport-lg-w) {
-          .common-cards__item {
-            height: 200px;
           }
         }
       }

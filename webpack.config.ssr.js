@@ -1,4 +1,5 @@
 const nodeExternals = require('webpack-node-externals');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const path = require('path');
 const _config = require('./webpack.config');
 
@@ -22,6 +23,18 @@ module.exports = (_env = {}, arguments) => {
       filename: 'server.js',
     },
     module: configModule,
-    plugins: [...configPlugins.slice(0, -2)],
+    plugins: [
+      ...configPlugins.slice(0, -2),
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            'advanced',
+            {
+              discardComments: { removeAll: true },
+            },
+          ],
+        },
+      }),
+    ],
   };
 };

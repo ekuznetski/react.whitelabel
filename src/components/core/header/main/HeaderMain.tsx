@@ -11,7 +11,6 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useIntercom } from 'react-use-intercom';
 import { ProfileMenu } from './components';
 import './HeaderMain.scss';
 
@@ -22,7 +21,6 @@ export function HeaderMain(props: IHeaderDefaultProps) {
   const _mainRoutesConfig = routesNavConfig.filter((route) => route.menuItem && route.appSection === EAppSection.main);
   const [isBurgerMenuOpen, setOpenBurgerMenu] = useState(false);
   const { setScrollLock } = useLockScroll();
-  const { shutdown, boot } = useIntercom();
   const responsive = useResponsive();
   const { t } = useTranslation();
 
@@ -36,9 +34,6 @@ export function HeaderMain(props: IHeaderDefaultProps) {
 
   useEffect(() => {
     setScrollLock(isBurgerMenuOpen, 300);
-    if (env.PRODUCTION) {
-      isBurgerMenuOpen ? shutdown() : boot();
-    }
   }, [isBurgerMenuOpen]);
 
   return (

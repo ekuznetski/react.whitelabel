@@ -1,0 +1,75 @@
+@import '~/variables';
+@import '~/mixin';
+
+.legal-forms-wrapper {
+  .common-cards {
+    .cards-nav {
+      display: none;
+    }
+
+    .common-cards__item {
+      @include height((xs: 160px, lg: 106px));
+      @include p((xs: 9));
+
+      &-content {
+        @include alignItems((xs:start, lg: center));
+        @include justifyContent((xs:space-between, lg: start));
+        @include flexDirection((xs: column, lg: row));
+        display: flex;
+        height: 100%;
+      }
+
+      .document {
+        &-title {
+          @include d-flex(center, center, row);
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 28px;
+          text-align: left;
+
+          @media (max-width: $viewport-lg-w) {
+            font-size: 20px;
+          }
+
+          .icon {
+            @include d-flex(center, center);
+            @include mr((xs: 2, lg: 3));
+            border-radius: 50%;
+            border: 1px solid $dark-grey;
+            box-shadow: box-shadow(10, 0.1);
+            min-height: 40px;
+            min-width: 40px;
+          }
+        }
+
+        &-button {
+          @include d-flex(center, center);
+          @include ml((xs: 0, lg: auto));
+          font-size: 14px;
+          line-height: 17px;
+          white-space: nowrap;
+          font-weight: 400;
+          text-decoration: underline;
+
+          @media (min-width: $viewport-lg-min-w) {
+            width: 160px;
+            text-decoration: none;
+            height: 40px;
+            border-radius: 4px;
+            background-color: #e4e9fb;
+          }
+
+          svg {
+            fill: $blue;
+            margin-right: 8px;
+            height: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .back-button-wrapper {
+    @include mt((xs:11, md:10));
+  }
+}

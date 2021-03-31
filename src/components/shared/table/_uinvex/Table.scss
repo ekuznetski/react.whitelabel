@@ -1,0 +1,133 @@
+@import '~/variables';
+@import '~/mixin';
+
+.common-table-wrapper {
+
+  .common-table-container {
+    border-radius: $border-box-radius;
+    border: 1px solid $border-grey;
+    overflow: hidden;
+
+    &.mobile-scroll {
+      @include hideScrollbar();
+      padding: 0;
+      overflow-y: hidden;
+      overflow-x: auto;
+    }
+  }
+
+  .common-table {
+    display: grid;
+    grid-template-rows: 40px;
+    grid-auto-rows: 70px;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: $border-box-radius;
+    box-shadow: none;
+
+    .th,
+    .td {
+      @include px((xs: 2));
+      height: 100%;
+      width: 100%;
+      @include d-flex(center, center);
+      flex-wrap: wrap;
+    }
+
+    .th {
+      background-color: $grey-bg;
+      box-shadow: none;
+
+      font-family: $font-family1;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 17px;
+      color: $text;
+
+      &:not(.col--first) {
+        justify-content: flex-start;
+      }
+
+    }
+
+
+    .td {
+      border-bottom: 1px solid $border-grey;
+      background-color: white;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      transition: background 0.3s;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: $dark-text;
+
+
+
+      &:hover {
+        background: transparent;
+      }
+
+      &.col--first {
+        img {
+          margin: auto;
+        }
+      }
+
+      &.row--last {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .toggle-table-view {
+    margin-top: sp(8);
+    display: inline-flex;
+    align-items: center;
+
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: $dark-blue;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    svg {
+      fill: $dark-blue;
+
+      &.up {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    .common-table {
+      grid-template-rows: 40px;
+      grid-auto-rows: 60px;
+
+      &-container {
+        &.mobile-scroll {
+          .common-table {
+            min-width: 640px;
+          }
+
+          .th.col--first,
+          .td.col--first {
+            position: sticky;
+            left: 0;
+            box-shadow: box-shadow(15, 0.1);
+          }
+        }
+      }
+
+      .tr .td {
+        line-height: 22px;
+        justify-content: flex-start;
+      }
+    }
+  }
+}

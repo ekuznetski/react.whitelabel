@@ -1,0 +1,111 @@
+@import '~/variables';
+@import '~/mixin';
+
+.leverage-wrapper {
+  &__page-top {
+    @include d-flex(center);
+   @include mt((xs: $menu-height-main-sm, md: $menu-height-main-md, lg: $menu-height-main-lg));
+    height: 608px;
+    color: $dark-text;
+
+    .page-top {
+      &__header {
+        @include col((md: 9, lg:5, xl: 6));
+
+        .note {
+          font-size: 14px;
+          line-height: 26px;
+          color: $text;
+        }
+      }
+
+      &__title {
+        @include mb((xs: 7, md: 9));
+        @include pr((lg: 4));
+        font-family: $font-family1;
+        font-size: 48px;
+        line-height: 64px;
+
+        b {
+          font-weight: 600;
+        }
+      }
+
+      &__description {
+        @include mb((xs: 11));
+        font-size: 22px;
+        line-height: 34px;
+      }
+    }
+
+    @media (max-width: $viewport-xl-w) {
+      .secondary-bg {
+        background-position-x: 60% !important;
+      }
+    }
+
+    @media (max-width: $viewport-lg-w) {
+      height: 628px;
+      align-items: flex-start;
+
+      .secondary-bg {
+        background-position-x: 50% !important;
+      }
+
+      .page-top {
+        &__header {
+          .note {
+            font-size: 14px;
+            line-height: 26px;
+            color: $text;
+            position: absolute;
+            right: -130px;
+            bottom: -160px;
+          }
+        }
+
+        &__title {
+          font-size: 44px;
+        }
+
+        &__description {
+          line-height: 30px;
+        }
+      }
+    }
+
+    @media (max-width: $viewport-md-w) {
+      height: 540px;
+
+      .header {
+
+        &-container,
+        &-row {
+          height: 100%;
+        }
+      }
+
+      .page-top {
+        &__title {
+          font-size: 32px;
+          line-height: 40px;
+        }
+
+        &__description {
+          font-size: 20px;
+          line-height: 28px;
+        }
+
+        &__header {
+          .note {
+            position: absolute;
+            right: unset;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import { ETransactionTypes } from '@domain/enums';
 import i18n from '@i18next';
 import moment from 'moment';
 
@@ -5,9 +6,9 @@ const t = i18n.getLazyT;
 
 export const config = {
   operationTypes: [
-    { label: t('Deposits'), value: 'deposits' },
-    { label: t('Withdrawals'), value: 'withdrawal' },
-    { label: t('Trades'), value: 'trades' },
+    { label: t('Deposits'), value: ETransactionTypes.deposits },
+    { label: t('Withdrawals'), value: ETransactionTypes.withdrawal },
+    { label: t('Trades'), value: ETransactionTypes.trades },
   ],
   recentTransactionsFilter: [
     {

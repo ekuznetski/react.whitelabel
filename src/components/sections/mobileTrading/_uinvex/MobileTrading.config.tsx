@@ -5,12 +5,12 @@ import { Trans } from 'react-i18next';
 export const config = {
   ..._config,
   sideImg: 'mobile_trading.png',
-  mobileTradingTitle: (
+  title: (
     <Trans i18nKey="Mobile Trading Section Title">
       <b>Mobile Trading</b> With MT5
     </Trans>
   ),
-  mobileTradingDescription: (
+  description: (
     <Trans i18nKey="Mobile Trading Section Desc">
       <div className="mb-6">Never be far away from your trades again!</div>
       <div className="mb-6">Use a smartphone to manage your account, wherever you may be.</div>

@@ -3,29 +3,41 @@
 
 .account-types-for-trading-styles-section {
   &__title {
+    @include fontSize((xs:32px, md:36px, lg:44px));
+    @include lineHeight((xs:40px, md:46px, lg:46px));
     font-family: $font-family1;
     font-style: normal;
-    font-size: 44px;
-    line-height: 46px;
     color: $dark-text;
     text-align: center;
+
+    b {
+      @include display((xs: block, md: inline));
+      font-weight: 600;
+    }
   }
 
   &__description {
-    font-size: 22px;
-    line-height: 34px;
+    @include fontSize((xs:16px, md:16px, lg:22px));
+    @include lineHeight((xs:22px, md:26px, lg:34px));
     color: $text;
     text-align: center;
   }
 
   &__content {
     .common-cards {
+      &__wrapper {
+        @include col((xs:8, md:4));
+        @include mb((xs:7, md:0));
+      }
+
       &__item {
+        @include height((xs: 240px, lg: 200px));
+        @include p((xs: 9));
+        justify-content: flex-start;
         position: relative;
-        height: 200px;
-        padding: 30px;
 
         &-header {
+          @include mb((xs: 8, lg: 4));
           font-family: $font-family1;
           font-weight: 600;
           font-size: 24px;
@@ -44,11 +56,8 @@
         }
 
         &-content {
-          .greyText {
-            font-size: 16px;
-            line-height: 26px;
-            color: $text;
-          }
+          @include fontSize((xs:16px, md:16px, lg:18px));
+          @include lineHeight((xs:22px, md:26px, lg:30px));
         }
 
         .pips {
@@ -77,18 +86,6 @@
           color: #fff;
         }
       }
-    }
-  }
-
-  @media (max-width: $viewport-md-w) {
-    &__title {
-      font-size: 24px;
-      line-height: 34px;
-      text-align: left;
-    }
-
-    &__description {
-      text-align: left;
     }
   }
 }

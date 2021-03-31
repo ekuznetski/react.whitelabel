@@ -2,53 +2,66 @@
 @import '~/mixin';
 
 .mobile-trading {
-  padding: 0 !important;
 
   .row {
     @include d-flex(center, center);
+    @include p((xs:6, lg: 8, xl:0));
     @include mx((xs:0));
-    height: 488px;
-
+    @include height((xs: 816px, md: 530px, lg: 488px));
+    @include flexDirection((xs: column-reverse, lg: row));
     background: linear-gradient(0.35deg, #262A4B 0.29%, #44496D 99.67%);
     box-shadow: box-shadow(15, 0.1);
     border-radius: $border-box-radius;
   }
 
   &__img {
-    @include col((xs:12, lg:5));
-    @include mb((xs:12, md:0));
-    @include mt((md:4));
+    @include col((xs:auto, md: 0, lg:5));
+    @include mt((xs: 11, md:4));
+    @include px((xs: 0, lg:5), i);
+
+    img {
+      @include height((xs: 285px, sm: 320px, md: 290px, lg: 360px, xl: 400px));
+      @include ml((md: 4, lg: 0));
+    }
   }
 
   &__content {
-    @include col((xs:12, lg:6, xl:5));
+    @include col((xs:auto, lg:6, xl:5));
     @include pr((lg:6));
     @include ml((xs:0, lg:11, xl:13));
     color: #fff;
 
     .content {
       &__title {
+        @include mb((xs: 7, md: 13, lg: 7));
+        @include fontSize((xs:32px, md: 36px));
+        @include lineHeight((xs: 40px, md: 46px));
+        @include textAlign((xs: start, md: center, lg: start));
         font-family: $font-family1;
-        font-size: 36px;
-        line-height: 46px;
 
         b {
+          @include display((xs: block, sm: inline));
           color: $uinvex-blue
         }
       }
 
       &__description {
-        font-size: 16px;
-        line-height: 26px;
+        @include col((xs:auto, md: 6, lg: auto));
+        @include fontSize((xs:16px));
+        @include lineHeight((xs: 26px));
+        @include ml((xs: auto));
+        @include mb((xs: 10, md: 14, lg: 10));
       }
 
       &__store-links {
+        @include flexDirection((xs: column, md: row));
+        @include justifyContent((xs: center, lg: start));
         display: flex;
 
         button {
+          @include flex((xs: 0 0 100%, md: 0 0 162px));
           background: transparent;
           border-color: #fff;
-          flex: 0 0 162px;
           height: $btn-size-lg;
 
           &.ios-store {
@@ -64,52 +77,6 @@
 
           svg {
             fill: #fff;
-          }
-        }
-      }
-    }
-  }
-
-
-  @media (max-width: $viewport-lg-w) {
-    &__img {
-      img {
-        height: 320px;
-        margin: 0 auto;
-        display: block;
-      }
-    }
-  }
-
-  @media (max-width: $viewport-md-w) {
-    .row {
-      flex-flow: column-reverse;
-    }
-
-    &__img {
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-
-    &__content {
-      .content {
-        &__title {
-          font-size: 24px;
-          line-height: 34px;
-        }
-
-        &__description {
-          font-size: 16px;
-          line-height: 26px;
-        }
-
-        &__store-links {
-          flex-direction: column;
-
-          button {
-            flex: 0 0 100%;
           }
         }
       }

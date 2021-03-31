@@ -4,26 +4,113 @@
 .product-wrapper {
   .table-section {
     padding: 70px 0;
-    .infoCol {
-      @include py(
-        (
-          xs: 4,
-        )
-      );
-    }
+
     &:nth-child(odd) {
       background: $grey-bg;
     }
-    .row.reversed:not(.preview) {
-      flex-flow: row-reverse;
+
+
+
+    .row {
+
+      .info-col {
+        @include col((xs: 12));
+        @include py((xs: 4));
+
+        &.preview {
+          @include col((lg: 4));
+          @include mb((xs:7));
+        }
+
+        &__title {
+          @include mb((xs: 7));
+          font-weight: 600;
+          font-size: 36px;
+          line-height: 46px;
+          color: $dark-text;
+        }
+
+        &__desc {
+          @include mb((xs: 8));
+          font-size: 16px;
+          line-height: 26px;
+          color: $text;
+        }
+
+        &__key-points {
+          &__item {
+            font-size: 16px;
+            line-height: 30px;
+            color: $dark-text;
+
+            &:before {
+              content: '•';
+              display: inline-block;
+              margin-right: 5px;
+            }
+          }
+        }
+
+
+        .close {
+          cursor: pointer;
+          position: absolute;
+          right: 10px;
+          top: 10px;
+        }
+      }
+
+      .table-col {
+        @include col((xs: 12));
+
+        &.preview {
+          @include col((lg: 7));
+          @include offset((lg:1));
+        }
+
+        &__toggle-table-size {
+          cursor: pointer;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 21px;
+          color: $dark-blue;
+          display: table;
+
+          &:hover {
+            text-decoration: underline;
+          }
+
+          svg {
+            @include ml((xs:2));
+            fill: $dark-blue;
+            margin-top: -2px;
+
+            &.less {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+
+      &.reversed {
+        &:not(.preview) {
+          flex-flow: row-reverse;
+        }
+
+        .info-col {
+          @include offset((lg:1));
+        }
+
+        .table-col {
+          @include offset((lg: 0));
+        }
+      }
+
+      &.seeAll {
+        @include mt((xs:6));
+      }
     }
 
-    .close {
-      cursor: pointer;
-      position: absolute;
-      right: 10px;
-      top: 10px;
-    }
 
     .market-table {
       .thead {
@@ -33,54 +120,6 @@
       }
     }
 
-    &__title {
-      font-weight: 600;
-      font-size: 36px;
-      line-height: 46px;
-      color: $dark-text;
-    }
-
-    &__desc {
-      font-size: 16px;
-      line-height: 26px;
-      color: $text;
-    }
-
-    &__key-points {
-      &__item {
-        font-size: 16px;
-        line-height: 30px;
-        color: $dark-text;
-
-        &:before {
-          content: '•';
-          display: inline-block;
-          margin-right: 5px;
-        }
-      }
-    }
-
-    &__toggleTableSize {
-      cursor: pointer;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 21px;
-      color: $dark-blue;
-      display: table;
-
-      &:hover {
-        text-decoration: underline;
-      }
-
-      svg {
-        fill: $dark-blue;
-        margin-top: -2px;
-
-        &.up {
-          transform: rotate(180deg);
-        }
-      }
-    }
 
     @media (max-width: $viewport-lg-w) {
       .row.reversed:not(.preview) {

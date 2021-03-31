@@ -29,7 +29,11 @@
 
       &:hover:not(.active) {
         .tab__link__label-title {
-          color: $dark-blue;
+          svg {
+            fill: $blue;
+          }
+
+          color: $blue;
         }
       }
 
@@ -39,7 +43,7 @@
         border-radius: 25px;
 
         line-height: 17px;
-        color: $grey;
+        color: $text;
 
         svg {
           height: 18px;
@@ -49,15 +53,16 @@
 
       &.active {
         box-sizing: border-box;
+
         .tab__link__label {
-          color: $dark-blue;
+          color: $blue;
         }
       }
     }
 
     .active-tab-line {
       height: $tabs-navigation-height;
-      border: 1px solid $dark-blue;
+      border: 1px solid $blue;
       background: $light-blue;
       border-radius: 25px;
       z-index: 0;
@@ -82,8 +87,8 @@
       }
 
       .active-tab-line {
-        border: 1px solid $dark-blue;
-        background: $dark-blue;
+        border: 1px solid $blue;
+        background: $blue;
       }
     }
   }

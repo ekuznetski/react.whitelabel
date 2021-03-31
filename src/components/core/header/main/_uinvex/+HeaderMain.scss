@@ -3,15 +3,23 @@
 
 .header.main {
   position: absolute;
-  
+
   .panel-menu {
     &:before {
       top: 0;
     }
 
     .logo {
+      @include mr((lg: 10, xl:0));
+
       svg {
         @include fillLogo($blue, black, $dark-blue);
+      }
+    }
+
+    .burger-toggle {
+      svg {
+        stroke: $dark-text;
       }
     }
 
@@ -20,9 +28,6 @@
         a {
           color: $dark-text;
           font-family: $font-family1;
-
-          &:after {
-          }
 
           &.active {
             color: $blue !important;
@@ -56,6 +61,7 @@
           }
         }
       }
+
       .logo {
         width: 115px;
       }

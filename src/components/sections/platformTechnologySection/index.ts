@@ -1,1 +1,1 @@
-export * from './PlatformTechnologySection.locale';
+export * from './PlatformTechnologySection.config';

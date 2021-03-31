@@ -6,7 +6,6 @@
   border-radius: $border-radius;
   border: 1px solid $dark-grey;
   transition: border-color 0.2s, box-shadow 0.2s;
-  min-height: 50px;
   width: 100%;
 
   &.focused {
@@ -87,16 +86,16 @@
     div[class$='-control'] {
       border: none !important;
       box-shadow: none;
-      min-height: 48px;
+      min-height: $select-height;
 
-      > div {
+      >div {
         overflow: visible;
       }
 
       div[class$='-ValueContainer'] {
         overflow: visible;
         padding: 4px 8px;
-        min-height: 48px;
+        min-height: $select-height;
 
         div[class$='-singleValue'] {
           font-size: 14px;
@@ -147,10 +146,11 @@
         }
       }
 
-      & > div {
+      &>div {
         overflow-x: hidden !important;
         white-space: nowrap;
-        .select-row > .div {
+
+        .select-row>.div {
           text-overflow: ellipsis;
           overflow: hidden;
         }
@@ -182,7 +182,7 @@
 
   &.multi-select {
     height: auto;
-    min-height: 48px;
+    min-height: $select-height;
   }
 
   &.phoneCode-select {
@@ -246,9 +246,6 @@
             text-transform: uppercase;
           }
 
-          &__number {
-          }
-
           &__spacer {
             height: 1px;
             width: 10px;
@@ -262,6 +259,7 @@
           }
         }
       }
+
       &.selected .trading-item__balance svg path {
         fill: #fff;
       }
@@ -269,13 +267,16 @@
   }
 
   &.disabled {
+    .label {
+      color: $dark-grey;
+    }
+
     div[class$='-container'] {
       div[class$='-control'] {
         background: $grey;
 
-        div[class$='-placeholder'],
-        .label {
-          color: rgba(#000, 0.3);
+        div[class$='-placeholder'] {
+          color: $dark-grey;
         }
 
         div[class$='-IndicatorsContainer'] {

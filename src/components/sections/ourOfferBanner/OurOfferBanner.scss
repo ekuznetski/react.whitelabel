@@ -1,54 +1,52 @@
 @import '~/variables';
+@import '~/mixin';
 
 .our-offer-banner-section {
+  @include d-flex(center);
+  @include height((xs: auto, md: 150px));
+  padding: 0 !important;
   background: $grey-bg;
+  overflow: hidden;
   font-size: 18px;
   line-height: 30px;
   color: $dark-text;
-  padding: 0 !important;
-  display: flex;
-  align-items: center;
-  height: 150px;
 
-  [class*='col-'] {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:not(:last-child) {
-      border-right: 1px solid rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  svg {
-    fill: $blue;
-  }
-
-  @media (max-width: $viewport-lg-w) {
-    [class*='col-'] {
-      flex-direction: column;
-    }
-  }
-
-  @media (max-width: $viewport-md-w) {
-    height: auto;
-
-    [class*='col-'] {
-      flex-direction: row;
-      justify-content: unset;
-      position: relative;
+  .our-offer {
+    &__item {
+      @include col((xs: 12, md: 4));
+      @include flexDirection((xs:row, md:column, lg: row));
+      @include justifyContent((xs:unset, md:center));
+      @include py((xs: 8));
+      display: flex;
+      align-items: center;
 
       &:not(:last-child) {
-        border-right: 0;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+      }
 
-        &:after {
-          content: '';
-          width: 90%;
-          height: 1px;
-          background: $dark-grey;
-          position: absolute;
-          bottom: 0;
-          left: 5%;
+      svg {
+        @include mr((xs: 5));
+        @include mb((md: 4, lg: 0));
+        fill: $blue;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-md-min-w) {
+    .our-offer {
+      &__item {
+        &:not(:last-child) {
+          border-right: 0;
+
+          &:after {
+            content: '';
+            width: 90%;
+            height: 1px;
+            background: $dark-grey;
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+          }
         }
       }
     }

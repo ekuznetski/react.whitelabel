@@ -18,7 +18,8 @@
     display: flex;
     align-items: center;
     margin: 0;
-    min-height: 50px;
+    min-height: $radio-height;
+    height: 100%;
 
     &.selected {
       color: $dark-text;
@@ -61,6 +62,9 @@
     .radio-label {
       border-color: $dark-grey;
       background: $grey;
+      color: $dark-grey;
+      cursor: default;
+      pointer-events: none;
 
       &.selected {
         .mark {
@@ -75,11 +79,6 @@
     .radio-label {
       .mark {
         left: 12px;
-      }
-    }
-    .radio-item {
-      &:not(:last-child) {
-        margin-bottom: sp(8);
       }
     }
   }

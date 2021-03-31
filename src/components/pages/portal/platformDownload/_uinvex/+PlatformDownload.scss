@@ -1,0 +1,17 @@
+@import '~/variables';
+@import '~/mixin';
+
+.download-panels {
+
+  .download__panel {
+    &-instructions {
+      a.hovered-underlined {
+        color: $blue;
+
+        &:after {
+          background-color: $blue !important;
+        }
+      }
+    }
+  }
+}

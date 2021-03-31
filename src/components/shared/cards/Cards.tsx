@@ -1,3 +1,4 @@
+import { theme } from '@domain';
 import { useInViewport, useResponsive } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect } from 'react';
@@ -23,10 +24,14 @@ export interface ICards {
   className?: string;
   cardWrapperClass?: string;
   children?: React.ReactNode;
+  mobileNavigation?: boolean;
 }
 
 export const Cards = memo(
-  forwardRef<HTMLDivElement, ICards>(function Cards({ cards, className, cardWrapperClass, children }, ref) {
+  forwardRef<HTMLDivElement, ICards>(function Cards(
+    { cards, className, cardWrapperClass, children, mobileNavigation = theme.cardsMobileNavigation },
+    ref,
+  ) {
     const containerRef = React.createRef<HTMLDivElement>();
 
     return (
@@ -42,7 +47,10 @@ export const Cards = memo(
 
           return (
             <div className={classNames('common-cards', className)} ref={ref}>
-              <div className="common-cards__container" ref={containerRef}>
+              <div
+                className={classNames('common-cards__container', mobileNavigation && 'scrollable')}
+                ref={containerRef}
+              >
                 {!children && cards
                   ? cards?.map((card, c) => (
                       <Card
@@ -55,7 +63,7 @@ export const Cards = memo(
                     ))
                   : children}
               </div>
-              <CardsNavigation />
+              {mobileNavigation && <CardsNavigation />}
             </div>
           );
         }}
@@ -89,18 +97,18 @@ export const Card = memo(
     }, [inView]);
 
     return (
-      <div className={props.wrapperClassName}>
+      <div className={classNames('common-cards__wrapper', props.wrapperClassName)}>
         <div
           className={classNames('common-cards__item', props.className, activeCardUid === props.uid && 'active')}
           ref={ref}
         >
           {props.children}
-          {currentCard?.header && (
+          {!!currentCard?.header?.elem && (
             <div className={classNames('common-cards__item-header', currentCard?.header.class)}>
               {currentCard?.header.elem}
             </div>
           )}
-          {currentCard?.content && (
+          {!!currentCard?.content?.elem && (
             <div className={classNames('common-cards__item-content', currentCard?.content.class)}>
               {currentCard?.content.elem}
             </div>

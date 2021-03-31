@@ -1,0 +1,118 @@
+@import '~/variables';
+@import '~/mixin';
+
+
+
+.market-table {
+  border-radius: 0;
+  box-shadow: none;
+
+  .thead {
+    background: $grey-bg;
+    border-top: 1px solid $border-grey;
+    box-shadow: none;
+    color: $text;
+
+    @media (min-width: $viewport-md-min-w) {
+      border-radius: 0 $border-box-radius 0 0;
+    }
+
+    .tr {
+      height: 80px;
+      font-weight: 300;
+      text-transform: capitalize;
+
+      * {
+        font-size: 14px;
+      }
+
+      >.td {
+        .tr:last-child {
+          border-radius: 0 $border-box-radius 0 0;
+        }
+
+        &.grouped .sub-row {
+          border-top: 1px solid $border-grey;
+          margin-top: 8px;
+          height: 40px;
+        }
+
+        &.fullViewParam.full {
+          padding: sp(5);
+        }
+      }
+    }
+  }
+
+  .tbody {
+    .tr:last-child {
+      border-radius: 0 0 $border-box-radius 0;
+    }
+  }
+
+  .tr {
+    border-color: $border-grey;
+
+    @media (min-width: $viewport-md-min-w) {
+      border-bottom: 1px solid $border-grey !important;
+      border-right: 1px solid $border-grey !important;
+      border-left: 1px solid $border-grey !important;
+    }
+
+    >.td {
+      @include fontSize((xs: 16px, md: 14px, lg: 16px));
+      @include lineHeight((xs: 22px, md: 18px, lg: 22px));
+      border: none;
+
+      &.fullViewParam {
+        @include display((xs:none, md: flex));
+      }
+
+      &.grouped {
+        @include flex((md: 1 0 240px, lg: 1 0 300px, xl: 1 0 320px));
+        @include minWidth((md: 240px, lg: 300px, xl: 320px));
+
+        .td:nth-child(1),
+        .td:nth-child(3),
+        .sub-row span.col0,
+        .sub-row span.col1,
+        .sub-row span.col2 {
+          @include d-flex(center, center);
+          height: 100%;
+          color: $dark-text;
+          background: rgba($light-blue, 0.3) !important;
+        }
+
+        .sub-row span.col1 {
+          background: white !important;
+          color: $dark-text;
+        }
+      }
+
+      &:first-child {
+        @include flex((md: 0 0 100px, lg: 0 0 120px, xl: 0 0 140px));
+
+        &.full {
+          border-right: 1px solid $border-grey;
+        }
+      }
+
+      &:last-child {
+        @include flex((md: 0 0 80px, lg: 0 0 110px, xl: 0 0 140px));
+
+        &.full {
+          border-left: 1px solid $border-grey;
+        }
+      }
+
+      .fullViewParam,
+      &.fullViewParam {
+        &.full {
+          width: 100%;
+          border-left: 1px solid $border-grey;
+          border-right: none;
+        }
+      }
+    }
+  }
+}

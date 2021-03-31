@@ -6,14 +6,14 @@ export const config = {
   sideImg: 'mobile_trading.jpg',
   appStoreLink: downloadLinks.mt5.appStore,
   googlePlayLink: downloadLinks.mt5.googlePlay,
-  mobileTradingTitle: (
+  title: (
     <Trans i18nKey="Mobile Trading Section Title">
       <b>Mobile Trading</b>
       <br />
       With MT4
     </Trans>
   ),
-  mobileTradingDescription: (
+  description: (
     <Trans i18nKey="Mobile Trading Section Desc">
       <div className="mb-6">
         Have complete control over your account with our native mobile app; open, close, and manage trading positions

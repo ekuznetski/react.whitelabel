@@ -1,11 +1,11 @@
-import { Button, Input } from '@components/shared';
+import { Button, Col, Container, Input, Row } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ENotificationType } from '@domain/enums';
 import { MBankDetails } from '@domain/models';
 import { EActionTypes, IStore, ac_showNotification, ac_updateBankDetails } from '@store';
+import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikValues } from 'formik';
 import React, { memo } from 'react';
-import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -14,17 +14,22 @@ export const BankDetails = memo(function BankDetails() {
   const { bankDetails } = useSelector<IStore, { bankDetails: MBankDetails }>((state) => ({
     bankDetails: state.data.bankDetails,
   }));
+  const responsive = useResponsive();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
-    beneficiary_name: FieldValidators.requiredString.max(100, t('Name characters count restriction')),
-    beneficiary_bank: FieldValidators.requiredString.max(100, t('Bank Name characters count restriction')),
-    beneficiary_bank_account_no: FieldValidators.requiredString.max(100, t('Bank Account Number count restriction')),
+    beneficiary_name: FieldValidators.beneficiaryName,
+    beneficiary_bank: FieldValidators.bankName,
+    beneficiary_bank_account_no: FieldValidators.accountNumber,
     swift_code: FieldValidators.swift,
-    iban: Yup.string().max(50, t('IBAN characters count restriction')),
-    branch_name: FieldValidators.requiredString.max(100, t('Bank Branch Name characters count restriction')),
-    branch_address: FieldValidators.requiredString.max(100, t('Bank Branch Address characters count restriction')),
+    iban: FieldValidators.iban,
+    branch_name: FieldValidators.branch
+      .required(t('Please enter branch name'))
+      .max(100, responsive.lg ? t('Bank Branch Name characters count restriction') : t('Maximum length symbols')),
+    branch_address: FieldValidators.branch
+      .required(t('Please enter branch address'))
+      .max(100, responsive.lg ? t('Bank Branch Address characters count restriction') : t('Maximum length symbols')),
   });
 
   function Submit(data: FormikValues) {

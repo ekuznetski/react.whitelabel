@@ -5,6 +5,7 @@
   .header-wrapper {
     .panel {
       .logo {
+        @include mr((xs: 13));
         width: 105px;
 
         svg {

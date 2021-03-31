@@ -3,26 +3,32 @@
 
 .about-wrapper {
   &__trusted {
-    @include d-flex(center, start, row);
+    @include d-flex(center);
 
     .trusted {
       &__text {
-        flex: 0 0 colSizePrc(9);
-        max-width: colSizePrc(9);
+        @include col((xs: 12, lg:10));
+        @include mx((xs: auto));
+        text-align: center;
       }
 
       &__title {
-        font-size: 44px;
-        line-height: 52px;
+        @include mb((xs: 9));
+        @include fontSize((xs: 32px, md: 36px, lg: 44px));
+        @include lineHeight((xs: 40px, md: 46px, lg: 52px));
         text-align: center;
         font-family: $font-family1;
       }
 
       &__description {
+        @include mb((xs: 9, sm: 10, lg: 13));
+        @include lineHeight((xs: 22px, md: 26px));
         font-size: 16px;
-        line-height: 26px;
+        color: $text;
+
         a {
-          color: $dark-text;
+          text-decoration: underline;
+          color: $text;
           font-weight: bolder;
         }
       }
@@ -31,98 +37,71 @@
         .cards-nav {
           display: none;
         }
+
+        &-container {
+          @include col((xs: 12));
+          @include mx((sm: auto));
+          padding: 0;
+        }
+
         .common-cards {
           &__container {
             padding: sp(1) 0 0 0;
             flex-flow: row nowrap;
+
+            .card {
+              @include col((xs: 6, md:3));
+
+              &:nth-child(-n+2) {
+                @include pb((xs: 5, md: 0));
+              }
+            }
           }
+
           &__item {
-            height: 140px;
+            @include height((xs: 110px, lg: 140px));
+            @include p((xs: 0, lg: sp(9) 0));
 
             &-observer {
               display: none;
             }
+
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
             background: linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
 
             &-header {
+              @include fontSize((xs: 32px, lg: 44px));
+              @include lineHeight((xs: 40px, lg: 52px));
+              align-items: flex-end;
               font-family: $font-family1;
               font-weight: 700;
-              font-size: 44px;
-              line-height: 52px;
-              color: $dark-blue;
+              color: $blue;
               justify-content: center;
               margin-bottom: 0;
 
               span {
+                @include fontSize((xs: 32px, lg: 44px));
+                @include lineHeight((xs: 40px, lg: 52px));
                 margin-left: 0;
                 font-weight: 400;
-                font-size: 44px;
-                line-height: 52px;
-                color: $dark-blue;
+                color: $blue;
               }
 
               small {
+                font-family: $font-family;
                 margin-left: 10px;
                 font-size: 18px;
-                color: $dark-blue;
+                line-height: 34px;
+                font-weight: 400;
+                color: $blue;
               }
             }
 
             &-content {
-              font-size: 22px;
-              line-height: 34px;
+              @include fontSize((xs: 16px, lg: 22px));
+              @include lineHeight((xs: 22px, lg: 34px));
               text-align: center;
             }
-          }
-        }
-      }
-    }
-  }
-
-  @media (max-width: $viewport-lg-w) {
-    &__trusted {
-      .container {
-        max-width: 100%;
-      }
-
-      .trusted {
-        &__text {
-          flex: 0 0 100%;
-          max-width: 100%;
-          padding: 0 sp(11);
-        }
-
-        &__cards {
-          .common-cards {
-            &__container {
-              padding: 0 sp(8);
-            }
-            &__item {
-              padding: 0;
-              height: 110px;
-
-              &-header,
-              span {
-                font-size: 32px;
-                line-height: 40px;
-              }
-
-              &-content {
-                font-size: 16px;
-                line-height: 22px;
-              }
-            }
-          }
-
-          &-container {
-            flex: 0 0 100%;
-            max-width: 100%;
-          }
-
-          .card {
-            flex: 0 0 colSizePrc(3);
-            max-width: colSizePrc(3);
           }
         }
       }
@@ -132,46 +111,12 @@
   @media (max-width: $viewport-md-w) {
     &__trusted {
       .trusted {
-        &__text {
-          flex: 0 0 100%;
-          max-width: 100%;
-          padding: 0 sp(10);
-        }
-
-        &__title {
-          font-size: 32px;
-          line-height: 40px;
-        }
-
         &__cards {
           .common-cards {
             &__container {
               flex-flow: row wrap;
               justify-content: center;
-              padding: 0 sp(1);
             }
-            &__item {
-              &-header,
-              span {
-                font-size: 32px;
-                line-height: 40px;
-              }
-
-              &-content {
-                font-size: 16px;
-                line-height: 22px;
-              }
-            }
-          }
-
-          &-container {
-            flex: 0 0 100%;
-            max-width: 100%;
-          }
-
-          .card {
-            flex: 0 0 50%;
-            max-width: 50%;
           }
         }
       }

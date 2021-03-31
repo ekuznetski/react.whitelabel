@@ -1,0 +1,32 @@
+@import '~/variables';
+@import '~/mixin';
+
+.simple-page-top-section {
+  @include height((xs: 400px, md: 288px, lg:280px));
+  @include p((md: 0), i);
+
+  .container,
+  .row {
+    height: 100%;
+  }
+
+  .row {
+    @include alignItems((md: center));
+  }
+
+  .page-top {
+    &__header {
+      @include d-flex(start, start, column);
+    }
+
+    &__title {
+      @include fontSize((xs: 32px, md:44px, lg: 48px));
+      @include lineHeight((xs: 40px, md: 64px, lg: 64px));
+      font-weight: 600;
+    }
+
+    &__button {
+      @include mt((xs: auto, md: 11));
+    }
+  }
+}

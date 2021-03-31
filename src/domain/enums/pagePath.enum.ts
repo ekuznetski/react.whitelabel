@@ -24,7 +24,10 @@ export enum EPagePath {
   Profile = '/profile',
   Verification = '/verification',
   InviteFriends = '/invite-friends',
-  Invite = '/invite/:ref_id',
+  Invite = '/invite/:raf_id',
   NotFound = '/404',
   EconomicCalendar = '/economic-calendar',
+  Cookies = '/cookies',
+  LegalForms = '/legal-forms',
+  RiskWarnings = '/risk-warnings',
 }

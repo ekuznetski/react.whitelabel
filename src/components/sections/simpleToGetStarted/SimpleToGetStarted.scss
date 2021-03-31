@@ -1,59 +1,76 @@
 @import '~/variables';
+@import '~/mixin';
 
 .simple-to-get-started {
   background: #1a1b1c;
   color: #ffffff;
 
-  &__title {
-    font-size: 36px;
-    line-height: 46px;
+  &__header {
+    @include col((xs:12, lg:4, xl:3));
+    @include mb((xs:11, lg:0));
 
-    b {
-      display: block;
-    }
-  }
+    .header {
+      &__title {
+        @include mb((xs:7));
+        @include fontSize((xs: 36px));
+        @include lineHeight((xs: 46px));
 
-  &__description {
-    font-size: 16px;
-    line-height: 26px;
-  }
-
-  &__steps {
-    .step {
-      background: rgba(255, 255, 255, 0.1);
-      height: 200px;
-
-      &-title {
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 28px;
-        display: flex;
-        align-items: center;
-        height: 64px;
-
-        &-number {
-          font-weight: 300;
-          font-size: 65px;
-          color: #629dff;
+        b {
+          display: block;
         }
       }
 
-      &-context {
-        font-size: 16px;
-        line-height: 26px;
+      &__description {
+        @include fontSize((xs:16px));
+        @include lineHeight((xs:26px));
       }
     }
   }
 
-  @media (max-width: $viewport-lg-w) {
-    &__steps {
-      .step {
-        &-title {
-          font-size: 16px;
-          line-height: 24px;
 
-          &-number {
-            font-size: 55px;
+  &__steps {
+    @include col((xs:12, lg:8));
+    @include ml((xs: auto));
+
+    .steps {
+      &__item {
+        @include col((xs:12, md:4));
+        @include mb((xs:7, lg:0));
+
+        &:last-child {
+          @include mb((xs:0));
+
+        }
+
+        .step {
+          @include height((xs: 140px, md: 200px));
+          @include p((xs: 7, xl:9));
+          background: rgba(255, 255, 255, 0.1);
+
+          &-title {
+            @include d-flex(center);
+            @include mb((xs:0, md:3));
+            @include mb((xs:0, md:3));
+            @include mt((xs:1), n);
+
+            @include fontSize((xs: 18px, md:16px, lg:18px));
+            @include lineHeight((xs: 28px, md:24px, lg:28px));
+            font-weight: 500;
+            height: 64px;
+
+            &-number {
+              @include mr((xs:5));
+              @include ml((xs:3), n);
+
+              @include fontSize((xs: 55px, lg:65px));
+              font-weight: 300;
+              color: #629dff;
+            }
+          }
+
+          &-context {
+            @include fontSize((xs: 14px, md:16px));
+            @include lineHeight((xs: 24px, md:26px));
           }
         }
       }
@@ -63,20 +80,7 @@
   @media (max-width: $viewport-md-w) {
     &__steps {
       .step {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 140px;
-
-        &-title {
-          font-size: 18px;
-          line-height: 28px;
-        }
-
-        &-content {
-          font-size: 14px;
-          line-height: 24px;
-        }
+        @include d-flex(start, center, column);
       }
     }
   }

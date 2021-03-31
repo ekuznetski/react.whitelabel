@@ -1,0 +1,112 @@
+@import '~/variables';
+@import '~/mixin';
+
+.footer.main {
+  background: white;
+  color: $dark-text;
+
+  a {
+    position: relative;
+    color: $dark-text !important;
+    text-decoration: underline !important;
+  }
+
+  .outer-links-container {
+    @include d-flex(center);
+    flex-wrap: wrap;
+
+    .links {
+      @include d-flex(center);
+      @include col((xs: 12, md: auto));
+
+      &-item {
+        font-size: 16px;
+        line-height: 26px;
+        color: $blue;
+      }
+
+      &-divider {
+        @include mx((xs: 6));
+        width: 1px;
+        height: 20px;
+        background: $dark-text;
+        opacity: 0.3;
+      }
+    }
+  }
+
+  .context {
+    color: $dark-text;
+
+    b {
+      color: $dark-text;
+    }
+  }
+
+  .social-links {
+    @include d-flex(center, flex-end);
+    @include mt((xs: 10, md: 0));
+    @include col((xs: 12, md: auto));
+
+    svg {
+      fill: $blue;
+      height: 36px;
+      width: 36px;
+    }
+  }
+
+  .live-chat {
+    svg {
+      height: 26px;
+      width: 27px;
+    }
+  }
+
+  .copyright {
+    color: $dark-text;
+
+    img {
+      @include mr((xs: 6));
+      vertical-align: bottom;
+    }
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background: rgba(174, 182, 200, 0.3);
+  }
+
+  @media (max-width: $viewport-lg-w) {
+    a {
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    .social-links {
+      justify-content: flex-start;
+    }
+
+    .outer-links-container {
+      .links {
+        &-item {
+          text-align: left;
+          line-height: 24px;
+        }
+
+        &-divider {
+          height: 40px;
+        }
+      }
+    }
+
+    .context,
+    .copyright {
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+}

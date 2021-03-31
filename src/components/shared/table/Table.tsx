@@ -1,6 +1,7 @@
 import { useToggle } from 'ahooks';
 import classNames from 'classnames';
-import React from 'react';
+import { theme } from '@domain';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Svg } from '..';
 import './Table.scss';
@@ -8,42 +9,39 @@ import './Table.scss';
 export interface ITable {
   headers: (string | React.ReactFragment)[];
   rows: (string | React.ReactFragment)[][];
-  // in percentage, use null for auto sizes, where colN is class name according to col number that start with 1
-  colsPctSize?: (number | null)[] | { [colN: string]: number };
-  // in pixels, use null for auto sizes, if object {colN: number} where N is col number that start with 1
-  colsPxSize?: (number | null)[] | { [colN: string]: number };
+  colsSize?: (string | null)[] | { [colN: string]: string | null };
   className?: string;
   preview?: boolean;
   previewAmount?: number;
+  mobileScroll?: boolean;
 }
 
-export function Table({ headers, rows, colsPctSize, colsPxSize, className, preview, previewAmount = 4 }: ITable) {
+export const Table = memo(function Table({
+  headers,
+  rows,
+  colsSize,
+  className,
+  preview,
+  previewAmount = 4,
+  mobileScroll = theme.tableMobileScroll,
+}: ITable) {
   const [previewValue, togglePreview] = useToggle(true);
+  const previewRows = rows.slice(0, previewAmount);
   const { t } = useTranslation();
-  if (colsPctSize && colsPxSize) {
-    console.info('The colsPxSize has priority over colsPctSize values. ');
-  }
-  let colPct: string[] = new Array(headers.length);
-  let colPx: string[] = new Array(headers.length);
 
-  if (Array.isArray(colsPctSize)) colPct = [...colsPctSize].map((item) => `${item}%`);
-  if (Array.isArray(colsPxSize)) colPx = [...colsPxSize].map((item) => `${item}px`);
+  let col: string[] = new Array(headers.length);
 
-  if (isObject(colsPctSize)) {
-    Object.keys(colsPctSize as Record<string, unknown>).forEach((key) => {
+  if (Array.isArray(colsSize)) col = [...colsSize].map((item) => (item != 'auto' && item ? item : 'auto'));
+  else if (isObject(colsSize)) {
+    Object.keys(colsSize as Record<string, unknown>).forEach((key) => {
       const _key = Number(key.replace(/\D*/, ''));
+
       // @ts-ignore
-      colPct[_key] = `${colsPctSize[key]}%`;
+      col[_key] = colsSize[key] != 'auto' && colsSize[key] ? colsSize[key] : 'auto';
     });
   }
 
-  if (isObject(colsPxSize)) {
-    Object.keys(colsPxSize as Record<string, unknown>).forEach((key) => {
-      const _key = Number(key.replace(/\D*/, '')) - 1;
-      // @ts-ignore
-      colPx[_key] = `${colsPxSize[key]}px`;
-    });
-  }
+  rows = rows.map((row) => Object.assign(new Array(headers.length).fill(''), row));
 
   function toggleTableView() {
     togglePreview.toggle();
@@ -51,34 +49,37 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
 
   return (
     <div className="common-table-wrapper">
-      <table className={classNames('common-table', className)}>
-        <thead>
-          <tr>
-            {headers.map((headerCell, h) => (
-              <th
-                key={h}
-                className={`text-center col${h + 1} px-2`}
-                style={{ width: colPct[h] || 'auto', minWidth: colPx[h] || 'auto' }}
-              >
-                {headerCell}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {(preview && previewValue ? rows.slice(0, previewAmount) : rows).map((row, r) => (
-            <tr key={r}>
-              {row.slice(0, headers.length).map((cell, c) => (
-                <td key={c} className="px-2">
-                  {cell}
-                </td>
-              ))}
-            </tr>
+      <div className={classNames('common-table-container', mobileScroll && 'mobile-scroll')}>
+        <div className={classNames('common-table', className)} style={{ gridTemplateColumns: col.join(' ') }}>
+          {headers.map((headerCell, h) => (
+            <div
+              key={h}
+              className={classNames('th', `col${h + 1}`, !h && 'col--first', h + 1 === headers.length && 'col--last')}
+            >
+              {headerCell}
+            </div>
           ))}
-        </tbody>
-      </table>
+          {(preview && previewValue ? previewRows : rows).map((row, r) =>
+            row.slice(0, headers.length).map((cell, c) => (
+              <div
+                className={classNames(
+                  'td',
+                  `col${c + 1}`,
+                  !c && 'col--first',
+                  !r && 'row--first',
+                  r + 1 === (preview && previewValue ? previewRows.length : rows.length) && 'row--last',
+                  c + 1 === headers.length && 'col--last',
+                )}
+                key={c}
+              >
+                {cell}
+              </div>
+            )),
+          )}
+        </div>
+      </div>
       {preview && (
-        <div className="toggleTableView mt-4" onClick={toggleTableView}>
+        <div className="toggle-table-view" onClick={toggleTableView}>
           {previewValue ? (
             <>
               {t('Show more')}
@@ -94,7 +95,7 @@ export function Table({ headers, rows, colsPctSize, colsPxSize, className, previ
       )}
     </div>
   );
-}
+});
 
 function isObject(val: any) {
   return typeof val === 'object' && Object.prototype.toString.call(val) === '[object Object]';

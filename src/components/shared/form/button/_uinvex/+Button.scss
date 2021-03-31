@@ -1,0 +1,54 @@
+.common-button {
+    background: $blue;
+    height: $btn-size-lg;
+    transition: box-shadow 0.25s, background 0.25s, border-color 0.25s;
+
+    &:hover:not(.disabled) {
+        background: $dark-blue;
+    }
+
+    &.secondary:not(.disabled) {
+        color: $blue;
+        border-color: $light-blue;
+        background: $light-blue;
+
+        a {
+            color: $blue;
+
+            svg {
+                fill: $blue;
+            }
+        }
+
+        &:hover {
+            color: white;
+            border-color: $blue;
+            background: $blue;
+
+            a {
+                color: white;
+
+                svg {
+                    fill: white;
+                }
+            }
+        }
+    }
+
+    &.disabled {
+        background: $light-grey;
+        color: $dark-grey;
+
+        a {
+            color: $dark-grey;
+        }
+
+        svg {
+            fill: $dark-grey;
+        }
+
+        &.secondary {
+            border-color: $light-grey;
+        }
+    }
+}

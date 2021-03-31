@@ -1,69 +1,71 @@
 @import '~/variables';
 
-.page-top {
-  height: 900px;
-  display: flex;
-  align-items: center;
-  background: rgb(92, 115, 131);
-  color: #fff;
-
-  &__title {
-    font-weight: 500;
-    font-size: 70px;
-    line-height: 80px;
-  }
-
-  &__description {
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 34px;
-  }
-
-  button {
-    background: $dark-blue;
-    border-radius: $border-radius;
-    width: 225px;
-    height: $btn-size-lg;
+.home-wrapper {
+  .page-top {
+    height: 900px;
+    display: flex;
+    align-items: center;
+    background: rgb(92, 115, 131);
     color: #fff;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-  }
-
-  @media (max-width: $viewport-lg-w) {
-    height: 550px;
-    align-items: flex-end;
 
     &__title {
-      font-size: 55px;
-      line-height: 63px;
+      font-weight: 500;
+      font-size: 70px;
+      line-height: 80px;
     }
 
     &__description {
-      font-size: 22px;
+      font-weight: 500;
+      font-size: 24px;
       line-height: 34px;
     }
 
     button {
-      height: 50px;
-    }
-  }
-
-  @media (max-width: $viewport-md-w) {
-    align-items: center;
-
-    &__title {
-      font-size: 30px;
-      line-height: 40px;
+      background: $dark-blue;
+      border-radius: $border-radius;
+      width: 225px;
+      height: $btn-size-lg;
+      color: #fff;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
     }
 
-    &__description {
-      font-size: 20px;
-      line-height: 30px;
+    @media (max-width: $viewport-lg-w) {
+      height: 550px;
+      align-items: flex-end;
+
+      &__title {
+        font-size: 55px;
+        line-height: 63px;
+      }
+
+      &__description {
+        font-size: 22px;
+        line-height: 34px;
+      }
+
+      button {
+        height: 50px;
+      }
     }
 
-    button {
-      width: 100%;
+    @media (max-width: $viewport-md-w) {
+      align-items: center;
+
+      &__title {
+        font-size: 30px;
+        line-height: 40px;
+      }
+
+      &__description {
+        font-size: 20px;
+        line-height: 30px;
+      }
+
+      button {
+        width: 100%;
+      }
     }
   }
 }

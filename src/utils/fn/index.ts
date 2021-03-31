@@ -1,10 +1,11 @@
 export * from './appendAndSubmitForm';
-export * from './deepFreeze';
+export * from './capitalize';
 export * from './clientStatusPair';
-export * from './formatNumberWithCommas';
-export * from './shallowEqual';
 export * from './deepDifference';
+export * from './deepFreeze';
+export * from './formatNumberWithCommas';
+export * from './getCcFilesStatus';
 // export * from './routeFetchData';
 export * from './getMetaTraderWebTerminalLink';
 export * from './parseUrl';
-export * from './capitalize';
+export * from './shallowEqual';
