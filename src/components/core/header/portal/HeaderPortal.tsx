@@ -1,7 +1,6 @@
 import { Button, Container, LocaleLink, Svg } from '@components/shared';
 import { EAppSection, ELabels, EPagePath } from '@domain/enums';
 import { IHeaderDefaultProps } from '@domain/interfaces';
-import { env } from '@env';
 import { getAppSectionMenu } from '@utils/fn/getAppSectionMenu';
 import { useLockScroll } from '@utils/hooks';
 import { useDebounceFn, useResponsive } from 'ahooks';

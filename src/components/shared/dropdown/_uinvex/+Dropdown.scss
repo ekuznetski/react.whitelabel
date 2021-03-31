@@ -7,7 +7,7 @@
 
       .item {
         &:hover {
-          text-decoration: underline;
+          background: rgba($blue, 0.05);
         }
 
         svg {

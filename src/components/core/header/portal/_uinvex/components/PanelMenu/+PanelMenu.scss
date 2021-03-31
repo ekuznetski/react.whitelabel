@@ -17,7 +17,7 @@
 
                     &:hover {
                         color: $blue;
-                        text-decoration: underline;
+                        background: rgba($blue, 0.05);
                     }
                 }
 
