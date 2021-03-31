@@ -23,4 +23,8 @@ export const config: IDashboardConfig = {
       title: t('Deposit Now').toUpperCase(),
     },
   ],
+  tabsData: {
+    ..._config.tabsData,
+    alignNavigation: 'center',
+  },
 };

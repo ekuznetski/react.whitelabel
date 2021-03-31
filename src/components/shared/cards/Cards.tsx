@@ -24,12 +24,12 @@ export interface ICards {
   className?: string;
   cardWrapperClass?: string;
   children?: React.ReactNode;
-  mobileNavigation?: boolean;
+  scrollableOnMobile?: boolean;
 }
 
 export const Cards = memo(
   forwardRef<HTMLDivElement, ICards>(function Cards(
-    { cards, className, cardWrapperClass, children, mobileNavigation = theme.cardsMobileNavigation },
+    { cards, className, cardWrapperClass, children, scrollableOnMobile = theme.cardsMobileNavigation },
     ref,
   ) {
     const containerRef = React.createRef<HTMLDivElement>();
@@ -48,7 +48,7 @@ export const Cards = memo(
           return (
             <div className={classNames('common-cards', className)} ref={ref}>
               <div
-                className={classNames('common-cards__container', mobileNavigation && 'scrollable')}
+                className={classNames('common-cards__container', scrollableOnMobile && 'scrollable')}
                 ref={containerRef}
               >
                 {!children && cards
@@ -63,7 +63,7 @@ export const Cards = memo(
                     ))
                   : children}
               </div>
-              {mobileNavigation && <CardsNavigation />}
+              {scrollableOnMobile && <CardsNavigation />}
             </div>
           );
         }}
