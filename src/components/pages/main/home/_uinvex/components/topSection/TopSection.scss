@@ -6,6 +6,7 @@
     @include mt((xs: $menu-height-main-sm, md: $menu-height-main-md, lg: $menu-height-main-lg));
     @include height((xs: 570px, sm: 608px, md: 628px, lg:608px));
     @include alignItems((xs: start, md: center));
+    background: #EEEEF1;
     display: flex;
     color: $dark-text;
 
