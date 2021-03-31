@@ -44,7 +44,7 @@ export const PersonalInfo = memo(
         overwise: Yup.string(),
       }),
       phone_prefix: CustomFieldValidators.country,
-      phone: FieldValidators.phone,
+      phone: FieldValidators.phone.required(t('Please enter your phone')),
     });
 
     function Submit(data: FormikValues) {

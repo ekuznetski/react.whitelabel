@@ -385,6 +385,7 @@ export default {
   'Please enter your first name': 'Please enter your first name',
   'Please enter your last name': 'Please enter your last name',
   'Please enter your email': 'Please enter your email',
+  'Please enter your phone': 'Please enter your phone',
   'Please enter your phone number': 'Please enter your phone number',
   'Please enter day of birth': 'Please enter day of birth',
   'Please enter month of birth': 'Please enter month of birth',
