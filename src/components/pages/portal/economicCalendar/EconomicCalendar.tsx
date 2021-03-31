@@ -1,14 +1,15 @@
+import { Col, Container, PageTitle, Row } from '@components/shared';
 import { ELanguage } from '@domain/enums';
-import { IAppStore, IStore } from '@store';
-import React, { createRef, memo, useEffect } from 'react';
+import { IStore } from '@store';
+import React, { memo, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import './EconomicCalendarWidget.scss';
+import './EconomicCalendar.scss';
 
-export const EconomicCalendarWidget = memo(function EconomicCalendarWidget() {
+export const EconomicCalendar = memo(function EconomicCalendar() {
   const { locale } = useSelector<IStore, { locale: ELanguage }>((state) => ({
     locale: state.app.route.locale,
   }));
-  const widgetContainerRef = createRef<HTMLDivElement>();
+  const widgetContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -26,14 +27,19 @@ export const EconomicCalendarWidget = memo(function EconomicCalendarWidget() {
   }, []);
 
   return (
-    <section className="economic-calendar-wrapper__widget">
-      <div className="container">
-        <div className="row">
-          <div className="tradingview-widget-container col">
+    <div className="economic-calendar-wrapper">
+      <Container>
+        <Row>
+          <Col xs={12}>
+            <PageTitle title="Economic Calendar" />
+          </Col>
+        </Row>
+        <Row>
+          <Col className="tradingview-widget-container">
             <div className="tradingview-widget-container__widget" ref={widgetContainerRef}></div>
-          </div>
-        </div>
-      </div>
-    </section>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 });

@@ -129,14 +129,6 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
-      title: meta_t('Economic calendar:title'),
-    },
-    path: EPagePath.EconomicCalendar,
-    component: Page.EconomicCalendar,
-    appSection: EAppSection.main,
-  },
-  {
-    meta: {
       title: meta_t('Login:title'),
     },
     path: EPagePath.Login,
@@ -336,6 +328,20 @@ export const routesNavConfig: IRouteNavConfig[] = [
     menuItem: {
       label: t('Platform Download'),
       icon: 'download-platform',
+      parent: { label: t('Tools'), icon: 'documents' },
+    },
+  },
+  {
+    meta: {
+      title: meta_t('Economic calendar:title'),
+    },
+    path: EPagePath.EconomicCalendar,
+    component: Page.EconomicCalendar,
+    appSection: EAppSection.portal,
+    activators: [allowAuthorizedGuard],
+    menuItem: {
+      label: t('Economic Calendar'),
+      icon: 'calendar',
       parent: { label: t('Tools'), icon: 'documents' },
     },
   },
