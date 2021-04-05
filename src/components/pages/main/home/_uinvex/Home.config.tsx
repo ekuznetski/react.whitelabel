@@ -1,9 +1,9 @@
+import { assetsCharacteristics } from '@domain';
+import { EAssetClass } from '@domain/enums';
+import i18n from '@i18next';
 import { config as _config } from '@pages/main/home/Home.config';
 import React from 'react';
-import i18n from '@i18next';
 import { Trans } from 'react-i18next';
-import { EAssetClass } from '@domain/enums';
-import { assetsCharacteristics } from '@domain';
 
 const t = i18n.getLazyT;
 
@@ -86,6 +86,12 @@ export const config = {
     height: 100,
     margin: { top: 40 },
     showAssetIcon: true,
+  },
+  priceSectionCarousel: {
+    ..._config.priceSectionCarousel,
+    slidesPerView: (responsive: any) => {
+      return responsive.lg ? 3 : responsive.sm ? 2 : 1;
+    },
   },
   platformTechnologySection: {
     title: (

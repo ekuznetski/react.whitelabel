@@ -8,22 +8,24 @@
   .stock-prices-item {
     &__info {
       @include d-flex(start, start, column);
-      @include flex((xs:0 0 252px, lg:0 0 300px, xl:0 0 350px));
-      @include pt((xs: 9, lg: 11));
-      @include pb((xs: 0, lg: 11));
-      @include pl((xs: 11, lg: 9, xl: 11));
-      height: 100%;
+      @include flex((xs: 0 0 100%, md:0 0 252px, lg:0 0 300px, xl:0 0 350px));
+      @include width((xs: 100%, md: 252px, lg: 100%));
+      @include height((xs: 240px, md: 295px, lg: 100%));
+      @include float((md: left, lg: none));
+      @include py((xs: 9, lg: 11));
+      @include pl((xs: 9, xl: 11));
+      @include mt((xs: 9, md: 11, lg: 0));
       box-shadow: box-shadow(10, 0.1);
       border-radius: $border-box-radius;
 
       &-title {
         @include d-flex(center);
-        @include mb((xs: 8));
+        @include mb((xs: 4, lg: 8));
+        @include fontSize((xs: 32px, md: 28px, lg: 32px, xl: 36px));
+        @include lineHeight((xs: 40px, xl: 46px));
         color: $dark-text;
         font-family: $font-family1;
         font-weight: 700;
-        font-size: 36px;
-        line-height: 46px;
         color: $blue;
 
         .common-svg {
@@ -32,23 +34,25 @@
       }
 
       &-description {
+        @include minHeight((xs: 40px, md: 52px, lg: auto));
+        @include pr((xs:8, lg: 8, xl:15));
         @include mb((xs: 6));
-        @include pr((xs: 15, lg: 8, xl:15));
-        font-size: 16px;
-        line-height: 26px;
+        @include fontSize((xs: 14px, lg: 16px));
+        @include lineHeight((xs: 20px, lg: 26px));
         color: $text;
       }
 
       &-points {
-        font-size: 16px;
-        line-height: 26px;
-        margin: auto 0 48px;
+        @include fontSize((xs: 14px, lg: 16px));
+        @include lineHeight((xs: 20px, lg: 26px));
+        @include mt((xs: auto));
+        @include mb((xs: 9, lg: 12));
         color: $dark-text;
 
         b {
+          @include fontSize((xs: 18px, lg: 22px));
+          @include lineHeight((xs: 24px, lg: 26px));
           font-weight: 800;
-          font-size: 22px;
-          line-height: 26px;
           color: $blue;
         }
       }
@@ -104,6 +108,15 @@
           }
         }
 
+        &-left {
+          @include mr((xs: 10, md: 0, lg: sp(8, n), xl: 0));
+        }
+
+        &-right {
+          @include ml((xs: 10, md: 0, lg: sp(8, n), xl: 0));
+          @include mr((md: sp(8, n), lg: 0));
+        }
+
         &-wrapper {
           @include d-flex(flex-end);
           position: relative;
@@ -121,14 +134,14 @@
         }
 
         &-item-wrapper {
-          flex: 0 0 210px;
-          width: 210px;
+          @include flex((xs: 0 0 210px, md: 0 0 190px, lg: 0 0 210px));
+          @include width((xs: 210px, md: 190px, lg: 210px));
           padding: 0 15px;
         }
 
         &-item {
+          @include flex((xs: 0 0 180px, md: 0 0 160px, lg: 0 0 180px));
           @include d-flex(start, start, column);
-          flex: 0 0 180px;
           height: 295px;
           box-shadow: box-shadow(10, 0.15);
           border-radius: $border-box-radius;
@@ -214,6 +227,14 @@
               }
             }
           }
+
+          &__chart {
+            .recharts-wrapper,
+            .recharts-surface {
+              @include width((xs: 180px, md: 160px, lg: 180px), i);
+              @include height((xs: 100px, md: 90px, lg: 100px), i);
+            }
+          }
         }
       }
     }
@@ -249,9 +270,10 @@
         font-size: 14px;
         line-height: 17px;
         color: $text;
-        cursor: pointer;
         transition: color 0.25s;
         z-index: 2;
+        white-space: nowrap;
+        cursor: pointer;
 
         svg {
           @include mr((xs: 3));
@@ -291,29 +313,14 @@
 
   @media (max-width: $viewport-lg-w) {
     height: auto;
-
-    .stock-prices-item {
-      &__info {
-        &-description {
-          min-height: 52px;
-        }
-      }
-    }
   }
 
-  @media (max-width: $viewport-md-w) {
-    .stock-prices-item {
-      &__info {
-        &-description {
-          min-height: 80px;
-        }
-      }
-    }
-
+  @media (max-width: $viewport-sm-w) {
     .stock-prices__content {
       .stock-prices-menu {
         flex-wrap: unset;
         overflow-x: scroll;
+        width: 100%;
 
         @include hideScrollbar;
         margin: 0;

@@ -105,15 +105,10 @@ export const config: IConfig = {
   },
   priceSectionCarousel: {
     showInfo: (responsive: { [key: string]: boolean }) => {
-      return useLabelView({
-        '*': responsive.lg,
-      });
+      return responsive.lg;
     },
     slidesPerView: (responsive: { [key: string]: boolean }) => {
-      return useLabelView({
-        '*': responsive.md ? 3 : responsive.sm ? 2 : 1,
-        [ELabels.uinvex]: responsive.lg ? 3 : responsive.md ? 2 : 2,
-      });
+      return responsive.md ? 3 : responsive.sm ? 2 : 1;
     },
   },
   takeControlItems: [

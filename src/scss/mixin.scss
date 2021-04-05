@@ -152,6 +152,11 @@
   @include mediaTag(background, size, $sizes, $effect);
 }
 
+// float
+@mixin float($sizes, $effect: null) {
+  @include mediaTag(float, null, $sizes, $effect);
+}
+
 // flex
 @mixin flex($sizes, $effect: null) {
   @include mediaTag(flex, null, $sizes, $effect);
