@@ -32,9 +32,8 @@
     }
 
     &__item {
-      @include py((md:9, lg:8, xl:9));
-      @include px((md:9, lg:7, xl:9));
       @include height((xs:200px, lg:180px, xl:200px));
+      @include p((xs: sp(9) sp(7), md: 9, lg: sp(8) sp(7), xl: 9));
       position: relative;
       justify-content: start;
 
@@ -52,7 +51,7 @@
 
         .icons {
           @include top((xs:9, lg:8, xl:9));
-          @include right((xs:9, lg:6, xl:9));
+          @include right((xs:7, md: 9, lg:6, xl:9));
           position: absolute;
           display: flex;
           flex-direction: column;

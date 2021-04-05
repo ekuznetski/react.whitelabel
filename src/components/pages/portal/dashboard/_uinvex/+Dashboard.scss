@@ -6,10 +6,16 @@
       .common-tabs {
         &__navigation {
           height: $tabs-navigation-height;
+
+          &-wrapper {
+            margin: 0 auto !important;
+          }
+
           .active-tab-line {
             height: $tabs-navigation-height;
           }
         }
+
         &__prev,
         &__next {
           height: 40px;

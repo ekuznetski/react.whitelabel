@@ -8,6 +8,7 @@
     @include d-flex(center);
     @include alignItems((xs: start, md:center, lg: start, xl: center));
     @include mb((xs: 12, md: 0));
+    background: #EEEEF1;
     color: $dark-text;
 
     .section-bg {

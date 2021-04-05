@@ -60,8 +60,8 @@
   }
 }
 
-@function box-shadow($size, $alpha) {
-  @return 0px 3px #{$size}px rgba($border-shadow-color, $alpha);
+@function box-shadow($size, $alpha, $color: $border-shadow-color) {
+  @return 0px 3px #{$size}px rgba($color, $alpha);
 }
 
 @function sp($spacer, $effect: null) {

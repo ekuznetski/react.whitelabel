@@ -6,9 +6,9 @@ import { useDebounceEffect } from 'ahooks';
 import classNames from 'classnames';
 import React, { createRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { config } from './PanelMenu.config';
 import './PanelMenu.scss';
 
-const DROPDOWN_MENU_ELEMENTS_HEIGHT = { item: 50, footer: theme.panelMenuFooter ? 28 : 0, padding: 16 };
 type IDropdownMenuConfig = { items: IChildrenMenuConfig; visible: boolean; posY: number };
 
 export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
@@ -70,9 +70,9 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
         style={{
           height:
             (menuDropdownOptions.visible
-              ? menuDropdownOptions.items.length * DROPDOWN_MENU_ELEMENTS_HEIGHT.item +
-                DROPDOWN_MENU_ELEMENTS_HEIGHT.footer +
-                DROPDOWN_MENU_ELEMENTS_HEIGHT.padding
+              ? menuDropdownOptions.items.length * config.item +
+                (theme.panelMenuFooter ? config.footer : 0) +
+                config.padding
               : 0) + 'px',
           left: menuDropdownOptions.posY + 'px',
         }}
@@ -80,7 +80,7 @@ export function PanelMenu({ menuConfig }: { menuConfig: IMenuConfig }) {
         ref={dropdownRef}
       >
         <div className="header-panel-menu__dropdown-wrapper">
-          <div className="header-panel-menu__dropdown-itemsList pt-3 pb-1">
+          <div className="header-panel-menu__dropdown-itemsList py-3">
             {menuDropdownOptions.items.map((child, c) => (
               <div key={c} className="item">
                 <LocaleNavLink exact to={child.path} className="px-7">

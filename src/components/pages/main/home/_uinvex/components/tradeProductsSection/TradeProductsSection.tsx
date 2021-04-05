@@ -21,7 +21,7 @@ export const TradeProductsSection = memo(function TradeProductsSection() {
           <Col xs={12} className="p-0">
             <Cards id="tradeProductsCards" mobileNavigation={true}>
               {config.tradeProductsCards.map((card, c) => (
-                <Card key={c} wrapperClassName="col-12 col-md-6 col-lg-4 mt-9" uid={c}>
+                <Card key={c} wrapperClassName="col-11 col-md-6 col-lg-4 mt-9" uid={c}>
                   <CardHeader className="mb-8">
                     <div className="icon mr-5">
                       <Svg href={card.icon} />
