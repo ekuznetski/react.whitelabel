@@ -69,6 +69,10 @@
     }
   }
 
+  &:not(.vertical)>.common-tabs__navigation {
+    @include mb((xs: 9, md: 11), i);
+  }
+
   @media (max-width: $viewport-md-w) {
     &:not(.vertical):after {
       content: none;
