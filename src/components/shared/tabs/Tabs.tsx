@@ -50,7 +50,7 @@ export function Tabs({
   isVertical = false,
   showContent = false,
   alignNavigation = 'center',
-  disableMobileView = !theme.tabsMobileNavigation,
+  disableMobileView = !theme.tabsMobileScroll,
   onChange = undefined,
 }: ITabs) {
   const [activeTabProps, setActiveTabProps] = useState<TabsState['activeTabProps']>();

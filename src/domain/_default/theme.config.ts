@@ -1,6 +1,6 @@
 export const theme = {
-  cardsMobileNavigation: true,
-  tabsMobileNavigation: true,
+  cardsMobileScroll: true,
+  tabsMobileScroll: true,
   tableMobileScroll: false,
   panelMenuFooter: true,
 };

@@ -13,7 +13,7 @@ export interface ITable {
   className?: string;
   preview?: boolean;
   previewAmount?: number;
-  mobileScroll?: boolean;
+  scrollableOnMobile?: boolean;
 }
 
 export const Table = memo(function Table({
@@ -23,7 +23,7 @@ export const Table = memo(function Table({
   className,
   preview,
   previewAmount = 4,
-  mobileScroll = theme.tableMobileScroll,
+  scrollableOnMobile = theme.tableMobileScroll,
 }: ITable) {
   const [previewValue, togglePreview] = useToggle(true);
   const previewRows = rows.slice(0, previewAmount);
@@ -49,7 +49,7 @@ export const Table = memo(function Table({
 
   return (
     <div className="common-table-wrapper">
-      <div className={classNames('common-table-container', mobileScroll && 'mobile-scroll')}>
+      <div className={classNames('common-table-container', scrollableOnMobile && 'scrollable')}>
         <div className={classNames('common-table', className)} style={{ gridTemplateColumns: col.join(' ') }}>
           {headers.map((headerCell, h) => (
             <div

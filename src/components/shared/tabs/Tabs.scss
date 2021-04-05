@@ -252,13 +252,6 @@
             }
           }
 
-          &.disabled {
-            .tab__link {
-              &__icon {
-              }
-            }
-          }
-
           &.warning {
             .tab__link {
               &__label {
@@ -320,6 +313,7 @@
       }
       @media (max-width: $viewport-md-w) {
         overflow-x: scroll;
+        overflow-y: hidden;
         scroll-behavior: smooth;
         @include hideScrollbar;
 
