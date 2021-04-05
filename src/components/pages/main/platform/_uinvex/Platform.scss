@@ -196,4 +196,8 @@
       }
     }
   }
+
+  .open-live-account-banner {
+    @include mb((xs: -100px, md: 0));
+  }
 }
