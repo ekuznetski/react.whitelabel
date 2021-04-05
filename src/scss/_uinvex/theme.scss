@@ -28,4 +28,10 @@ body {
   .btn {
     min-height: $btn-size-sm;
   }
+
+  .phone-wrapper {
+    .select-wrapper.focused {
+      border-right-color: $uinvex-blue !important;
+    }
+  }
 }

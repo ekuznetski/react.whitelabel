@@ -110,13 +110,13 @@ body {
         border-right-color: #629dff !important;
       }
 
-      .input {
-        border-radius: 0 2px 2px 0;
+      .input-wrapper {
+        border-radius: 0 $border-radius $border-radius 0;
       }
 
       .select-wrapper {
         border-right-color: transparent;
-        border-radius: 2px 0 0 2px;
+        border-radius: $border-radius 0 0 $border-radius;
         flex: 0 0 115px;
       }
     }

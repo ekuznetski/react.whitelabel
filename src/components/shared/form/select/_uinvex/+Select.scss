@@ -1,13 +1,31 @@
 @import '~/variables';
 
 .field.select-wrapper {
-    border-color: $border-grey;
+	border-color: $border-grey;
 
-    &.disabled {
-        div[class$='-container'] {
-            div[class$='-control'] {
-                background: $light-grey;
-            }
-        }
-    }
+	&.currency-select {
+		.currency-symbol {
+			color: $blue;
+		}
+	}
+
+	&.disabled {
+		div[class$='-container'] {
+			div[class$='-control'] {
+
+				background: $light-grey;
+			}
+		}
+	}
+
+	div[class$='-container'] {
+
+		div[class$='-control'] {
+
+			div[class$='-indicatorContainer'],
+			div[class$='-indicatorContainer']:hover {
+				color: $blue;
+			}
+		}
+	}
 }

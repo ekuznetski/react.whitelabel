@@ -30,10 +30,10 @@
       &:hover:not(.active) {
         .tab__link__label-title {
           svg {
-            fill: $blue;
+            fill: rgba($blue, .8);
           }
 
-          color: $blue;
+          color: rgba($blue, .8);
         }
       }
 
@@ -48,6 +48,11 @@
         svg {
           height: 18px;
           margin-right: sp(2);
+          transition: color 0.2s;
+        }
+
+        &-title {
+          transition: color 0.2s;
         }
       }
 
