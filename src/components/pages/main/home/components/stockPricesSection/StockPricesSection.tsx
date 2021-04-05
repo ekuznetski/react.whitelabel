@@ -65,7 +65,7 @@ export const StockPricesSection = memo(function StockPricesSection(props: IStock
                     icon={activePriceTab.icon}
                   />
                 )}
-                <div className="stock-prices__content py-0 py-lg-11">
+                <div className="stock-prices__content">
                   <StockPricesMenu items={priceTabs} activeTab={activePriceTab} selectTab={setActivePriceTab} />
                   {!config.priceSectionCarousel.showInfo(responsive) && (
                     <StockPricesInfo
@@ -89,12 +89,12 @@ function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
   const { t } = useTranslation();
 
   return (
-    <div className="stock-prices-item__info pt-9 pt-lg-11 pb-0 pb-lg-11 pl-11 pl-lg-9 pl-xl-11">
-      <div className="stock-prices-item__info-title mb-6">
-        <Svg href={icon} width={50} height={50} className="mr-5 d-lg-none d-xl-inline" />
+    <div className="stock-prices-item__info">
+      <div className="stock-prices-item__info-title">
+        <Svg href={icon} width={50} height={50} />
         {title}
       </div>
-      <div className="stock-prices-item__info-description mb-6 pr-15 pr-lg-8 pr-xl-15">{desc}</div>
+      <div className="stock-prices-item__info-description">{desc}</div>
       <div className="stock-prices-item__info-points">
         {points.map((point, p) => (
           <div key={p} className="stock-prices-item__info-points-item">
@@ -104,7 +104,7 @@ function StockPricesInfo({ icon, title, desc, points, anchor }: IPriceTabInfo) {
       </div>
       <LocaleLink className="see-all" to={{ pathname: EPagePath.Products, state: { scrollTo: anchor } }}>
         {t('See all products')}
-        <Svg href="chevron_right" className="ml-1" />
+        <Svg href="chevron_right" />
       </LocaleLink>
     </div>
   );
@@ -128,19 +128,19 @@ function StockPricesMenu({ items, activeTab, selectTab }: IPriceTabMenu) {
 
   return (
     <div className="stock-prices-menu" ref={menuRef}>
-      <div className="stock-prices-wrapper px-7">
+      <div className="stock-prices-wrapper">
         {items.map((item, i) => (
           <div
             key={i}
             className={classNames(
               'stock-prices-menu__item',
-              i != items.length - 1 && 'mr-9',
+              i == items.length - 1 && 'last',
               activeTab.anchor === item.anchor && 'active',
             )}
             onClick={() => selectTab(item)}
             ref={(ref) => activeTab.anchor === item.anchor && (activeMenuItemRef = ref)}
           >
-            <Svg href={item.icon} width={20} className="mr-3" />
+            <Svg href={item.icon} width={20} />
             {item.name}
           </div>
         ))}
@@ -214,14 +214,14 @@ const StockPricesChartCarouselItem = forwardRef(function StockPricesChartCarouse
   return (
     <div className="carousel-item-wrapper" ref={ref}>
       <div className={classNames('carousel-item', props.className, props.active && 'active')}>
-        <div className="carousel-item__header p-4">
+        <div className="carousel-item__header">
           {config.priceSectionChartSettings.showAssetIcon && (
             <Img
               src={`assets/${EAssetsIcons[(props.name.trim() as unknown) as number]}.png`}
               className={'assets-icon'}
             />
           )}
-          <div className="title mb-1">{props.name}</div>
+          <div className="title">{props.name}</div>
           <div className="variation">
             <Svg
               href={props.variation >= 0 ? 'arrow_up' : 'arrow_down'}
@@ -231,11 +231,11 @@ const StockPricesChartCarouselItem = forwardRef(function StockPricesChartCarouse
           </div>
         </div>
         <div className="carousel-item__bid-ask">
-          <div className="bid px-6">
+          <div className="bid">
             <div className="label">{t('Bid')}</div>
             <div className="amount">{props.bid}</div>
           </div>
-          <div className="ask px-6">
+          <div className="ask">
             <div className="label">{t('Ask')}</div>
             <div className="amount">{props.ask}</div>
           </div>

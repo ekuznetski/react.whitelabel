@@ -11,11 +11,15 @@
 
   .stock-prices-item {
     &__info {
+      @include pt((xs: 9, lg: 11));
+      @include pb((xs: 0, lg: 11));
+      @include pl((xs: 11, lg: 9, xl: 11));
       flex: 0 0 350px;
       display: flex;
       flex-direction: column;
 
       &-title {
+        @include mb((xs: 6));
         font-weight: 500;
         font-size: 24px;
         line-height: 34px;
@@ -25,6 +29,8 @@
         align-items: center;
 
         svg {
+          @include mr((xs: 5));
+          @include display((lg: none, xl: inline));
           background: $grey-bg;
           border-radius: $border-radius;
           fill: $dark-blue;
@@ -33,6 +39,8 @@
       }
 
       &-description {
+        @include mb((xs: 6));
+        @include pr((xs: 15, lg: 8, xl:15));
         font-size: 16px;
         line-height: 26px;
         color: $text;
@@ -52,6 +60,7 @@
         color: $dark-blue;
 
         svg {
+          @include mr((xs: 1));
           width: 14px;
           height: 14px;
           fill: $dark-blue;
@@ -137,10 +146,12 @@
 
           &__header {
             @include d-flex(center, center, column);
+            @include p((xs: 4));
             align-self: center;
             height: 100%;
 
             .title {
+              @include mb((xs: 1));
               font-size: 16px;
               line-height: 26px;
               color: $dark-text;
@@ -188,11 +199,13 @@
               line-height: 18px;
 
               &.bid {
+                @include px((xs: 6));
                 border-right: 1px solid $grey;
                 text-align: left;
               }
 
               &.ask {
+                @include px((xs: 6));
                 text-align: right;
               }
 
@@ -211,6 +224,7 @@
   }
 
   .stock-prices__content {
+    @include py((lg: 11));
     width: 100%;
     border-left: 1px solid $grey;
 
@@ -220,6 +234,7 @@
       height: 50px;
 
       .stock-prices-wrapper {
+        @include px((xs: 7));
         display: flex;
         align-items: center;
         background: $grey-bg;
@@ -228,6 +243,7 @@
       }
 
       &__item {
+        @include mr((xs: 9));
         height: 100%;
         display: flex;
         align-items: center;
@@ -238,8 +254,13 @@
         transition: color 0.25s;
 
         svg {
+          @include mr((xs: 3));
           transition: fill 0.25s;
           fill: $dark-grey;
+        }
+
+        &.last {
+          @include mr((xs: 0));
         }
 
         &.active {
