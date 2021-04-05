@@ -2,6 +2,7 @@ import { Col, Container, PageTitle, Row } from '@components/shared';
 import { ELanguage } from '@domain/enums';
 import { IStore } from '@store';
 import React, { memo, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import './EconomicCalendar.scss';
 
@@ -10,6 +11,7 @@ export const EconomicCalendar = memo(function EconomicCalendar() {
     locale: state.app.route.locale,
   }));
   const widgetContainerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -31,7 +33,7 @@ export const EconomicCalendar = memo(function EconomicCalendar() {
       <Container>
         <Row>
           <Col xs={12}>
-            <PageTitle title="Economic Calendar" />
+            <PageTitle title={t('Economic Calendar')} />
           </Col>
         </Row>
         <Row>
