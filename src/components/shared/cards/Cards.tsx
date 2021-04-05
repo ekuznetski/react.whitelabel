@@ -29,7 +29,7 @@ export interface ICards {
 
 export const Cards = memo(
   forwardRef<HTMLDivElement, ICards>(function Cards(
-    { cards, className, cardWrapperClass, children, scrollableOnMobile = theme.cardsMobileNavigation },
+    { cards, className, cardWrapperClass, children, scrollableOnMobile = theme.cardsMobileScroll },
     ref,
   ) {
     const containerRef = React.createRef<HTMLDivElement>();
