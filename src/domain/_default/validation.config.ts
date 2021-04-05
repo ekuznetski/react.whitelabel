@@ -87,10 +87,10 @@ export const FieldValidators = {
     .required(t('Please enter account number'))
     .max(100, isBrowser ? t('Maximum length symbols') : t('Bank Account Number count restriction')),
   swift: Yup.string()
-    .matches(RegexValidators.swift, t('Invalid SWIFT Code'))
-    .required(t('Please enter swift code'))
     .min(8, t('Minimum length symbols'))
-    .max(11, t('Maximum length symbols')),
+    .max(11, t('Maximum length symbols'))
+    .matches(RegexValidators.swift, t('Invalid SWIFT Code'))
+    .required(t('Please enter swift code')),
   iban: Yup.string()
     .matches(RegexValidators.postcode, t('Please include latin characters and digits only'))
     .max(50, t('IBAN characters count restriction')),
