@@ -2,10 +2,10 @@
 @import '~/mixin';
 
 .contacts-wrapper {
-
   .page-top {
     @include mt((xs: $menu-height-main-sm, md: $menu-height-main-md, lg: $menu-height-main-lg));
     @include d-flex(center);
+    background: #EEEEF1;
     height: 400px;
 
     svg {

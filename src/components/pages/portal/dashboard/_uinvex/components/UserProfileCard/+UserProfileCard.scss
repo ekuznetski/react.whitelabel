@@ -1,6 +1,18 @@
 @import '~/variables';
 
 .user-profile-card {
+  &__options {
+    .profile-options {
+      &__nav {
+        .common-button {
+          &:hover {
+            box-shadow: inset box-shadow(15, 0.08);
+          }
+        }
+      }
+    }
+  }
+
   &__context {
     border-bottom: 1px solid $border-grey;
 

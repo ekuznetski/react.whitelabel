@@ -7,6 +7,7 @@
     @include flexDirection((xs: column, md: row));
     @include alignItems((xs: start, lg: center));
     @include justifyContent((xs: start));
+    background: #EEEEF1;
     display: flex;
     color: $dark-text;
     margin-top: 60px;

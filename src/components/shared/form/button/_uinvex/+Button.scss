@@ -4,7 +4,8 @@
     transition: box-shadow 0.25s, background 0.25s, border-color 0.25s;
 
     &:hover:not(.disabled) {
-        background: $dark-blue;
+        box-shadow: inset box-shadow(25, 0.25, $dark-blue);
+        // background: $dark-blue;
     }
 
     &.secondary:not(.disabled) {
@@ -21,17 +22,7 @@
         }
 
         &:hover {
-            color: white;
-            border-color: $blue;
-            background: $blue;
-
-            a {
-                color: white;
-
-                svg {
-                    fill: white;
-                }
-            }
+            box-shadow: inset box-shadow(25, 0.1, $blue);
         }
     }
 

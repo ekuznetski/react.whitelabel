@@ -5,9 +5,9 @@
   .page-top {
     @include mt((xs: $menu-height-main-sm, md: $menu-height-main-md, lg: $menu-height-main-lg));
     @include height((xs: 422px, md:336px, lg:344px));
+    background: #EEEEF1;
     display: flex;
     align-items: center;
-    background: #1a1b1c;
     color: #fff;
 
     .section-bg .secondary-bg {

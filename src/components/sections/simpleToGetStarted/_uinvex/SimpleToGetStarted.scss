@@ -93,7 +93,7 @@
               font-weight: 900;
               color: $blue;
 
-              @include top((xs: sp(12), md: sp(9, n)));
+              @include top((xs: 7, md: sp(9, n)));
               @include left((xs: sp(3, n)));
               position: absolute;
 
@@ -110,6 +110,7 @@
           }
 
           &-context {
+            @include maxWidth((xs: 150px, md: auto));
             @include fontSize((xs: 16px, md:16px));
             @include lineHeight((xs: 22px, md:26px));
           }
