@@ -84,7 +84,7 @@
         content: none;
       }
 
-      &__navigation {
+      >.common-tabs__navigation {
         .tab__link {
           &.active {
             .tab__link__label {
