@@ -29,6 +29,7 @@ export * from './depositCards/DepositCards';
 export * from './labelView/LabelView';
 export * from './sectionBg/SectionBg';
 export * from './pageTitle/PageTitle';
+export * from './placeholder/Placeholder';
 
 // Layout
 export * from './layout';

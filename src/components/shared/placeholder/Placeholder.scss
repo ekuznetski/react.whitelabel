@@ -1,0 +1,20 @@
+@import '~/variables';
+@import '~/mixin';
+
+.placeholder-wrapper {
+    @include d-flex(center, center);
+    text-align: center;
+    height: 100%;
+    background-color: $grey-bg;
+    color: $dark-grey;
+
+    h1 {
+        animation: blinker 1.5s linear infinite;
+    }
+
+    @keyframes blinker {
+        50% {
+            opacity: 0.4;
+        }
+    }
+}
