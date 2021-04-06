@@ -365,14 +365,14 @@ module.exports = (_env, arguments) => {
               },
             },
             // MediaQueryPlugin.loader,
-            {
-              loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  plugins: ['postcss-combine-media-query', 'cssnano'],
-                },
-              },
-            },
+            // {
+            //   loader: 'postcss-loader',
+            //   options: {
+            //     postcssOptions: {
+            //       plugins: ['postcss-combine-media-query', 'cssnano'],
+            //     },
+            //   },
+            // },
             {
               loader: 'sass-loader',
               options: {
