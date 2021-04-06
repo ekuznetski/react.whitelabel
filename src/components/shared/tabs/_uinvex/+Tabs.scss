@@ -74,8 +74,13 @@
     }
   }
 
-  &:not(.vertical)>.common-tabs__navigation {
-    @include mb((xs: 9, md: 11), i);
+  &.horizontal {
+    .common-tabs {
+
+      &__navigation {
+        @include mb((xs: 9, md: 11));
+      }
+    }
   }
 
   @media (max-width: $viewport-md-w) {

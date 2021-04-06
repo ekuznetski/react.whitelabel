@@ -19,7 +19,7 @@ export interface ITabs {
   isVertical?: boolean;
   showContent?: boolean;
   alignNavigation?: 'left' | 'center' | 'right';
-  disableMobileView?: boolean;
+  scrollableOnMobile?: boolean;
   onChange?: (active: ActiveTab) => void;
 }
 
@@ -50,7 +50,7 @@ export function Tabs({
   isVertical = false,
   showContent = false,
   alignNavigation = 'center',
-  disableMobileView = !theme.tabsMobileScroll,
+  scrollableOnMobile = !theme.tabsMobileScroll,
   onChange = undefined,
 }: ITabs) {
   const [activeTabProps, setActiveTabProps] = useState<TabsState['activeTabProps']>();
@@ -137,9 +137,15 @@ export function Tabs({
         return useMemo(() => {
           return (
             <div
-              className={classNames('common-tabs', isVertical && 'vertical', 'show_' + state.mobileDisplay, className)}
+              className={classNames(
+                'common-tabs',
+                isVertical ? 'vertical' : 'horizontal',
+                scrollableOnMobile && 'scrollable',
+                'show_' + state.mobileDisplay,
+                className,
+              )}
             >
-              {lineProps && !isVertical && !disableMobileView && (
+              {lineProps && !isVertical && !scrollableOnMobile && (
                 <div className="d-lg-none common-tabs__prev" onClick={selectPrevTab}>
                   <Svg href={'chevron_left'} width={18} height={18} />
                 </div>
@@ -147,9 +153,7 @@ export function Tabs({
               <div
                 className={classNames(
                   'common-tabs__navigation',
-                  !isVertical && 'mb-9',
-                  !isVertical && !disableMobileView && 'mx-9 mx-lg-0',
-                  disableMobileView && 'common-tabs__navigation--disable-mobile-view',
+                  scrollableOnMobile && 'common-tabs__navigation--disable-mobile-view',
                 )}
                 ref={navRef}
               >
@@ -194,7 +198,7 @@ export function Tabs({
                   )}
                 </div>
               </div>
-              {lineProps && !isVertical && !disableMobileView && (
+              {lineProps && !isVertical && !scrollableOnMobile && (
                 <div className="d-lg-none common-tabs__next" onClick={selectNextTab}>
                   <Svg href={'chevron_right'} width={18} height={18} />
                 </div>
