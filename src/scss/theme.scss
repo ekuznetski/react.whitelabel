@@ -38,7 +38,7 @@ body {
       background: $grey-bg-light;
 
       .router-context {
-        padding: 0 0 120px;
+        @include p((xs: 0 0 70px, md: 0 0 100px, lg: 0 0 120px));
       }
 
       section {

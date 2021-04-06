@@ -333,6 +333,20 @@ export const routesNavConfig: IRouteNavConfig[] = [
   },
   {
     meta: {
+      title: meta_t('Economic calendar:title'),
+    },
+    path: EPagePath.EconomicCalendar,
+    component: Page.EconomicCalendar,
+    appSection: EAppSection.portal,
+    activators: [allowAuthorizedGuard],
+    menuItem: {
+      label: t('Economic Calendar'),
+      icon: 'calendar',
+      parent: { label: t('Tools'), icon: 'documents' },
+    },
+  },
+  {
+    meta: {
       title: meta_t('Profile:title'),
     },
     path: EPagePath.Profile,

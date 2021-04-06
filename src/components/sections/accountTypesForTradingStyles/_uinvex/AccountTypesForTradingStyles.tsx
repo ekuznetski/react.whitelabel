@@ -48,7 +48,7 @@ export const AccountTypesForTradingStylesSection = memo(
           </Row>
           <Row>
             <Col xs={12} className="account-types-for-trading-styles-section__content p-0">
-              <Cards id="accountTypesForTradingStylesSectionCards" mobileNavigation>
+              <Cards id="accountTypesForTradingStylesSectionCards" scrollableOnMobile>
                 {cards.map((card, idx) => (
                   <Card key={idx} wrapperClassName="col" uid={idx}>
                     <CardHeader className="header">
