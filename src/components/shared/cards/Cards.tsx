@@ -1,9 +1,9 @@
 import { theme } from '@domain';
-import { useInViewport, useResponsive } from 'ahooks';
+import { useDebounce, useInViewport, usePrevious, useResponsive } from 'ahooks';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useEffect } from 'react';
+import React, { forwardRef, memo, useEffect, useState } from 'react';
 import isEqual from 'react-fast-compare';
-import { CardsProvider, useCardsDispatch, useCardsState } from './cards.context';
+import { CardUid, CardsProvider, useCardsDispatch, useCardsState } from './cards.context';
 import './Cards.scss';
 
 export interface ISingleCard {
@@ -36,19 +36,45 @@ export const Cards = memo(
 
     return (
       <CardsProvider>
-        {() => {
-          // useEffect(() => {
-          // 	if (containerRef.current && state.cardsAmount) {
-          // 		containerRef.current.scrollLeft = state.activeCardUid
-          // 			? state.cardsUid.indexOf(state.activeCardUid) * containerRef.current.clientWidth
-          // 			: 0;
-          // 	}
-          // }, [state.scrollToUid]);
+        {(state, dispatch) => {
+          const [containerScrollBlocked, setContainerScrollBlocked] = useState(false);
+
+          function scrollHandler() {
+            if (!containerScrollBlocked && scrollableOnMobile && containerRef.current) {
+              const cardUidOnView = state.cards
+                .map((c, i) => {
+                  if (c.ref) {
+                    const rect = c.ref.getBoundingClientRect();
+                    return (
+                      ((rect.left > -50 && rect.left < 50) ||
+                        // @ts-ignore
+                        (i == state.cards.length - 1 && rect.right - containerRef.current.offsetWidth < 50)) &&
+                      c.uid
+                    );
+                  }
+                  return false;
+                })
+                .reduce((acc, key) => (key !== false ? key : acc), false);
+
+              if (cardUidOnView !== false && cardUidOnView != state.activeCard.uid) {
+                dispatch({ type: 'setActiveCard', uid: cardUidOnView });
+              }
+            }
+          }
+
+          function navigationItemClickHandler(uid: CardUid) {
+            if (containerRef.current && scrollableOnMobile && state.cardsAmount && state.cardsAmount > 1) {
+              setContainerScrollBlocked(true);
+              containerRef.current.scrollLeft = uid ? state.cards.find((c) => c.uid === uid)?.ref?.offsetLeft || 0 : 0;
+              setTimeout(() => setContainerScrollBlocked(false), 600);
+            }
+          }
 
           return (
             <div className={classNames('common-cards', className)} ref={ref}>
               <div
                 className={classNames('common-cards__container', scrollableOnMobile && 'scrollable')}
+                onScroll={scrollHandler}
                 ref={containerRef}
               >
                 {!children && cards
@@ -63,7 +89,7 @@ export const Cards = memo(
                     ))
                   : children}
               </div>
-              {scrollableOnMobile && <CardsNavigation />}
+              {scrollableOnMobile && <CardsNavigation onItemClick={navigationItemClickHandler} />}
             </div>
           );
         }}
@@ -78,9 +104,8 @@ export const Cards = memo(
 export const Card = memo(
   forwardRef<HTMLDivElement, ISingleCard & React.Attributes>(function Card(props, ref) {
     const dispatch = useCardsDispatch();
-    const { cards, activeCardUid } = useCardsState();
-    const observerRef = React.createRef<HTMLDivElement>();
-    const inView = useInViewport(observerRef);
+    const { cards, activeCard } = useCardsState();
+    const cardRef = React.useRef<HTMLDivElement>(null);
     const responsive = useResponsive();
     const currentCard = cards.find((card) => card.uid === props.uid);
 
@@ -92,14 +117,19 @@ export const Card = memo(
         content: props.header ? { elem: props.content } : null,
       });
     }, []);
+
     useEffect(() => {
-      if (inView) dispatch({ type: 'setActiveCard', uid: props.uid });
-    }, [inView]);
+      dispatch({
+        type: 'addCardRef',
+        uid: props.uid,
+        ref: cardRef.current,
+      });
+    }, [cardRef]);
 
     return (
-      <div className={classNames('common-cards__wrapper', props.wrapperClassName)}>
+      <div className={classNames('common-cards__wrapper', props.wrapperClassName)} ref={cardRef}>
         <div
-          className={classNames('common-cards__item', props.className, activeCardUid === props.uid && 'active')}
+          className={classNames('common-cards__item', props.className, activeCard.uid === props.uid && 'active')}
           ref={ref}
         >
           {props.children}
@@ -113,29 +143,34 @@ export const Card = memo(
               {currentCard?.content.elem}
             </div>
           )}
-          {!responsive.md && <div className="common-cards__item-observer" ref={observerRef} />}
+          {!responsive.md && <div className="common-cards__item-observer" />}
         </div>
       </div>
     );
   }),
 );
 
-export const CardsNavigation = memo(
-  forwardRef<HTMLDivElement, { children?: React.ReactNode; className?: string }>(function CardsNavigation(
-    { ...props },
-    ref,
-  ) {
-    const { cards, activeCardUid } = useCardsState();
+export const CardsNavigation = memo(function CardsNavigation(props: { onItemClick: (uid: CardUid) => void }) {
+  const { cards, activeCard } = useCardsState();
+  const dispatch = useCardsDispatch();
 
-    return (
-      <div className="cards-nav d-md-none">
-        {cards.map((el, i) => (
-          <div key={i} className={classNames('cards-nav__item', activeCardUid === el.uid && 'active')} />
-        ))}
-      </div>
-    );
-  }),
-);
+  function itemClickHandler(uid: CardUid) {
+    dispatch({ type: 'setActiveCard', uid });
+    props.onItemClick(uid);
+  }
+
+  return (
+    <div className="cards-nav d-md-none">
+      {cards.map((el, i) => (
+        <div
+          key={i}
+          className={classNames('cards-nav__item', activeCard.uid === el.uid && 'active')}
+          onClick={() => itemClickHandler(el.uid)}
+        />
+      ))}
+    </div>
+  );
+});
 
 export const CardHeader = memo(function CardHeader(props: { children?: React.ReactNode; className?: string }) {
   const dispatch = useCardsDispatch();
