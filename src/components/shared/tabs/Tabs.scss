@@ -160,6 +160,24 @@
     }
   }
 
+  &.horizontal {
+    &.scrollable {
+      .common-tabs {
+
+        &__navigation {
+          @include mx((xs:9, md: 0));
+        }
+      }
+    }
+
+    .common-tabs {
+
+      &__navigation {
+        @include mb((xs:9));
+      }
+    }
+  }
+
   &.vertical {
     flex-direction: row;
 

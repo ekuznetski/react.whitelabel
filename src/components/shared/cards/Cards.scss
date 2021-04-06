@@ -10,6 +10,7 @@
     flex-wrap: wrap;
     width: 100%;
     padding: 10px 0;
+    scroll-behavior: smooth;
   }
 
   &__item {
@@ -54,9 +55,9 @@
   }
 
   .cards-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include d-flex(center, center);
+    position: relative;
+    z-index: 9;
     width: 100%;
 
     .cards-nav__item {

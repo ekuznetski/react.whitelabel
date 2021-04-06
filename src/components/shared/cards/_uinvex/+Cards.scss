@@ -12,6 +12,19 @@
         overflow: hidden;
     }
 
+    .cards-nav {
+        .cards-nav__item {
+          flex: 0 0 10px;
+          height: 10px;
+          background: $dark-grey;
+          border-radius: 50%;
+    
+          &.active {
+            background: $blue;
+          }
+        }
+      }
+
     .common-cards__container {
         &.scrollable {
             .common-cards__wrapper:not(:last-child) {

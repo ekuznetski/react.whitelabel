@@ -131,7 +131,7 @@ export const TransactionStatement = memo(function TransactionStatement() {
                     <Tabs
                       className="statement__tabs"
                       alignNavigation="left"
-                      disableMobileView={true}
+                      scrollableOnMobile
                       onChange={() => resetForm({ values: { ...values, [EFields.filter]: '' } })}
                     >
                       <Tab anchor="recent" label={t('Recent')}>

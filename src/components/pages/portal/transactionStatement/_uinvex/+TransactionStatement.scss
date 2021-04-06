@@ -1,0 +1,15 @@
+@import '~/variables';
+@import '~/mixin';
+
+.transaction-statement-page-wrapper {
+  .common-tabs {
+    &.horizontal {
+      .common-tabs {
+
+        &__navigation {
+          @include mb((xs: 7, md: 9));
+        }
+      }
+    }
+  }
+}
