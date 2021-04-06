@@ -51,7 +51,7 @@ export const WorkshopCards = memo(
               <div className="workshop-cards__item-content">
                 <div className="item-schedule px-8">
                   <div className="item-schedule__day mr-5">
-                    <Svg href="calendar" className="mr-1" />
+                    <Svg href="calendar" height={17} className="mr-1" />
                     {t(workshop.schedule.day)}
                   </div>
                   <div className="item-schedule__time">

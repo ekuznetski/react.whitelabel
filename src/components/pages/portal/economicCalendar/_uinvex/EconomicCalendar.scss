@@ -1,0 +1,13 @@
+@import '~/mixin';
+
+.economic-calendar-wrapper {
+    .tradingview-widget-container {
+        @include col((xs: 12, lg: 10));
+        @include mx((xs: auto));
+
+        .tradingview-widget-container__widget {
+            @include height((xs: 570px, md: 708px));
+            @include width((xs: calc(100% - 2px)));
+        }
+    }
+}
