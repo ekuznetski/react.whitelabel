@@ -19,7 +19,7 @@ export const TradeProductsSection = memo(function TradeProductsSection() {
             </div>
           </Col>
           <Col xs={12} className="p-0">
-            <Cards id="tradeProductsCards" mobileNavigation={true}>
+            <Cards id="tradeProductsCards" scrollableOnMobile>
               {config.tradeProductsCards.map((card, c) => (
                 <Card key={c} wrapperClassName="col-11 col-md-6 col-lg-4 mt-9" uid={c}>
                   <CardHeader className="mb-8">
