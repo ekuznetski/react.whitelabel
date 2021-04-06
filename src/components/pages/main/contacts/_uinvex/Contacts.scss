@@ -19,6 +19,7 @@
     }
 
     &__title {
+      @include col((xs: 7, md: unset));
       font-size: 48px;
       font-weight: 600;
       font-family: $font-family1;
@@ -44,16 +45,11 @@
       &__description {
         font-size: 22px;
       }
-
-      .section-bg .secondary-bg {
-        height: 400px;
-        right: 0;
-        background-position-x: 65% !important;
-      }
     }
 
     @media (max-width: $viewport-md-w) {
-      height: 400px;
+      height: 572px;
+      align-items: flex-start;
 
       &__title {
         font-size: 32px;
@@ -63,14 +59,6 @@
       &__description {
         font-size: 20px;
         line-height: 28px;
-      }
-    }
-
-    @media (max-width: $viewport-sm-w) {
-      height: 572px;
-
-      .section-bg .secondary-bg {
-        height: 572px;
       }
     }
   }
@@ -171,6 +159,7 @@
   }
 
   .map {
+    height: 500px;
     line-height: 0;
   }
 }

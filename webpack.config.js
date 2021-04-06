@@ -8,6 +8,7 @@ const glob = require('glob');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const tsConfig = require('./tsconfig.json');
 const webpack = require('webpack');
+const MediaQueryPlugin = require('media-query-plugin');
 
 /**
  * Return filepath/filename destructed to { filename, extension, basename }
@@ -363,6 +364,15 @@ module.exports = (_env, arguments) => {
                 url: false,
               },
             },
+            // MediaQueryPlugin.loader,
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: ['postcss-combine-media-query', 'cssnano'],
+                },
+              },
+            },
             {
               loader: 'sass-loader',
               options: {
@@ -541,6 +551,20 @@ module.exports = (_env, arguments) => {
         template: './index.html',
         filename: !!env.PRODUCTION ? 'server.html' : 'index.html',
       }),
+      // new MediaQueryPlugin({
+      //   queries: {
+      //     '(min-width: 1200px)': 'desktop',
+      //     '(min-width: 992px)': 'desktop',
+      //     '(min-width: 768px)': 'tablet',
+      //     '(min-width: 576px)': 'mobile',
+      //     '(min-width: 375px)': 'mobile',
+      //     '(max-width: 1199px)': 'desktop',
+      //     '(max-width: 991px)': 'desktop',
+      //     '(max-width: 767px)': 'tablet',
+      //     '(max-width: 575px)': 'mobile',
+      //     '(min-width: 374px)': 'mobile',
+      //   },
+      // }),
     ],
     devServer: {
       contentBase: __dirname + '/dist',
