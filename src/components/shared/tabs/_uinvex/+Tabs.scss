@@ -79,21 +79,26 @@
   }
 
   @media (max-width: $viewport-md-w) {
-    &:not(.vertical):after {
-      content: none;
+    &:not(.vertical) {
+      &:after {
+        content: none;
+      }
+
+      &__navigation {
+        .tab__link {
+          &.active {
+            .tab__link__label {
+              color: white;
+            }
+          }
+        }
+      }
     }
+
 
     &__navigation {
       padding-top: 0 !important;
       padding-bottom: 0 !important;
-
-      .tab__link {
-        &.active {
-          .tab__link__label {
-            color: white;
-          }
-        }
-      }
 
       .active-tab-line {
         border: 1px solid $blue;

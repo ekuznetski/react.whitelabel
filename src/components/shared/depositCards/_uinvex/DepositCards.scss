@@ -16,7 +16,7 @@
             &__item {
                 @include height((xs: 100px, sm: 170px, md: 200px));
                 @include p((xs: 0, sm: 0 sp(2), md: sp(11) sp(10)));
-                justify-content: center;
+                @include justifyContent((xs: center, md: flex-start));
                 text-align: center;
                 background: linear-gradient(180deg, #ffffff 0%, #f9f9fd 100%);
                 box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
@@ -28,6 +28,7 @@
                 &-header {
                     @include fontSize((xs: 48px, md: 44px));
                     @include lineHeight((xs: 58px, md: 64px, lg: 52px));
+                    height: 48px;
                     justify-content: center;
                     font-family: $font-family1;
                     font-weight: 700;

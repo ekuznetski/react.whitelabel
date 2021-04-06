@@ -15,7 +15,8 @@ export function Contacts() {
         <SectionBg
           primary="header_bg.jpg"
           secondary={{
-            md: 'contact-page-top-desktop.png',
+            lg: 'contact-page-top-desktop.png',
+            md: 'contact-page-top-tablet.png',
             xxs: 'contact-page-top-mobile.png',
           }}
         />
