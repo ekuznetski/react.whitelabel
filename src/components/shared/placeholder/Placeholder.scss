@@ -3,13 +3,16 @@
 
 .placeholder-wrapper {
     @include d-flex(center, center);
-    text-align: center;
-    height: 100%;
+    @include textAlign((xs: center));
+    @include height((xs: 100%));
     background-color: $grey-bg;
     color: $dark-grey;
 
-    h1 {
+    .placeholder-text {
         animation: blinker 1.5s linear infinite;
+        font-family: $font-family1;
+        font-size: 24px;
+        font-weight: 700;
     }
 
     @keyframes blinker {

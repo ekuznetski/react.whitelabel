@@ -26,7 +26,7 @@ export const EconomicCalendar = memo(function EconomicCalendar() {
       locale: locale,
       importanceFilter: '-1,0,1',
     });
-    script.addEventListener('load', function () {
+    script.addEventListener('load', () => {
       setLoading(false);
     });
     widgetContainerRef.current?.appendChild(script);
@@ -42,8 +42,8 @@ export const EconomicCalendar = memo(function EconomicCalendar() {
         </Row>
         <Row>
           <Col className="tradingview-widget-container">
-            <div className="tradingview-widget-container__widget" ref={widgetContainerRef}>
-              {loading && <Placeholder text="Loading Calendar.." />}
+            <div className="tradingview-widget" ref={widgetContainerRef}>
+              {loading && <Placeholder text={t('Loading Calendar..')} />}
             </div>
           </Col>
         </Row>
