@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import './Placeholder.scss';
 
 interface IPlaceholder {
-  text?: string;
+  text: string;
 }
 
 export const Placeholder = memo(function Placeholder({ text }: IPlaceholder) {
