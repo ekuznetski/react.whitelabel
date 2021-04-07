@@ -84,7 +84,7 @@
   }
 
   @media (max-width: $viewport-md-w) {
-    &:not(.vertical) {
+    &.horizontal {
       &:after {
         content: none;
       }
