@@ -15,6 +15,7 @@
     border-radius: $border-radius;
     color: $dark-text;
     width: 85px;
+    height: $btn-size-md;
 
     &:hover {
       color: $dark-text;
@@ -32,6 +33,7 @@
     border-color: $light-blue;
     background: $light-blue;
     width: 175px;
+    height: $btn-size-md;
 
     a {
       color: $blue;
