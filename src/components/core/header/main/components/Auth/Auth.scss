@@ -1,0 +1,33 @@
+@import '~/variables';
+@import '~/mixin';
+
+.header-panel-auth {
+  @include d-flex(center);
+
+  .sign-in-btn {
+    color: #fff;
+    transition: color 0.35s;
+
+    &:hover {
+      color: #fff;
+    }
+
+    .panel-menu.fixed & {
+      color: $dark-text;
+
+      &:hover {
+        color: $dark-text;
+      }
+    }
+  }
+
+  .open-account-btn {
+    background: $dark-blue;
+    width: 175px;
+    color: #fff;
+
+    a {
+      color: #fff;
+    }
+  }
+}

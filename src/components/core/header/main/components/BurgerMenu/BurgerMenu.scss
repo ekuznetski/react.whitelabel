@@ -1,0 +1,51 @@
+@import '~/variables';
+
+.header-panel-burger-menu {
+  position: fixed;
+  display: table;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  top: -200%;
+  transition: top 0.5s;
+  left: 0;
+
+  &.open {
+    transition: top 0.3s;
+    position: fixed;
+    top: 0;
+
+    button {
+      opacity: 1;
+    }
+  }
+
+  .menu__item {
+    a {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid $grey;
+      color: $dark-text;
+      text-decoration: none;
+      height: 38px;
+
+      &.active {
+        border-bottom-color: $dark-text;
+        font-weight: 500;
+      }
+    }
+  }
+
+  button {
+    background: $dark-blue;
+    color: #fff;
+    border-radius: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.1s;
+
+    a {
+      color: #fff;
+    }
+  }
+}

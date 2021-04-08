@@ -9,23 +9,36 @@
       top: 0;
     }
 
-    .logo {
-      @include mr((lg: 10, xl:0));
+    &.fixed {
+      .header-panel-inline-menu {
+        margin-bottom: 0;
+      }
 
+      .header-panel-logo {
+        svg {
+          @include fillLogo($blue, black, $dark-blue);
+        }
+      }
+    }
+
+    .header-panel-logo {
       svg {
         @include fillLogo($blue, black, $dark-blue);
       }
     }
 
-    .burger-toggle {
+    .header-panel-burger-toggle {
       svg {
         stroke: $dark-text;
       }
     }
 
-    .menu {
-      &__item {
+    .header-panel-inline-menu {
+      .menu__item {
+        margin-right: sp(7);
+
         a {
+          @include fontSize((lg: 15px, xl: 16px));
           color: $dark-text;
           font-family: $font-family1;
 
@@ -41,34 +54,30 @@
       }
     }
 
-    &.fixed {
-      .menu {
-        margin-bottom: 0;
-      }
-
-      .logo {
-        svg {
-          @include fillLogo($blue, black, $dark-blue);
-        }
-      }
-    }
-
-    @media (max-width: $viewport-xl-w) {
-      .menu {
-        &__item {
-          a {
-            font-size: 16px;
-          }
-        }
-      }
-
-      .logo {
-        width: 115px;
-      }
+    .header-panel-auth {
 
       .sign-in-btn,
       .open-account-btn {
-        font-size: 16px;
+        @include fontSize((xs: 16px, lg: 15px, xl: 16px));
+      }
+
+      .open-account-btn {
+        color: $blue;
+        border-color: $light-blue;
+        background: $light-blue;
+
+        a {
+          color: $blue;
+          font-weight: 500;
+
+          svg {
+            fill: $blue;
+          }
+        }
+
+        &:hover {
+          box-shadow: inset box-shadow(25, 0.1, $blue);
+        }
       }
     }
   }

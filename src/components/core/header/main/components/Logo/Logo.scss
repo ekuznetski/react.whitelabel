@@ -1,0 +1,31 @@
+@import '~/variables';
+@import '~/mixin';
+
+.header-panel-logo {
+  display: flex;
+  align-items: center;
+  width: 155px;
+  font-weight: 500;
+  font-size: 24px;
+
+  svg {
+    fill: #fff;
+
+    .label {
+      fill: #fff;
+      transition: fill 0.15s;
+    }
+
+    transition: fill 0.3s;
+  }
+
+  .panel-menu.fixed & {
+    svg {
+      fill: $grey;
+
+      .label {
+        fill: $dark-text;
+      }
+    }
+  }
+}
