@@ -30,7 +30,7 @@ export const Button = memo(
     const _disabled =
       props.disabled ||
       (formikProps && (formikProps?.status === EFormStatus.disabled || (checkFormValidity && !formikProps?.isValid)));
-    const _buttonProps = ['children', 'isLoading', 'loadingOnAction', 'secondary'].reduce(
+    const _buttonProps = ['children', 'isLoading', 'loadingOnAction', 'secondary', 'noBg'].reduce(
       // @ts-ignore
       (acc, el) => (delete acc[el], acc),
       { ...props },
