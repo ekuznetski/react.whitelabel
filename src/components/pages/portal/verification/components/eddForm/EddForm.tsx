@@ -292,7 +292,7 @@ export const EddForm = memo(function EddForm() {
                 </Col>
                 <Col xs={12} md={6} className="d-lg-none edd-form__button">
                   <TabMobileBackButton>
-                    <Button type="button" isLoading={true} secondary>
+                    <Button type="button" secondary>
                       {t('Back')}
                     </Button>
                   </TabMobileBackButton>
