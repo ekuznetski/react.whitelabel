@@ -305,7 +305,7 @@
 
   &:not(.vertical) {
     @media (max-width: $viewport-md-w) {
-      &:after {
+      .common-tabs__navigation-wrapper:after {
         content: '';
         position: absolute;
         top: 27px;
@@ -314,6 +314,10 @@
         height: 1px;
         z-index: 1;
         background: $grey;
+      }
+
+      .active-tab-line {
+        top: 27px;
       }
     }
 
