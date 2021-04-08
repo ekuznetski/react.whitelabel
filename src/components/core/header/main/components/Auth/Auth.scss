@@ -22,6 +22,8 @@
   }
 
   .open-account-btn {
+    @include display((xs: none, md: block));
+    @include ml((xs: 9));
     background: $dark-blue;
     width: 175px;
     color: #fff;

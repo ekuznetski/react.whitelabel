@@ -1,51 +1,72 @@
 .common-button {
-    background: $blue;
-    height: $btn-size-lg;
-    transition: box-shadow 0.25s, background 0.25s, border-color 0.25s;
-    font-family: $font-family1;
+	background: $blue;
+	height: $btn-size-lg;
+	transition: box-shadow 0.25s, background 0.25s, border-color 0.25s;
+	font-family: $font-family1;
 
-    a,
-    span {
-        font-family: $font-family1;
-    }
+	a,
+	span {
+		font-family: $font-family1;
+	}
 
-    &:hover:not(.disabled) {
-        box-shadow: inset box-shadow(25, 0.25, $dark-blue);
-        // background: $dark-blue;
-    }
+	&:hover:not(.disabled) {
+		box-shadow: inset box-shadow(25, 0.25, $dark-blue);
+		// background: $dark-blue;
+	}
 
-    &.secondary:not(.disabled) {
-        color: $blue;
-        border-color: $light-blue;
-        background: $light-blue;
+	&.secondary:not(.disabled) {
+		color: $blue;
+		border-color: $light-blue;
+		background: $light-blue;
 
-        a {
-            color: $blue;
+		a {
+			color: $blue;
 
-            svg {
-                fill: $blue;
-            }
-        }
+			svg {
+				fill: $blue;
+			}
+		}
 
-        &:hover {
-            box-shadow: inset box-shadow(25, 0.1, $blue);
-        }
-    }
+		&:hover {
+			box-shadow: inset box-shadow(25, 0.1, $blue);
+		}
+	}
 
-    &.disabled {
-        background: $light-grey;
-        color: $dark-grey;
+	&.no-bg {
+		color: $text;
+		border-color: $border-grey;
+		background: $light-grey;
 
-        a {
-            color: $dark-grey;
-        }
+		a {
+			font-weight: 500;
+			color: $text;
 
-        svg {
-            fill: $dark-grey;
-        }
+			svg {
+				fill: $text;
+			}
+		}
 
-        &.secondary {
-            border-color: $light-grey;
-        }
-    }
+		&:hover {
+			border-color: $border-grey;
+			box-shadow: inset box-shadow(25, 0.1, $text);
+		}
+
+	}
+
+	&.disabled {
+		background: $light-grey;
+		color: $dark-grey;
+
+		a {
+			color: $dark-grey;
+		}
+
+		svg {
+			fill: $dark-grey;
+		}
+
+		&.secondary {
+			border-color: $light-grey;
+		}
+	}
 }

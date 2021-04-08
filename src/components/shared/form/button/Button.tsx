@@ -13,6 +13,7 @@ interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loadingOnAction?: EActionTypes | EActionTypes[];
   isLoading?: boolean;
   secondary?: boolean;
+  noBg?: boolean;
 }
 
 export const Button = memo(
@@ -37,7 +38,7 @@ export const Button = memo(
 
     return (
       <button
-        className={classNames('common-button', props.secondary && 'secondary', className, (_disabled || _loading) && 'disabled')}
+        className={classNames('common-button', props.secondary && 'secondary', props.noBg && 'no-bg', className, (_disabled || _loading) && 'disabled')}
         {..._buttonProps}
         disabled={_disabled || _loading}
         ref={ref}

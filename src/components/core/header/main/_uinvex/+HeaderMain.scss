@@ -22,6 +22,8 @@
     }
 
     .header-panel-logo {
+      @include width((xs: 140px, xl:155px));
+
       svg {
         @include fillLogo($blue, black, $dark-blue);
       }
@@ -50,33 +52,6 @@
               background: $blue !important;
             }
           }
-        }
-      }
-    }
-
-    .header-panel-auth {
-
-      .sign-in-btn,
-      .open-account-btn {
-        @include fontSize((xs: 16px, lg: 15px, xl: 16px));
-      }
-
-      .open-account-btn {
-        color: $blue;
-        border-color: $light-blue;
-        background: $light-blue;
-
-        a {
-          color: $blue;
-          font-weight: 500;
-
-          svg {
-            fill: $blue;
-          }
-        }
-
-        &:hover {
-          box-shadow: inset box-shadow(25, 0.1, $blue);
         }
       }
     }

@@ -1,4 +1,4 @@
-import { Button, LocaleLink } from '@components/shared';
+import { Button, LocaleLink, Svg } from '@components/shared';
 import { ProfileMenu } from '@core/header/portal/components';
 import { EPagePath } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
@@ -17,9 +17,12 @@ export const Auth = memo(function Auth() {
     <div className="header-panel-auth ml-auto">
       {!clientProfile ? (
         <>
-          <LocaleLink to={EPagePath.Login} className="sign-in-btn">
-            {t('Sign In')}
-          </LocaleLink>
+          <Button className="sign-in-btn" noBg>
+            <LocaleLink to={EPagePath.Login}>
+              <Svg href="key" />
+              {t('Login')}
+            </LocaleLink>
+          </Button>
           <Button className="open-account-btn">
             <LocaleLink to={EPagePath.Registration}>{t('Open An Account')}</LocaleLink>
           </Button>
