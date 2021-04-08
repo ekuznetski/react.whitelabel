@@ -62,7 +62,8 @@
     >.td {
       @include fontSize((xs: 16px, md: 14px, lg: 16px));
       @include lineHeight((xs: 22px, md: 18px, lg: 22px));
-      border: none;
+      border-color: $border-grey;
+      // border: none;
 
       &.fullViewParam {
         @include display((xs:none, md: flex));

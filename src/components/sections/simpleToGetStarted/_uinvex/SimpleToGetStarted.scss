@@ -69,7 +69,8 @@
           @include p((xs: 7, xl:9));
           @include pt((xs: 7, md:12, xl:13));
           @include pl((xs: 17, md:10, xl:12));
-
+          border-radius: $border-radius;
+          box-shadow: box-shadow(15, 0.1);
           background: #fff;
           position: relative;
 

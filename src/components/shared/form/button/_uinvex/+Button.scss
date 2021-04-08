@@ -1,6 +1,7 @@
 .common-button {
 	background: $blue;
 	height: $btn-size-lg;
+  border-width: 1px;
 	transition: box-shadow 0.25s, background 0.25s, border-color 0.25s;
 	font-family: $font-family1;
 

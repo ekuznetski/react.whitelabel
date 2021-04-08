@@ -33,7 +33,7 @@
 
       &,
       &.col {
-        @if $size == unset {
+        @if $size==unset {
           flex: unset;
           max-width: unset;
         }
@@ -141,6 +141,10 @@
   }
 }
 
+// color
+@mixin color($sizes, $effect: null) {
+  @include mediaTag(color, null, $sizes, $effect);
+}
 
 // background
 @mixin background($sizes, $effect: null) {
