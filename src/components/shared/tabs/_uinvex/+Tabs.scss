@@ -10,7 +10,7 @@
       width: fit-content;
 
       &:after {
-        content: none;
+        display: none !important;
       }
 
       &.center {

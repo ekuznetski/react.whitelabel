@@ -35,6 +35,12 @@
       }
     }
 
+    .header-panel-profile-menu {
+      &__chevron {
+        fill: $dark-text;
+      }
+    }
+
     .header-panel-inline-menu {
       .menu__item {
         margin-right: sp(7);

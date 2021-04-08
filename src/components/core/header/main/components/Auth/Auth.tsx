@@ -1,5 +1,5 @@
 import { Button, LocaleLink } from '@components/shared';
-import { ProfileMenu } from '@core/header/portal/components';
+import { ProfileMenu } from '@core/header/main/components';
 import { EPagePath } from '@domain/enums';
 import { IDataStore, IStore } from '@store';
 import React, { memo } from 'react';

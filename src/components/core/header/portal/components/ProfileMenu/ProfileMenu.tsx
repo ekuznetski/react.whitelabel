@@ -25,7 +25,7 @@ export function ProfileMenu(props: { className?: string }) {
 
   return clientProfile ? (
     <div
-      className={(classNames('header-profile-menu ml-9 d-lg-flex', isDropdownMenuOpen && 'open'), props.className)}
+      className={classNames('header-profile-menu ml-9 d-lg-flex', isDropdownMenuOpen && 'open', props.className)}
       ref={profileRef}
     >
       <div
