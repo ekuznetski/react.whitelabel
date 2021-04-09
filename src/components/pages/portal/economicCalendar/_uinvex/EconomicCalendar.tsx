@@ -29,7 +29,7 @@ export const EconomicCalendar = memo(function EconomicCalendar() {
     script.addEventListener('load', () => setLoading(false));
     widgetContainerRef.current?.appendChild(script);
 
-    () => script.removeEventListener('load', () => setLoading(false));
+    return () => script.removeEventListener('load', () => setLoading(false));
   }, []);
 
   return (
