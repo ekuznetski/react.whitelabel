@@ -173,7 +173,7 @@
     .common-tabs {
 
       &__navigation {
-        @include mb((xs:9));
+        @include mb((xs:9), i);
       }
     }
   }
@@ -303,7 +303,7 @@
     }
   }
 
-  &:not(.vertical) {
+  &.horizontal {
     @media (max-width: $viewport-md-w) {
       .common-tabs__navigation-wrapper:after {
         content: '';
