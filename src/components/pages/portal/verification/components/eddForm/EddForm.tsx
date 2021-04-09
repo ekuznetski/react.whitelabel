@@ -1,13 +1,12 @@
-import { Alert, Button, CountrySelect, Input, Radio, Select, TabMobileBackButton } from '@components/shared';
-import { CustomFieldValidators, FieldValidators } from '@domain';
-import { EClientStatusCode, ENotificationType } from '@domain/enums';
+import { Alert, Button, Col, CountrySelect, Input, Radio, Row, Select, TabMobileBackButton } from '@components/shared';
+import { CustomFieldValidators, FieldValidators, RegexValidators } from '@domain';
+import { EClientStatusCode, ENotificationType, countries } from '@domain/enums';
 import { IEdd } from '@domain/interfaces';
-import { MClientProfile, MClientStatus } from '@domain/models';
-import { EActionTypes, IStore, ac_showNotification, ac_submitEdd } from '@store';
+import { MClientStatus } from '@domain/models';
+import { EActionTypes, IDataStore, IStore, ac_showNotification, ac_submitEdd } from '@store';
 import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo, useEffect } from 'react';
-import { Col, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -15,9 +14,9 @@ import { config } from './';
 import './EddForm.scss';
 
 export const EddForm = memo(function EddForm() {
-  const { profile, clientStatus } = useSelector<IStore, { profile: MClientProfile; clientStatus: MClientStatus }>(
+  const { geoIp, clientStatus } = useSelector<IStore, { geoIp: IDataStore['geoIp']; clientStatus: MClientStatus }>(
     (state) => ({
-      profile: state.data.client.profile,
+      geoIp: state.data.geoIp,
       clientStatus: state.data.client.status,
     }),
   );
@@ -25,41 +24,91 @@ export const EddForm = memo(function EddForm() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const previousEmployerValidation = Yup.string().when('years_employment', {
-    is: (val) => val < 3,
-    then: Yup.string().required(),
-  });
   const validationSchema = Yup.object().shape({
-    nationality: CustomFieldValidators.country,
+    nationality: CustomFieldValidators.country.required(t('Please enter your nationality')),
     own_property: Yup.string().required(),
-    address: FieldValidators.street.required(),
-    years_address: Yup.number().required(),
-    previous_address: Yup.string().when('years_address', {
+    address: Yup.string().max(255, t('Maximum length symbols')).required(t('Please enter home address')),
+    years_address: FieldValidators.years_address,
+    previous_address: Yup.string()
+      .when('years_address', {
+        is: (val) => val < 3,
+        then: Yup.string().required(t('Please enter previous home address')),
+      })
+      .max(250, t('Maximum length symbols')),
+    employment_status: Yup.string().required(t('Please enter your employment status')),
+    employment_fin_industry: Yup.string().when('employment_status', {
+      is: (val) => val == 'fin-service',
+      then: Yup.string().required(t('Please select industry of financial services related')),
+    }),
+    employment_other_industry: Yup.string()
+      .when('employment_status', {
+        is: (val) => val == 'employed-other',
+        then: Yup.string().required(t('Please enter your industry name')),
+      })
+      .max(255, t('Maximum length symbols')),
+    employment_other: Yup.string()
+      .when('employment_status', {
+        is: (val) => val == 'other',
+        then: Yup.string().required(t('Please enter other reason')),
+      })
+      .max(255, t('Maximum length symbols')),
+    employer_name: Yup.string().required(t("Please enter your employer's name")).max(80, t('Maximum length symbols')),
+    nature_of_business: Yup.string()
+      .required(t('Please enter nature of business'))
+      .max(250, t('Maximum length symbols')),
+    position: Yup.string()
+      .required(t('Please enter your position and responsibilities'))
+      .max(50, t('Maximum length symbols')),
+    years_employment: FieldValidators.years_address.required(t('Please enter years of employment')),
+    working_financial: Yup.string().required(t('Please select an answer')),
+    employer_address: Yup.string()
+      .required(t("Please enter your employer's address"))
+      .max(255, t('Maximum length symbols')),
+    phone: Yup.string()
+      .required(t("Please enter your employer's contact number"))
+      .max(30, t('Maximum length symbols'))
+      .matches(RegexValidators.numbersOnly, t('Please include only numbers')),
+    other_income: Yup.string()
+      .required(t('Please enter other income generating activites'))
+      .max(45, t('Maximum length symbols')),
+    appr_annual_income: Yup.string().required(t('Please enter total approximate annual income')),
+    appr_net_worth: Yup.string().required(t('Please enter approximate net worth')),
+    funds_available: Yup.string().required(t('Please enter anticipated funds available for trading')),
+    pr_employer_name: Yup.string()
+      .when('years_employment', {
+        is: (val) => val < 3,
+        then: Yup.string().required(t("Please enter previous employer's name")),
+      })
+      .max(80, t('Maximum length symbols')),
+    pr_nature_of_business: Yup.string()
+      .when('years_employment', {
+        is: (val) => val < 3,
+        then: Yup.string().required(t('Please enter previous nature of business')),
+      })
+      .max(250, t('Maximum length symbols')),
+    pr_position: Yup.string()
+      .when('years_employment', {
+        is: (val) => val < 3,
+        then: Yup.string().required(t('Please enter previous position and responsibilities')),
+      })
+      .max(50, t('Maximum length symbols')),
+    pr_years_employment: Yup.string()
+      .when('years_employment', {
+        is: (val) => val < 3,
+        then: Yup.string().required(t('Please enter years of employment')),
+      })
+      .matches(RegexValidators.numbersAndDotsOnly, t('Please include numbers and dots only'))
+      .max(4, t('Maximum length symbols')),
+    pr_location_employment: Yup.string()
+      .when('years_employment', {
+        is: (val) => val < 3,
+        then: Yup.string().required(t('Please enter previous location of employment')),
+      })
+      .max(250, t('Maximum length symbols')),
+    pr_appr_annual_income: Yup.string().when('years_employment', {
       is: (val) => val < 3,
-      then: Yup.string().required(),
+      then: Yup.string().required(t('Please enter previous approximate annual income')),
     }),
-    employment_status: Yup.string().required(),
-    employment_status_ext: Yup.mixed().when('employment_status', {
-      is: (val) => val == 'other',
-      then: Yup.mixed().required(),
-    }),
-    employer_name: Yup.string().required(),
-    nature_of_business: Yup.string().required(),
-    position: Yup.string().required(),
-    years_employment: Yup.number().required(),
-    working_financial: Yup.string().required(),
-    employer_address: Yup.string().required(),
-    phone: Yup.number().required(),
-    other_income: Yup.string().required(),
-    appr_annual_income: Yup.string().required(),
-    appr_net_worth: Yup.string().required(),
-    funds_available: Yup.string().required(),
-    pr_employer_name: previousEmployerValidation,
-    pr_nature_of_business: previousEmployerValidation,
-    pr_position: previousEmployerValidation,
-    pr_years_employment: previousEmployerValidation,
-    pr_location_employment: previousEmployerValidation,
-    pr_appr_annual_income: previousEmployerValidation,
   });
 
   function Submit(data: FormikValues) {
@@ -69,8 +118,15 @@ export const EddForm = memo(function EddForm() {
 
     // Convert and prepare data to submit
     values.nationality = values.nationality.name;
-    if (values.employment_status_ext) {
-      values.employment_status = values.employment_status_ext;
+    switch (values.employment_status) {
+      case 'fin-service':
+        values.employment_status = values.employment_fin_industry;
+        break;
+      case 'employed-other':
+        values.employment_status = values.employment_other_industry;
+        break;
+      case 'other':
+        values.employment_status = values.employment_other;
     }
 
     // Delete empty fields
@@ -108,23 +164,29 @@ export const EddForm = memo(function EddForm() {
         or withdrawal or place any new trades and the account will be subject to liquidation only.
       </Alert>
       <Formik
-        initialValues={Object.assign(
-          Object.keys(validationSchema.fields || {}).reduce((acc, key) => Object.assign(acc, { [key]: '' }), {}),
-        )}
+        initialValues={{
+          ...Object.assign(
+            Object.keys(validationSchema.fields || {}).reduce((acc, key) => Object.assign(acc, { [key]: '' }), {}),
+          ),
+          nationality: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
+          own_property: '1',
+        }}
         validationSchema={validationSchema}
         initialStatus={clientStatus.edd_status.code === EClientStatusCode.submitted && 'disabled'}
         onSubmit={Submit}
       >
         {({ values, setFieldValue }: FormikProps<any>) => {
           useEffect(() => {
-            setFieldValue('employment_status_ext', '');
+            setFieldValue('employment_other_industry', '');
+            setFieldValue('employment_other', '');
+            setFieldValue('employment_fin_industry', '');
           }, [values.employment_status]);
 
           return (
             <Form className="edd-form__form">
               <Row>
                 <Col xs={12} xl={6}>
-                  <CountrySelect label={t('Country')} name="nationality" />
+                  <CountrySelect label={t('Nationality')} name="nationality" />
                 </Col>
                 <Col xs={12} className="edd-form__col-title mb-2">
                   {t('Do you own the property?')}
@@ -133,7 +195,7 @@ export const EddForm = memo(function EddForm() {
                   <Radio className="mb-8 mb-lg-0" name="own_property" options={config.ownPropertyOptions} />
                 </Col>
                 <Col xs={12} lg={6}>
-                  <Input label={t('Years at current address')} name="years_address" />
+                  <Input label={t('Years at current address')} name="years_address" type="number" />
                 </Col>
                 <Col xs={12}>
                   <Input label={t('Home Address')} name="address" className="mb-0" />
@@ -160,8 +222,8 @@ export const EddForm = memo(function EddForm() {
                     <Col xs={12}>
                       <Input
                         inline={true}
-                        label={t('Years at current address')}
-                        name="employment_status_ext"
+                        label={t('Industry Name')}
+                        name="employment_other_industry"
                         className="mb-0"
                       />
                     </Col>
@@ -173,12 +235,7 @@ export const EddForm = memo(function EddForm() {
                       {t('Type Other Reason')}
                     </Col>
                     <Col xs={12}>
-                      <Input
-                        inline={true}
-                        label={t('Years at current address')}
-                        name="employment_status_ext"
-                        className="mb-0"
-                      />
+                      <Input inline={true} label={t('Other Reason')} name="employment_other" className="mb-0" />
                     </Col>
                   </>
                 )}
@@ -190,9 +247,9 @@ export const EddForm = memo(function EddForm() {
                     <Col xs={12}>
                       <Select
                         inline={true}
-                        label={t('Country')}
+                        label={t('Industry')}
                         options={config.empStatNgSelectValList}
-                        name="employment_status_ext"
+                        name="employment_fin_industry"
                         className="mb-0"
                       />
                     </Col>
@@ -205,7 +262,7 @@ export const EddForm = memo(function EddForm() {
                 </Col>
                 <Col xs={12} lg={6}>
                   <Input label={t('Position and Responsibilities')} name="position" />
-                  <Input label={t('Years of Employment')} name="years_employment" />
+                  <Input label={t('Years of Employment')} name="years_employment" type="number" />
                 </Col>
                 <Col xs={12} className="edd-form__col-title mb-2">
                   {t('Working at a Financial Institution?')}
@@ -259,16 +316,16 @@ export const EddForm = memo(function EddForm() {
                   <>
                     <Col xs={12} className="form-breakline mt-2 mb-10" />
                     <Col xs={12} className="edd-form__col-title mb-2">
-                      {t('Previous Approximate Annual Income ($):')}
+                      {t('Current Employed for less than 3 years')}
                     </Col>
                     <Col xs={12} lg={6}>
-                      <Input label={t('Employer’s Name')} name="pr_employer_name" />
-                      <Input label={t('Nature of Business')} name="pr_nature_of_business" />
-                      <Input label={t('Nature of Business')} name="pr_position" />
+                      <Input label={t('Previous Employer’s Name')} name="pr_employer_name" />
+                      <Input label={t('Previous Nature of Business')} name="pr_nature_of_business" />
+                      <Input label={t('Previous Position and Responsibilities')} name="pr_position" />
                     </Col>
                     <Col xs={12} lg={6}>
-                      <Input label={t('Position and Responsibilities')} name="pr_years_employment" />
-                      <Input label={t('Years of Employment')} name="pr_location_employment" />
+                      <Input label={t('Previous Years of Employment')} name="pr_years_employment" type="number" />
+                      <Input label={t('Previous Location of Employment')} name="pr_location_employment" />
                     </Col>
                     <Col xs={12} className="edd-form__col-title mb-2">
                       {t('Previous Approximate Annual Income ($):')}
@@ -284,7 +341,7 @@ export const EddForm = memo(function EddForm() {
                   </>
                 )}
                 <Col xs={12} md={viewportSize.lg ? 12 : 6}>
-                  <Button type="submit" checkFormValidity loadingOnAction={EActionTypes.submitEdd}>
+                  <Button type="submit" loadingOnAction={EActionTypes.submitEdd}>
                     {t('Save')}
                   </Button>
                 </Col>

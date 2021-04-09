@@ -11,6 +11,7 @@
     border: 1px solid $dark-grey;
     transition: border-color 0.2s, box-shadow 0.2s;
     height: $input-height;
+    position: relative;
     width: 100%;
 
     input {
@@ -96,7 +97,6 @@
 
     &.field-error {
       border-color: $red;
-      position: relative;
     }
   }
 
