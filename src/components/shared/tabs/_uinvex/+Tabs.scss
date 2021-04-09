@@ -60,7 +60,7 @@
         box-sizing: border-box;
 
         .tab__link__label {
-          color: $blue;
+          @include color((xs: #fff, md: $blue));
         }
       }
     }
@@ -87,16 +87,6 @@
     &:not(.vertical) {
       &:after {
         content: none;
-      }
-
-      &__navigation {
-        .tab__link {
-          &.active {
-            .tab__link__label {
-              color: white;
-            }
-          }
-        }
       }
     }
 
