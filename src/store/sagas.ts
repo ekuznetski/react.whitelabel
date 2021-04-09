@@ -69,7 +69,7 @@ function* $$(
   pathToStore?: string | null,
   failure_transform_response_fn?: any,
 ) {
-  yield takeEvery(actionType, function* (action?: IAction) {
+  yield takeEvery(actionType, function* (action?: IAction): any {
     const { payload, force, onSuccess, onFailure } = action || {};
     if (!!action && !!payload) {
       action.payload = new MRequestAdapter(actionType, payload);
@@ -118,7 +118,7 @@ function* $$(
 export function* getGeoIPSaga() {
   yield $$(
     EActionTypes.fetchGeoIpData,
-    function* () {
+    function* (): any {
       const response = yield call(Request[EActionTypes.fetchGeoIpData]());
       yield put(Action.ac_saveGeoIpData(response));
       yield put(Action.ac_saveClientSettings(new Model.MClientSettings(response)));
@@ -160,7 +160,7 @@ export function* editProfileSaga() {
 
 export function* changeClientProfilePasswordSaga() {
   yield $$(EActionTypes.changePassword, function* ({ payload }: IAction) {
-    const { response }: any = yield call(Request[EActionTypes.changePassword](), payload);
+    const { response } = yield call(Request[EActionTypes.changePassword](), payload);
     return response;
   });
 }
@@ -196,7 +196,7 @@ export function* loginSaga() {
 
 export function* logoutSaga() {
   yield $$(EActionTypes.logout, function* () {
-    const { response }: any = yield call(Request[EActionTypes.logout]());
+    const { response } = yield call(Request[EActionTypes.logout]());
     yield put(Action.ac_clearStore());
     return response;
   });
@@ -323,15 +323,15 @@ export function* submitEddSaga() {
 
 export function* financialProfileSaga() {
   yield $$(EActionTypes.submitFinancialProfile, function* ({ payload }: IAction) {
-    const { response }: any = yield call(Request[EActionTypes.submitFinancialProfile](), payload);
+    const { response } = yield call(Request[EActionTypes.submitFinancialProfile](), payload);
     yield put(Action.ac_fetchClientData({ force: true }));
     return response;
   });
 }
 
 export function* fetchPricesSaga() {
-  yield $$(EActionTypes.fetchPrices, function* ({ payload }: IAction) {
-    const response: any = yield call(Request[EActionTypes.fetchPrices](), payload);
+  yield $$(EActionTypes.fetchPrices, function* ({ payload }: IAction): any {
+    const response = yield call(Request[EActionTypes.fetchPrices](), payload);
     yield put(
       Action.ac_savePrices(
         Object.keys(response).reduce((acc, e) => {
@@ -386,7 +386,7 @@ export function* createDemoTradingAccountsSaga() {
 
 export function* makeInternalTransferSaga() {
   yield $$(EActionTypes.makeInternalTransfer, function* ({ payload }: IAction) {
-    const { response }: any = yield call(Request[EActionTypes.makeInternalTransfer](), payload);
+    const { response } = yield call(Request[EActionTypes.makeInternalTransfer](), payload);
     yield put(Action.ac_fetchTradingAccounts({ force: true }));
     return response;
   });
@@ -394,7 +394,7 @@ export function* makeInternalTransferSaga() {
 
 export function* uploadFileSaga() {
   yield $$(EActionTypes.uploadDocuments, function* ({ payload }: IAction) {
-    const { response }: any = yield call(Request[EActionTypes.uploadDocuments](), payload);
+    const { response } = yield call(Request[EActionTypes.uploadDocuments](), payload);
     yield put(Action.ac_fetchClientData({ force: true }));
     return response;
   });

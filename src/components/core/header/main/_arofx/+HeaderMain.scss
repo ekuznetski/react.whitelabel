@@ -3,7 +3,7 @@
 
 .header.main {
   .panel-menu {
-    .logo {
+    .header-panel-logo {
       svg {
         .label {
           fill: $blue;
@@ -12,7 +12,7 @@
     }
 
     &.fixed {
-      .logo {
+      .header-panel-logo {
         svg {
           fill: $dark-text;
 

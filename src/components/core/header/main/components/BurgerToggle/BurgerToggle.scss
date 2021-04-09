@@ -1,0 +1,39 @@
+@import '~/variables';
+@import '~/mixin';
+
+.header-panel-burger-toggle {
+  display: flex;
+
+  svg {
+    transition: all 0.3s;
+
+    &.close-icon {
+      width: 30px;
+      height: 30px;
+      padding: 5px;
+    }
+  }
+
+  .panel-menu.fixed & {
+    svg {
+      fill: $dark-text;
+    }
+
+    .burger-icon {
+      svg {
+        stroke: $dark-text;
+      }
+    }
+  }
+
+  @media (max-width: $viewport-md-w) {
+    .panel-menu & {
+      svg {
+        &.close-icon {
+          height: 24px;
+          padding: 2px;
+        }
+      }
+    }
+  }
+}

@@ -364,6 +364,17 @@ module.exports = (_env, arguments) => {
               },
             },
             {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    'postcss-sort-media-queries',
+                    // 'cssnano'
+                  ]
+                }
+              }
+            },
+            {
               loader: 'sass-loader',
               options: {
                 additionalData: (content, loaderContext) => {
@@ -460,13 +471,13 @@ module.exports = (_env, arguments) => {
                     '@babel/preset-env',
                     !env.PRODUCTION
                       ? {
-                          modules: false,
-                        }
+                        modules: false,
+                      }
                       : {
-                          targets: {
-                            node: 'current',
-                          },
+                        targets: {
+                          node: 'current',
                         },
+                      },
                   ],
                   '@babel/preset-react',
                   '@babel/preset-typescript',

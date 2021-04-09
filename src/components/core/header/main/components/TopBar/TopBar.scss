@@ -1,7 +1,7 @@
 @import '~/variables';
 @import '~/mixin';
 
-.top-header {
+.header-panel-top-bar {
   position: relative;
   background: #fff;
   z-index: 81;
@@ -17,21 +17,24 @@
     z-index: -1;
   }
 
-  &__links {
-    @include d-flex(center, flex-end);
-    height: 30px;
-  }
+  .top-bar {
 
-  &__item {
-    @include d-flex(center);
-
-    a {
-      font-size: 14px;
-      color: $dark-text;
+    &__links {
+      @include d-flex(center, flex-end);
+      height: 30px;
     }
 
-    svg {
-      fill: $dark-text;
+    &__item {
+      @include d-flex(center);
+
+      a {
+        font-size: 14px;
+        color: $dark-text;
+      }
+
+      svg {
+        fill: $dark-text;
+      }
     }
   }
 }

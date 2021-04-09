@@ -22,17 +22,17 @@ export function ProfileMenu(props: { className?: string }) {
 
   return clientProfile ? (
     <div
-      className={classNames('header-profile-menu ml-9', props.className, isDropdownMenuOpen && 'open')}
+      className={classNames('header-panel-profile-menu ml-9', props.className, isDropdownMenuOpen && 'open')}
       ref={profileRef}
     >
       <div
-        className={classNames('header-profile-menu__facepile noselect mr-4', hasNotification && 'alert')}
+        className={classNames('header-panel-profile-menu__facepile noselect mr-4', hasNotification && 'alert')}
         onClick={toggleDropdownMenu}
         ref={facepileRef}
       >
         {clientProfile.initials}
       </div>
-      <Svg href="chevron" className="header-profile-menu__chevron" onClick={toggleDropdownMenu} />
+      <Svg href="chevron" className="header-panel-profile-menu__chevron" onClick={toggleDropdownMenu} />
       <DropDown
         width={180}
         parentRef={facepileRef}

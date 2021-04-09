@@ -13,6 +13,7 @@ export function HeaderAuth(props: IHeaderDefaultProps) {
         <LocaleLink to={EPagePath.Home} className="logo">
           <Svg className="m-auto" href="logo" _label />
           <Svg className="mx-auto mb-n5" href="logo" _label={ELabels.bsfx} height={58} />
+          <Svg className="mx-auto mb-n5" href="logo" _label={ELabels.uinvex} height={38} />
         </LocaleLink>
       </Container>
     </div>

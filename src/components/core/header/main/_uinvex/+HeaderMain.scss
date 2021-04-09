@@ -9,23 +9,44 @@
       top: 0;
     }
 
-    .logo {
-      @include mr((lg: 10, xl:0));
+    &.fixed {
+      .header-panel-inline-menu {
+        margin-bottom: 0;
+      }
+
+      .header-panel-logo {
+        svg {
+          @include fillLogo($blue, black, $dark-blue);
+        }
+      }
+    }
+
+    .header-panel-logo {
+      @include width((xs: 140px, xl:155px));
 
       svg {
         @include fillLogo($blue, black, $dark-blue);
       }
     }
 
-    .burger-toggle {
+    .header-panel-burger-toggle {
       svg {
         stroke: $dark-text;
       }
     }
 
-    .menu {
-      &__item {
+    .header-panel-profile-menu {
+      &__chevron {
+        fill: $dark-text;
+      }
+    }
+
+    .header-panel-inline-menu {
+      .menu__item {
+        margin-right: sp(7);
+
         a {
+          @include fontSize((lg: 15px, xl: 16px));
           color: $dark-text;
           font-family: $font-family1;
 
@@ -38,37 +59,6 @@
             }
           }
         }
-      }
-    }
-
-    &.fixed {
-      .menu {
-        margin-bottom: 0;
-      }
-
-      .logo {
-        svg {
-          @include fillLogo($blue, black, $dark-blue);
-        }
-      }
-    }
-
-    @media (max-width: $viewport-xl-w) {
-      .menu {
-        &__item {
-          a {
-            font-size: 16px;
-          }
-        }
-      }
-
-      .logo {
-        width: 115px;
-      }
-
-      .sign-in-btn,
-      .open-account-btn {
-        font-size: 16px;
       }
     }
   }

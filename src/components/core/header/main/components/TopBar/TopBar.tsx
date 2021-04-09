@@ -9,11 +9,11 @@ export const TopBar = memo(function TopBar() {
   const { t } = useTranslation();
 
   return config.topBarLinks.length ? (
-    <Container className="top-header">
+    <Container className="header-panel-top-bar">
       <Row>
-        <Col className="top-header__links ml-auto">
+        <Col className="top-bar__links ml-auto">
           {config.topBarLinks.map(({ url, label, icon }) => (
-            <div className="top-header__item ml-5" key={url}>
+            <div className="top-bar__item ml-5" key={url}>
               <Svg href={icon} height={14} className="mr-1" />
               <LocaleLink to={url}>{t(label)}</LocaleLink>
             </div>

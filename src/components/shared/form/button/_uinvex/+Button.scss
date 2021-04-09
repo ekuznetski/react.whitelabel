@@ -1,45 +1,73 @@
 .common-button {
-    background: $blue;
-    height: $btn-size-lg;
-    transition: box-shadow 0.25s, background 0.25s, border-color 0.25s;
+	background: $blue;
+	height: $btn-size-lg;
+  border-width: 1px;
+	transition: box-shadow 0.25s, background 0.25s, border-color 0.25s;
+	font-family: $font-family1;
 
-    &:hover:not(.disabled) {
-        box-shadow: inset box-shadow(25, 0.25, $dark-blue);
-        // background: $dark-blue;
-    }
+	a,
+	span {
+		font-family: $font-family1;
+	}
 
-    &.secondary:not(.disabled) {
-        color: $blue;
-        border-color: $light-blue;
-        background: $light-blue;
+	&:hover:not(.disabled) {
+		box-shadow: inset box-shadow(25, 0.25, $dark-blue);
+		// background: $dark-blue;
+	}
 
-        a {
-            color: $blue;
+	&.secondary:not(.disabled) {
+		color: $blue;
+		border-color: $light-blue;
+		background: $light-blue;
 
-            svg {
-                fill: $blue;
-            }
-        }
+		a {
+			color: $blue;
 
-        &:hover {
-            box-shadow: inset box-shadow(25, 0.1, $blue);
-        }
-    }
+			svg {
+				fill: $blue;
+			}
+		}
 
-    &.disabled {
-        background: $light-grey;
-        color: $dark-grey;
+		&:hover {
+			box-shadow: inset box-shadow(25, 0.1, $blue);
+		}
+	}
 
-        a {
-            color: $dark-grey;
-        }
+	&.no-bg {
+		color: $text;
+		border-color: $border-grey;
+		background: $light-grey;
 
-        svg {
-            fill: $dark-grey;
-        }
+		a {
+			font-weight: 500;
+			color: $text;
 
-        &.secondary {
-            border-color: $light-grey;
-        }
-    }
+			svg {
+				fill: $text;
+			}
+		}
+
+		&:hover {
+			border-color: $border-grey;
+			box-shadow: inset box-shadow(25, 0.1, $text);
+		}
+
+	}
+
+	&.disabled {
+		background: $light-grey;
+		color: $dark-grey;
+
+		a {
+			color: $dark-grey;
+		}
+
+		svg {
+			fill: $dark-grey;
+		}
+
+		&.secondary {
+			border-color: $light-grey;
+		}
+	}
 }

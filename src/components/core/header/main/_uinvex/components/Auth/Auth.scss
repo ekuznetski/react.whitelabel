@@ -1,0 +1,51 @@
+@import '~/variables';
+@import '~/mixin';
+
+.header-panel-auth {
+  @include d-flex(center);
+
+  .sign-in-btn,
+  .open-account-btn {
+    @include fontSize((xs: 16px, lg: 15px, xl: 16px));
+  }
+
+  .sign-in-btn {
+    @include d-flex(center, center);
+    border: 1px solid $border-grey;
+    border-radius: $border-radius;
+    color: $dark-text;
+    width: 85px;
+    height: $btn-size-md;
+
+    &:hover {
+      color: $dark-text;
+    }
+
+    svg {
+      @include mr((xs: 1));
+    }
+  }
+
+  .open-account-btn {
+    @include display((xs: none, md: block));
+    @include ml((xs: 7));
+    color: $blue;
+    border-color: $light-blue;
+    background: $light-blue;
+    width: 175px;
+    height: $btn-size-md;
+
+    a {
+      color: $blue;
+      font-weight: 500;
+
+      svg {
+        fill: $blue;
+      }
+    }
+
+    &:hover {
+      box-shadow: inset box-shadow(25, 0.1, $blue);
+    }
+  }
+}
