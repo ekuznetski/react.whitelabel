@@ -1,13 +1,13 @@
 import { DropDown, Svg } from '@components/shared';
 import { MClientProfile, MClientSettings } from '@domain/models';
-import { portalProfileMenu } from '@utils/fn/portalProfileMenu';
 import { IStore } from '@store';
+import { portalProfileMenu } from '@utils/fn/portalProfileMenu';
 import classNames from 'classnames';
 import React, { createRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './ProfileMenu.scss';
 
-export function ProfileMenu() {
+export function ProfileMenu(props: { className?: string }) {
   const { clientProfile, clientSettings } = useSelector<
     IStore,
     { clientProfile: MClientProfile; clientSettings: MClientSettings }
@@ -24,7 +24,10 @@ export function ProfileMenu() {
   }
 
   return clientProfile ? (
-    <div className={classNames('header-profile-menu ml-9 d-lg-flex', isDropdownMenuOpen && 'open')} ref={profileRef}>
+    <div
+      className={classNames('header-profile-menu ml-9 d-lg-flex', isDropdownMenuOpen && 'open', props.className)}
+      ref={profileRef}
+    >
       <div
         className={classNames('header-profile-menu__facepile noselect mr-4', hasNotification && 'alert')}
         onClick={toggleDropdownMenu}

@@ -10,10 +10,16 @@
   box-shadow: box-shadow(50, 0.05);
   // transition: top 0.2s;
 
+  &.fixed {
+    position: fixed;
+    top: 0;
+  }
+
   .panel-menu {
+    @include height((xs: $menu-height-main-sm, md: $menu-height-main-md, lg: $menu-height-main-lg));
+    @include background((xs: linear-gradient(rgba(0, 0, 0, 0.4), transparent), lg: none));
     position: relative;
     display: flex;
-    height: $menu-height-main-lg;
     transition: height 0.35s;
 
     .container {
@@ -45,101 +51,7 @@
       width: 100%;
       background: #fff;
       box-shadow: 0px 3px 20px transparent;
-      transition: top 0.35s, box-shadow 0.35s;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      width: 155px;
-      font-weight: 500;
-      font-size: 24px;
-
-      svg {
-        fill: #fff;
-
-        .label {
-          fill: #fff;
-          transition: fill 0.15s;
-        }
-
-        transition: fill 0.3s;
-      }
-    }
-
-    .burger-toggle {
-      display: flex;
-
-      svg {
-        transition: all 0.3s;
-
-        &.close-icon {
-          width: 30px;
-          height: 30px;
-          padding: 5px;
-        }
-      }
-    }
-
-    .sign-in-btn {
-      color: #fff;
-      transition: color 0.35s;
-
-      &:hover {
-        color: #fff;
-      }
-    }
-
-    .menu {
-      display: flex;
-      align-items: center;
-      position: relative;
-      transition: height 0.35s;
-      height: 100%;
-
-      &__item {
-        margin-right: 30px;
-        display: flex;
-        height: 100%;
-
-        a {
-          color: #fff;
-          font-size: 16px;
-          display: flex;
-          align-items: center;
-          text-decoration: none;
-          transition: color 0.35s;
-          position: relative;
-
-          &:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: transparent;
-            z-index: 2;
-            transition: background 0.35s;
-          }
-
-          &.active {
-            &:after {
-              background: #fff;
-            }
-          }
-        }
-      }
-    }
-
-    button {
-      background: $dark-blue;
-      width: 175px;
-      color: #fff;
-
-      a {
-        color: #fff;
-      }
+      transition: top 0.2s;
     }
 
     &.fixed {
@@ -150,137 +62,13 @@
         top: 0;
         box-shadow: box-shadow(20, 0.15);
       }
-
-      .logo {
-        svg {
-          fill: $grey;
-
-          .label {
-            fill: $dark-text;
-          }
-        }
-      }
-
-      .burger-toggle {
-        svg {
-          fill: $dark-text;
-        }
-
-        .burger-icon {
-          svg {
-            stroke: $dark-text;
-          }
-        }
-      }
-
-      .sign-in-btn {
-        color: $dark-text;
-
-        &:hover {
-          color: $dark-text;
-        }
-      }
-
-      .menu {
-        margin-bottom: 2px;
-
-        .menu__item {
-          a {
-            color: $dark-text;
-
-            &.active {
-              &:after {
-                background: $dark-text;
-              }
-            }
-          }
-        }
-      }
     }
   }
 
-  .burger-menu {
-    position: fixed;
-    display: table;
-    background: #fff;
-    width: 100%;
-    height: 100%;
-    top: -200%;
-    transition: top 0.5s;
-    left: 0;
-
-    &.open {
-      transition: top 0.3s;
-      position: fixed;
-      top: 0;
-
-      button {
-        opacity: 1;
-      }
-    }
-
-    .menu__item {
-      a {
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid $grey;
-        color: $dark-text;
-        text-decoration: none;
-        height: 38px;
-
-        &.active {
-          border-bottom-color: $dark-text;
-          font-weight: 500;
-        }
-      }
-    }
-
-    button {
-      background: $dark-blue;
-      color: #fff;
-      border-radius: 0;
-      width: 100%;
-      opacity: 0;
-      transition: opacity 0.1s;
-
-      a {
-        color: #fff;
-      }
-    }
-  }
-
-  &.fixed {
-    position: fixed;
-    top: 0;
-  }
-
-  @media (max-width: $viewport-lg-w) {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), transparent);
-
+  @include media-breakpoint-up(lg) {
     .panel-menu {
-      height: $menu-height-main-fixed-md;
-
-      .menu {
-        display: none;
-      }
-
       &:before {
-        transition: top 0.2s;
-      }
-    }
-  }
-
-  @media (max-width: $viewport-md-w) {
-    .panel-menu {
-      height: $menu-height-main-fixed-sm;
-
-      .burger-toggle {
-        svg {
-          &.close-icon {
-            height: 24px;
-            padding: 2px;
-          }
-        }
+        transition: top 0.35s, box-shadow 0.35s;
       }
     }
   }

@@ -45,6 +45,7 @@
     background: lighten($dark-blue, 5%);
   }
 
+  &.no-bg,
   &.secondary {
     color: $dark-blue;
     border-color: $dark-blue;

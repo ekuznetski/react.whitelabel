@@ -10,7 +10,7 @@
       width: fit-content;
 
       &:after {
-        content: none;
+        display: none !important;
       }
 
       &.center {
@@ -60,7 +60,7 @@
         box-sizing: border-box;
 
         .tab__link__label {
-          color: $blue;
+          @include color((xs: #fff, md: $blue));
         }
       }
     }
@@ -88,12 +88,14 @@
       &:after {
         content: none;
       }
+    }
 
-      >.common-tabs__navigation {
+    &.vertical {
+      .common-tabs__navigation {
         .tab__link {
           &.active {
             .tab__link__label {
-              color: white;
+              color: $blue;
             }
           }
         }

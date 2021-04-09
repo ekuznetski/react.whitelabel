@@ -2,7 +2,7 @@
 @import '~/mixin';
 
 .header.main {
-  .header-profile-menu {
+  .header-panel-profile-menu {
     @include d-flex(center);
     position: relative;
 

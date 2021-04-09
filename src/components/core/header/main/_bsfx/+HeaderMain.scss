@@ -4,7 +4,7 @@
 .header.main {
   .panel-menu {
     &.fixed {
-      .logo {
+      .header-panel-logo {
         svg {
           fill: $bsfx-blue;
 
@@ -16,25 +16,29 @@
     }
 
     @media (max-width: $viewport-xl-w) {
-      .menu {
-        &__item {
+      .header-panel-inline-menu {
+        .menu__item {
           a {
             font-size: 15px;
           }
         }
       }
-      .logo {
+
+      .header-panel-logo {
         width: 115px;
       }
 
-      .sign-in-btn,
-      .open-account-btn {
-        font-size: 15px;
+      .header-panel-auth {
+
+        .sign-in-btn,
+        .open-account-btn {
+          font-size: 15px;
+        }
       }
     }
 
     @media (max-width: $viewport-md-w) {
-      .logo {
+      .header-panel-logo {
         width: 55px;
       }
     }

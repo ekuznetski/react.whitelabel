@@ -5,14 +5,18 @@
     &__tabs {
       .common-tabs {
         &__navigation {
-          height: $tabs-navigation-height;
+          height: $tabs-navigation-height !important;
 
           &-wrapper {
             margin: 0 auto !important;
-          }
 
-          .active-tab-line {
-            height: $tabs-navigation-height;
+            &:after {
+              display: none;
+            }
+
+            .active-tab-line {
+              height: $tabs-navigation-height !important;
+            }
           }
         }
 
