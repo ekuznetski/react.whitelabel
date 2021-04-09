@@ -326,19 +326,17 @@
         width: calc(100% - 54px);
       }
 
-      &.scrollable {
-        @media (max-width: $viewport-md-w) {
-          overflow-x: scroll;
-          overflow-y: hidden;
-          scroll-behavior: smooth;
-          @include hideScrollbar;
+      @media (max-width: $viewport-md-w) {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+        @include hideScrollbar;
 
-          .navigation__links {
-            position: absolute;
-            width: max-content;
-            left: 0;
-            top: 0;
-          }
+        .navigation__links {
+          position: absolute;
+          width: max-content;
+          left: 0;
+          top: 0;
         }
       }
 
