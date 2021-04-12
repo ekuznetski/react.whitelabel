@@ -322,11 +322,8 @@
     }
 
     &>.common-tabs__navigation {
-      @media (max-width: $viewport-lg-w) {
-        width: calc(100% - 54px);
-      }
-
       @media (max-width: $viewport-md-w) {
+        width: calc(100% - 54px);
         overflow-x: scroll;
         overflow-y: hidden;
         scroll-behavior: smooth;
