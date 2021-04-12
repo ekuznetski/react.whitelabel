@@ -12,7 +12,7 @@ export const RegexValidators = Object.freeze({
   name: /^[a-zA-Z][a-zA-Z '-]*$/,
   password: /^(?=.*\d)(?=.*[A-z]).*$/,
   numbersOnly: /^\d+$/,
-  numbersAndDotsOnly: /^[\d\.]+$/,
+  numbersAndDotOnly: /^\d+([\.]?\d)*$/,
   alphaWithSpaceAndApostropheOnly: /^[A-Za-z' ]+$/,
   alphaOnly: /^[A-Za-z]+$/,
   postcode: /^(\d|[A-z]| )+$/,
@@ -97,7 +97,7 @@ export const FieldValidators = {
     .max(50, t('IBAN characters count restriction')),
   branch: Yup.string().matches(RegexValidators.bankName, t('Enter numbers, latin characters and -.,/() only')),
   years_address: Yup.string()
-    .matches(RegexValidators.numbersAndDotsOnly, t('Please include numbers and dots only'))
+    .matches(RegexValidators.numbersAndDotOnly, t('Please include numbers and dot only'))
     .max(4, t('Maximum length symbols'))
     .required(t('Please enter years at current address')),
 };

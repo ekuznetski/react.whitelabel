@@ -97,7 +97,7 @@ export const EddForm = memo(function EddForm() {
         is: (val) => val < 3,
         then: Yup.string().required(t('Please enter years of employment')),
       })
-      .matches(RegexValidators.numbersAndDotsOnly, t('Please include numbers and dots only'))
+      .matches(RegexValidators.numbersAndDotOnly, t('Please include numbers and dot only'))
       .max(4, t('Maximum length symbols')),
     pr_location_employment: Yup.string()
       .when('years_employment', {
