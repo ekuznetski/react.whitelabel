@@ -13,7 +13,7 @@ export const config = {
   recentTransactionsFilter: [
     {
       label: t('Last 20 Transactions'),
-      value: [moment('1.1.2000').startOf('month'), moment()],
+      value: [moment('20000101').startOf('month'), moment()],
     },
     {
       label: t('This Month Transactions'),
