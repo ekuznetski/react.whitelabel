@@ -1,7 +1,7 @@
-import { Col, Container, PageTitle, Row } from '@components/shared';
+import { Col, Container, PageTitle, Placeholder, Row } from '@components/shared';
 import { ELanguage } from '@domain/enums';
 import { IStore } from '@store';
-import React, { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import './EconomicCalendar.scss';
@@ -12,6 +12,7 @@ export const EconomicCalendar = memo(function EconomicCalendar() {
   }));
   const widgetContainerRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -25,7 +26,10 @@ export const EconomicCalendar = memo(function EconomicCalendar() {
       locale: locale,
       importanceFilter: '-1,0,1',
     });
+    script.addEventListener('load', () => setLoading(false));
     widgetContainerRef.current?.appendChild(script);
+
+    return () => script.removeEventListener('load', () => setLoading(false));
   }, []);
 
   return (
@@ -38,7 +42,9 @@ export const EconomicCalendar = memo(function EconomicCalendar() {
         </Row>
         <Row>
           <Col className="tradingview-widget-container">
-            <div className="tradingview-widget-container__widget" ref={widgetContainerRef}></div>
+            <div className="tradingview-widget" ref={widgetContainerRef}>
+              {loading && <Placeholder text={t('Loading Calendar..')} />}
+            </div>
           </Col>
         </Row>
       </Container>
