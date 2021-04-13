@@ -1,9 +1,18 @@
 @import '~/variables';
+@import '~/mixin';
 
 .edd-form {
   &__col-title {
     font-size: 14px;
     line-height: 22px;
     font-weight: 500;
+  }
+
+  &__radio {
+    @include col((xs: 12, sm: 6));
+  }
+
+  &__button {
+    @include mt((xs: 7, lg: 0));
   }
 }

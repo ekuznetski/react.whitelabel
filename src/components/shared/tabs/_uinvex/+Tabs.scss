@@ -81,12 +81,23 @@
         @include mb((xs: 9, md: 11));
       }
     }
+
+    &.scrollable {
+      .common-tabs__navigation {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
   }
 
   @media (max-width: $viewport-md-w) {
     &.horizontal {
-      &:after {
+      .common-tabs__navigation-wrapper:after {
         content: none;
+      }
+
+      .active-tab-line {
+        top: unset;
       }
     }
 
@@ -101,7 +112,6 @@
         }
       }
     }
-
 
     &__navigation {
       padding-top: 0 !important;

@@ -173,7 +173,7 @@
     .common-tabs {
 
       &__navigation {
-        @include mb((xs:9));
+        @include mb((xs:9), i);
       }
     }
   }
@@ -303,9 +303,9 @@
     }
   }
 
-  &:not(.vertical) {
+  &.horizontal {
     @media (max-width: $viewport-md-w) {
-      &:after {
+      .common-tabs__navigation-wrapper:after {
         content: '';
         position: absolute;
         top: 27px;
@@ -315,26 +315,25 @@
         z-index: 1;
         background: $grey;
       }
+
+      .active-tab-line {
+        top: 27px;
+      }
     }
 
     &>.common-tabs__navigation {
-      @media (max-width: $viewport-lg-w) {
+      @media (max-width: $viewport-md-w) {
         width: calc(100% - 54px);
-      }
+        overflow-x: scroll;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+        @include hideScrollbar;
 
-      &.scrollable {
-        @media (max-width: $viewport-md-w) {
-          overflow-x: scroll;
-          overflow-y: hidden;
-          scroll-behavior: smooth;
-          @include hideScrollbar;
-
-          .navigation__links {
-            position: absolute;
-            width: max-content;
-            left: 0;
-            top: 0;
-          }
+        .navigation__links {
+          position: absolute;
+          width: max-content;
+          left: 0;
+          top: 0;
         }
       }
 
@@ -370,6 +369,7 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+      z-index: 1;
 
       @media (max-width: $viewport-md-w) {
         align-items: flex-start;

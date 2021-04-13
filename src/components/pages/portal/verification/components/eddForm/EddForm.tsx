@@ -4,7 +4,6 @@ import { EClientStatusCode, ENotificationType } from '@domain/enums';
 import { IEdd } from '@domain/interfaces';
 import { MClientProfile, MClientStatus } from '@domain/models';
 import { EActionTypes, IStore, ac_showNotification, ac_submitEdd } from '@store';
-import { useResponsive } from 'ahooks';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo, useEffect } from 'react';
 import { Col, Row } from '@components/shared';
@@ -21,7 +20,6 @@ export const EddForm = memo(function EddForm() {
       clientStatus: state.data.client.status,
     }),
   );
-  const viewportSize = useResponsive();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -150,7 +148,11 @@ export const EddForm = memo(function EddForm() {
                 )}
                 <Col xs={12} className="form-breakline mt-2 mb-10" />
                 <Col xs={12}>
-                  <Radio optionClassName="col-6" name="employment_status" options={config.employmentStatusOptions} />
+                  <Radio
+                    optionClassName="edd-form__radio col"
+                    name="employment_status"
+                    options={config.employmentStatusOptions}
+                  />
                 </Col>
                 {values.employment_status && values.employment_status == 'employed-other' && (
                   <>
@@ -228,7 +230,7 @@ export const EddForm = memo(function EddForm() {
                 <Col xs={12}>
                   <Radio
                     className="mb-8"
-                    optionClassName="col-6"
+                    optionClassName="edd-form__radio col"
                     name="appr_annual_income"
                     options={config.apprAnnualIncomeOptions}
                   />
@@ -239,7 +241,7 @@ export const EddForm = memo(function EddForm() {
                 <Col xs={12}>
                   <Radio
                     className="mb-8"
-                    optionClassName="col-6"
+                    optionClassName="edd-form__radio col"
                     name="appr_net_worth"
                     options={config.apprNetWorthOptions}
                   />
@@ -250,7 +252,7 @@ export const EddForm = memo(function EddForm() {
                 <Col xs={12}>
                   <Radio
                     className="mb-8"
-                    optionClassName="col-6"
+                    optionClassName="edd-form__radio col"
                     name="funds_available"
                     options={config.fundsAvailableOptions}
                   />
@@ -276,21 +278,21 @@ export const EddForm = memo(function EddForm() {
                     <Col xs={12}>
                       <Radio
                         className="mb-8"
-                        optionClassName="col-6"
+                        optionClassName="edd-form__radio col"
                         name="pr_appr_annual_income"
                         options={config.prApprAnnualIncomeOptions}
                       />
                     </Col>
                   </>
                 )}
-                <Col xs={12} md={viewportSize.lg ? 12 : 6}>
+                <Col xs={12} md={6} lg={12} className="edd-form__button">
                   <Button type="submit" checkFormValidity loadingOnAction={EActionTypes.submitEdd}>
                     {t('Save')}
                   </Button>
                 </Col>
-                <Col xs={12} md={6} className="d-lg-none">
+                <Col xs={12} md={6} className="d-lg-none edd-form__button">
                   <TabMobileBackButton>
-                    <Button type="button" isLoading={true} secondary>
+                    <Button type="button" secondary>
                       {t('Back')}
                     </Button>
                   </TabMobileBackButton>

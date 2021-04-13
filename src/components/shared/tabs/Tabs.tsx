@@ -50,7 +50,7 @@ export function Tabs({
   isVertical = false,
   showContent = false,
   alignNavigation = 'center',
-  scrollableOnMobile = !theme.tabsMobileScroll,
+  scrollableOnMobile = theme.tabsMobileScroll,
   onChange = undefined,
 }: ITabs) {
   const [activeTabProps, setActiveTabProps] = useState<TabsState['activeTabProps']>();
@@ -145,7 +145,7 @@ export function Tabs({
                 className,
               )}
             >
-              {lineProps && !isVertical && !scrollableOnMobile && (
+              {lineProps && !isVertical && scrollableOnMobile && (
                 <div className="d-lg-none common-tabs__prev" onClick={selectPrevTab}>
                   <Svg href={'chevron_left'} width={18} height={18} />
                 </div>
@@ -153,7 +153,7 @@ export function Tabs({
               <div
                 className={classNames(
                   'common-tabs__navigation',
-                  scrollableOnMobile && 'common-tabs__navigation--disable-mobile-view',
+                  !scrollableOnMobile && 'common-tabs__navigation--disable-mobile-view',
                 )}
                 ref={navRef}
               >
@@ -198,7 +198,7 @@ export function Tabs({
                   )}
                 </div>
               </div>
-              {lineProps && !isVertical && !scrollableOnMobile && (
+              {lineProps && !isVertical && scrollableOnMobile && (
                 <div className="d-lg-none common-tabs__next" onClick={selectNextTab}>
                   <Svg href={'chevron_right'} width={18} height={18} />
                 </div>
