@@ -2,8 +2,8 @@ import { Alert, Button, Col, CountrySelect, Input, Radio, Row, Select, TabMobile
 import { CustomFieldValidators, FieldValidators, RegexValidators } from '@domain';
 import { EClientStatusCode, ENotificationType, countries } from '@domain/enums';
 import { IEdd } from '@domain/interfaces';
-import { MClientStatus } from '@domain/models';
-import { EActionTypes, IDataStore, IStore, ac_showNotification, ac_submitEdd } from '@store';
+import { MClientProfile, MClientStatus } from '@domain/models';
+import { EActionTypes, IStore, ac_showNotification, ac_submitEdd } from '@store';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React, { memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -13,9 +13,9 @@ import { config } from './';
 import './EddForm.scss';
 
 export const EddForm = memo(function EddForm() {
-  const { geoIp, clientStatus } = useSelector<IStore, { geoIp: IDataStore['geoIp']; clientStatus: MClientStatus }>(
+  const { profile, clientStatus } = useSelector<IStore, { profile: MClientProfile; clientStatus: MClientStatus }>(
     (state) => ({
-      geoIp: state.data.geoIp,
+      profile: state.data.client.profile,
       clientStatus: state.data.client.status,
     }),
   );
@@ -166,7 +166,7 @@ export const EddForm = memo(function EddForm() {
           ...Object.assign(
             Object.keys(validationSchema.fields || {}).reduce((acc, key) => Object.assign(acc, { [key]: '' }), {}),
           ),
-          nationality: geoIp?.countryCode ? countries.find((el) => el.code === geoIp?.countryCode) : '',
+          nationality: profile.country,
           own_property: '1',
         }}
         validationSchema={validationSchema}
