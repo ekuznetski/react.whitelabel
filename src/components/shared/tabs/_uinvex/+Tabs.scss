@@ -81,15 +81,37 @@
         @include mb((xs: 9, md: 11));
       }
     }
+
+    &.scrollable {
+      .common-tabs__navigation {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
   }
 
   @media (max-width: $viewport-md-w) {
-    &:not(.vertical) {
-      &:after {
+    &.horizontal {
+      .common-tabs__navigation-wrapper:after {
         content: none;
+      }
+
+      .active-tab-line {
+        top: unset;
       }
     }
 
+    &.vertical {
+      .common-tabs__navigation {
+        .tab__link {
+          &.active {
+            .tab__link__label {
+              color: $blue;
+            }
+          }
+        }
+      }
+    }
 
     &__navigation {
       padding-top: 0 !important;

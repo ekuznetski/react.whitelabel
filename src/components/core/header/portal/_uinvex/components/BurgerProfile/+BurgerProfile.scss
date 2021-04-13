@@ -2,8 +2,16 @@
 @import '~/mixin';
 
 .burger-profile {
-  
+
   &__info {
     background-color: $light-grey;
+  }
+
+  &__sub-menu {
+    &__item {
+      svg {
+        fill: $blue;
+      }
+    }
   }
 }
