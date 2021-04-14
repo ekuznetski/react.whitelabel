@@ -89,7 +89,7 @@ export const EddForm = memo(function EddForm() {
         is: (val) => val < 3,
         then: Yup.string().required(t('Please enter previous position and responsibilities')),
       })
-      .max(50, t('Maximum length symbols')),
+      .max(250, t('Maximum length symbols')),
     pr_years_employment: Yup.string()
       .when('years_employment', {
         is: (val) => val < 3,
