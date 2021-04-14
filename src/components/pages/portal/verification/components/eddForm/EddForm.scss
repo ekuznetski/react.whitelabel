@@ -4,6 +4,7 @@
 .edd-form {
   &__title {
     @include display((xs: block, lg: none));
+    @include mb((xs: 4));
     font-weight: 500;
     font-size: 16px;
   }
