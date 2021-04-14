@@ -2,7 +2,13 @@
 @import '~/mixin';
 
 .edd-form {
-  &__col-title {
+  &__title {
+    @include display((xs: block, lg: none));
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  &__col-label {
     font-size: 14px;
     line-height: 22px;
     font-weight: 500;
