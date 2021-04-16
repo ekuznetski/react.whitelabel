@@ -157,6 +157,9 @@ export const EddForm = memo(function EddForm() {
 
   return (
     <div className="edd-form">
+      <Row>
+        <Col className="edd-form__title">{t('Complete Edd Form')}</Col>
+      </Row>
       <Alert type="text" className="mb-7" showIcon={false}>
         You must complete the EDD form within 7 days or your account will be suspended. You will not be able to deposit
         or withdrawal or place any new trades and the account will be subject to liquidation only.
@@ -186,21 +189,21 @@ export const EddForm = memo(function EddForm() {
                 <Col xs={12} xl={6}>
                   <CountrySelect label={t('Nationality')} name="nationality" />
                 </Col>
-                <Col xs={12} className="edd-form__col-title mb-2">
+                <Col xs={12} className="edd-form__col-label mb-2">
                   {t('Do you own the property?')}
                 </Col>
                 <Col xs={12} lg={6}>
                   <Radio className="mb-8 mb-lg-0" name="own_property" options={config.ownPropertyOptions} />
                 </Col>
                 <Col xs={12} lg={6}>
-                  <Input label={t('Years at current address')} name="years_address" type="number" />
+                  <Input label={t('Home Address')} name="address" className="mb-0" />
                 </Col>
                 <Col xs={12}>
-                  <Input label={t('Home Address')} name="address" className="mb-0" />
+                  <Input label={t('Years at current address')} name="years_address" type="number" />
                 </Col>
                 {values.years_address && values.years_address < 3 && (
                   <>
-                    <Col xs={12} className="edd-form__col-title mt-n2 mb-2">
+                    <Col xs={12} className="edd-form__col-label mt-n2 mb-2">
                       {t('If less than 3 years at current address please provide Previous Address Information:')}
                     </Col>
                     <Col xs={12}>
@@ -209,6 +212,9 @@ export const EddForm = memo(function EddForm() {
                   </>
                 )}
                 <Col xs={12} className="form-breakline mt-2 mb-10" />
+                <Col xs={12} className="edd-form__col-label mb-2">
+                  {t('Employer Status')}
+                </Col>
                 <Col xs={12}>
                   <Radio
                     optionClassName="edd-form__radio col"
@@ -218,7 +224,7 @@ export const EddForm = memo(function EddForm() {
                 </Col>
                 {values.employment_status && values.employment_status == 'employed-other' && (
                   <>
-                    <Col xs={12} className="edd-form__col-title mb-2 mt-8">
+                    <Col xs={12} className="edd-form__col-label mb-2 mt-8">
                       {t('Type Other Industry Name')}
                     </Col>
                     <Col xs={12}>
@@ -233,7 +239,7 @@ export const EddForm = memo(function EddForm() {
                 )}
                 {values.employment_status && values.employment_status == 'other' && (
                   <>
-                    <Col xs={12} className="edd-form__col-title mb-2 mt-8">
+                    <Col xs={12} className="edd-form__col-label mb-2 mt-8">
                       {t('Type Other Reason')}
                     </Col>
                     <Col xs={12}>
@@ -243,7 +249,7 @@ export const EddForm = memo(function EddForm() {
                 )}
                 {values.employment_status && values.employment_status == 'fin-service' && (
                   <>
-                    <Col xs={12} className="edd-form__col-title mb-2 mt-8">
+                    <Col xs={12} className="edd-form__col-label mb-2 mt-8">
                       {t('Select Industry of Financial Services Related')}
                     </Col>
                     <Col xs={12}>
@@ -266,7 +272,7 @@ export const EddForm = memo(function EddForm() {
                   <Input label={t('Position and Responsibilities')} name="position" />
                   <Input label={t('Years of Employment')} name="years_employment" type="number" />
                 </Col>
-                <Col xs={12} className="edd-form__col-title mb-2">
+                <Col xs={12} className="edd-form__col-label mb-2">
                   {t('Working at a Financial Institution?')}
                 </Col>
                 <Col xs={12} lg={6}>
@@ -281,7 +287,7 @@ export const EddForm = memo(function EddForm() {
                   <Input label={t('Other Income Generating Activities')} name="other_income" />
                 </Col>
                 <Col xs={12} className="form-breakline mt-2 mb-10" />
-                <Col xs={12} className="edd-form__col-title mb-2">
+                <Col xs={12} className="edd-form__col-label mb-2">
                   {t('Total Approximate Annual Income ($):')}
                 </Col>
                 <Col xs={12}>
@@ -292,7 +298,7 @@ export const EddForm = memo(function EddForm() {
                     options={config.apprAnnualIncomeOptions}
                   />
                 </Col>
-                <Col xs={12} className="edd-form__col-title mb-2">
+                <Col xs={12} className="edd-form__col-label mb-2">
                   {t('Approximate Net Worth ($):')}
                 </Col>
                 <Col xs={12}>
@@ -303,7 +309,7 @@ export const EddForm = memo(function EddForm() {
                     options={config.apprNetWorthOptions}
                   />
                 </Col>
-                <Col xs={12} className="edd-form__col-title mb-2">
+                <Col xs={12} className="edd-form__col-label mb-2">
                   {t('Anticipated Funds Available for Trading ($):')}
                 </Col>
                 <Col xs={12}>
@@ -317,7 +323,7 @@ export const EddForm = memo(function EddForm() {
                 {values.years_employment && values.years_employment < 3 && (
                   <>
                     <Col xs={12} className="form-breakline mt-2 mb-10" />
-                    <Col xs={12} className="edd-form__col-title mb-2">
+                    <Col xs={12} className="edd-form__col-label mb-2">
                       {t('Current Employed for less than 3 years')}
                     </Col>
                     <Col xs={12} lg={6}>
@@ -329,7 +335,7 @@ export const EddForm = memo(function EddForm() {
                       <Input label={t('Previous Years of Employment')} name="pr_years_employment" type="number" />
                       <Input label={t('Previous Location of Employment')} name="pr_location_employment" />
                     </Col>
-                    <Col xs={12} className="edd-form__col-title mb-2">
+                    <Col xs={12} className="edd-form__col-label mb-2">
                       {t('Previous Approximate Annual Income ($):')}
                     </Col>
                     <Col xs={12}>
@@ -344,7 +350,7 @@ export const EddForm = memo(function EddForm() {
                 )}
                 <Col xs={12} md={6} lg={12} className="edd-form__button">
                   <Button type="submit" loadingOnAction={EActionTypes.submitEdd}>
-                    {t('Save')}
+                    {t('Submit')}
                   </Button>
                 </Col>
                 <Col xs={12} md={6} className="d-lg-none edd-form__button">
