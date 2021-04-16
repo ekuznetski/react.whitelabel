@@ -281,10 +281,14 @@ app.get('*', checkAuthenticationCookie, declareSSRProps, (req: express.Request, 
   console.log('========request data========');
   const requests: Promise<any>[] = route
     ? [...(route.apiData?.strict || []), ...(routesInitialApiData[route.appSection]?.strict || [])].map((action) => {
-        //@ts-ignore
-        return APIRequest[action().type](`${SESSION_COOKIE_NAME}=${req.cookies[SESSION_COOKIE_NAME]}`)()
-          .then((value: any) => value)
-          .catch(() => null);
+        try {
+          //@ts-ignore
+          return APIRequest[action().type](`${SESSION_COOKIE_NAME}=${req.cookies[SESSION_COOKIE_NAME]}`)()
+            .then((value: any) => value)
+            .catch((e: any) => console.log('_________api request error', e));
+        } catch (e) {
+          console.log('_________api request error', e);
+        }
       })
     : [];
 
