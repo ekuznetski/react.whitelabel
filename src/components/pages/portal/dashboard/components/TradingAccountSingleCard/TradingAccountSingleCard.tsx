@@ -158,7 +158,7 @@ export const TradingAccountSingleCard = memo(function TradingAccountSingleCard(
             <Svg href="gear" />
           </Button>
           <DropDown
-            width={270}
+            width={290}
             parentRef={navRef}
             items={accountNavItems}
             isOpen={isDropdownMenuOpen}

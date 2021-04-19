@@ -52,15 +52,11 @@ export const Radio = memo(function Radio({
 
   function computeMargin(idx: number) {
     if (options.length % 2 == 0) {
-      if (idx < options.length - 2) {
-        return 'mb-8';
-      } else if (idx < options.length - 1 && optionClassName !== 'col') {
-        return 'mb-8 mb-sm-0';
-      }
-    } else {
-      if (idx < options.length - 1) {
+      if (idx < options.length - 2 || (idx < options.length - 1 && optionClassName !== 'col')) {
         return 'mb-8';
       }
+    } else if (idx < options.length - 1) {
+      return 'mb-8';
     }
   }
 
