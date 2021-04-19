@@ -10,6 +10,7 @@ services:
       - ./server:/app/server
       - ./pm2_services.json:/app/server/dist/pm2_services.json
       - ./logs:/app/logs
+      - /etc/hosts:/etc/hosts:ro
     restart: always
     tty: true
   # mongo DB official image based on Minimal Ubuntu 16.04.5 LTS
