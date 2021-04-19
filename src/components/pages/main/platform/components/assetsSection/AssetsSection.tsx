@@ -1,4 +1,4 @@
-import { LocaleLink, Tab, Table, Tabs } from '@components/shared';
+import { Col, Container, LocaleLink, Row, Tab, Table, Tabs } from '@components/shared';
 import { EPagePath } from '@domain/enums';
 import { IPrices } from '@domain/interfaces';
 import { IStore } from '@store';
@@ -16,15 +16,15 @@ export const AssetsSection = memo(function AssetsSection() {
 
   return (
     <section className="platform-wrapper__assets">
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-12 col-lg-9">
-            <div className="assets__title mb-7">
+      <Container>
+        <Row className="assets__row">
+          <Col className="assets__column">
+            <div className="assets__title">
               <Trans i18nKey="Assets Title">
                 <strong>6</strong> Asset Classes, <strong>150+</strong> Instruments
               </Trans>
             </div>
-            <div className="assets__description mb-md-13">
+            <div className="assets__description">
               <Trans i18nKey="Assets SubTitle">
                 CFD for
                 <LocaleLink to={{ pathname: EPagePath.Products, state: { scrollTo: 'currencies' } }}>
@@ -41,8 +41,8 @@ export const AssetsSection = memo(function AssetsSection() {
                 at your service on one trading account. Monitor and trade the world’s largest financial markets!
               </Trans>
             </div>
-          </div>
-          <div className="col-12 col-lg-9">
+          </Col>
+          <Col className="assets__column">
             <Tabs>
               {!prices && <div>Prices can't be loaded</div>}
               {prices &&
@@ -64,9 +64,9 @@ export const AssetsSection = memo(function AssetsSection() {
                   );
                 })}
             </Tabs>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </section>
   );
 });
