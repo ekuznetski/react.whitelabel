@@ -18,15 +18,15 @@ export const PerfectSection = memo(function PerfectSection() {
           </Col>
           <Col className="platform-perfect__content">
             <div className="content__item">
-              <Svg href="pc_install" width={48} className="mb-md-4 mr-5 mr-md-0" />
+              <Svg href="pc_install" width={48} className="content__svg" />
               {t('Easy to install')}
             </div>
             <div className="content__item">
-              <Svg href="bridge" width={48} className="mb-md-4 mr-5 mr-md-0" />
+              <Svg href="bridge" width={48} className="content__svg" />
               {t('No third party bridges')}
             </div>
             <div className="content__item">
-              <Svg href="time_reverse_clock" width={48} className="mb-md-4 mr-5 mr-md-0" />
+              <Svg href="time_reverse_clock" width={48} className="content__svg" />
               {t('24 5 Trading')}
             </div>
           </Col>
