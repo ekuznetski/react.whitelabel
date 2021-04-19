@@ -10,8 +10,12 @@ services:
       - ./server:/app/server
       - ./pm2_services.json:/app/server/dist/pm2_services.json
       - ./logs:/app/logs
-      - /etc/hosts:/etc/hosts:ro
     restart: always
+    extra_hosts:
+      - "api.uinvex.com:172.31.25.158"
+      - "api.bluesquarefx.com:172.31.9.14"
+      - "www.uinvex.com uinvex.com:127.0.0.1"
+      - "www.bluesquarefx.com bluesquarefx.com:127.0.0.1"
     tty: true
   # mongo DB official image based on Minimal Ubuntu 16.04.5 LTS
   redis:
