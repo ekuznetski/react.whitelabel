@@ -1,4 +1,4 @@
-import { Button, SectionBg, Svg } from '@components/shared';
+import { Button, Col, Container, Row, SectionBg, Svg } from '@components/shared';
 import { downloadLinks } from '@domain';
 import React, { memo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -10,34 +10,34 @@ export const TopSection = memo(function TopSection() {
   return (
     <section className="page-top">
       <SectionBg primary="platform-page-top.jpg" />
-      <div className="container pt-15">
-        <div className="row">
-          <div className="col-lg-7">
-            <div className="page-top__title mb-7">
+      <Container className="page-top__container">
+        <Row>
+          <Col className="page-top__column">
+            <div className="page-top__title">
               <Trans i18nKey="Platform Page Top Title">
                 <div>World-Leading</div>
                 <div>MetaTrader Platform</div>
                 <div>Powered by AroFX</div>
               </Trans>
             </div>
-            <div className="col-12 col-lg-9 col-xl-8 download-buttons row">
-              <Button className="desktop-button mr-6 px-7">
+            <div className="download-buttons">
+              <Button className="desktop-button">
                 <a href={downloadLinks.mt5.desktop}>{t('Download Desktop Version')}</a>
               </Button>
-              <Button className="mr-6 px-7 store-link">
+              <Button className="app-store-link">
                 <a href={downloadLinks.mt5.appStore}>
                   <Svg href="app_store_logo" />
                 </a>
               </Button>
-              <Button className="px-7 store-link">
+              <Button className="play-store-link">
                 <a href={downloadLinks.mt5.googlePlay}>
                   <Svg href="google_play_logo" />
                 </a>
               </Button>
             </div>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </section>
   );
 });
