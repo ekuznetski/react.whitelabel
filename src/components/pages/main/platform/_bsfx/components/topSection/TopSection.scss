@@ -5,7 +5,7 @@
     .page-top {
         @include height((xs: 500px, md: 450px, lg: 500px));
         @include d-flex(center);
-        background: rgb(92, 115, 131);
+        background: $dark-grey;
         overflow: hidden;
         color: #fff;
         padding: 0;
@@ -24,7 +24,7 @@
             @include mb((xs: 7));
             text-transform: uppercase;
 
-            >*:last-child {
+            &--bold {
                 font-weight: 600;
             }
         }
@@ -35,7 +35,7 @@
             @include flexDirection((xs: column, md: row));
             flex-wrap: wrap;
 
-            button {
+            &__button {
                 background-color: transparentize($color: $blue, $amount: 0.6);
                 border-color: transparent;
                 color: #fff;
@@ -43,24 +43,24 @@
                 font-size: 14px;
                 line-height: 17px;
                 width: 100%;
-            }
 
-            .desktop-button {
-                @include flex((xs: 0 0 50px, md: 0 0 280px, lg: unset));
-                @include mr((xs:6, lg:0));
-                @include mb((lg: 8));
-                text-transform: uppercase;
-            }
+                &--desktop {
+                    @include flex((xs: 0 0 50px, md: 0 0 280px, lg: unset));
+                    @include mr((xs:6, lg:0));
+                    @include mb((lg: 8));
+                    text-transform: uppercase;
+                }
 
-            .app-store-link,
-            .play-store-link {
-                @include flex((xs: 0 0 50px, md: 0 0 180px, lg: 1 0 180px));
-                @include mt((xs: 7, md: 0));
-                @include px((xs: 7));
-            }
+                &--app-store,
+                &--play-store {
+                    @include flex((xs: 0 0 50px, md: 0 0 180px, lg: 1 0 180px));
+                    @include mt((xs: 7, md: 0));
+                    @include px((xs: 7));
+                }
 
-            .app-store-link {
-                @include mr((xs: 6));
+                &--app-store {
+                    @include mr((xs: 6));
+                }
             }
         }
     }

@@ -17,19 +17,19 @@ export const TopSection = memo(function TopSection() {
               <Trans i18nKey="Platform Page Top Title">
                 <div>World-Leading</div>
                 <div>MetaTrader Platform</div>
-                <div>Powered by AroFX</div>
+                <div className="page-top__title--bold">Powered by AroFX</div>
               </Trans>
             </div>
             <div className="download-buttons">
-              <Button className="desktop-button">
+              <Button className="download-buttons__button download-buttons__button--desktop">
                 <a href={downloadLinks.mt5.desktop}>{t('Download Desktop Version')}</a>
               </Button>
-              <Button className="app-store-link">
+              <Button className="download-buttons__button download-buttons__button--app-store">
                 <a href={downloadLinks.mt5.appStore}>
                   <Svg href="app_store_logo" />
                 </a>
               </Button>
-              <Button className="play-store-link">
+              <Button className="download-buttons__button download-buttons__button--play-store">
                 <a href={downloadLinks.mt5.googlePlay}>
                   <Svg href="google_play_logo" />
                 </a>

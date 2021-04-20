@@ -44,7 +44,7 @@ export const AssetsSection = memo(function AssetsSection() {
           </Col>
           <Col className="assets__column">
             <Tabs>
-              {!prices && <div>Prices can't be loaded</div>}
+              {!prices && <div>{t("Prices can't be loaded")}</div>}
               {prices &&
                 Object.keys(prices)?.map((asset) => {
                   const rowData = Object.keys(prices[asset]).map((item) =>

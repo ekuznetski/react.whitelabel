@@ -5,7 +5,7 @@
   .page-top {
     @include height((xs: 580px, md: 500px));
     @include d-flex(center);
-    background: rgb(92, 115, 131);
+    background: $dark-grey;
     color: #fff;
     padding: 0;
 
@@ -22,7 +22,7 @@
       @include lineHeight((xs: 40px, md: 50px));
       @include mb((xs: 7));
 
-      >*:last-child {
+      &--bold {
         font-weight: 600;
       }
     }
@@ -32,7 +32,7 @@
       @include col((xs: 12, lg: 9, xl: 8));
       @include flexDirection((xs: column, md: row));
 
-      button {
+      &__button {
         background: transparent;
         border-color: #fff;
         color: #fff;
@@ -40,22 +40,22 @@
         font-size: 16px;
         line-height: 24px;
         width: 100%;
-      }
 
-      .desktop-button {
-        @include mr((xs:6));
-        @include px((xs: 7));
-      }
+        &--desktop {
+          @include mr((xs:6));
+          @include px((xs: 7));
+        }
 
-      .app-store-link,
-      .play-store-link {
-        @include flex((xs: 0 0 50px, md: 0 0 180px));
-        @include px((xs: 7));
-        @include mt((xs: 7, md: 0));
-      }
+        &--app-store,
+        &--play-store {
+          @include flex((xs: 0 0 50px, md: 0 0 180px));
+          @include px((xs: 7));
+          @include mt((xs: 7, md: 0));
+        }
 
-      .app-store-link {
-        @include mr((xs: 6));
+        &--app-store {
+          @include mr((xs: 6));
+        }
       }
     }
   }
