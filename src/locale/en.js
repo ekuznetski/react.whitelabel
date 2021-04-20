@@ -625,5 +625,5 @@ export default {
   'My country of residence does not issue Tax IDs': 'My country of residence does not issue Tax IDs',
   'I`m not required to register for a Tax ID': 'I`m not required to register for a Tax ID',
   'Employer Status': 'Employer Status:',
-  'Complete Edd Form': 'Complete Edd Form',
+  'Complete EDD Form': 'Complete EDD Form',
 };
