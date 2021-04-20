@@ -72,7 +72,7 @@ export const BankDetails = memo(function BankDetails() {
               validationSchema={validationSchema}
               onSubmit={Submit}
             >
-              {() => {
+              {({ dirty }) => {
                 return (
                   <Form className="internal-transfer__form">
                     <Row>
@@ -98,7 +98,7 @@ export const BankDetails = memo(function BankDetails() {
                         <Input label={t("Beneficiary's Branch Full Address")} name="branch_address" />
                       </Col>
                     </Row>
-                    <Button type="submit" loadingOnAction={EActionTypes.updateBankDetails}>
+                    <Button type="submit" loadingOnAction={EActionTypes.updateBankDetails} disabled={!dirty}>
                       {t('Save')}
                     </Button>
                   </Form>

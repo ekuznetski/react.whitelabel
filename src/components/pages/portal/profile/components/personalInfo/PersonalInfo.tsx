@@ -91,7 +91,7 @@ export const PersonalInfo = memo(
                 validationSchema={validationSchema}
                 onSubmit={Submit}
               >
-                {({ values, setFieldValue }: FormikProps<any>) => {
+                {({ values, dirty }: FormikProps<any>) => {
                   return (
                     <Form className="personal-info__form">
                       <Input label={t('Email')} name={EFields.email} />
@@ -118,7 +118,7 @@ export const PersonalInfo = memo(
                         <PhoneCodeSelect name={EFields.phone_prefix} disabled />
                         <Input label={t('Phone')} name={EFields.phone} regex={/^\d*$/gm} />
                       </div>
-                      <Button type="submit" loadingOnAction={EActionTypes.editProfile}>
+                      <Button type="submit" loadingOnAction={EActionTypes.editProfile} disabled={!dirty}>
                         {t('Save')}
                       </Button>
                     </Form>

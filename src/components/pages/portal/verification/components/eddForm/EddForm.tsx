@@ -158,7 +158,7 @@ export const EddForm = memo(function EddForm() {
   return (
     <div className="edd-form">
       <Row>
-        <Col className="edd-form__title">{t('Complete Edd Form')}</Col>
+        <Col className="edd-form__title">{t('Complete EDD Form')}</Col>
       </Row>
       <Alert type="text" className="mb-7" showIcon={false}>
         You must complete the EDD form within 7 days or your account will be suspended. You will not be able to deposit

@@ -54,13 +54,11 @@ export const Radio = memo(function Radio({
     if (options.length % 2 == 0) {
       if (idx < options.length - 2) {
         return 'mb-8';
-      } else if (idx < options.length - 1 && optionClassName !== 'col') {
+      } else if (idx < options.length - 1 && !optionClassName.includes('col')) {
         return 'mb-8 mb-sm-0';
       }
-    } else {
-      if (idx < options.length - 1) {
-        return 'mb-8';
-      }
+    } else if (idx < options.length - 1) {
+      return 'mb-8';
     }
   }
 
