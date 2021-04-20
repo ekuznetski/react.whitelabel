@@ -1,0 +1,67 @@
+@import '~/variables';
+@import '~/mixin';
+
+.platform-wrapper {
+    .page-top {
+        @include height((xs: 500px, md: 450px, lg: 500px));
+        @include d-flex(center);
+        background: $dark-grey;
+        overflow: hidden;
+        color: #fff;
+        padding: 0;
+
+        &__container {
+            @include pt((xs: 15, xl: 18));
+        }
+
+        &__column {
+            @include col((lg: 7));
+        }
+
+        &__title {
+            @include fontSize((xs: 30px, md: 40px));
+            @include lineHeight((xs: 40px, md: 50px));
+            @include mb((xs: 7));
+            text-transform: uppercase;
+
+            &--bold {
+                font-weight: 600;
+            }
+        }
+
+        .download-buttons {
+            @include d-flex();
+            @include col((xs: 12, xl: 10));
+            @include flexDirection((xs: column, md: row));
+            flex-wrap: wrap;
+
+            &__button {
+                background-color: transparentize($color: $blue, $amount: 0.6);
+                border-color: transparent;
+                color: #fff;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+                width: 100%;
+
+                &--desktop {
+                    @include flex((xs: 0 0 50px, md: 0 0 280px, lg: unset));
+                    @include mr((xs:6, lg:0));
+                    @include mb((lg: 8));
+                    text-transform: uppercase;
+                }
+
+                &--app-store,
+                &--play-store {
+                    @include flex((xs: 0 0 50px, md: 0 0 180px, lg: 1 0 180px));
+                    @include mt((xs: 7, md: 0));
+                    @include px((xs: 7));
+                }
+
+                &--app-store {
+                    @include mr((xs: 6));
+                }
+            }
+        }
+    }
+}

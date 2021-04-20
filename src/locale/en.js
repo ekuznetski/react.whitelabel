@@ -626,4 +626,5 @@ export default {
   'I`m not required to register for a Tax ID': 'I`m not required to register for a Tax ID',
   'Employer Status': 'Employer Status:',
   'Complete EDD Form': 'Complete EDD Form',
+  "Prices can't be loaded": "Prices can't be loaded",
 };

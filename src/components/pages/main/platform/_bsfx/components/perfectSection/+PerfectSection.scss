@@ -1,0 +1,44 @@
+@import '~/variables';
+@import '~/mixin';
+
+.platform-wrapper {
+    .platform-perfect-wrapper {
+        @include height((xs:440px, md: 350px, lg: unset));
+        display: flex;
+        align-items: center;
+
+        .platform-perfect {
+            &__header {
+                .header {
+                    &__title {
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+
+        @media (max-width: $viewport-md-w) {
+            .platform-perfect {
+                .content {
+                    &__item {
+                        &:not(:last-child) {
+                            border-bottom: 0;
+
+                            &:not(:first-child) {
+                                padding: sp(7) 0 !important;
+                            }
+                        }
+
+                        &:first-child {
+                            padding-bottom: sp(7, i);
+                        }
+
+                        &:last-child {
+                            padding-top: sp(7, i);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
