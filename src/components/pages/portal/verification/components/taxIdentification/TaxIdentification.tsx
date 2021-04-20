@@ -75,8 +75,8 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
 
   function Submit(data: FormikValues) {
     const values = { ...data };
-    values.choice = values.choice.toString();
-    values.tins = JSON.stringify(
+    values[EFields.choice] = values.choice.toString();
+    values[EFields.tins] = JSON.stringify(
       values.tins
         .filter((e: any) => e.taxCountry && e.taxNumber)
         .map((e: any) => ({
@@ -153,7 +153,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                 </Col>
                 <Col xs={12} className="form-breakline mt-10 mb-10" />
               </Row>
-              {values.choice &&
+              {values[EFields.choice] &&
                 values[EFields.tins].map((e: any, i: number) => {
                   const _isFieldDisabled = i < tins.tins.length;
                   return (
@@ -186,7 +186,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                     </div>
                   );
                 })}
-              {!values.choice && (
+              {!values[EFields.choice] && (
                 <Row>
                   <Col xs={12}>
                     <Radio
@@ -199,7 +199,7 @@ export const TaxIdentification = React.memo(function TaxIdentification() {
                   </Col>
                 </Row>
               )}
-              <Button type="submit" loadingOnAction={EActionTypes.updateTins}>
+              <Button type="submit" loadingOnAction={EActionTypes.updateTins} disabled={(clientStatus.tins_status.code === EClientStatusCode.submitted && (!tins.choice || tins.tins.length > 2))}>
                 {t('Submit')}
               </Button>
             </Form>
