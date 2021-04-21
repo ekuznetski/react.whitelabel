@@ -156,6 +156,36 @@
   @include mediaTag(background, size, $sizes, $effect);
 }
 
+// background-position
+@mixin backgroundPosition($sizes, $effect: null) {
+  @include mediaTag(background, position, $sizes, $effect);
+}
+
+// border
+@mixin border($sizes, $effect: null) {
+  @include mediaTag(border, null, $sizes, $effect);
+}
+
+// border-top
+@mixin borderTop($sizes, $effect: null) {
+  @include mediaTag(border, top, $sizes, $effect);
+}
+
+// border-right
+@mixin borderRight($sizes, $effect: null) {
+  @include mediaTag(border, right, $sizes, $effect);
+}
+
+// border-bottom
+@mixin borderBottom($sizes, $effect: null) {
+  @include mediaTag(border, bottom, $sizes, $effect);
+}
+
+//border -left
+@mixin borderLeft($sizes, $effect: null) {
+  @include mediaTag(border, left, $sizes, $effect);
+}
+
 // float
 @mixin float($sizes, $effect: null) {
   @include mediaTag(float, null, $sizes, $effect);
