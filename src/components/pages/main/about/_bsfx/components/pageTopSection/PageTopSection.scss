@@ -10,22 +10,14 @@
         overflow: hidden;
         color: #fff;
 
+        .section-bg {
+            @include backgroundPosition((xs: 75% 50%, lg: 50% 50%), i);
+        }
+
         .page-top {
             &__header {
                 @include col((xs: unset, md: 6, lg: 5));
                 margin-top: sp(10);
-            }
-
-            .section-bg {
-                @include backgroundPosition((xs: 75% 50%, lg: 50% 50%));
-                background-size: cover;
-                width: 100%;
-                height: 100%;
-
-                position: absolute;
-                left: 0;
-                top: 0;
-                z-index: 0;
             }
 
             &__title {

@@ -41,17 +41,16 @@
         .common-cards {
           &__container {
             .card {
-              @include borderLeft((xs: none, lg: 2px solid rgba(255, 255, 255, 0.2)));
-              @include borderRight((xs: 2px solid rgba(255, 255, 255, 0.2), lg: none));
+              @include borderRight((xs: none, md: 2px solid $border-grey));
               @include col((xs: 12, md: 4));
               @include mb((xs: 9, md: 0));
 
               &:last-child {
-                @include borderRight((xs: 2px solid rgba(255, 255, 255, 0.2), lg: none));
+                @include borderRight((xs: none, lg: 2px solid $border-grey));
               }
 
               &:first-child {
-                @include borderLeft((xs: 2px solid rgba(255, 255, 255, 0.2), md: none));
+                @include borderLeft((xs: none, lg: 2px solid $border-grey));
               }
             }
           }
