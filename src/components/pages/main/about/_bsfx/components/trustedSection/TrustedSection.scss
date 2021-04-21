@@ -7,22 +7,22 @@
 
     .trusted {
       &__text {
-        @include col((xs: 12, lg: 8));
+        @include col((xs: 12, lg: 11));
         @include mx((xs: auto));
         text-align: center;
       }
 
       &__title {
+        @include fontSize((xs: 24px, sm: 36px));
+        @include lineHeight((xs: 34px, sm: 50px));
         @include mb((xs: 9));
-        font-size: 36px;
-        line-height: 50px;
         text-align: center;
       }
 
       &__description {
+        @include fontSize((xs: 16px, sm: 18px));
+        @include lineHeight((xs: 26px, sm: 30px));
         @include mb((xs: 13));
-        font-size: 18px;
-        line-height: 30px;
       }
 
       &__cards {
@@ -33,32 +33,46 @@
         }
 
         .common-cards {
+          &__container {
+            @include flexFlow((xs: unset, md: row wrap));
+
+            .card {
+              @include col((xs: 12, md: 3));
+              @include mb((xs: 9, lg:0));
+              @include p((xs: 0, lg: 5));
+              border-right: 1px solid $grey;
+
+              &:last-child {
+                border-right: none;
+              }
+
+              &:first-child {
+                @include borderLeft((xs: 1px solid $grey, md: none));
+              }
+
+            }
+          }
+
           &__item {
             height: 140px;
+            box-shadow: none;
+            padding: 0;
 
             &-header {
               font-weight: 300;
               font-size: 40px;
-              color: $blue;
+              color: $dark-blue;
               justify-content: center;
 
               small {
-                margin-left: sp(3);
+                margin-left: 10px;
                 font-size: 18px;
+                color: $dark-blue;
               }
             }
 
             &-content {
               text-align: center;
-            }
-          }
-
-          &__container {
-            @include flexFlow((xs: unset, md: row wrap));
-
-            .card {
-              @include col((xs: 12, md:6, lg:3));
-              @include mb((xs: 9, lg:0));
             }
           }
         }

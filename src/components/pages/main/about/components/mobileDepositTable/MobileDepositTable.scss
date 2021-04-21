@@ -1,10 +1,11 @@
 @import '~/variables';
+@import '~/mixin';
 
 .mobile-deposit-table {
   &__item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @include d-flex(start, center, column);
+    @include px((xs: 3));
+    @include py((xs: 5));
 
     &:nth-child(even) {
       background: #f8f8f9;
@@ -12,9 +13,8 @@
 
     .item {
       &__line {
-        display: flex;
+        @include d-flex(center);
         min-height: 64px;
-        align-items: center;
         border-bottom: 1px solid #f1f2f2;
 
         &:last-child {
@@ -23,12 +23,19 @@
       }
 
       &__cell {
-        display: flex;
-        flex-direction: column;
+        @include px((xs: 3));
+        @include d-flex(start, start, column);
         flex: 0 0 50%;
+
+        &-right,
+        &-left {
+          @include px((xs: 3));
+        }
+
         &-right {
           flex: 1 0 50%;
         }
+
         &-left {
           flex: none;
           min-width: 70px;
@@ -39,6 +46,7 @@
         font-size: 12px;
         line-height: 20px;
         color: #6f6f6f;
+
         &.method {
           text-transform: uppercase;
         }

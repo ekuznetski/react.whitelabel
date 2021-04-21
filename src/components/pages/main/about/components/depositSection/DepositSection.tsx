@@ -1,28 +1,25 @@
-import { Cards, Tabs } from '@components/shared';
+import { Col, Container, DepositCards, Row, Tabs } from '@components/shared';
 import { config, locale } from '@pages/main/about';
-import { DepositCards } from '@components/shared';
 import { useResponsive } from 'ahooks';
 import React, { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import './DepositSection.scss';
 
 export const DepositSection = memo(function DepositSection() {
   const responsive = useResponsive();
-  const { t } = useTranslation();
 
   return (
     <section className="about-wrapper__deposit">
-      <div className="container">
-        <div className="row">
-          <div className="deposit__header col">
+      <Container>
+        <Row>
+          <Col className="deposit__header">
             <div className="deposit__title">{locale.depositTitle}</div>
             <DepositCards />
-          </div>
-          <div className="deposit__tabs-container col">
+          </Col>
+          <Col className="deposit__tabs-container">
             <Tabs className="deposit__tabs" {...config.tabsData(responsive)} />
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </section>
   );
 });

@@ -1,70 +1,44 @@
 @import '~/variables';
+@import '~/mixin';
 
 .about-wrapper {
   &__page-top {
-    height: 750px;
-    display: flex;
-    align-items: center;
-    background: rgb(92, 115, 131);
+    @include d-flex();
+    @include alignItems((xs: flex-end, lg: center));
+    @include height((xs: 550px, sm: 500px, lg: 750px));
+    @include p((xs: 70px 0, lg: 120px 0));
+    background: $dark-grey;
     color: #fff;
 
     .page-top {
+      &__header {
+        @include col((xs: unset, md: 8, lg: 7))
+      }
+
       &__title {
+        @include fontSize((xs: 36px, lg: 55px));
+        @include lineHeight((xs: 46px, lg: 63px));
+        @include mb((xs: 7));
+        color: #fff;
         font-weight: 500;
-        font-size: 55px;
-        line-height: 63px;
       }
 
       &__description {
-        font-size: 18px;
-        line-height: 30px;
+        @include fontSize((xs: 16px, lg: 18px));
+        @include lineHeight((xs: 24px, lg: 30px));
+        @include mb((xs: 9));
       }
     }
 
     button {
+      @include height((xs: $btn-size-md, lg: $btn-size-lg));
+      @include width((xs: 100%, sm: 225px));
       background: $dark-blue;
       border-radius: $border-radius;
-      width: 225px;
-      height: $btn-size-lg;
       color: #fff;
       font-weight: 500;
       font-size: 16px;
       line-height: 24px;
-    }
-
-    @media (max-width: $viewport-lg-w) {
-      height: 500px;
-      padding: 70px 0;
-      align-items: flex-end;
-
-      .page-top {
-        &__title {
-          font-size: 36px;
-          line-height: 46px;
-          color: #ffffff;
-        }
-
-        &__description {
-          font-size: 16px;
-          line-height: 24px;
-        }
-      }
-
-      button {
-        height: 50px;
-      }
-    }
-
-    @media (max-width: $viewport-md-w) {
-      height: 500px;
-    }
-
-    @media (max-width: $viewport-sm-w) {
-      height: 550px;
-
-      button {
-        width: 100%;
-      }
     }
   }
 }

@@ -12,7 +12,7 @@ export const InTouchSection = memo(function InTouchSection() {
     <section className="about-wrapper__in-touch">
       <SectionBg primary="in-touch-bg.jpg" />
       <Container>
-        <Row>
+        <Row className="in-touch__row">
           <Col className="in-touch__header">
             <div className="in-touch__title">{locale.inTouchSectionTitle}</div>
             <div className="in-touch__description">{locale.inTouchSectionDescription}</div>
