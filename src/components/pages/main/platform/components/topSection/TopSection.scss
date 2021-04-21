@@ -3,26 +3,36 @@
 
 .platform-wrapper {
   .page-top {
-    height: 500px;
-    display: flex;
-    align-items: center;
-    background: rgb(92, 115, 131);
+    @include height((xs: 580px, md: 500px));
+    @include d-flex(center);
+    background: $dark-grey;
     color: #fff;
     padding: 0;
 
-    &__title {
-      font-size: 40px;
-      line-height: 50px;
+    &__container {
+      @include pt((xs: 15));
+    }
 
-      > *:last-child {
+    &__column {
+      @include col((lg: 7));
+    }
+
+    &__title {
+      @include fontSize((xs: 30px, md: 40px));
+      @include lineHeight((xs: 40px, md: 50px));
+      @include mb((xs: 7));
+
+      &--bold {
         font-weight: 600;
       }
     }
 
     .download-buttons {
-      display: flex;
+      @include d-flex();
+      @include col((xs: 12, lg: 9, xl: 8));
+      @include flexDirection((xs: column, md: row));
 
-      button {
+      &__button {
         background: transparent;
         border-color: #fff;
         color: #fff;
@@ -30,27 +40,21 @@
         font-size: 16px;
         line-height: 24px;
         width: 100%;
-      }
 
-      .store-link {
-        flex: 0 0 180px;
-      }
-    }
+        &--desktop {
+          @include mr((xs:6));
+          @include px((xs: 7));
+        }
 
-    @media (max-width: $viewport-md-w) {
-      height: 580px;
+        &--app-store,
+        &--play-store {
+          @include flex((xs: 0 0 50px, md: 0 0 180px));
+          @include px((xs: 7));
+          @include mt((xs: 7, md: 0));
+        }
 
-      &__title {
-        font-size: 30px;
-        line-height: 40px;
-      }
-
-      .download-buttons {
-        flex-direction: column;
-
-        .store-link {
-          flex: 0 0 50px;
-          margin-top: 20px;
+        &--app-store {
+          @include mr((xs: 6));
         }
       }
     }

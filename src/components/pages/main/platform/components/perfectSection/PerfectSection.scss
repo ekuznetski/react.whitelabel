@@ -54,6 +54,11 @@
             border-right: 1px solid rgba(250, 250, 250, 0.4);
           }
         }
+
+        &__svg {
+          @include mr((xs: 5, md: 0));
+          @include mb((md: 4));
+        }
       }
     }
   }

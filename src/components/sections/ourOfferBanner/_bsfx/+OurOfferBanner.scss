@@ -40,6 +40,12 @@
         &:first-child {
           border-left: none;
         }
+
+        &:not(:last-child) {
+          &:after {
+            display: none;
+          }
+        }
       }
     }
   }
@@ -47,15 +53,11 @@
   @media (max-width: $viewport-md-w) {
     .our-offer {
       &__item {
-        border-right: none !important;
         justify-content: center;
 
         &:not(:last-child) {
           border-bottom: 3px solid #fff;
 
-          &:after {
-            display: none;
-          }
         }
       }
     }

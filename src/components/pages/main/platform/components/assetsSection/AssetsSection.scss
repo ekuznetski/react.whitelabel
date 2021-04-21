@@ -3,35 +3,33 @@
 
 .platform-wrapper__assets {
   .assets {
+    &__row {
+      @include justifyContent((xs: center));
+    }
+
+    &__column {
+      @include col((xs: 12, lg: 9));
+    }
+
     &__title {
+      @include fontSize((xs: 24px, sm: 36px));
+      @include lineHeight((xs: 34px, sm: 50px));
+      @include mb((xs: 7));
       font-weight: 400;
-      font-size: 36px;
-      line-height: 50px;
       text-align: center;
       color: $dark-text;
     }
 
     &__description {
-      font-size: 18px;
-      line-height: 30px;
+      @include fontSize((xs: 16px, sm: 18px));
+      @include lineHeight((xs: 26px, sm: 30px));
+      @include mb((xs: 9, md:13));
       text-align: center;
       color: $dark-text;
     }
 
-    @media (max-width: $viewport-md-w) {
-      &__title {
-        font-size: 24px;
-        line-height: 34px;
-      }
-
-      &__description {
-        font-size: 16px;
-        line-height: 26px;
-      }
-
-      .common-tabs {
-        display: none;
-      }
+    .common-tabs {
+      @include display((xs: none, sm: flex));
     }
   }
 }
