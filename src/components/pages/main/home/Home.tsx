@@ -21,17 +21,17 @@ export function Home() {
   return (
     <div className="home-wrapper">
       <TopSection />
-      <StockPricesSection className="p-0" />
+      <StockPricesSection />
       <PlatformTechnologySection {...config.platformTechnologySection} />
-      <MobileTradingSection className="pt-0" {...config.mobileTradingSection} />
-      <TakeControlOfTradesSection className="py-16" data={config.takeControlItems} />
+      <MobileTradingSection {...config.mobileTradingSection} />
+      <TakeControlOfTradesSection data={config.takeControlItems} />
       <AccountTypesForTradingStylesSection />
       <OurOfferBannerSection />
-      <section className="workshop-cards pt-18">
+      <section className="workshop-cards">
         <Container>
           <Row>
             <Col xs={12}>
-              <div className="workshop-cards__title mb-6 mb-md-12">{t('Free upcoming webinar workshop')}</div>
+              <div className="workshop-cards__title">{t('Free upcoming webinar workshop')}</div>
             </Col>
           </Row>
           <WorkshopCards data={config.workshopsData} />

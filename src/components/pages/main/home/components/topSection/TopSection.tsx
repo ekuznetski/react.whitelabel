@@ -12,9 +12,9 @@ export const TopSection = memo(function TopSection() {
     <section className="page-top">
       <SectionBg primary="home-page-top.jpg" />
       <Container>
-        <Row className="mb-9 mb-lg-18">
-          <Col xs={12} md={8} lg={6} className="page-top__header">
-            <div className="page-top__title mb-5 mb-lg-9">
+        <Row className="page-top__row">
+          <Col className="page-top__header">
+            <div className="page-top__title">
               {t('Home Page Top Title')}
               <LabelView>
                 {{
@@ -28,13 +28,13 @@ export const TopSection = memo(function TopSection() {
                 }}
               </LabelView>
             </div>
-            <div className="page-top__description mb-11 mb-lg-10">
+            <div className="page-top__description">
               <Trans i18nKey="Home Page Top Section Desc">
                 An online trading experience by FX traders,
                 <br /> for FX traders.
               </Trans>
             </div>
-            <Button>
+            <Button className="page-top__button">
               <LocaleLink to={EPagePath.Registration}>{t('Open Live Account')}</LocaleLink>
             </Button>
           </Col>
