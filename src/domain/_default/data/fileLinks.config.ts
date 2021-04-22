@@ -7,4 +7,8 @@ export const files = {
   cookiePolicy: '',
   termsOfBusiness: '',
   privacyPolicy: '',
+  preventingMoneyLaundering: '',
+  disclaimer: '',
+  executionPolicy: '',
+  customerAgreement: '',
 };
