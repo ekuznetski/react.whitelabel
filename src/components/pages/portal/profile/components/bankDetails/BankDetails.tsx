@@ -32,12 +32,12 @@ export const BankDetails = memo(function BankDetails() {
       .max(100, responsive.lg ? t('Bank Branch Address characters count restriction') : t('Maximum length symbols')),
   });
 
-  function Submit(data: FormikValues, helpers: FormikHelpers<any>) {
+  function Submit(data: FormikValues, formikHelpers: FormikHelpers<any>) {
     dispatch(
       ac_updateBankDetails(
         data as MBankDetails,
         () => {
-          helpers.resetForm({ values: data });
+          formikHelpers.resetForm({ values: data });
 
           return dispatch(
             ac_showNotification({

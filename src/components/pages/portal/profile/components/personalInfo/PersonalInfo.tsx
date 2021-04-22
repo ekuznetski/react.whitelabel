@@ -46,14 +46,14 @@ export const PersonalInfo = memo(
       phone: FieldValidators.phone.required(t('Please enter your phone')),
     });
 
-    function Submit(data: FormikValues, helpers: FormikHelpers<any>) {
+    function Submit(data: FormikValues, formikHelpers: FormikHelpers<any>) {
       const _data = { ...data };
 
       dispatch(
         ac_editProfile(
           _data as IEditProfileRequest,
           () => {
-            helpers.resetForm({ values: data });
+            formikHelpers.resetForm({ values: data });
 
             return dispatch(
               ac_showNotification({
