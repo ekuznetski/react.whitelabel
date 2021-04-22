@@ -108,4 +108,5 @@ export default {
   'Assets Title': '<0>5</0> Asset Classes, <2>300+</2> instruments',
   'Assets SubTitle':
     'Use our platform to monitor and trade <1>CFD</1>s for the global financial markets including <3>Forex</3>, <5>Stocks</5>, <7>Commodities</7>, <9>Indices</9> and <11>Digital assets</11>.',
+  'You opening account with': 'You are now opening an account with <1>SafeCapital LTD</1>',
 };
