@@ -1,12 +1,11 @@
-import { Button, CountrySelect, Input, PhoneCodeSelect } from '@components/shared';
+import { Button, Col, Container, CountrySelect, Input, PhoneCodeSelect, Row } from '@components/shared';
 import { CustomFieldValidators, FieldValidators } from '@domain';
 import { ECountryCode, ENotificationType } from '@domain/enums';
 import { IEditProfileRequest } from '@domain/interfaces';
 import { MClientProfile } from '@domain/models';
 import { EActionTypes, IStore, ac_editProfile, ac_showNotification } from '@store';
-import { Form, Formik, FormikProps, FormikValues } from 'formik';
+import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import React, { forwardRef, memo } from 'react';
-import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -47,19 +46,22 @@ export const PersonalInfo = memo(
       phone: FieldValidators.phone.required(t('Please enter your phone')),
     });
 
-    function Submit(data: FormikValues) {
+    function Submit(data: FormikValues, helpers: FormikHelpers<any>) {
       const _data = { ...data };
 
       dispatch(
         ac_editProfile(
           _data as IEditProfileRequest,
-          () =>
-            dispatch(
+          () => {
+            helpers.resetForm({ values: data });
+
+            return dispatch(
               ac_showNotification({
                 type: ENotificationType.success,
                 message: t('The Profile Has Been Updated'),
               }),
-            ),
+            );
+          },
           () =>
             dispatch(
               ac_showNotification({

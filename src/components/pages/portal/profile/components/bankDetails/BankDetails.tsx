@@ -4,7 +4,7 @@ import { ENotificationType } from '@domain/enums';
 import { MBankDetails } from '@domain/models';
 import { EActionTypes, IStore, ac_showNotification, ac_updateBankDetails } from '@store';
 import { useResponsive } from 'ahooks';
-import { Form, Formik, FormikValues } from 'formik';
+import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,17 +32,20 @@ export const BankDetails = memo(function BankDetails() {
       .max(100, responsive.lg ? t('Bank Branch Address characters count restriction') : t('Maximum length symbols')),
   });
 
-  function Submit(data: FormikValues) {
+  function Submit(data: FormikValues, helpers: FormikHelpers<any>) {
     dispatch(
       ac_updateBankDetails(
         data as MBankDetails,
-        () =>
-          dispatch(
+        () => {
+          helpers.resetForm({ values: data });
+
+          return dispatch(
             ac_showNotification({
               type: ENotificationType.success,
               message: t('Bank Details Updated Successfully'),
             }),
-          ),
+          );
+        },
         () =>
           dispatch(
             ac_showNotification({
