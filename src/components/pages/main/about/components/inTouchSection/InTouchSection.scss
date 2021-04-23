@@ -4,11 +4,15 @@
 .about-wrapper {
   &__in-touch {
     @include d-flex(center);
-    background: #1a1b1c;
+    background: $dark-text;
     padding: 140px 0;
     color: #fff;
 
     .in-touch {
+      &__row {
+        flex-direction: column;
+      }
+
       &__header {
         @include col((lg: 8));
         @include offset((lg: 2));

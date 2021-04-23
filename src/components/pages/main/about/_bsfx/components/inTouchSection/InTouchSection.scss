@@ -1,0 +1,85 @@
+@import '~/variables';
+@import '~/mixin';
+
+.about-wrapper {
+  &__in-touch {
+    @include height((xs: 605px, md: 540px, lg: 635px));
+    @include d-flex(center);
+    @include p((xs: sp(12) 0, sm: sp(20) 0));
+    background: $dark-text;
+    color: #fff;
+
+    .in-touch {
+      &__row {
+        flex-direction: column;
+      }
+
+      &__header {
+        @include col((lg: 8));
+        @include offset((lg: 2));
+        text-align: center;
+      }
+
+      &__title {
+        @include fontSize((xs: 24px, sm: 36px));
+        @include lineHeight((xs: 34px, sm: 46px));
+        @include mb((xs:7));
+      }
+
+      &__description {
+        @include fontSize((xs: 14px, sm: 18px));
+        @include lineHeight((xs: 24px, sm: 30px));
+        @include mb((xs:13));
+      }
+
+      &__cards {
+        &-container {
+          @include col((xs: 12, sm: 8, md: 12));
+          @include mx((sm: auto));
+        }
+
+        .common-cards {
+          &__container {
+            .card {
+              @include borderRight((xs: none, md: 2px solid $border-grey));
+              @include col((xs: 12, md: 4));
+              @include mb((xs: 9, md: 0));
+
+              &:last-child {
+                @include borderRight((xs: none, lg: 2px solid $border-grey));
+              }
+
+              &:first-child {
+                @include borderLeft((xs: none, lg: 2px solid $border-grey));
+              }
+            }
+          }
+
+          &__item {
+            @include p((xs: 16px 30px, sm: 16px 0, lg: 28px 40px));
+            background: transparent;
+            height: 150px;
+            justify-content: center;
+
+            &-header {
+              font-weight: 300;
+              font-size: 65px;
+              line-height: 50px;
+              text-transform: capitalize;
+              color: #fff;
+              margin-bottom: sp(7);
+              justify-content: center;
+            }
+
+            &-content {
+              font-size: 16px;
+              line-height: 26px;
+              color: #ffffff;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
