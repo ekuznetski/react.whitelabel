@@ -13,23 +13,23 @@ export const TradeProductsSection = memo(function TradeProductsSection() {
     <section className="trade-products">
       <Container>
         <Row>
-          <Col xs={12} className="mb-11">
+          <Col xs={12} className="trade-products__header">
             <div className="trade-products__title">
               <Trans i18nKey="Trade our products">
                 <b>Trade</b> Our Products
               </Trans>
             </div>
           </Col>
-          <Col xs={12} className="p-0">
+          <div className="trade-products__cards">
             <Cards id="tradeProductsCards">
               {config.tradeProductsCards.map((card, c) => (
-                <Card key={c} wrapperClassName="col-12 col-md-6 col-lg-4 mb-9" uid={c}>
-                  <CardHeader className="mb-7">
-                    <Svg href={card.icon} className="mr-5" />
+                <Card key={c} wrapperClassName="card" uid={c}>
+                  <CardHeader>
+                    <Svg href={card.icon} />
                     {card.title}
                   </CardHeader>
-                  <CardContent className="text-left">
-                    <div className="mb-1">
+                  <CardContent>
+                    <div className="label">
                       <b>
                         <LabelView>
                           {{
@@ -44,7 +44,7 @@ export const TradeProductsSection = memo(function TradeProductsSection() {
                 </Card>
               ))}
             </Cards>
-          </Col>
+          </div>
         </Row>
       </Container>
     </section>

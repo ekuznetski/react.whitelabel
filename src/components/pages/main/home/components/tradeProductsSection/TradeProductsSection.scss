@@ -1,42 +1,69 @@
 @import '~/variables';
+@import '~/mixin';
 
 .trade-products {
+  &__header {
+    @include mb((xs: 11));
+  }
+
   &__title {
     font-size: 36px;
     line-height: 46px;
     color: $dark-text;
   }
 
-  .common-cards {
-    svg {
-      padding: 13px;
-      border-radius: $border-radius;
-      background: $grey-bg;
-      min-width: 50px;
-      height: 50px;
-      fill: $blue;
+  &__cards {
+    @include col((xs: 12));
+
+    .card {
+      @include col((xs: 12, md: 6, lg: 4));
+      @include px((xs: 5));
+      @include mb((xs: 9));
     }
 
-    &__item {
-      height: 200px;
-      padding: 30px;
-
-      &-header {
-        span {
-          font-weight: 300;
-          font-size: 40px;
-          text-align: right;
-          color: $blue;
-          margin-left: auto;
-          display: flex;
-        }
+    .common-cards {
+      svg {
+        padding: 13px;
+        border-radius: $border-radius;
+        background: $grey-bg;
+        min-width: 50px;
+        height: 50px;
+        fill: $blue;
       }
 
-      &-content {
-        .greyText {
-          font-size: 16px;
-          line-height: 26px;
-          color: $text;
+      &__item {
+        height: 200px;
+        padding: 30px;
+
+        &-header {
+          @include mb((xs: 7));
+
+          .common-svg {
+            @include mr((xs: 5));
+          }
+
+          span {
+            font-weight: 300;
+            font-size: 40px;
+            text-align: right;
+            color: $blue;
+            margin-left: auto;
+            display: flex;
+          }
+        }
+
+        &-content {
+          @include textAlign((xs: left));
+
+          .label {
+            @include mb((xs: 1));
+          }
+
+          .greyText {
+            font-size: 16px;
+            line-height: 26px;
+            color: $text;
+          }
         }
       }
     }
