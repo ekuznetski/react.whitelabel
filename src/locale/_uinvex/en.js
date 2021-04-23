@@ -108,4 +108,10 @@ export default {
   'Assets Title': '<0>5</0> Asset Classes, <2>300+</2> instruments',
   'Assets SubTitle':
     'Use our platform to monitor and trade <1>CFD</1>s for the global financial markets including <3>Forex</3>, <5>Stocks</5>, <7>Commodities</7>, <9>Indices</9> and <11>Digital assets</11>.',
+  'Financial Profile Last Stem Declaration Terms': [
+    'I understand that the nature of my transactions with SafeCapital LTD will be buying and selling only CFD products in various underlying assets.',
+    'I am aware that by not submitting the KYC documents as requested by the Company may lead to the suspension of my trading rights',
+    'I am aware that the products offered by SafeCapital LTD are leverage CFD products which carry a high level of risk, and it is possible to lose all my capital deposited with SafeCapital LTD.I further acknowledge that I have read the Risk Disclosure Notice as available online.',
+    'I have reviewed my answers and responded as accurately as possible.',
+  ],
 };
