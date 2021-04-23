@@ -34,3 +34,18 @@ export type Nullable<T> = { [P in keyof T]: T[P] | null | Nullable<T[P]> };
 export type AnyFunction<T = void, U = any> = ((...args: U[]) => T) | null;
 
 export type ExtractComponentProps<Type> = Type extends React.NamedExoticComponent<infer X> ? X : never;
+
+export interface IFileLinks {
+  financeFeesFixed?: string;
+  financeFeesVariable?: string;
+  installInstructionsMT4?: string;
+  installInstructionsMT5?: string;
+  riskWarning?: string;
+  cookiePolicy?: string;
+  termsOfBusiness?: string;
+  privacyPolicy?: string;
+  preventingMoneyLaundering?: string;
+  disclaimer?: string;
+  executionPolicy?: string;
+  customerAgreement?: string;
+}

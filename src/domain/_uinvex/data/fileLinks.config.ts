@@ -1,10 +1,6 @@
-export const files = {
-  financeFeesFixed: '',
-  financeFeesVariable: '',
-  installInstructionsMT4: '',
-  installInstructionsMT5: '',
-  riskWarning: '',
-  cookiePolicy: '',
+import { IFileLinks } from '@domain/interfaces';
+
+export const files: IFileLinks = {
   termsOfBusiness: '/files/terms_of_business_january_2021.pdf',
   privacyPolicy: '/files/privacy_policy.pdf',
   preventingMoneyLaundering: '/files/preventing_money_laundering.pdf',
