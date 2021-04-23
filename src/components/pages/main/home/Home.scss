@@ -1,11 +1,25 @@
 @import '~/variables';
+@import '~/mixin';
 
 .home-wrapper {
   .stocks {
-    margin-top: -200px;
+    @include mt((xs: sp(16, n), lg: -200px));
+    @include p((xs: 0));
+  }
 
-    @media (max-width: $viewport-lg-w) {
-      margin-top: -80px;
+  .mobile-trading {
+    @include pt((xs: 0));
+  }
+
+  .take-control-of-trades-section {
+    @include py((xs: 16));
+  }
+
+  .workshop-cards {
+    @include pt((xs: 18));
+
+    &__title {
+      @include mb((xs: 6, md: 12));
     }
   }
 }

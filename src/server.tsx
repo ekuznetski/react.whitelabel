@@ -90,7 +90,11 @@ RedisClient.on('ready', function () {
 
 function addUrlToActiveRequestsList(req: express.Request) {
   if (req.session && req.session.CakePHPCookie && req.session.activeRequests) {
-    req.session.activeRequests.push(req.url);
+    try {
+      req.session.activeRequests.push(req.url);
+    } catch (e) {
+      console.log('req.session.activeRequests', e);
+    }
   }
 }
 
@@ -225,7 +229,11 @@ app.use('/proxy', nocache(), checkAuthenticationCookie, declareProxyProps, uploa
 
       if (req.url.includes('/logout')) {
         resp.cookie('CAKEPHP', '', { expires: new Date(Date.now() - 1000000), httpOnly: true });
-        res.headers['set-cookie'].push(resp.getHeader('set-cookie'));
+        try {
+          res.headers['set-cookie'].push(resp.getHeader('set-cookie'));
+        } catch (e) {
+          console.log('res.headers["set-cookie"]', e);
+        }
       }
 
       if (res.headers) {
