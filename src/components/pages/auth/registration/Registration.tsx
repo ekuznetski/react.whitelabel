@@ -115,7 +115,7 @@ export function Registration() {
               dispatch(
                 ac_login(
                   { username: preparedData.username, password: preparedData.password },
-                  () => ({ response }: ILoginResponse) => {
+                  () => (response: ILoginResponse) => {
                     TagManager.dataLayer({
                       dataLayer: {
                         event: 'user',

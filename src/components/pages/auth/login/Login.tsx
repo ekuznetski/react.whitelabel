@@ -31,7 +31,7 @@ export function Login() {
     dispatch(
       ac_login(
         data as ILoginRequest,
-        ({ response }: ILoginResponse) => {
+        (response: ILoginResponse) => {
           TagManager.dataLayer({
             dataLayer: {
               event: 'user',

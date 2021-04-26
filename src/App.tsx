@@ -18,23 +18,23 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './App.scss';
 
-if (env.PRODUCTION) {
-  if (env.GTM_ID) {
-    TagManager.initialize({
-      gtmId: env.GTM_ID,
-      events: {
-        user: 'user',
-      },
-    });
-  }
-  if (env.SENTRY_PUBLIC_DSN) {
-    Sentry.init({
-      dsn: env.SENTRY_PUBLIC_DSN,
-      integrations: [new Integrations.BrowserTracing()],
-      tracesSampleRate: 1.0,
-    });
-  }
+// if (env.PRODUCTION) {
+if (env.GTM_ID) {
+  TagManager.initialize({
+    gtmId: env.GTM_ID,
+    events: {
+      user: 'user',
+    },
+  });
 }
+// if (env.SENTRY_PUBLIC_DSN) {
+//   Sentry.init({
+//     dsn: env.SENTRY_PUBLIC_DSN,
+//     integrations: [new Integrations.BrowserTracing()],
+//     tracesSampleRate: 1.0,
+//   });
+// }
+// }
 
 configResponsive({
   xxs: 0,
