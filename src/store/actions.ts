@@ -106,10 +106,15 @@ export function ac_saveContent(payload: IContent): IAction {
   };
 }
 
-export function ac_login(payload: ILoginRequest, onFailure: AnyFunction = null): IAction {
+export function ac_login(
+  payload: ILoginRequest,
+  onSuccess: AnyFunction = null,
+  onFailure: AnyFunction = null,
+): IAction {
   return {
     type: EActionTypes.login,
     payload,
+    onSuccess,
     onFailure,
   };
 }
