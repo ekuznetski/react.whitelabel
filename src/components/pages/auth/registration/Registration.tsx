@@ -1,6 +1,6 @@
 import { PageTitle } from '@components/shared';
 import { ENotificationType, ERegSteps } from '@domain/enums';
-import { IRegData } from '@domain/interfaces';
+import { ILoginResponse, IRegData } from '@domain/interfaces';
 import { ContinueRegistrationModal } from '@pages/auth/registration/components/continueRegistrationModal/ContinueRegistrationModal';
 import {
   ac_fetchClientSettings,
@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
 import './Registration.scss';
+import TagManager from 'react-gtm-module';
 
 export function Registration() {
   const [name, setName] = useState<string>('XXXX');
@@ -111,7 +112,21 @@ export function Registration() {
           ac_register(
             preparedData,
             (e) => {
-              dispatch(ac_login({ username: preparedData.username, password: preparedData.password }));
+              dispatch(
+                ac_login(
+                  { username: preparedData.username, password: preparedData.password },
+                  () => ({ response }: ILoginResponse) => {
+                    TagManager.dataLayer({
+                      dataLayer: {
+                        event: 'user',
+                        name: `${response.profile.first_name} ${response.profile.surname}`,
+                        email: response.profile.email,
+                        userId: response.profile.userId,
+                      },
+                    });
+                  },
+                ),
+              );
               setLocalStorageRegData();
             },
             (e) => {
