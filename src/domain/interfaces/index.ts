@@ -14,6 +14,8 @@ export * from './app/marketData.interface';
 export * from './app/verification.interface';
 export * from './app/inviteFriends.interface';
 export * from './app/dashboard.interface';
+export * from './app/fileLinks.interface';
+
 // Data
 export * from './data/bankDetails.interface';
 export * from './data/content.interface';

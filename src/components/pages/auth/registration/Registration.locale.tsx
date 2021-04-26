@@ -8,7 +8,11 @@ const t = i18n.getLazyT;
 export const locale = {
   customerIntroductionAgreement: (name: string) => (
     <Trans i18nKey="Customer introduction agreement" values={{ name }}>
-      I, {name} , declare that I have carefully read and understood, <a href="#">Customer Agreement</a>,
+      I, {name} , declare that I have carefully read and understood,
+      <a target="_blank" href={files.customerAgreement}>
+        Customer Agreement
+      </a>
+      ,
       <a target="_blank" href={files.termsOfBusiness}>
         Terms of Business
       </a>
@@ -16,14 +20,15 @@ export const locale = {
       these documents, and that this is a legally binding contractual agreement.
     </Trans>
   ),
-  marketEventNotificationDesc:
+  marketEventNotificationDesc: (
     <Trans i18nKey="Market Event Notification Desc">
-      To improve your trading experience, we would like to notify you of market events and extreme price
-      movements. By signing up, you also declare you read, understood, and accept our
+      To improve your trading experience, we would like to notify you of market events and extreme price movements. By
+      signing up, you also declare you read, understood, and accept our
       <a target="_blank" href={files.privacyPolicy}>
         Privacy Policy
       </a>
-      and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives
-      via phone or e-mail. You can opt-out any time you wish to.
+      and you consent to receive newsletters, special offers and be contacted by WHITE_LABEL representatives via phone
+      or e-mail. You can opt-out any time you wish to.
     </Trans>
+  ),
 };
