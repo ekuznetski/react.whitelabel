@@ -1,6 +1,8 @@
 import { IFileLinks } from '@domain/interfaces';
 
 export const files: IFileLinks = {
+  financeFeesFixed: '/files/finance_fees.pdf',
+  financeFeesVariable: '/files/finance_fees.pdf',
   termsOfBusiness: '/files/terms_of_business_january_2021.pdf',
   privacyPolicy: '/files/privacy_policy.pdf',
   preventingMoneyLaundering: '/files/preventing_money_laundering.pdf',
