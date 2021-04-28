@@ -4,8 +4,6 @@ import TagManager from 'react-gtm-module';
 export function TagManagerUserEvent() {
   const profile = store.getState().data.client.profile;
 
-  console.log(profile);
-
   TagManager.dataLayer({
     dataLayer: {
       event: 'user',
