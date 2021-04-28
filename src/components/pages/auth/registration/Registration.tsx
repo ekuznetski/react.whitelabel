@@ -1,6 +1,6 @@
-import { PageTitle } from '@components/shared';
+import { Col, Container, PageTitle, Row } from '@components/shared';
 import { ENotificationType, ERegSteps } from '@domain/enums';
-import { ILoginResponse, IRegData } from '@domain/interfaces';
+import { IRegData } from '@domain/interfaces';
 import { ContinueRegistrationModal } from '@pages/auth/registration/components/continueRegistrationModal/ContinueRegistrationModal';
 import {
   ac_fetchClientSettings,
@@ -10,15 +10,14 @@ import {
   ac_showModal,
   ac_showNotification,
 } from '@store';
+import { TagManagerUserEvent } from '@utils/services';
 import { useSessionStorageState } from 'ahooks';
 import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
-import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { FifthStep, FirstStep, FourthStep, SecondStep, ThirdStep } from './components';
 import './Registration.scss';
-import TagManager from 'react-gtm-module';
 
 export function Registration() {
   const [name, setName] = useState<string>('XXXX');
@@ -113,19 +112,9 @@ export function Registration() {
             preparedData,
             (e) => {
               dispatch(
-                ac_login(
-                  { username: preparedData.username, password: preparedData.password },
-                  () => (response: ILoginResponse) => {
-                    TagManager.dataLayer({
-                      dataLayer: {
-                        event: 'user',
-                        name: `${response.profile.first_name} ${response.profile.surname}`,
-                        email: response.profile.email,
-                        userId: response.profile.userId,
-                      },
-                    });
-                  },
-                ),
+                ac_login({ username: preparedData.username, password: preparedData.password }, () => {
+                  TagManagerUserEvent();
+                }),
               );
               setLocalStorageRegData();
             },

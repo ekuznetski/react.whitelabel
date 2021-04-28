@@ -1,15 +1,14 @@
-import { Button, Input, LocaleLink, PageTitle } from '@components/shared';
+import { Button, Col, Container, Input, LocaleLink, PageTitle, Row } from '@components/shared';
 import { FieldValidators } from '@domain';
 import { ELabelsName, ENotificationType, EPagePath } from '@domain/enums';
-import { ILoginRequest, ILoginResponse } from '@domain/interfaces';
+import { ILoginRequest } from '@domain/interfaces';
 import { env } from '@env';
 import { EActionTypes, ac_login, ac_showNotification } from '@store';
+import { TagManagerUserEvent } from '@utils/services';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import React from 'react';
-import { Col, Container, Row } from '@components/shared';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import TagManager from 'react-gtm-module';
 import * as Yup from 'yup';
 import './Login.scss';
 
@@ -31,15 +30,8 @@ export function Login() {
     dispatch(
       ac_login(
         data as ILoginRequest,
-        (response: ILoginResponse) => {
-          TagManager.dataLayer({
-            dataLayer: {
-              event: 'user',
-              name: `${response.profile.first_name} ${response.profile.surname}`,
-              email: response.profile.email,
-              userId: response.profile.userId,
-            },
-          });
+        () => {
+          TagManagerUserEvent();
         },
         () => {
           dispatch(
