@@ -5,7 +5,7 @@ import { EAppSection, ELanguage } from '@domain/enums';
 import { env } from '@env';
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
-import { ac_updateRouteParams, IStore, store } from '@store';
+import { IStore, ac_updateRouteParams, store } from '@store';
 import { useDeviceDetect } from '@utils/hooks';
 import { configResponsive, useResponsive } from 'ahooks';
 import classNames from 'classnames';
@@ -22,6 +22,9 @@ if (env.PRODUCTION) {
   if (env.GTM_ID) {
     TagManager.initialize({
       gtmId: env.GTM_ID,
+      events: {
+        user: 'user',
+      },
     });
   }
   if (env.SENTRY_PUBLIC_DSN) {
